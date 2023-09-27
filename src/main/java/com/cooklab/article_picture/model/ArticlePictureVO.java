@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class ArticlePictureVO implements java.io.Serializable {
 	@Id 
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	@Column(name = "article_picture_no")  
+	@Column(name = "article_picture_no" , insertable = false, updatable = false)  
 	private Integer articlePictureNo;
 	
 	@Column(name = "article_no")  
@@ -23,7 +23,7 @@ public class ArticlePictureVO implements java.io.Serializable {
 	@Column(name = "picture")  
 	private byte[] picture;
 	
-	@Column(name = "created_timestamp")  
+	@Column(name = "created_timestamp", insertable = false, updatable = false)  
 	private Date createdTimestamp;
 	
 	public Integer getArticlePictureNo() {

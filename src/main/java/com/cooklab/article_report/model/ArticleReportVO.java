@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class ArticleReportVO implements java.io.Serializable{
 	@Id 
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	@Column(name = "article_report_no")  
+	@Column(name = "article_report_no" , insertable = false, updatable = false)  
 		private Integer articleReportNo;
 	
 	@Column(name = "article_no")  
@@ -29,7 +29,7 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "reporting_status")  
 		private Byte reportingStatus ;
 	
-	@Column(name = "created_timestamp")  
+	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Date createdTimestamp;
 		
 
