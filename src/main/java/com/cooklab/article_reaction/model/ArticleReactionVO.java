@@ -1,5 +1,4 @@
 package com.cooklab.article_reaction.model;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -14,7 +13,7 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	
 	@Id //下面那一行的屬性為PK;
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	@Column(name = "article_reaction_no")  
+	@Column(name = "article_reaction_no", insertable = false, updatable = false)  
 	private Integer articleReactionNo;
 	
 	@Column(name = "member_id")  //若無宣告則會用屬性的名稱來找表格欄位，所以非必要加，但一般還是會加
@@ -26,10 +25,34 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	@Column(name = "statuts")  //若無宣告則會用屬性的名稱來找表格欄位，所以非必要加，但一般還是會加
 	private Byte statuts;
 	
-	@Column(name = "created_timestamp")  //若無宣告則會用屬性的名稱來找表格欄位，所以非必要加，但一般還是會加
+	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
 
 
+	public ArticleReactionVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ArticleReactionVO(Integer articleReactionNo, Integer memberId, Integer articleNo, Byte statuts,
+			Timestamp createdTimestamp) {
+		super();
+		this.articleReactionNo = articleReactionNo;
+		this.memberId = memberId;
+		this.articleNo = articleNo;
+		this.statuts = statuts;
+		this.createdTimestamp = createdTimestamp;
+	}
+	
+	public ArticleReactionVO(Integer memberId, Integer articleNo, Byte statuts) {
+		super();
+		this.memberId = memberId;
+		this.articleNo = articleNo;
+		this.statuts = statuts;
+	}
+	
+	
+	
 	public Integer getArticleReactionNo() {
 		return articleReactionNo;
 	}
