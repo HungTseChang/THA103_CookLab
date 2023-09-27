@@ -1,4 +1,4 @@
-package com.cooklab.model.article_report;
+package com.cooklab.article_report.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

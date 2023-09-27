@@ -1,4 +1,4 @@
-package com.cooklab.model.article_picture;
+package com.cooklab.article_picture.model;
 
 import java.sql.Date;
 
