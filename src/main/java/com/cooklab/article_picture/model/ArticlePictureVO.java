@@ -1,12 +1,31 @@
-package com.cooklab.model.article_picture;
+package com.cooklab.article_picture.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="article_picture") 
 public class ArticlePictureVO implements java.io.Serializable {
+	@Id 
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column(name = "article_picture_no")  
 	private Integer articlePictureNo;
+	
+	@Column(name = "article_no")  
 	private Integer articleNo;
+	
+	@Column(name = "picture")  
 	private byte[] picture;
+	
+	@Column(name = "created_timestamp")  
 	private Date createdTimestamp;
+	
 	public Integer getArticlePictureNo() {
 		return articlePictureNo;
 	}

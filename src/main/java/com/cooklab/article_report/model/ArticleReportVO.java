@@ -1,14 +1,36 @@
-package com.cooklab.model.article_report;
+package com.cooklab.article_report.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="article_report") 
 public class ArticleReportVO implements java.io.Serializable{
+	@Id 
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column(name = "article_report_no")  
 		private Integer articleReportNo;
+	
+	@Column(name = "article_no")  
 		private Integer articleNo;
+	
+	@Column(name = "article_id")  
 		private Integer reporterId;
+		
+	@Column(name = "reporting_reason")  
 		private String reportingReason;
+		
+	@Column(name = "reporting_status")  
 		private Byte reportingStatus ;
+	
+	@Column(name = "created_timestamp")  
 		private Date createdTimestamp;
+		
 		public Integer getArticleReportNo() {
 			return articleReportNo;
 		}
