@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.model.util.*;
+import com.cooklab.util.*;
 
 public class RecipeJDBCDAOlm implements RecipeDAO {
 	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
