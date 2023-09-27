@@ -1,26 +1,19 @@
-package com.cooklab.recipe.model;
+package com.cooklab.notify_center.model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.sql.*;
 
-import com.cooklab.util.*;
+import com.cooklab.util.Util;
 
-
-
-public class RecipeJDBCDAOlm implements RecipeDAO {
-	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM recipe ORDER BY recipe_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM recipe where recipe_no = ?";
-	private static final String DELETE = "DELETE FROM recipe where recipe_no = ?";
-	private static final String UPDATE = "UPDATE recipe SET member_id =?,recipeName=?, cover_image =?, introduction =?, additional_explanation =?, region =?, recipe_status =?, report_count=?,view_count =?, recipe_quantity =?, last_edit_timestamp = now() WHERE recipe_no = ?";
+public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
+	private static final String INSERT_STMT = "INSERT INTO notify_center (member_id, notify_type, notify_read,notify_content) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT notify_no ,member_id, notify_type, notify_read, notify_content, created_timestamp From notify_center order by notify_no";
+	private static final String GET_ONE_STMT = "SELECT notify_no ,member_id,notify_type,notify_read, notify_content, created_timestamp From notify_center where notify_no=?";
+	private static final String DELETE = "DELETE FROM notify_center where notify_no = ?";
+	private static final String UPDATE = "UPDATE notify_center set member_id=?,notify_type=?,notify_read=?,notify_content=?  where notify_no=?";
 
 	@Override
-	public void insert(RecipeVO recipeVO) {
+	public void insert(NotifyCenterVO notifyCenterVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -30,16 +23,10 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
+			pstmt.setInt(1, notifyCenterVO.getMemberId());
+			pstmt.setInt(2, notifyCenterVO.getNotifyType());
+			pstmt.setInt(3, notifyCenterVO.getNotifyRead());
+			pstmt.setString(4, notifyCenterVO.getNotifyContent());
 
 			pstmt.executeUpdate();
 
@@ -70,7 +57,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 	}
 
 	@Override
-	public void update(RecipeVO recipeVO) {
+	public void update(NotifyCenterVO notifyCenterVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -80,17 +67,11 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
-			pstmt.setInt(11, recipeVO.getRecipeNo());
+			pstmt.setInt(1, notifyCenterVO.getMemberId());
+			pstmt.setInt(2, notifyCenterVO.getNotifyType());
+			pstmt.setInt(3, notifyCenterVO.getNotifyRead());
+			pstmt.setString(4, notifyCenterVO.getNotifyContent());
+			pstmt.setInt(5, notifyCenterVO.getNotifyNo());
 
 			pstmt.executeUpdate();
 
@@ -117,10 +98,11 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
+
 	}
 
 	@Override
-	public void delete(Integer recipe_no) {
+	public void delete(Integer notifyNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -130,7 +112,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, notifyNo);
 
 			pstmt.executeUpdate();
 
@@ -161,8 +143,8 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 	}
 
 	@Override
-	public RecipeVO findByPrimaryKey(Integer recipe_no) {
-		RecipeVO recipeVO = null;
+	public NotifyCenterVO findByPrimaryKey(Integer notifyNo) {
+		NotifyCenterVO notifyCenterVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -173,26 +155,19 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, notifyNo);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
+				notifyCenterVO = new NotifyCenterVO();
+				notifyCenterVO.setNotifyNo(rs.getInt("notify_no"));
+				notifyCenterVO.setMemberId(rs.getInt("member_id"));
+				notifyCenterVO.setNotifyType(rs.getInt("notify_type"));
+				notifyCenterVO.setNotifyRead(rs.getInt("notify_read"));
+				notifyCenterVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				notifyCenterVO.setNotifyContent(rs.getString("notify_content"));
 			}
 
 			// Handle any driver errors
@@ -225,13 +200,13 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
-		return recipeVO;
+		return notifyCenterVO;
 	}
 
 	@Override
-	public List<RecipeVO> getAll() {
-		List<RecipeVO> list = new ArrayList<RecipeVO>();
-		RecipeVO recipeVO = null;
+	public List<NotifyCenterVO> getAll() {
+		List<NotifyCenterVO> list = new ArrayList<NotifyCenterVO>();
+		NotifyCenterVO notifyCenterVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -246,20 +221,14 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				list.add(recipeVO); // Store the row in the list
+				notifyCenterVO = new NotifyCenterVO();
+				notifyCenterVO.setNotifyNo(rs.getInt("notify_no"));
+				notifyCenterVO.setMemberId(rs.getInt("member_id"));
+				notifyCenterVO.setNotifyType(rs.getInt("notify_type"));
+				notifyCenterVO.setNotifyRead(rs.getInt("notify_read"));
+				notifyCenterVO.setNotifyContent(rs.getString("notify_content"));
+				notifyCenterVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				list.add(notifyCenterVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -293,6 +262,31 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			}
 		}
 		return list;
+	}
+
+	public static void main(String[] args) {
+
+		NotifyCenterJDBCDAO dao = new NotifyCenterJDBCDAO();
+		// ���J
+//		NotifyCenterVO notifyCenterVO= new NotifyCenterVO( 3, 1, 1 ,"�H�K�������n�b�N��6");
+//		dao.insert(notifyCenterVO);
+
+		// ��s
+//		NotifyCenterVO notifyCenterVO= new NotifyCenterVO( 4, 1, 1 ,"�H�K�������n�b�N��6");
+//		notifyCenterVO.setNotifyNo(1);
+//		dao.update(notifyCenterVO);
+
+		// �R��
+//		dao.delete(6);
+		// �d�@��
+//		NotifyCenterVO notifyCenterVO = dao.findByPrimaryKey(3);
+//		System.out.println(notifyCenterVO);
+		// �d����
+		List<NotifyCenterVO> list = dao.getAll();
+		for (NotifyCenterVO aNotifyCenterVO : list) {
+			System.out.println(aNotifyCenterVO);
+		}
+
 	}
 
 }

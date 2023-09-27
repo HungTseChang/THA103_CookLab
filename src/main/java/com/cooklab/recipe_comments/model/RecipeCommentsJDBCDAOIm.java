@@ -1,4 +1,4 @@
-package com.cooklab.recipe.model;
+package com.cooklab.recipe_comments.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,19 +8,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.util.*;
+import com.cooklab.util.Util;
 
 
 
-public class RecipeJDBCDAOlm implements RecipeDAO {
-	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM recipe ORDER BY recipe_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM recipe where recipe_no = ?";
-	private static final String DELETE = "DELETE FROM recipe where recipe_no = ?";
-	private static final String UPDATE = "UPDATE recipe SET member_id =?,recipeName=?, cover_image =?, introduction =?, additional_explanation =?, region =?, recipe_status =?, report_count=?,view_count =?, recipe_quantity =?, last_edit_timestamp = now() WHERE recipe_no = ?";
+public class RecipeCommentsJDBCDAOIm implements RecipeCommentsDAO {
+	private static final String INSERT_STMT = "INSERT INTO recipe_comments (recipe_no,member_id,comment_content,report_comments) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT recipe_comments_no, recipe_no, member_id, comment_content, report_comments,last_edit_timestamp,created_timestamp FROM recipe_comments order by recipe_comments_no";
+	private static final String GET_ONE_STMT = "SELECT recipe_comments_no, recipe_no, member_id, comment_content, report_comments,last_edit_timestamp,created_timestamp FROM recipe_comments where recipe_comments_no = ?";
+	private static final String DELETE = "DELETE FROM recipe_comments where recipe_comments_no = ?";
+	private static final String UPDATE = "UPDATE recipe_comments set recipe_no=?, member_id=?, comment_content=?, report_comments=? ,last_edit_timestamp=now() where recipe_comments_no = ?";
 
+	// 新增===========================================================================================================
 	@Override
-	public void insert(RecipeVO recipeVO) {
+	public void insert(RecipeCommentsVO recipeCommentsVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -30,16 +32,11 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
+			pstmt.setInt(1, recipeCommentsVO.getRecipeNo());
+			pstmt.setInt(2, recipeCommentsVO.getMemberId());
+//			pstmt.setDate(3, recipeCommentsVO.getCommentTimestamp());
+			pstmt.setString(3, recipeCommentsVO.getCommentContent());
+			pstmt.setInt(4, recipeCommentsVO.getReportComments());
 
 			pstmt.executeUpdate();
 
@@ -69,8 +66,10 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 
 	}
 
+	// 修改===========================================================================================================
 	@Override
-	public void update(RecipeVO recipeVO) {
+	public void update(RecipeCommentsVO recipeCommentsVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -80,17 +79,12 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
-			pstmt.setInt(11, recipeVO.getRecipeNo());
+			pstmt.setInt(1, recipeCommentsVO.getRecipeNo());
+			pstmt.setInt(2, recipeCommentsVO.getMemberId());
+//			pstmt.setDate(3, recipeCommentsVO.getCommentTimestamp());
+			pstmt.setString(3, recipeCommentsVO.getCommentContent());
+			pstmt.setInt(4, recipeCommentsVO.getReportComments());
+			pstmt.setInt(5, recipeCommentsVO.getRecipeCommentsNo());
 
 			pstmt.executeUpdate();
 
@@ -117,10 +111,12 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
+
 	}
 
+	// 刪除===========================================================================================================
 	@Override
-	public void delete(Integer recipe_no) {
+	public void delete(Integer recipeCommentsNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -130,7 +126,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, recipeCommentsNo);
 
 			pstmt.executeUpdate();
 
@@ -157,12 +153,13 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
-
 	}
 
+	// 用主鍵查詢===========================================================================================================
 	@Override
-	public RecipeVO findByPrimaryKey(Integer recipe_no) {
-		RecipeVO recipeVO = null;
+	public RecipeCommentsVO findByPrimaryKey(Integer recipeCommentsNo) {
+
+		RecipeCommentsVO rccVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -173,25 +170,20 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, recipeCommentsNo);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				// empVo 也稱為 Domain objects
+				rccVO = new RecipeCommentsVO();
+				rccVO.setRecipeCommentsNo(rs.getInt("recipe_comments_no"));
+				rccVO.setRecipeNo(rs.getInt("recipe_no"));
+				rccVO.setMemberId(rs.getInt("member_id"));
+				rccVO.setCommentContent(rs.getString("comment_content"));
+				rccVO.setReportComments(rs.getInt("report_comments"));
+				rccVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
+				rccVO.setcreatedTimestamp(rs.getDate("created_timestamp"));
 
 			}
 
@@ -225,13 +217,14 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
-		return recipeVO;
+		return rccVO;
 	}
 
+	// 查詢所有===========================================================================================================
 	@Override
-	public List<RecipeVO> getAll() {
-		List<RecipeVO> list = new ArrayList<RecipeVO>();
-		RecipeVO recipeVO = null;
+	public List<RecipeCommentsVO> getAll() {
+		List<RecipeCommentsVO> list = new ArrayList<RecipeCommentsVO>();
+		RecipeCommentsVO recipeCommentsVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -245,21 +238,16 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				list.add(recipeVO); // Store the row in the list
+				// empVO 也稱為 Domain objects
+				recipeCommentsVO = new RecipeCommentsVO();
+				recipeCommentsVO.setRecipeCommentsNo(rs.getInt("recipe_comments_no"));
+				recipeCommentsVO.setRecipeNo(rs.getInt("recipe_no"));
+				recipeCommentsVO.setMemberId(rs.getInt("member_id"));
+				recipeCommentsVO.setCommentContent(rs.getString("comment_content"));
+				recipeCommentsVO.setReportComments(rs.getInt("report_comments"));
+				recipeCommentsVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
+				recipeCommentsVO.setcreatedTimestamp(rs.getDate("created_timestamp"));
+				list.add(recipeCommentsVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -295,4 +283,39 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 		return list;
 	}
 
+	public static void main(String[] args) {
+		RecipeCommentsJDBCDAOIm dao = new RecipeCommentsJDBCDAOIm();
+
+		// 新增
+//		RecipeCommentsVO rccV01 = new RecipeCommentsVO();
+//		rccV01.setRecipeNo(3);
+//		rccV01.setMemberId(2);
+//		rccV01.setCommentContent("食譜留言區測試99");
+//		rccV01.setReportComments(3);
+//		dao.insert(rccV01);
+
+		// 修改
+//		RecipeCommentsVO rccV02 = new RecipeCommentsVO();
+//		rccV02.setRecipeNo(3);
+//		rccV02.setMemberId(2);
+//		rccV02.setCommentContent("檢舉留言修改測試2");
+//		rccV02.setReportComments(2);
+//		rccV02.setRecipeCommentsNo(6);
+//		dao.update(rccV02);
+
+		// 刪除
+//		dao.delete(3);
+
+		// 查詢
+//		RecipeCommentsVO rccV03 =  dao.findByPrimaryKey(6);
+//		System.out.println(rccV03);
+
+		// 查詢
+
+		List<RecipeCommentsVO> list = dao.getAll();
+		for (RecipeCommentsVO aRcc : list) {
+			System.out.println(aRcc);
+		}
+
+	}
 }
