@@ -3,12 +3,32 @@ package com.cooklab.order_detail.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "order_detail")
 public class OrderDetailVO implements Serializable{
 
+	@Id
+	@Column(name = "order_detail_no")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderDetailNo ;
+	
+	@Column(name = "order_no")
 	private Integer orderNo ;
+	
+	@Column(name = "product_no")
 	private Integer productNo;
+	
+	@Column(name = "order_qty")
 	private Integer orderQty;
+	
+	@Column(name = "created_timestamp ", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
 	
 
