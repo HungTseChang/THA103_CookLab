@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.model.util.*;
+import com.cooklab.util.*;
 public class SupportFormJDBCDAOIm implements SupportFormDAO{
 	
 	private static final String INSERT_STMT = "INSERT INTO support_form (real_name,support_form_category_id,reply_email,form_context,form_title ) VALUES (?, ?, ?,?, ?)";

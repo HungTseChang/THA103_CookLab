@@ -8,3 +8,4 @@ build/
 .DS_Store
 bin/
 src/main/java/com/cooklab/util/
+src/main/resource/hibernate.cfg.xml

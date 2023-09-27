@@ -1,6 +1,6 @@
 package com.cooklab.article_sub_reaction.model;
 
-import com.cooklab.model.util.*;
+import com.cooklab.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
