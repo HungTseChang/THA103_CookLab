@@ -1,4 +1,4 @@
-package com.cooklab.recipe.model;
+package com.cooklab.recipe_kitchenware.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,18 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.cooklab.util.*;
 
-public class RecipeJDBCDAOlm implements RecipeDAO {
-	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM recipe ORDER BY recipe_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM recipe where recipe_no = ?";
-	private static final String DELETE = "DELETE FROM recipe where recipe_no = ?";
-	private static final String UPDATE = "UPDATE recipe SET member_id =?,recipeName=?, cover_image =?, introduction =?, additional_explanation =?, region =?, recipe_status =?, report_count=?,view_count =?, recipe_quantity =?, last_edit_timestamp = now() WHERE recipe_no = ?";
+public class RecipeKitchenwareJDBCDAOlm implements RecipeKitchenwareDAO {
+
+	private static final String INSERT_STMT = "INSERT INTO recipe_kitchenware (recipe_no ,product_no ,text_label ) VALUES ( ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT * FROM recipe_kitchenware ORDER BY recipe_kitchenware_no";
+	private static final String GET_ONE_STMT = "SELECT * FROM recipe_kitchenware where recipe_kitchenware_no   = ?";
+	private static final String DELETE = "DELETE FROM recipe_kitchenware where recipe_kitchenware_no = ?";
+	private static final String UPDATE = "UPDATE recipe_kitchenware SET recipe_no =?, product_no  =?, text_label = ? WHERE recipe_kitchenware_no = ?";
 
 	@Override
-	public void insert(RecipeVO recipeVO) {
+	public void insert(RecipeKitchenwareVO recipeKitchenwareVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -28,16 +28,9 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
+			pstmt.setInt(1, recipeKitchenwareVO.getRecipeNo());
+			pstmt.setInt(2, recipeKitchenwareVO.getProductNo());
+			pstmt.setString(3, recipeKitchenwareVO.getTextLabel());
 
 			pstmt.executeUpdate();
 
@@ -68,7 +61,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 	}
 
 	@Override
-	public void update(RecipeVO recipeVO) {
+	public void update(RecipeKitchenwareVO recipeKitchenwareVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -78,17 +71,10 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
-			pstmt.setInt(11, recipeVO.getRecipeNo());
+			pstmt.setInt(1, recipeKitchenwareVO.getRecipeNo());
+			pstmt.setInt(2, recipeKitchenwareVO.getProductNo());
+			pstmt.setString(3, recipeKitchenwareVO.getTextLabel());
+			pstmt.setInt(4, recipeKitchenwareVO.getRecipeKitchenwareNo());
 
 			pstmt.executeUpdate();
 
@@ -115,10 +101,11 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
+
 	}
 
 	@Override
-	public void delete(Integer recipe_no) {
+	public void delete(Integer recipeKitchenwareNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -128,7 +115,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, recipeKitchenwareNo);
 
 			pstmt.executeUpdate();
 
@@ -159,8 +146,8 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 	}
 
 	@Override
-	public RecipeVO findByPrimaryKey(Integer recipe_no) {
-		RecipeVO recipeVO = null;
+	public RecipeKitchenwareVO findByPrimaryKey(Integer recipeKitchenwareNo) {
+		RecipeKitchenwareVO recipeKitchenwareVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -171,26 +158,18 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, recipeKitchenwareNo);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-
+				recipeKitchenwareVO = new RecipeKitchenwareVO();
+				recipeKitchenwareVO.setRecipeKitchenwareNo(rs.getInt("recipe_kitchenware_no"));
+				recipeKitchenwareVO.setRecipeNo(rs.getInt("recipe_no"));
+				recipeKitchenwareVO.setProductNo(rs.getInt("product_no"));
+				recipeKitchenwareVO.setTextLabel(rs.getString("text_label"));
+				recipeKitchenwareVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -223,13 +202,13 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
-		return recipeVO;
+		return recipeKitchenwareVO;
 	}
 
 	@Override
-	public List<RecipeVO> getAll() {
-		List<RecipeVO> list = new ArrayList<RecipeVO>();
-		RecipeVO recipeVO = null;
+	public List<RecipeKitchenwareVO> getAll() {
+		List<RecipeKitchenwareVO> list = new ArrayList<RecipeKitchenwareVO>();
+		RecipeKitchenwareVO recipeKitchenwareVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -244,20 +223,13 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				list.add(recipeVO); // Store the row in the list
+				recipeKitchenwareVO = new RecipeKitchenwareVO();
+				recipeKitchenwareVO.setRecipeKitchenwareNo(rs.getInt("recipe_kitchenware_no"));
+				recipeKitchenwareVO.setRecipeNo(rs.getInt("recipe_no"));
+				recipeKitchenwareVO.setProductNo(rs.getInt("product_no"));
+				recipeKitchenwareVO.setTextLabel(rs.getString("text_label"));
+				recipeKitchenwareVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				list.add(recipeKitchenwareVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
