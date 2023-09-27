@@ -1,5 +1,7 @@
 package com.cooklab.article_reaction.model;
 import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +27,7 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	private Byte statuts;
 	
 	@Column(name = "created_timestamp")  //若無宣告則會用屬性的名稱來找表格欄位，所以非必要加，但一般還是會加
-	private Date createdTimestamp;
+	private Timestamp createdTimestamp;
 
 
 	public Integer getArticleReactionNo() {
@@ -52,10 +54,10 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	public void setStatuts(Byte statuts) {
 		this.statuts = statuts;
 	}
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 

@@ -1,6 +1,7 @@
 package com.cooklab.article_sub_picture.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +23,11 @@ public class ArticleSubPictureVO implements java.io.Serializable {
 	@Column(name = "article_sub_no")  
      private Integer articleSubNo;
 	
-	@Column(name = "picture")  
+	@Column(name = "picture" ,columnDefinition="longblob")  
     private byte[] picture;
 	
-	@Column(name = "article_sub_picture_no")  
-     private Date createdTimestamp;
+	@Column(name = "created_timestamp", insertable = false, updatable = false)  
+     private Timestamp createdTimestamp;
 
 	public Integer getArticleSubPictureNo() {
 		return ArticleSubPictureNo;
@@ -46,10 +47,10 @@ public class ArticleSubPictureVO implements java.io.Serializable {
 	public void setPicture(byte[] picture) {
 		this.picture = picture;
 	}
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 	
