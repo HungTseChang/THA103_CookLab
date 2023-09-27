@@ -16,7 +16,7 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Id //下面那一行的屬性為PK;
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	@Column(name = "article_no")  
+	@Column(name = "article_no" , insertable = false, updatable = false)  
 	private Integer articleNo;
 	
 	@Column(name = "article_category")  
@@ -47,6 +47,21 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	
+	public ArticleVO(String articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
+			String articleContent, Integer articleCount, Integer viewCount) {
+		super();
+		this.articleCategory = articleCategory;
+		this.articleTitle = articleTitle;
+		this.memberId = memberId;
+		this.articleStatus = articleStatus;
+		this.articleContent = articleContent;
+		this.articleCount = articleCount;
+		this.viewCount = viewCount;
+	}
+	public ArticleVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getArticleNo() {
 		return articleNo;
 	}
