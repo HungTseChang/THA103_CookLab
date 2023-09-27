@@ -1,4 +1,4 @@
-package com.cooklab.recipe.model;
+package com.cooklab.article_sub_report.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,18 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.util.*;
+import com.cooklab.util.Util;
 
+public class ArticleSubReportJDBCDAO implements ArticleSubReportDAO_interface {
 
-public class RecipeJDBCDAOlm implements RecipeDAO {
-	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM recipe ORDER BY recipe_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM recipe where recipe_no = ?";
-	private static final String DELETE = "DELETE FROM recipe where recipe_no = ?";
-	private static final String UPDATE = "UPDATE recipe SET member_id =?,recipeName=?, cover_image =?, introduction =?, additional_explanation =?, region =?, recipe_status =?, report_count=?,view_count =?, recipe_quantity =?, last_edit_timestamp = now() WHERE recipe_no = ?";
+	private static final String INSERT_STMT = "INSERT INTO article_sub_report (article_sub_no,reporter_id,reporting_reason,reporting_status) values(?,?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT article_sub_report_no,article_sub_no,reporter_id,reporting_reason,reporting_status,created_timestamp From article_sub_report order by article_sub_report_no";
+	private static final String GET_ONE_STMT = "SELECT article_sub_report_no,article_sub_no,reporter_id,reporting_reason,reporting_status,created_timestamp From article_sub_report where article_sub_report_no=?";
+	private static final String DELETE = "DELETE FROM article_sub_report where article_sub_report_no = ?";
+	private static final String UPDATE = "UPDATE article_sub_report set article_sub_no=?, reporter_id=?, reporting_reason=?, reporting_status=? where article_sub_report_no=?";
 
 	@Override
-	public void insert(RecipeVO recipeVO) {
+	public void insert(ArticleSubReportVO articleSubReportVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -29,16 +29,10 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
+			pstmt.setInt(1, articleSubReportVO.getArticleSubNo());
+			pstmt.setInt(2, articleSubReportVO.getReporterId());
+			pstmt.setString(3, articleSubReportVO.getReportingReason());
+			pstmt.setInt(4, articleSubReportVO.getReportingStatus());
 
 			pstmt.executeUpdate();
 
@@ -69,7 +63,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 	}
 
 	@Override
-	public void update(RecipeVO recipeVO) {
+	public void update(ArticleSubReportVO articleSubReportVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -78,18 +72,12 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			Class.forName(Util.DRIVER);
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
+			pstmt.setInt(1, articleSubReportVO.getArticleSubNo());
+			pstmt.setInt(2, articleSubReportVO.getReporterId());
+			pstmt.setString(3, articleSubReportVO.getReportingReason());
+			pstmt.setInt(4, articleSubReportVO.getReportingStatus());
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
-			pstmt.setInt(11, recipeVO.getRecipeNo());
+			pstmt.setInt(5, articleSubReportVO.getArticleSubReportNo());
 
 			pstmt.executeUpdate();
 
@@ -116,10 +104,11 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
+
 	}
 
 	@Override
-	public void delete(Integer recipe_no) {
+	public void delete(Integer articleSubReportNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -129,7 +118,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, articleSubReportNo);
 
 			pstmt.executeUpdate();
 
@@ -160,8 +149,8 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 	}
 
 	@Override
-	public RecipeVO findByPrimaryKey(Integer recipe_no) {
-		RecipeVO recipeVO = null;
+	public ArticleSubReportVO findByPrimaryKey(Integer articleSubReportNo) {
+		ArticleSubReportVO articleSubReportVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -172,25 +161,18 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, articleSubReportNo);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				articleSubReportVO = new ArticleSubReportVO();
+				articleSubReportVO.setArticleSubReportNo(rs.getInt("article_sub_report_no"));
+				articleSubReportVO.setArticleSubNo(rs.getInt("article_sub_no"));
+				articleSubReportVO.setReporterId(rs.getInt("reporter_id"));
+				articleSubReportVO.setReportingReason(rs.getString("reporting_reason"));
+				articleSubReportVO.setReportingStatus(rs.getInt("reporting_status"));
+				articleSubReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
 
@@ -224,13 +206,13 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
-		return recipeVO;
+		return articleSubReportVO;
 	}
 
 	@Override
-	public List<RecipeVO> getAll() {
-		List<RecipeVO> list = new ArrayList<RecipeVO>();
-		RecipeVO recipeVO = null;
+	public List<ArticleSubReportVO> getAll() {
+		List<ArticleSubReportVO> list = new ArrayList<ArticleSubReportVO>();
+		ArticleSubReportVO articleSubReportVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -244,21 +226,16 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				list.add(recipeVO); // Store the row in the list
+				articleSubReportVO = new ArticleSubReportVO();
+
+				articleSubReportVO.setArticleSubReportNo(rs.getInt("article_sub_report_no"));
+				articleSubReportVO.setArticleSubNo(rs.getInt("article_sub_no"));
+				articleSubReportVO.setReporterId(rs.getInt("reporter_id"));
+				articleSubReportVO.setReportingReason(rs.getString("reporting_reason"));
+				articleSubReportVO.setReportingStatus(rs.getInt("reporting_status"));
+				articleSubReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+
+				list.add(articleSubReportVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -294,4 +271,34 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 		return list;
 	}
 
+	public static void main(String[] args) {
+		ArticleSubReportJDBCDAO dao = new ArticleSubReportJDBCDAO();
+
+//		 ���J
+
+//		ArticleSubReportVO articleSubReportVO = new ArticleSubReportVO( 5 ,1 , "�ڴN�O�Q���|�A�̩�", 1); 
+//		dao.insert(articleSubReportVO);
+
+//		��s
+		ArticleSubReportVO articleSubReportVO = new ArticleSubReportVO( 2 ,3 , "��s���|�γ�1111", 1); 
+		articleSubReportVO.setArticleSubReportNo(5);
+		dao.update(articleSubReportVO);
+		// �R��
+//		dao.delete(6);
+
+		// �d�@��
+
+
+		
+//		ArticleSubReportVO articleSubReportVO = dao.findByPrimaryKey(5);
+//		System.out.println(articleSubReportVO);
+
+		// �d����
+//		List<ArticleSubReportVO> list = dao.getAll();
+//		for (ArticleSubReportVO aArticleSubReportVO : list) {
+//			System.out.println(aArticleSubReportVO);
+//			
+//		}
+
+	}
 }

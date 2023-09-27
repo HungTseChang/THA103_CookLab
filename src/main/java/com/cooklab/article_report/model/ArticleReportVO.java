@@ -2,6 +2,7 @@ package com.cooklab.article_report.model;
 
 import java.sql.Date;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "created_timestamp")  
 		private Date createdTimestamp;
 		
+
 		public Integer getArticleReportNo() {
 			return articleReportNo;
 		}

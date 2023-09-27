@@ -1,6 +1,7 @@
-package com.cooklab.recipe.model;
+package com.cooklab.admins.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,37 +11,30 @@ import java.util.List;
 
 import com.cooklab.util.*;
 
+public class AdminsJDBCDAOIm implements AdminsDAO {
+	private static final String INSERT_STMT = "insert into admins(admin_nickname, permission_no, admin_account, admin_password) values (?, ?, ?, ?)";
+	private static final String UPDATE = "update admins set admin_nickname =?, permission_no =?, admin_account =? , admin_password =?  where admin_no = ?";
+	private static final String DELETE = "delete from admins where admin_no = ?";
+	private static final String GET_ONE_STMT = "select admin_no, admin_nickname,  permission_no, admin_account, admin_password, created_timestamp FROM admins where admin_no = ?";
+	private static final String GET_ALL_STMT = "select admin_no, admin_nickname,  permission_no, admin_account, admin_password, created_timestamp FROM admins order by admin_no";
 
-public class RecipeJDBCDAOlm implements RecipeDAO {
-	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT * FROM recipe ORDER BY recipe_no";
-	private static final String GET_ONE_STMT = "SELECT * FROM recipe where recipe_no = ?";
-	private static final String DELETE = "DELETE FROM recipe where recipe_no = ?";
-	private static final String UPDATE = "UPDATE recipe SET member_id =?,recipeName=?, cover_image =?, introduction =?, additional_explanation =?, region =?, recipe_status =?, report_count=?,view_count =?, recipe_quantity =?, last_edit_timestamp = now() WHERE recipe_no = ?";
-
-	@Override
-	public void insert(RecipeVO recipeVO) {
+	public void insert(AdminsVO admins) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
-
 			Class.forName(Util.DRIVER);
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
+			pstmt.setString(1, admins.getAdminNickname());
+			pstmt.setInt(2, admins.getPermissionNo());
+			pstmt.setString(3, admins.getAdminAccount());
+			pstmt.setString(4, admins.getAdminPassword());
 
 			pstmt.executeUpdate();
+
+			System.out.println("新增資料成功");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -68,8 +62,7 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 
 	}
 
-	@Override
-	public void update(RecipeVO recipeVO) {
+	public void update(AdminsVO admins) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -79,19 +72,14 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, recipeVO.getMemberId());
-			pstmt.setString(2, recipeVO.getRecipeName());
-			pstmt.setBytes(3, recipeVO.getCoverImage());
-			pstmt.setString(4, recipeVO.getIntroduction());
-			pstmt.setString(5, recipeVO.getAdditionalExplanation());
-			pstmt.setString(6, recipeVO.getRegion());
-			pstmt.setByte(7, recipeVO.getRecipeStatus());
-			pstmt.setInt(8, recipeVO.getReportCount());
-			pstmt.setInt(9, recipeVO.getViewCount());
-			pstmt.setByte(10, recipeVO.getRecipeQuantity());
-			pstmt.setInt(11, recipeVO.getRecipeNo());
+			pstmt.setString(1, admins.getAdminNickname());
+			pstmt.setInt(2, admins.getPermissionNo());
+			pstmt.setString(3, admins.getAdminAccount());
+			pstmt.setString(4, admins.getAdminPassword());
 
 			pstmt.executeUpdate();
+
+			System.out.println("更新資料成功");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -116,10 +104,10 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
+
 	}
 
-	@Override
-	public void delete(Integer recipe_no) {
+	public void delete(Integer adminNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -129,9 +117,11 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, adminNo);
 
 			pstmt.executeUpdate();
+
+			System.out.println("刪除資料成功");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -159,9 +149,8 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 
 	}
 
-	@Override
-	public RecipeVO findByPrimaryKey(Integer recipe_no) {
-		RecipeVO recipeVO = null;
+	public AdminsVO findByPrimaryKey(Integer AdminNo) {
+		AdminsVO adminsVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -172,26 +161,19 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, recipe_no);
+			pstmt.setInt(1, AdminNo);
 
 			rs = pstmt.executeQuery();
 
+			// 放入對應的MySQL表格欄位名稱
 			while (rs.next()) {
-				// empVo �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-
+				adminsVO = new AdminsVO();
+				adminsVO.setAdminNo(rs.getInt("Admin_no"));
+				adminsVO.setAdminNickname(rs.getString("Admin_nickname"));
+				adminsVO.setPermissionNo(rs.getInt("Permission_no"));
+				adminsVO.setAdminAccount(rs.getString("Admin_account"));
+				adminsVO.setAdminPassword(rs.getString("Admin_password"));
+				adminsVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -224,13 +206,12 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 				}
 			}
 		}
-		return recipeVO;
+		return adminsVO;
 	}
 
-	@Override
-	public List<RecipeVO> getAll() {
-		List<RecipeVO> list = new ArrayList<RecipeVO>();
-		RecipeVO recipeVO = null;
+	public List<AdminsVO> getAll() {
+		List<AdminsVO> list = new ArrayList<AdminsVO>();
+		AdminsVO aVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -243,22 +224,16 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
+			// 放入對應的MySQL表格欄位名稱
 			while (rs.next()) {
-				// empVO �]�٬� Domain objects
-				recipeVO = new RecipeVO();
-				recipeVO.setRecipeNo(rs.getInt("recipe_no"));
-				recipeVO.setMemberId(rs.getInt("member_id"));
-				recipeVO.setCoverImage(rs.getBytes("cover_image"));
-				recipeVO.setIntroduction(rs.getString("introduction"));
-				recipeVO.setAdditionalExplanation(rs.getString("additional_explanation"));
-				recipeVO.setRegion(rs.getString("region"));
-				recipeVO.setRecipeStatus(rs.getByte("recipe_status"));
-				recipeVO.setReportCount(rs.getInt("report_count"));
-				recipeVO.setViewCount(rs.getInt("view_count"));
-				recipeVO.setRecipeQuantity(rs.getByte("recipe_quantity"));
-				recipeVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
-				recipeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				list.add(recipeVO); // Store the row in the list
+				aVO = new AdminsVO();
+				aVO.setAdminNo(rs.getInt("Admin_no"));
+				aVO.setAdminNickname(rs.getString("Admin_nickname"));
+				aVO.setPermissionNo(rs.getInt("Permission_no"));
+				aVO.setAdminAccount(rs.getString("Admin_account"));
+				aVO.setAdminPassword(rs.getString("Admin_password"));
+				aVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				list.add(aVO);
 			}
 
 			// Handle any driver errors
@@ -294,4 +269,56 @@ public class RecipeJDBCDAOlm implements RecipeDAO {
 		return list;
 	}
 
+	public static void main(String[] args) {
+
+		AdminsJDBCDAOIm AdDAOIm = new AdminsJDBCDAOIm();
+
+//		 新增
+//		AdminsVO AdVO1 = new AdminsVO();
+//		AdVO1.setAdminNickname(String.valueOf("王曉明"));
+//		AdVO1.setPermissionNo(Integer.valueOf(2));
+//		AdVO1.setAdminAccount(String.valueOf("ABCD"));
+//		AdVO1.setAdminPassword(String.valueOf("DDDD"));
+//		
+//		
+//		AdDAOIm.insert(AdVO1);
+
+//		// 修改
+//		AdminsVO AdVO2 = new AdminsVO();
+
+//		AdVO1.setAdminNickname(String.valueOf("王大明"));
+//		AdVO1.setPermissionNo(Integer.valueOf(3));
+//		AdVO1.setAdminAccount(String.valueOf("DCBAABCD"));
+//		AdVO1.setAdminPassword(String.valueOf("CCCC"));
+//		
+//		AdDAOIm.insert(AdVO2);
+//
+//		// 刪除
+//		AdDAOIm.delete(4);
+//
+//		// 查詢單一資料
+		AdminsVO AdVO3 = AdDAOIm.findByPrimaryKey(1);
+		System.out.print(AdVO3.getAdminNo() + ",");
+		System.out.print(AdVO3.getAdminNickname() + ",");
+		System.out.println(AdVO3.getPermissionNo() + ",");
+		System.out.println(AdVO3.getAdminAccount() + ",");
+		System.out.println(AdVO3.getAdminPassword() + ",");
+		System.out.println(AdVO3.getCreatedTimestamp() + ",");
+
+		System.out.println("---------------------");
+//
+//		// 查詢全部資料
+//		List<AdminsVO> list = AdDAOIm.getAll();
+//		for (AdminsVO aAdVO3 : list) {
+//			System.out.print(aAdVO3.getAdminNo() + ",");
+//			System.out.print(aAdVO3.getAdminNickname() + ",");
+//			System.out.print(aAdVO3.getPermissionNo() + ",");
+//			System.out.print(aAdVO3.getAdminAccount() + ",");
+//			System.out.print(aAdVO3.getAdminPassword() + ",");
+//			System.out.println(aAdVO3.getCreatedTimestamp() + ",");
+//
+//			System.out.println(list.size());
+//		}
+//	}
+	}
 }
