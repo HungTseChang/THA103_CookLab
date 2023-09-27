@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.cooklab.util.*;
 
-public class AdvertiseJDBCDDAOIm implements AdvertiseDAO {
+public class AdvertiseJDBCDAOIm implements AdvertiseDAO {
 
 	private static final String INSERT_STMT = "insert into advertise(advertise_name, advertise_shelf_time, advertise_offsale_time, advertise_img,  advertise_url) values (?, ?, ?, ?, ?)";
 	private static final String UPDATE = "update advertise set advertise_name =?,advertise_shelf_time =?, advertise_offsale_time =?,  advertise_img =?, advertise_url =? where question_no = ?";
@@ -274,7 +274,7 @@ public class AdvertiseJDBCDDAOIm implements AdvertiseDAO {
 
 	public static void main(String[] args) {
 
-		AdvertiseJDBCDDAOIm AdDAOIm = new AdvertiseJDBCDDAOIm();
+		AdvertiseJDBCDAOIm AdDAOIm = new AdvertiseJDBCDAOIm();
 
 //		 新增
 //		AdvertiseVO AdVO1 = new AdvertiseVO();
