@@ -1,14 +1,42 @@
 package com.cooklab.recipe_comments_report.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
-public class RecipeCommentsReportVO implements java.io.Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "recipe_comments_report")
+public class RecipeCommentsReportVO{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "recipe_report_no", insertable = false ,updatable = false)
 	private Integer recipeReportNo;
+	
+	@Column(name = "member_id")
 	private Integer memberId;
+	
+	@Column(name = "recipe_comments_no")
 	private Integer recipeCommentsNo;
+	
+	@Column(name = "reporting_comments_reason")
 	private String reportingCommentsReason;
+	
+	@Column(name = "reporting_status")
 	private Byte reportingStatus;
-	private Date createTimestamp;
+	
+	@Column(name = "created_timestamp", insertable = false ,updatable = false)
+	private Timestamp createdTimestamp;
+	
+	public RecipeCommentsReportVO() {
+		super();
+	}
 	
 	public Integer getRecipeReportNo() {
 		return recipeReportNo;
@@ -41,17 +69,17 @@ public class RecipeCommentsReportVO implements java.io.Serializable{
 	public void setReportingStatus(Byte reportingStatus) {
 		this.reportingStatus = reportingStatus;
 	}
-	public Date getCreateTimestamp() {
-		return createTimestamp;
+	public Timestamp getCreateTimestamp() {
+		return createdTimestamp;
 	}
-	public void setCreateTimestamp(Date createTimestamp) {
-		this.createTimestamp = createTimestamp;
+	public void setCreateTimestamp(Timestamp createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
 	}
 	@Override
 	public String toString() {
 		return "RecipeCommentsReportVO [recipeReportNo=" + recipeReportNo + ", memberId=" + memberId
 				+ ", recipeCommentsNo=" + recipeCommentsNo + ", reportingCommentsReason=" + reportingCommentsReason
-				+ ", reportingStatus=" + reportingStatus + ", createTimestamp=" + createTimestamp + "]";
+				+ ", reportingStatus=" + reportingStatus + ", createTimestamp=" + createdTimestamp + "]";
 	}
 	
 
