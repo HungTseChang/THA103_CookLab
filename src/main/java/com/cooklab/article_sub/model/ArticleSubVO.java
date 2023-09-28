@@ -1,25 +1,51 @@
 package com.cooklab.article_sub.model;
 
-import java.util.Arrays;
-import java.sql.Date;
 import java.sql.Timestamp;
 
-public class ArticleSubVO implements java.io.Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "article_sub")
+public class ArticleSubVO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="article_sub_no")
 	private Integer articleSubNo;
+	
+	@Column (name="article_no")
 	private Integer articleNo;
+	
+	@Column (name="member_id")
 	private Integer memberId;
-	private Timestamp createdTimestamp;
-	private Integer articleSubStatus;
+	
+	
+	
+	@Column (name="article_sub_status")
+	private Byte articleSubStatus;
+	
+	@Column (name="article_sub_content",columnDefinition = "longtext")
 	private String articleSubContent;
+	
+	@Column (name="article_sub_count")
 	private Integer articleSubCount;
+	
+	@Column (name="last_edit_timestamp" ,insertable = false)
 	private Timestamp lastEditTimeStampstame;
 
+	@Column (name="created_timestamp",insertable = false)
+	private Timestamp createdTimestamp;
+	
 	public ArticleSubVO() {
 
 	}
-
+	
 	public ArticleSubVO( Integer articleNo, Integer memberId, 
-			Integer articleSubStatus, String articleSubContent, Integer articleSubCount
+			Byte articleSubStatus, String articleSubContent, Integer articleSubCount
 			) {
 		super();
 
@@ -56,11 +82,11 @@ public class ArticleSubVO implements java.io.Serializable {
 		this.memberId = memberId;
 	}
 
-	public Integer getArticleSubStatus() {
+	public Byte getArticleSubStatus() {
 		return articleSubStatus;
 	}
 
-	public void setArticleSubStatus(Integer articleSubStatus) {
+	public void setArticleSubStatus(Byte articleSubStatus) {
 		this.articleSubStatus = articleSubStatus;
 	}
 
