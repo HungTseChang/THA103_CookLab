@@ -5,6 +5,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+<<<<<<< HEAD
 		<property name="hibernate.connection.password">Martin880904</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cook_lab?serverTimezone=Asia/Taipei</property>
 		<property name="hibernate.connection.username">root</property>
@@ -23,5 +24,22 @@
 		<mapping class="com.cooklab.recipe_ingredient.model.RecipeIngredientVO"/>
 		<mapping class="com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO"/>
 		
+=======
+		<property name="hibernate.connection.password">ren123</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cook_lab?serverTimezone=Asia/Taipei</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+
+		<mapping class="com.cooklab.member_order.model.MemberOrderVO" />
+		<mapping class="com.cooklab.promo_code.model.PromoCodeVO" />
+		<mapping class="com.cooklab.promo_code_used.model.PromoCodeUsedVO" />
+		<mapping class="com.cooklab.order_detail.model.OrderDetailVO" />
+>>>>>>> refs/remotes/origin/SH
 	</session-factory>
 </hibernate-configuration>
