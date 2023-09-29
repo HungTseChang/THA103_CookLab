@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,27 +15,29 @@ import javax.persistence.Table;
 
 public class NotifyCenterVO  {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column (name="notify_no")
 	private Integer notifyNo;
 	
-	@Column (name="memberId")
+	@Column (name="member_id")
 	private Integer memberId;
 	
-	@Column (name="notifyType")
+	@Column (name="notify_type")
 	private Integer notifyType;
 	
-	@Column (name="notifyRead")
-	private Integer notifyRead;
+	@Column (name="notify_read")
+	private Byte notifyRead;
 	
-	@Column (name="notifyContent")
+	@Column (name="notify_content")
 	private String notifyContent;
 	
-	@Column (name="createdTimestamp")
+	@Column (name="created_timestamp" ,insertable = false)
 	private Timestamp createdTimestamp;
 	
 	
 	public NotifyCenterVO() {}
 	
-	public NotifyCenterVO( Integer memberId, Integer notifyType, Integer notifyRead,
+	public NotifyCenterVO( Integer memberId, Integer notifyType, Byte notifyRead,
 			String notifyContent) {
 		super();
 		
@@ -62,10 +66,10 @@ public class NotifyCenterVO  {
 	public void setNotifyType(Integer notifyType) {
 		this.notifyType = notifyType;
 	}
-	public Integer getNotifyRead() {
+	public Byte getNotifyRead() {
 		return notifyRead;
 	}
-	public void setNotifyRead(Integer notifyRead) {
+	public void setNotifyRead(Byte notifyRead) {
 		this.notifyRead = notifyRead;
 	}
 	public String getNotifyContent() {
