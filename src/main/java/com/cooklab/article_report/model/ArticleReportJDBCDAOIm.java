@@ -179,7 +179,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 				ArticleReportVO.setReporterId(rs.getInt("reporter_id"));
 				ArticleReportVO.setReportingReason(rs.getString("reporting_reason"));
 				ArticleReportVO.setReportingStatus(rs.getByte("reporting_status"));
-				ArticleReportVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				ArticleReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
 

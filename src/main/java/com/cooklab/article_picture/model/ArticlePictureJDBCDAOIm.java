@@ -178,7 +178,7 @@ public class ArticlePictureJDBCDAOIm implements ArticlePictureDAO {
 				ArticlePictureVO.setArticlePictureNo(rs.getInt("article_picture_no"));
 				ArticlePictureVO.setArticleNo(rs.getInt("article_no"));
 				ArticlePictureVO.setPicture(rs.getBytes("picture"));
-				ArticlePictureVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				ArticlePictureVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
 
@@ -238,7 +238,7 @@ public class ArticlePictureJDBCDAOIm implements ArticlePictureDAO {
 				ArticlePictureVO.setArticlePictureNo(rs.getInt("article_picture_no"));
 				ArticlePictureVO.setArticleNo(rs.getInt("article_no"));
 				ArticlePictureVO.setPicture(rs.getBytes("picture"));
-				ArticlePictureVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				ArticlePictureVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(ArticlePictureVO); // Store the row in the list
 			}
 
