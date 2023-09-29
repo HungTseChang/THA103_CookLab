@@ -1,12 +1,29 @@
 package com.cooklab.recipe_hashtag.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "recipe_hashtag")
 public class RecipeHashtagVO implements java.io.Serializable{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "recipe_hashtag_no", insertable = false ,updatable = false)
 	private Integer repiceHashTagNo;
+	@Column(name = "hashtag_no")
 	private Integer hashTagNo;
+	@Column(name = "recipe_no")
 	private Integer recipeNO;
-	private Date createTimestamp;
+	@Column(name = "created_timestamp",insertable = false ,updatable = false)
+	private Timestamp createdTimestamp;
 	
 	public Integer getRepiceHashTagNo() {
 		return repiceHashTagNo;
@@ -26,16 +43,16 @@ public class RecipeHashtagVO implements java.io.Serializable{
 	public void setRecipeNO(Integer recipeNO) {
 		this.recipeNO = recipeNO;
 	}
-	public Date getCreateTimestamp() {
-		return createTimestamp;
+	public Timestamp getCreateTimestamp() {
+		return createdTimestamp;
 	}
-	public void setCreateTimestamp(Date createTimestamp) {
-		this.createTimestamp = createTimestamp;
+	public void setCreateTimestamp(Timestamp createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
 	}
 	@Override
 	public String toString() {
 		return "RecipeHashtagVO [repiceHashTagNo=" + repiceHashTagNo + ", hashTagNo=" + hashTagNo + ", recipeNO="
-				+ recipeNO + ", createTimestamp=" + createTimestamp + "]";
+				+ recipeNO + ", createTimestamp=" + createdTimestamp + "]";
 	}
 	
 	
