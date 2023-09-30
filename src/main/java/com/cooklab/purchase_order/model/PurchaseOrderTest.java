@@ -9,9 +9,9 @@ public class PurchaseOrderTest {
 
 //		 新增
 		PurchaseOrderVO povo1 = new PurchaseOrderVO();
-//		povo1.setPurchaseOrderDate(java.sql.Date.valueOf("2023-09-11"));
+		povo1.setPurchaseOrderDate(java.sql.Date.valueOf("2023-09-11"));
 		povo1.setPurchaseOrderSupplier("美味食材天堂");
-		povo1.setPurchaseOrderTotal(Integer.valueOf(100));
+		povo1.setPurchaseOrderTotal(Integer.valueOf(200));
 		pODAOIm.insert(povo1);
 
 		// 修改
