@@ -8,11 +8,11 @@ public class PurchaseOrderTest {
 		PurchaseOrderJDBCDAOIm pODAOIm = new PurchaseOrderJDBCDAOIm();
 
 //		 新增
-//		PurchaseOrderVO povo1 = new PurchaseOrderVO();
-////		povo1.setPurchaseOrderDate(java.sql.Date.valueOf("2023-09-11"));
-//		povo1.setPurchaseOrderSupplier("美味食材天堂");
-//		povo1.setPurchaseOrderTotal(Integer.valueOf(100));
-//		pODAOIm.insert(povo1);
+		PurchaseOrderVO povo1 = new PurchaseOrderVO();
+		povo1.setPurchaseOrderDate(java.sql.Date.valueOf("2023-09-11"));
+		povo1.setPurchaseOrderSupplier("美味食材天堂");
+		povo1.setPurchaseOrderTotal(Integer.valueOf(200));
+		pODAOIm.insert(povo1);
 
 		// 修改
 //		PurchaseOrderVO povo2 = new PurchaseOrderVO();
