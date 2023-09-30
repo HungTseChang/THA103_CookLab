@@ -1,24 +1,24 @@
-package com.cooklab.purchase_order_detail.model;
+package com.cooklab.support_form_record.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.cooklab.util.*;
 
-public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
-	private static final String INSERT_STMT = "insert into purchase_order_detail(product_name, product_qty, expired_date, purchase_order_no, product_no, purchase_order_price) values(?,?,?,?,?,?)";
-	private static final String UPDATE = "update purchase_order_detail set product_name = ?, product_qty = ?, expired_date= ?, purchase_order_no = ?, product_no = ?, purchase_order_price = ? where order_detail_no = ?";
-	private static final String DELETE = "delete from purchase_order_detail where order_detail_no = ?";
-	private static final String GET_ONE_STMT = "select order_detail_no,product_name, product_qty, expired_date, purchase_order_no, product_no, purchase_order_price,created_timestamp  from purchase_order_detail where order_detail_no = ?";
-	private static final String GET_ALL_STMT = "select order_detail_no,product_name, product_qty, expired_date, purchase_order_no, product_no, purchase_order_price,created_timestamp  from purchase_order_detail order by order_detail_no";
+public class SupportFormRecordJDBCDAOIm implements SupportFormRecordDAO {
+	private static final String INSERT_STMT = "INSERT INTO support_form_record (form_no,record_context,admin_no) VALUES(?,?,?)";
+	private static final String UPDATE = "UPDATE support_form_record set form_no=?, record_context=?, admin_no=? where record_no = ?";
+	private static final String DELETE = "DELETE FROM support_form_record where record_no = ?";
+	private static final String GET_ONE_STMT = "SELECT record_no,form_no,record_context,admin_no,created_timestamp from support_form_record where record_no = ?";
+	private static final String GET_ALL_STMT = "SELECT record_no,form_no,record_context,admin_no,created_timestamp from support_form_record";
 
 	@Override
-	public void insert(PurchaseOrderDetailVO purchaseOrderDetail) {
+	public void insert(SupportFormRecordVO supportFormRecord) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -27,12 +27,9 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, purchaseOrderDetail.getProductName());
-			pstmt.setInt(2, purchaseOrderDetail.getProductQty());
-			pstmt.setDate(3, purchaseOrderDetail.getExpiredDate());
-			pstmt.setInt(4, purchaseOrderDetail.getPurchaseOrderNo());
-			pstmt.setInt(5, purchaseOrderDetail.getProductNo());
-			pstmt.setInt(6, purchaseOrderDetail.getPurchaseOrderPrice());
+			pstmt.setInt(1, supportFormRecord.getFormNo());
+			pstmt.setString(2, supportFormRecord.getRecordContext());
+			pstmt.setInt(3, supportFormRecord.getAdminNo());
 
 			pstmt.executeUpdate();
 
@@ -65,7 +62,7 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 	}
 
 	@Override
-	public void update(PurchaseOrderDetailVO purchaseOrderDetail) {
+	public void update(SupportFormRecordVO supportFormRecord) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -75,13 +72,10 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, purchaseOrderDetail.getProductName());
-			pstmt.setInt(2, purchaseOrderDetail.getProductQty());
-			pstmt.setDate(3, purchaseOrderDetail.getExpiredDate());
-			pstmt.setInt(4, purchaseOrderDetail.getPurchaseOrderNo());
-			pstmt.setInt(5, purchaseOrderDetail.getProductNo());
-			pstmt.setInt(6, purchaseOrderDetail.getPurchaseOrderPrice());
-			pstmt.setInt(7, purchaseOrderDetail.getOrderDetailNo());
+			pstmt.setInt(1, supportFormRecord.getFormNo());
+			pstmt.setString(2, supportFormRecord.getRecordContext());
+			pstmt.setInt(3, supportFormRecord.getAdminNo());
+			pstmt.setInt(4, supportFormRecord.getRecordNo());
 
 			pstmt.executeUpdate();
 
@@ -114,7 +108,7 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 	}
 
 	@Override
-	public void delete(Integer orderDetailNo) {
+	public void delete(Integer recordNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -124,7 +118,7 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, orderDetailNo);
+			pstmt.setInt(1, recordNo);
 
 			pstmt.executeUpdate();
 
@@ -157,8 +151,8 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 	}
 
 	@Override
-	public PurchaseOrderDetailVO findByPrimaryKey(Integer orderDetailNo) {
-		PurchaseOrderDetailVO purchaseOrderDetail = null;
+	public SupportFormRecordVO findByPrimaryKey(Integer recordNo) {
+		SupportFormRecordVO supportFormRecord = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -169,21 +163,18 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, orderDetailNo);
+			pstmt.setInt(1, recordNo);
 
 			rs = pstmt.executeQuery();
 
 			// 放入對應的MySQL表格欄位名稱
 			while (rs.next()) {
-				purchaseOrderDetail = new PurchaseOrderDetailVO();
-				purchaseOrderDetail.setOrderDetailNo(rs.getInt("order_detail_no"));
-				purchaseOrderDetail.setProductName(rs.getString("product_name"));
-				purchaseOrderDetail.setProductQty(rs.getInt("product_qty"));
-				purchaseOrderDetail.setExpiredDate(rs.getDate("expired_date"));
-				purchaseOrderDetail.setPurchaseOrderNo(rs.getInt("purchase_order_no"));
-				purchaseOrderDetail.setProductNo(rs.getInt("product_no"));
-				purchaseOrderDetail.setPurchaseOrderPrice(rs.getInt("purchase_order_price"));
-				purchaseOrderDetail.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				supportFormRecord = new SupportFormRecordVO();
+				supportFormRecord.setRecordNo(rs.getInt("record_no"));
+				supportFormRecord.setFormNo(rs.getInt("form_no"));
+				supportFormRecord.setRecordContext(rs.getString("record_context"));
+				supportFormRecord.setAdminNo(rs.getInt("admin_no"));
+				supportFormRecord.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -216,13 +207,13 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 				}
 			}
 		}
-		return purchaseOrderDetail;
+		return supportFormRecord;
 	}
 
 	@Override
-	public List<PurchaseOrderDetailVO> getAll() {
-		List<PurchaseOrderDetailVO> list = new ArrayList<PurchaseOrderDetailVO>();
-		PurchaseOrderDetailVO purchaseOrderDetail = null;
+	public List<SupportFormRecordVO> getAll() {
+		List<SupportFormRecordVO> list = new ArrayList<SupportFormRecordVO>();
+		SupportFormRecordVO supportFormRecord = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -237,16 +228,13 @@ public class PurchaseOrderDetailJDBCDAOIm implements PurchaseOrderDetailDAO {
 
 			// 放入對應的MySQL表格欄位名稱
 			while (rs.next()) {
-				purchaseOrderDetail = new PurchaseOrderDetailVO();
-				purchaseOrderDetail.setOrderDetailNo(rs.getInt("order_detail_no"));
-				purchaseOrderDetail.setProductName(rs.getString("product_name"));
-				purchaseOrderDetail.setProductQty(rs.getInt("product_qty"));
-				purchaseOrderDetail.setExpiredDate(rs.getDate("expired_date"));
-				purchaseOrderDetail.setPurchaseOrderNo(rs.getInt("purchase_order_no"));
-				purchaseOrderDetail.setProductNo(rs.getInt("product_no"));
-				purchaseOrderDetail.setPurchaseOrderPrice(rs.getInt("purchase_order_price"));
-				purchaseOrderDetail.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				list.add(purchaseOrderDetail); // Store the row in the list
+				supportFormRecord = new SupportFormRecordVO();
+				supportFormRecord.setRecordNo(rs.getInt("record_no"));
+				supportFormRecord.setFormNo(rs.getInt("form_no"));
+				supportFormRecord.setRecordContext(rs.getString("record_context"));
+				supportFormRecord.setAdminNo(rs.getInt("admin_no"));
+				supportFormRecord.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
+				list.add(supportFormRecord); // Store the row in the list
 			}
 
 			// Handle any driver errors

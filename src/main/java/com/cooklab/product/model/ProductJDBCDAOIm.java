@@ -11,11 +11,11 @@ import java.util.List;
 import com.cooklab.util.*;
 
 public class ProductJDBCDAOIm implements ProductDAO {
-	private static final String INSERT_STMT = "insert into product(product_name, sale_qty, product_dec, product_spec, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no) values (?,?,?,?,?,?,?,?,?,?)";
-	private static final String UPDATE = "update product set product_name = ?, sale_qty = ?, product_dec = ?, product_spec = ?, product_price = ?, offsale_time = ?, shelf_time = ?, storage_qty = ?, ingredient_category_no =?, kitchenware_category_no = ?, search_count = ? where product_no = ?";
+	private static final String INSERT_STMT = "insert into product(product_name, sale_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no) values (?,?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE = "update product set product_name = ?, sale_qty = ?, product_dec = ?, product_introduction = ?, product_price = ?, offsale_time = ?, shelf_time = ?, storage_qty = ?, ingredient_category_no =?, kitchenware_category_no = ?, search_count = ? where product_no = ?";
 	private static final String DELETE = "delete from product where product_no = ?";
-	private static final String GET_ONE_STMT = "select product_no, product_name, sale_qty, product_dec, product_spec, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no, search_count ,created_timestamp from product where product_no = ?";
-	private static final String GET_ALL_STMT = "select product_no, product_name, sale_qty, product_dec, product_spec, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no, search_count ,created_timestamp from product order by product_no";
+	private static final String GET_ONE_STMT = "select product_no, product_name, sale_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no, search_count ,created_timestamp from product where product_no = ?";
+	private static final String GET_ALL_STMT = "select product_no, product_name, sale_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no, search_count ,created_timestamp from product order by product_no";
 
 	@Override
 	public void insert(ProductVO product) {
@@ -209,7 +209,7 @@ public class ProductJDBCDAOIm implements ProductDAO {
 				product.setProductName(rs.getString("product_name"));
 				product.setSaleQty(rs.getInt("sale_qty"));
 				product.setProductDec(rs.getString("product_dec"));
-				product.setproductIntroduction(rs.getString("product_spec"));
+				product.setproductIntroduction(rs.getString("product_introduction"));
 				product.setProductPrice(rs.getInt("product_price"));
 				product.setOffsaleTime(rs.getTimestamp("offsale_time"));
 				product.setShelfTime(rs.getTimestamp("shelf_time"));
@@ -217,7 +217,7 @@ public class ProductJDBCDAOIm implements ProductDAO {
 				product.setIngredientCategoryNo(rs.getInt("ingredient_category_no"));
 				product.setKitchenwareCategoryNo(rs.getInt("kitchenware_category_no"));
 				product.setSearchCount(rs.getInt("search_count"));
-				product.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				product.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -276,7 +276,7 @@ public class ProductJDBCDAOIm implements ProductDAO {
 				product.setProductName(rs.getString("product_name"));
 				product.setSaleQty(rs.getInt("sale_qty"));
 				product.setProductDec(rs.getString("product_dec"));
-				product.setproductIntroduction(rs.getString("product_spec"));
+				product.setproductIntroduction(rs.getString("product_introduction"));
 				product.setProductPrice(rs.getInt("product_price"));
 				product.setOffsaleTime(rs.getTimestamp("offsale_time"));
 				product.setShelfTime(rs.getTimestamp("shelf_time"));
@@ -284,7 +284,7 @@ public class ProductJDBCDAOIm implements ProductDAO {
 				product.setIngredientCategoryNo(rs.getInt("ingredient_category_no"));
 				product.setKitchenwareCategoryNo(rs.getInt("kitchenware_category_no"));
 				product.setSearchCount(rs.getInt("search_count"));
-				product.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				product.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(product); // Store the row in the list
 			}
 
