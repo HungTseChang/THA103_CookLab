@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.util.Util;
+import com.cooklab.Util.*;
 
 
 
@@ -179,7 +179,7 @@ public class RecipeReactionJDBCDAOIm implements RecipeReactionDAO {
 				rrVO.setRecipeNo(rs.getInt("recipe_no"));
 				rrVO.setMemberId(rs.getInt("member_id"));
 				rrVO.setRecipeReactionStatus(rs.getByte("recipe_reaction_status"));
-				rrVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				rrVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
 
@@ -239,7 +239,7 @@ public class RecipeReactionJDBCDAOIm implements RecipeReactionDAO {
 				recipeReactionVO.setRecipeNo(rs.getInt("recipe_no"));
 				recipeReactionVO.setMemberId(rs.getInt("member_id"));
 				recipeReactionVO.setRecipeReactionStatus(rs.getByte("recipe_reaction_status"));
-				recipeReactionVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				recipeReactionVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(recipeReactionVO); // Store the row in the list
 			}
 
