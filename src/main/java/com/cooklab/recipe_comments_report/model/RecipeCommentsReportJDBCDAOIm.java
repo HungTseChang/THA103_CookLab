@@ -7,10 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.cooklab.Util.*;
 
-import com.cooklab.recipe_comments.model.RecipeCommentsJDBCDAOIm;
-import com.cooklab.recipe_comments.model.RecipeCommentsVO;
-import com.cooklab.util.Util;
 
 
 public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
@@ -197,7 +195,7 @@ public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 				rcrVO.setRecipeCommentsNo(rs.getInt("recipe_comments_no"));
 				rcrVO.setReportingCommentsReason(rs.getString("reporting_comments_reason"));
 				rcrVO.setReportingStatus(rs.getByte("reporting_status"));
-				rcrVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				rcrVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				
 				
 			}
@@ -262,7 +260,7 @@ public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 				recipeCommentsReportVO.setRecipeCommentsNo(rs.getInt("recipe_comments_no"));
 				recipeCommentsReportVO.setReportingCommentsReason(rs.getString("reporting_comments_reason"));
 				recipeCommentsReportVO.setReportingStatus(rs.getByte("reporting_status"));
-				recipeCommentsReportVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				recipeCommentsReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(recipeCommentsReportVO); // Store the row in the list
 			}
 
