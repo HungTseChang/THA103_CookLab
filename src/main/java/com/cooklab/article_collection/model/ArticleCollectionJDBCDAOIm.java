@@ -175,7 +175,7 @@ public class ArticleCollectionJDBCDAOIm implements ArticleCollectionDAO {
 				acVO.setArticleCollectionNo(rs.getInt("article_collection_no"));
 				acVO.setArticleNo(rs.getInt("article_no"));
 				acVO.setMemberId(rs.getInt("member_id"));
-				acVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				//acVO.setCreateTimestamp(rs.getDate("created_timestamp"));
 			}
 
 			// Handle any Util.DRIVER errors
@@ -234,7 +234,7 @@ public class ArticleCollectionJDBCDAOIm implements ArticleCollectionDAO {
 				articleCollectionVO.setArticleCollectionNo(rs.getInt("article_collection_no"));
 				articleCollectionVO.setArticleNo(rs.getInt("article_no"));
 				articleCollectionVO.setMemberId(rs.getInt("member_id"));
-				articleCollectionVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				//articleCollectionVO.setCreateTimestamp(rs.getDate("created_timestamp"));
 				list.add(articleCollectionVO); // Store the row in the list
 			}
 

@@ -185,12 +185,12 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 				ArticleVO.setArticleCategory(rs.getString("article_category"));
 				ArticleVO.setArticleTitle(rs.getString("article_title"));
 				ArticleVO.setMemberId(rs.getInt("member_id"));
-				ArticleVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				//ArticleVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
 				ArticleVO.setArticleStatus(rs.getByte("article_status"));
 				ArticleVO.setArticleContent(rs.getString("article_content"));
 				ArticleVO.setArticleCount(rs.getInt("article_count"));
 				ArticleVO.setViewCount(rs.getInt("view_count"));
-				ArticleVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
+				//ArticleVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -250,12 +250,12 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 				ArticleVO.setArticleCategory(rs.getString("article_category"));
 				ArticleVO.setArticleTitle(rs.getString("article_title"));
 				ArticleVO.setMemberId(rs.getInt("member_id"));
-				ArticleVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				//ArticleVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
 				ArticleVO.setArticleStatus(rs.getByte("article_status"));
 				ArticleVO.setArticleContent(rs.getString("article_content"));
 				ArticleVO.setArticleCount(rs.getInt("article_count"));
 				ArticleVO.setViewCount(rs.getInt("view_count"));
-				ArticleVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
+				//ArticleVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
 
 				list.add(ArticleVO); // Store the row in the list
 			}

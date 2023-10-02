@@ -2,7 +2,7 @@ package com.cooklab.article_collection.model;
 
 import org.hibernate.Session;
 
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
 
 public class AricleCollectionHibernateTest {
