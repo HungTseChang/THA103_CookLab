@@ -30,22 +30,23 @@ public class RecipeStepTest {
 		try {
 			session.beginTransaction();
 			// 新增
-			RecipeStepVO vo = new RecipeStepVO(1, 1, 10, null, "步驟", null);
-			session.saveOrUpdate(vo);
+//			RecipeStepVO vo = new RecipeStepVO(2, 1, 10, null, "步驟", null);
+//			session.saveOrUpdate(vo);
 			// 更新
-//					RecipeCollectionVO vo = new RecipeCollectionVO(1, 2, 5, null);			
-//					session.saveOrUpdate(vo);
+//			RecipeStepVO vo = new RecipeStepVO(2, 2, 20, null, "����update", null);		
+//			session.saveOrUpdate(vo);
 			// 刪除
-//					RecipeCollectionVO vo = session.get(RecipeCollectionVO.class,1);
-//					if(vo !=null) {
-//						session.delete(vo);
-//					}
+//			RecipeStepVO vo = session.get(RecipeStepVO.class, 1);
+//			if (vo != null) {
+//				session.delete(vo);
+//			}
 			// 查詢(多筆)
-//					List<RecipeCollectionVO> list = session.createQuery("from RecipeCollectionVO ",RecipeCollectionVO.class).list();
-//					System.out.println(list);
+//			List<RecipeStepVO> list = session.createQuery("from RecipeStepVO ", RecipeStepVO.class).list();
+//			System.out.println(list);
 			// 查詢(單筆)
-//					RecipeCollectionVO vo = session.createQuery("from RecipeCollectionVO where  collectionNo = 1", RecipeCollectionVO.class).uniqueResult();
-//					System.out.println(vo);
+//			RecipeStepVO vo = session.createQuery("from RecipeStepVO where  recipeNo = 1", RecipeStepVO.class)
+//					.uniqueResult();
+//			System.out.println(vo);
 
 			session.getTransaction().commit();
 		} catch (Exception e) {

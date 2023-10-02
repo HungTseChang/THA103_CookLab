@@ -22,7 +22,7 @@ public class RecipeStepVO implements java.io.Serializable{
 	private Integer step;
 	@Column(name = "step_time")
 	private Integer stepTime;
-	@Column(name = "step_img")
+	@Column(name = "step_img", columnDefinition = "LONGBLOB")
 	private byte[] stepImg;
 	@Column(name = "step_content")
 	private String stepContent;
