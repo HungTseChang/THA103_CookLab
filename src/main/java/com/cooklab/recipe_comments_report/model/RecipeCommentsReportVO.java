@@ -69,10 +69,10 @@ public class RecipeCommentsReportVO{
 	public void setReportingStatus(Byte reportingStatus) {
 		this.reportingStatus = reportingStatus;
 	}
-	public Timestamp getCreateTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
-	public void setCreateTimestamp(Timestamp createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 	@Override

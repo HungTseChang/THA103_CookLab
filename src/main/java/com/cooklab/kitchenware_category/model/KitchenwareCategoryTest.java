@@ -8,9 +8,9 @@ public class KitchenwareCategoryTest {
 		KitchenwareCategoryJDBCDAOIm kCDAOIm = new KitchenwareCategoryJDBCDAOIm();
 
 		// 新增
-		KitchenwareCategoryVO kCVO1 = new KitchenwareCategoryVO();
-		kCVO1.setCategoryName("銅鍋");
-		kCDAOIm.insert(kCVO1);
+//		KitchenwareCategoryVO kCVO1 = new KitchenwareCategoryVO();
+//		kCVO1.setCategoryName("銅鍋");
+//		kCDAOIm.insert(kCVO1);
 
 		// 修改
 //		KitchenwareCategoryVO kCVO2 = new KitchenwareCategoryVO();
@@ -22,17 +22,13 @@ public class KitchenwareCategoryTest {
 //		kCDAOIm.delete(3);
 
 		// 查詢單一資料
-//		KitchenwareCategoryVO kCVO3 = kCDAOIm.findByPrimaryKey(2);
-//		System.out.print(kCVO3.getKitchenwareCategoryNo() + ",");
-//		System.out.println(kCVO3.getCategoryName() );
-//		System.out.println("---------------------");
+		KitchenwareCategoryVO kCVO3 = kCDAOIm.findByPrimaryKey(2);
+		System.out.println(kCVO3);
 
 		// 查詢全部資料
 		List<KitchenwareCategoryVO> list = kCDAOIm.getAll();
 		for (KitchenwareCategoryVO akCVO3 : list) {
-			System.out.print(akCVO3.getKitchenwareCategoryNo() + ",");
-			System.out.print(akCVO3.getCategoryName());
-			System.out.println();
+			System.out.println(akCVO3);
 		}
 	}
 }
