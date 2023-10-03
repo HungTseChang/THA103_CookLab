@@ -4,36 +4,26 @@
 <%@ page import =" java.util.List"%>
 <%@ page import="org.hibernate.Session"%>
 <%@ page import="com.cooklab.util.HibernateUtil" %>
-<%@ page import="com.cooklab.article_report.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%
- ArticleReportTest art = new ArticleReportTest();
-Session Ssion = HibernateUtil.getSessionFactory().getCurrentSession();
-try {
-	Ssion.beginTransaction();
-	List<ArticleReportVO> list1 = Ssion.createQuery("from ArticleReportVO", ArticleReportVO.class).list();
+<%@ page import ="com.google.gson.Gson"  %>
+<%@ page import ="com.google.gson.JsonElement"  %>
+<%@ page import ="com.google.gson.JsonParser"  %>
 
-// 	for(int i=0; i<list1.size();i++) {
-// 	System.out.println(
-// 			"ArticleReportNo :"+list1.get(i).getArticleReportNo()+"\n  "
-// 		+ "ArticleNo :"+list1.get(i).getArticleNo()+"\n"
-// 		+"ReporterId :"+ list1.get(i).getReporterId()+"\n"
-// 		+"ReportingReason :"+list1.get(i).getReportingReason()+"\n"
-// 		+"ReportingStatus :"+list1.get(i).getReportingStatus()+"\n"
-// 		+"tCreatedTimestamp :"+list1.get(i).getCreatedTimestamp()
-// 		+"\n"+"============================================="
-// 				); 
-// 	}
-	Ssion.getTransaction().commit();
-	Ssion.close();
-}catch (Exception e) {
-	e.printStackTrace();
-	Ssion.getTransaction().rollback();
-} finally {
-	HibernateUtil.shutdown();
-}
-%>
-    
+
+<%--  <% --%>
+<!-- //  ArticleReportTest art = new ArticleReportTest(); -->
+<!-- // Session Ssion = HibernateUtil.getSessionFactory().getCurrentSession(); -->
+<!-- // try { -->
+<!-- // 	Ssion.beginTransaction(); -->
+<!-- // 	List<ArticleReportVO> list1 = Ssion.createQuery("from ArticleReportVO", ArticleReportVO.class).list(); -->
+<!-- // 	  pageContext.setAttribute("list1",list1); -->
+<%-- %> --%>
+<%
+ ArticleReportJDBCDAOIm arjm = new ArticleReportJDBCDAOIm();
+ List<ArticleReportVO> list1=   arjm.getAll();
+ pageContext.setAttribute("list1",list1);
+ String json = new Gson().toJson(list1);
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,13 +33,33 @@ try {
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/css/app.css">
+    
+    <style>
+                td a.wcc {
+                    border: 1px solid rgb(151, 135, 249);
+                    background-color: rgb(195, 241, 253);
+                    padding: 4px;
+                    border-radius: 20px;
+                }
+
+                td input.wcc {
+                    border-radius: 20px;
+                }
+                td{
+                    white-space: nowrap;
+
+                }
+                th{
+                    white-space: nowrap;
+                }
+      </style>
 </head>
 
 <body>
@@ -59,7 +69,7 @@ try {
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/memeber/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -220,32 +230,7 @@ try {
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-            <!--/////////////////////////////////////////////////////////////////////////////////////////  -->
-            <style>
-                td a.wcc {
-                    border: 1px solid rgb(151, 135, 249);
-                    background-color: rgb(195, 241, 253);
-                    padding: 4px;
-                    border-radius: 20px;
-                }
 
-                td button.wcc {
-                    border-radius: 20px;
-                }
-                td{
-                    /* max-width: 150px; */
-                    white-space: nowrap;
-                    /* overflow: hidden;
-                    text-overflow: ellipsis; */
-                }
-                th{
-                    /* max-width: 150px; */
-                    white-space: nowrap;
-                    /* overflow: hidden;
-                    text-overflow: ellipsis; */
-                }
-            </style>
-            <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
@@ -263,7 +248,8 @@ try {
                         </div>
                     </div>
                 </div>
-                <section class="section">
+                
+    <section class="section">
                     <div class="card">
                         <div class="card-header">
                         </div>
@@ -281,114 +267,17 @@ try {
                                     </tr>
                                 </thead>
                                 <tbody>
-<c:forEach var="ArticleReportVO" items="${list1}" >
-
-<tr>
-			<td>${ArticleReportVO.getArticleReportNo}</td>
-			<td>${ArticleReportVO.getArticleNo}</td>
-			<td>${ArticleReportVO.getReporterId}</td>
-			<td>${ArticleReportVO.getReportingReason}</td>
-			<td>${ArticleReportVO.getReportingStatus}</td>
-			<td>${ArticleReportVO.getCreatedTimestamp}</td> 
-			<td><%=request.getContextPath()%></td> 
-			
-<%-- 			<td>  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="刪除"> -->
-<%-- 			     <input type="hidden" name="empno"  value="${empVO.empno}"> --%>
-<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
-<!-- 			     </td>  -->
-<%-- 			<td>${ArticleReportVO.getCreatedTimestamp}</td>  --%>
-		</tr>
-
-</c:forEach>
-<%--   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="刪除"> -->
-<%-- 			     <input type="hidden" name="empno"  value="${empVO.empno}"> --%>
-<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000001</td> -->
-<!--                                         <td>紅番茄</td> -->
-<!--                                         <td>0002310</td> -->
-<!--                                         <td>測試一下</td> -->
-<!--                                         <td> <span class="badge bg-success">已通過</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000002</td> -->
-<!--                                         <td>橙番茄</td> -->
-<!--                                         <td>0002311</td> -->
-<!--                                         <td>檢舉好玩的</td> -->
-<!--                                         <td> <span class="badge bg-success">已通過</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000003</td> -->
-<!--                                         <td>黃番茄</td> -->
-<!--                                         <td>0004231</td> -->
-<!--                                         <td>作法過於抽象........................................................................................</td> -->
-<!--                                         <td> <span class="badge bg-warning">未通過</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000004</td> -->
-<!--                                         <td>綠番茄</td> -->
-<!--                                         <td>0004231</td> -->
-<!--                                         <td>今天天氣真好</td> -->
-<!--                                         <td> <span class="badge bg-warning">未通過</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000005</td> -->
-<!--                                         <td>藍番茄</td> -->
-<!--                                         <td>0012445</td> -->
-<!--                                         <td>重複發文</td> -->
-<!--                                         <td> <span class="badge bg-success">已通過</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000006</td> -->
-<!--                                         <td>靛番茄</td> -->
-<!--                                         <td>003621</td> -->
-<!--                                         <td>不好吃</td> -->
-<!--                                         <td> <span class="badge bg-danger">未審核</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
-<!--                                     <tr> -->
-<!--                                         <td>0000007</td> -->
-<!--                                         <td>紫番茄</td> -->
-<!--                                         <td>003621</td> -->
-<!--                                         <td>抄襲</td> -->
-<!--                                         <td> <span class="badge bg-danger">未審核</span></td> -->
-<!--                                         <td>2023/09/17</td> -->
-<!--                                         <td> -->
-<!--                                             <a class="wcc" href="WCC_article_report_info.html">詳細資料</a> -->
-<!--                                             <button class="wcc">修改狀態</button> -->
-<!--                                         </td> -->
-<!--                                     </tr> -->
+<%-- <c:forEach var="a" items=" ${list1}"> --%>
+<!--     <tr> -->
+<%-- <%--         <td>${a.articleReportNo}</td> --%> 
+<%--         <td>${a.isEmpty()}</td> --%>
+<%-- <%--         <td>${a.articleReportNo}</td> --%> 
+<%-- <%--         <td>${a.getReportingReason()}</td> --%> 
+<%-- <%--         <td>${a.getReportingStatus()}</td> --%> 
+<%-- <%--         <td>${a.getCreatedTimestamp()}</td>  --%> 
+<!--         <td>1</td> -->
+<!--     </tr> -->
+<%-- </c:forEach> --%>
 
                                 </tbody>
                             </table>
@@ -397,35 +286,87 @@ try {
 
                 </section>
             </div>
+<%-- 			<td><%=request.getContextPath()%></td>  --%>
+			
+<%-- 			<td>  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="刪除"> -->
+<%-- 			     <input type="hidden" name="empno"  value="${empVO.empno}"> --%>
+<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
+<!-- 			     </td>  -->
+<%-- 			<td>${ArticleReportVO.getCreatedTimestamp}</td>  --%>
+<%--   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="刪除"> -->
+<%-- 			     <input type="hidden" name="empno"  value="${empVO.empno}"> --%>
+<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
+
+
 
             <footer>
                 
             </footer>
         </div>
     </div>
+<%--   <%	Ssion.getTransaction().commit(); --%>
+<!-- // 	Ssion.close(); -->
+<!-- // }catch (Exception e) { -->
+<!-- // 	e.printStackTrace(); -->
+<!-- // 	Ssion.getTransaction().rollback(); -->
+<!-- // } finally { -->
+<!-- // 	HibernateUtil.shutdown(); -->
+<%-- } %>   --%>
+<script src="assets\vendors\jquery-3.7.1.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // $("button.wcc").on('click', (e) => {
-            //     Swal.fire({
-            //         icon: "success",
-            //         title: "重設密碼成功!"
-            //     })
-            // })
+        	
+        	var myList = JSON.parse('<%= json %>');
+    
+          console.log(myList);
+          for(let i = 0 ; i< myList.length;i++){
+        	  let aa = myList[i];
+        	  console.log(aa.articleReportNo);
+        	  let status ={
+        			  0:" <span class='badge bg-success'>通過</span>",
+        			  1:"<span class='badge bg-warning'>尚未決定</span>",
+        			  2:" <span class='badge bg-danger'>否決</span>",
+        	  }
+        	  let text = "";
+        		  text += "<tr>";
+        		  text += "<td>"+aa.articleReportNo+"</td>";
+        		  text +=" <td>"+aa.articleNo+"</td>";
+        		  text +=" <td>"+aa.reporterId+"</td>";
+        		  text +=" <td>"+aa.reportingReason+"</td>";
+        		  text +=" <td>"+status[aa.reportingStatus]+"</td>";
+        		  text +=" <td>"+aa.createdTimestamp+"</td>";
+        		  text += "<td>";
+            	  text +=  " <form action='${pageContext.request.contextPath}/ArticleReportServlet' method='get'>"; 
+            	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
+        		  text += "<input type='hidden' name='articleReportNo' value='";
+        		  text += aa.articleReportNo+"'>";
+        		  text += "<input type='hidden' name='action' value='changeData'></form></td>";
+        		  text += "</tr>";
+        		console.log(text);
+           $("table#table1").children("tbody").append(text)      	  
+          }
+          
+            
+            
+            
         })
-    </script>
-    <script src="assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+        
+         </script>
+    
+    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <!-- <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script> -->
     
-    <script src="assets/js/main.js"></script>
-    <script src="assets\js\menu_ative.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets\js\menu_ative.js"></script>
 
 </body>
 

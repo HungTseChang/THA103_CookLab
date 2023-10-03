@@ -49,10 +49,20 @@ public class ArticleReportVO implements java.io.Serializable{
 		this.reportingStatus = reportingStatus;
 		this.createdTimestamp = createdTimestamp;
 	}
+		
+//		public ArticleReportVO(Integer articleReportNo, Object  createdTimestamp) {
+//			super();
+//			this.articleReportNo = articleReportNo;
+//			this.createdTimestamp = java.sql.Timestamp.valueOf(createdTimestamp.toString());
+//		為了避免 hibernate的查單一參數的指令Query query() = session.createQuery("select createdTimestamp from ArticleReportVO")
+//		因為回傳時會以婦類別的Date回傳 所以用Object接 然後用toString轉成字串 然後再切換成日期
+//		轉換方式請看 JavaEx_Additional  datetime.DateTimeConverter
+//		}
 		public ArticleReportVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+		
 		public Integer getArticleReportNo() {
 			return articleReportNo;
 		}
