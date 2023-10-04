@@ -3,7 +3,7 @@ package com.cooklab.recipe_comments_report.model;
 import java.util.List;
 
 import org.hibernate.Session;
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 public class RecipeCommentsReportHibernateTest {
 	public static void main(String[] args) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

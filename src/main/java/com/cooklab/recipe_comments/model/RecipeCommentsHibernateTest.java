@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 
 public class RecipeCommentsHibernateTest {
 	public static void main(String[] args) {

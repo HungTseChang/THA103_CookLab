@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 import com.cooklab.hashtag.model.HashtagVO;
 
 public class RecipeHashtagHibernateTest {

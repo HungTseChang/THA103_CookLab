@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.Util.*;
+import com.cooklab.util.*;
 public class ArticleCollectionJDBCDAOIm implements ArticleCollectionDAO {
 
 	private static final String INSERT_STMT = "INSERT INTO article_collection (article_no ,member_id) VALUES (?, ?)";
