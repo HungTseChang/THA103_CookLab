@@ -6,6 +6,7 @@ public interface PurchaseOrderDetailDAO {
     public void insert(PurchaseOrderDetailVO purchaseOrderDetail);
     public void update(PurchaseOrderDetailVO purchaseOrderDetail);
     public void delete(Integer purchaseOrderDetailNo);
+    public void deleteByPurchaseOrderNo(Integer purchaseOrderNo);
     public PurchaseOrderDetailVO findByPrimaryKey(Integer purchaseOrderDetailNo);
     public List<PurchaseOrderDetailVO> getAll();
 }

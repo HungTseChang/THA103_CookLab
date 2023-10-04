@@ -1,3 +1,12 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.cooklab.purchase_order.model.*"%>
+<%
+    PurchaseOrderService purchaseOrderSvc = new PurchaseOrderService();
+    List<PurchaseOrderVO> list = purchaseOrderSvc.getAll();
+    pageContext.setAttribute("list",list);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,14 +17,14 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="../assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/app.css">
+    <link rel="shortcut icon" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -41,7 +50,7 @@
                         <li class="sidebar-item  ">
                             <a href="WCC_Homepage.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>ÂæåÂè∞È¶ñÈ†Å</span>
+                                <span>´·•x≠∫≠∂</span>
                             </a>
                         </li>
 
@@ -49,7 +58,7 @@
                         <li class="sidebar-item ">
                             <a href="WCC_memeber.html" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>ÊúÉÂì°ÁÆ°ÁêÜ</span>
+                                <span>∑|≠˚∫ﬁ≤z</span>
                             </a>
                         </li>
 
@@ -57,16 +66,16 @@
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Ê¨äÈôêÁÆ°ÁêÜ</span>
+                                <span>≈v≠≠∫ﬁ≤z</span>
                             </a>
                             <ul class="submenu ">
                           
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_management.html">ÁÆ°ÁêÜÁÆ°ÁêÜËÄÖ</a>
+                                    <a href=".\WCC_permission_management.html">∫ﬁ≤z∫ﬁ≤z™Ã</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_createrule.html">ÂâµÁ´ãÊ¨äÈôêË¶èÂâá</a>
+                                    <a href=".\WCC_permission_createrule.html">≥–•ﬂ≈v≠≠≥W´h</a>
                                 </li>
                             
                             </ul>
@@ -75,14 +84,14 @@
                         <li class="sidebar-item has-sub ">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-collection-fill"></i>
-                                <span>È£üË≠úÁÆ°ÁêÜ</span>
+                                <span>≠π√–∫ﬁ≤z</span>
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href=".\recipe_form.html">È£üË≠úË°®ÂñÆ</a>
+                                    <a href=".\recipe_form.html">≠π√–™Ì≥Ê</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href=".\hashtag_form.html">Ê®ôÁ±§ÁÆ°ÁêÜ</a>
+                                    <a href=".\hashtag_form.html">º–≈“∫ﬁ≤z</a>
                                 </li>
                             </ul>
                         </li>
@@ -90,84 +99,84 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>ÂïÜÂüéÁÆ°ÁêÜ</span>
+                                <span>∞”´∞∫ﬁ≤z</span>
                             </a>
                             <ul class="submenu " style="display: block;">
                                 <li class="submenu-item ">
-                                    <a href=".\shopview.html">ÂïÜÂìÅË®≠ÂÆö</a>
+                                    <a href=".\shopview.html">∞”´~≥]©w</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="TYT_order_management.html">Ë®ÇÂñÆÁÆ°ÁêÜ</a>
+                                    <a href="TYT_order_management.html">≠q≥Ê∫ﬁ≤z</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCpromo_info.html">Êñ∞Â¢ûÂÑ™ÊÉ†Âà∏</a>
+                                    <a href=".\GCpromo_info.html">∑sºW¿u¥f®È</a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href=".\GCpromo.html">ÂÑ™ÊÉ†Âà∏ÁÆ°ÁêÜ</a>
+                                    <a href=".\GCpromo.html">¿u¥f®È∫ﬁ≤z</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCadvertise.html" >Âª£ÂëäÁÆ°ÁêÜ</a>
+                                    <a href=".\GCadvertise.html" >ºsßi∫ﬁ≤z</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCadvertise_info.html">Êñ∞Â¢ûÂª£Âëä</a>
+                                    <a href=".\GCadvertise_info.html">∑sºWºsßi</a>
                                 </li>
                                 <li class="submenu-item active">
-                                    <a href="TYT_purchase_order_allView.html">ÈÄ≤Ë≤®Ë°®ÂñÆ</a>
+                                    <a href="TYT_purchase_order_allView.html">∂i≥f™Ì≥Ê</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>Ë®éË´ñÂçÄÁÆ°ÁêÜ</span>
+                                <span>∞QΩ◊∞œ∫ﬁ≤z</span>
                             </a>
 
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\HO_discussion_cate.html">ÁúãÊùøÂàÜÈ°û</a>
+                                    <a href=".\HO_discussion_cate.html">¨›™O§¿√˛</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href=".\HO_discussion_info.html" >ÊñáÁ´†ÁÆ°ÁêÜ</a>
+                                    <a href=".\HO_discussion_info.html" >§Â≥π∫ﬁ≤z</a>
                                   </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>Êï∏ÊìöÂàÜÊûê</span>
+                                <span>º∆æ⁄§¿™R</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="#">ÊúÉÂì°Êï∏Êìö</a>
+                                    <a href="#">∑|≠˚º∆æ⁄</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">È£üË≠úÊï∏Êìö</a>
+                                    <a href="#">≠π√–º∆æ⁄</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">ÂïÜÂüéÊï∏Êìö</a>
+                                    <a href="#">∞”´∞º∆æ⁄</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">ÊñáÁ´†Êï∏Êìö</a>
+                                    <a href="#">§Â≥πº∆æ⁄</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>ÂÆ¢Êúç‰∏≠ÂøÉ</span>
+                                <span>´»™A§§§ﬂ</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_report.html">È£üË≠úÊ™¢Ëàâ</a>
+                                    <a href="WCC_recipe_report.html">≠π√–¿À¡|</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_sub_report.html">È£üË≠úÂõûÊñáÊ™¢Ëàâ</a>
+                                    <a href="WCC_recipe_sub_report.html">≠π√–¶^§Â¿À¡|</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_article_report.html">Ë®éË´ñÂçÄÊ™¢Ëàâ</a>
+                                    <a href="WCC_article_report.html">∞QΩ◊∞œ¿À¡|</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_official_notify.html">Á≥ªÁµ±ÈÄöÁü•</a>
+                                    <a href="WCC_official_notify.html">®t≤Œ≥q™æ</a>
                                 </li>
                             </ul>
                         </li>
@@ -201,12 +210,12 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>ÈÄ≤Ë≤®Ë°®ÂñÆ</h3>
+                            <h3>∂i≥f™Ì≥Ê</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">ÈÄ≤Ë≤®Ë°®ÂñÆ</a></li>
+                                    <li class="breadcrumb-item"><a href="#">∂i≥f™Ì≥Ê</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -218,82 +227,37 @@
                             
                         </div> -->
                         <div class="card-body">
-                            <a href="TYT_purchase_order_newList.html"><button class="btn btn-success">Êñ∞Â¢ûÈÄ≤Ë≤®Ë°®ÂñÆ</button></a>
+                            <a href="TYT_purchase_order_newList.html"><button class="btn btn-success">∑sºW∂i≥f™Ì≥Ê</button></a>
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>ÈÄ≤Ë≤®Á∑®Ëôü</th>
-                                        <th>ÈÄ≤Ë≤®Âª†ÂïÜ</th>
-                                        <th>Á∏ΩÈáëÈ°ç</th>
-                                        <th>ÈÄ≤Ë≤®ÊôÇÈñì</th>
+                                        <th>∂i≥fΩs∏π</th>
+                                        <th>∂i≥fºt∞”</th>
+                                        <th>¡`™˜√B</th>
+                                        <th>∂i≥fÆ…∂°</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     <td>1</td>
-					                <td>tibame</td>
-					                <td>400</td>
+                                <c:forEach var="purchaseOrderVO" items="${list}">
+                                <tr>
+                                    <td>${purchaseOrderVO.purchaseOrderNo}</td>
+					                <td>${purchaseOrderVO.purchaseOrderSupplier}</td>
+					                <td>${purchaseOrderVO.purchaseOrderTotal}</td>
 					                <td class="d-flex justify-content-between align-items-center">
-					                <span>2023-09-11</span>
+					                <span>${purchaseOrderVO.purchaseOrderDate}</span>
 					                <div class="d-flex justify-content-end align-items-center">
-					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">Á∑®ËºØÊàñÊü•Áúã</a>
+					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">ΩsøË©Œ¨d¨›</a>
 					
 					                    <span></span>
-					                    <button class="btn btn-outline-danger">Âà™Èô§</button>
+					                    <form action="<%=request.getContextPath()%>/PurchaseOrderServlet" method="post">
+						                    <input type="hidden" name="orderNo" value="${purchaseOrderVO.purchaseOrderNo}">
+						                    <input type="hidden" name="action" value="delete">
+						                    <button type="submit" class="btn btn-outline-danger">ßR∞£</button>
+						                </form>
 					                </div>
 					                </td>
-                                
-                                    <td>2</td>
-					                <td>pxxme</td>
-					                <td>500</td>
-					                <td class="d-flex justify-content-between align-items-center">
-					                <span>2023-09-11</span>
-					                <div class="d-flex justify-content-end align-items-center">
-					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">Á∑®ËºØÊàñÊü•Áúã</a>
-					
-					                    <span></span>
-					                    <button class="btn btn-outline-danger">Âà™Èô§</button>
-					                </div>
-					                </td>
-                                
-                                    <td>3</td>
-					                <td>hoho</td>
-					                <td>600</td>
-					                <td class="d-flex justify-content-between align-items-center">
-					                <span>2023-09-11</span>
-					                <div class="d-flex justify-content-end align-items-center">
-					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">Á∑®ËºØÊàñÊü•Áúã</a>
-					
-					                    <span></span>
-					                    <button class="btn btn-outline-danger">Âà™Èô§</button>
-					                </div>
-					                </td>
-                                
-                                    <td>4</td>
-					                <td>Â∞èËæ≤Â§©Â†Ç</td>
-					                <td>600</td>
-					                <td class="d-flex justify-content-between align-items-center">
-					                <span>2023-09-11</span>
-					                <div class="d-flex justify-content-end align-items-center">
-					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">Á∑®ËºØÊàñÊü•Áúã</a>
-					
-					                    <span></span>
-					                    <button class="btn btn-outline-danger">Âà™Èô§</button>
-					                </div>
-					                </td>
-                                
-                                    <td>5</td>
-					                <td>Âè∞ÁÅ£ËéäÂúí</td>
-					                <td>600</td>
-					                <td class="d-flex justify-content-between align-items-center">
-					                <span>2023-09-11</span>
-					                <div class="d-flex justify-content-end align-items-center">
-					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">Á∑®ËºØÊàñÊü•Áúã</a>
-					
-					                    <span></span>
-					                    <button class="btn btn-outline-danger">Âà™Èô§</button>
-					                </div>
-					                </td>
-                                
+					              </tr>
+                                </c:forEach>
                                 </tbody>
                         </div>
                     </div>
