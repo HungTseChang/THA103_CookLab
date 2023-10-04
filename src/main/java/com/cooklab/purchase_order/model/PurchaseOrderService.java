@@ -5,16 +5,18 @@ import java.util.List;
 public class PurchaseOrderService {
 
 	private PurchaseOrderDAO dao;
-	
+
 	public PurchaseOrderService() {
 		dao = new PurchaseOrderJDBCDAOIm();
 	}
 
-	public List<PurchaseOrderVO> getAll() {
+	public List<PurchaseOrderVO> getAll(){
 		return dao.getAll();
 	}
 	
-	public void delete(Integer purchaseOrderNo) {
-		dao.delete(purchaseOrderNo);
+	public void delete(Integer PurchaseOrderNo) {
+		System.out.println("a");
+		dao.delete(PurchaseOrderNo);
 	}
+	
 }
