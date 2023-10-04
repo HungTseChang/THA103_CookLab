@@ -30,7 +30,7 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, ArticleVO.getArticleCategory());
+			pstmt.setInt(1, ArticleVO.getArticleCategory());
 			pstmt.setString(2, ArticleVO.getArticleTitle());
 			pstmt.setInt(3, ArticleVO.getMemberId());
 			pstmt.setByte(4, ArticleVO.getArticleStatus());
@@ -79,7 +79,7 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, ArticleVO.getArticleCategory());
+			pstmt.setInt(1, ArticleVO.getArticleCategory());
 			pstmt.setString(2, ArticleVO.getArticleTitle());
 			pstmt.setInt(3, ArticleVO.getMemberId());
 			pstmt.setByte(4, ArticleVO.getArticleStatus());
@@ -182,7 +182,7 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 				// empArticleVO 也稱為 Domain objects
 				ArticleVO = new ArticleVO();
 				ArticleVO.setArticleNo(rs.getInt("article_no"));
-				ArticleVO.setArticleCategory(rs.getString("article_category"));
+				ArticleVO.setArticleCategory(rs.getInt("article_category"));
 				ArticleVO.setArticleTitle(rs.getString("article_title"));
 				ArticleVO.setMemberId(rs.getInt("member_id"));
 				//ArticleVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
@@ -247,7 +247,7 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 				// empArticleVO 也稱為 Domain objects
 				ArticleVO = new ArticleVO();
 				ArticleVO.setArticleNo(rs.getInt("article_no"));
-				ArticleVO.setArticleCategory(rs.getString("article_category"));
+				ArticleVO.setArticleCategory(rs.getInt("article_category"));
 				ArticleVO.setArticleTitle(rs.getString("article_title"));
 				ArticleVO.setMemberId(rs.getInt("member_id"));
 				//ArticleVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
@@ -300,7 +300,7 @@ public class ArticleJDBCDAOIm implements ArticleDAO {
 
 		// 新增
 		ArticleVO ArticleVO1 = new ArticleVO();
-		ArticleVO1.setArticleCategory("閒聊版");
+		ArticleVO1.setArticleCategory(1);
 		ArticleVO1.setArticleTitle("今天大家吃甚麼?");
 		ArticleVO1.setMemberId(Integer.valueOf(1));
 		ArticleVO1.setArticleStatus(Byte.valueOf((byte) 1));

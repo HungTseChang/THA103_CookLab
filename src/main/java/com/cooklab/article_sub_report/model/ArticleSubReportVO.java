@@ -32,6 +32,9 @@ public class ArticleSubReportVO  {
 	@Column (name="reporting_status")
 	private byte reportingStatus;
 	
+	@Column (name="reporting_answer")
+	private String reportingAnswer;
+	
 	@Column (name="created_timestamp" ,insertable = false)
 	private Timestamp createdTimestamp;
 	
@@ -42,16 +45,16 @@ public class ArticleSubReportVO  {
 	
 	
 	public ArticleSubReportVO( Integer articleSubNo, Integer reporterId,
-			String reportingReason, byte reportingStatus) {
+			String reportingReason, byte reportingStatus ,String reportingAnswer ) {
 		super();
 		this.articleSubReportNo = articleSubReportNo;
 		this.articleSubNo = articleSubNo;
 		this.reporterId = reporterId;
 		this.reportingReason = reportingReason;
 		this.reportingStatus = reportingStatus;
+		this.reportingAnswer = reportingAnswer;
 		
 	}
-
 
 
 	public Integer getArticleSubReportNo() {
@@ -90,12 +93,29 @@ public class ArticleSubReportVO  {
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
+
+
+
+	public String getReportingAnswer() {
+		return reportingAnswer;
+	}
+
+
+
+	public void setReportingAnswer(String reportingAnswer) {
+		this.reportingAnswer = reportingAnswer;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ArticleSubReportVO [articleSubReportNo=" + articleSubReportNo + ", articleSubNo=" + articleSubNo
 				+ ", reporterId=" + reporterId + ", reportingReason=" + reportingReason + ", reportingStatus="
-				+ reportingStatus + ", createdTimestamp=" + createdTimestamp + "]";
+				+ reportingStatus + ", reportingAnswer=" + reportingAnswer + ", createdTimestamp=" + createdTimestamp
+				+ "]";
 	}
+	
 	
 	
 	
