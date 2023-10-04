@@ -298,14 +298,14 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 //			dao.insert(ArticleReportVO1);
 
 //			// 修改
-		ArticleReportVO ArticleReportVO2 = new ArticleReportVO();
-		ArticleReportVO2.setArticleReportNo(Integer.valueOf(1));
-		ArticleReportVO2.setArticleNo(Integer.valueOf(1));
-		ArticleReportVO2.setReporterId(Integer.valueOf(1));
-		ArticleReportVO2.setReportingReason("排版真的好累ZZ");
-		ArticleReportVO2.setReportingStatus(Byte.valueOf((byte) 0));
-		ArticleReportVO2.setReportingAnswer("依然不准休息");
-		dao.update(ArticleReportVO2);
+//		ArticleReportVO ArticleReportVO2 = new ArticleReportVO();
+//		ArticleReportVO2.setArticleReportNo(Integer.valueOf(1));
+//		ArticleReportVO2.setArticleNo(Integer.valueOf(1));
+//		ArticleReportVO2.setReporterId(Integer.valueOf(1));
+//		ArticleReportVO2.setReportingReason("排版真的好累ZZ");
+//		ArticleReportVO2.setReportingStatus(Byte.valueOf((byte) 0));
+//		ArticleReportVO2.setReportingAnswer("依然不准休息");
+//		dao.update(ArticleReportVO2);
 
 ////			// 刪除
 //			dao.delete(2);

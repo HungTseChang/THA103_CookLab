@@ -20,7 +20,7 @@ public class ArticleVO implements java.io.Serializable {
 	private Integer articleNo;
 	
 	@Column(name = "article_category")  
-	private String articleCategory;
+	private Integer articleCategory;
 	
 	@Column(name = "article_title")  
 	private String articleTitle;
