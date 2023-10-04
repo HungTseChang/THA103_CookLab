@@ -25,11 +25,11 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "reporting_reason")  
 		private String reportingReason;
 	
-	@Column(name = "reporting_answer")  
-	private String reportingAnswer;
-	
 	@Column(name = "reporting_status")  
 		private Byte reportingStatus ;
+	
+	@Column(name = "reporting_answer")  
+	private String reportingAnswer;
 	
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Timestamp createdTimestamp;
@@ -101,6 +101,12 @@ public class ArticleReportVO implements java.io.Serializable{
 		}
 		public void setCreatedTimestamp(Timestamp createdTimestamp) {
 			this.createdTimestamp = createdTimestamp;
+		}
+		public String getReportingAnswer() {
+			return reportingAnswer;
+		}
+		public void setReportingAnswer(String reportingAnswer) {
+			this.reportingAnswer = reportingAnswer;
 		}
 		
 		

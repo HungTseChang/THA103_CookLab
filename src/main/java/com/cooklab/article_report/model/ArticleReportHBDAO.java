@@ -43,11 +43,11 @@ public class ArticleReportHBDAO {
 
        	ArticleReportVO ArticleReportVO1  = session.get(ArticleReportVO.class,ArticleReportVO.getArticleReportNo());
        	if(ArticleReportVO1 != null) {
-       		ArticleReportVO1.getArticleNo()
-       		ArticleReportVO1.getReporterId()
-       		ArticleReportVO1.getReportingReason()
-       		ArticleReportVO1
-       		ArticleReportVO1.setReportingReason("");
+       		ArticleReportVO1.setArticleNo(null);
+       		ArticleReportVO1.setReporterId(null);
+       		ArticleReportVO1.setReportingReason(null);
+       		ArticleReportVO1.setReportingStatus(null);
+       		ArticleReportVO1.setReportingAnswer(null);
        		
        	}
 			session.getTransaction().commit();
