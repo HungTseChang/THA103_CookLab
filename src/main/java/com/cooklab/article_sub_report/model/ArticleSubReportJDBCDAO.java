@@ -171,7 +171,7 @@ public class ArticleSubReportJDBCDAO implements ArticleSubReportDAO_interface {
 				articleSubReportVO.setArticleSubNo(rs.getInt("article_sub_no"));
 				articleSubReportVO.setReporterId(rs.getInt("reporter_id"));
 				articleSubReportVO.setReportingReason(rs.getString("reporting_reason"));
-				articleSubReportVO.setReportingStatus(rs.getInt("reporting_status"));
+				articleSubReportVO.setReportingStatus(rs.getByte("reporting_status"));
 				articleSubReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
@@ -232,7 +232,7 @@ public class ArticleSubReportJDBCDAO implements ArticleSubReportDAO_interface {
 				articleSubReportVO.setArticleSubNo(rs.getInt("article_sub_no"));
 				articleSubReportVO.setReporterId(rs.getInt("reporter_id"));
 				articleSubReportVO.setReportingReason(rs.getString("reporting_reason"));
-				articleSubReportVO.setReportingStatus(rs.getInt("reporting_status"));
+				articleSubReportVO.setReportingStatus(rs.getByte("reporting_status"));
 				articleSubReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 				list.add(articleSubReportVO); // Store the row in the list
@@ -274,26 +274,19 @@ public class ArticleSubReportJDBCDAO implements ArticleSubReportDAO_interface {
 	public static void main(String[] args) {
 		ArticleSubReportJDBCDAO dao = new ArticleSubReportJDBCDAO();
 
-//		 ���J
-
 //		ArticleSubReportVO articleSubReportVO = new ArticleSubReportVO( 5 ,1 , "�ڴN�O�Q���|�A�̩�", 1); 
 //		dao.insert(articleSubReportVO);
 
-//		��s
-		ArticleSubReportVO articleSubReportVO = new ArticleSubReportVO( 2 ,3 , "��s���|�γ�1111", 1); 
-		articleSubReportVO.setArticleSubReportNo(5);
-		dao.update(articleSubReportVO);
-		// �R��
+//		ArticleSubReportVO articleSubReportVO = new ArticleSubReportVO( 2 ,3 , "拉拉拉拉", 1); 
+//		articleSubReportVO.setArticleSubReportNo(5);
+//		dao.update(articleSubReportVO);
+
 //		dao.delete(6);
-
-		// �d�@��
-
 
 		
 //		ArticleSubReportVO articleSubReportVO = dao.findByPrimaryKey(5);
 //		System.out.println(articleSubReportVO);
 
-		// �d����
 //		List<ArticleSubReportVO> list = dao.getAll();
 //		for (ArticleSubReportVO aArticleSubReportVO : list) {
 //			System.out.println(aArticleSubReportVO);

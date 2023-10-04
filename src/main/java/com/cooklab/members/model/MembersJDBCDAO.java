@@ -2,6 +2,8 @@ package com.cooklab.members.model;
 
 import java.util.*;
 import java.sql.*;
+import java.sql.Date;
+
 import com.cooklab.util.Util;
 
 public class MembersJDBCDAO implements MembersDAO_interface {
@@ -32,7 +34,7 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 			pstmt.setString(3, membersVO.getMemberIntroduce());
 			pstmt.setString(4, membersVO.getMemberCellphone());
 			pstmt.setString(5, membersVO.getMemberMail());
-			pstmt.setDate(6, membersVO.getMemberDate());
+			pstmt.setDate(6, (Date) membersVO.getMemberDate());
 			pstmt.setString(7, membersVO.getMemberAddress());
 			pstmt.setString(8, membersVO.getMemberCountry());
 			pstmt.setInt(9, membersVO.getMemberStatus());
@@ -85,7 +87,7 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 			pstmt.setString(3, membersVO.getMemberIntroduce());
 			pstmt.setString(4, membersVO.getMemberCellphone());
 			pstmt.setString(5, membersVO.getMemberMail());
-			pstmt.setDate(6, membersVO.getMemberDate());
+			pstmt.setDate(6, (Date) membersVO.getMemberDate());
 			pstmt.setString(7, membersVO.getMemberAddress());
 			pstmt.setString(8, membersVO.getMemberCountry());
 			pstmt.setInt(9, membersVO.getMemberStatus());
@@ -194,10 +196,10 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 				membersVO.setMemberDate(rs.getDate("member_date"));
 				membersVO.setMemberAddress(rs.getString("member_address"));
 				membersVO.setMemberCountry(rs.getString("member_country"));
-				membersVO.setMemberStatus(rs.getInt("member_status"));
+				membersVO.setMemberStatus(rs.getByte("member_status"));
 				membersVO.setMemberPicture(rs.getBytes("member_picture"));
 				membersVO.setMemberNickname(rs.getString("member_nickname"));
-				membersVO.setMemberGender(rs.getInt("member_gender"));
+				membersVO.setMemberGender(rs.getByte("member_gender"));
 				membersVO.setCredcreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				membersVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
 			}
@@ -263,10 +265,10 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 				membersVO.setMemberDate(rs.getDate("member_date"));
 				membersVO.setMemberAddress(rs.getString("member_address"));
 				membersVO.setMemberCountry(rs.getString("member_country"));
-				membersVO.setMemberStatus(rs.getInt("member_status"));
+				membersVO.setMemberStatus(rs.getByte("member_status"));
 				membersVO.setMemberPicture(rs.getBytes("member_picture"));
 				membersVO.setMemberNickname(rs.getString("member_nickname"));
-				membersVO.setMemberGender(rs.getInt("member_gender"));
+				membersVO.setMemberGender(rs.getByte("member_gender"));
 				membersVO.setCredcreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				membersVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
 				list.add(membersVO); // Store the row in the list

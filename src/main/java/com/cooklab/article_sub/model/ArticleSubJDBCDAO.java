@@ -170,7 +170,7 @@ public class ArticleSubJDBCDAO implements ArticleSubDAO_interface {
 				articleSubVO.setArticleNo(rs.getInt("article_no"));
 				articleSubVO.setMemberId(rs.getInt("member_id"));
 				articleSubVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				articleSubVO.setArticleSubStatus(rs.getInt("article_sub_status"));
+				articleSubVO.setArticleSubStatus(rs.getByte("article_sub_status"));
 				articleSubVO.setArticleSubContent(rs.getString("article_sub_content"));
 				articleSubVO.setArticleSubCount(rs.getInt("article_sub_count"));
 				articleSubVO.setLastEditTimeStampstame(rs.getTimestamp("last_edit_timestamp"));
@@ -231,7 +231,7 @@ public class ArticleSubJDBCDAO implements ArticleSubDAO_interface {
 				articleSubVO.setArticleNo(rs.getInt("article_no"));
 				articleSubVO.setMemberId(rs.getInt("member_id"));
 				articleSubVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
-				articleSubVO.setArticleSubStatus(rs.getInt("article_sub_status"));
+				articleSubVO.setArticleSubStatus(rs.getByte("article_sub_status"));
 				articleSubVO.setArticleSubContent(rs.getString("article_sub_content"));
 				articleSubVO.setArticleSubCount(rs.getInt("article_sub_count"));
 				articleSubVO.setLastEditTimeStampstame(rs.getTimestamp("last_edit_timestamp"));

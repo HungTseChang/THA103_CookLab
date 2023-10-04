@@ -26,21 +26,14 @@ public class PurchaseOrderTest {
 //		poDAOIm.delete(4);
 
 		// 查詢單一資料
-//		PurchaseOrderVO povo3 = pODAOIm.findByPrimaryKey(2);
-//		System.out.print(povo3.getPurchaseOrderNo() + ",");
-//		System.out.print(povo3.getPurchaseOrderDate() + ",");
-//		System.out.print(povo3.getPurchaseOrderSupplier() + ",");
-//		System.out.println(povo3.getPurchaseOrderTotal() );
-//		System.out.println("---------------------");
+		PurchaseOrderVO povo3 = pODAOIm.findByPrimaryKey(2);
+		System.out.println(povo3);
+		System.out.println("---------------------");
 
 		// 查詢全部資料
 		List<PurchaseOrderVO> list = pODAOIm.getAll();
 		for (PurchaseOrderVO apovo3 : list) {
-			System.out.print(apovo3.getPurchaseOrderNo() + ",");
-			System.out.print(apovo3.getPurchaseOrderDate() + ",");
-			System.out.print(apovo3.getPurchaseOrderSupplier() + ",");
-			System.out.print(apovo3.getPurchaseOrderTotal() + ",");
-			System.out.println();
+			System.out.println(apovo3);
 		}
 	}
 }

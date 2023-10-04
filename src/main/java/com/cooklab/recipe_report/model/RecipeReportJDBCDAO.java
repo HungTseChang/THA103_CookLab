@@ -174,7 +174,7 @@ public class RecipeReportJDBCDAO implements RecipeReoprtDAO_interface {
 				recipeReportVO.setMemberId(rs.getInt("member_id"));
 				recipeReportVO.setRecipeNo(rs.getInt("recipe_no"));
 				recipeReportVO.setReportingReason(rs.getString("reporting_reason"));
-				recipeReportVO.setReportingStatus(rs.getInt("reporting_status"));
+				recipeReportVO.setReportingStatus(rs.getByte("reporting_status"));
 				recipeReportVO.setCredcreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
@@ -233,7 +233,7 @@ public class RecipeReportJDBCDAO implements RecipeReoprtDAO_interface {
 				recipeReportVO.setMemberId(rs.getInt("member_id"));
 				recipeReportVO.setRecipeNo(rs.getInt("recipe_no"));
 				recipeReportVO.setReportingReason(rs.getString("reporting_reason"));
-				recipeReportVO.setReportingStatus(rs.getInt("reporting_status"));
+				recipeReportVO.setReportingStatus(rs.getByte("reporting_status"));
 				recipeReportVO.setCredcreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(recipeReportVO); // Store the row in the list
 			}

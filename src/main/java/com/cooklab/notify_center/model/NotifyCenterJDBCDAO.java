@@ -165,7 +165,7 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				notifyCenterVO.setNotifyNo(rs.getInt("notify_no"));
 				notifyCenterVO.setMemberId(rs.getInt("member_id"));
 				notifyCenterVO.setNotifyType(rs.getInt("notify_type"));
-				notifyCenterVO.setNotifyRead(rs.getInt("notify_read"));
+				notifyCenterVO.setNotifyRead(rs.getByte("notify_read"));
 				notifyCenterVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				notifyCenterVO.setNotifyContent(rs.getString("notify_content"));
 			}
@@ -225,7 +225,7 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				notifyCenterVO.setNotifyNo(rs.getInt("notify_no"));
 				notifyCenterVO.setMemberId(rs.getInt("member_id"));
 				notifyCenterVO.setNotifyType(rs.getInt("notify_type"));
-				notifyCenterVO.setNotifyRead(rs.getInt("notify_read"));
+				notifyCenterVO.setNotifyRead(rs.getByte("notify_read"));
 				notifyCenterVO.setNotifyContent(rs.getString("notify_content"));
 				notifyCenterVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(notifyCenterVO); // Store the row in the list

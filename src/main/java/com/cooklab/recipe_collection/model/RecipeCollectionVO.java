@@ -2,10 +2,24 @@ package com.cooklab.recipe_collection.model;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "recipe_collection")
 public class RecipeCollectionVO implements java.io.Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "collection_no", updatable = false)
 	private Integer collectionNo;
+	@Column(name = "recipe_no")
 	private Integer recipeNo;
+	@Column(name = "member_id")
 	private Integer memberId;
+	@Column(name = "created_timestamp", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
 
 	public RecipeCollectionVO() {
