@@ -14,8 +14,8 @@ public class IngredientCategoryJDBCDAOIm implements IngredientCategoryDAO {
 	private static final String INSERT_STMT = "insert into ingredient_category(category_name) values (?)";
 	private static final String UPDATE = "update ingredient_category set category_name = ? where ingredient_category_no = ?";
 	private static final String DELETE = "delete from ingredient_category where ingredient_category_no = ?";
-	private static final String GET_ONE_STMT = "select ingredient_category_no, category_name from ingredient_category where ingredient_category_no = ?";
-	private static final String GET_ALL_STMT = "select ingredient_category_no, category_name from ingredient_category order by ingredient_category_no";
+	private static final String GET_ONE_STMT = "select ingredient_category_no, category_name,created_timestamp from ingredient_category where ingredient_category_no = ?";
+	private static final String GET_ALL_STMT = "select ingredient_category_no, category_name,created_timestamp from ingredient_category order by ingredient_category_no";
 
 	@Override
 	public void insert(IngredientCategoryVO ingredientCategory) {
@@ -167,6 +167,7 @@ public class IngredientCategoryJDBCDAOIm implements IngredientCategoryDAO {
 				ingredientCategory = new IngredientCategoryVO();
 				ingredientCategory.setIngredientCategoryNo(rs.getInt("ingredient_category_no"));
 				ingredientCategory.setCategoryName(rs.getString("category_name"));
+				ingredientCategory.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -222,6 +223,7 @@ public class IngredientCategoryJDBCDAOIm implements IngredientCategoryDAO {
 				ingredientCategory = new IngredientCategoryVO();
 				ingredientCategory.setIngredientCategoryNo(rs.getInt("ingredient_category_no"));
 				ingredientCategory.setCategoryName(rs.getString("category_name"));
+				ingredientCategory.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(ingredientCategory); // 儲存表格資料至list
 			}
 

@@ -14,8 +14,8 @@ public class KitchenwareCategoryJDBCDAOIm implements KitchenwareCategoryDAO {
 	private static final String INSERT_STMT = "insert into kitchenware_category(category_name) values (?)";
 	private static final String UPDATE = "update kitchenware_category set category_name = ? where kitchenware_category_no = ?";
 	private static final String DELETE = "delete from kitchenware_category where kitchenware_category_no = ?";
-	private static final String GET_ONE_STMT = "select kitchenware_category_no, category_name from kitchenware_category where kitchenware_category_no = ?";
-	private static final String GET_ALL_STMT = "select kitchenware_category_no, category_name from kitchenware_category order by kitchenware_category_no;";
+	private static final String GET_ONE_STMT = "select kitchenware_category_no, category_name,created_timestamp from kitchenware_category where kitchenware_category_no = ?";
+	private static final String GET_ALL_STMT = "select kitchenware_category_no, category_name,created_timestamp from kitchenware_category order by kitchenware_category_no;";
 
 	@Override
 	public void insert(KitchenwareCategoryVO kitchenwareCategory) {
@@ -167,6 +167,7 @@ public class KitchenwareCategoryJDBCDAOIm implements KitchenwareCategoryDAO {
 				kitchenwareCategory = new KitchenwareCategoryVO();
 				kitchenwareCategory.setKitchenwareCategoryNo(rs.getInt("kitchenware_category_no"));
 				kitchenwareCategory.setCategoryName(rs.getString("category_name"));
+				kitchenwareCategory.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -222,6 +223,7 @@ public class KitchenwareCategoryJDBCDAOIm implements KitchenwareCategoryDAO {
 				kitchenwareCategory = new KitchenwareCategoryVO();
 				kitchenwareCategory.setKitchenwareCategoryNo(rs.getInt("kitchenware_category_no"));
 				kitchenwareCategory.setCategoryName(rs.getString("category_name"));
+				kitchenwareCategory.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(kitchenwareCategory); // 儲存表格資料至list
 			}
 
