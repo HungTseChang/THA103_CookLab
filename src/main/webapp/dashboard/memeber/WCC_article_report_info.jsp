@@ -249,31 +249,31 @@
                                                                 <label>文章檢舉編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="000001" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getArticleReportNo()} " disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>文章檢舉日期</label>
+                                                                <label>文章檢舉時間</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="2023/09/17" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getCreatedTimestamp()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員編號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="0000001" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getReporterId()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員帳號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="tomato_red" disabled>
+                                                                <input type="text" value="等待連結" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員暱稱(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="紅番茄"
+                                                                <input type="text" value="等待連結"
                                                                     disabled>
                                                             </div>
 
@@ -299,32 +299,32 @@
                                                                 <label>文章編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="0002310" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getArticleNo()}" disabled>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <label>文章名稱</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="吃葡萄不吐葡萄皮" disabled>
+                                                                <input type="text" value="等待連結" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員編號(食譜作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="0000002" disabled>
+                                                                <input type="text" value="等待連結" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員帳號(食譜作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="tomato_orange" disabled>
+                                                                <input type="text" value="等待連結" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員暱稱(食譜作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="橙番茄" disabled>
+                                                                <input type="text" value="等待連結" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -344,7 +344,7 @@
                                 <div style="width: 100%; min-height: 100px; padding-left:80PX">
                                     <textarea id="context" style="width: 70%; 
                                     resize: none; overflow: hidden;  padding:10PX; min-height:70px;" 
-                                     disabled></textarea>
+                                     disabled> ${ArticleReportVO.getReportingReason()}</textarea>
 
                                 </div>
                             </div>
@@ -370,7 +370,7 @@
 
                                 </div>
                                 <div style="text-align: right;">
-                                <a class="btn btn-primary rounded-pill" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="WCC_article_report.html" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
+                                <a class="btn btn-primary rounded-pill" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="${pageContext.request.contextPath}/dashboard/memeber/WCC_article_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
                                 </div>
                             </div>
                                 <div class="col-md-2"></div>

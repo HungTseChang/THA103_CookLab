@@ -40,7 +40,7 @@ public class ArticleReportServlet extends HttpServlet {
 			forwardPath = null;
 			break;
 		default:
-			forwardPath = "/WCC_article_report.jsp";
+			forwardPath = "WCC_article_report.jsp";
 	}
 //		res.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
@@ -53,7 +53,10 @@ public class ArticleReportServlet extends HttpServlet {
 	
 	private String changeData(HttpServletRequest req, HttpServletResponse res) {
 		int articleReportNo = Integer.valueOf(req.getParameter("articleReportNo"));
-		
+		 ArticleReportJDBCDAOIm arjm = new ArticleReportJDBCDAOIm();
+		 ArticleReportVO ArticleReportVO = arjm.findByPrimaryKey(articleReportNo);
+			req.setAttribute("ArticleReportVO", ArticleReportVO);
+
 
 		
 		return "/dashboard/memeber/WCC_article_report_info.jsp";

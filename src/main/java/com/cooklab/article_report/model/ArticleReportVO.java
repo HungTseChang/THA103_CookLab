@@ -24,7 +24,10 @@ public class ArticleReportVO implements java.io.Serializable{
 		
 	@Column(name = "reporting_reason")  
 		private String reportingReason;
-		
+	
+	@Column(name = "reporting_answer")  
+	private String reportingAnswer;
+	
 	@Column(name = "reporting_status")  
 		private Byte reportingStatus ;
 	
