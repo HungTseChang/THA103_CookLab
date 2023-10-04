@@ -34,18 +34,30 @@ public class RecipeReportVO {
 	@Column (name="reporting_status")
 	private byte reportingStatus;
 	
+	@Column (name="reporting_answer")
+	private String reportingAnswer;
+	
+	public String getReportingAnswer() {
+		return reportingAnswer;
+	}
+
+	public void setReportingAnswer(String reportingAnswer) {
+		this.reportingAnswer = reportingAnswer;
+	}
 	@Column (name="created_timestamp" ,insertable = false)
 	private Timestamp credcreatedTimestamp;
 	
 	
 	public RecipeReportVO() {}
 	
-	public RecipeReportVO(Integer memberId, Integer recipeNo, String reportingReason, byte reportingStatus) {
+	public RecipeReportVO(Integer memberId, Integer recipeNo, String reportingReason, byte reportingStatus
+			, String reportingAnswer) {
 		super();
 		this.memberId = memberId;
 		this.recipeNo = recipeNo;
 		this.reportingReason = reportingReason;
 		this.reportingStatus = reportingStatus;
+		this.reportingAnswer = reportingAnswer;
 	}
 	
 	
@@ -85,12 +97,15 @@ public class RecipeReportVO {
 	public void setCredcreatedTimestamp(Timestamp credcreatedTimestamp) {
 		this.credcreatedTimestamp = credcreatedTimestamp;
 	}
+
 	@Override
 	public String toString() {
 		return "RecipeReportVO [recipeReportNo=" + recipeReportNo + ", memberId=" + memberId + ", recipeNo=" + recipeNo
-				+ ", reportingReason=" + reportingReason + ", reportingStatus=" + reportingStatus
-				+ ", credcreatedTimestamp=" + credcreatedTimestamp + "]";
+				+ ", reportingReason=" + reportingReason + ", reportingStatus=" + reportingStatus + ", reportingAnswer="
+				+ reportingAnswer + ", credcreatedTimestamp=" + credcreatedTimestamp + "]";
 	}
+	
+	
 	
 	
 	

@@ -21,7 +21,7 @@ public class RecipeReportTest {
 
 			session.beginTransaction();
 			
-//			RecipeReportVO r1 =new RecipeReportVO();
+			RecipeReportVO r1 =new RecipeReportVO();
 //			r1.setMemberId(2);
 //			r1.setRecipeNo(2);
 //			r1.setReportingReason("你的大麻來源不明");
@@ -30,8 +30,8 @@ public class RecipeReportTest {
 //			session.save(r1);
 			
 			//更新資料
-//			r1 = session.get(RecipeReportVO.class, 1);
-//			r1.setReportingReason("你的大麻來源不明");
+			r1 = session.get(RecipeReportVO.class, 3);
+			r1.setReportingAnswer("Would you kidding me ?");
 			
 			//刪除資料
 //			r1.setRecipeReportNo(1);
