@@ -14,15 +14,15 @@ import com.cooklab.util.*;
 public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO recipe_comments_report (member_id,recipe_comments_no,reporting_comments_reason,reporting_status) VALUES (?, ?, ?, ?)";
+		"INSERT INTO recipe_comments_report (member_id,recipe_comments_no,reporting_comments_reason,reporting_status,reporting_answer) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"SELECT recipe_report_no, member_id, recipe_comments_no, reporting_comments_reason, reporting_status,created_timestamp FROM recipe_comments_report order by recipe_report_no";
+		"SELECT recipe_report_no, member_id, recipe_comments_no, reporting_comments_reason, reporting_status,reporting_answer,created_timestamp FROM recipe_comments_report order by recipe_report_no";
 	private static final String GET_ONE_STMT = 
-		"SELECT recipe_report_no, member_id, recipe_comments_no, reporting_comments_reason, reporting_status,created_timestamp FROM recipe_comments_report where recipe_report_no = ?";
+		"SELECT recipe_report_no, member_id, recipe_comments_no, reporting_comments_reason, reporting_status,reporting_answer,created_timestamp FROM recipe_comments_report where recipe_report_no = ?";
 	private static final String DELETE = 
 		"DELETE FROM recipe_comments_report where recipe_report_no = ?";
 	private static final String UPDATE = 
-		"UPDATE recipe_comments_report set member_id=?, recipe_comments_no=?, reporting_comments_reason=?,  reporting_status=? where recipe_report_no = ?";
+		"UPDATE recipe_comments_report set member_id=?, recipe_comments_no=?, reporting_comments_reason=?,  reporting_status=? reporting_answer=? where recipe_report_no = ?";
 
 	//新增===========================================================================================================
 	@Override
@@ -43,6 +43,7 @@ public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 			pstmt.setString(3, recipeCommentsReportVO.getReportingCommentsReason());
 //			pstmt.setDate(4, recipeCommentsReportVO.getReportingCommentsTimestamp());
 			pstmt.setInt(4, recipeCommentsReportVO.getReportingStatus());
+			pstmt.setString(5, recipeCommentsReportVO.getReportingAnswer());
 
 			pstmt.executeUpdate();
 
@@ -92,6 +93,7 @@ public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 //			pstmt.setDate(4, recipeCommentsReportVO.getReportingCommentsTimestamp());
 			pstmt.setInt(4, recipeCommentsReportVO.getReportingStatus());
 			pstmt.setInt(5, recipeCommentsReportVO.getRecipeReportNo());
+			pstmt.setString(5, recipeCommentsReportVO.getReportingAnswer());
 
 
 			pstmt.executeUpdate();
@@ -195,6 +197,7 @@ public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 				rcrVO.setRecipeCommentsNo(rs.getInt("recipe_comments_no"));
 				rcrVO.setReportingCommentsReason(rs.getString("reporting_comments_reason"));
 				rcrVO.setReportingStatus(rs.getByte("reporting_status"));
+				rcrVO.setReportingAnswer(rs.getString("reporting_answer"));
 				rcrVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				
 				
@@ -260,6 +263,7 @@ public class RecipeCommentsReportJDBCDAOIm implements RecipeCommentsReportDAO {
 				recipeCommentsReportVO.setRecipeCommentsNo(rs.getInt("recipe_comments_no"));
 				recipeCommentsReportVO.setReportingCommentsReason(rs.getString("reporting_comments_reason"));
 				recipeCommentsReportVO.setReportingStatus(rs.getByte("reporting_status"));
+				recipeCommentsReportVO.setReportingAnswer(rs.getString("reporting_answer"));
 				recipeCommentsReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(recipeCommentsReportVO); // Store the row in the list
 			}

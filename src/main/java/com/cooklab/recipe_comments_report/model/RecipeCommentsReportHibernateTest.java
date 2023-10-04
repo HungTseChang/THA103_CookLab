@@ -16,6 +16,7 @@ public class RecipeCommentsReportHibernateTest {
 //			rcr.setRecipeCommentsNo(2);
 //			rcr.setReportingCommentsReason("食譜留言檢舉測試2");
 //			rcr.setReportingStatus((byte)3);
+//			rcr.setReportingAnswer("檢舉回覆2");
 //			
 //			session.save(rcr);
 //			
@@ -53,6 +54,7 @@ public class RecipeCommentsReportHibernateTest {
 //			rcr.setRecipeCommentsNo(2);
 //			rcr.setReportingCommentsReason("食譜留言檢舉測試2");
 //			rcr.setReportingStatus((byte)3);
+//			rcr.setReportingAnswer("檢舉回覆2");
 //			rcr.setRecipeReportNo(3);
 //			
 //			session.saveOrUpdate(rcr);
