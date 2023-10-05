@@ -2,20 +2,67 @@ package com.cooklab.recipe.model;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.cooklab.recipe_collection.model.RecipeCollectionVO;
+import com.cooklab.recipe_comments.model.RecipeCommentsVO;
+import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
+import com.cooklab.recipe_ingredient.model.RecipeIngredientVO;
+import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
+import com.cooklab.recipe_reaction.model.RecipeReactionVO;
+import com.cooklab.recipe_report.model.RecipeReportVO;
+import com.cooklab.recipe_step.model.RecipeStepVO;
 
 @Entity
 @Table(name = "recipe")
 public class RecipeVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "recipe_no", updatable = false)
+	@Column(name = "recipe_no",insertable = false, updatable = false)
 	private Integer recipeNo;
+
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeReactionVO> reaction;
+//
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeCommentsVO> comments;
+//
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeReportVO> report;
+//
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeCollectionVO> collection;
+//
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeHashtagVO> hashtag;
+//
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeIngredientVO> ingredient;
+//
+//	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+//	@OrderBy("recipe_no asc")
+//	private Set<RecipeKitchenwareVO> kitchenware;
+
+	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+	@OrderBy("recipe_no asc")
+	private Set<RecipeStepVO> step;
+
 	@Column(name = "member_id")
 	private Integer memberId;
 	@Column(name = "recipe_name")
@@ -43,7 +90,6 @@ public class RecipeVO implements java.io.Serializable {
 
 	public RecipeVO() {
 	}
-	
 
 	public RecipeVO(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage, String introduction,
 			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
@@ -66,6 +112,70 @@ public class RecipeVO implements java.io.Serializable {
 
 	public Integer getRecipeNo() {
 		return recipeNo;
+	}
+
+//	public Set<RecipeReactionVO> getReaction() {
+//		return reaction;
+//	}
+//
+//	public void setReaction(Set<RecipeReactionVO> reaction) {
+//		this.reaction = reaction;
+//	}
+//
+//	public Set<RecipeCommentsVO> getComments() {
+//		return comments;
+//	}
+//
+//	public void setComments(Set<RecipeCommentsVO> comments) {
+//		this.comments = comments;
+//	}
+
+//	public Set<RecipeReportVO> getReport() {
+//		return report;
+//	}
+//
+//	public void setReport(Set<RecipeReportVO> report) {
+//		this.report = report;
+//	}
+//
+//	public Set<RecipeCollectionVO> getCollection() {
+//		return collection;
+//	}
+//
+//	public void setCollection(Set<RecipeCollectionVO> collection) {
+//		this.collection = collection;
+//	}
+//
+//	public Set<RecipeHashtagVO> getHashtag() {
+//		return hashtag;
+//	}
+//
+//	public void setHashtag(Set<RecipeHashtagVO> hashtag) {
+//		this.hashtag = hashtag;
+//	}
+//
+//	public Set<RecipeIngredientVO> getIngredient() {
+//		return ingredient;
+//	}
+//
+//	public void setIngredient(Set<RecipeIngredientVO> ingredient) {
+//		this.ingredient = ingredient;
+//	}
+//
+//	public Set<RecipeKitchenwareVO> getKitchenware() {
+//		return kitchenware;
+//	}
+//
+//	public void setKitchenware(Set<RecipeKitchenwareVO> kitchenware) {
+//		this.kitchenware = kitchenware;
+//	}
+
+	public Set<RecipeStepVO> getStep() {
+		return step;
+	}
+
+	public void setStep(Set<RecipeStepVO> step) {
+		this.step = step;
 	}
 
 	public void setRecipeNo(Integer recipeNo) {
