@@ -11,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-
+import com.cooklab.recipe_reaction.model.RecipeReactionVO.*;
 @Entity
 @Table(name = "recipe_reaction")
-@IdClass(com.cooklab.recipe_reaction.model.RecipeReactionVO.CompositeDetail.class)
+@IdClass(CompositeDetail.class)
 public class RecipeReactionVO implements java.io.Serializable {
 
 	@Id

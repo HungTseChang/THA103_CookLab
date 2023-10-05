@@ -31,6 +31,9 @@ public class RecipeCommentsReportVO{
 	@Column(name = "reporting_status")
 	private Byte reportingStatus;
 	
+	@Column(name = "reporting_answer")
+	private String reportingAnswer;
+	
 	@Column(name = "created_timestamp", insertable = false ,updatable = false)
 	private Timestamp createdTimestamp;
 	
@@ -75,12 +78,24 @@ public class RecipeCommentsReportVO{
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
+
+	public String getReportingAnswer() {
+		return reportingAnswer;
+	}
+
+	public void setReportingAnswer(String reportingAnswer) {
+		this.reportingAnswer = reportingAnswer;
+	}
+
 	@Override
 	public String toString() {
 		return "RecipeCommentsReportVO [recipeReportNo=" + recipeReportNo + ", memberId=" + memberId
 				+ ", recipeCommentsNo=" + recipeCommentsNo + ", reportingCommentsReason=" + reportingCommentsReason
-				+ ", reportingStatus=" + reportingStatus + ", createTimestamp=" + createdTimestamp + "]";
+				+ ", reportingStatus=" + reportingStatus + ", reportingAnswer=" + reportingAnswer
+				+ ", createdTimestamp=" + createdTimestamp + "]";
 	}
+	
+
 	
 
 	

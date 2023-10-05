@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cooklab.recipe_comments_report.model.RecipeCommentsReportVO;
-import com.cooklab.Util.*;
+import com.cooklab.util.*;
 
 
 public class RecipeHashtagJDBCDAOIm implements RecipeHashtagDAO {
