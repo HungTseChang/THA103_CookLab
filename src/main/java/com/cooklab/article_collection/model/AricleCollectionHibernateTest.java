@@ -1,7 +1,12 @@
 package com.cooklab.article_collection.model;
 
 import org.hibernate.Session;
+<<<<<<< HEAD
+
+import com.cooklab.util.HibernateUtil;
+=======
 import com.cooklab.Util.HibernateUtil;
+>>>>>>> refs/heads/master
 import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
 import java.util.List;
 

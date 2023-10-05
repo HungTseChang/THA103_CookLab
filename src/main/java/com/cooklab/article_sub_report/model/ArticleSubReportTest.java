@@ -19,15 +19,17 @@ public class ArticleSubReportTest {
 			session.beginTransaction();
 //			
 			ArticleSubReportVO a1 =new ArticleSubReportVO();
-//			a1.setArticleSubNo(6);
-//			a1.setReporterId(4);
+//			a1.setArticleSubNo(1);
+//			a1.setReporterId(1);
 //			a1.setReportingReason("開心想檢舉");
 //			a1.setReportingStatus((byte) 1);
+//			a1.setReportingAnswer("不給你過就是不給你過");
+//			
 //			session.save(a1);
 			
 			//更新資料
-//			a1 = session.get(ArticleSubReportVO.class, 3);
-//			a1.setReportingReason("DO you see me");
+			a1 = session.get(ArticleSubReportVO.class, 3);
+			a1.setReportingAnswer("Would you kidding me ?");
 			
 			//刪除資料
 //			a1.setArticleSubReportNo(2);

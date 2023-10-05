@@ -20,7 +20,7 @@ public class ArticleVO implements java.io.Serializable {
 	private Integer articleNo;
 	
 	@Column(name = "article_category")  
-	private String articleCategory;
+	private Integer articleCategory;
 	
 	@Column(name = "article_title")  
 	private String articleTitle;
@@ -47,7 +47,7 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	
-	public ArticleVO(String articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
+	public ArticleVO(Integer articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
 			String articleContent, Integer articleCount, Integer viewCount) {
 		super();
 		this.articleCategory = articleCategory;
@@ -68,10 +68,10 @@ public class ArticleVO implements java.io.Serializable {
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public String getArticleCategory() {
+	public Integer getArticleCategory() {
 		return articleCategory;
 	}
-	public void setArticleCategory(String articleCategory) {
+	public void setArticleCategory(Integer articleCategory) {
 		this.articleCategory = articleCategory;
 	}
 	public String getArticleTitle() {
