@@ -241,7 +241,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 				ArticleReportVO.setReporterId(rs.getInt("reporter_id"));
 				ArticleReportVO.setReportingReason(rs.getString("reporting_reason"));
 				ArticleReportVO.setReportingStatus(rs.getByte("reporting_status"));
-				ArticleReportVO.setCreatedTimestamp(rs.getDate("created_timestamp"));
+				ArticleReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 				list.add(ArticleReportVO); // Store the row in the list
 			}
@@ -285,21 +285,21 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 		ArticleReportJDBCDAOIm dao = new ArticleReportJDBCDAOIm();
 
 		// 新增
-//			ArticleReportVO ArticleReportVO1 = new ArticleReportVO();
-//			ArticleReportVO1.setArticleNo(Integer.valueOf(1));
-//			ArticleReportVO1.setReporterId(Integer.valueOf(1));
-//			ArticleReportVO1.setReportingReason("排版好累");
-//			ArticleReportVO1.setReportingStatus(Byte.valueOf((byte) 1));
-//			dao.insert(ArticleReportVO1);
+			ArticleReportVO ArticleReportVO1 = new ArticleReportVO();
+			ArticleReportVO1.setArticleNo(Integer.valueOf(1));
+			ArticleReportVO1.setReporterId(Integer.valueOf(1));
+			ArticleReportVO1.setReportingReason("排版好累");
+			ArticleReportVO1.setReportingStatus(Byte.valueOf((byte) 1));
+			dao.insert(ArticleReportVO1);
 
 //			// 修改
-		ArticleReportVO ArticleReportVO2 = new ArticleReportVO();
-		ArticleReportVO2.setArticleReportNo(Integer.valueOf(1));
-		ArticleReportVO2.setArticleNo(Integer.valueOf(1));
-		ArticleReportVO2.setReporterId(Integer.valueOf(1));
-		ArticleReportVO2.setReportingReason("排版真的好累ZZ");
-		ArticleReportVO2.setReportingStatus(Byte.valueOf((byte) 0));
-		dao.update(ArticleReportVO2);
+//		ArticleReportVO ArticleReportVO2 = new ArticleReportVO();
+//		ArticleReportVO2.setArticleReportNo(Integer.valueOf(1));
+//		ArticleReportVO2.setArticleNo(Integer.valueOf(1));
+//		ArticleReportVO2.setReporterId(Integer.valueOf(1));
+//		ArticleReportVO2.setReportingReason("排版真的好累ZZ");
+//		ArticleReportVO2.setReportingStatus(Byte.valueOf((byte) 0));
+//		dao.update(ArticleReportVO2);
 
 ////			// 刪除
 //			dao.delete(2);
