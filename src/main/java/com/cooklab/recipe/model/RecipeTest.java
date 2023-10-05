@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import com.cooklab.recipe_step.model.RecipeStepVO;
 import com.cooklab.util.HibernateUtil;
 
 public class RecipeTest {
@@ -53,6 +55,11 @@ public class RecipeTest {
 //			Query<RecipeVO> vo = session.createQuery("select new RecipeVO(lastEditTimestamp) from RecipeVO", RecipeVO.class);
 //			List<RecipeVO> list = vo.list();
 //			System.out.println(list);
+			
+			RecipeVO recipe = session.get(RecipeVO.class, 1);
+			for (RecipeStepVO step : recipe.getStep()) {
+				System.out.println(step.getStepContent());
+			}
 			
 			session.getTransaction().commit();
 		} catch (Exception e) {
