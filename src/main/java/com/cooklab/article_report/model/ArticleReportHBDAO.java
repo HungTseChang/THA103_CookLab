@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import com.cooklab.article.model.ArticleHBDAO;
+import com.cooklab.article.model.ArticleVO;
 import com.cooklab.util.HibernateUtil;
 
 public class ArticleReportHBDAO implements ArticleReportDAO {
@@ -145,6 +147,9 @@ public class ArticleReportHBDAO implements ArticleReportDAO {
 		return list1;
 
 	}
+	
+
+	
 //	=============================getAll結束==================================================
 	
 	
@@ -173,13 +178,13 @@ public class ArticleReportHBDAO implements ArticleReportDAO {
 //	ArticleReportVO2.setArticleReportNo(Integer.valueOf(6));
 //	ArticleReportVO2.setArticleNo(Integer.valueOf(1));
 //	ArticleReportVO2.setReporterId(Integer.valueOf(1));
-//	ArticleReportVO2.setReportingReason("排版真的好累ZZ");
+//	ArticleReportVO2.setReportingReason("排版真的好累ZSSSZ");
 //	ArticleReportVO2.setReportingStatus(Byte.valueOf((byte) 0));
 //	ArticleReportVO2.setReportingAnswer("依然不准休息");
 //	dao.update(ArticleReportVO2);
 
 ////		// 刪除
-		dao.delete(2);
+//		dao.delete(2);
 ////
 ////		// 查詢
 //		ArticleReportVO ArticleReportVO3 = dao.findByPrimaryKey(1);
@@ -205,7 +210,11 @@ public class ArticleReportHBDAO implements ArticleReportDAO {
 //		System.out.println("---------------------");
 //	}
 	
-	
+		ArticleReportVO ArticleReportVO7 = dao.findByPrimaryKey(6);
+		ArticleReportVO7.setArticleNo(5);
+		dao.update(ArticleReportVO7);
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(ArticleReportVO7.getArticleNo());
 	
 	
 	
