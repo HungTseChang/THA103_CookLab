@@ -21,6 +21,18 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "product_name")
 	private String productName;
 	
+	private byte[]  productPicture;
+	
+	
+
+	public byte[] getProductPicture() {
+		return productPicture;
+	}
+
+	public void setProductPicture(byte[] productPicture) {
+		this.productPicture = productPicture;
+	}
+
 	@Column(name = "sale_qty")
 	private Integer saleQty;
 	
@@ -107,14 +119,6 @@ public class ProductVO implements java.io.Serializable {
 
 	public void setProductDec(String productDec) {
 		this.productDec = productDec;
-	}
-
-	public String getproductIntroduction() {
-		return productIntroduction;
-	}
-
-	public void setproductIntroduction(String productIntroduction) {
-		this.productIntroduction = productIntroduction;
 	}
 
 	public Integer getProductPrice() {
