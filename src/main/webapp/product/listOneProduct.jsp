@@ -57,7 +57,7 @@ th, td {
 			<td>
 				<h3>員工資料 - ListOneEmp.jsp</h3>
 				<h4>
-					<a href="product/select_page.jsp"><img src="images/back1.gif"
+					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="images/back1.gif"
 						width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>
@@ -83,7 +83,7 @@ th, td {
 		<tr>
 			<td>${productVO.productNo}</td>
 			<td>${productVO.productName}</td>
-			<td><img style="max-width: 200px; max-height: 200px;" src="/com.tha103.cooklab/ProductImgServlet?productNo=${productVO.productNo}"></td>
+			<td><img style="max-width: 200px; max-height: 200px;" src="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}"></td>
 			<td>${productVO.saleQty}</td>
 			<td>${productVO.productDec}</td>
 			<td>${productVO.productIntroduction}</td>

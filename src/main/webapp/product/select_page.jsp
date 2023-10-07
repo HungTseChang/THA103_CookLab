@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="/com.tha103.cooklab/ProductServlet" >
+    <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ProductServlet" >
         <b>輸入商品編號:</b>
         <input type="text" name="productNo">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,7 +63,7 @@
   <jsp:useBean id="productSvc" scope="page" class="com.cooklab.product.model.ProductService" />
    
   <li>
-     <FORM METHOD="post" ACTION="/com.tha103.cooklab/ProductServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ProductServlet" >
        <b>選擇商品編號:</b>
        <select size="1" name="productNo">
          <c:forEach var="productVO" items="${productSvc.all}" > 
@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="/com.tha103.cooklab/ProductServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ProductServlet" >
        <b>選擇商品名稱:</b>
        <select size="1" name="productNo">
          <c:forEach var="productVO" items="${productSvc.all}" > 
