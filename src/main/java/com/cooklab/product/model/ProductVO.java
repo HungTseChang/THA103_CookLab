@@ -24,7 +24,7 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "sale_qty")
 	private Integer saleQty;
 	
-	@Column(name = "product_dec")
+	@Column(name = "product_dec",columnDefinition = "longtext")
 	private String productDec;
 	
 	@Column(name = "product_introduction")
