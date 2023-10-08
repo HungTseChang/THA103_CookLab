@@ -49,6 +49,11 @@
                 th{
                     white-space: nowrap;
                 }
+                span.wcc{
+                    border: 1px solid rgb(151, 135, 249);
+                    background-color: rgb(195, 241, 253); 
+                                    border-radius: 20px;
+                }
       </style>
 </head>
 
@@ -245,6 +250,15 @@
                         <div class="card-header">
                         </div>
                         <div class="card-body" style="width: 100%; overflow: scroll">
+                        <div class="datable dropdown">
+                        <select class="wcc" id="select1">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        </select>
+                        <label>每頁展示筆數</label>
+                        </div>
                             <table class="table table-striped" id="table1" style="scrollCollapse: true">
                                 <thead>
                                     <tr>
@@ -266,7 +280,12 @@
                             </table>
                         </div>
                     </div>
-
+   <div class="pagination">
+        <span class="page-item wcc" id="prev-page">上一页</span>
+        <span class="page-item wcc" id="next-page">下一页</span>
+        <span id="current-page">1</span>
+        <span id="total-pages">of 1</span>
+    </div>
                 </section>
             </div>
 
@@ -286,6 +305,8 @@
         	var myList;     
         	var nikname;
                var title;     	
+               var rowsPerPage = 5;
+               var currentPage = 1;
         	if('${json}'){
         	 myList=JSON.parse('${json}');
          	title = JSON.parse('${title}');
@@ -308,17 +329,25 @@
         			console.log("reload");
         	}
 
-console.log(myList[0]);
-      
-          for(let i = 0 ; i< myList.length;i++){
+       $("#select1").change(function() {
+    	   rowsPerPage = $(this).val();
+    	   updateTable();
+       });
+function updateTable() {    
+var startIndex = (currentPage - 1) * rowsPerPage;
+var endIndex = startIndex + rowsPerPage;
+var tableBody = $("table#table1").children("tbody");
+tableBody.empty();
+
+          for(let i = startIndex ; i<endIndex ;i++){
+        	  
+        	   if (i <  myList.length){
         	  let aa = myList[i];
-        	  console.log(aa.articleReportNo);
         	  let status ={
         			  0:" <span class='badge bg-success'>已處理</span>",
         			  1:" <span class='badge bg-danger'>未處理</span>",
         	  }
-//         	  nikname = "${aa.getMembersVO().getMemberNickname()}";
-//         	  title = "${aa.getArticleVO().getArticleTitle()}";
+
         	  let text = "";
         		  text += "<tr>";
         		  text += "<td class='wcc'>"+aa.articleReportNo+"</td>";
@@ -338,12 +367,33 @@ console.log(myList[0]);
         		  text += "</tr>";
           		console.log("A"+nikname);
         		console.log("B"+title);
-           $("table#table1").children("tbody").append(text)      	  
+           $("table#table1").children("tbody").append(text);
+        	   }
           }
+          $("#current-page").text(currentPage);
+          var totalPages = Math.ceil(myList.length / rowsPerPage);
+          $("#total-pages").text("of " + totalPages);
+} 
+         
+            
+          $("#prev-page").click(function() {
+              if (currentPage > 1) {
+                  currentPage--;
+                  updateTable();
+              }
+              
+              
+          });
           
-            
-            
-            
+          $("#next-page").click(function() {
+              var totalPages = Math.ceil(myList.length / rowsPerPage);
+              if (currentPage < totalPages) {
+                  currentPage++;
+                  updateTable();
+              }
+          });
+          
+          updateTable();
         })
         
          </script>
