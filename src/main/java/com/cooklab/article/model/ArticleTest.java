@@ -17,7 +17,7 @@ public class ArticleTest {
 			/////////新增
 //			ArticleVO ArticleVO = new ArticleVO(1,"今天大家吃甚麼?",1,(byte) 1,"吃葡萄不吐葡萄皮",1,1);
 //
-//           	session.save(ArticleVO);
+//          session.save(ArticleVO);
  ////=========================== 修改====================================
 			 
 //           	ArticleVO ArticleVO1  = session.get(ArticleVO.class, 1);
