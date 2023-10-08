@@ -17,8 +17,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 	private static final String GET_ALL_STMT = "SELECT form_no,real_name,support_form_category_id,reply_email,form_context,form_title,form_status,form_source,form_submitter,form_responder,created_timestamp from support_form";
 	private static final String GET_ONE_STMT = "SELECT form_no,real_name,support_form_category_id,reply_email,form_context,form_title,form_status,form_source,form_submitter,form_responder,created_timestamp from support_form where form_no = ?";
 	private static final String DELETE = "DELETE FROM support_form where form_no = ?";
-	//表單建立者欄位因為實務上建立後不應異動，故以下update指令不會對form_submitter欄位進行修改
-	private static final String UPDATE = "UPDATE support_form set real_name=?, support_form_category_id=?, reply_email=?, form_context=?, form_title=?, form_status=?, form_source=?, form_responder=? where form_no = ?;";
+	private static final String UPDATE = "UPDATE support_form set real_name=?, support_form_category_id=?, reply_email=?, form_context=?, form_title=?, form_status=?, form_source=?,form_submitter=?, form_responder=? where form_no = ?;";
 
 	@Override
 	public void insert(SupportFormVO supportFormVO) {
@@ -41,8 +40,6 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 			pstmt.setString(8, supportFormVO.getFormSubmitter());
 
 			pstmt.executeUpdate();
-			
-			System.out.println("新增資料成功");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -88,12 +85,11 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 			pstmt.setString(5, supportFormVO.getFormTitle());
 			pstmt.setByte(6, supportFormVO.getFormStatus());
 			pstmt.setString(7, supportFormVO.getFormSource());
-			pstmt.setInt(8, supportFormVO.getFormResponder());
-			pstmt.setInt(9, supportFormVO.getFormNo());
+			pstmt.setString(8, supportFormVO.getFormSubmitter());
+			pstmt.setInt(9, supportFormVO.getFormResponder());
+			pstmt.setInt(10, supportFormVO.getFormNo());
 
 			pstmt.executeUpdate();
-			
-			System.out.println("修改資料成功");
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {

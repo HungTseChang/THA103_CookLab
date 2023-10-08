@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.recipe_reaction.model.RecipeReactionVO.CompositeDetail;
 

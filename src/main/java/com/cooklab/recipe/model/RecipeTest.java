@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+
+import com.cooklab.recipe_step.model.RecipeStepVO;
 import com.cooklab.util.HibernateUtil;
 
 public class RecipeTest {
@@ -33,13 +35,13 @@ public class RecipeTest {
 		try {
 			session.beginTransaction();
 			//新增
-//			RecipeVO vo = new RecipeVO(null, 1, "超好吃大便",getPictureByteArray("src/main/resources/img/images.jpg"), "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
+//			RecipeVO vo = new RecipeVO(null, 1, "超好吃大便3",getPictureByteArray("src/main/resources/img/images.jpg"), "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
 //			session.saveOrUpdate(vo);
 			//更新
-//			RecipeVO vo = new RecipeVO(1, 1, "超好吃大便2",getPictureByteArray("src/main/resources/img/images.jpg"), "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
-//			session.saveOrUpdate(vo);
+			RecipeVO vo = new RecipeVO(10, 1, "超好吃大便2",null, "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
+			session.update(vo);
 			//刪除
-//			RecipeVO vo = session.get(RecipeVO.class,1);
+//			RecipeVO vo = session.get(RecipeVO.class,6);
 //			if(vo !=null) {
 //				session.delete(vo);
 //			}
@@ -53,6 +55,11 @@ public class RecipeTest {
 //			Query<RecipeVO> vo = session.createQuery("select new RecipeVO(lastEditTimestamp) from RecipeVO", RecipeVO.class);
 //			List<RecipeVO> list = vo.list();
 //			System.out.println(list);
+			
+//			RecipeVO recipe = session.get(RecipeVO.class, 1);
+//			for (RecipeStepVO step : recipe.getStep()) {
+//				System.out.println(step.getStepContent());
+//			}
 			
 			session.getTransaction().commit();
 		} catch (Exception e) {

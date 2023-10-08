@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tha103.cooklab</groupId>
-	<artifactId>com.tha103.cooklab</artifactId>
+	<artifactId>CookLab</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>com.tha103.cooklab</name>
@@ -35,6 +35,30 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version> <!-- 使用适合你项目的版本 -->
+			<scope>provided</scope>
+		</dependency>
+
+		<!--WCC添加的 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.10.1</version>
+		</dependency>
+
+
+		<!-- WCC添加的-->
 
 
 		<!-- 用途說明5: Starter for using Spring Data JPA with Hibernate -->
