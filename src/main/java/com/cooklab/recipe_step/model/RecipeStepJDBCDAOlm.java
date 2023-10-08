@@ -28,7 +28,7 @@ public class RecipeStepJDBCDAOlm implements RecipeStepDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, recipeStepVO.getRecipeNo());
+//			pstmt.setInt(1, recipeStepVO.getRecipeNo());
 			pstmt.setInt(2, recipeStepVO.getStep());
 			pstmt.setInt(3, recipeStepVO.getStepTime());
 			pstmt.setBytes(4, recipeStepVO.getStepImg());
@@ -77,7 +77,7 @@ public class RecipeStepJDBCDAOlm implements RecipeStepDAO {
 			pstmt.setInt(2, recipeStepVO.getStepTime());
 			pstmt.setBytes(3, recipeStepVO.getStepImg());
 			pstmt.setString(4, recipeStepVO.getStepContent());
-			pstmt.setInt(5, recipeStepVO.getRecipeNo());
+//			pstmt.setInt(5, recipeStepVO.getRecipeNo());
 
 			pstmt.executeUpdate();
 
@@ -166,7 +166,7 @@ public class RecipeStepJDBCDAOlm implements RecipeStepDAO {
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				recipeStepVO = new RecipeStepVO();
-				recipeStepVO.setRecipeNo(rs.getInt("recipe_no"));
+//				recipeStepVO.setRecipeNo(rs.getInt("recipe_no"));
 				recipeStepVO.setStep(rs.getInt("step"));
 				recipeStepVO.setStepTime(rs.getInt("step_time"));
 				recipeStepVO.setStepImg(rs.getBytes("step_img"));
@@ -227,7 +227,7 @@ public class RecipeStepJDBCDAOlm implements RecipeStepDAO {
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
 				recipeStepVO = new RecipeStepVO();
-				recipeStepVO.setRecipeNo(rs.getInt("recipe_no"));
+//				recipeStepVO.setRecipeNo(rs.getInt("recipe_no"));
 				recipeStepVO.setStep(rs.getInt("step"));
 				recipeStepVO.setStepTime(rs.getInt("step_time"));
 				recipeStepVO.setStepImg(rs.getBytes("step_img"));

@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tha103.cooklab</groupId>
-	<artifactId>CookLab</artifactId>
+	<artifactId>com.tha103.cooklab</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>com.tha103.cooklab</name>
