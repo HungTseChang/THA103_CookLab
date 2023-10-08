@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ProductServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath()%>/ProductServlet" >
        <b>選擇商品名稱:</b>
        <select size="1" name="productNo">
          <c:forEach var="productVO" items="${productSvc.all}" > 
