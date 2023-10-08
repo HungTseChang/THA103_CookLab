@@ -229,7 +229,71 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- JavaScript將在這裡動態添加假資料 -->
+                                     <td>1</td>
+					                <td>tibame</td>
+					                <td>400</td>
+					                <td class="d-flex justify-content-between align-items-center">
+					                <span>2023-09-11</span>
+					                <div class="d-flex justify-content-end align-items-center">
+					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">編輯或查看</a>
+					
+					                    <span></span>
+					                    <button class="btn btn-outline-danger">刪除</button>
+					                </div>
+					                </td>
+                                
+                                    <td>2</td>
+					                <td>pxxme</td>
+					                <td>500</td>
+					                <td class="d-flex justify-content-between align-items-center">
+					                <span>2023-09-11</span>
+					                <div class="d-flex justify-content-end align-items-center">
+					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">編輯或查看</a>
+					
+					                    <span></span>
+					                    <button class="btn btn-outline-danger">刪除</button>
+					                </div>
+					                </td>
+                                
+                                    <td>3</td>
+					                <td>hoho</td>
+					                <td>600</td>
+					                <td class="d-flex justify-content-between align-items-center">
+					                <span>2023-09-11</span>
+					                <div class="d-flex justify-content-end align-items-center">
+					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">編輯或查看</a>
+					
+					                    <span></span>
+					                    <button class="btn btn-outline-danger">刪除</button>
+					                </div>
+					                </td>
+                                
+                                    <td>4</td>
+					                <td>小農天堂</td>
+					                <td>600</td>
+					                <td class="d-flex justify-content-between align-items-center">
+					                <span>2023-09-11</span>
+					                <div class="d-flex justify-content-end align-items-center">
+					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">編輯或查看</a>
+					
+					                    <span></span>
+					                    <button class="btn btn-outline-danger">刪除</button>
+					                </div>
+					                </td>
+                                
+                                    <td>5</td>
+					                <td>台灣莊園</td>
+					                <td>600</td>
+					                <td class="d-flex justify-content-between align-items-center">
+					                <span>2023-09-11</span>
+					                <div class="d-flex justify-content-end align-items-center">
+					                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">編輯或查看</a>
+					
+					                    <span></span>
+					                    <button class="btn btn-outline-danger">刪除</button>
+					                </div>
+					                </td>
+                                
                                 </tbody>
                         </div>
                     </div>
@@ -243,42 +307,7 @@
         </div>
     </div>
     <script>
-        // 創建20份假資料
-        for (let i = 1; i <= 20; i++) {
-            const purchaseNumber = String(i).padStart(8, '0'); // 將數字填充為八位數字
-            const supplier = `Supplier ${i}`;
-            const totalMoney = Math.floor(Math.random() * (365 * 24 * 60 ));
-            // 生成隨機的進貨時間，範圍在過去一年內
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-            const purchaseTime = new Date(
-                oneYearAgo.getTime() + Math.random() * (365 * 24 * 60 * 60 * 1000)
-            );
-    
-            // 格式化進貨時間為 yyyy-mm-dd hh:mm:ss
-            const formattedPurchaseTime = purchaseTime.toISOString().slice(0, 19).replace("T", " ");
-    
-            // 創建新的表格行並填充假資料
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${purchaseNumber}</td>
-                <td>${supplier}</td>
-                <td>${totalMoney}</td>
-                <td class="d-flex justify-content-between align-items-center">
-                <span>${formattedPurchaseTime}</span>
-                <div class="d-flex justify-content-end align-items-center">
-                    <a href="TYT_purchase_order_edit.html" class="btn btn-outline-secondary" style="margin-right: 8px;">編輯或查看</a>
 
-                    <span></span>
-                    <button class="btn btn-outline-danger">刪除</button>
-                </div>
-                </td>
-
-            `;
-    
-            // 將新行添加到表格中
-            document.querySelector('#table1 tbody').appendChild(newRow);
-        }
     </script>
 
     <script src="../assets\vendors\jquery-3.7.1.min.js"></script>

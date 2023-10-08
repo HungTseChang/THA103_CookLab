@@ -30,8 +30,8 @@ public class RecipeKitchenwareTest {
 		try {
 			session.beginTransaction();
 			// 新增
-//			RecipeKitchenwareVO vo = new RecipeKitchenwareVO(null, 1, 1, "�¤�r����", null);
-//			session.saveOrUpdate(vo);
+			RecipeKitchenwareVO vo = new RecipeKitchenwareVO(null, 1, 1, "�¤�r����", null);
+			session.saveOrUpdate(vo);
 			// 更新
 //			RecipeKitchenwareVO vo = new RecipeKitchenwareVO(null, 2, 2, "�¤�r����update", null);
 //			session.saveOrUpdate(vo);
