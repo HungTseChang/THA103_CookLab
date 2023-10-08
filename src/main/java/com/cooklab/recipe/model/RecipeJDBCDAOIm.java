@@ -11,7 +11,7 @@ import java.util.List;
 import com.cooklab.util.*;
 
 
-public class RecipeJDBCDAOlm implements RecipeDAO {
+public class RecipeJDBCDAOIm implements RecipeDAO {
 	private static final String INSERT_STMT = "INSERT INTO recipe (member_id,recipe_name ,cover_image, introduction, additional_explanation , region, recipe_status, report_count, view_count, recipe_quantity) VALUES ( ?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM recipe ORDER BY recipe_no";
 	private static final String GET_ONE_STMT = "SELECT * FROM recipe where recipe_no = ?";
