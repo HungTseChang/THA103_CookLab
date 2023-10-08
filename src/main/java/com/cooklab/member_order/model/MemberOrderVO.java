@@ -3,15 +3,41 @@ package com.cooklab.member_order.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "member_order")
 public class MemberOrderVO implements Serializable{
 
+	@Id
+	@Column(name = "order_no")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderNo ;
+	
+	@Column(name = "member_id")
 	private Integer memberId ;
-	private Byte orderStatus; 
+	
+	@Column(name = "order_status")
+	private Byte orderStatus;
+	
+	@Column(name = "total_order_amount")
 	private Integer totalOrderAmount;
+	
+	@Column(name = "checkout_amount")
     private Integer checkoutAmount;
+	
+	@Column(name = "promo_code_no ")
 	private Integer promoCodeNo;
+	
+	@Column(name = "shipping_address")
 	private String shippingAddress ;
+	
+	@Column(name = "created_timestamp ", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
 	
 	

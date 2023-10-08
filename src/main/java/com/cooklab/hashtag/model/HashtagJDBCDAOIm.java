@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.util.Util;
+import com.cooklab.util.*;
 
 
 
@@ -180,7 +180,7 @@ public class HashtagJDBCDAOIm implements HashtagDAO {
 				hVO.setHashtangName(rs.getString("hashtag_name"));
 				hVO.setSearchCount(rs.getInt("search_count"));
 				hVO.setUseCount(rs.getInt("use_count"));
-				hVO.setCreateStamp(rs.getDate("created_timestamp"));
+				hVO.setCreateStamp(rs.getTimestamp("created_timestamp"));
 
 			}
 
@@ -241,7 +241,7 @@ public class HashtagJDBCDAOIm implements HashtagDAO {
 				hashtagVO.setHashtangName(rs.getString("hashtag_name"));
 				hashtagVO.setSearchCount(rs.getInt("search_count"));
 				hashtagVO.setUseCount(rs.getInt("use_count"));
-				hashtagVO.setCreateStamp(rs.getDate("created_timestamp"));
+				hashtagVO.setCreateStamp(rs.getTimestamp("created_timestamp"));
 
 				list.add(hashtagVO); // Store the row in the list
 			}

@@ -1,0 +1,157 @@
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+
+
+                        <!-- ============================================================================================== -->
+                        <li class="sidebar-item  ">
+                            <a href="WCC_Homepage.html" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>後台首頁</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item ">
+                            <a href="WCC_memeber.html" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>會員管理</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item  has-sub ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>權限管理</span>
+                            </a>
+                            <ul class="submenu ">
+                          
+                                <li class="submenu-item ">
+                                    <a href=".\WCC_permission_management.html">管理管理者</a>
+                                </li>
+                             
+                                <li class="submenu-item ">
+                                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item has-sub ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-collection-fill"></i>
+                                <span>食譜管理</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href=".\recipe_form.html">食譜表單</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href=".\hashtag_form.html">標籤管理</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>商城管理</span>
+                            </a>
+                            <ul class="submenu " style="display: block;">
+                                <li class="submenu-item ">
+                                    <a href=".\shopview.html">商品設定</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="TYT_order_management.html">訂單管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href=".\GCpromo_info.html">新增優惠券</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href=".\GCpromo.html">優惠券管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href=".\GCadvertise.html" >廣告管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href=".\GCadvertise_info.html">新增廣告</a>
+                                </li>
+                                <li class="submenu-item active">
+                                    <a href="TYT_purchase_order_allView.html">進貨表單</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>討論區管理</span>
+                            </a>
+
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href=".\HO_discussion_cate.html">看板分類</a>
+                                  </li>
+                                  <li class="submenu-item ">
+                                    <a href=".\HO_discussion_info.html" >文章管理</a>
+                                  </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-pen-fill"></i>
+                                <span>數據分析</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="#">會員數據</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="#">食譜數據</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="#">商城數據</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="#">文章數據</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-pen-fill"></i>
+                                <span>客服中心</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="WCC_recipe_report.html">食譜檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="WCC_article_report.html">討論區檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="WCC_official_notify.html">系統通知</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- ======================================================================================================== -->
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
