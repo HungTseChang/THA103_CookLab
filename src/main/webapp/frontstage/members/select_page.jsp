@@ -52,9 +52,9 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="members.do" >
-        <b>輸入會員帳號 (如a123456):</b>
-        <input type="text" name="membersAccount">
+    <FORM METHOD="post" ACTION="/com.tha103.cooklab/MembersServlet" >
+        <b>輸入會員編號 (如a123456):</b>
+        <input type="text" name="memberAccount">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
@@ -63,9 +63,9 @@
   <jsp:useBean id="membersSvc" scope="page" class="com.cooklab.members.model.MembersService" />
    
   <li>
-     <FORM METHOD="post" ACTION="members.do" >
+     <FORM METHOD="post" ACTION="/com.tha103.cooklab/MembersServlet" >
        <b>選擇會員帳號:</b>
-       <select size="1" name="membersAccount">
+       <select size="1" name="memberAccount">
          <c:forEach var="MembersVO" items="${membersSvc.all}" > 
           <option value="${MembersVO.memberAccount}">${MembersVO.memberAccount}
          </c:forEach>   
@@ -76,11 +76,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="members.do" >
+     <FORM METHOD="post" ACTION="/com.tha103.cooklab/MembersServlet" >
        <b>選擇會員暱稱:</b>
-       <select size="1" name="members">
+       <select size="1" name="memberAccount">
          <c:forEach var="MembersVO" items="${membersSvc.all}" > 
-          <option value="${MembersVO.memberNickname}">${MembersVO.memberNickname}
+          <option value="${MembersVO.memberAccount}">${MembersVO.memberNickname}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -93,7 +93,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
+  <li><a href='addMembers.jsp'>Add</a> a new Emp.</li>
 </ul>
 
 </body>

@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
 import com.cooklab.recipe.model.RecipeVO;
 
 @Entity
@@ -21,8 +19,6 @@ import com.cooklab.recipe.model.RecipeVO;
 @IdClass(RecipeStepVO.CompositeDetail.class)
 public class RecipeStepVO implements java.io.Serializable{
 	@Id
-	@Column(name = "recipe_no", insertable = false, updatable = false)
-	private Integer recipeNo;
 	@ManyToOne
 	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no" , insertable = false, updatable = false)
 	private RecipeVO recipe;
@@ -43,10 +39,10 @@ public class RecipeStepVO implements java.io.Serializable{
 	
 
 	
-	public RecipeStepVO(Integer recipeNo, Integer step, Integer stepTime, byte[] stepImg, String stepContent,
+	public RecipeStepVO(RecipeVO recipe, Integer step, Integer stepTime, byte[] stepImg, String stepContent,
 			Timestamp createdTimestamp) {
 		super();
-		this.recipeNo = recipeNo;
+		this.recipe = recipe;
 		this.step = step;
 		this.stepTime = stepTime;
 		this.stepImg = stepImg;
@@ -63,15 +59,8 @@ public class RecipeStepVO implements java.io.Serializable{
 	}
 
 	public void setCompositeKey(CompositeDetail key) {
-		this.recipeNo = key.getRecipeNo();
+		this.recipe = key.getRecipe();
 		this.step = key.getStep();
-	}
-
-	public Integer getRecipeNo() {
-		return recipeNo;
-	}
-	public void setRecipeNo(Integer recipeNo) {
-		this.recipeNo = recipeNo;
 	}
 	public Integer getStep() {
 		return step;
@@ -116,7 +105,7 @@ public class RecipeStepVO implements java.io.Serializable{
 	static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
 
-		private Integer recipeNo;
+		private RecipeVO recipe;
 		private Integer step;
 		
 		// 一定要有無參數建構子
@@ -124,18 +113,18 @@ public class RecipeStepVO implements java.io.Serializable{
 			super();
 		}
 
-		public CompositeDetail(Integer recipeNo, Integer step) {
+		public CompositeDetail(RecipeVO recipe, Integer step) {
 			super();
-			this.recipeNo = recipeNo;
+			this.recipe = recipe;
 			this.step = step;
 		}
 
-		public Integer getRecipeNo() {
-			return recipeNo;
+		public RecipeVO getRecipe() {
+			return recipe;
 		}
 
-		public void setRecipeNo(Integer recipeNo) {
-			this.recipeNo = recipeNo;
+		public void setRecipe(RecipeVO recipe) {
+			this.recipe = recipe;
 		}
 
 		public Integer getStep() {
@@ -151,7 +140,7 @@ public class RecipeStepVO implements java.io.Serializable{
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((recipeNo == null) ? 0 : recipeNo.hashCode());
+			result = prime * result + ((recipe == null) ? 0 : recipe.hashCode());
 			result = prime * result + ((step == null) ? 0 : step.hashCode());
 			return result;
 		}
@@ -163,7 +152,7 @@ public class RecipeStepVO implements java.io.Serializable{
 
 			if (obj != null && getClass() == obj.getClass()) {
 				CompositeDetail compositeKey = (CompositeDetail) obj;
-				if (recipeNo.equals(compositeKey.recipeNo) && step.equals(compositeKey.step)) {
+				if (recipe.equals(compositeKey.recipe) && step.equals(compositeKey.step)) {
 					return true;
 				}
 			}

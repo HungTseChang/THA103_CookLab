@@ -8,6 +8,9 @@
 <%@ page import ="com.google.gson.Gson"  %>
 <%@ page import ="com.google.gson.JsonElement"  %>
 <%@ page import ="com.google.gson.JsonParser"  %>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,16 +19,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataTable - Mazer </title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/css/bootstrap.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/simple-datatables/style.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/memeber/assets/css/app.css">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/dashboard/memeber/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
 </head>
 
 <body>
@@ -172,7 +172,7 @@
                                     <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
                                 </li>
                                 <li class="submenu-item active">
-                                    <a href="WCC_article_report.html">討論區檢舉</a>
+                                    <a href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="WCC_official_notify.html">系統通知</a>
@@ -267,13 +267,13 @@
                                                                 <label>會員帳號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="等待連結" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getMembersVO().getMemberAccount()}"disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員暱稱(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="等待連結"
+                                                                <input type="text" value="${ArticleReportVO.getMembersVO().getMemberNickname()}"
                                                                     disabled>
                                                             </div>
 
@@ -306,25 +306,25 @@
                                                                 <label>文章名稱</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="等待連結" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getArticleVO().getArticleTitle()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員編號(食譜作者)</label>
+                                                                <label>會員編號(文章作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="等待連結" disabled>
+                                                                <input type="text" value="${ArticleReportVO.getArticleVO().getMemberId()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員帳號(食譜作者)</label>
+                                                                <label>會員帳號(文章作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="等待連結" disabled>
+                                                                <input type="text" value="${MembersVO.getMemberAccount()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員暱稱(食譜作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="等待連結" disabled>
+                                                                <input type="text" value="${MembersVO.getMemberNickname()}" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -356,9 +356,8 @@
                             <div class="col-md-8">
                                 <div>
                                 <label>處理結果:</label>
-                                <input  type="radio" id="pass" name="result" value="1" style="margin-left: 60px;"><label class="badge bg-success" for="pass">通過</label>
-                                <input type="radio" id="wait" name="result" value="2" checked><label class="badge bg-warning" for="wait" >尚未決定</label>
-                                <input type="radio" id="failed" name="result" value="3"><label class="badge bg-danger" for="failed">未通過</label>
+                                <input  type="radio" id="pass" name="result" value="0" style="margin-left: 60px;"><label class="badge bg-success" for="pass">已處裡</label>
+                                <input type="radio" id="failed" name="result" value="1"><label class="badge bg-danger" for="failed">未處理</label>
                             </div>
                             <div style="text-align: left; padding-left:160PX">
                             <label>理由:</label>
@@ -370,7 +369,7 @@
 
                                 </div>
                                 <div style="text-align: right;">
-                                <a class="btn btn-primary rounded-pill" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="${pageContext.request.contextPath}/dashboard/memeber/WCC_article_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
+                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
                                 </div>
                             </div>
                                 <div class="col-md-2"></div>
@@ -397,32 +396,79 @@
             </footer>
         </div>
     </div>
-    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <!-- <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script> -->
 
-    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/memeber/assets\js\menu_ative.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded",function () {
-         $("#context").val("測試\n測試\n測試\n測試") ;
+//          $("#context").val("測試\n測試\n測試\n測試") ;
          $("#context").css("height", "auto");
          $("#context").css("height", document.getElementById("context").scrollHeight + "px");
         $("textarea").on("keydown",function () {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
+           var status = "${ArticleReportVO.getReportingStatus()}";
+           console.log(status);
+           console.log(status==0);
+           console.log(status=="0");
 
+          if(status==0){
+        	  $("#pass").prop("checked", true);  }else{  $("#failed").prop("checked", true)}
+          
+         if("${ArticleReportVO.getReportingAnswer()}" != null){
+        	 $("textarea#context1").val("${ArticleReportVO.getReportingAnswer()}");
+         } 
+          
+          $("a#confirm").on("click",function(){
+        	  var articleReportNO = "${ArticleReportVO.getArticleReportNo()}"
+        	  var status= $("input[name='result']:checked").val()+"";
+        	 var answer = $("textarea#context1").val();
+        	
+        	  
+        	  var form = $("<form>", {
+                  action: "${pageContext.request.contextPath}/ArticleReportServlet", // 表单提交的URL
+                  method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+              });
+      	    
+      	       form.append($("<input>", {
+                     type: "text",
+                     name: "action",
+                     value: "confirmArticleReport"
+                 }));
+    	       form.append($("<input>", {
+                   type: "text",
+                   name: "articleReportNo",
+                   value: articleReportNO
+               }));
+    	       form.append($("<input>", {
+                   type: "text",
+                   name: "status",
+                   value: status
+               }));
+    	       form.append($("<input>", {
+                   type: "text",
+                   name: "reportingAnswer",
+                   value: answer
+               }));
+      	       form.appendTo("body").hide();
+      	       form.submit();
+      	       form.remove();
+        	  
+          })
     })
-        // 监听<textarea>的输入事件
     </script>
 </body>
 

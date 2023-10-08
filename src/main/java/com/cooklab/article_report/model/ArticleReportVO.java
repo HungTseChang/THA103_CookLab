@@ -4,10 +4,16 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.article.model.*;
+import com.cooklab.members.model.*;
 @Entity
 @Table(name="article_report") 
 public class ArticleReportVO implements java.io.Serializable{
@@ -25,16 +31,24 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "reporting_reason")  
 		private String reportingReason;
 	
-	@Column(name = "reporting_answer")  
-	private String reportingAnswer;
-	
 	@Column(name = "reporting_status")  
 		private Byte reportingStatus ;
+	
+	@Column(name = "reporting_answer")  
+	private String reportingAnswer;
 	
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Timestamp createdTimestamp;
 		
-
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "article_no", referencedColumnName = "article_no")
+//	private ArticleVO ArticleVO;
+//	
+//	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "reporter_id", referencedColumnName = "memberId")
+//	private MembersVO MembersVO;
+	
 		public ArticleReportVO(Integer articleNo, Integer reporterId, String reportingReason, Byte reportingStatus) {
 		super();
 		this.articleNo = articleNo;
@@ -102,7 +116,39 @@ public class ArticleReportVO implements java.io.Serializable{
 		public void setCreatedTimestamp(Timestamp createdTimestamp) {
 			this.createdTimestamp = createdTimestamp;
 		}
+		public String getReportingAnswer() {
+			return reportingAnswer;
+		}
+		public void setReportingAnswer(String reportingAnswer) {
+			this.reportingAnswer = reportingAnswer;
+		}
+//		public ArticleVO getArticleVO() {
+//			return ArticleVO;
+//		}
+//		public void setArticleVO(ArticleVO articleVO) {
+//			ArticleVO = articleVO;
+//		}
+//		public MembersVO getMembersVO() {
+//			return MembersVO;
+//		}
+//		public void setMembersVO(MembersVO membersVO) {
+//			MembersVO = membersVO;
+//		}
+		public ArticleVO getArticleVO() {
+			ArticleJDBCDAOIm  dao = new ArticleJDBCDAOIm();
+			ArticleVO	 ArticleVO1=    dao.findByPrimaryKey(articleNo);
+			
+			return ArticleVO1;
+			
+		}
 		
+		public MembersVO getMembersVO() {
+			MembersJDBCDAO dao = new MembersJDBCDAO();
+			MembersVO	 MembersVO1=    dao.findByPrimaryKey(reporterId);
+			
+			return MembersVO1;
+			
+		}
 		
 		
 }

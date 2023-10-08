@@ -8,7 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.purchase_order.model.PurchaseOrderVO;
 
 @Entity
 @Table(name = "purchase_order_detail")
@@ -27,8 +31,11 @@ public class PurchaseOrderDetailVO implements java.io.Serializable {
 	@Column(name = "expired_date")
 	private Date expiredDate;
 
-	@Column(name = "purchase_order_no")
-	private Integer purchaseOrderNo;
+	@ManyToOne
+	@JoinColumn(name="purchase_order_no", referencedColumnName="purchase_order_no")
+//	@Column(name = "purchase_order_no")
+//	private Integer purchaseOrderNo;
+	private PurchaseOrderVO purchaseOrder;
 
 	@Column(name = "product_no")
 	private Integer productNo;
@@ -39,6 +46,9 @@ public class PurchaseOrderDetailVO implements java.io.Serializable {
 	@Column(name = "created_timestamp", updatable = false, insertable = false)
 	private Timestamp createdTimestamp;
 
+	
+	
+	
 	public PurchaseOrderDetailVO() {
 	}
 
@@ -49,10 +59,21 @@ public class PurchaseOrderDetailVO implements java.io.Serializable {
 		this.productName = productName;
 		this.productQty = productQty;
 		this.expiredDate = expiredDate;
-		this.purchaseOrderNo = purchaseOrderNo;
+//		this.purchaseOrderNo = purchaseOrderNo;
 		this.productNo = productNo;
 		this.purchaseOrderPrice = purchaseOrderPrice;
 		this.createdTimestamp = createdTimestamp;
+	}
+
+	
+	
+	
+	public PurchaseOrderVO getPurchaseOrder() {
+		return purchaseOrder;
+	}
+
+	public void setPurchaseOrder(PurchaseOrderVO purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
 	}
 
 	public Integer getOrderDetailNo() {
@@ -87,13 +108,13 @@ public class PurchaseOrderDetailVO implements java.io.Serializable {
 		this.expiredDate = expiredDate;
 	}
 
-	public Integer getPurchaseOrderNo() {
-		return purchaseOrderNo;
-	}
-
-	public void setPurchaseOrderNo(Integer purchaseOrderNo) {
-		this.purchaseOrderNo = purchaseOrderNo;
-	}
+//	public Integer getPurchaseOrderNo() {
+//		return purchaseOrderNo;
+//	}
+//
+//	public void setPurchaseOrderNo(Integer purchaseOrderNo) {
+//		this.purchaseOrderNo = purchaseOrderNo;
+//	}
 
 	public Integer getProductNo() {
 		return productNo;
@@ -122,8 +143,7 @@ public class PurchaseOrderDetailVO implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "PurchaseOrderDetailVO [orderDetailNo=" + orderDetailNo + ", productName=" + productName
-				+ ", productQty=" + productQty + ", expiredDate=" + expiredDate + ", purchaseOrderNo=" + purchaseOrderNo
-				+ ", productNo=" + productNo + ", purchaseOrderPrice=" + purchaseOrderPrice + ", createdTimestamp="
+				+ ", productQty=" + productQty + ", expiredDate=" + expiredDate + ", productNo=" + productNo + ", purchaseOrderPrice=" + purchaseOrderPrice + ", createdTimestamp="
 				+ createdTimestamp + "]";
 	}
 

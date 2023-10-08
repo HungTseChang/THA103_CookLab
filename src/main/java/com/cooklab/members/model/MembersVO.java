@@ -1,5 +1,5 @@
 package com.cooklab.members.model;
-import java.util.Date;
+
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class MembersVO {
 	private String memberMail;
 	
 	@Column (name="member_date")
-	private Date memberDate;
+	private java.sql.Date  memberDate;
 	
 	@Column (name="member_address")
 	private String memberAddress;
@@ -69,7 +69,7 @@ public class MembersVO {
 	
 	
 	public MembersVO( String memberAccount, String memberPassword, String memberIntroduce,
-			String memberCellphone, String memberMail, Date memberDate, String memberAddress, String memberCountry,
+			String memberCellphone, String memberMail, java.sql.Date memberDate, String memberAddress, String memberCountry,
 			byte memberStatus, byte[] memberPicture, String memberNickname, byte memberGender) {
 		super();
 		
@@ -122,10 +122,10 @@ public class MembersVO {
 	public void setMemberMail(String memberMail) {
 		this.memberMail = memberMail;
 	}
-	public Date getMemberDate() {
+	public java.sql.Date getMemberDate() {
 		return memberDate;
 	}
-	public void setMemberDate(Date memberDate) {
+	public void setMemberDate(java.sql.Date memberDate) {
 		this.memberDate = memberDate;
 	}
 	public String getMemberAddress() {
