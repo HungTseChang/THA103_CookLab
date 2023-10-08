@@ -1,14 +1,21 @@
 package com.cooklab.article.model;
+import com.cooklab.members.model.*;
 
+import java.io.Console;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.members.model.MembersVO;
 @Entity
 @Table(name="article") 
 public class ArticleVO implements java.io.Serializable {
@@ -123,6 +130,12 @@ public class ArticleVO implements java.io.Serializable {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
 
+	public MembersVO getMembersVO() {
+		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
+		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
+		return MembersVO1;
+		
+	}
 
 	
 }

@@ -14,9 +14,9 @@ public class ArticleReportTest {
 		try {
 			session.beginTransaction();
 			/////////新增
-//			ArticleReportVO ArticleReportVO = new ArticleReportVO(3,1,"心情不好",(byte) 1);
-//
-//           	session.save(ArticleReportVO);
+			ArticleReportVO ArticleReportVO = new ArticleReportVO(3,1,"心情不好",(byte) 1);
+
+           	session.save(ArticleReportVO);
  ////=========================== 修改====================================
 			 
 //           	ArticleReportVO ArticleReportVO1  = session.get(ArticleReportVO.class, 1);
