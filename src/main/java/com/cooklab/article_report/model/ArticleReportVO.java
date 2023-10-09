@@ -144,7 +144,7 @@ public class ArticleReportVO implements java.io.Serializable{
 		
 		public MembersVO getMembersVO() {
 			MembersJDBCDAO dao = new MembersJDBCDAO();
-			MembersVO	 MembersVO1=    dao.findByPrimaryKey(reporterId);
+			MembersVO	 MembersVO1= dao.findByPrimaryKey(reporterId);
 			
 			return MembersVO1;
 			

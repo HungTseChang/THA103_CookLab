@@ -281,8 +281,8 @@
                         </div>
                     </div>
    <div class="pagination">
-        <span class="page-item wcc" id="prev-page">上一页</span>
-        <span class="page-item wcc" id="next-page">下一页</span>
+        <span class="page-item wcc" id="prev-page">上一頁</span>
+        <span class="page-item wcc" id="next-page">下一頁</span>
         <span id="current-page">1</span>
         <span id="total-pages">of 1</span>
     </div>
@@ -329,10 +329,7 @@
         			console.log("reload");
         	}
 
-       $("#select1").change(function() {
-    	   rowsPerPage = $(this).val();
-    	   updateTable();
-       });
+
 function updateTable() {    
 var startIndex = (currentPage - 1) * rowsPerPage;
 var endIndex = startIndex + rowsPerPage;
@@ -375,7 +372,11 @@ tableBody.empty();
           $("#total-pages").text("of " + totalPages);
 } 
          
-            
+$("#select1").change(function() {
+	   rowsPerPage = $(this).val();
+	   currentPage = 1;
+	   updateTable();
+});
           $("#prev-page").click(function() {
               if (currentPage > 1) {
                   currentPage--;
