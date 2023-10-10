@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
-import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.util.HibernateUtil;
 
 

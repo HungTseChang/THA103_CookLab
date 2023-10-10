@@ -16,12 +16,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/app.css">
-    <link rel="shortcut icon" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/css/app.css">
+    <link rel="shortcut icon" href="<%= request.getContextPath() %>/mazer-main/dist/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 
@@ -258,17 +258,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="ArticleVO" items="${list}">
+                <c:forEach var="artVO" items="${list}">
                   <tr>
-                    <td>${ArticleVO.articleNo}</td>
-                    <td>${ArticleVO.articleCategory}</td>
-                    <td class="HO_article_title">${ArticleVO.articleTitle}</td>
+                    <td>${artVO.articleNo}</td>
+                    <td>${artVO.articleCategory}</td>
+                    <td class="HO_article_title">${artVO.articleTitle}</td>
                     <td class="artice_status">
                       <a href="#" class="btn btn-success rounded-pill btn article_status" >
-                      ${ArticleVO.articleStatus}</a>
+                      ${artVO.articleStatus}</a>
                       </td>
-                    <td>${ArticleVO.memberId}</td>
-                    <td>${ArticleVO.createdTimestamp}</td>
+                    <td>${artVO.memberId}</td>
+                    <td>${artVO.createdTimestamp}</td>
                     <td>
                       <a class="wcc" href="">¬d¬Ý¤å³¹</a>
                       <select class="ch_artice_status">
@@ -303,7 +303,7 @@
     </div>
   </div>
 
-  <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
+  <script src="../assets/vendors/jquery-3.7.1.min.js"></script>
   <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
@@ -373,8 +373,13 @@
       });
     });
   </script>
-
-  <script src="assets/js/main.js"></script>
+	<script src="../assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets\js\menu_ative.js"></script>
 </body>
 
 </html>

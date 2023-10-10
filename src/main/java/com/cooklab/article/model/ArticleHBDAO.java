@@ -25,7 +25,7 @@ public class ArticleHBDAO implements ArticleDAO {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
-			HibernateUtil.shutdown();
+//			HibernateUtil.shutdown();
 		}
 	
 
@@ -57,7 +57,7 @@ public class ArticleHBDAO implements ArticleDAO {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
-			HibernateUtil.shutdown();
+//			HibernateUtil.shutdown();
 		}
 
 
@@ -80,7 +80,7 @@ public class ArticleHBDAO implements ArticleDAO {
 		e.printStackTrace();
 		session.getTransaction().rollback();
 	} finally {
-		HibernateUtil.shutdown();
+//		HibernateUtil.shutdown();
 	}
 	}
 
@@ -108,7 +108,7 @@ public class ArticleHBDAO implements ArticleDAO {
 		e.printStackTrace();
 		session.getTransaction().rollback();
 	} finally {
-		HibernateUtil.shutdown();
+//		HibernateUtil.shutdown();
 	}
 		return ArticleVO3;
 	}
@@ -144,7 +144,7 @@ public class ArticleHBDAO implements ArticleDAO {
 		e.printStackTrace();
 		session.getTransaction().rollback();
 	} finally {
-		HibernateUtil.shutdown();
+//		HibernateUtil.shutdown();
 	}
 		return list1;
 
@@ -158,70 +158,10 @@ public class ArticleHBDAO implements ArticleDAO {
 	public static void main(String[] args) {
 
 		ArticleHBDAO dao = new ArticleHBDAO();
-		// 新增
-		// 新增
-//		ArticleVO ArticleVO1 = new ArticleVO();
-//		ArticleVO1.setArticleCategory(1);
-//		ArticleVO1.setArticleTitle("今天大家吃甚麼?");
-//		ArticleVO1.setMemberId(Integer.valueOf(1));
-//		ArticleVO1.setArticleStatus(Byte.valueOf((byte) 1));
-//		ArticleVO1.setArticleContent("今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸");
-//		ArticleVO1.setArticleCount(Integer.valueOf(0));
-//		ArticleVO1.setViewCount(Integer.valueOf(0));
-//		dao.insert(ArticleVO1);
 
-////			// 修改
-//		    ArticleVO ArticleVO2 = new ArticleVO();
-//			ArticleVO2.setArticleNo(Integer.valueOf(2));
-//			ArticleVO2.setArticleCategory(2);
-//			ArticleVO2.setArticleTitle("明天大家吃甚麼11?");
-//			ArticleVO2.setMemberId(Integer.valueOf(1) );
-//			ArticleVO2.setArticleStatus(Byte.valueOf((byte) 0)) ;
-//			ArticleVO2.setArticleContent("下雨天留客天留我不留") ;
-//			ArticleVO2.setArticleCount(Integer.valueOf(10)) ;
-//			ArticleVO2.setViewCount(Integer.valueOf(10)) ;
-//			dao.update(ArticleVO2);
-//
-//////			// 刪除
-//			dao.delete(3);
-//
-//
-//////
-//////			// 查詢
-			ArticleVO ArticleVO3 = dao.findByPrimaryKey(2);
-			System.out.println(ArticleVO3.getMemberVO().getMemberAccount());
-//			System.out.print(ArticleVO3.getArticleNo() + ",");
-//			System.out.print(ArticleVO3.getArticleCategory() + ",");
-//			System.out.print(ArticleVO3.getArticleTitle() + ",");
-//			System.out.print(ArticleVO3.getMemberId() + ",");
-//			System.out.print(ArticleVO3.getArticleStatus() + ",");
-//			System.out.print(ArticleVO3.getArticleContent() + ",");
-//			System.out.print(ArticleVO3.getArticleCount()+ ",");
-//			System.out.print(ArticleVO3.getViewCount()+",");
-//			System.out.print(ArticleVO3.getLastEditTimestamp() + ",");
-//			System.out.println(ArticleVO3.getCreatedTimestamp() + ",");
-//
-//			System.out.println("---------------------");
-//////
-//////			// 查詢
-//		List<ArticleVO> list = dao.getAll();
-//		for (ArticleVO aArticleVO : list) {
-//			System.out.print(aArticleVO.getArticleNo() + ",");
-//			System.out.print(aArticleVO.getArticleCategory() + ",");
-//			System.out.print(aArticleVO.getArticleTitle() + ",");
-//			System.out.print(aArticleVO.getMemberId() + ",");
-//			System.out.print(aArticleVO.getArticleStatus() + ",");
-//			System.out.print(aArticleVO.getArticleContent() + ",");
-//			System.out.print(aArticleVO.getArticleCount() + ",");
-//			System.out.print(aArticleVO.getViewCount() + ",");
-//			System.out.print(aArticleVO.getLastEditTimestamp() + ",");
-//			System.out.println(aArticleVO.getCreatedTimestamp() + ",");
-//			System.out.println("---------------------");
-//		}
-//	
 	
 	
 	
 	
-	
-}}
+	}
+}
