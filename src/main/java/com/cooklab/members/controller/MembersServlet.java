@@ -4,10 +4,15 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import com.cooklab.members.model.*;
 @WebServlet("/MembersServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+maxFileSize = 1024 * 1024 * 10,      // 10MB
+maxRequestSize = 1024 * 1024 * 50)   // 50MB
+
 public class MembersServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -174,11 +179,20 @@ public class MembersServlet extends HttpServlet {
 			memVO.setMemberNickname(memberNickname);
 			Byte memberGender = (Byte.valueOf(req.getParameter("member_gender")));
 			memVO.setMemberGender(memberGender);
-//			java.sql.Timestamp credcreatedTimestamp = (java.sql.Timestamp.valueOf(req.getParameter("created_timestamp")));
-//			memVO.setCredcreatedTimestamp(credcreatedTimestamp);
-//			java.sql.Timestamp lastEditTimestamp = (java.sql.Timestamp.valueOf(req.getParameter("last_edit_timestamp")));
-//			memVO.setLastEditTimestamp(lastEditTimestamp);
-
+//
+			
+			byte[] buf = null;
+            Part filePart = req.getPart("mem_img");
+            
+	        InputStream in = filePart.getInputStream();
+	        if(in.available() != 0)
+	        {
+		        buf = new byte[in.available()];   // byte[] buf = in.readAllBytes();  // Java 9 的新方法
+		        System.out.println();
+		        in.read(buf);
+		        in.close(); 
+		        memVO.setMemberPicture(buf);
+	        }
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -191,7 +205,7 @@ public class MembersServlet extends HttpServlet {
 			MembersService memSvc = new MembersService();
 			memVO = memSvc.updateMember(memberId,memberAccount,memberPassword,memberIntroduce,
 					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
-					,memberStatus,memberNickname,memberGender);
+					,memberStatus,buf,memberNickname,memberGender);
 
 //			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			memVO = memSvc.getOneMember(memberId);
@@ -201,7 +215,7 @@ public class MembersServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
+		if ("insert".equals(action)) { // 來自addMembers.jsp的請求
 
 			MembersVO memVO = new MembersVO();
 			List<String> errorMsgs = new LinkedList<String>();
@@ -281,7 +295,21 @@ public class MembersServlet extends HttpServlet {
 			memVO.setMemberNickname(memberNickname);
 			Byte memberGender = (Byte.valueOf(req.getParameter("member_gender")));
 			memVO.setMemberGender(memberGender);
-
+			
+			byte[] buf = null;
+            Part filePart = req.getPart("mem_img");
+            
+	            InputStream in = filePart.getInputStream();
+	            if(in.available() != 0)
+	            {
+		            buf = new byte[in.available()];   // byte[] buf = in.readAllBytes();  // Java 9 的新方法
+		            System.out.println();
+		            in.read(buf);
+		            in.close(); 
+		            
+					memVO.setMemberPicture(buf);
+	            }
+			memVO.setMemberGender(memberGender);
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -295,7 +323,7 @@ public class MembersServlet extends HttpServlet {
 //			/*************************** 2.開始新增資料 ***************************************/
 			memVO = memSvc.addMembers(memberAccount,memberPassword,memberIntroduce,
 					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
-					,memberStatus,memberNickname,memberGender);
+					,memberStatus,buf,memberNickname,memberGender);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 //			req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req

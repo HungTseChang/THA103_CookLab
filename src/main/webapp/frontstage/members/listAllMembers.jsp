@@ -55,7 +55,8 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>所有會員資料 - listAllMembers.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="frontstage/members/select_page.jsp">
+		 <img src="frontstage/members/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -73,8 +74,13 @@
 		<th>會員狀態</th>
 		<th>暱稱</th>
 		<th>性別</th>
+		<th>會員頭像</th>
+		
 		<th>新增時間</th>
 		<th>最後編輯時間</th>
+		
+		<th>修改</th>
+		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="membersVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -92,6 +98,8 @@
 			<td>${membersVO.memberStatus}</td>
 			<td>${membersVO.memberNickname}</td>
 			<td>${membersVO.memberGender}</td>
+			 <td><img style="max-width: 200px; max-height: 200px;" 
+			 src="/com.tha103.cooklab/MembersImgServlet?memberId=${membersVO.memberId}"></td> 
 			<td>${membersVO.credcreatedTimestamp}</td>
 			<td>${membersVO.lastEditTimestamp}</td>
 			<td>
