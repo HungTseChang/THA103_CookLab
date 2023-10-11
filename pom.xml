@@ -13,7 +13,7 @@
 	<artifactId>CookLab</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>com.tha103.cooklab</name>
+	<name>CookLab</name>
 	<description>com.tha103.cooklab</description>
 	<properties>
 		<java.version>17</java.version>
