@@ -70,6 +70,7 @@
 		<th>固定折價金額</th>
 		<th>可使用次數</th>
 		<th>最低消費門檻</th>
+		<th>表單建立時間</th>
 		
 	</tr>
 	<%@ include file="page1.file" %> 

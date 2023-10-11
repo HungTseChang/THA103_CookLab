@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.cooklab.support_form.model.*"%>
+<%@ page import="com.cooklab.promo_code.model.*"%>
 
 <% 
-SupportFormVO sfVO = (SupportFormVO) request.getAttribute("sfVO");
+PromoCodeVO pcVO = (PromoCodeVO) request.getAttribute("pcVO");
 %>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>表單資料修改 - update_supportform_input.jsp</title>
+<title>優惠碼修改 - update_promoCode_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -47,8 +47,8 @@ SupportFormVO sfVO = (SupportFormVO) request.getAttribute("sfVO");
 
 <table id="table-1">
 	<tr><td>
-		 <h3>表格資料修改 - update_emp_input.jsp</h3>
-		 <h4><a href="/THA103_CookLab/supportform/select_page.jsp">回首頁</a></h4>
+		 <h3>優惠碼修改 - update_promocode_input.jsp</h3>
+		 <h4><a href="/THA103_CookLab/promocode/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -64,51 +64,63 @@ SupportFormVO sfVO = (SupportFormVO) request.getAttribute("sfVO");
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="/THA103_CookLab/SupportFormServlet" name="form1">
+<FORM METHOD="post" ACTION="/THA103_CookLab/PromoCodeServlet" name="form1">
 <table>
 	<tr>
-		<td>表格編號:<font color=red><b>*</b></font></td>
-		<td><%=sfVO.getFormNo()%></td>
+		<td>優惠碼編號:<font color=red><b>*</b></font></td>
+		<td><%=pcVO.getPromoCodeNo()%></td>
 	</tr>
 	<tr>
-		<td>客戶姓名:</td>
-		<td><input type="TEXT" name="realName" value="<%=sfVO.getRealName()%>" size="45"/></td>
+		<td>優惠碼序號:</td>
+				<td><input type="TEXT" name="promocodeserialnumber"
+					value="<%=(pcVO == null) ? "" : pcVO.getPromoCodeSerialNumber()%>"
+					size="45" /></td>
 	</tr>
 	<tr>
-		<td>問題類別:</td>
-		<td><input type="TEXT" name="supportFormCategoryId"   value="<%=sfVO.getSupportFormCategoryId()%>" size="45"/></td>
+		<td>起始時間:</td>
+				<td><input type="DATE" name="starttime"
+					value="<%=(pcVO == null) ? "" : pcVO.getStartTime()%>"
+					size="45" /></td>
 	</tr>
 	<tr>
-		<td>回覆信箱:</td>
-		<td><input type="TEXT" name="replyEmail"   value="<%=sfVO.getReplyEmail()%>" size="45"/></td>
+		<td>結束時間:</td>
+				<td><input type="DATE" name="endtime"
+					value="<%=(pcVO == null) ? "" : pcVO.getEndTime()%>" size="45" /></td>
 	</tr>
 	<tr>
-		<td>反應標題:</td>
-		<td><input type="TEXT" name="formTitle"  value="<%=sfVO.getFormTitle()%>" size="45"/></td>
+		<td>百分比折價金額:</td>
+				<td><input type="TEXT" name="percentagediscountamount"
+					value="<%=(pcVO == null) ? "" : pcVO.getPercentageDiscountAmount()%>" size="45" /></td>
 	</tr>
 	<tr>
-		<td>反應內文:</td>
-		<td><textarea name="formContext"  ><%=sfVO.getFormContext()%></textarea></td>
+		<td>固定折價金額:</td>
+				<td><input type="TEXT" name="fixeddiscountamount"
+					value="<%=(pcVO == null) ? "" : pcVO.getFixedDiscountAmount()%>"
+					size="45" /></td>
 	</tr>
 	<tr>
-		<td>表單狀態:</td>
-				<td><input type="TEXT" name="formStatus"  value="<%=sfVO.getFormStatus()%>" size="45"/></td>
+		<td>可使用次數:</td>
+				<td><input type="TEXT" name="usagesallowed"
+					value="<%=(pcVO == null) ? "": pcVO.getUsagesAllowed()%>" size="45" /></td>
 	</tr>
 	<tr>
-		<td>表單來源:</td>
-		<td><input type="TEXT" name="formSource"  value="<%=sfVO.getFormSource()%>" size="45"/></td>
+		<td>最低消費門檻:</td>
+				<td><input type="TEXT" name="minimumconsumption"
+					value="<%=(pcVO == null) ? "" : pcVO.getMinimumConsumption()%>" size="45" /></td>
 	</tr>
+	<!--  
 	<tr>
 		<td>表單建立者:</td>
-		<td><input type="TEXT" name="formSubmitter"  value="<%=sfVO.getFormSubmitter()%>" size="45"/></td>
+		<td><input type="TEXT" name="formSubmitter"  value="<%=pcVO.getFormSubmitter()%>" size="45"/></td>
 	</tr>
 	<tr>
 		<td>表單處理者:</td>
-		<td><input type="TEXT" name="formResponder"  value="<%=sfVO.getFormResponder()%>" size="45"/></td>
+		<td><input type="TEXT" name="formResponder"  value="<%=pcVO.getFormResponder()%>" size="45"/></td>
 	</tr>
+	-->
 	<tr>
 		<td>表格建立時間:</td>
-				<td><input type="TEXT" name="createdTimestamp"  value="<%=sfVO.getCreatedTimestamp()%>" size="45"
+				<td><input type="TEXT" name="createdTimestamp"  value="<%=pcVO.getCreatedTimestamp()%>" size="45"
 				style="border:none; outline: none;" readonly
 				/></td>
 	</tr>
@@ -116,7 +128,7 @@ SupportFormVO sfVO = (SupportFormVO) request.getAttribute("sfVO");
 </table>
 <br>
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="formNo" value="<%=sfVO.getFormNo()%>">
+<input type="hidden" name="formNo" value="<%=pcVO.getPromoCodeNo()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 

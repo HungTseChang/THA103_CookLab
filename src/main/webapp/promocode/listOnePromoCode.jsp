@@ -1,15 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ page import="com.cooklab.support_form.model.*"%>
+<%@ page import="com.cooklab.promo_code.model.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-SupportFormVO sfVO = (SupportFormVO) request.getAttribute("sfVO"); 
+PromoCodeVO pcVO = (PromoCodeVO) request.getAttribute("pcVO"); 
 %>
 
 <html>
 <head>
-<title>表單資料 - listOneSupportForm.jsp</title>
+<title>表單資料 - listOnePromoCode.jsp</title>
 
 <style>
   table#table-1 {
@@ -57,29 +57,25 @@ SupportFormVO sfVO = (SupportFormVO) request.getAttribute("sfVO");
 
 <table>
 	<tr>
-		<th>表單編號</th>
-		<th>客戶姓名</th>
-		<th>問題類別</th>
-		<th>回覆信箱</th>
-		<th>反應標題</th>
-		<th>表單內文</th>
-		<th>處理狀態</th>
-		<th>處理來源</th>
-		<th>表單建立者</th>
-		<th>表單處理者</th>
+	<th>優惠碼編號</th>
+		<th>優惠碼序號</th>
+		<th>起始時間</th>
+		<th>結束時間</th>
+		<th>百分比折價金額</th>
+		<th>固定折價金額</th>
+		<th>可使用次數</th>
+		<th>最低消費門檻</th>
 		<th>表單建立時間</th>
 	</tr>
 	<tr>
-		<td><%=sfVO.getFormNo()%></td>
-		<td><%=sfVO.getRealName()%></td>
-		<td><%=sfVO.getSupportFormCategoryId()%></td>
-		<td><%=sfVO.getReplyEmail()%></td>
-		<td><%=sfVO.getFormTitle()%></td>
-		<td><%=sfVO.getFormContext()%></td>
-		<td><%=sfVO.getFormStatus()%></td>
-		<td><%=sfVO.getFormSource()%></td>
-		<td><%=sfVO.getFormSubmitter()%></td>
-		<td><%=sfVO.getFormResponder()%></td>
+			<td>${pcVO.promoCodeNo}</td>
+			<td>${pcVO.promoCodeSerialNumber}</td>
+			<td>${pcVO.startTime}</td>
+			<td>${pcVO.endTime}</td>
+			<td>${pcVO.percentageDiscountAmount}</td>
+			<td>${pcVO.fixedDiscountAmount}</td> 
+			<td>${pcVO.usagesAllowed}</td>
+			<td>${pcVO.minimumConsumption}</td>
 		<fmt:formatDate value="${sfVO.createdTimestamp}" pattern="yyyy-MM-dd HH:mm:ss" var="formattedTimestamp" />
 		<td>${formattedTimestamp}</td>
 	</tr>
