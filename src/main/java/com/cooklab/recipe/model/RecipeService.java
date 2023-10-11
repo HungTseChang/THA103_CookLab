@@ -1,8 +1,7 @@
 package com.cooklab.recipe.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
-import com.cooklab.recipe.*;
 
 public class RecipeService {
 	private RecipeDAO dao;
@@ -13,7 +12,7 @@ public class RecipeService {
 
 	public RecipeVO addRecipe(Integer memberId, String recipeName, byte[] coverImage, String introduction,
 			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
-			Byte recipeQuantity, Date lastEditTimestamp) {
+			Byte recipeQuantity, Timestamp lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
@@ -35,7 +34,7 @@ public class RecipeService {
 
 	public RecipeVO updateRecipe(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage,
 			String introduction, String additionalExplanation, String region, Byte recipeStatus, Integer reportCount,
-			Integer viewCount, Byte recipeQuantity, Date lastEditTimestamp) {
+			Integer viewCount, Byte recipeQuantity, Timestamp lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 

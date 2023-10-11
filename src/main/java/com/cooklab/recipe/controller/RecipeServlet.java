@@ -2,9 +2,10 @@ package com.cooklab.recipe.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -138,7 +139,7 @@ public class RecipeServlet extends HttpServlet {
 			Integer reportCount = Integer.valueOf(req.getParameter("report_count"));
 			Integer viewCount = Integer.valueOf(req.getParameter("view_count"));
 			Byte recipeQuantity = Byte.valueOf(req.getParameter("recipe_quantity"));
-			Date lastEditTimestamp = new Date();
+			Timestamp lastEditTimestamp = new Timestamp(new Date().getTime());
 
 			RecipeVO recipeVO = new RecipeVO();
 			recipeVO.setRecipeNo(recipeNo);
@@ -204,7 +205,7 @@ public class RecipeServlet extends HttpServlet {
 			Integer reportCount = Integer.valueOf(req.getParameter("report_count"));
 			Integer viewCount = Integer.valueOf(req.getParameter("view_count"));
 			Byte recipeQuantity = Byte.valueOf(req.getParameter("recipe_quantity"));
-			Date lastEditTimestamp = new Date();
+			Timestamp lastEditTimestamp = new Timestamp(new Date().getTime());
 //			String job = req.getParameter("job").trim();
 //			if (job == null || job.trim().length() == 0) {
 //				errorMsgs.add("職位請勿空白");

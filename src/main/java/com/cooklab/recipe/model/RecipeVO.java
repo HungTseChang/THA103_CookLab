@@ -1,7 +1,7 @@
 package com.cooklab.recipe.model;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,13 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.cooklab.recipe_collection.model.RecipeCollectionVO;
-import com.cooklab.recipe_comments.model.RecipeCommentsVO;
-import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
-import com.cooklab.recipe_ingredient.model.RecipeIngredientVO;
-import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
-import com.cooklab.recipe_reaction.model.RecipeReactionVO;
-import com.cooklab.recipe_report.model.RecipeReportVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
 
 @Entity
@@ -84,16 +77,16 @@ public class RecipeVO implements java.io.Serializable {
 	@Column(name = "recipe_quantity")
 	private Byte recipeQuantity;
 	@Column(name = "last_edit_timestamp")
-	private Date lastEditTimestamp;
+	private Timestamp lastEditTimestamp;
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
-	private Date createdTimestamp;
+	private Timestamp createdTimestamp;
 
 	public RecipeVO() {
 	}
 
 	public RecipeVO(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage, String introduction,
 			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
-			Byte recipeQuantity, Date lastEditTimestamp, Date createdTimestamp) {
+			Byte recipeQuantity, Timestamp lastEditTimestamp, Timestamp createdTimestamp) {
 		super();
 		this.recipeNo = recipeNo;
 		this.memberId = memberId;
@@ -262,19 +255,19 @@ public class RecipeVO implements java.io.Serializable {
 		this.recipeQuantity = recipeQuantity;
 	}
 
-	public Date getLastEditTimestamp() {
+	public Timestamp getLastEditTimestamp() {
 		return lastEditTimestamp;
 	}
 
-	public void setLastEditTimestamp(Date lastEditTimestamp) {
+	public void setLastEditTimestamp(Timestamp lastEditTimestamp) {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
 
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 
