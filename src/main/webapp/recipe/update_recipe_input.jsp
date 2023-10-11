@@ -56,7 +56,7 @@ th, td {
 			<td>
 				<h3>食譜資料修改 - update_recipe_input.jsp</h3>
 				<h4>
-					<a href="/com.tha103.cooklab/recipe/select_page.jsp"><img
+					<a href="<%=request.getContextPath()%>/recipe/select_page.jsp"><img
 						src="/com.tha103.cooklab/recipe/images/back1.gif" width="100"
 						height="32" border="0">回首頁</a>
 				</h4>
@@ -76,7 +76,7 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet"
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet"
 		name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>

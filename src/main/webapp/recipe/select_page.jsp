@@ -53,12 +53,12 @@ h4 {
 	</c:if>
 
 	<ul>
-		<li><a href='listAllRecipe.jsp'>List</a> all Recipes. <br>
+		<li><a href='<%=request.getContextPath()%>/recipe/listAllRecipe.jsp'>List</a> all Recipes. <br>
 		<br></li>
 
 
 		<li>
-			<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet">
 				<b>輸入食譜編號 (如1):</b> <input type="text" name="recipe_no"> <input
 					type="hidden" name="action" value="getOne_For_Display"> <input
 					type="submit" value="送出">
@@ -69,7 +69,7 @@ h4 {
 			class="com.cooklab.recipe.model.RecipeService" />
 
 		<li>
-			<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet">
 				<b>選擇食譜編號:</b> <select size="1" name="recipe_no">
 					<c:forEach var="recipeVO" items="${recipeSvc.all}">
 						<option value="${recipeVO.recipeNo}">${recipeVO.recipeNo}
@@ -80,7 +80,7 @@ h4 {
 		</li>
 
 		<li>
-			<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet">
 				<b>選擇食譜名稱:</b> <select size="1" name="recipe_no">
 					<c:forEach var="recipeVO" items="${recipeSvc.all}">
 						<option value="${recipeVO.recipeNo}">${recipeVO.recipeName}

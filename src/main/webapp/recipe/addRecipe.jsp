@@ -77,7 +77,7 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet"
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet"
 		name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
