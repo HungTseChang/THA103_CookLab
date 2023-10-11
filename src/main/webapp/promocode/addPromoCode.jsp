@@ -52,11 +52,11 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>表單資料新增 - addSupportForm.jsp</h3>
+				<h3>表單資料新增 - addPromoCode.jsp</h3>
 			</td>
 			<td>
 				<h4>
-					<a href="/THA103_CookLab/supportform/select_page.jsp">回首頁</a>
+					<a href="select_page.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
