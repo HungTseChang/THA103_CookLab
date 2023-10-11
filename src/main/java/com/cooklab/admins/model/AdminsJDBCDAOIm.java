@@ -173,7 +173,7 @@ public class AdminsJDBCDAOIm implements AdminsDAO {
 				adminsVO.setPermissionNo(rs.getInt("Permission_no"));
 				adminsVO.setAdminAccount(rs.getString("Admin_account"));
 				adminsVO.setAdminPassword(rs.getString("Admin_password"));
-				adminsVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				adminsVO.setCreatedTimestamp(rs.getTimestamp("Created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -232,7 +232,7 @@ public class AdminsJDBCDAOIm implements AdminsDAO {
 				aVO.setPermissionNo(rs.getInt("Permission_no"));
 				aVO.setAdminAccount(rs.getString("Admin_account"));
 				aVO.setAdminPassword(rs.getString("Admin_password"));
-				aVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				aVO.setCreatedTimestamp(rs.getTimestamp("Created_timestamp"));
 				list.add(aVO);
 			}
 

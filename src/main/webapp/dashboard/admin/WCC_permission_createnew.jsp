@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="BIG5"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +9,14 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/dashboard/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -42,7 +42,7 @@
                         <li class="sidebar-item  ">
                             <a href="WCC_Homepage.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>´·•x≠∫≠∂</span>
+                                <span>ÂæåÂè∞È¶ñÈ†Å</span>
                             </a>
                         </li>
 
@@ -50,7 +50,7 @@
                         <li class="sidebar-item ">
                             <a href="WCC_memeber.html" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>∑|≠˚∫ﬁ≤z</span>
+                                <span>ÊúÉÂì°ÁÆ°ÁêÜ</span>
                             </a>
                         </li>
 
@@ -58,16 +58,16 @@
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>≈v≠≠∫ﬁ≤z</span>
+                                <span>Ê¨äÈôêÁÆ°ÁêÜ</span>
                             </a>
                             <ul class="submenu " style="display: block;">
                           
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_management.html">∫ﬁ≤z∫ﬁ≤z™Ã</a>
+                                    <a href=".\WCC_permission_management.html">ÁÆ°ÁêÜÁÆ°ÁêÜËÄÖ</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_createrule.html">≥–•ﬂ≈v≠≠≥W´h</a>
+                                    <a href=".\WCC_permission_createrule.html">ÂâµÁ´ãÊ¨äÈôêË¶èÂâá</a>
                                 </li>
                             
                             </ul>
@@ -76,14 +76,14 @@
                         <li class="sidebar-item has-sub ">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-collection-fill"></i>
-                                <span>≠π√–∫ﬁ≤z</span>
+                                <span>È£üË≠úÁÆ°ÁêÜ</span>
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href=".\recipe_form.html">≠π√–™Ì≥Ê</a>
+                                    <a href=".\recipe_form.html">È£üË≠úË°®ÂñÆ</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href=".\hashtag_form.html">º–≈“∫ﬁ≤z</a>
+                                    <a href=".\hashtag_form.html">Ê®ôÁ±§ÁÆ°ÁêÜ</a>
                                 </li>
                             </ul>
                         </li>
@@ -91,87 +91,87 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>∞”´∞∫ﬁ≤z</span>
+                                <span>ÂïÜÂüéÁÆ°ÁêÜ</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\shopview.html">∞”´~≥]©w</a>
+                                    <a href=".\shopview.html">ÂïÜÂìÅË®≠ÂÆö</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="TYT_order_management.html">≠q≥Ê∫ﬁ≤z</a>
+                                    <a href="TYT_order_management.html">Ë®ÇÂñÆÁÆ°ÁêÜ</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCpromo_info.html">∑sºW¿u¥f®È</a>
+                                    <a href=".\GCpromo_info.html">Êñ∞Â¢ûÂÑ™ÊÉ†Âà∏</a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href=".\GCpromo.html">¿u¥f®È∫ﬁ≤z</a>
+                                    <a href=".\GCpromo.html">ÂÑ™ÊÉ†Âà∏ÁÆ°ÁêÜ</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCadvertise.html" >ºsßi∫ﬁ≤z</a>
+                                    <a href=".\GCadvertise.html" >Âª£ÂëäÁÆ°ÁêÜ</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCadvertise_info.html">∑sºWºsßi</a>
+                                    <a href=".\GCadvertise_info.html">Êñ∞Â¢ûÂª£Âëä</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="TYT_purchase_order_allView.html">∂i≥f™Ì≥Ê</a>
+                                    <a href="TYT_purchase_order_allView.html">ÈÄ≤Ë≤®Ë°®ÂñÆ</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>∞QΩ◊∞œ∫ﬁ≤z</span>
+                                <span>Ë®éË´ñÂçÄÁÆ°ÁêÜ</span>
                             </a>
 
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\HO_discussion_cate.html">¨›™O§¿√˛</a>
+                                    <a href=".\HO_discussion_cate.html">ÁúãÊùøÂàÜÈ°û</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href=".\HO_discussion_info.html" >§Â≥π∫ﬁ≤z</a>
+                                    <a href=".\HO_discussion_info.html" >ÊñáÁ´†ÁÆ°ÁêÜ</a>
                                   </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>º∆æ⁄§¿™R</span>
+                                <span>Êï∏ÊìöÂàÜÊûê</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="#">∑|≠˚º∆æ⁄</a>
+                                    <a href="#">ÊúÉÂì°Êï∏Êìö</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">≠π√–º∆æ⁄</a>
+                                    <a href="#">È£üË≠úÊï∏Êìö</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">∞”´∞º∆æ⁄</a>
+                                    <a href="#">ÂïÜÂüéÊï∏Êìö</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">§Â≥πº∆æ⁄</a>
+                                    <a href="#">ÊñáÁ´†Êï∏Êìö</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>´»™A§§§ﬂ</span>
+                                <span>ÂÆ¢Êúç‰∏≠ÂøÉ</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_report.html">≠π√–¿À¡|</a>
+                                    <a href="WCC_recipe_report.html">È£üË≠úÊ™¢Ëàâ</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_sub_report.html">≠π√–¶^§Â¿À¡|</a>
+                                    <a href="WCC_recipe_sub_report.html">È£üË≠úÂõûÊñáÊ™¢Ëàâ</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_article_report.html">∞QΩ◊∞œ¿À¡|</a>
+                                    <a href="WCC_article_report.html">Ë®éË´ñÂçÄÊ™¢Ëàâ</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_official_notify.html">®t≤Œ≥q™æ</a>
+                                    <a href="WCC_official_notify.html">Á≥ªÁµ±ÈÄöÁü•</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="ding-support-tickets-table.html">∞›√D™Ì≥Ê</a>
+                                    <a href="ding-support-tickets-table.html">ÂïèÈ°åË°®ÂñÆ</a>
                                 </li>
                             </ul>
                         </li>
@@ -206,7 +206,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>∑sºW∫ﬁ≤z™Ã</h3>
+                            <h3>Êñ∞Â¢ûÁÆ°ÁêÜËÄÖ</h3>
                             <p class="text-subtitle text-muted">For user to check they list</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
@@ -222,8 +222,8 @@
                               
                     <section class="section" style="background-color: white;">
                         <div class="row">
-                            <div class="col-md-2" style="background-color: white;"></div>
-                            <div class="col-md-4" style="background-color: white;">
+                            <div class="col-md-1" style="background-color: white;"></div>
+                            <div class="col-md-5" style="background-color: white;">
                                 <div class="card">
                                     <div class="card-header">
                                     </div>
@@ -233,12 +233,12 @@
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <label>∫ﬁ≤z≠˚±b∏π</label>
+                                                            <label>ÁÆ°ÁêÜÂì°Â∏≥Ëôü</label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="±b∏π"
+                                                                    <input type="text"  name="account" class="form-control" placeholder="Â∏≥Ëôü"
                                                                         id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
@@ -247,12 +247,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label>∫ﬁ≤z≠˚º ∫Ÿ</label>
+                                                            <label>ÁÆ°ÁêÜÂì°Êö±Á®±</label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
-                                                                    <input type="text" class="form-control" placeholder="º ∫Ÿ"
+                                                                    <input type="text"  name="nickname" class="form-control" placeholder="Êö±Á®±"
                                                                         id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-heart"> </i>
@@ -261,34 +261,48 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <label>∫ﬁ≤z≠˚±KΩX</label>
+                                                            <label>ÁÆ°ÁêÜÂì°ÂØÜÁ¢º</label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
-                                                                    <input type="password" class="form-control" placeholder="±KΩX"
+                                                                    <input type="password"  name="password"  class="form-control" placeholder="ÂØÜÁ¢º"
                                                                         id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
-                                                                            <use xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
+                                                                            <use xlink:href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
                                                                         </svg>                                                                   
                                                                      </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-header">
+                                                                                                                <div class="col-md-4">
+                                                            <label>ÂØÜÁ¢ºÁ¢∫Ë™ç</label>
                                                         </div>
+                                                        <div class="col-md-8">
+                                                            <div class="form-group has-icon-left">
+                                                                <div class="position-relative">
+                                                                    <input type="password"  name="passwordcheck"  class="form-control" placeholder="ÂØÜÁ¢º"
+                                                                        id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <svg class="bi" width="1em" height="1em" fill="currentColor">
+                                                                            <use xlink:href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
+                                                                        </svg>                                                                   
+                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                   
                                                     </div>
                                                 </div>
-                                        </div>
-                                        </form>
+                   						</form>
+                              </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4" style=" background-color:  rgb(208, 250, 255);">
                                 <div class="card">
                                     <div class="card-header" style="background-color: rgb(208, 250, 255);">
-                                        <span>≈v≠≠≥W´h</span>
+                                        <span>Ê¨äÈôêË¶èÂâá</span>
                                     </div>
                                     <div class="table-datatable"
                                         style="width: 100%; max-height: 300px; overflow-y: scroll; ">
@@ -297,57 +311,57 @@
                                                 <tr>
                                                     <th>
                                                         <input class="form-check-input" type="radio" name="permission"
-                                                            id="permission1">
+                                                            id="permission1" value="0">
                                                         <label class="form-check-label" for="permission1">
-                                                            ¡`∫ﬁ≤z≠˚
+                                                            Á∏ΩÁÆ°ÁêÜÂì°
                                                         </label>
                                                     </th>
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
                                                     id="permission2">
-                                                <label class="form-check-label" for="permission2">
-                                                    ≠π√–∫ﬁ≤z≠˚
+                                                <label class="form-check-label" for="permission2" value="1">
+                                                    È£üË≠úÁÆ°ÁêÜÂì°
                                                 </label>
                                                 </th>
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
                                                     id="permission3">
-                                                <label class="form-check-label" for="permission3">
-                                                    ∑|≠˚∫ﬁ≤z≠˚
+                                                <label class="form-check-label" for="permission3" value="2">
+                                                    ÊúÉÂì°ÁÆ°ÁêÜÂì°
                                                 </label>
                                             </th>
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
                                                     id="permission4">
-                                                <label class="form-check-label" for="permission4">
-                                                    ºsßißÎ©Ò§H≠˚
+                                                <label class="form-check-label" for="permission4" value="3">
+                                                    Âª£ÂëäÊäïÊîæ‰∫∫Âì°
                                                 </label>
                                             </th>
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
                                                     id="permission5">
-                                                <label class="form-check-label" for="permission5">
-                                                    ´»™A§H≠˚
+                                                <label class="form-check-label" for="permission5" value="4">
+                                                    ÂÆ¢Êúç‰∫∫Âì°
                                                 </label>
                                             </th>
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
                                                     id="permission6">
-                                                <label class="form-check-label" for="permission6">
-                                                    §u≈™•Õ 
+                                                <label class="form-check-label" for="permission6" value="5">
+                                                    Â∑•ËÆÄÁîü 
                                                 </label>
                                             </th>
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
                                                     id="permission7">
-                                                <label class="form-check-label" for="permission7">
-                                                    ∞QΩ◊∞œ∫ﬁ≤z≠˚ 
+                                                <label class="form-check-label" for="permission7" value="6">
+                                                    Ë®éË´ñÂçÄÁÆ°ÁêÜÂì° 
                                                 </label>
                                             </th>
                                                 </tr>
@@ -362,7 +376,7 @@
                                     <div class="col-md-4"></div>
                                     <div class="col-md-4"></div>
                                     <div class="col-md-4">
-                                        <a href="#" class="btn btn-info rounded-pill">ΩTª{∑sºW</a>
+                                        <a href="#" id="insert"class="btn btn-info rounded-pill">Á¢∫Ë™çÊñ∞Â¢û</a>
                                     </div>
                                 </div>
                             </div>
@@ -387,19 +401,67 @@
         </footer>
     </div>
     </div>
-    <script src="assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
-
-    <script src="assets/js/main.js"></script>
-    <script src="assets\js\menu_ative.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
+    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
+     <script>
+     
+     document.addEventListener("DOMContentLoaded",function () {    
+    $("a#insert").on("click",function(){
+  	  var account= $("input[name='account']").val()+"";
+	  var nickname= $("input[name='nickname']").val()+"";
+	  var password= $("input[name='password']").val()+"";
+	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
+	  var permission =$('input[name="permission"]:checked').val()
+	  if(password != passwordcheck){
+		  $("input[name='password']").val("ÂØÜÁ¢ºËàáÂØÜÁ¢ºÁ¢∫Ë™ç‰∏çÁõ∏Á¨¶ÔºåË´ãÈáçÊñ∞Ëº∏ÂÖ•ÂØÜÁ¢º");
+		  $("input[name= 'passwordcheck']").val("ÂØÜÁ¢ºËàáÂØÜÁ¢ºÁ¢∫Ë™ç‰∏çÁõ∏Á¨¶ÔºåË´ãÈáçÊñ∞Ëº∏ÂÖ•ÂØÜÁ¢º");
+	  }
+  	  var form = $("<form>", {
+            action: "${pageContext.request.contextPath}/AdminsServlet", // Ë°®ÂçïÊèê‰∫§ÁöÑURL
+            method: "post", // Êèê‰∫§ÊñπÊ≥ïÔºåÂèØ‰ª•ÊòØ "post" Êàñ "get"ÔºåÊ†πÊçÆÈúÄÊ±ÇËÆæÁΩÆ
+        });
+	    
+	       form.append($("<input>", {
+               type: "text",
+               name: "action",
+               value: "inserAdmins"
+           }));
+	       form.append($("<input>", {
+             type: "text",
+             name: "account",
+             value: account
+         }));
+	       form.append($("<input>", {
+             type: "text",
+             name: "nickname",
+             value: nickname
+         }));
+	       form.append($("<input>", {
+             type: "text",
+             name: "password",
+             value: password
+         }));
+	       form.append($("<input>", {
+	             type: "text",
+	             name: "permission",
+	             value: permission
+	         }));
+	       form.appendTo("body").hide();
+	       form.submit();
+	       form.remove();
+  	  
+    })
+    
+     })
+    </script>   
+    
+    
+    
 </body>
 
 </html>

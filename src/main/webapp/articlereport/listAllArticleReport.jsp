@@ -7,6 +7,8 @@
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.cooklab.members.model.MembersVO" %>
+
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%

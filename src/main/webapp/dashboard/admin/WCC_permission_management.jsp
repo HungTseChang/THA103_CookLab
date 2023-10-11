@@ -1,89 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=BIG5"
     pageEncoding="UTF-8"%>
-<%@ page import="com.cooklab.article_report.model.*"%>
-<%@ page import =" java.util.List"%>
-<%@ page import =" java.util.ArrayList"%>
-<%@ page import="org.hibernate.Session"%>
-<%@ page import="com.cooklab.util.HibernateUtil" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import ="com.google.gson.Gson"  %>
-<%@ page import ="com.google.gson.JsonElement"  %>
-<%@ page import ="com.google.gson.JsonParser"  %>
+<%@ page import="java.util.*"%>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.cooklab.article.model.ArticleVO" %>
-<%@ page import="com.cooklab.article_report.model.*" %>
-<%@ page import="java.util.*"%>
-
+<%@ page import="com.cooklab.admins.model.*" %>
+<%@ page import="com.google.gson.Gson" %>
 <%
-
-ArticleReportService ArticleReportService = new ArticleReportService();
-	List<ArticleReportVO> list = ArticleReportService.getAll();
-	 List<String> listtitle =new ArrayList<String>();
-	 List<String> listnickname = new ArrayList<String>();
-	 List<String> time= new ArrayList<String>();
-	 for(int i = 0 ; i < list.size();i++) {
-		 listtitle.add(list.get(i).getArticleVO().getArticleTitle());
-		 listnickname.add( list.get(i).getMembersVO().getMemberNickname()  );
-		 Timestamp timestamp = list.get(i).getCreatedTimestamp();
-		 Date originalDate = new Date(timestamp.getTime());
-	     SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	     String formattedDateString = '"'+targetFormat.format(originalDate)+'"';
-	     time.add(formattedDateString);
-
-	 }
-	 String json = new Gson().toJson(list);
-	 String title = new Gson().toJson(listtitle);
-	 String nickname =new Gson().toJson(listnickname);
-	 pageContext.setAttribute("json",json);
-	 pageContext.setAttribute("title",title);
-	 pageContext.setAttribute("nickname",nickname);
-	 pageContext.setAttribute("time",time);
+AdminsService AdminsService = new AdminsService(); 
+List<AdminsVO> list = AdminsService.getAll();
+String json = new Gson().toJson(list);
+pageContext.setAttribute("json",json);
 %>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTable - Mazer </title>
-
+    <title>DataTable - Mazer Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/resizable-columns/1.1.0/css/resizable-columns.min.css">
-    
-    <style>
-                td a.wcc {
-                    border: 1px solid rgb(151, 135, 249);
-                    background-color: rgb(195, 241, 253);
-                    padding: 4px;
-                    border-radius: 20px;
-                }
-
-                td input.wcc {
-                    border-radius: 20px;
-                }
-                td{
-                    white-space: nowrap;
-
-                }
-                td.wcc{
-                text-align: center;
-                }
-                th{
-                    white-space: nowrap;
-                }
-                span.wcc{
-                    border: 1px solid rgb(151, 135, 249);
-                    background-color: rgb(195, 241, 253); 
-                                    border-radius: 20px;
-                }
-      </style>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/dashboard/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -127,9 +74,9 @@ ArticleReportService ArticleReportService = new ArticleReportService();
                                 <i class="bi bi-stack"></i>
                                 <span>權限管理</span>
                             </a>
-                            <ul class="submenu ">
+                            <ul class="submenu " style="display: block;">
                           
-                                <li class="submenu-item ">
+                                <li class="submenu-item active">
                                     <a href=".\WCC_permission_management.html">管理管理者</a>
                                 </li>
                              
@@ -195,8 +142,7 @@ ArticleReportService ArticleReportService = new ArticleReportService();
                                     <a href=".\HO_discussion_cate.html">看板分類</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href="\.HO_discussion_info.html" >文章管理</a>
-                                    
+                                    <a href=".\HO_discussion_info.html" >文章管理</a>
                                   </li>
                             </ul>
                         </li>
@@ -225,15 +171,15 @@ ArticleReportService ArticleReportService = new ArticleReportService();
                                 <i class="bi bi-pen-fill"></i>
                                 <span>客服中心</span>
                             </a>
-                            <ul class="submenu " style="display: block;">
+                            <ul class="submenu ">
                                 <li class="submenu-item ">
                                     <a href="WCC_recipe_report.html">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
                                 </li>
-                                <li class="submenu-item active">
-                                    <a href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                <li class="submenu-item ">
+                                    <a href="WCC_article_report.html">討論區檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="WCC_official_notify.html">系統通知</a>
@@ -244,6 +190,7 @@ ArticleReportService ArticleReportService = new ArticleReportService();
                             </ul>
                         </li>
                         <!-- ======================================================================================================== -->
+
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -255,31 +202,71 @@ ArticleReportService ArticleReportService = new ArticleReportService();
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
+            <!--   /////////////////////////////////////////////////////////////////////////////////////////  -->
+            <style>
+            table{
+              border-collapse: collapse;
+        width: 100%;
+        }
+                td a.wcc {
+                    border: 1px solid rgb(151, 135, 249);
+                    background-color: rgb(195, 241, 253);
+                    padding: 4px;
+                    border-radius: 20px;
+                }
 
+                td button.wcc {
+                    border-radius: 20px;}
+                   table, th, td {
+                    border: 1px solid rgb(47, 46, 48);
+                    padding: 5px;
+                     white-space: nowrap
+                     
+                }
+                td{
+                        white-space: nowrap; 
+      					  overflow: hidden; 
+      					  text-overflow: ellipsis; 
+                }
+
+                .hightlight {
+                    border-color: blue;
+                    background-color: rgb(163, 163, 248);
+                }
+
+                .-none {
+                    display: none;
+                }
+            </style>
+            <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>討論區檢舉</h3>
-                            <p class="text-subtitle text-muted"></p>
+                            <h3>DataTable</h3>
+                            <p class="text-subtitle text-muted">For user to check they list</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">討論區檢舉</li>
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
-                
-    <section class="section">
-                    <div class="card">
-                        <div class="card-header">
-                        </div>
-                        <div class="card-body" style="width: 100%; overflow: scroll">
-                        <div class="datable dropdown">
+                <div class="col-md-2 col-12"></div>
+            </div>
+            <section class="section" style="background-color: rgb(208, 250, 255);   height: 500px;">
+                <div class="row" style="height: 100%;">
+                    <div class="col-md-1" style="background-color:rgb(208, 250, 255);"></div>
+                    <div class="col-md-10" style=" background-color:  rgb(208, 250, 255);">
+                        <div class="card">
+                            <div class="card-header" style="background-color: rgb(208, 250, 255);">
+                                <span style="font-size: 30px;">權限規則</span>
+                            </div>
+                         <div class="datable dropdown">
                         <select class="wcc" id="select1">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -288,152 +275,160 @@ ArticleReportService ArticleReportService = new ArticleReportService();
                         </select>
                         <label>每頁展示筆數</label>
                         </div>
-                            <table class="table table-striped" id="table1" style="scrollCollapse: true">
-                                <thead>
-                                    <tr>
-                                        <th class="resizable">文章檢舉編號</th>
-                                        <th class="resizable">會員編號(檢舉者)</th>
-                                        <th class="resizable">會員暱稱(檢舉者)</th>
-                                        <th class="resizable">文章編號</th>
-                                        <th class="resizable">文章名稱</th>                
-                                        <th class="resizable">檢舉理由</th>
-                                        <th class="resizable">檢舉狀態</th>
-                                        <th class="resizable">檢舉時間</th>
-                                        <th class="resizable">操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="table-datatable " style="width: 100%; height: 400px;  overflow-y: scroll; overflow-x: scroll;">
+                                <table class="table-container" id="table1" style="width: 100%; font-size: 20px;"
+                                    value=0>
+                                    <thead style="background-color: rgb(212, 212, 212);">
+                                        <tr>
+                                            <th style="width: 146;">管理者編號</th>
+                                            <th>管理者暱稱</th>
+                                            <th>管理者權限編號</th>
+                                              <th>管理者帳號</th>
+                                                <th>管理者建立時間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <jsp:useBean id="admins" scope="page" class="com.cooklab.admins.model.AdminsService" />
+                                   <c:forEach var="adminone" items="${admins.getAll()}" > 
+                                    <tr> <td>${adminone.adminNo}</td><td>${adminone.adminNickname}</td><td>${adminone.permissionNo}</td>
+                                    <td>${adminone.adminAccount}</td><td>${adminone.createdTimestamp}</td> </tr>
+                                     </c:forEach>
 
 
-                                </tbody>
-                            </table>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-                    </div>
-   <div class="pagination">
+
+                        <div class="row">
+                           <div class="col-md-4 pagination">
         <span class="page-item wcc" id="prev-page">上一頁</span>
         <span class="page-item wcc" id="next-page">下一頁</span>
         <span id="current-page">1</span>
         <span id="total-pages">of 1</span>
-    </div>
-                </section>
-            </div>
-
-
-
-
-            <footer>
-                
-            </footer>
+   								 </div>
+                            <div class="col-md-8">
+                                <a href="${pageContext.request.contextPath}/dashboard/admin/WCC_permission_createnew.jsp" class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
+                                <a href="#" class="btn btn-info rounded-pill" id="enter" value=0>修改內容</a>
+                                <a href="#" class="btn btn-info rounded-pill -none" id="enter2">取消修改</a>
+                                    <a href="#" class="btn btn-danger rounded-pill" id="enter3"
+                                    >刪除內容</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1" style="background-color: rgb(208, 250, 255);"></div>
+                </div>
+            </section>
         </div>
+
+        </section>
+
     </div>
-
-<script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        	console.log("A");
-        	var myList;     
-        	var nikname;
-               var title;     	
-               var rowsPerPage = 5;
-               var currentPage = 1;
-        	if('${json}'){
-        	 myList=JSON.parse('${json}');
-         	title = JSON.parse('${title}');
-        	nikname = JSON.parse('${nickname}');
-        	}else{ 
-        		console.log("reload");
-        		var form = $("<form>", {
-                    action: "${pageContext.request.contextPath}/ArticleReportServlet", // 表单提交的URL
-                    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
-                });
-        	    
-        	       form.append($("<input>", {
-                       type: "text",
-                       name: "action",
-                       value: "getArticleReport"
-                   }));
-        	       form.appendTo("body").hide();
-        	       form.submit();
-        	       form.remove();
-        			console.log("reload");
-        	}
-
-
-function updateTable() {    
-var startIndex = (currentPage - 1) * rowsPerPage;
-var endIndex = startIndex + rowsPerPage;
-var tableBody = $("table#table1").children("tbody");
-tableBody.empty();
-
-          for(let i = startIndex ; i<endIndex ;i++){
-        	  
-        	   if (i <  myList.length){
-        	  let aa = myList[i];
-        	  let status ={
-        			  0:" <span class='badge bg-success'>已處理</span>",
-        			  1:" <span class='badge bg-danger'>未處理</span>",
-        	  }
-
-        	  let text = "";
-        		  text += "<tr>";
-        		  text += "<td class='wcc'>"+aa.articleReportNo+"</td>";
-        		  text +=" <td class='wcc'>"+aa.reporterId+"</td>";
-        		  text +=" <td>"+nikname[i]+"</td>";
-        		  text +=" <td class='wcc'>"+aa.articleNo+"</td>";
-        		  text +=" <td>"+title[i]+"</td>";
-        		  text +=" <td>"+aa.reportingReason+"</td>";
-        		  text +=" <td>"+status[aa.reportingStatus]+"</td>";
-        		  text +=" <td>"+aa.createdTimestamp+"</td>";
-        		  text += "<td>";
-            	  text +=  " <form action='${pageContext.request.contextPath}/ArticleReportServlet' method='get'>"; 
-            	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
-        		  text += "<input type='hidden' name='articleReportNo' value='";
-        		  text += aa.articleReportNo+"'>";
-        		  text += "<input type='hidden' name='action' value='changeData'></form></td>";
-        		  text += "</tr>";
-          		console.log("A"+nikname);
-        		console.log("B"+title);
-           $("table#table1").children("tbody").append(text);
-        	   }
-          }
-          $("#current-page").text(currentPage);
-          var totalPages = Math.ceil(myList.length / rowsPerPage);
-          $("#total-pages").text("of " + totalPages);
-} 
-         
-$("#select1").change(function() {
-	   rowsPerPage = $(this).val();
-	   currentPage = 1;
-	   updateTable();
-});
-          $("#prev-page").click(function() {
-              if (currentPage > 1) {
-                  currentPage--;
-                  updateTable();
-              }
-              
-              
-          });
-          
-          $("#next-page").click(function() {
-              var totalPages = Math.ceil(myList.length / rowsPerPage);
-              if (currentPage < totalPages) {
-                  currentPage++;
-                  updateTable();
-              }
-          });
-          
-          updateTable();
-        })
-        
-         </script>
-    
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2021 &copy; Mazer</p>
+            </div>
+            <div class="float-end">
+                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                        href="http://ahmadsaugi.com">A. Saugi</a></p>
+            </div>
+        </div>
+    </footer>
+    </div>
+    </div>
+    <script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+
     <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+
+
     <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
     <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
+
+<script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+ var rowsPerPage = 5;
+ var currentPage = 1;
+ 
+var myList=JSON.parse('${json}');
+ var number =myList.length;
+    function updateTable() {    
+    	var startIndex = (currentPage - 1) * rowsPerPage;
+    	var endIndex = startIndex + rowsPerPage;
+    	var tableBody = $("table#table1").children("tbody");
+    	tableBody.empty();
+	for(let i = startIndex ; i<endIndex ;i++){
+    	        	  
+  if (i <number){
+	  let aa = myList[i];
+  	  let text = "";
+	  text += "<tr>";
+	  text += "<td class='wcc'>"+aa.adminNo+"</td>";
+	  text +=" <td class='wcc'>"+aa.adminNickname+"</td>";
+	  text +=" <td class='wcc'>"+aa.permissionNo+"</td>";
+	  text +=" <td>"+aa.adminAccount+"</td>";
+	  text +=" <td>"+aa.createdTimestamp+"</td>";
+	  text +=`
+			<td>
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdminsServlet" style="margin-bottom: 0px;">
+		     <input type="submit" value="修改">
+		     <input type="hidden" name="${adminNo}"  value=`;
+		    text +=aa.adminNo;
+		    text +=` >
+		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+		</td>
+		<td>
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdminsServlet" style="margin-bottom: 0px;">
+		     <input type="submit" value="刪除">
+		     <input type="hidden" name="adminNo"  value=`;
+	  text +=aa.adminNo;
+	  text +=`>
+		     <input type="hidden" name="action" value="delete"></FORM>
+		</td>
+		  `;
+	  text += "<tr>";
+	  $("table#table1").children("tbody").append(text);
+     	   }
+	}
+$("#current-page").text(currentPage);
+var totalPages = Math.ceil(number/ rowsPerPage);
+$("#total-pages").text("of " + totalPages);
+	}
+    $("#select1").change(function() {
+ 	   rowsPerPage = $(this).val();
+ 	   currentPage = 1;
+ 	   updateTable();
+  });
+    $("#prev-page").click(function() {
+        if (currentPage > 1) {
+            currentPage--;
+            updateTable();
+        }
+        
+        
+    });
+    
+    $("#next-page").click(function() {
+        var totalPages = Math.ceil(number / rowsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateTable();
+        }
+    });
+    
+    
+    updateTable();
+    
+	
+    })
+
+</script>
 
 </body>
 

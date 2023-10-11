@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import =" java.util.List"%>
+<%@ page import =" java.util.ArrayList"%>
+<%@ page import="com.cooklab.article.model.ArticleVO" %>
+<%@ page import="com.cooklab.article_report.model.*" %>
 
 <html>
 <head>
@@ -61,7 +67,7 @@
   </li>
 
   <jsp:useBean id="articleReport" scope="page" class="com.cooklab.article_report.model.ArticleReportService" />
-   
+ 
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/ArticleReportServlet" >
        <b>選擇檢舉編號:</b>
@@ -74,19 +80,7 @@
        <input type="submit" value="送出">
     </FORM>
   </li>
-  
-  <li>
-     <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/ArticleReportServlet" >
-       <b>選擇檢舉者暱稱:</b>
-       <select size="1" name="articleReportNo">
-         <c:forEach var="articlereport" items="${articleReport.getAll()}" > 
-          <option value="${articlereport.getArticleReportNo()}">${articlereport.getMembersVO().getMemberNickname()}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getone">
-       <input type="submit" value="送出">
-     </FORM>
-  </li>
+
   
     <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/ArticleReportServlet" >

@@ -131,7 +131,7 @@ private String confirmArticleReport(HttpServletRequest req, HttpServletResponse 
 	 ahbdao.update(ArticleReportVO);
 
 	
-	return  "/dashboard/article_report/WCC_article_report_info.jsp";
+	return  "/dashboard/article_report/WCC_article_report.jsp";
 }
 
 private String getOneArticleReport(HttpServletRequest req, HttpServletResponse res) {
