@@ -17,8 +17,8 @@ public class adtest {
 			session.beginTransaction();
 			AdvertiseVO aaa= new AdvertiseVO();
 			aaa.setAdvertiseName("廣告");
-			aaa.setAdvertiseShelfTime(java.sql.Timestamp.valueOf("1999-11-09 12:12:00"));
-			aaa.setAdvertiseOffsaleTime(java.sql.Timestamp.valueOf("2000-11-09 12:12:00"));
+			aaa.setAdvertiseShelfTime(java.sql.Date.valueOf("1999-11-09 12:12:00"));
+			aaa.setAdvertiseOffsaleTime(java.sql.Date.valueOf("2000-11-09 12:12:00"));
 			aaa.setAdvertiseImg(null);
 			aaa.setAdvertiseUrl("http://.www.com.tw");
 			
