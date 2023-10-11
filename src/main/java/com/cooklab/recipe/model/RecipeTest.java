@@ -38,7 +38,7 @@ public class RecipeTest {
 //			RecipeVO vo = new RecipeVO(null, 1, "超好吃大便3",getPictureByteArray("src/main/resources/img/images.jpg"), "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
 //			session.saveOrUpdate(vo);
 			//更新
-			RecipeVO vo = new RecipeVO(10, 1, "超好吃大便2",null, "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
+			RecipeVO vo = new RecipeVO(10, 1, "超好吃大便2",getPictureByteArray("src/main/resources/img/images/butterfly.png"), "222", "333", "444", (byte)0, 0, 0, (byte)1, null, null);			
 			session.update(vo);
 			//刪除
 //			RecipeVO vo = session.get(RecipeVO.class,6);

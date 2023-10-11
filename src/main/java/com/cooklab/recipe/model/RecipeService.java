@@ -29,20 +29,25 @@ public class RecipeService {
 		recipeVO.setRecipeQuantity(recipeQuantity);
 		recipeVO.setLastEditTimestamp(lastEditTimestamp);
 		dao.insert(recipeVO);
-		
+
 		return recipeVO;
 	}
 
-	public RecipeVO updateRecipe(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage, String introduction,
-			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
-			Byte recipeQuantity, Date lastEditTimestamp) {
+	public RecipeVO updateRecipe(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage,
+			String introduction, String additionalExplanation, String region, Byte recipeStatus, Integer reportCount,
+			Integer viewCount, Byte recipeQuantity, Date lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
 		recipeVO.setRecipeNo(recipeNo);
 		recipeVO.setMemberId(memberId);
 		recipeVO.setRecipeName(recipeName);
-		recipeVO.setCoverImage(coverImage);
+		if (coverImage != null) {
+			recipeVO.setCoverImage(coverImage);
+		} else {
+			coverImage = dao.findByPrimaryKey(recipeNo).getCoverImage();
+			recipeVO.setCoverImage(coverImage);
+		}
 		recipeVO.setIntroduction(introduction);
 		recipeVO.setAdditionalExplanation(additionalExplanation);
 		recipeVO.setRegion(region);

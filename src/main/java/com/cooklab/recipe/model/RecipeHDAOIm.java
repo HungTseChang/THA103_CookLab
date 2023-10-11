@@ -16,6 +16,7 @@ public class RecipeHDAOIm implements RecipeDAO {
 			session.beginTransaction();
 			session.save(recipeVO);
 			session.getTransaction().commit();
+			System.out.println("新增");
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -31,6 +32,7 @@ public class RecipeHDAOIm implements RecipeDAO {
 			session.beginTransaction();
 			session.update(recipeVO);
 			session.getTransaction().commit();
+			System.out.println("更新");
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -50,7 +52,7 @@ public class RecipeHDAOIm implements RecipeDAO {
 				session.delete(vo);
 			}
 			session.getTransaction().commit();
-			System.out.println("搜尋");
+			System.out.println("刪除");
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();

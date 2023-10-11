@@ -56,7 +56,7 @@ th, td {
 			<td>
 				<h3>食譜資料修改 - update_recipe_input.jsp</h3>
 				<h4>
-					<a href="select_page.jsp"><img
+					<a href="/com.tha103.cooklab/recipe/select_page.jsp"><img
 						src="/com.tha103.cooklab/recipe/images/back1.gif" width="100"
 						height="32" border="0">回首頁</a>
 				</h4>
@@ -77,7 +77,7 @@ th, td {
 	</c:if>
 
 	<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet"
-		name="form1">
+		name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>食譜編號:</td>
@@ -96,7 +96,8 @@ th, td {
 			</tr>
 			<tr>
 				<td>封面圖片:</td>
-				<td><input name="cover_image" id="f_date1" type="text"></td>
+				<td><input name="cover_image" type="file"
+					value="${recipeVO.coverImage}" size="45"></td>
 			</tr>
 			<tr>
 				<td>簡介:</td>

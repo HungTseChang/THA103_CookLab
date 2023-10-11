@@ -1,22 +1,25 @@
 package com.cooklab.recipe.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.cooklab.recipe.model.RecipeService;
 import com.cooklab.recipe.model.RecipeVO;
 
 @WebServlet(urlPatterns = "/RecipeServlet")
-
+@MultipartConfig
 public class RecipeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -72,7 +75,7 @@ public class RecipeServlet extends HttpServlet {
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-			
+
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("recipeVO", recipeVO); // 資料庫取出的empVO物件,存入req
 			String url = "/recipe/listOneRecipe.jsp";
@@ -119,7 +122,15 @@ public class RecipeServlet extends HttpServlet {
 				errorMsgs.add("食譜名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
-			byte[] coverImage = null;
+			Part filePart = req.getPart("cover_image");
+			InputStream in = filePart.getInputStream();
+			byte[] coverImage;
+			System.out.println(filePart.getSize());
+			if (filePart.getSize() > 0)
+				coverImage = in.readAllBytes();
+			else
+				coverImage = null;
+
 			String introduction = req.getParameter("introduction");
 			String additionalExplanation = req.getParameter("additional_explanation");
 			String region = req.getParameter("region");
@@ -142,12 +153,11 @@ public class RecipeServlet extends HttpServlet {
 			recipeVO.setViewCount(viewCount);
 			recipeVO.setRecipeQuantity(recipeQuantity);
 			recipeVO.setLastEditTimestamp(lastEditTimestamp);
-
+			in.close();
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("recipeVO", recipeVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("recipe/update_recipe_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("recipe/update_recipe_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -155,7 +165,8 @@ public class RecipeServlet extends HttpServlet {
 			/*************************** 2.開始修改資料 *****************************************/
 			RecipeService recipeSvc = new RecipeService();
 			recipeVO = recipeSvc.updateRecipe(recipeNo, memberId, recipeName, coverImage, introduction,
-					additionalExplanation, region, recipeStatus, reportCount, viewCount, recipeQuantity, lastEditTimestamp);
+					additionalExplanation, region, recipeStatus, reportCount, viewCount, recipeQuantity,
+					lastEditTimestamp);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("recipeVO", recipeVO); // 資料庫update成功後,正確的的empVO物件,存入req
@@ -182,7 +193,10 @@ public class RecipeServlet extends HttpServlet {
 				errorMsgs.add("食譜名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
-			byte[] coverImage = null;
+			Part filePart = req.getPart("cover_image");
+			InputStream in = filePart.getInputStream();
+			byte[] coverImage = in.readAllBytes();
+			in.close();
 			String introduction = req.getParameter("introduction");
 			String additionalExplanation = req.getParameter("additional_explanation");
 			String region = req.getParameter("region");
