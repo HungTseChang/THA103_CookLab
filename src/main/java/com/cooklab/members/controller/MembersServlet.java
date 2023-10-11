@@ -50,7 +50,6 @@ public class MembersServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("會員編號格式不正確");
 			}
-			System.out.println(memberAccount);
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/frontstage/members/select_page.jsp");
@@ -63,7 +62,7 @@ public class MembersServlet extends HttpServlet {
 			
 			MembersVO memVO = memSvc.getOneMemberAccount(memberAccount);
 			if (memVO == null) {
-				errorMsgs.add("查無資料");
+				errorMsgs.add("查無資料，請再次確認");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
