@@ -2,12 +2,40 @@ package com.cooklab.article_sub_report.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class ArticleSubReportVO implements java.io.Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "article_sub_report")
+
+public class ArticleSubReportVO  {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column (name="article_sub_report_no")
 	private Integer articleSubReportNo;
+	
+	@Column (name="article_sub_no")
 	private Integer articleSubNo;
+	
+	@Column (name="reporter_id")
 	private Integer reporterId;
+	
+	@Column (name="reporting_reason")
 	private String reportingReason;
-	private Integer reportingStatus;
+	
+	@Column (name="reporting_status")
+	private byte reportingStatus;
+	
+	@Column (name="reporting_answer")
+	private String reportingAnswer;
+	
+	@Column (name="created_timestamp" ,insertable = false)
 	private Timestamp createdTimestamp;
 	
 	public ArticleSubReportVO () {
@@ -17,16 +45,16 @@ public class ArticleSubReportVO implements java.io.Serializable {
 	
 	
 	public ArticleSubReportVO( Integer articleSubNo, Integer reporterId,
-			String reportingReason, Integer reportingStatus) {
+			String reportingReason, byte reportingStatus ,String reportingAnswer ) {
 		super();
 		this.articleSubReportNo = articleSubReportNo;
 		this.articleSubNo = articleSubNo;
 		this.reporterId = reporterId;
 		this.reportingReason = reportingReason;
 		this.reportingStatus = reportingStatus;
+		this.reportingAnswer = reportingAnswer;
 		
 	}
-
 
 
 	public Integer getArticleSubReportNo() {
@@ -53,10 +81,10 @@ public class ArticleSubReportVO implements java.io.Serializable {
 	public void setReportingReason(String reportingReason) {
 		this.reportingReason = reportingReason;
 	}
-	public Integer getReportingStatus() {
+	public byte getReportingStatus() {
 		return reportingStatus;
 	}
-	public void setReportingStatus(Integer reportingStatus) {
+	public void setReportingStatus(byte reportingStatus) {
 		this.reportingStatus = reportingStatus;
 	}
 	public Timestamp getCreatedTimestamp() {
@@ -65,12 +93,29 @@ public class ArticleSubReportVO implements java.io.Serializable {
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
+
+
+
+	public String getReportingAnswer() {
+		return reportingAnswer;
+	}
+
+
+
+	public void setReportingAnswer(String reportingAnswer) {
+		this.reportingAnswer = reportingAnswer;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ArticleSubReportVO [articleSubReportNo=" + articleSubReportNo + ", articleSubNo=" + articleSubNo
 				+ ", reporterId=" + reporterId + ", reportingReason=" + reportingReason + ", reportingStatus="
-				+ reportingStatus + ", createdTimestamp=" + createdTimestamp + "]";
+				+ reportingStatus + ", reportingAnswer=" + reportingAnswer + ", createdTimestamp=" + createdTimestamp
+				+ "]";
 	}
+	
 	
 	
 	

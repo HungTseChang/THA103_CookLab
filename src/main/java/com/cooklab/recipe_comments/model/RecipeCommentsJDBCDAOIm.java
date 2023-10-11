@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cooklab.util.Util;
+import com.cooklab.util.*;
 
 
 
@@ -182,8 +182,8 @@ public class RecipeCommentsJDBCDAOIm implements RecipeCommentsDAO {
 				rccVO.setMemberId(rs.getInt("member_id"));
 				rccVO.setCommentContent(rs.getString("comment_content"));
 				rccVO.setReportComments(rs.getInt("report_comments"));
-				rccVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
-				rccVO.setcreatedTimestamp(rs.getDate("created_timestamp"));
+				rccVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
+				rccVO.setcreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
 
@@ -245,8 +245,8 @@ public class RecipeCommentsJDBCDAOIm implements RecipeCommentsDAO {
 				recipeCommentsVO.setMemberId(rs.getInt("member_id"));
 				recipeCommentsVO.setCommentContent(rs.getString("comment_content"));
 				recipeCommentsVO.setReportComments(rs.getInt("report_comments"));
-				recipeCommentsVO.setLastEditTimestamp(rs.getDate("last_edit_timestamp"));
-				recipeCommentsVO.setcreatedTimestamp(rs.getDate("created_timestamp"));
+				recipeCommentsVO.setLastEditTimestamp(rs.getTimestamp("last_edit_timestamp"));
+				recipeCommentsVO.setcreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(recipeCommentsVO); // Store the row in the list
 			}
 

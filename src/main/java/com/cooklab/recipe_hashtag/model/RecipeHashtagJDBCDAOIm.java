@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cooklab.recipe_comments_report.model.RecipeCommentsReportVO;
-import com.cooklab.util.Util;
+import com.cooklab.util.*;
 
 
 public class RecipeHashtagJDBCDAOIm implements RecipeHashtagDAO {
@@ -177,7 +177,7 @@ public class RecipeHashtagJDBCDAOIm implements RecipeHashtagDAO {
 				rhVO.setRepiceHashTagNo(rs.getInt("recipe_hashtag_no"));
 				rhVO.setHashTagNo(rs.getInt("hashtag_no"));
 				rhVO.setRecipeNO(rs.getInt("recipe_no"));
-				rhVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				rhVO.setCreateTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
 
@@ -237,7 +237,7 @@ public class RecipeHashtagJDBCDAOIm implements RecipeHashtagDAO {
 				recipeHashtagVO.setRepiceHashTagNo(rs.getInt("recipe_hashtag_no"));
 				recipeHashtagVO.setHashTagNo(rs.getInt("hashtag_no"));
 				recipeHashtagVO.setRecipeNO(rs.getInt("recipe_no"));
-				recipeHashtagVO.setCreateTimestamp(rs.getDate("created_timestamp"));
+				recipeHashtagVO.setCreateTimestamp(rs.getTimestamp("created_timestamp"));
 
 				list.add(recipeHashtagVO); // Store the row in the list
 			}

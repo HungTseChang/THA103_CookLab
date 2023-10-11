@@ -14,8 +14,8 @@ public class PurchaseOrderJDBCDAOIm implements PurchaseOrderDAO {
 	private static final String INSERT_STMT = "insert into purchase_order(purchase_order_date, purchase_order_supplier, purchase_order_total) values (?, ?, ?)";
 	private static final String UPDATE = "update purchase_order set purchase_order_date=?,purchase_order_supplier=?, purchase_order_total=? where purchase_order_no = ?";
 	private static final String DELETE = "delete from purchase_order where purchase_order_no = ?";
-	private static final String GET_ONE_STMT = "select purchase_order_no, purchase_order_date, purchase_order_supplier, purchase_order_total FROM purchase_order where purchase_order_no = ?";
-	private static final String GET_ALL_STMT = "select purchase_order_no, purchase_order_date, purchase_order_supplier, purchase_order_total FROM purchase_order order by purchase_order_no";
+	private static final String GET_ONE_STMT = "select purchase_order_no, purchase_order_date, purchase_order_supplier, purchase_order_total,created_timestamp FROM purchase_order where purchase_order_no = ?";
+	private static final String GET_ALL_STMT = "select purchase_order_no, purchase_order_date, purchase_order_supplier, purchase_order_total,created_timestamp FROM purchase_order order by purchase_order_no";
 
 	@Override
 	public void insert(PurchaseOrderVO purchaseOrder) {
@@ -174,6 +174,7 @@ public class PurchaseOrderJDBCDAOIm implements PurchaseOrderDAO {
 				purchaseOrder.setPurchaseOrderDate(rs.getDate("Purchase_order_date"));
 				purchaseOrder.setPurchaseOrderSupplier(rs.getString("Purchase_order_supplier"));
 				purchaseOrder.setPurchaseOrderTotal(rs.getInt("Purchase_order_total"));
+				purchaseOrder.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -232,6 +233,7 @@ public class PurchaseOrderJDBCDAOIm implements PurchaseOrderDAO {
 				purchaseOrder.setPurchaseOrderDate(rs.getDate("purchase_order_date"));
 				purchaseOrder.setPurchaseOrderSupplier(rs.getString("purchase_order_supplier"));
 				purchaseOrder.setPurchaseOrderTotal(rs.getInt("purchase_order_total"));
+				purchaseOrder.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(purchaseOrder); // Store the row in the list
 			}
 

@@ -3,38 +3,76 @@ package com.cooklab.product.model;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "product")
 public class ProductVO implements java.io.Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "product_no", updatable = false, insertable = false)
 	private Integer productNo;
+	
+	@Column(name = "product_name")
 	private String productName;
-	private Integer saleQty;
-	private String productDec;
-	private String productIntroduction;
-	private Integer productPrice;
-	private Timestamp offsaleTime;
-	private Timestamp shelfTime;
-	private Integer storageQty;
-	private Integer ingredientCategoryNo;
-	private Integer kitchenwareCategoryNo;
-	private Integer searchCount;
-	private Date createdTimestamp;
-	// 無參數建構子
-	public ProductVO() {
+	
+	private byte[]  productPicture;
+	
+	
+
+	public byte[] getProductPicture() {
+		return productPicture;
 	}
+
+	public void setProductPicture(byte[] productPicture) {
+		this.productPicture = productPicture;
+	}
+
+	@Column(name = "sale_qty")
+	private Integer saleQty;
 	
+	@Column(name = "product_dec",columnDefinition = "longtext")
+	private String productDec;
 	
+	@Column(name = "product_introduction")
+	private String productIntroduction;
+	
+	@Column(name = "product_price")
+	private Integer productPrice;
+	
+	@Column(name = "offsale_time")
+	private Timestamp offsaleTime;
+	
+	@Column(name = "shelf_time")
+	private Timestamp shelfTime;
+	
+	@Column(name = "storage_qty")
+	private Integer storageQty;
+	
+	@Column(name = "ingredient_category_no")
+	private Integer ingredientCategoryNo;
+	
+	@Column(name = "kitchenware_category_no")
+	private Integer kitchenwareCategoryNo;
+	
+	@Column(name = "search_count")
+	private Integer searchCount;
+	
+	@Column(name = "created_timestamp", updatable = false, insertable = false)
+	private Timestamp createdTimestamp;
 
-	// 有參數的建構子(方法覆載)
-
-
-	// getter與setter方法
-	public Integer getProductNo() {
-		return productNo;
+	public ProductVO() {
 	}
 
 	public ProductVO(Integer productNo, String productName, Integer saleQty, String productDec,
 			String productIntroduction, Integer productPrice, Timestamp offsaleTime, Timestamp shelfTime,
 			Integer storageQty, Integer ingredientCategoryNo, Integer kitchenwareCategoryNo, Integer searchCount,
-			Date createdTimestamp) {
+			Timestamp createdTimestamp) {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
@@ -51,7 +89,9 @@ public class ProductVO implements java.io.Serializable {
 		this.createdTimestamp = createdTimestamp;
 	}
 
-
+	public Integer getProductNo() {
+		return productNo;
+	}
 
 	public void setProductNo(Integer productNo) {
 		this.productNo = productNo;
@@ -79,14 +119,6 @@ public class ProductVO implements java.io.Serializable {
 
 	public void setProductDec(String productDec) {
 		this.productDec = productDec;
-	}
-
-	public String getproductIntroduction() {
-		return productIntroduction;
-	}
-
-	public void setproductIntroduction(String productIntroduction) {
-		this.productIntroduction = productIntroduction;
 	}
 
 	public Integer getProductPrice() {
@@ -153,12 +185,22 @@ public class ProductVO implements java.io.Serializable {
 		this.productIntroduction = productIntroduction;
 	}
 
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ProductVO [productNo=" + productNo + ", productName=" + productName + ", saleQty=" + saleQty
+				+ ", productDec=" + productDec + ", productIntroduction=" + productIntroduction + ", productPrice="
+				+ productPrice + ", offsaleTime=" + offsaleTime + ", shelfTime=" + shelfTime + ", storageQty="
+				+ storageQty + ", ingredientCategoryNo=" + ingredientCategoryNo + ", kitchenwareCategoryNo="
+				+ kitchenwareCategoryNo + ", searchCount=" + searchCount + ", createdTimestamp=" + createdTimestamp
+				+ "]";
+	}
+
 }

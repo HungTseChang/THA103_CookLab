@@ -1,28 +1,84 @@
 package com.cooklab.article.model;
+import com.cooklab.members.model.*;
 
+import java.io.Console;
 import java.sql.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.cooklab.members.model.MembersVO;
+@Entity
+@Table(name="article") 
 public class ArticleVO implements java.io.Serializable {
+	
+	
+	@Id //下面那一行的屬性為PK;
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column(name = "article_no" , insertable = false, updatable = false)  
 	private Integer articleNo;
-	private String articleCategory;
+	
+	@Column(name = "article_category")  
+	private Integer articleCategory;
+	
+	@Column(name = "article_title")  
 	private String articleTitle;
+	
+	@Column(name = "member_id")  
 	private Integer memberId;
-	private Date createdTimestamp;
+	
+	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
+	private Timestamp createdTimestamp;
+	
+	@Column(name = "article_status")  
 	private Byte articleStatus;
+	
+	@Column(name = "article_content" ,columnDefinition="longtext")
 	private String articleContent;
+
+	@Column(name = "article_count")
 	private Integer articleCount;
+	
+	@Column(name = "view_count")
 	private Integer viewCount;
-	private Date lastEditTimestamp;
+	
+	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
+	private Timestamp lastEditTimestamp;
+	
+	
+	public ArticleVO(Integer articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
+			String articleContent, Integer articleCount, Integer viewCount) {
+		super();
+		this.articleCategory = articleCategory;
+		this.articleTitle = articleTitle;
+		this.memberId = memberId;
+		this.articleStatus = articleStatus;
+		this.articleContent = articleContent;
+		this.articleCount = articleCount;
+		this.viewCount = viewCount;
+	}
+	public ArticleVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getArticleNo() {
 		return articleNo;
 	}
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public String getArticleCategory() {
+	public Integer getArticleCategory() {
 		return articleCategory;
 	}
-	public void setArticleCategory(String articleCategory) {
+	public void setArticleCategory(Integer articleCategory) {
 		this.articleCategory = articleCategory;
 	}
 	public String getArticleTitle() {
@@ -37,10 +93,10 @@ public class ArticleVO implements java.io.Serializable {
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
 	}
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 	public Byte getArticleStatus() {
@@ -67,13 +123,19 @@ public class ArticleVO implements java.io.Serializable {
 	public void setViewCount(Integer viewCount) {
 		this.viewCount = viewCount;
 	}
-	public Date getLastEditTimestamp() {
+	public Timestamp getLastEditTimestamp() {
 		return lastEditTimestamp;
 	}
-	public void setLastEditTimestamp(Date lastEditTimestamp) {
+	public void setLastEditTimestamp(Timestamp lastEditTimestamp) {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
 
+	public MembersVO getMembersVO() {
+		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
+		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
+		return MembersVO1;
+		
+	}
 
 	
 }

@@ -1,24 +1,65 @@
 package com.cooklab.members.model;
-import java.sql.Date;
+
+
 import java.sql.Timestamp;
 import java.util.Arrays;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class MembersVO implements java.io.Serializable{
+@Entity
+@Table(name = "members")
+
+public class MembersVO {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column (name="member_id")
 	private Integer memberId;
+	
+	@Column (name="member_account")
 	private String memberAccount;
+	
+	@Column (name="member_password")
 	private String memberPassword;
+	
+	@Column (name="member_introduce",nullable = true)
 	private String memberIntroduce;
+	
+	@Column (name="member_cellphone")
 	private String memberCellphone;
+	
+	@Column (name="member_mail")
 	private String memberMail;
-	private Date memberDate;
+	
+	@Column (name="member_date")
+	private java.sql.Date  memberDate;
+	
+	@Column (name="member_address")
 	private String memberAddress;
+	
+	@Column (name="member_country",nullable = true)
 	private String memberCountry;
-	private Integer memberStatus;
+	
+	@Column (name="member_status")
+	private byte memberStatus;
+	
+	@Column (name="member_picture",nullable = true , columnDefinition = "longblob")
 	private byte[] memberPicture;
+	
+	@Column (name="member_nickname")
 	private String memberNickname;
-	private Integer memberGender;
+	
+	@Column (name="member_gender")
+	private byte memberGender;
+	
+	@Column (name="created_timestamp",insertable = false)
 	private Timestamp credcreatedTimestamp;
+	
+	@Column (name="last_edit_timestamp" ,insertable = false)
 	private Timestamp lastEditTimestamp;
 
 	
@@ -28,8 +69,8 @@ public class MembersVO implements java.io.Serializable{
 	
 	
 	public MembersVO( String memberAccount, String memberPassword, String memberIntroduce,
-			String memberCellphone, String memberMail, Date memberDate, String memberAddress, String memberCountry,
-			Integer memberStatus, byte[] memberPicture, String memberNickname, Integer memberGender) {
+			String memberCellphone, String memberMail, java.sql.Date memberDate, String memberAddress, String memberCountry,
+			byte memberStatus, byte[] memberPicture, String memberNickname, byte memberGender) {
 		super();
 		
 		this.memberAccount = memberAccount;
@@ -81,10 +122,10 @@ public class MembersVO implements java.io.Serializable{
 	public void setMemberMail(String memberMail) {
 		this.memberMail = memberMail;
 	}
-	public Date getMemberDate() {
+	public java.sql.Date getMemberDate() {
 		return memberDate;
 	}
-	public void setMemberDate(Date memberDate) {
+	public void setMemberDate(java.sql.Date memberDate) {
 		this.memberDate = memberDate;
 	}
 	public String getMemberAddress() {
@@ -99,10 +140,10 @@ public class MembersVO implements java.io.Serializable{
 	public void setMemberCountry(String memberCountry) {
 		this.memberCountry = memberCountry;
 	}
-	public Integer getMemberStatus() {
+	public byte getMemberStatus() {
 		return memberStatus;
 	}
-	public void setMemberStatus(Integer memberStatus) {
+	public void setMemberStatus(byte memberStatus) {
 		this.memberStatus = memberStatus;
 	}
 	public byte[] getMemberPicture() {
@@ -117,10 +158,10 @@ public class MembersVO implements java.io.Serializable{
 	public void setMemberNickname(String memberNickname) {
 		this.memberNickname = memberNickname;
 	}
-	public Integer getMemberGender() {
+	public byte getMemberGender() {
 		return memberGender;
 	}
-	public void setMemberGender(Integer memberGender) {
+	public void setMemberGender(byte memberGender) {
 		this.memberGender = memberGender;
 	}
 	
