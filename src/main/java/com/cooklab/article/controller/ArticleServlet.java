@@ -80,7 +80,8 @@ public class ArticleServlet extends HttpServlet{
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/article/listOneArt.jsp";
+//			String url = "/article/listOneArt.jsp";
+			String url = "/article/article_content.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -341,7 +342,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			if (!errorMsgs.isEmpty()) {
 req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/article/addArt.jsp");
+						.getRequestDispatcher("/article/article_edit.jsp");
 				failureView.forward(req, res);
 				return;
 			}

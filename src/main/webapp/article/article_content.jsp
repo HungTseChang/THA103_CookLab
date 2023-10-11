@@ -1,17 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.cooklab.article.model.*"%>
-<%@ page import="com.cooklab.article_category.model.*"%>
+
 <%
-ArticleVO artVO2 = (ArticleVO) request.getAttribute("artVO");
-
-ArticleCategoryService artSvc = new ArticleCategoryService();
-List<ArticleCategoryVO> list = artSvc.getAll();
-pageContext.setAttribute("list", list);
+ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+//EmpServlet.java(Concroller), 存入req的empVO物件
 %>
-
-
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -21,7 +15,7 @@ pageContext.setAttribute("list", list);
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Ogani | Template</title>
+<title>HO_article_content</title>
 
 <!-- Google Font -->
 <link
@@ -50,18 +44,18 @@ pageContext.setAttribute("list", list);
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/slicknav.min.css"
 	type="text/css">
+
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/style.css"
 	type="text/css">
+
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/HO.css" type="text/css">
+	href="<%=request.getContextPath()%>/article/css/HO.css"
+	type="text/css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/ding.css"
 	type="text/css">
-<!--下面兩行是影片編輯器-->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
-	rel="stylesheet" />
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
 </head>
 
 <body>
@@ -177,77 +171,62 @@ pageContext.setAttribute("list", list);
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
-	<section id="article_conten">
-		<div class="container" id="another">
-			<div class="row">
-				<div class="col-md-2" id="left_img";
-                    style="border: 0px solid brown; margin-right: 10px; text-align: center;">
 
-					<button type="button" class="btn ding-btn-org"
-						style="margin-top: 50px;">引用食譜</button>
-					<%-- 錯誤表列 --%>
-					<div style="margin-top :50px">
-					<c:if test="${not empty errorMsgs}">
-						<font style="color: red">請修正以下錯誤:</font>
-						<ul>
-							<c:forEach var="message" items="${errorMsgs}">
-								<li style="color: red">${message}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
+
+	<div class="container" style="margin-top: 30px;">
+		<div class="row">
+			<div id="c_user" class="col-md-3"
+				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
+				<img src="https://picsum.photos/200" alt=""> 
+				<a href="">作者:${artVO.memberId}</a>
+			</div>
+
+			<div class="col-8">
+				<div class="row">
+					<div id="article_content" class="col" style="position: relative;">
+						<h7 class="conten_title"> <span>[${artVO.articleCategory}]${artVO.articleTitle}</span> </h7>
+						<p>
+						發表時間:<fmt:formatDate value="${artVO.lastEditTimestamp}" pattern="yyyy-MM-dd HH:mm:ss" />
+						</p>
+						<td>
+            			<!-- 這是文本，直接顯示 ，在老師的網面上需要使用base64來讀網頁，
+             			     可是使用quill新增的圖文，可以直接顯示-->
+                   		 ${artVO.articleContent}
+                   		 </td>
+                   		 <br> <br>
+                   		 <div id="like-dislike">
+							<img
+								src="<%=request.getContextPath()%>/article/img/HO/like.png"
+								alt=""><span style="margin-right: 10px;">10</span> <img
+								src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
+								alt=""><span>10</span>
+							<button type="submit">回覆</button>
+						</div>
+
+
+						<!-- <div id="replied"><img id="user_avatar" src="https://picsum.photos/id/237/50" alt=""><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis nihil harum molestiae, tenetur quod, dolore officiis, consequuntur error facilis veniam porro nemo eum sequi earum totam. Quaerat possimus nam consequatur?</p></div> -->
+						<hr>
+
+						<div class="col" style="height: 150px; width: 1000px;">
+							<div id="reply" class="d-flex justify-content-start ">
+								<textarea name="" id="reply_input">這邊可以快速留言....</textarea>
+
+							</div>
+							<button type="submit">送出</button>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-9 " style="height: 700px;">
-
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
-						<input type="hidden" name="memberId" placeholder="輸入會員編號"
-							value="1" size="45" /> <input type="hidden" name="articleStatus"
-							placeholder="輸入文章狀態(數字)" value="0" size="45" /> <input
-							type="hidden" name="articleCount" placeholder="輸入回文數量" value="0"
-							size="45" /> <input type="hidden" name="viewCount"
-							placeholder="輸入次數" value="0" size="45" /> <select size="1"
-							name="articleCategory">
-							<c:forEach var="artVO" items="${list}">
-								<option value="${artVO.articleCategoryNo}">
-									${artVO.articleCategory}
-							</c:forEach>
-						</select> <input type="text" id="edit_title" name="articleTitle"
-							placeholder="輸入標題"
-							value="<%=(artVO2 == null) ? "" : artVO2.getArticleTitle()%>">
-
-						<div style="width: auto; height: 500px;">
-							<div id="editor" contenteditable="true"></div>
-
-							<textarea id="hiddenContent" name="articleContent"
-								style="display: none;"></textarea>
-
-
-							<p style="margin-top: 5px;">
-								驗證碼顯示位置: <input type="text" value="請輸入驗證碼"> <input
-									type="hidden" name="action" value="insert">
-								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button>
-
-								<input type="hidden" name="action" value="insert">
-								<button type="submit" class="btn ding-btn-org" id="btn_drawft">儲存草稿</button>
-
-								<button class="btn ding-btn-org" id="btn_clean">清除</button>
-								<button class="btn ding-btn-org" id="btn_cancel">取消</button>
-							</p>
-					</form>
 				</div>
 			</div>
 		</div>
 
-		</div>
-	</section>
+
+	</div>
 
 
 
+	</div>
 
-
-
-
+	</div>
 
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
@@ -315,18 +294,19 @@ pageContext.setAttribute("list", list);
 	</footer>
 	<!-- Footer Section End -->
 
+
 	<!-- Js Plugins -->
-	
-	<script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
+	<script	src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/quill.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
+
+
 
 </body>
 

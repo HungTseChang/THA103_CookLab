@@ -1,14 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.cooklab.article.model.ArticleService"%>
-<%@ page import="com.cooklab.article.model.ArticleVO"%>
+<%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_category.model.*"%>
 <%
 	ArticleService artSvc = new ArticleService();
 	List<ArticleVO> list = artSvc.getAll();
     pageContext.setAttribute("list",list);
+    
+    ArticleCategoryService artSvc2 = new ArticleCategoryService();
+    List<ArticleCategoryVO> list2 = artSvc2.getAll();
+    pageContext.setAttribute("list2", list2);
 %>
-
 <!DOCTYPE html>
 <html lang="zxx">
   <head>
@@ -26,17 +30,16 @@
     />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    
-    <link rel="stylesheet" href="css/ding.css" type="text/css" />
-    <link rel="stylesheet" href="css/HO.css" type="text/css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/elegant-icons.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/nice-select.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/style.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/HO.css" type="text/css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/ding.css" type="text/css">
   </head>
 
   <body>
@@ -76,10 +79,10 @@
       </section>
       <nav class="humberger__menu__nav mobile-menu">
         <ul>
-          <li class="active"><a href="./index.html">é¦–é </a></li>
-          <li><a href="./shop-grid.html">å•†åŸŽ</a></li>
-          <li><a href="./blog.html">é£Ÿè­œç¸½è¦½</a></li>
-          <li><a href="./contact.html">å¸¸è¦‹å•é¡Œ</a></li>
+          <li class="active"><a href="./index.html">­º­¶</a></li>
+          <li><a href="./shop-grid.html">°Ó«°</a></li>
+          <li><a href="./blog.html">­¹ÃÐÁ`Äý</a></li>
+          <li><a href="./contact.html">±`¨£°ÝÃD</a></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -110,22 +113,22 @@
                 <div class="header__top__right__auth">
                   <a href="#">
                     <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i>
-                    <span class="ding-nav-text">è³¼ç‰©è»Š</span>
+                    <span class="ding-nav-text">ÁÊª«¨®</span>
                   </a>
                 </div>
                 <div class="header__top__right__auth">
                   <a href="#">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
-                    <span class="ding-nav-text">æœƒå“¡ä¸­å¿ƒ</span>
+                    <span class="ding-nav-text">·|­û¤¤¤ß</span>
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#" class="m-0 ml-2 ding-nav-text">ç™»å…¥/è¨»å†Š</a>
+                  <a href="#" class="m-0 ml-2 ding-nav-text">µn¤J/µù¥U</a>
                 </div>
                 <div class="header__top__right__auth">
                   <a href="#">
                     <i class="bi bi-bell m-0 ml-2 fa-lg"></i>
-                    <span class="ding-nav-text">é€šçŸ¥ä¸­å¿ƒ</span>
+                    <span class="ding-nav-text">³qª¾¤¤¤ß</span>
                   </a>
                 </div>
               </div>
@@ -145,13 +148,13 @@
           <div class="col-lg-9 d-flex align-items-center">
             <nav class="header__menu">
               <ul>
-                <li><a href="./index.html">é£Ÿè­œç¸½è¦½</a></li>
-                <li><a href="#">æ–°å¢žé£Ÿè­œ</a></li>
-                <li><a href="#">é—œæ³¨é£Ÿè­œ</a></li>
-                <li><a href="./shop-grid.html">å•†åŸŽ</a></li>
-                <li class="active"><a href="#">è¨Žè«–å€</a></li>
-                <li><a href="#">å®¢æœä¸­å¿ƒ</a></li>
-                <li><a href="./contact.html">é—œæ–¼æˆ‘å€‘</a></li>
+                <li><a href="./index.html">­¹ÃÐÁ`Äý</a></li>
+                <li><a href="#">·s¼W­¹ÃÐ</a></li>
+                <li><a href="#">Ãöª`­¹ÃÐ</a></li>
+                <li><a href="./shop-grid.html">°Ó«°</a></li>
+                <li class="active"><a href="#">°Q½×°Ï</a></li>
+                <li><a href="#">«ÈªA¤¤¤ß</a></li>
+                <li><a href="./contact.html">Ãö©ó§Ú­Ì</a></li>
               </ul>
             </nav>
           </div>
@@ -162,68 +165,69 @@
       </div>
     </header>
     <!-- Header Section End -->
-    <!--ä¸Šæ–¹è¡¨é ­çµæŸ-->
+    <!--¤W¤èªíÀYµ²§ô-->
 
     <div class="container" id="article_cat_btn">
       <div class="row">
         <div class="col-md-9" id="articel_cat">
-          <button type="button" class="btn custom-btn btn HO-btn-org">
-            å…¨éƒ¨ä¸»é¡Œ
+        <c:forEach var="artVO2" items="${list2}">
+          <button type="button" class="btn custom-btn btn HO-btn-org"
+          value="${artVO2.articleCategoryNo} ">
+            ${artVO2.articleCategory} 
           </button>
-          <button type="button" class="btn custom-btn">
-            ç¶œåˆè¨Žè«–
-          </button>
-          <button type="button" class="btn custom-btn">
-            ç”Ÿæ´»æƒ…å ±
-          </button>
-          <button type="button" class="btn custom-btn">
-            é£Ÿè­œè¨Žè«–
-          </button>
-          <button type="button" class="btn custom-btn">
-            é£Ÿæè¨Žè«–
-          </button>
+          </c:forEach>
         </div>
-        <button
-          type="button"
-          class="btn btn-outline-primary btn-lg"
-         
-          id="article_sumbit"
-        >
-          ç™¼æ–‡
-        </button>
       </div>
       <span></span>
     </div>
 
     <section id="article_conten">
+    <%@ include file="page1.file" %> 
       <div class="container">
         <div class="row">
-          <div class="col-lg-9" style="height: 600px;">
-            <div class="th" id="article_top_title">
-              ç¯©é¸:
-              <a href="" style="margin-left: 480px; color: black">ç™¼æ–‡ä½œè€…</a>
-              <a href="" style="margin-left: 30px; color: black">æœ€å¾Œæ›´æ–°æ™‚é–“</a>
-              <a href="" style="margin-left: 30px; color: black">é»žæ“Šæ¬¡æ•¸</a>
-            </div>
-
+          <div class="col-lg-9" style="height: 600px;">                         
+			
             <div >
               <table>
-              <c:forEach var="artVO" items="${list}" >
+                <tr>
+                  <td id="title_colum_td">
+                    <a href="" id="cat_view">¤å³¹¤ÀÃþ</a>
+                    <a href="" id="title_view">¼ÐÃD</a>
+                  </td>
+                  <td id="article_creator">µo¤å§@ªÌ</td>
+                  <td id="article_date">µoªí®É¶¡</td>
+                  <td id="article_count">ÂIÀ»¦¸¼Æ</td>
+                </tr>     			
+              <c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <tr class="title_colum">
                   <td id="title_colum_td">
-                    <a id="cat_view">${artVO.articleCategory}</a>
-                    <a id="title_view">${artVO.articleTitle}</a>
+                  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+                    
+                    <a href="http://tw.yahoo.com/" id="cat_view">[${artVO.articleCategory}]</a>
+                   	<!-- ¤À¹j½u -->
+                   	
+                   	<input type="submit"  id="title_view" value="${artVO.articleTitle}">
+			     	<input type="hidden" name="articleNo"  value="${artVO.articleNo}">
+			     	<input type="hidden" name="action"	value="getOne_For_Display">
                   </td>
+                  </FORM>
                   <td id="article_creator">${artVO.memberId}</td>
-                  <td id="article_lasttime">${artVO.lastEditTimestamp}</td>
+                  <td id="article_date">
+                  <fmt:formatDate value="${artVO.lastEditTimestamp}" pattern="yyyy-MM-dd HH:mm:ss" />
+                  </td>
 
-                  <td id="view_count">${artVO.viewCount}</td>
+                  <td id="article_count">${artVO.viewCount}</td>
                 </tr>
-                </c:forEach>
+     			</c:forEach>
+                
               </table>
             </div>
           </div>
+          <!-- ¥H¤U¸s²áµøµ¡½d³ò -->
           <div class="col-lg-3"  >
+            <a class="btn btn-outline-primary btn-lg" id="article_sumbit"  href="<%= request.getContextPath() %>/article/article_edit.jsp">
+            µo¤å</a>
+            
             
             <div class="statusOutput" id="statusOutput">CookTalk</div>
             <textarea id="messagesArea" class="panel message-area" readonly></textarea>
@@ -231,8 +235,6 @@
               <input id="message" class="text-field"  type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage();" /> 
 		
               <input type="submit" id="sendMessage" class="btn ding-btn-org" value="Send" onclick="sendMessage();" />  
-
-
             </div>
             
           </div>
@@ -240,12 +242,13 @@
       </div>
     </section>
 
-    <!-- é ç°½-->
+    <!-- ­¶Ã±-->
+    <%@ include file="page2.file" %>
     <div class="d-flex justify-content-center">
       <nav aria-label="Page navigation example" style="margin-top: 5px">
         <ul class="pagination">
           <li class="page-item"><a class="page-link_pr" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li><!--Q2 active æ²’æœ‰æ•ˆæžœ-->
+          <li class="page-item"><a class="page-link" href="#">1</a></li><!--Q2 active ¨S¦³®ÄªG-->
           <li class="page-item"><a class="page-link" href="#">2</a></li>
           <li class="page-item"><a class="page-link" href="#">3</a></li> 
           <li class="page-item"><a class="page-link_ne" href="#">Next</a></li>
@@ -260,33 +263,33 @@
           <div class="col-lg-4">
             <div class="footer__about">
               <ul>
-                <li>å…¬å¸åœ°å€ï¼šå°åŒ—å¸‚ä¸­å±±å€å—äº¬æ±è·¯ä¸‰æ®µ219è™Ÿ5æ¨“</li>
-                <li>é›»è©±ï¼š(02)27120589</li>
-                <li>é›»å­ä¿¡ç®±ï¼štomato@cooklab.com</li>
+                <li>¤½¥q¦a§}¡G¥x¥_¥«¤¤¤s°Ï«n¨ÊªF¸ô¤T¬q219¸¹5¼Ó</li>
+                <li>¹q¸Ü¡G(02)27120589</li>
+                <li>¹q¤l«H½c¡Gtomato@cooklab.com</li>
               </ul>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="footer__widget">
               <ul>
-                <li><a href="#">é—œæ–¼æˆ‘å€‘</a></li>
-                <li><a href="#">é—œæ–¼å•†åº—</a></li>
-                <li><a href="#">å®‰å¿ƒè³¼ç‰©</a></li>
+                <li><a href="#">Ãö©ó§Ú­Ì</a></li>
+                <li><a href="#">Ãö©ó°Ó©±</a></li>
+                <li><a href="#">¦w¤ßÁÊª«</a></li>
               </ul>
               <ul>
-                <li><a href="#">é‹é€è³‡è¨Š</a></li>
-                <li><a href="#">éš±ç§æ”¿ç­–</a></li>
-                <li><a href="#">å¸¸è¦‹å•é¡Œ</a></li>
+                <li><a href="#">¹B°e¸ê°T</a></li>
+                <li><a href="#">Áô¨p¬Fµ¦</a></li>
+                <li><a href="#">±`¨£°ÝÃD</a></li>
               </ul>
             </div>
           </div>
           <div class="col-lg-4 col-md-12">
             <div class="footer__widget">
-              <h6>ç«‹å³è¨‚é–±é›»å­å ±</h6>
-              <p>éš¨æ™‚æŽ¥æ”¶æˆ‘å€‘çš„æœ€æ–°æ¶ˆæ¯ä»¥åŠå„ªæƒ è¨Šæ¯</p>
+              <h6>¥ß§Y­q¾\¹q¤l³ø</h6>
+              <p>ÀH®É±µ¦¬§Ú­Ìªº³Ì·s®ø®§¥H¤ÎÀu´f°T®§</p>
               <form action="#">
-                <input type="text" placeholder="è¼¸å…¥æ‚¨çš„é›»å­ä¿¡ç®±" />
-                <button type="submit" class="btn ding-btn-org">è¨‚é–±</button>
+                <input type="text" placeholder="¿é¤J±zªº¹q¤l«H½c" />
+                <button type="submit" class="btn ding-btn-org">­q¾\</button>
               </form>
               <div class="footer__widget__social">
                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -320,15 +323,15 @@
     </footer>
     <!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script src="./js/jquery-3.3.1.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/jquery.nice-select.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/jquery.slicknav.js"></script>
-    <script src="./js/mixitup.min.js"></script>
-    <script src="./js/owl.carousel.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/HO.js"></script>
+    <!-- Js Plugins -->    
+    <script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
   </body>
 </html>

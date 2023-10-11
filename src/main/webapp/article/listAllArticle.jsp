@@ -97,6 +97,7 @@
                 </c:otherwise>
             </c:choose>
             </td>
+            
 			<td>${artVO.articleCount}</td>
 			<td>${artVO.viewCount}</td>
 			<td>${artVO.createdTimestamp}</td>
