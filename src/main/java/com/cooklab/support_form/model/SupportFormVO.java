@@ -27,10 +27,10 @@ public class SupportFormVO implements Serializable {
 	@Column(name = "reply_email")
 	private String replyEmail;
 	
-	@Column(name = "form_context")
+	@Column(name = "form_title")
 	private String formTitle;
 	
-	@Column(name = "form_title")
+	@Column(name = "form_context",columnDefinition = "longtext")
 	private String formContext;
 	
 	@Column(name = "form_status")

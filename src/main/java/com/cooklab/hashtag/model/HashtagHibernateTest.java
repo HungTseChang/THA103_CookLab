@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 import com.cooklab.recipe_comments_report.model.RecipeCommentsReportVO;
 
 public class HashtagHibernateTest {

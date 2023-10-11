@@ -21,7 +21,7 @@ public class SupportFormRecordVO implements java.io.Serializable {
 	@Column(name = "form_no")
 	private Integer formNo;
 	
-	@Column(name = "record_context")
+	@Column(name = "record_context",columnDefinition = "longtext")
 	private String recordContext;
 	
 	@Column(name = "admin_no")

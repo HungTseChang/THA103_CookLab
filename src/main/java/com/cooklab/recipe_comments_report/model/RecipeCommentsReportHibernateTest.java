@@ -3,7 +3,7 @@ package com.cooklab.recipe_comments_report.model;
 import java.util.List;
 
 import org.hibernate.Session;
-import com.cooklab.Util.HibernateUtil;
+import com.cooklab.util.HibernateUtil;
 public class RecipeCommentsReportHibernateTest {
 	public static void main(String[] args) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -16,6 +16,7 @@ public class RecipeCommentsReportHibernateTest {
 //			rcr.setRecipeCommentsNo(2);
 //			rcr.setReportingCommentsReason("食譜留言檢舉測試2");
 //			rcr.setReportingStatus((byte)3);
+//			rcr.setReportingAnswer("檢舉回覆2");
 //			
 //			session.save(rcr);
 //			
@@ -53,6 +54,7 @@ public class RecipeCommentsReportHibernateTest {
 //			rcr.setRecipeCommentsNo(2);
 //			rcr.setReportingCommentsReason("食譜留言檢舉測試2");
 //			rcr.setReportingStatus((byte)3);
+//			rcr.setReportingAnswer("檢舉回覆2");
 //			rcr.setRecipeReportNo(3);
 //			
 //			session.saveOrUpdate(rcr);

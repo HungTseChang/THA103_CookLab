@@ -1,14 +1,21 @@
 package com.cooklab.article.model;
+import com.cooklab.members.model.*;
 
+import java.io.Console;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.members.model.MembersVO;
 @Entity
 @Table(name="article") 
 public class ArticleVO implements java.io.Serializable {
@@ -20,7 +27,7 @@ public class ArticleVO implements java.io.Serializable {
 	private Integer articleNo;
 	
 	@Column(name = "article_category")  
-	private String articleCategory;
+	private Integer articleCategory;
 	
 	@Column(name = "article_title")  
 	private String articleTitle;
@@ -47,7 +54,7 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	
-	public ArticleVO(String articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
+	public ArticleVO(Integer articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
 			String articleContent, Integer articleCount, Integer viewCount) {
 		super();
 		this.articleCategory = articleCategory;
@@ -68,10 +75,10 @@ public class ArticleVO implements java.io.Serializable {
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public String getArticleCategory() {
+	public Integer getArticleCategory() {
 		return articleCategory;
 	}
-	public void setArticleCategory(String articleCategory) {
+	public void setArticleCategory(Integer articleCategory) {
 		this.articleCategory = articleCategory;
 	}
 	public String getArticleTitle() {
@@ -123,6 +130,12 @@ public class ArticleVO implements java.io.Serializable {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
 
+	public MembersVO getMembersVO() {
+		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
+		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
+		return MembersVO1;
+		
+	}
 
 	
 }

@@ -4,10 +4,16 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.article.model.*;
+import com.cooklab.members.model.*;
 @Entity
 @Table(name="article_report") 
 public class ArticleReportVO implements java.io.Serializable{
@@ -24,14 +30,25 @@ public class ArticleReportVO implements java.io.Serializable{
 		
 	@Column(name = "reporting_reason")  
 		private String reportingReason;
-		
+	
 	@Column(name = "reporting_status")  
 		private Byte reportingStatus ;
+	
+	@Column(name = "reporting_answer")  
+	private String reportingAnswer;
 	
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Timestamp createdTimestamp;
 		
-
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "article_no", referencedColumnName = "article_no")
+//	private ArticleVO ArticleVO;
+//	
+//	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "reporter_id", referencedColumnName = "memberId")
+//	private MembersVO MembersVO;
+	
 		public ArticleReportVO(Integer articleNo, Integer reporterId, String reportingReason, Byte reportingStatus) {
 		super();
 		this.articleNo = articleNo;
@@ -49,10 +66,20 @@ public class ArticleReportVO implements java.io.Serializable{
 		this.reportingStatus = reportingStatus;
 		this.createdTimestamp = createdTimestamp;
 	}
+		
+//		public ArticleReportVO(Integer articleReportNo, Object  createdTimestamp) {
+//			super();
+//			this.articleReportNo = articleReportNo;
+//			this.createdTimestamp = java.sql.Timestamp.valueOf(createdTimestamp.toString());
+//		為了避免 hibernate的查單一參數的指令Query query() = session.createQuery("select createdTimestamp from ArticleReportVO")
+//		因為回傳時會以婦類別的Date回傳 所以用Object接 然後用toString轉成字串 然後再切換成日期
+//		轉換方式請看 JavaEx_Additional  datetime.DateTimeConverter
+//		}
 		public ArticleReportVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+		
 		public Integer getArticleReportNo() {
 			return articleReportNo;
 		}
@@ -89,7 +116,39 @@ public class ArticleReportVO implements java.io.Serializable{
 		public void setCreatedTimestamp(Timestamp createdTimestamp) {
 			this.createdTimestamp = createdTimestamp;
 		}
+		public String getReportingAnswer() {
+			return reportingAnswer;
+		}
+		public void setReportingAnswer(String reportingAnswer) {
+			this.reportingAnswer = reportingAnswer;
+		}
+//		public ArticleVO getArticleVO() {
+//			return ArticleVO;
+//		}
+//		public void setArticleVO(ArticleVO articleVO) {
+//			ArticleVO = articleVO;
+//		}
+//		public MembersVO getMembersVO() {
+//			return MembersVO;
+//		}
+//		public void setMembersVO(MembersVO membersVO) {
+//			MembersVO = membersVO;
+//		}
+		public ArticleVO getArticleVO() {
+			ArticleJDBCDAOIm  dao = new ArticleJDBCDAOIm();
+			ArticleVO	 ArticleVO1=    dao.findByPrimaryKey(articleNo);
+			
+			return ArticleVO1;
+			
+		}
 		
+		public MembersVO getMembersVO() {
+			MembersJDBCDAO dao = new MembersJDBCDAO();
+			MembersVO	 MembersVO1=    dao.findByPrimaryKey(reporterId);
+			
+			return MembersVO1;
+			
+		}
 		
 		
 }
