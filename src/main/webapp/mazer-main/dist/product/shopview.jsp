@@ -1,8 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.cooklab.purchase_order_detail.model.*"%>
-<%@ page import="com.cooklab.purchase_order.model.*"%>
+<%@ page import="com.cooklab.product.model.*"%>
+<%
+    ProductService productSvc = new ProductService();
+    List<ProductVO> list = productSvc.getAll();
+    pageContext.setAttribute("list",list);
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,14 +17,14 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/app.css">
-    <link rel="shortcut icon" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/mazer-main/dist/assets/css/app.css">
+    <link rel="shortcut icon" href="<%= request.getContextPath() %>/mazer-main/dist/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -95,8 +99,8 @@
                                 <i class="bi bi-grid-1x2-fill"></i>
                                 <span>商城管理</span>
                             </a>
-                            <ul class="submenu "style="display: block;">
-                                <li class="submenu-item " >
+                            <ul class="submenu " style="display: block;">
+                                <li class="submenu-item active">
                                     <a href=".\shopview.html">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
@@ -114,7 +118,7 @@
                                 <li class="submenu-item">
                                     <a href=".\GCadvertise_info.html">新增廣告</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item ">
                                     <a href="TYT_purchase_order_allView.html">進貨表單</a>
                                 </li>
                             </ul>
@@ -172,6 +176,9 @@
                                 <li class="submenu-item ">
                                     <a href="WCC_official_notify.html">系統通知</a>
                                 </li>
+                                <li class="submenu-item ">
+                                    <a href="ding-support-tickets-table.html">問題表單</a>
+                                </li>
                             </ul>
                         </li>
                         <!-- ======================================================================================================== -->
@@ -186,105 +193,78 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-            <!--/////////////////////////////////////////////////////////////////////////////////////////  -->
-            <style>
-                td a.wcc {
-                    border: 1px solid rgb(151, 135, 249);
-                    background-color: rgb(195, 241, 253);
-                    padding: 4px;
-                    border-radius: 20px;
-                }
-
-                td button.wcc {
-                    border-radius: 20px;
-                }
-                input.WCC_memeber_info{
-                    width: 60%;
-                }
-            </style>
-            <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>新增進貨資料</h3>
-                            <p class="text-subtitle text-muted"></p>
+                            <h3>商品總覽</h3>
+                            <p class="text-subtitle text-muted">For user to check they list</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="TYT_purchase_order_allView.html">進貨表單</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">新增進貨資料</li>
+                                    <li class="breadcrumb-item"><a href="index.html">首頁</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">商品總覽</li>
                                 </ol>
                             </nav>
                         </div>
                     </div>
                 </div>
-                <!-- /////////////////////////////////////////////////////// -->
-
-            </div>
-            <div class="container">
-                <div class="row" style="background-color: white;">
-                    <div class="col-lg-12">
-                        <section id="basic-horizontal-layouts">
-                            <div class="row match-height" style=" position: relative;">
-                                <!-- <div class="col-md-8 col-8"> -->
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <!-- <h5 class="card-title">新增進貨資料</h5> -->
-                                            <form action="<%=request.getContextPath()%>/PurchaseOrderServlet" method="post">
-                                                <div class="mb-3">
-                                                    <label for="supplierInput" class="form-label">進貨廠商</label>
-                                                    <input type="text" class="form-control" id="supplierInput" placeholder="請輸入進貨廠商">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="purchaseTimeInput" class="form-label">進貨時間</label>
-                                                    <input type="datetime-local" step="1" class="form-control" id="purchaseTimeInput" >
-                                                </div>
-                                                <h6>進貨商品</h6>
-                                                <table class="table" id="purchaseTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>商品名稱</th>
-                                                            <th>進貨數量</th>
-                                                            <th>單位價格</th>
-                                                            <th>保存期限</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td><input type="text" class="form-control" name="product[]"></td>
-                                                            <td><input type="number" class="form-control" name="quantity[]"></td>
-                                                            <td><input type="number" class="form-control" name="price[]"></td>
-                                                            <td><input type="datetime-local" step="1" class="form-control" name="expiration[]"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <button type="button" class="btn btn-outline-primary" id="addRowBtn">新增下一筆商品</button>
-
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn btn-success">儲存進貨表單</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                <!-- </div> -->
-                                <!-- <div class="col-md-4 ">
-                                    <div class="card" style="top: 80px; right: 20px; max-width: 100%">
-                                        <span>人物頭像</span>
-                                        <img src=".\assets\images\faces\2.jpg" alt="">
-                                    </div>
-                                </div> -->
-                                <!-- ///////////////// -->
-                                <div class="col-md-12 col-8"></div>
+                <section class="section">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card-header">
+                                 <a class="btn btn-success rounded-pill" href="./shopset.html" style="margin-left: 20px;">新增商品</a>
+                                </div>
                             </div>
-                        </section>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>商品編號</th>
+                                        <th>商品名稱</th>
+                                        <th>商品數量</th>
+                                        <th>商品售價</th>
+                                        <th>標籤類別</th>
+                                        <th>上架時間</th>
+                                        <th>下架時間</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>紅番茄</td>
+                                        <td>10</td>
+                                        <td>999</td>
+                                        <td>蔬菜</td>
+                                        <td>2012-10-9 12:10:30</td>
+                                        <td>2014-10-9 12:10:30</td>
+                                        <td>
+                                            <a class="btn btn-info" href="./shopset.html">詳細資料</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>紅番茄</td>
+                                        <td>10</td>
+                                        <td>999</td>
+                                        <td>蔬菜</td>
+                                        <td>2012-10-9 12:10:30</td>
+                                        <td>2014-10-9 12:10:30</td>
+                                        <td>
+                                            <a class="btn btn-info" href="./shopset.html">詳細資料</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                </div>
-
+                </section>
             </div>
-
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
@@ -299,32 +279,20 @@
             </footer>
         </div>
     </div>
-     <script>    // 新增商品行的按鈕點擊事件 
-         document.getElementById('addRowBtn').addEventListener('click', function () {
-             const tableBody = document.querySelector('#purchaseTable tbody');
-             const newRow = document.createElement('tr');
-             newRow.innerHTML = `
-                 <td><input type="text" class="form-control" name="product[]"></td>
-                 <td><input type="number" class="form-control" name="quantity[]"></td>
-                 <td><input type="number" class="form-control" name="price[]"></td>
-                 <td><input type="datetime-local" step="1" class="form-control" name="expiration[]"></td>
-             `;
-             tableBody.appendChild(newRow);
-         });
-     </script> 
-    <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
 
-    <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/js/main.js"></script>
-    <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets\js\menu_ative.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets/js/main.js"></script>
+    <script src="<%= request.getContextPath() %>/mazer-main/dist/assets\js\menu_ative.js"></script>
+
 </body>
 
 </html>
