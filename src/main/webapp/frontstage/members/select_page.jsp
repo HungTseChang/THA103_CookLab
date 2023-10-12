@@ -48,7 +48,7 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllMembers.jsp'>List</a> all Members.  <br><br></li>
+  <li><a href='http://localhost:8081/com.tha103.cooklab/frontstage/members/listAllMembers.jsp'>List</a> all Members.  <br><br></li>
   
   
   <li>
@@ -90,10 +90,10 @@
 </ul>
 
 
-<h3>員工管理</h3>
+<h3>會員管理</h3>
 
 <ul>
-  <li><a href='addMembers.jsp'>Add</a> a new Emp.</li>
+  <li><a href='http://localhost:8081/com.tha103.cooklab/frontstage/members/addMembers.jsp'>Add</a> a new member.</li>
 </ul>
 
 </body>

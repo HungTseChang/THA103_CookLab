@@ -65,7 +65,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MembersServlet" name="form1">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MembersServlet" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>		
 
@@ -128,6 +128,12 @@
 
 
 </table>
+		<input type="file" id="image-upload" accept="image/*" style="display: none;" name="mem_img">
+		<button type="button" onclick="document.getElementById('image-upload').click();">選擇圖片</button>
+
+   		<img id="image-preview" src="" alt="圖片預覽" style="display:none;">
+   		<br>
+		<br> 
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="memberId" value="<%=memVO.getMemberId()%>">
@@ -164,7 +170,20 @@
            //minDate:               '-1970-01-01', // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
-        
+        document.getElementById('image-upload').addEventListener('change', function() {
+            var fileInput = this;
+            var imagePreview = document.getElementById('image-preview');
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+                imagePreview.removeAttribute('style');
+            }
+        });
         
    
         // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
