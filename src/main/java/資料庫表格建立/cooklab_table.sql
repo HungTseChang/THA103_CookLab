@@ -113,10 +113,8 @@ CREATE TABLE recipe_report (
 CREATE TABLE hashtag (
 	hashtag_no 			INT AUTO_INCREMENT PRIMARY KEY,
 	hashtag_name		VARCHAR (100) NOT NULL,
-    category_tags 		VARCHAR (50),
 	search_count  		INT DEFAULT 0,
 	use_count 			INT DEFAULT 0 ,
-    official_tags 	 	TINYINT NOT NULL,
 	created_timestamp	DATETIME DEFAULT now()
 ); 
 
@@ -149,8 +147,8 @@ CREATE TABLE product (
 	product_no 				INT auto_increment PRIMARY KEY,
 	product_name 			VARCHAR(20) NOT NULL,
 	sale_qty 				INT UNSIGNED NOT NULL,
-	product_dec 			LONGTEXT,
-	product_introduction	VARCHAR(500),
+	product_dec 			VARCHAR(500),
+	product_introduction 	VARCHAR(50),
 	product_price 			INT UNSIGNED NOT NULL,
 	offsale_time 			DATETIME,
 	shelf_time 				DATETIME,
@@ -158,6 +156,7 @@ CREATE TABLE product (
 	ingredient_category_no 	INT,
 	kitchenware_category_no	INT,
 	search_count 			INT,
+    product_picture			Blob,
 	created_timestamp 		DATETIME DEFAULT now(),
 	CONSTRAINT product_fk1 FOREIGN KEY (ingredient_category_no) REFERENCES ingredient_category(ingredient_category_no),
 	CONSTRAINT product_fk2 FOREIGN KEY (kitchenware_category_no) REFERENCES kitchenware_category(kitchenware_category_no)
@@ -226,8 +225,8 @@ CREATE TABLE promo_code (
     promo_code_serial_number 	VARCHAR(15) NOT NULL,
 	start_time	  				DATETIME NOT NULL,
 	end_time		  			DATETIME NOT NULL,
-    percentage_discount_amount 	DECIMAL(4,3),
-    fixed_discount_amount 		DECIMAL(8,2),
+    percentage_discount_amount 	int,
+    fixed_discount_amount 		Int,
     usages_allowed 				INT,
     minimum_consumption 		INT,
     created_timestamp 			DATETIME DEFAULT now()
@@ -247,7 +246,7 @@ CREATE TABLE promo_code_used  (
 CREATE TABLE member_order  (
 	order_no      					INT AUTO_INCREMENT PRIMARY KEY,
 	member_id						INT,
-	order_status					INT, 
+	order_status					tinyint, 
 	total_order_amount 				INT UNSIGNED DEFAULT 0,
     checkout_amount 				INT UNSIGNED DEFAULT 0,
 	promo_code_no  					INT,

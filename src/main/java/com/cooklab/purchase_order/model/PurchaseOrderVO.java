@@ -2,13 +2,19 @@ package com.cooklab.purchase_order.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.cooklab.purchase_order_detail.model.PurchaseOrderDetailVO;
 
 @Entity
 @Table(name = "purchase_order")
@@ -30,7 +36,19 @@ public class PurchaseOrderVO implements java.io.Serializable {
 	@Column(name = "created_timestamp", updatable = false, insertable = false)
 	private Timestamp createdTimestamp;
 
+	@OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+	@OrderBy("id asc")
+	private Set<PurchaseOrderDetailVO> purchaseOrderDetail;
+
 	public PurchaseOrderVO() {
+	}
+
+	public Set<PurchaseOrderDetailVO> getPurchaseOrderDetail() {
+		return purchaseOrderDetail;
+	}
+
+	public void setPurchaseOrderDetail(Set<PurchaseOrderDetailVO> purchaseOrderDetail) {
+		this.purchaseOrderDetail = purchaseOrderDetail;
 	}
 
 	public PurchaseOrderVO(Integer purchaseOrderNo, Date purchaseOrderDate, String purchaseOrderSupplier,

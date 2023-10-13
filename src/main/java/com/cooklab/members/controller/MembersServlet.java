@@ -91,7 +91,7 @@ public class MembersServlet extends HttpServlet {
 			    	memberId = Integer.valueOf(req.getParameter("memberId"));
 			        // 接下來的程式碼處理 memberId
 			    } catch (NumberFormatException e) {
-			        System.out.println("錯誤嚕");
+			        //System.out.println("錯誤嚕");
 			    }
 
 			/*************************** 2.開始查詢資料 ****************************************/
@@ -154,32 +154,109 @@ public class MembersServlet extends HttpServlet {
 //			String memberAccount =req.getParameter("memberAccount").trim());
 //
 			MembersVO memVO = new MembersVO();
-			Integer memberId = Integer.valueOf(req.getParameter("memberId"));
-			memVO.setMemberId(memberId);
-			String memberAccount = req.getParameter("member_account");
-			memVO.setMemberAccount(memberAccount);
-			String memberPassword = (req.getParameter("member_password"));
-			memVO.setMemberPassword(memberPassword);
-			String memberIntroduce = (req.getParameter("member_introduce"));
-			memVO.setMemberPassword(memberIntroduce);
-			String memberCellphone = (req.getParameter("member_cellphone"));
-			memVO.setMemberCellphone(memberCellphone);
-			String memberMail= (req.getParameter("member_mail"));
-			memVO.setMemberMail(memberMail);
-			java.sql.Date memberDate = (java.sql.Date.valueOf(req.getParameter("member_date")));
-			memVO.setMemberDate(memberDate);
-			String memberAddress = (req.getParameter("member_address"));
-			memVO.setMemberAddress(memberAddress);
-			String memberCountry = (req.getParameter("member_country"));
-			memVO.setMemberCountry(memberCountry);
-			Byte memberStatus = (Byte.valueOf(req.getParameter("member_status")));
-			memVO.setMemberStatus(memberStatus);
-			String memberNickname = (req.getParameter("member_nickname"));
-			memVO.setMemberNickname(memberNickname);
-			Byte memberGender = (Byte.valueOf(req.getParameter("member_gender")));
-			memVO.setMemberGender(memberGender);
-//
 			
+			Integer memberId = Integer.valueOf(req.getParameter("memberId").trim());;
+		    memVO.setMemberId(memberId);
+
+
+			String memberAccount = req.getParameter("member_account").trim();
+			if (memberAccount != null && !memberAccount.isEmpty()) {
+			    // 在這裡進行對 memberAccount 的資料驗證
+			    memVO.setMemberAccount(memberAccount);
+			}
+			else
+				errorMsgs.add("帳號: 請勿空白");
+
+			String memberPassword = req.getParameter("member_password").trim();
+			if (memberPassword != null && !memberPassword.isEmpty()) {
+			    // 在這裡進行對 memberPassword 的資料驗證
+			    memVO.setMemberPassword(memberPassword);
+			}
+			else
+				errorMsgs.add("密碼: 請勿空白");
+
+			String memberIntroduce = req.getParameter("member_introduce").trim();
+			if (memberIntroduce != null && !memberIntroduce.isEmpty()) {
+			    // 在這裡進行對 memberIntroduce 的資料驗證
+			    memVO.setMemberIntroduce(memberIntroduce);
+			}
+
+			String memberCellphone = req.getParameter("member_cellphone").trim();
+			if (memberCellphone != null && !memberCellphone.isEmpty()) {
+			    // 在這裡進行對 memberCellphone 的資料驗證
+			    memVO.setMemberCellphone(memberCellphone);
+			}
+			else
+				errorMsgs.add("手機: 請勿空白");
+
+			String memberMail = req.getParameter("member_mail").trim();
+			if (memberMail != null && !memberMail.isEmpty()) {
+			    // 在這裡進行對 memberMail 的資料驗證
+			    memVO.setMemberMail(memberMail);
+			}
+			else
+				errorMsgs.add("電子信箱: 請勿空白");
+			
+			java.sql.Date memberDate = null;
+			String memberDateParam = req.getParameter("member_date").trim();
+			if (memberDateParam != null && !memberDateParam.isEmpty()) {
+			    try {
+			        memberDate = java.sql.Date.valueOf(memberDateParam);
+			        memVO.setMemberDate(memberDate);
+			    } catch (IllegalArgumentException e) {
+			        // 處理無效的 memberDate 資料
+					errorMsgs.add("日期無效");
+			    }
+			}
+
+			String memberAddress = req.getParameter("member_address").trim();
+			if (memberAddress != null && !memberAddress.isEmpty()) {
+			    // 在這裡進行對 memberAddress 的資料驗證
+			    memVO.setMemberAddress(memberAddress);
+			}
+			else
+				errorMsgs.add("通訊地址: 請勿空白");
+
+			String memberCountry = req.getParameter("member_country").trim();
+			if (memberCountry != null && !memberCountry.isEmpty()) {
+			    // 在這裡進行對 memberCountry 的資料驗證
+			    memVO.setMemberCountry(memberCountry);
+			}
+			else
+				errorMsgs.add("國別: 請勿空白");
+			Byte memberStatus = null;
+			String memberStatusParam = req.getParameter("member_status").trim();
+			if (memberStatusParam != null && !memberStatusParam.isEmpty()) {
+			    try {
+			        memberStatus = Byte.valueOf(memberStatusParam);
+			        memVO.setMemberStatus(memberStatus);
+			    } catch (NumberFormatException e) {
+			        // 處理無效的 memberStatus 資料
+			    }
+			}
+			else
+				errorMsgs.add("會員狀態: 請勿空白");
+
+			String memberNickname = req.getParameter("member_nickname").trim();
+			if (memberNickname != null && !memberNickname.isEmpty()) {
+			    // 在這裡進行對 memberNickname 的資料驗證
+			    memVO.setMemberNickname(memberNickname);
+			}
+			else
+				errorMsgs.add("會員暱稱: 請勿空白");
+			Byte memberGender = null;
+			String memberGenderParam = req.getParameter("member_gender").trim();
+			if (memberGenderParam != null && !memberGenderParam.isEmpty()) {
+			    try {
+			        memberGender = Byte.valueOf(memberGenderParam);
+			        memVO.setMemberGender(memberGender);
+			    } catch (NumberFormatException e) {
+			        // 處理無效的 memberGender 資料
+					errorMsgs.add("會員性別: 請勿空白");
+			    }
+			}
+
+			//圖片
 			byte[] buf = null;
             Part filePart = req.getPart("mem_img");
             
@@ -187,15 +264,30 @@ public class MembersServlet extends HttpServlet {
 	        if(in.available() != 0)
 	        {
 		        buf = new byte[in.available()];   // byte[] buf = in.readAllBytes();  // Java 9 的新方法
-		        System.out.println();
+		        //System.out.println();
 		        in.read(buf);
 		        in.close(); 
 		        memVO.setMemberPicture(buf);
 	        }
+	        else
+	        {
+
+				
+				MembersService memSvc = new MembersService();
+				MembersVO memVO2 = memSvc.getOneMember(memberId);
+				
+				buf = memVO2.getMemberPicture();
+//				MembersVO memVO = memSvc.getOneMemberAccount(memberAccount);
+//	        	String memPreviewString = req.getParameter("mem_preview");
+//	        	//System.out.println(memPreviewString);
+//	        	byte[] memPreviewBytes = memPreviewString.getBytes();
+
+//	        	memVO.setMemberPicture(memPreviewBytes);
+	        }
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/frontstage/members/update_emp_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontstage/members/update_mem_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -271,28 +363,41 @@ public class MembersServlet extends HttpServlet {
 //			empVO.setDeptno(deptno);
 
 //			MembersVO memVO = new MembersVO();
-			String memberAccount = req.getParameter("member_account");
-			memVO.setMemberAccount(memberAccount);
-			String memberPassword = (req.getParameter("member_password"));
+//			String memberAccount = req.getParameter("member_account").trim();
+//			memVO.setMemberAccount(memberAccount);
+			
+			String memberAccount = req.getParameter("member_account").trim();
+	
+
+//			if (memberAccount != null && !memberAccount.isEmpty()) {
+//			    // 在這裡進行對 memberAccount 的資料驗證
+			    memVO.setMemberAccount(memberAccount);
+//			}
+//			else
+//			{
+//				errorMsgs.add("帳號: 請勿空白");
+//			}
+			
+			String memberPassword = (req.getParameter("member_password").trim());
 			memVO.setMemberPassword(memberPassword);
-			String memberIntroduce = (req.getParameter("member_introduce"));
+			String memberIntroduce = (req.getParameter("member_introduce").trim());
 			memVO.setMemberPassword(memberIntroduce);
-			String memberCellphone = (req.getParameter("member_cellphone"));
+			String memberCellphone = (req.getParameter("member_cellphone").trim());
 			memVO.setMemberCellphone(memberCellphone);
-			String memberMail= (req.getParameter("member_mail"));
+			String memberMail= (req.getParameter("member_mail").trim());
 			memVO.setMemberMail(memberMail);
-			java.sql.Date memberDate = (java.sql.Date.valueOf(req.getParameter("member_date")));
+			java.sql.Date memberDate = (java.sql.Date.valueOf(req.getParameter("member_date").trim()));
 			
 			memVO.setMemberDate(memberDate);
-			String memberAddress = (req.getParameter("member_address"));
+			String memberAddress = (req.getParameter("member_address").trim());
 			memVO.setMemberAddress(memberAddress);
-			String memberCountry = (req.getParameter("member_country"));
+			String memberCountry = (req.getParameter("member_country").trim());
 			memVO.setMemberCountry(memberCountry);
-			Byte memberStatus = (Byte.valueOf(req.getParameter("member_status")));
+			Byte memberStatus = (Byte.valueOf(req.getParameter("member_status").trim()));
 			memVO.setMemberStatus(memberStatus);
-			String memberNickname = (req.getParameter("member_nickname"));
+			String memberNickname = (req.getParameter("member_nickname").trim());
 			memVO.setMemberNickname(memberNickname);
-			Byte memberGender = (Byte.valueOf(req.getParameter("member_gender")));
+			Byte memberGender = (Byte.valueOf(req.getParameter("member_gender").trim()));
 			memVO.setMemberGender(memberGender);
 			
 			byte[] buf = null;
@@ -302,7 +407,7 @@ public class MembersServlet extends HttpServlet {
 	            if(in.available() != 0)
 	            {
 		            buf = new byte[in.available()];   // byte[] buf = in.readAllBytes();  // Java 9 的新方法
-		            System.out.println();
+		            //System.out.println();
 		            in.read(buf);
 		            in.close(); 
 		            

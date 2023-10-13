@@ -11,11 +11,12 @@ import java.util.List;
 import com.cooklab.util.*;
 
 public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
-	private static final String INSERT_STMT = "INSERT INTO article_report (article_no,reporter_id,reporting_reason,reporting_status,created_timestamp) VALUES (?, ?, ?, ?, now())";
-	private static final String GET_ALL_STMT = "SELECT article_report_no,article_no,reporter_id,reporting_reason,reporting_status,created_timestamp FROM article_report order by article_report_no";
-	private static final String GET_ONE_STMT = "SELECT article_report_no,article_no,reporter_id,reporting_reason,reporting_status,created_timestamp FROM article_report where article_report_no = ?";
+	private static final String INSERT_STMT = "INSERT INTO article_report (article_no,reporter_id,reporting_reason,reporting_status,reporting_answer,created_timestamp) VALUES (?, ?, ?, ?, ?, now())";
+	private static final String GET_ALL_STMT = "SELECT article_report_no,article_no,reporter_id,reporting_reason,reporting_status,reporting_answer, created_timestamp FROM article_report order by article_report_no";
+	private static final String GET_ONE_STMT = "SELECT article_report_no,article_no,reporter_id,reporting_reason,reporting_status,reporting_answer, created_timestamp FROM article_report where article_report_no = ?";
 	private static final String DELETE = "DELETE FROM article_report where article_report_no = ?";
-	private static final String UPDATE = "UPDATE article_report set article_no=?, reporter_id=?, reporting_reason=?, reporting_status=?, created_timestamp=now() where article_report_no = ?";
+	private static final String UPDATE = "UPDATE article_report set article_no=?, reporter_id=?, reporting_reason=?, reporting_status=?,reporting_answer=?, created_timestamp=now() where article_report_no = ?";
+     
 
 	@Override
 	public void insert(ArticleReportVO ArticleReportVO) {
@@ -33,7 +34,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 			pstmt.setInt(2, ArticleReportVO.getReporterId());
 			pstmt.setString(3, ArticleReportVO.getReportingReason());
 			pstmt.setByte(4, ArticleReportVO.getReportingStatus());
-
+			pstmt.setString(5, ArticleReportVO.getReportingAnswer());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -79,7 +80,8 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 			pstmt.setInt(2, ArticleReportVO.getReporterId());
 			pstmt.setString(3, ArticleReportVO.getReportingReason());
 			pstmt.setByte(4, ArticleReportVO.getReportingStatus());
-			pstmt.setInt(5, ArticleReportVO.getArticleReportNo());
+			pstmt.setString(5, ArticleReportVO.getReportingAnswer());
+			pstmt.setInt(6, ArticleReportVO.getArticleReportNo());
 
 			pstmt.executeUpdate();
 
@@ -179,6 +181,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 				ArticleReportVO.setReporterId(rs.getInt("reporter_id"));
 				ArticleReportVO.setReportingReason(rs.getString("reporting_reason"));
 				ArticleReportVO.setReportingStatus(rs.getByte("reporting_status"));
+				ArticleReportVO.setReportingAnswer(rs.getString("reporting_answer"));
 				ArticleReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 			}
@@ -241,6 +244,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 				ArticleReportVO.setReporterId(rs.getInt("reporter_id"));
 				ArticleReportVO.setReportingReason(rs.getString("reporting_reason"));
 				ArticleReportVO.setReportingStatus(rs.getByte("reporting_status"));
+				ArticleReportVO.setReportingAnswer(rs.getString("reporting_answer"));
 				ArticleReportVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 
 				list.add(ArticleReportVO); // Store the row in the list
@@ -285,12 +289,13 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 		ArticleReportJDBCDAOIm dao = new ArticleReportJDBCDAOIm();
 
 		// 新增
-			ArticleReportVO ArticleReportVO1 = new ArticleReportVO();
-			ArticleReportVO1.setArticleNo(Integer.valueOf(1));
-			ArticleReportVO1.setReporterId(Integer.valueOf(1));
-			ArticleReportVO1.setReportingReason("排版好累");
-			ArticleReportVO1.setReportingStatus(Byte.valueOf((byte) 1));
-			dao.insert(ArticleReportVO1);
+//			ArticleReportVO ArticleReportVO1 = new ArticleReportVO();
+//			ArticleReportVO1.setArticleNo(Integer.valueOf(1));
+//			ArticleReportVO1.setReporterId(Integer.valueOf(1));
+//			ArticleReportVO1.setReportingReason("排版好累");
+//			ArticleReportVO1.setReportingStatus(Byte.valueOf((byte) 1));
+//			ArticleReportVO1.setReportingAnswer("朕已閱");
+//			dao.insert(ArticleReportVO1);
 
 //			// 修改
 //		ArticleReportVO ArticleReportVO2 = new ArticleReportVO();
@@ -299,6 +304,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 //		ArticleReportVO2.setReporterId(Integer.valueOf(1));
 //		ArticleReportVO2.setReportingReason("排版真的好累ZZ");
 //		ArticleReportVO2.setReportingStatus(Byte.valueOf((byte) 0));
+//		ArticleReportVO2.setReportingAnswer("依然不准休息");
 //		dao.update(ArticleReportVO2);
 
 ////			// 刪除
@@ -311,6 +317,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 //			System.out.print(ArticleReportVO3.getReporterId() + ",");
 //			System.out.print(ArticleReportVO3.getReportingReason() + ",");
 //			System.out.print(ArticleReportVO3.getReportingStatus() + ",");
+//			System.out.print(ArticleReportVO3.getReportingAnswer() + ",");
 //			System.out.println(ArticleReportVO3.getCreatedTimestamp() + ",");
 //			System.out.println("---------------------");
 //
@@ -322,6 +329,7 @@ public class ArticleReportJDBCDAOIm implements ArticleReportDAO {
 			System.out.print(aArticleReportVO.getReporterId() + ",");
 			System.out.print(aArticleReportVO.getReportingReason() + ",");
 			System.out.print(aArticleReportVO.getReportingStatus() + ",");
+			System.out.print(aArticleReportVO.getReportingAnswer() + ",");
 			System.out.println(aArticleReportVO.getCreatedTimestamp() + ",");
 			System.out.println("---------------------");
 		}
