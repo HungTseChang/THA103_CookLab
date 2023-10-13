@@ -266,6 +266,12 @@ pageContext.setAttribute("json",json);
                             <div class="card-header" style="background-color: rgb(208, 250, 255);">
                                 <span style="font-size: 30px;">權限規則</span>
                             </div>
+                            <div class="row">
+                             <div class="col-md-2"  style="background-color: rgb(208, 250, 255);"> <lable style=" ">資料查詢</lable></div>    
+                               <div class="col-md-4" >                     
+                       <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 管理員、帳號或暱稱" style="pading-color:  rgb(208, 250, 255);" >
+                              </div>
+                              </div>
                          <div class="datable dropdown">
                         <select class="wcc" id="select1">
                         <option value="5">5</option>
@@ -276,8 +282,7 @@ pageContext.setAttribute("json",json);
                         <label>每頁展示筆數</label>
                         </div>
                             <div class="table-datatable " style="width: 100%; height: 400px;  overflow-y: scroll; overflow-x: scroll;">
-                                <table class="table-container" id="table1" style="width: 100%; font-size: 20px;"
-                                    value=0>
+                                <table class="table-container" id="table1" style="width: 100%; font-size: 20px;">
                                     <thead style="background-color: rgb(212, 212, 212);">
                                         <tr>
                                             <th style="width: 146;">管理者編號</th>
@@ -288,12 +293,7 @@ pageContext.setAttribute("json",json);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <jsp:useBean id="admins" scope="page" class="com.cooklab.admins.model.AdminsService" />
-                                   <c:forEach var="adminone" items="${admins.getAll()}" > 
-                                    <tr> <td>${adminone.adminNo}</td><td>${adminone.adminNickname}</td><td>${adminone.permissionNo}</td>
-                                    <td>${adminone.adminAccount}</td><td>${adminone.createdTimestamp}</td> </tr>
-                                     </c:forEach>
-
+           
 
 
                                     </tbody>
@@ -311,10 +311,6 @@ pageContext.setAttribute("json",json);
    								 </div>
                             <div class="col-md-8">
                                 <a href="${pageContext.request.contextPath}/dashboard/admin/WCC_permission_createnew.jsp" class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
-                                <a href="#" class="btn btn-info rounded-pill" id="enter" value=0>修改內容</a>
-                                <a href="#" class="btn btn-info rounded-pill -none" id="enter2">取消修改</a>
-                                    <a href="#" class="btn btn-danger rounded-pill" id="enter3"
-                                    >刪除內容</a>
                             </div>
                         </div>
                     </div>
@@ -355,8 +351,28 @@ pageContext.setAttribute("json",json);
 document.addEventListener("DOMContentLoaded", function () {
  var rowsPerPage = 5;
  var currentPage = 1;
- 
-var myList=JSON.parse('${json}');
+ var myList;
+
+ if('${json}'){
+	 myList=JSON.parse('${json}');
+	}else{ 
+		console.log("reload");
+		var form = $("<form>", {
+            action: "${pageContext.request.contextPath}/AdmisServlet", // 表单提交的URL
+            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+        });
+	    
+	       form.append($("<input>", {
+               type: "text",
+               name: "action",
+               value: "getAlladmins"
+           }));
+	       form.appendTo("body").hide();
+	       form.submit();
+	       form.remove();
+			console.log("reload");
+	}
+console.log(myList);
  var number =myList.length;
     function updateTable() {    
     	var startIndex = (currentPage - 1) * rowsPerPage;
@@ -378,7 +394,7 @@ var myList=JSON.parse('${json}');
 			<td>
 		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdminsServlet" style="margin-bottom: 0px;">
 		     <input type="submit" value="修改">
-		     <input type="hidden" name="${adminNo}"  value=`;
+		     <input type="hidden" name="adminNo"  value=`;
 		    text +=aa.adminNo;
 		    text +=` >
 		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
@@ -421,6 +437,12 @@ $("#total-pages").text("of " + totalPages);
             updateTable();
         }
     });
+    
+    function searchbar(){
+    	
+    	
+    }
+    
     
     
     updateTable();

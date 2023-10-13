@@ -5,10 +5,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.permission.model.PermissionVO;
 @Entity
 @Table(name="admins") 
 public class AdminsVO implements java.io.Serializable {
@@ -27,6 +32,15 @@ public class AdminsVO implements java.io.Serializable {
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
 	
+	public PermissionVO getPermissionVO() {
+		return permissionVO;
+	}
+	public void setPermissionVO(PermissionVO permissionVO) {
+		this.permissionVO = permissionVO;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no")
+	private PermissionVO permissionVO;
 	
 	public Integer getAdminNo() {
 		return adminNo;

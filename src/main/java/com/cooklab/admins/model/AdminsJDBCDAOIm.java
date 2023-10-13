@@ -76,6 +76,7 @@ public class AdminsJDBCDAOIm implements AdminsDAO {
 			pstmt.setInt(2, admins.getPermissionNo());
 			pstmt.setString(3, admins.getAdminAccount());
 			pstmt.setString(4, admins.getAdminPassword());
+			pstmt.setInt(5, admins.getAdminNo());
 
 			pstmt.executeUpdate();
 

@@ -5,11 +5,12 @@ import java.util.List;
 
 public class AdminsService {
 
-	private AdminsHBDAO dao;
-	
+//	private AdminsHBDAO dao;
+	private AdminsJDBCDAOIm dao;
 	public AdminsService() {
-		dao = new AdminsHBDAO();
-	}
+//		dao = new AdminsHBDAO();
+		dao = new AdminsJDBCDAOIm();	
+		}
 
 	public AdminsVO add(String adminNickname, Integer permissionNo, String adminAccount,
 			String adminPassword) {
@@ -38,7 +39,6 @@ public class AdminsService {
 		AdminsVO.setPermissionNo(permissionNo);
 		AdminsVO.setAdminAccount(adminAccount);
 		AdminsVO.setAdminPassword(adminPassword);
-
 		AdminsVO.setAdminNo(adminNo);
 		
 		dao.update(AdminsVO);
@@ -58,6 +58,15 @@ public class AdminsService {
 		return dao.getAll();
 	}
 
-	
+//	public  static void main(String[] args) {
+////		AdminsVO AdminsVO = new AdminsVO();
+////		AdminsVO.setAdminNickname(String.valueOf("王曉明"));
+////		AdminsVO.setPermissionNo(Integer.valueOf(2));
+////		AdminsVO.setAdminAccount(String.valueOf("ABCD"));
+////		AdminsVO.setAdminPassword(String.valueOf("DDDD"));
+//		AdminsService AdminsService = new AdminsService();
+//		AdminsService.update("11",1,"22","3",1);
+//		
+//	}
 
 }

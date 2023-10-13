@@ -34,19 +34,21 @@ public class AdminsHBDAO implements AdminsDAO {
 //============================insert完結=======================================
 	@Override
 	public void update(AdminsVO AdminsVO) {
+
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
 		try {
 			session.beginTransaction();
 
-			AdminsVO AdminsVO1  = session.get(AdminsVO.class,AdminsVO.getAdminNo());
-       	if(AdminsVO != null) {
-       		AdminsVO1.setAdminNickname(AdminsVO.getAdminNickname());
-       		AdminsVO1.setPermissionNo(AdminsVO.getPermissionNo());
-       		AdminsVO1.setAdminAccount(AdminsVO.getAdminAccount());
-       		AdminsVO1.setAdminPassword(AdminsVO.getAdminPassword());
+//			AdminsVO AdminsVO1  = session.get(AdminsVO.class,AdminsVO.getAdminNo());
+////       	if(AdminsVO != null) {
+//       		AdminsVO1.setAdminNickname(AdminsVO.getAdminNickname());
+//       		AdminsVO1.setPermissionNo(AdminsVO.getPermissionNo());
+//       		AdminsVO1.setAdminAccount(AdminsVO.getAdminAccount());
+//       		AdminsVO1.setAdminPassword(AdminsVO.getAdminPassword());
        		
-       	}
+//       	}
+			session.saveOrUpdate(AdminsVO);
 			session.getTransaction().commit();
 			session.close();
 			
@@ -156,12 +158,12 @@ public class AdminsHBDAO implements AdminsDAO {
 
 		AdminsHBDAO dao = new AdminsHBDAO();
 		// 新增
-//		AdminsVO AdVO1 = new AdminsVO();
-//		AdVO1.setAdminNickname(String.valueOf("王曉明"));
-//		AdVO1.setPermissionNo(Integer.valueOf(2));
-//		AdVO1.setAdminAccount(String.valueOf("ABCD"));
-//		AdVO1.setAdminPassword(String.valueOf("DDDD"));
-//		dao.insert(AdVO1);
+		AdminsVO AdVO1 = new AdminsVO();
+		AdVO1.setAdminNickname(String.valueOf("王曉明"));
+		AdVO1.setPermissionNo(Integer.valueOf(2));
+		AdVO1.setAdminAccount(String.valueOf("ABCD"));
+		AdVO1.setAdminPassword(String.valueOf("DDDD"));
+		dao.insert(AdVO1);
 
 //		// 修改
 //	AdminsVO AdminsVO2 = new AdminsVO();
@@ -177,14 +179,14 @@ public class AdminsHBDAO implements AdminsDAO {
 //		dao.delete(2);
 ////
 ////		// 查詢
-		AdminsVO AdminsVO3 = dao.findByPrimaryKey(1);
-		System.out.print(AdminsVO3.getAdminNo() + ",");
-		System.out.print(AdminsVO3.getAdminNickname() + ",");
-		System.out.print(AdminsVO3.getPermissionNo() + ",");
-		System.out.print(AdminsVO3.getAdminAccount() + ",");
-		System.out.print(AdminsVO3.getAdminPassword() + ",");
-		System.out.print(AdminsVO3.getCreatedTimestamp() + ",");
-		System.out.println("---------------------");
+//		AdminsVO AdminsVO3 = dao.findByPrimaryKey(1);
+//		System.out.print(AdminsVO3.getAdminNo() + ",");
+//		System.out.print(AdminsVO3.getAdminNickname() + ",");
+//		System.out.print(AdminsVO3.getPermissionNo() + ",");
+//		System.out.print(AdminsVO3.getAdminAccount() + ",");
+//		System.out.print(AdminsVO3.getAdminPassword() + ",");
+//		System.out.print(AdminsVO3.getCreatedTimestamp() + ",");
+//		System.out.println("---------------------");
 //
 ////		// 查詢
 //	List<AdminsVO> list = dao.getAll();

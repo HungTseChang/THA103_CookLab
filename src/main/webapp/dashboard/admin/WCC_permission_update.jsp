@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.cooklab.admins.model.*" %>
+<%
+AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,7 +212,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>新增管理者</h3>
+                            <h3>管理管理者權限</h3>
                             <p class="text-subtitle text-muted">For user to check they list</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
@@ -232,6 +238,20 @@
                                             <form class="form form-horizontal">
                                                 <div class="form-body">
                                                     <div class="row">
+                                                      <div class="col-md-4">
+                                                            <label>管理員編號</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="form-group has-icon-left">
+                                                                <div class="position-relative">
+                                                                    <input type="text"  name="adminNo" class="form-control" placeholder="帳號"
+                                                                        id="first-name-icon" value="${AdminsVO.adminNo}" disabled>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-person"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-md-4">
                                                             <label>管理員帳號</label>
                                                         </div>
@@ -239,7 +259,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="text"  name="account" class="form-control" placeholder="帳號"
-                                                                        id="first-name-icon">
+                                                                        id="first-name-icon" value="${AdminsVO.adminAccount}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -253,7 +273,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="text"  name="nickname" class="form-control" placeholder="暱稱"
-                                                                        id="first-name-icon">
+                                                                        id="first-name-icon" value="${AdminsVO.adminNickname}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-heart"> </i>
                                                                     </div>
@@ -267,7 +287,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="password"  name="password"  class="form-control" placeholder="密碼"
-                                                                        id="first-name-icon">
+                                                                        id="first-name-icon" value="${AdminsVO.adminPassword}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
                                                                             <use xlink:href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
@@ -283,7 +303,7 @@
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="password"  name="passwordcheck"  class="form-control" placeholder="密碼"
-                                                                        id="first-name-icon">
+                                                                        id="first-name-icon" value="${AdminsVO.adminPassword}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
                                                                             <use xlink:href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
@@ -313,7 +333,7 @@
                                                 <tr>
                                                     <th>
                                                         <input class="form-check-input" type="radio" name="permission"
-                                                            id="permission1" value="1">
+                                                            id="permission1" value="1"   <%= AdminsVO.getPermissionNo() ==1? "checked":"" %>>
                                                         <label class="form-check-label" for="permission1">
                                                             總管理員
                                                         </label>
@@ -321,7 +341,7 @@
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission2"  value="1">
+                                                    id="permission2"  value="2" <%= AdminsVO.getPermissionNo() ==2? "checked":"" %>>
                                                 <label class="form-check-label" for="permission2">
                                                     食譜管理員
                                                 </label>
@@ -329,7 +349,7 @@
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission3"  value="2">
+                                                    id="permission3"  value="3" <%= AdminsVO.getPermissionNo() ==3? "checked":"" %>>
                                                 <label class="form-check-label" for="permission3">
                                                     會員管理員
                                                 </label>
@@ -337,7 +357,7 @@
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission4" value="3">
+                                                    id="permission4" value="4" <%= AdminsVO.getPermissionNo() ==4? "checked":"" %>>
                                                 <label class="form-check-label" for="permission4" >
                                                     廣告投放人員
                                                 </label>
@@ -419,7 +439,9 @@
 	  var password= $("input[name='password']").val()+"";
 	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
 	  var permission =$('input[name="permission"]:checked').val()
-	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission);
+	  var adminNo=$('input[name="adminNo"]').val()
+	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
+	  console.log(adminNo);
 	  if(password != passwordcheck){
 		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
 		  return;
@@ -432,7 +454,7 @@
 	       form.append($("<input>", {
                type: "text",
                name: "action",
-               value: "inserAdmins"
+               value: "updateAdmins"
            }));
 	       form.append($("<input>", {
              type: "text",
@@ -454,9 +476,14 @@
 	             name: "permission",
 	             value: permission
 	         }));
+	       form.append($("<input>", {
+	             type: "text",
+	             name: "adminNo",
+	             value: adminNo
+	         }));
 	       form.appendTo("body").hide();
 	       form.submit();
-// 	       console.log(form);
+	       console.log(form);
 	       form.remove();
   	  
     })
