@@ -217,10 +217,10 @@ pageContext.setAttribute("list", list);
 							value="<%=(artVO2 == null) ? "" : artVO2.getArticleTitle()%>">
 
 						<div style="width: auto; height: 500px;">
-							<div id="editor" contenteditable="true"></div>
-
-							<textarea id="hiddenContent" name="articleContent"
-								style="display: none;"></textarea>
+							<div id="editor" contenteditable="false"></div>
+													<!--如果改成 true就不能複製貼上WHY?  -->
+							<h2 class="firstview">快來寫下你的文章</h2>
+							<textarea id="hiddenContent" name="articleContent" style="display: none;"></textarea>
 
 
 							<p style="margin-top: 5px;">

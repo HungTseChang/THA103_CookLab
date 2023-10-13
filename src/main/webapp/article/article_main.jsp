@@ -26,8 +26,7 @@
     <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
 
     <!-- Css Styles -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/bootstrap.min.css" type="text/css">
@@ -42,7 +41,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/article/css/ding.css" type="text/css">
   </head>
 
-  <body>
+  <body onload="connect();" onunload="disconnect();">
     <!-- Page Preloder -->
     <div id="preloder">
       <div class="loader"></div>
@@ -226,7 +225,7 @@
           <!-- 以下群聊視窗範圍 -->
           <div class="col-lg-3"  >
             <a class="btn btn-outline-primary btn-lg" id="article_sumbit"  href="<%= request.getContextPath() %>/article/article_edit.jsp">
-            發文</a>
+			發文</a>
             
             
             <div class="statusOutput" id="statusOutput">CookTalk</div>
