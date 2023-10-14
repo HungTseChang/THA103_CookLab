@@ -11,7 +11,7 @@ MembersVO memVO = (MembersVO) request.getAttribute("memVO");
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>會員資料新增 - addEmp.jsp</title>
+<title>會員資料新增 - addEmpMembers.jsp</title>
 
 <style>
 table#table-1 {
@@ -55,7 +55,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>員工資料新增 - addEmp.jsp</h3>
+				<h3>會員資料新增 - addMembers.jsp</h3>
 			</td>
 			<td>
 				<h4>
@@ -143,7 +143,8 @@ th, td {
 		<input type="file" id="image-upload" accept="image/*" style="display: none;" name="mem_img">
 		<button type="button" onclick="document.getElementById('image-upload').click();">選擇圖片</button>
 
-   		<img id="image-preview" src="" alt="圖片預覽" style="display:none;">
+   		<img id="image-preview" src="" alt="圖片預覽" style="display: none; max-width: 200px; max-height: 200px;">
+
    		<br>
 		<br> 
 		<input type="hidden" name="action" value="insert"> 
@@ -206,7 +207,8 @@ try {
                 };
 
                 reader.readAsDataURL(fileInput.files[0]);
-                imagePreview.removeAttribute('style');
+                imagePreview.style="block";
+                console.log
             }
         });
         

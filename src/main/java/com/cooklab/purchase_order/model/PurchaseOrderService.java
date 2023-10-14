@@ -7,7 +7,7 @@ public class PurchaseOrderService {
 	private PurchaseOrderDAO dao;
 
 	public PurchaseOrderService() {
-		dao = new PurchaseOrderJDBCDAOIm();
+		dao = new PurchaseOrderHDAOIm();
 	}
 
 	public List<PurchaseOrderVO> getAll(){

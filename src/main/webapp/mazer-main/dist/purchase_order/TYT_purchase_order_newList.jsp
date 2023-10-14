@@ -1,13 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.cooklab.purchase_order.model.*"%>
 <%@ page import="com.cooklab.purchase_order_detail.model.*"%>
-
-<% 
-    PurchaseOrderDetailVO purchaseOrderDetailVO = ( PurchaseOrderDetailVO) request.getAttribute("purchaseOrderDetailVO");
-	PurchaseOrderVO purchaseOrderVO = ( PurchaseOrderVO) request.getAttribute("purchaseOrderVO");
-%>
+<%@ page import="com.cooklab.purchase_order.model.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -236,16 +231,15 @@
                                 <!-- <div class="col-md-8 col-8"> -->
                                     <div class="card">
                                         <div class="card-body">
-                                        
                                             <!-- <h5 class="card-title">新增進貨資料</h5> -->
                                             <form action="<%=request.getContextPath()%>/PurchaseOrderServlet" method="post">
                                                 <div class="mb-3">
                                                     <label for="supplierInput" class="form-label">進貨廠商</label>
-                                                    <input type="text" class="form-control" id="supplierInput" name="purchaseOrderSupplier" value="<%= purchaseOrderVO.getPurchaseOrderSupplier()%>" placeholder="請輸入進貨廠商">
+                                                    <input type="text" class="form-control" id="supplierInput" placeholder="請輸入進貨廠商">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="purchaseTimeInput" class="form-label">進貨時間</label>
-                                                    <input type="datetime-local" step="1" class="form-control" id="purchaseTimeInput" name="" >
+                                                    <input type="datetime-local" step="1" class="form-control" id="purchaseTimeInput" >
                                                 </div>
                                                 <h6>進貨商品</h6>
                                                 <table class="table" id="purchaseTable">
@@ -259,10 +253,10 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input type="text" class="form-control" name="product[]" value="<%= purchaseOrderDetailVO.getProductName()%>"/></td>
-                                                            <td><input type="number" class="form-control" name="quantity[]" value="<%= purchaseOrderDetailVO.getProductQty()%>"></td>
-                                                            <td><input type="number" class="form-control" name="price[]" value="<%= purchaseOrderDetailVO.getPurchaseOrderPrice()%>"></td>
-                                                            <td><input type="datetime-local" step="1" class="form-control" name="expiration[]" value="<%= purchaseOrderDetailVO.getExpiredDate()%>"></td>
+                                                            <td><input type="text" class="form-control" name="product[]"></td>
+                                                            <td><input type="number" class="form-control" name="quantity[]"></td>
+                                                            <td><input type="number" class="form-control" name="price[]"></td>
+                                                            <td><input type="datetime-local" step="1" class="form-control" name="expiration[]"></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -270,7 +264,6 @@
 
                                                 <div class="text-end">
                                                     <button type="submit" class="btn btn-success">儲存進貨表單</button>
-                                                    <input type="hidden" name="action" value="insert">
                                                 </div>
                                             </form>
                                         </div>
@@ -306,19 +299,19 @@
             </footer>
         </div>
     </div>
-    <script>    // 新增商品行的按鈕點擊事件
-        document.getElementById('addRowBtn').addEventListener('click', function () {
-            const tableBody = document.querySelector('#purchaseTable tbody');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text" class="form-control" name="product[]"></td>
-                <td><input type="number" class="form-control" name="quantity[]"></td>
-                <td><input type="number" class="form-control" name="price[]"></td>
-                <td><input type="datetime-local" step="1" class="form-control" name="expiration[]"></td>
-            `;
-            tableBody.appendChild(newRow);
-        });
-    </script>
+     <script>    // 新增商品行的按鈕點擊事件 
+         document.getElementById('addRowBtn').addEventListener('click', function () {
+             const tableBody = document.querySelector('#purchaseTable tbody');
+             const newRow = document.createElement('tr');
+             newRow.innerHTML = `
+                 <td><input type="text" class="form-control" name="product[]"></td>
+                 <td><input type="number" class="form-control" name="quantity[]"></td>
+                 <td><input type="number" class="form-control" name="price[]"></td>
+                 <td><input type="datetime-local" step="1" class="form-control" name="expiration[]"></td>
+             `;
+             tableBody.appendChild(newRow);
+         });
+     </script> 
     <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
     <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>

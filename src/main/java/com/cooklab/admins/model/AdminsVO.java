@@ -1,15 +1,46 @@
 package com.cooklab.admins.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.cooklab.permission.model.PermissionVO;
+@Entity
+@Table(name="admins") 
 public class AdminsVO implements java.io.Serializable {
+	@Id 
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column(name = "admin_no" , insertable = false, updatable = false)  
 	private Integer adminNo;
+	@Column(name = "admin_nickname")  
 	private String adminNickname;
+	@Column(name = "permission_no")  
 	private Integer permissionNo;
+	@Column(name = "admin_account")  
 	private String adminAccount;
+	@Column(name = "admin_password")  
 	private String adminPassword;
-	private Date createdTimestamp;
+	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
+	private Timestamp createdTimestamp;
 	
+	public PermissionVO getPermissionVO() {
+		return permissionVO;
+	}
+	public void setPermissionVO(PermissionVO permissionVO) {
+		this.permissionVO = permissionVO;
+	}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no")
+	private PermissionVO permissionVO;
 	
 	public Integer getAdminNo() {
 		return adminNo;
@@ -46,10 +77,10 @@ public class AdminsVO implements java.io.Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 }
