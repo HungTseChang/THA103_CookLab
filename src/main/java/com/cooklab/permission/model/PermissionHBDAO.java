@@ -1,4 +1,4 @@
-package com.cooklab.admins.model;
+package com.cooklab.permission.model;
 
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import com.cooklab.article.model.ArticleHBDAO;
 import com.cooklab.article.model.ArticleVO;
 
 
-public class AdminsHBDAO implements AdminsDAO {
+public class PermissionHBDAO implements PermissionDAO {
 private SessionFactory factory;
-public AdminsHBDAO(SessionFactory factory) {
+public PermissionHBDAO(SessionFactory factory) {
 	this.factory = factory;
 }
 
@@ -25,24 +25,24 @@ private Session getSession() {
 }
 
 @Override
-public void insert(AdminsVO AdminsVO) {
+public void insert(PermissionVO PermissionVO) {
 	// 回傳給 service 剛新增成功的自增主鍵值
-	 getSession().save(AdminsVO);
+	 getSession().save(PermissionVO);
 }
 
 @Override
-public void update(AdminsVO AdminsVO) {
+public void update(PermissionVO PermissionVO) {
 	try {
-		getSession().update(AdminsVO);
+		getSession().update(PermissionVO);
 	} catch (Exception e) {
 	}
 }
 
 @Override
-public void delete(Integer adminsNO) {
-	AdminsVO AdminsVO = getSession().get(AdminsVO.class, adminsNO);
-	if (AdminsVO != null) {
-		getSession().delete(AdminsVO);
+public void delete(Integer permissionNO) {
+	PermissionVO PermissionVO = getSession().get(PermissionVO.class, permissionNO);
+	if (PermissionVO != null) {
+		getSession().delete(PermissionVO);
 		// 回傳給 service，1代表刪除成功
 	} else {
 		// 回傳給 service，-1代表刪除失敗
@@ -50,14 +50,14 @@ public void delete(Integer adminsNO) {
 }
 
 @Override
-public AdminsVO findByPrimaryKey(Integer adminsNO) {
-	return getSession().get(AdminsVO.class, adminsNO);
+public PermissionVO findByPrimaryKey(Integer permissionNO) {
+	return getSession().get(PermissionVO.class, permissionNO);
 }
 
 @Override
-public List<AdminsVO> getAll() {
+public List<PermissionVO> getAll() {
 	System.out.println("ABCABCABCABCABCABCABCABCABC");
-	return getSession().createQuery("from AdminsVO", AdminsVO.class).list();
+	return getSession().createQuery("from PermissionVO", PermissionVO.class).list();
 }
 	
 

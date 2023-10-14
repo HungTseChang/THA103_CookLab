@@ -46,7 +46,7 @@ public class ArticleReportVO implements java.io.Serializable{
 	private ArticleVO ArticleVO;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reporter_id", referencedColumnName = "memberId")
+	@JoinColumn(name = "reporter_id", referencedColumnName = "member_id")
 	private MembersVO MembersVO;
 	
 		public ArticleReportVO(Integer articleNo, Integer reporterId, String reportingReason, Byte reportingStatus) {

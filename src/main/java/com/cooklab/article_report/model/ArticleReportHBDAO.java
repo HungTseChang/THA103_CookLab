@@ -124,8 +124,8 @@ public class ArticleReportHBDAO implements ArticleReportDAO {
 			for(int i=0; i<list1.size();i++) {
 				System.out.println(
 					"ArticleReportNo :"+list1.get(i).getArticleReportNo()+"\n  "
-				+ "ArticleNo :"+list1.get(i).getArticleNo()+"\n"
-				+"ReporterId :"+ list1.get(i).getReporterId()+"\n"
+				+ "ArticleNo :"+list1.get(i).getArticleVO().getArticleNo()+"\n"
+				+"ReporterId :"+ list1.get(i).getMembersVO().getMemberId() +"\n"
 				+"ReportingReason :"+list1.get(i).getReportingReason()+"\n"
 				+"ReportingStatus :"+list1.get(i).getReportingStatus()+"\n"
 				+"tCreatedTimestamp :"+list1.get(i).getCreatedTimestamp()
@@ -198,24 +198,24 @@ public class ArticleReportHBDAO implements ArticleReportDAO {
 //		System.out.println("---------------------");
 //
 ////		// 查詢
-//	List<ArticleReportVO> list = dao.getAll();
-//	for (ArticleReportVO aArticleReportVO : list) {
-//		System.out.print(aArticleReportVO.getArticleReportNo() + ",");
-//		System.out.print(aArticleReportVO.getArticleNo() + ",");
-//		System.out.print(aArticleReportVO.getReporterId() + ",");
-//		System.out.print(aArticleReportVO.getReportingReason() + ",");
-//		System.out.print(aArticleReportVO.getReportingStatus() + ",");
-//		System.out.print(aArticleReportVO.getReportingAnswer() + ",");
-//		System.out.println(aArticleReportVO.getCreatedTimestamp() + ",");
-//		System.out.println("---------------------");
-//	}
+	List<ArticleReportVO> list = dao.getAll();
+	for (ArticleReportVO aArticleReportVO : list) {
+		System.out.print(aArticleReportVO.getArticleReportNo()+ ",");
+		System.out.print(aArticleReportVO.getArticleVO().getArticleNo() + ",");
+		System.out.print(aArticleReportVO.getMembersVO().getMemberId() + ",");
+		System.out.print(aArticleReportVO.getReportingReason() + ",");
+		System.out.print(aArticleReportVO.getReportingStatus() + ",");
+		System.out.print(aArticleReportVO.getReportingAnswer() + ",");
+		System.out.println(aArticleReportVO.getCreatedTimestamp() + ",");
+		System.out.println("---------------------");
+	}
 	
-		ArticleReportVO ArticleReportVO7 = dao.findByPrimaryKey(6);
-		ArticleReportVO7.setArticleNo(5);
-		dao.update(ArticleReportVO7);
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(ArticleReportVO7.getArticleNo());
-	
+//		ArticleReportVO ArticleReportVO7 = dao.findByPrimaryKey(6);
+//		ArticleReportVO7.setArticleNo(5);
+//		dao.update(ArticleReportVO7);
+//		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//		System.out.println(ArticleReportVO7.getArticleNo());
+//	
 	
 	
 }}

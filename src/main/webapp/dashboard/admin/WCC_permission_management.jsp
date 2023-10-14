@@ -7,12 +7,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.cooklab.admins.model.*" %>
 <%@ page import="com.google.gson.Gson" %>
-<%
-AdminsService AdminsService = new AdminsService(); 
-List<AdminsVO> list = AdminsService.getAll();
-String json = new Gson().toJson(list);
-pageContext.setAttribute("json",json);
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -358,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}else{ 
 		console.log("reload");
 		var form = $("<form>", {
-            action: "${pageContext.request.contextPath}/AdmisServlet", // 表单提交的URL
+            action: "${pageContext.request.contextPath}/AdminsServlet", // 表单提交的URL
             method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         });
 	    
@@ -392,7 +387,7 @@ console.log(myList);
 	  text +=" <td>"+aa.createdTimestamp+"</td>";
 	  text +=`
 			<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdminsServlet" style="margin-bottom: 0px;">
+		  <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/AdminsServlet" style="margin-bottom: 0px;">
 		     <input type="submit" value="修改">
 		     <input type="hidden" name="adminNo"  value=`;
 		    text +=aa.adminNo;
@@ -400,7 +395,7 @@ console.log(myList);
 		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 		</td>
 		<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/AdminsServlet" style="margin-bottom: 0px;">
+		  <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/AdminsServlet" style="margin-bottom: 0px;">
 		     <input type="submit" value="刪除">
 		     <input type="hidden" name="adminNo"  value=`;
 	  text +=aa.adminNo;
