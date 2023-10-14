@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import com.cooklab.article.model.*;
-import com.cooklab.members.model.*;
+import com.cooklab.article.model.ArticleJDBCDAOIm;
+import com.cooklab.article.model.ArticleVO;
+import com.cooklab.members.model.MembersJDBCDAO;
+import com.cooklab.members.model.MembersVO;
 @Entity
 @Table(name="article_report") 
 public class ArticleReportVO implements java.io.Serializable{
@@ -21,11 +24,9 @@ public class ArticleReportVO implements java.io.Serializable{
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	@Column(name = "article_report_no" , insertable = false, updatable = false)  
 		private Integer articleReportNo;
-	
-	@Column(name = "article_no")  
+	@Transient
 		private Integer articleNo;
-	
-	@Column(name = "reporter_id")  
+	@Transient
 		private Integer reporterId;
 		
 	@Column(name = "reporting_reason")  
@@ -40,14 +41,13 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Timestamp createdTimestamp;
 		
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "article_no", referencedColumnName = "article_no")
-//	private ArticleVO ArticleVO;
-//	
-//	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "reporter_id", referencedColumnName = "memberId")
-//	private MembersVO MembersVO;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "article_no", referencedColumnName = "article_no")
+	private ArticleVO ArticleVO;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "reporter_id", referencedColumnName = "memberId")
+	private MembersVO MembersVO;
 	
 		public ArticleReportVO(Integer articleNo, Integer reporterId, String reportingReason, Byte reportingStatus) {
 		super();
@@ -144,7 +144,7 @@ public class ArticleReportVO implements java.io.Serializable{
 		
 		public MembersVO getMembersVO() {
 			MembersJDBCDAO dao = new MembersJDBCDAO();
-			MembersVO	 MembersVO1=    dao.findByPrimaryKey(reporterId);
+			MembersVO	 MembersVO1= dao.findByPrimaryKey(reporterId);
 			
 			return MembersVO1;
 			

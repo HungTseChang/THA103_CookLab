@@ -9,3 +9,4 @@ build/
 bin/
 src/main/java/com/cooklab/util/
 src/main/resources/hibernate.cfg.xml
+src/main/webapp/WEB-INF/web.xml

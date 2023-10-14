@@ -413,7 +413,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded",function () {
-//          $("#context").val("測試\n測試\n測試\n測試") ;
          $("#context").css("height", "auto");
          $("#context").css("height", document.getElementById("context").scrollHeight + "px");
         $("textarea").on("keydown",function () {
