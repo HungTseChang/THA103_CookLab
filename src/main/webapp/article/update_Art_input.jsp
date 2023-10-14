@@ -73,11 +73,12 @@
 	</tr>
 	<tr>
 		<td>文章分類:</td>
-		<td><input type="TEXT" name="articleCategory" value="<%=artVO.getArticleCategory()%>" size="45"/></td>
+		<!-- <td><input type="TEXT" name="articleCategory" value="<%=artVO.getArticleCategoryVO().getArticleCategory()%>" size="45"/></td> -->
+		<td><input type="TEXT" name="articleCategory" value="${artVO.articleCategoryVO.articleCategory}" size="45"/></td>
 	</tr>
 	<tr>
 		<td>文章標題:</td>
-		<td><input type="TEXT" name="articleTitle"   value="<%=artVO.getArticleTitle()%>" size="45"/></td>
+		<td><input type="TEXT" name="articleTitle"   value="${artVO.articleTitle}" size="45"/></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>

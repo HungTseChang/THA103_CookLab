@@ -51,26 +51,26 @@ public class ArticleVO implements java.io.Serializable {
 	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
 	private Timestamp lastEditTimestamp;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="articleCategory" ,referencedColumnName = "articleCategoryNo")
-	private ArticleCategoryVO articleCategoryNo;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no")
+	private ArticleCategoryVO articleCategoryVO;
 	
-	@Column(name = "article_category")  
-	private Integer articleCategory;
+//	@Column(name = "article_category")  
+//	private Integer articleCategory;
 	
 	
-	public ArticleCategoryVO getArticleCategoryNo() {
-		return articleCategoryNo;
+
+	
+	public ArticleCategoryVO getArticleCategoryVO() {
+		return articleCategoryVO;
 	}
-	public void setArticleCategoryNo(ArticleCategoryVO articleCategoryNo) {
-		this.articleCategoryNo = articleCategoryNo;
+	public void setArticleCategoryVO(ArticleCategoryVO articleCategoryVO) {
+		this.articleCategoryVO = articleCategoryVO;
 	}
-	
-	
 	public ArticleVO(Integer articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
 			String articleContent, Integer articleCount, Integer viewCount) {
 		super();
-		this.articleCategory = articleCategory;
+//		this.articleCategory = articleCategory;
 		this.articleTitle = articleTitle;
 		this.memberId = memberId;
 		this.articleStatus = articleStatus;
@@ -88,12 +88,12 @@ public class ArticleVO implements java.io.Serializable {
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public Integer getArticleCategory() {
-		return articleCategory;
-	}
-	public void setArticleCategory(Integer articleCategory) {
-		this.articleCategory = articleCategory;
-	}
+//	public Integer getArticleCategory() {
+//		return articleCategory;
+//	}
+//	public void setArticleCategory(Integer articleCategory) {
+//		this.articleCategory = articleCategory;
+//	}
 	public String getArticleTitle() {
 		return articleTitle;
 	}

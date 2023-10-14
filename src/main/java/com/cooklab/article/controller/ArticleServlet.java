@@ -185,7 +185,7 @@ public class ArticleServlet extends HttpServlet{
 			
 			ArticleVO artVO = new ArticleVO();
 
-			artVO.setArticleCategory(articleCategory);
+//			artVO.setArticleCategory(articleCategory);
 			artVO.setArticleTitle(articleTitle);
 			artVO.setMemberId(memberId);
 			artVO.setArticleStatus(articleStatus);
@@ -226,7 +226,7 @@ public class ArticleServlet extends HttpServlet{
 			successView.forward(req, res);
 		}
 
-		
+		System.out.println("zxc");
 if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -328,7 +328,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			ArticleVO artVO = new ArticleVO();
 
-			artVO.setArticleCategory(articleCategory);
+//			artVO.setArticleCategory(articleCategory);
 			artVO.setArticleTitle(articleTitle);
 			artVO.setMemberId(memberId);
 			artVO.setArticleStatus(articleStatus);
@@ -342,7 +342,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			if (!errorMsgs.isEmpty()) {
 req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/article/article_edit.jsp");
+						.getRequestDispatcher("/article/addArt.jsp");
 				failureView.forward(req, res);
 				return;
 			}

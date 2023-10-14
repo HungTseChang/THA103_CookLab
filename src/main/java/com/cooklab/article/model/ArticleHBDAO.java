@@ -18,7 +18,9 @@ public class ArticleHBDAO implements ArticleDAO {
 			session.beginTransaction();
 
            	session.save(ArticleVO);
-			session.getTransaction().commit();
+			
+           	
+           	session.getTransaction().commit();
 			session.close();
 			
 		} catch (Exception e) {
@@ -41,13 +43,13 @@ public class ArticleHBDAO implements ArticleDAO {
 
 	   ArticleVO1  = session.get(ArticleVO.class,ArticleVO.getArticleNo());
        	if(ArticleVO1 != null) {
-			ArticleVO1.setArticleCategory(ArticleVO.getArticleCategory());
-			ArticleVO1.setArticleTitle(ArticleVO.getArticleTitle());
-			ArticleVO1.setMemberId(ArticleVO.getMemberId());
-			ArticleVO1.setArticleStatus(ArticleVO.getArticleStatus());
-			ArticleVO1.setArticleContent(ArticleVO.getArticleContent());
-			ArticleVO1.setArticleCount(ArticleVO.getArticleCount());
-			ArticleVO1.setViewCount(ArticleVO.getViewCount());
+//			ArticleVO1.setArticleCategory(ArticleVO.getArticleCategory());
+//			ArticleVO1.setArticleTitle(ArticleVO.getArticleTitle());
+//			ArticleVO1.setMemberId(ArticleVO.getMemberId());
+//			ArticleVO1.setArticleStatus(ArticleVO.getArticleStatus());
+//			ArticleVO1.setArticleContent(ArticleVO.getArticleContent());
+//			ArticleVO1.setArticleCount(ArticleVO.getArticleCount());
+//			ArticleVO1.setViewCount(ArticleVO.getViewCount());
        		
        	}
 			session.getTransaction().commit();
@@ -59,8 +61,6 @@ public class ArticleHBDAO implements ArticleDAO {
 		} finally {
 //			HibernateUtil.shutdown();
 		}
-
-
 	}
 	
 //=================================update結束========================================
@@ -92,18 +92,8 @@ public class ArticleHBDAO implements ArticleDAO {
 		try {
 			session.beginTransaction();
 			 ArticleVO3 =session.get(ArticleVO.class, articleReportNo);
-//			System.out.println(
-//					"ArticleReportNo :"+ArticleVO3.getArticleReportNo()+"\n  "
-//				+ "ArticleNo :"+ArticleVO3.getArticleNo()+"\n"
-//				+"ReporterId :"+ ArticleVO3.getReporterId()+"\n"
-//				+"ReportingReason :"+ArticleVO3.getReportingReason()+"\n"
-//				+"ReportingStatus :"+ArticleVO3.getReportingStatus()+"\n"
-//				+"tCreatedTimestamp :"+ArticleVO3.getCreatedTimestamp()
-//				+"\n"+"============================================="
-//						); 
-//    
-		session.getTransaction().commit();
-		session.close();
+			 session.getTransaction().commit();
+			 session.close();
 	} catch (Exception e) {
 		e.printStackTrace();
 		session.getTransaction().rollback();
@@ -122,23 +112,9 @@ public class ArticleHBDAO implements ArticleDAO {
 		try {
 			session.beginTransaction();
 
-			list1 = session.createQuery("from ArticleVO",ArticleVO.class).list();
-//			for(int i=0; i<list1.size();i++) {
-//				System.out.println(
-//					"ArticleReportNo :"+list1.get(i).getArticleReportNo()+"\n  "
-//				+ "ArticleNo :"+list1.get(i).getArticleNo()+"\n"
-//				+"ReporterId :"+ list1.get(i).getReporterId()+"\n"
-//				+"ReportingReason :"+list1.get(i).getReportingReason()+"\n"
-//				+"ReportingStatus :"+list1.get(i).getReportingStatus()+"\n"
-//				+"tCreatedTimestamp :"+list1.get(i).getCreatedTimestamp()
-//				+"\n"+"============================================="
-//						); 
-//			}
-			
-			
-			
-		session.getTransaction().commit();
-		session.close();
+			list1 = session.createQuery("from ArticleVO",ArticleVO.class).list();						
+			session.getTransaction().commit();
+			session.close();
 
 	} catch (Exception e) {
 		e.printStackTrace();

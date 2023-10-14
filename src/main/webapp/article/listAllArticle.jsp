@@ -80,7 +80,7 @@
 		
 		<tr>
 			<td>${artVO.articleNo}</td>
-			<td>${artVO.articleCategory}</td>
+			<td>${artVO.articleCategoryVO.articleCategory}</td>
 			<td>${artVO.articleTitle}</td>
 			<td>${artVO.memberId}</td>
 			<td>${artVO.articleStatus}</td>

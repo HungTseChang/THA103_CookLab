@@ -9,6 +9,7 @@ ArticleVO artVO2 = (ArticleVO) request.getAttribute("artVO");
 ArticleCategoryService artSvc = new ArticleCategoryService();
 List<ArticleCategoryVO> list = artSvc.getAll();
 pageContext.setAttribute("list", list);
+
 %>
 
 
@@ -199,21 +200,23 @@ pageContext.setAttribute("list", list);
 				</div>
 				<div class="col-md-9 " style="height: 700px;">
 
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
-						<input type="hidden" name="memberId" placeholder="輸入會員編號"
-							value="1" size="45" /> <input type="hidden" name="articleStatus"
-							placeholder="輸入文章狀態(數字)" value="0" size="45" /> <input
-							type="hidden" name="articleCount" placeholder="輸入回文數量" value="0"
-							size="45" /> <input type="hidden" name="viewCount"
-							placeholder="輸入次數" value="0" size="45" /> <select size="1"
-							name="articleCategory">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
+						<input type="hidden" name="memberId" placeholder="輸入會員編號" value="1" size="45" /> 
+							<input type="hidden" name="articleStatus"
+							placeholder="輸入文章狀態(數字)" value="0" size="45" /> 
+							
+							<input  type="hidden" name="articleCount" placeholder="輸入回文數量" value="0"
+							size="45" /> 
+							
+							<input type="hidden" name="viewCount"
+							placeholder="輸入次數" value="0" size="45" /> 
+						<select size="1"   name="articleCategory">
 							<c:forEach var="artVO" items="${list}">
 								<option value="${artVO.articleCategoryNo}">
 									${artVO.articleCategory}
 							</c:forEach>
-						</select> <input type="text" id="edit_title" name="articleTitle"
-							placeholder="輸入標題"
+						</select> 
+						<input type="text" id="edit_title" name="articleTitle"  placeholder="輸入標題"
 							value="<%=(artVO2 == null) ? "" : artVO2.getArticleTitle()%>">
 
 						<div style="width: auto; height: 500px;">

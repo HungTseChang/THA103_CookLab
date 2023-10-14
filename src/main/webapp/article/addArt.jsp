@@ -1,9 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.cooklab.article.model.ArticleVO"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_category.model.*"%>
 
 <% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
  ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+
+ArticleCategoryService artSvc = new ArticleCategoryService();
+List<ArticleCategoryVO> list = artSvc.getAll();
+pageContext.setAttribute("list", list);
+
+
 %>
 --<%= artVO==null %>--<!-- line 114 -->
 <html>
@@ -69,15 +77,21 @@
 <table>
 	<tr>
 		<td>文章分類:</td>
-		<td><input type="TEXT" name="articleCategory"  placeholder="輸入文章分類(數字)" value="<%= (artVO==null)? "" : artVO.getArticleCategory()%>" size="45"/></td>
+		<td>
+				<select size="1"   name="articleCategory">
+							<c:forEach var="artVO" items="${list}">
+								<option value="${artVO.articleCategoryNo}">
+									${artVO.articleCategory}
+							</c:forEach>
+						</select> 
+		</td>
 	</tr>
 	<tr>
 		<td>文章標題:</td>
-		<td><input type="TEXT" name="articleTitle" placeholder="輸入標題" value="<%= (artVO==null)? "" : artVO.getArticleTitle()%>" size="45"/></td>
-		
+		<td><input type="TEXT" name="articleTitle"  placeholder="輸入會員編號" value="<%= (artVO==null)? "" : artVO.getArticleTitle()%>" size="45"/></td>		
 	</tr>
 	<tr>
-		<td>會員編號:</td>
+		<td>員工編號:</td>
 		<td><input type="TEXT" name="memberId"  placeholder="輸入會員編號" value="<%= (artVO==null)? "" : artVO.getMemberId()%>" size="45"/></td>		
 	</tr>
 	<tr>
@@ -91,12 +105,12 @@
 	</tr>
 	<tr>
 		<td>回文數量:</td>
-		<td><input type="TEXT" name="articleCount" placeholder="輸入回文數量"  value="<%= (artVO==null)? "" : artVO.getArticleCount()%>" size="45"/></td>		
+		<td><input type="TEXT" name="articleCount" placeholder="輸入回文數量"  value="<%= (artVO==null)? 0 : artVO.getArticleCount()%>" size="45"/></td>		
 		
 	</tr>
 	<tr>
 		<td>點擊次數:</td>
-		<td><input type="TEXT" name="viewCount"  placeholder="輸入次數" value="<%= (artVO==null)? "" : artVO.getViewCount()%>" size="45"/></td>		
+		<td><input type="TEXT" name="viewCount"  placeholder="0" value="<%= (artVO==null)? 0 : artVO.getViewCount()%>" size="45"/></td>		
 		
 	</tr>
 
