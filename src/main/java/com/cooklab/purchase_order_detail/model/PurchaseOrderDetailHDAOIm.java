@@ -1,4 +1,4 @@
-package com.cooklab.purchase_order.model;
+package com.cooklab.purchase_order_detail.model;
 
 import java.util.List;
 
@@ -6,16 +6,15 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import com.cooklab.util.HibernateUtil;
-import com.cooklab.purchase_order.model.*;
 
-public class PurchaseOrderHDAOIm implements PurchaseOrderDAO {
+public class PurchaseOrderDetailHDAOIm implements RecipeDAO {
 
 	@Override
-	public void insert(PurchaseOrderVO purchaseOrderVO) {
+	public void insert(RecipeVO recipeVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.save(purchaseOrderVO);
+			session.save(recipeVO);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,11 +25,11 @@ public class PurchaseOrderHDAOIm implements PurchaseOrderDAO {
 	}
 
 	@Override
-	public void update(PurchaseOrderVO purchaseOrderVO) {
+	public void update(RecipeVO recipeVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.update(purchaseOrderVO);
+			session.update(recipeVO);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,11 +41,11 @@ public class PurchaseOrderHDAOIm implements PurchaseOrderDAO {
 	}
 
 	@Override
-	public void delete(Integer purchaseOrderNO) {
+	public void delete(Integer recipeNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			PurchaseOrderVO vo = session.get(PurchaseOrderVO.class, purchaseOrderNO);
+			RecipeVO vo = session.get(RecipeVO.class, recipeNo);
 			if(vo !=null) {
 				session.delete(vo);
 			}
@@ -62,16 +61,16 @@ public class PurchaseOrderHDAOIm implements PurchaseOrderDAO {
 	}
 
 	@Override
-	public PurchaseOrderVO findByPrimaryKey(Integer purchaseOrderNO) {
+	public RecipeVO findByPrimaryKey(Integer recipeNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			PurchaseOrderVO purchaseOrderVO = session.createQuery("from PurchaseOrderVO where  purchaseOrderNO =" + purchaseOrderNO, PurchaseOrderVO.class)
+			RecipeVO recipeVO = session.createQuery("from RecipeVO where  recipeNo =" + recipeNo, RecipeVO.class)
 					.uniqueResult();
 
 			session.getTransaction().commit();
 			System.out.println("搜一筆");
-			return purchaseOrderVO;
+			return recipeVO;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -82,11 +81,11 @@ public class PurchaseOrderHDAOIm implements PurchaseOrderDAO {
 	}
 
 	@Override
-	public List<PurchaseOrderVO> getAll() {
+	public List<RecipeVO> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			List<PurchaseOrderVO> list = session.createQuery("from PurchaseOrderVO ", PurchaseOrderVO.class).list();
+			List<RecipeVO> list = session.createQuery("from RecipeVO ", RecipeVO.class).list();
 			session.getTransaction().commit();
 			System.out.println("搜尋");
 			return list;

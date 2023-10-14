@@ -34,7 +34,7 @@ public class TestWriteBlob {
 			byte[] pic = getPictureByteArray(
 					"C:/THA103G1/GroupWorkspace/THA103_CookLab/src/main/webapp/product/images/tomcat.png");
 			pstmt.setBytes(1, pic);
-			pstmt.setInt(2, 6);
+			pstmt.setInt(2, 5);
 			pstmt.executeUpdate();
 //
 //			// 3. setBinaryStream

@@ -58,7 +58,7 @@ th, td {
 			</td>
 			<td>
 				<h4>
-					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="images/tomcat.png"
+					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="<%= request.getContextPath() %>/product/images/tomcat.png"
 						width="100" height="100" border="0">¦^­º­¶</a>
 				</h4>
 			</td>
