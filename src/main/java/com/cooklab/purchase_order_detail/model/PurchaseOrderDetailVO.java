@@ -13,10 +13,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.cooklab.purchase_order.model.PurchaseOrderVO;
+import com.cooklab.recipe.model.RecipeVO;
 
 @Entity
 @Table(name = "purchase_order_detail")
 public class PurchaseOrderDetailVO implements java.io.Serializable {
+	
+	@ManyToOne
+	@JoinColumn(name="purchase_order_no", referencedColumnName="purchase_order_no")
+	private PurchaseOrderVO purchaseOrder;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_detail_no", updatable = false, insertable = false)
@@ -31,11 +37,10 @@ public class PurchaseOrderDetailVO implements java.io.Serializable {
 	@Column(name = "expired_date")
 	private Date expiredDate;
 
-	@ManyToOne
-	@JoinColumn(name="purchase_order_no", referencedColumnName="purchase_order_no")
+
 //	@Column(name = "purchase_order_no")
 //	private Integer purchaseOrderNo;
-	private PurchaseOrderVO purchaseOrder;
+
 
 	@Column(name = "product_no")
 	private Integer productNo;

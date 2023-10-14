@@ -1,4 +1,5 @@
 package com.cooklab.article.model;
+import com.cooklab.article_category.model.ArticleCategoryVO;
 import com.cooklab.members.model.*;
 
 import java.io.Console;
@@ -26,9 +27,6 @@ public class ArticleVO implements java.io.Serializable {
 	@Column(name = "article_no" , insertable = false, updatable = false)  
 	private Integer articleNo;
 	
-	@Column(name = "article_category")  
-	private Integer articleCategory;
-	
 	@Column(name = "article_title")  
 	private String articleTitle;
 	
@@ -52,6 +50,21 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
 	private Timestamp lastEditTimestamp;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="articleCategory" ,referencedColumnName = "articleCategoryNo")
+	private ArticleCategoryVO articleCategoryNo;
+	
+	@Column(name = "article_category")  
+	private Integer articleCategory;
+	
+	
+	public ArticleCategoryVO getArticleCategoryNo() {
+		return articleCategoryNo;
+	}
+	public void setArticleCategoryNo(ArticleCategoryVO articleCategoryNo) {
+		this.articleCategoryNo = articleCategoryNo;
+	}
 	
 	
 	public ArticleVO(Integer articleCategory, String articleTitle, Integer memberId, Byte articleStatus,

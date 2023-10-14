@@ -213,11 +213,24 @@ public class ProductServlet extends HttpServlet {
 			}
 			
 	        // 處理上傳圖片
-	        Part filePart = req.getPart("productPicture");
-			InputStream in = filePart.getInputStream();
-			byte[] buf = new byte[in.available()];   // byte[] buf = in.readAllBytes();  // Java 9 的新方法
-			in.read(buf);
-			in.close();
+			Part filePart = req.getPart("productPicture");
+			byte[] buf;
+			InputStream in = null; // 在条件之外初始化
+
+			if (filePart.getSize() == 0) {
+			    ProductService productSvc = new ProductService();
+			    buf = productSvc.getOneProduct(productNo).getProductPicture();
+			    System.out.println(0);
+			} else {
+			    in = filePart.getInputStream();
+			    buf = new byte[in.available()]; // 在这里初始化
+			    in.read(buf);
+			    in.close();
+			    System.out.println(1);
+			}
+
+	        	
+
 
 			ProductVO productVO = new ProductVO();
 

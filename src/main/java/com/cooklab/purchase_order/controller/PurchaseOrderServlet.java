@@ -56,8 +56,8 @@ public class PurchaseOrderServlet extends HttpServlet {
 			    Integer purchaseOrderNo = Integer.valueOf(purchaseOrderNoStr);
 				/***************************2.開始刪除資料***************************************/
 				
-			    PurchaseOrderDetailService purchaseOrderDetailSvc = new PurchaseOrderDetailService();
-			    purchaseOrderDetailSvc.deleteByPurchaseOrderNo(purchaseOrderNo);
+//			    PurchaseOrderDetailService purchaseOrderDetailSvc = new PurchaseOrderDetailService();
+//			    purchaseOrderDetailSvc.deleteByPurchaseOrderNo(purchaseOrderNo);
 			    
 			    PurchaseOrderService purchaseOrderSvc = new PurchaseOrderService();
 				purchaseOrderSvc.delete(purchaseOrderNo);
