@@ -83,7 +83,7 @@ th, td {
 			<tr>
 				<td>客戶姓名:</td>
 				<td><input type="TEXT" name="realName"
-					value="<%=(sfVO == null) ? "吳永志" : sfVO.getRealName()%>" size="45" /></td>
+					value="<%=(sfVO == null) ? "番茄" : sfVO.getRealName()%>" size="45" /></td>
 			</tr>
 			<tr>
 				<td>問題類別:</td>

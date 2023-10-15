@@ -11,7 +11,7 @@ public class SupportFormService {
 	}
 
 	public SupportFormVO addSupportForm(String realName, Integer supportFormCategoryId, String replyEmail,
-			String formTitle, String formContext, Byte formStatus,String formSource,String formSubmitter) {
+			String formTitle, String formContext,String formSource,String formSubmitter) {
 
 		SupportFormVO supportFormVO = new SupportFormVO();
 
@@ -20,7 +20,6 @@ public class SupportFormService {
 		supportFormVO.setReplyEmail(replyEmail);
 		supportFormVO.setFormTitle(formTitle);
 		supportFormVO.setFormContext(formContext);
-		supportFormVO.setFormStatus(formStatus);
 		supportFormVO.setFormSource(formSource);
 		supportFormVO.setFormSubmitter(formSubmitter);
 		dao.insert(supportFormVO);

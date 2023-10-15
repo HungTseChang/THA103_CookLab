@@ -161,7 +161,7 @@ public class QuestionGroupJDBCDDAOIm implements QuestionGroupDAO {
 				questionGroupVO = new QuestionGroupVO();
 				questionGroupVO.setQuestionGroupNo(rs.getInt("Question_group_no"));
 				questionGroupVO.setQuestionName(rs.getString("Question_name"));
-				questionGroupVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				questionGroupVO.setCreatedTimestamp(rs.getTimestamp("Created_timestamp"));
 
 			}
 
@@ -218,7 +218,7 @@ public class QuestionGroupJDBCDDAOIm implements QuestionGroupDAO {
 				qVO = new QuestionGroupVO();
 				qVO.setQuestionGroupNo(rs.getInt("Question_group_no"));
 				qVO.setQuestionName(rs.getString("Question_name"));
-				qVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				qVO.setCreatedTimestamp(rs.getTimestamp("Created_timestamp"));
 				list.add(qVO);
 
 			}

@@ -174,7 +174,7 @@ public class QuestionJDBCDDAOIm implements QuestionDAO {
 				questionVO.setQuestionContent(rs.getString("Question_content"));
 				questionVO.setQuestionGood(rs.getInt("Question_good"));
 				questionVO.setQuestionBad(rs.getInt("Question_bad"));
-				questionVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				questionVO.setCreatedTimestamp(rs.getTimestamp("Created_timestamp"));
 			}
 
 			// Handle any driver errors
@@ -234,7 +234,7 @@ public class QuestionJDBCDDAOIm implements QuestionDAO {
 				qVO.setQuestionContent(rs.getString("Question_content"));
 				qVO.setQuestionGood(rs.getInt("Question_good"));
 				qVO.setQuestionBad(rs.getInt("Question_bad"));
-				qVO.setCreatedTimestamp(rs.getDate("Created_timestamp"));
+				qVO.setCreatedTimestamp(rs.getTimestamp("Created_timestamp"));
 				list.add(qVO);
 			}
 
