@@ -28,6 +28,25 @@ $(function() {
 });
 
 
+//===============article_content==========================================
+
+$(function(){
+  $("a#creator").on("click", function(e){ 
+    e.preventDefault();
+  });
+});
+	
+	
+	
+
+
+
+
+
+
+
+
+
 
 //=======WebChat===========
 var MyPoint = "/TogetherWS/james";

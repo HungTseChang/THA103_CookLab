@@ -1,9 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.cooklab.article.model.ArticleVO"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_category.model.*"%>
 
 <% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
-  ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+  	ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+
+
+	ArticleCategoryService artSvc = new ArticleCategoryService();
+	List<ArticleCategoryVO> list = artSvc.getAll();
+ 	pageContext.setAttribute("list", list);
 %>
 --<%= artVO==null %>--<!-- line 114 -->
 <html>
@@ -73,8 +80,14 @@
 	</tr>
 	<tr>
 		<td>文章分類:</td>
-		<!-- <td><input type="TEXT" name="articleCategory" value="<%=artVO.getArticleCategoryVO().getArticleCategory()%>" size="45"/></td> -->
-		<td><input type="TEXT" name="articleCategory" value="${artVO.articleCategoryVO.articleCategory}" size="45"/></td>
+		<td>
+			<select size="1"   name="articleCategory">
+				<c:forEach var="artVO" items="${list}">
+					<option value="${artVO.articleCategoryNo}">
+								${artVO.articleCategory}
+				</c:forEach>
+			</select> 
+		</td>
 	</tr>
 	<tr>
 		<td>文章標題:</td>

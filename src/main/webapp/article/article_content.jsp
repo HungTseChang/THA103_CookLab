@@ -50,8 +50,7 @@ ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 	type="text/css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/HO.css"
-	type="text/css">
+	href="<%=request.getContextPath()%>/article/css/HO.css" type="text/css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/ding.css"
 	type="text/css">
@@ -178,25 +177,27 @@ ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 			<div id="c_user" class="col-md-3"
 				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
 				<img src="https://picsum.photos/200" alt=""> 
-				<a href="">作者:${artVO.memberId}</a>
+				<a href="" id="creator"  style="color: black;">
+				作者:${artVO.members.memberNickname}</a>
 			</div>
+
 
 			<div class="col-8">
 				<div class="row">
 					<div id="article_content" class="col" style="position: relative;">
-						<h7 class="conten_title"> <span>[${artVO.articleCategory}]${artVO.articleTitle}</span> </h7>
+						<h7 class="conten_title"> <span>[${artVO.articleCategoryVO.articleCategory}]${artVO.articleTitle}</span>
+						</h7>
 						<p>
-						發表時間:<fmt:formatDate value="${artVO.lastEditTimestamp}" pattern="yyyy-MM-dd HH:mm:ss" />
+							發表時間:
+							<fmt:formatDate value="${artVO.lastEditTimestamp}"
+								pattern="yyyy-MM-dd HH:mm:ss" />
 						</p>
 						<td>
-            			<!-- 這是文本，直接顯示 ，在老師的網面上需要使用base64來讀網頁，
-             			     可是使用quill新增的圖文，可以直接顯示-->
-                   		 ${artVO.articleContent}
-                   		 </td>
-                   		 <br> <br>
-                   		 <div id="like-dislike">
-							<img
-								src="<%=request.getContextPath()%>/article/img/HO/like.png"
+							<!-- 這是文本，直接顯示 ，在老師的網面上需要使用base64來讀網頁，
+             			     可是使用quill新增的圖文，可以直接顯示--> ${artVO.articleContent}
+						</td> <br> <br>
+						<div id="like-dislike">
+							<img src="<%=request.getContextPath()%>/article/img/HO/like.png"
 								alt=""><span style="margin-right: 10px;">10</span> <img
 								src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
 								alt=""><span>10</span>
@@ -296,13 +297,17 @@ ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
 
 	<!-- Js Plugins -->
-	<script	src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
-	<script	src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
-	<script	src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
 

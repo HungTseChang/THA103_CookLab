@@ -15,7 +15,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/TogetherWS/{userName}")
-public class WebSocket {
+public class TogetherChat {
 
 	private static final Set<Session> connectedSessions = Collections.synchronizedSet(new HashSet<>());
 

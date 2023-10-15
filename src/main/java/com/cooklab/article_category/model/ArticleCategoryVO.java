@@ -23,7 +23,7 @@ public class ArticleCategoryVO {
 	@Column(name = "article_category_no" , insertable = false, updatable = false)  
 	private Integer articleCategoryNo;
 	
-	@Column(name = "article_category")  
+	@Column(name = "article_category" , updatable = false)  
 	private String articleCategory;
 	
 	@Column(name = "category_status")  
@@ -34,10 +34,8 @@ public class ArticleCategoryVO {
 	
 	@OneToMany(mappedBy = "articleCategoryVO")
 	private Set<ArticleVO> Articles;
-//	
-//	
-//	
-//	
+
+	
 	public Set<ArticleVO> getArticles() {
 		return Articles;
 	}

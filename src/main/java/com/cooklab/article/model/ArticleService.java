@@ -55,10 +55,29 @@ public class ArticleService {
 //		return artVO;
 //	}
 	
+	public void addArt (ArticleVO articleVO) {
+		dao.insert(articleVO);
+	}
+	
+	public void  updateArt(ArticleVO articleVO) {
+		dao.update(articleVO);
+	}
+	//因為介面的update的class為ArticleVO，會預設更新全部欄位，
+	//下面方法是為了更新單一欄位而設定
+	public void updateArticleStatus(Integer articleNo, Byte articleStatus) {
+	    ArticleVO existingArticle = dao.findByPrimaryKey(articleNo);
+	    
+	    if (existingArticle != null) {
+	        // 设置新的 articleStatus 值
+	        existingArticle.setArticleStatus(articleStatus);
+	        // 调用 DAO 更新 articleStatus
+	        dao.updateArticleStatus(articleNo, articleStatus);
+	    }
+	}
 	
 	
 	
-
+	
 	public void deleteArt(Integer articleNo) {
 		dao.delete(articleNo);
 	}

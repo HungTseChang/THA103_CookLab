@@ -7,11 +7,11 @@
 <% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
  ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
-ArticleCategoryService artSvc = new ArticleCategoryService();
-List<ArticleCategoryVO> list = artSvc.getAll();
-pageContext.setAttribute("list", list);
 
 
+	ArticleCategoryService artSvc2 = new ArticleCategoryService();
+	List<ArticleCategoryVO> list2 = artSvc2.getAll();
+ 	pageContext.setAttribute("list2", list2);
 %>
 --<%= artVO==null %>--<!-- line 114 -->
 <html>
@@ -78,17 +78,17 @@ pageContext.setAttribute("list", list);
 	<tr>
 		<td>文章分類:</td>
 		<td>
-				<select size="1"   name="articleCategory">
-							<c:forEach var="artVO" items="${list}">
-								<option value="${artVO.articleCategoryNo}">
-									${artVO.articleCategory}
-							</c:forEach>
-						</select> 
+			<select size="1"   name="articleCategory">
+				<c:forEach var="artVO2" items="${list2}">
+					<option value="${artVO2.articleCategoryNo}">
+								${artVO2.articleCategory}
+				</c:forEach>
+			</select> 
 		</td>
 	</tr>
 	<tr>
 		<td>文章標題:</td>
-		<td><input type="TEXT" name="articleTitle"  placeholder="輸入會員編號" value="<%= (artVO==null)? "" : artVO.getArticleTitle()%>" size="45"/></td>		
+		<td><input type="TEXT" name="articleTitle"  placeholder="輸入標題資訊" value="<%= (artVO==null)? "" : artVO.getArticleTitle()%>" size="45"/></td>		
 	</tr>
 	<tr>
 		<td>員工編號:</td>

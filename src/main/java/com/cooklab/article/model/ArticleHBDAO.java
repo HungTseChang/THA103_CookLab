@@ -4,7 +4,11 @@ package com.cooklab.article.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 
 import com.cooklab.article.model.ArticleJDBCDAOIm;
 import com.cooklab.article.model.ArticleVO;
@@ -12,12 +16,13 @@ import com.cooklab.util.HibernateUtil;
 
 public class ArticleHBDAO implements ArticleDAO {
 	@Override
-	public void insert(ArticleVO ArticleVO) {
+	public void insert(ArticleVO articleVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-
-           	session.save(ArticleVO);
+			
+			
+           	session.save(articleVO);
 			
            	
            	session.getTransaction().commit();
@@ -29,29 +34,16 @@ public class ArticleHBDAO implements ArticleDAO {
 		} finally {
 //			HibernateUtil.shutdown();
 		}
-	
-
 	}
 
 //============================insert完結=======================================
 	@Override
-	public void update(ArticleVO ArticleVO) {
+	public void update(ArticleVO articleVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		 ArticleVO   ArticleVO1 = null;
 		try {
 			session.beginTransaction();
-
-	   ArticleVO1  = session.get(ArticleVO.class,ArticleVO.getArticleNo());
-       	if(ArticleVO1 != null) {
-//			ArticleVO1.setArticleCategory(ArticleVO.getArticleCategory());
-//			ArticleVO1.setArticleTitle(ArticleVO.getArticleTitle());
-//			ArticleVO1.setMemberId(ArticleVO.getMemberId());
-//			ArticleVO1.setArticleStatus(ArticleVO.getArticleStatus());
-//			ArticleVO1.setArticleContent(ArticleVO.getArticleContent());
-//			ArticleVO1.setArticleCount(ArticleVO.getArticleCount());
-//			ArticleVO1.setViewCount(ArticleVO.getViewCount());
-       		
-       	}
+			session.update(articleVO);
+	   		
 			session.getTransaction().commit();
 			session.close();
 			
@@ -79,10 +71,8 @@ public class ArticleHBDAO implements ArticleDAO {
 	} catch (Exception e) {
 		e.printStackTrace();
 		session.getTransaction().rollback();
-	} finally {
-//		HibernateUtil.shutdown();
-	}
-	}
+	} 
+}
 
 //===============================delete結束======================================
 	@Override
@@ -105,14 +95,27 @@ public class ArticleHBDAO implements ArticleDAO {
 
 //===========================findByPrimaryKey結束==============================================
 	@Override
-	public List<ArticleVO> getAll() {
+	public List<ArticleVO> getAll() {//處理這段我花了5個小時.....人生啊....
 		List<ArticleVO> list1 = new ArrayList<ArticleVO>();
-
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
+			
+//			String hql = "SELECT new com.cooklab.article.model.ArticleVO(a.articleNo, a.articleTitle, "
+//					+ "a.memberId, a.createdTimestamp, a.articleStatus, a.articleContent,"
+//					+ " a.articleCount, a.viewCount, a.lastEditTimestamp, a.articleCategory) " +
+//                    "FROM ArticleVO a ORDER BY a.articleNo DESC";
+//			Query<ArticleVO> query = session.createQuery(hql, ArticleVO.class);
+//			
+//			list1 = query.getResultList();
+			
+	        Criteria c1 = session.createCriteria(ArticleVO.class);
+	        c1.addOrder(Order.desc("articleNo"));
+	        list1 = c1.list();
 
-			list1 = session.createQuery("from ArticleVO",ArticleVO.class).list();						
+	    
+
+//			list1 = session.createQuery("from ArticleVO",ArticleVO.class).list();						
 			session.getTransaction().commit();
 			session.close();
 
@@ -125,19 +128,35 @@ public class ArticleHBDAO implements ArticleDAO {
 		return list1;
 
 	}
-	
+
+
 	
 	
 //	=============================getAll結束==================================================
 	
 	
-	public static void main(String[] args) {
-
-		ArticleHBDAO dao = new ArticleHBDAO();
-
-	
-	
-	
-	
+	@Override
+	public void updateArticleStatus(Integer articleNo, Byte articleStatus) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			ArticleVO articleVO = session.get(ArticleVO.class, articleNo);
+			
+      	if(articleVO != null) {
+      		articleVO.setArticleStatus(articleStatus);
+       	}
+		session.getTransaction().commit();
+		session.close();
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+		session.getTransaction().rollback();
+	} 
 	}
 }
+	
+//=======================updateArticleStatus 方法結束================================
+	
+	
+	
+

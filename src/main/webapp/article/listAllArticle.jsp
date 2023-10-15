@@ -66,7 +66,7 @@
 		<th>文章編號</th>
 		<th>文章分類</th>
 		<th>文章標題</th>
-		<th>會員編號</th>
+		<th>會員暱稱</th>
 		<th>文章狀態</th>
 		<th>文章內文</th>
 		<th>回文數量</th>
@@ -75,14 +75,14 @@
 		<th>最後編輯時間</th>
 		<th>操作  </th>
 	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 	<%@ include file="page1.file" %>  --%>
+	<c:forEach var="artVO" items="${list}" >
 		
 		<tr>
 			<td>${artVO.articleNo}</td>
 			<td>${artVO.articleCategoryVO.articleCategory}</td>
 			<td>${artVO.articleTitle}</td>
-			<td>${artVO.memberId}</td>
+			<td>${artVO.members.memberNickname}</td>
 			<td>${artVO.articleStatus}</td>
 			
 			<td>
@@ -118,7 +118,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

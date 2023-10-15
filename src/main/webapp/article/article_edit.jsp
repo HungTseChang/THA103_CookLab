@@ -201,7 +201,7 @@ pageContext.setAttribute("list", list);
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
-						<input type="hidden" name="memberId" placeholder="輸入會員編號" value="1" size="45" /> 
+						<input type="hidden" name="memberId" placeholder="輸入會員編號" value="5" size="45" /> 
 							<input type="hidden" name="articleStatus"
 							placeholder="輸入文章狀態(數字)" value="0" size="45" /> 
 							
@@ -212,8 +212,10 @@ pageContext.setAttribute("list", list);
 							placeholder="輸入次數" value="0" size="45" /> 
 						<select size="1"   name="articleCategory">
 							<c:forEach var="artVO" items="${list}">
+								<c:if test="${artVO.categoryStatus == 0 && artVO.articleCategoryNo > 1 }">
 								<option value="${artVO.articleCategoryNo}">
 									${artVO.articleCategory}
+								</c:if>
 							</c:forEach>
 						</select> 
 						<input type="text" id="edit_title" name="articleTitle"  placeholder="輸入標題"
@@ -227,8 +229,8 @@ pageContext.setAttribute("list", list);
 
 
 							<p style="margin-top: 5px;">
-								驗證碼顯示位置: <input type="text" value="請輸入驗證碼"> <input
-									type="hidden" name="action" value="insert">
+								驗證碼顯示位置: <input type="text" value="請輸入驗證碼">
+								<input type="hidden" name="action" value="insert">
 								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button>
 
 								<input type="hidden" name="action" value="insert">
