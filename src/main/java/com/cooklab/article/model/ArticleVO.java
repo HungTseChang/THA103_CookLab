@@ -53,11 +53,11 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="article_category" ,referencedColumnName = "article_category")
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no")
 	private ArticleCategoryVO articleCategoryNo;
 	@Transient
-	private Integer articleCategory;
-	
+	private Byte articleCategory;
+//	
 	
 	public ArticleCategoryVO getArticleCategoryNo() {
 		return articleCategoryNo;
@@ -67,17 +67,17 @@ public class ArticleVO implements java.io.Serializable {
 	}
 	
 	
-	public ArticleVO(Integer articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
-			String articleContent, Integer articleCount, Integer viewCount) {
-		super();
-		this.articleCategory = articleCategory;
-		this.articleTitle = articleTitle;
-		this.memberId = memberId;
-		this.articleStatus = articleStatus;
-		this.articleContent = articleContent;
-		this.articleCount = articleCount;
-		this.viewCount = viewCount;
-	}
+//	public ArticleVO(Byte articleCategory, String articleTitle, Integer memberId, Byte articleStatus,
+//			String articleContent, Integer articleCount, Integer viewCount) {
+//		super();
+//		this.articleCategory = articleCategory;
+//		this.articleTitle = articleTitle;
+//		this.memberId = memberId;
+//		this.articleStatus = articleStatus;
+//		this.articleContent = articleContent;
+//		this.articleCount = articleCount;
+//		this.viewCount = viewCount;
+//	}
 	public ArticleVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -88,10 +88,10 @@ public class ArticleVO implements java.io.Serializable {
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public Integer getArticleCategory() {
+	public Byte getArticleCategory() {
 		return articleCategory;
 	}
-	public void setArticleCategory(Integer articleCategory) {
+	public void setArticleCategory(Byte articleCategory) {
 		this.articleCategory = articleCategory;
 	}
 	public String getArticleTitle() {
