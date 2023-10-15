@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.cooklab.members.model.MembersVO;
 @Entity
@@ -52,10 +53,9 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="articleCategory" ,referencedColumnName = "articleCategoryNo")
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category")
 	private ArticleCategoryVO articleCategoryNo;
-	
-	@Column(name = "article_category")  
+	@Transient
 	private Integer articleCategory;
 	
 	
