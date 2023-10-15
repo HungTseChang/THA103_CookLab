@@ -9,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/FetchTest")
-public class FetchTest extends HttpServlet {
+@WebServlet("/AjaxTest")
+public class AjaxTest extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//因為已經在doPost寫了完整程式碼，故直接在此呼叫doPost方法以達到重複利用代碼的目的
 		doPost(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//設定送來請求的物件編碼
 		request.setCharacterEncoding("UTF-8");
+		//透過送來的資料中取得action的值來辨識這串資料的處理方式，以下以新增資料為範例
 		String action = request.getParameter("action");
 		if ("insert".equals(action)) {
 			String realName = request.getParameter("realName");
@@ -32,9 +35,9 @@ public class FetchTest extends HttpServlet {
 			System.out.println(replyEmail);
 			System.out.println(formTitle);
 			System.out.println(formContext);
-			String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";
-			RequestDispatcher successView = request.getRequestDispatcher(url); 
-			successView.forward(request, response);
+			
+			//回傳資料給發出請求的ajax後續進行其他行為
+			response.getWriter().write("ok");;
 		}
 	}
 

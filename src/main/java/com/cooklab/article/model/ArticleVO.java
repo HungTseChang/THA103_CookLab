@@ -52,11 +52,11 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="articleCategory" ,referencedColumnName = "articleCategoryNo")
-	private ArticleCategoryVO articleCategoryNo;
-	
-	@Column(name = "article_category")  
-	private Integer articleCategory;
+    @JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" , insertable = false, updatable = false)
+    private ArticleCategoryVO articleCategoryNo;
+
+    @Column (name="article_category")
+    private Integer articleCategory;
 	
 	
 	public ArticleCategoryVO getArticleCategoryNo() {
