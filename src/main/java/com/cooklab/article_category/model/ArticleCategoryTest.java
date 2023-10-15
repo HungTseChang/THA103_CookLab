@@ -2,9 +2,14 @@ package com.cooklab.article_category.model;
 
 import java.util.List;
 
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+
 import org.hibernate.Session;
 
-import com.cooklab.article_report.model.ArticleReportVO;
+
 import com.cooklab.util.HibernateUtil;
 
 public class ArticleCategoryTest {
@@ -15,47 +20,35 @@ public class ArticleCategoryTest {
 		try {
 			session.beginTransaction();
 			/////////新增
-//			ArticleVO ArticleVO = new ArticleVO(1,"今天大家吃甚麼?",1,(byte) 1,"吃葡萄不吐葡萄皮",1,1);
-//
-//          session.save(ArticleVO);
- ////=========================== 修改====================================
-			 
-//           	ArticleVO ArticleVO1  = session.get(ArticleVO.class, 1);
-//           	if(ArticleVO1 != null) {
-//           		ArticleVO1.setArticleCategory("有聊版");
-//           	}
-			
+		ArticleCategoryVO a1 = new ArticleCategoryVO();
+		
+//		a1.setArticleCategory("敗家玩物");
+//		
+//        session.save(a1);
+//   =========================== 修改====================================
+//		a1.setArticleCategory("改動過囉");
+//		a1.setArticleCategoryNo(2);
+//		
+//		session.update(a1);
+		
 //	========================刪除===========================
-           	
-			ArticleVO ArticleVO2 = session.get(ArticleVO.class, 7);
-          	if(ArticleVO2 != null) {
-           		session.delete(ArticleVO2);
-           	}
+//		a1.setArticleCategoryNo(7);
+//		
+//		session.delete(a1);
 //           	
            	
-//           	=============================================		
-			////查詢
-	List<ArticleVO> list1 = session.createQuery("from ArticleVO").list();
-for(int i=0; i<list1.size();i++) {
-	System.out.println(
-		"ArticleNo :"+list1.get(i).getArticleNo()+"\n  "
-	+ "ArticleCategory :"+list1.get(i).getArticleCategory()+"\n"
-	+"ArticleTitle :"+ list1.get(i).getArticleTitle()+"\n"
-	+"MemberId :"+list1.get(i).getMemberId()+"\n"
-	+"CreatedTimestamp :"+list1.get(i).getCreatedTimestamp()+"\n"
-	+"ArticleStatus :"+list1.get(i).getArticleStatus()
-	+"\n"
-	+"ArticleContent :"+list1.get(i).getArticleContent()+"\n"
-	+"ArticleCount :"+list1.get(i).getArticleCount()+"\n"
-	+"ViewCount :"+list1.get(i).getViewCount()+"\n"
-	+"LastEditTimestamp :"+list1.get(i).getLastEditTimestamp()+"\n"
-	+"============================================="
-			); 
-}
-
-			
-			session.getTransaction().commit();
-			session.close();
+//   ========================查詢============================		
+//	==============全部查詢===========================	
+	List<ArticleCategoryVO> list1 = session.createQuery("from ArticleCategoryVO").list();
+	System.out.println(list1);
+		
+// =============單筆查詢========================
+		
+//		ArticleCategoryVO a2 = session.createQuery("from ArticleCategoryVO where articleCategoryNo = 3", ArticleCategoryVO.class).uniqueResult();
+//		System.out.println(a2);
+		
+		session.getTransaction().commit();
+		session.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

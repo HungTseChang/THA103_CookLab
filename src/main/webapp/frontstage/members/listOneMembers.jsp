@@ -54,7 +54,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>員工資料 - ListOneEmp.jsp</h3>
+				<h3>會員資料 - ListOneMembers.jsp</h3>
 				<h4>
 					<a href="frontstage/members/select_page.jsp"><img
 						src="frontstage/members/images/back1.gif" width="100" height="32" border="0">回首頁</a>
@@ -77,6 +77,7 @@ th, td {
 			<th>會員狀態</th>
 			<th>暱稱</th>
 			<th>性別</th>
+			<th>會員頭像</th>
 			<th>新增時間</th>
 			<th>最後編輯時間</th>
 		</tr>
@@ -94,6 +95,8 @@ th, td {
 			<td><%=memVO.getMemberStatus()%></td>
 			<td><%=memVO.getMemberNickname()%></td>
 			<td><%=memVO.getMemberGender()%></td>
+			 <td><img style="max-width: 200px; max-height: 200px;" 
+			 src="/com.tha103.cooklab/MembersImgServlet?memberId=${memVO.memberId}"></td> 
 			<td><%=memVO.getCredcreatedTimestamp()%></td>
 			<td><%=memVO.getLastEditTimestamp()%></td>
 

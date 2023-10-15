@@ -80,7 +80,8 @@ public class ArticleServlet extends HttpServlet{
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/article/listOneArt.jsp";
+//			String url = "/article/listOneArt.jsp";
+			String url = "/article/article_content.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -283,18 +284,20 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 				try {
 					articleStatus = Byte.valueOf(articleStatusStr.trim());
 				} catch (NumberFormatException e) {
-					errorMsgs.add(" 請勿空白");
+					errorMsgs.add("文章狀態請勿空白");
 
 				}
 			}
 
 			String articleContent = req.getParameter("articleContent");
 			if (articleContent == null || articleContent.trim().length() == 0) {
-				errorMsgs.add("請勿空白");
+				errorMsgs.add("內容請勿空白");
 			}
 			
-			String articleCountStr = req.getParameter("articleCount");
+			
 			Integer articleCount = null;
+			String articleCountStr = req.getParameter("articleCount");
+			articleCount = Integer.valueOf(articleCountStr.trim());
 			if (articleCountStr != null && !articleCountStr.trim().isEmpty()) {
 				articleCount = Integer.valueOf(articleCountStr.trim());
 			} else {
@@ -303,14 +306,14 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			
 			Integer viewCount = 0;
 			String viewCountParam = req.getParameter("viewCount");
-
-			if (viewCountParam != null && !viewCountParam.trim().isEmpty()) {
-			    try {
-			        viewCount = Integer.parseInt(viewCountParam.trim());
-			    } catch (NumberFormatException e) {
-			        errorMsgs.add("填入數字");
-			    }
-			}
+			viewCount = Integer.parseInt(viewCountParam.trim());
+//			if (viewCountParam != null && !viewCountParam.trim().isEmpty()) {
+//			    try {
+//			        viewCount = Integer.parseInt(viewCountParam.trim());
+//			    } catch (NumberFormatException e) {
+//			        errorMsgs.add("填入數字");
+//			    }
+//			}
 
 
 			
@@ -339,10 +342,12 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			if (!errorMsgs.isEmpty()) {
 req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/article/addArt.jsp");
+						.getRequestDispatcher("/article/article_edit.jsp");
 				failureView.forward(req, res);
 				return;
 			}
+//			("/article/article_edit.jsp"); "/article/addArt.jsp"
+
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ArticleService artSvc = new ArticleService();

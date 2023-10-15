@@ -92,7 +92,7 @@ th, td {
 				<td>${recipeVO.recipeNo}</td>
 				<td>${recipeVO.memberId}</td>
 				<td>${recipeVO.recipeName}</td>
-				<td>${recipeVO.coverImage}</td>
+				<td><img style="max-width: 200px; max-height: 200px;" src="/com.tha103.cooklab/RecipeServletImg?recipe_no=${recipeVO.recipeNo}"></td> 
 				<td>${recipeVO.introduction}</td>
 				<td>${recipeVO.additionalExplanation}</td>
 				<td>${recipeVO.region}</td>

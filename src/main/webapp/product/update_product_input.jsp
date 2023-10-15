@@ -60,7 +60,7 @@ th, td {
 			<td>
 				<h3>員工資料修改 - update_emp_input.jsp</h3>
 				<h4>
-					<a href="product/select_page.jsp"><img src="images/back1.gif"
+					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="<%= request.getContextPath() %>/product/images/back1.gif"
 						width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>
@@ -130,6 +130,8 @@ th, td {
 					value="<%=(productVO == null) ? "" : productVO.getStorageQty()%>"
 					size="45" /></td>
 			</tr>
+			<jsp:useBean id="ingredientSvc" scope="page"
+				class="com.cooklab.ingredient_category.model.IngredientService" />
 			<tr>
 				<td>食材種類:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="ingredientCategoryNo">

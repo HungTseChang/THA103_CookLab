@@ -49,7 +49,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>文章資料修改 - update_Art_input.jsp</h3>
-		 <h4><a href="/com.tha103.cooklab/article/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="<%= request.getContextPath() %>/article/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -65,7 +65,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="/com.tha103.cooklab/ArticleServlet" name="form1">
+<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" name="form1">
 <table>
 	<tr>
 		<td>文章編號:<font color=red><b>*</b></font></td>

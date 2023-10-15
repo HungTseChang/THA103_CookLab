@@ -1,14 +1,18 @@
 package com.cooklab.product.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.ingredient_category.model.IngredientCategoryVO;
+import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
 
 @Entity
 @Table(name = "product")
@@ -21,18 +25,9 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "product_name")
 	private String productName;
 	
+	@Column(name = "product_picture")
 	private byte[]  productPicture;
 	
-	
-
-	public byte[] getProductPicture() {
-		return productPicture;
-	}
-
-	public void setProductPicture(byte[] productPicture) {
-		this.productPicture = productPicture;
-	}
-
 	@Column(name = "sale_qty")
 	private Integer saleQty;
 	
@@ -54,8 +49,18 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "storage_qty")
 	private Integer storageQty;
 	
+	@ManyToOne
+	@JoinColumn(name="ingredient_category_no",referencedColumnName="ingredient_category_no")
+	private IngredientCategoryVO ingredientCategory;
+	
+	
 	@Column(name = "ingredient_category_no")
 	private Integer ingredientCategoryNo;
+	
+	@ManyToOne
+	@JoinColumn(name="kitchenware_category_no",referencedColumnName="kitchenware_category_no")
+	private KitchenwareCategoryVO KitchenwareCategory;
+	
 	
 	@Column(name = "kitchenware_category_no")
 	private Integer kitchenwareCategoryNo;
@@ -69,6 +74,17 @@ public class ProductVO implements java.io.Serializable {
 	public ProductVO() {
 	}
 
+	
+
+	public byte[] getProductPicture() {
+		return productPicture;
+	}
+
+	public void setProductPicture(byte[] productPicture) {
+		this.productPicture = productPicture;
+	}
+	
+	
 	public ProductVO(Integer productNo, String productName, Integer saleQty, String productDec,
 			String productIntroduction, Integer productPrice, Timestamp offsaleTime, Timestamp shelfTime,
 			Integer storageQty, Integer ingredientCategoryNo, Integer kitchenwareCategoryNo, Integer searchCount,

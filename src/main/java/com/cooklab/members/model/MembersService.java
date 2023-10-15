@@ -15,7 +15,7 @@ public class MembersService {
 
 	public MembersVO addMembers(String memberAccount, String memberPassword,String memberIntroduce,
 			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress,String memberCountry
-			,Byte memberStatus,String memberNickname,Byte memberGender
+			,Byte memberStatus, byte[] memberPicture,String memberNickname,Byte memberGender
 			) {
 
 		MembersVO membersVO = new MembersVO();
@@ -31,6 +31,8 @@ public class MembersService {
 		membersVO.setMemberStatus(memberStatus);
 		membersVO.setMemberNickname(memberNickname);
 		membersVO.setMemberGender(memberGender);
+		membersVO.setMemberPicture(memberPicture);
+		
 		dao.insert(membersVO);
 
 		return membersVO;
@@ -38,7 +40,7 @@ public class MembersService {
 
 	public MembersVO updateMember(Integer memberId,String memberAccount, String memberPassword,String memberIntroduce,
 			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress,String memberCountry
-			,Byte memberStatus,String memberNickname,Byte memberGender 
+			,Byte memberStatus, byte[] memberPicture,String memberNickname,Byte memberGender 
 			) {
 
 		MembersVO membersVO = new MembersVO();
@@ -55,6 +57,7 @@ public class MembersService {
 		membersVO.setMemberStatus(memberStatus);
 		membersVO.setMemberNickname(memberNickname);
 		membersVO.setMemberGender(memberGender);
+		membersVO.setMemberPicture(memberPicture);
 		dao.update(membersVO);
 
 		return membersVO;

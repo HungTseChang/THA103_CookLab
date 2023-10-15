@@ -1,17 +1,26 @@
 package com.cooklab.kitchenware_category.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.cooklab.product.model.ProductVO;
 
 @Entity
 @Table(name = "kitchenware_category")
 public class KitchenwareCategoryVO implements java.io.Serializable {
+	
+	@OneToMany(mappedBy="KitchenwareCategory", cascade=CascadeType.ALL)
+	private Set<ProductVO>product ;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "kitchenware_category_no", updatable = false, insertable = false)

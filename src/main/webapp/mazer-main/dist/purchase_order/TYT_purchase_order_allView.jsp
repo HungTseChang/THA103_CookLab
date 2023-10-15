@@ -227,7 +227,7 @@
                             
                         </div> -->
                         <div class="card-body">
-                            <a href="TYT_purchase_order_newList.html"><button class="btn btn-success">新增進貨表單</button></a>
+                            <a href="<%= request.getContextPath() %>/mazer-main/dist/purchase_order/TYT_purchase_order_newList.jsp"><button class="btn btn-success">新增進貨表單</button></a>
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
