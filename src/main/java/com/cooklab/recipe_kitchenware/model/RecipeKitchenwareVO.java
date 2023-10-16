@@ -7,34 +7,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.product.model.ProductVO;
+import com.cooklab.recipe.model.RecipeVO;
 @Entity
 @Table(name = "recipe_kitchenware")
 public class RecipeKitchenwareVO implements java.io.Serializable {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "recipe_kitchenware_no", updatable = false)
-	private Integer recipeKitchenwareNo;
-	@Column(name = "recipe_no")
-	private Integer recipeNo;
-	@Column(name = "product_no")
-	private Integer productNo;
+	private Integer recipeKitchenwareNo;	//食譜使用廚具編號(PK)
+	@ManyToOne
+	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no")
+	private RecipeVO recipe;				//食譜編號(FK)
+	@ManyToOne
+	@JoinColumn(name = "product_no", referencedColumnName = "product_no")
+	private ProductVO product;				//商品編號(FK)
 	@Column(name = "text_label")
-	private String textLabel;
+	private String textLabel;				//純文字標籤
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
-	private Timestamp createdTimestamp;
+	private Timestamp createdTimestamp;		//建立時間
 
 	public RecipeKitchenwareVO() {
-	}
-
-	public RecipeKitchenwareVO(Integer recipeKitchenwareNo, Integer recipeNo, Integer productNo, String textLabel,
-			Timestamp createdTimestamp) {
-		super();
-		this.recipeKitchenwareNo = recipeKitchenwareNo;
-		this.recipeNo = recipeNo;
-		this.productNo = productNo;
-		this.textLabel = textLabel;
-		this.createdTimestamp = createdTimestamp;
 	}
 
 	public Integer getRecipeKitchenwareNo() {
@@ -45,20 +43,20 @@ public class RecipeKitchenwareVO implements java.io.Serializable {
 		this.recipeKitchenwareNo = recipeKitchenwareNo;
 	}
 
-	public Integer getRecipeNo() {
-		return recipeNo;
+	public RecipeVO getRecipe() {
+		return recipe;
 	}
 
-	public void setRecipeNo(Integer recipeNo) {
-		this.recipeNo = recipeNo;
+	public void setRecipe(RecipeVO recipe) {
+		this.recipe = recipe;
 	}
 
-	public Integer getProductNo() {
-		return productNo;
+	public ProductVO getProduct() {
+		return product;
 	}
 
-	public void setProductNo(Integer productNo) {
-		this.productNo = productNo;
+	public void setProduct(ProductVO product) {
+		this.product = product;
 	}
 
 	public String getTextLabel() {
@@ -79,8 +77,8 @@ public class RecipeKitchenwareVO implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "RecipeKitchenwareVO [recipeKitchenwareNo=" + recipeKitchenwareNo + ", recipeNo=" + recipeNo
-				+ ", productNo=" + productNo + ", textLabel=" + textLabel + ", createdTimestamp=" + createdTimestamp
+		return "RecipeKitchenwareVO [recipeKitchenwareNo=" + recipeKitchenwareNo + ", recipe=" + recipe
+				+ ", product=" + product + ", textLabel=" + textLabel + ", createdTimestamp=" + createdTimestamp
 				+ "]";
 	}
 

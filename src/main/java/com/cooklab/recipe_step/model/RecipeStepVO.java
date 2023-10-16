@@ -18,9 +18,10 @@ import com.cooklab.recipe.model.RecipeVO;
 @Table(name = "recipe_step")
 @IdClass(RecipeStepVO.CompositeDetail.class)
 public class RecipeStepVO implements java.io.Serializable{
+	
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no" , insertable = false, updatable = false)
+	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no")
 	private RecipeVO recipe;
 	@Id
 	@Column(name = "step")
@@ -37,8 +38,6 @@ public class RecipeStepVO implements java.io.Serializable{
 	public RecipeStepVO() {	
 	} 
 	
-
-	
 	public RecipeStepVO(RecipeVO recipe, Integer step, Integer stepTime, byte[] stepImg, String stepContent,
 			Timestamp createdTimestamp) {
 		super();
@@ -50,6 +49,15 @@ public class RecipeStepVO implements java.io.Serializable{
 		this.createdTimestamp = createdTimestamp;
 	}
 
+	public CompositeDetail getCompositeKey() {
+		return new CompositeDetail(recipe, step);
+	}
+	
+	public void setCompositeKey(CompositeDetail key) {
+		this.recipe = key.getRecipe();
+		this.step = key.getStep();
+	}
+	
 	public RecipeVO getRecipe() {
 		return recipe;
 	}
@@ -58,31 +66,34 @@ public class RecipeStepVO implements java.io.Serializable{
 		this.recipe = recipe;
 	}
 
-	public void setCompositeKey(CompositeDetail key) {
-		this.recipe = key.getRecipe();
-		this.step = key.getStep();
-	}
 	public Integer getStep() {
 		return step;
 	}
+	
 	public void setStep(Integer step) {
 		this.step = step;
 	}
+	
 	public Integer getStepTime() {
 		return stepTime;
 	}
+	
 	public void setStepTime(Integer stepTime) {
 		this.stepTime = stepTime;
 	}
+	
 	public byte[] getStepImg() {
 		return stepImg;
 	}
+	
 	public void setStepImg(byte[] stepImg) {
 		this.stepImg = stepImg;
 	}
+	
 	public String getStepContent() {
 		return stepContent;
 	}
+	
 	public void setStepContent(String stepContent) {
 		this.stepContent = stepContent;
 	}
@@ -97,11 +108,11 @@ public class RecipeStepVO implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "RecipeStepVO [ step=" + step + ", stepTime=" + stepTime + ", stepImg="
+		return "RecipeStepVO [recipe" + recipe + ", step=" + step + ", stepTime=" + stepTime + ", stepImg="
 				+ Arrays.toString(stepImg) + ", stepContent=" + stepContent + ", createdTimestamp=" + createdTimestamp
 				+ "]";
 	}
-	
+
 	static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
 
