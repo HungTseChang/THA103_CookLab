@@ -2,27 +2,31 @@ package com.cooklab.admins.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import com.cooklab.permission.model.*;
+import com.cooklab.util.HibernateUtil;
 
 public class AdminsService {
 
-//	private AdminsHBDAO dao;
-	private AdminsJDBCDAOIm dao;
+	private AdminsHBDAO dao;
+//	private AdminsJDBCDAOIm dao;
 	public AdminsService() {
-//		dao = new AdminsHBDAO();
-		dao = new AdminsJDBCDAOIm();	
+		dao = new AdminsHBDAO(HibernateUtil.getSessionFactory());
+//		dao = new AdminsJDBCDAOIm();	
 		}
 
 	public AdminsVO add(String adminNickname, Integer permissionNo, String adminAccount,
-			String adminPassword) {
+			String adminPassword, Timestamp createTimestamp) {
 
 		AdminsVO AdminsVO = new AdminsVO();
+		PermissionService PermissionService = new PermissionService();
+		PermissionVO a = PermissionService.getOne(permissionNo);
 
 		
 		AdminsVO.setAdminNickname(adminNickname);
-		AdminsVO.setPermissionNo(permissionNo);
+		AdminsVO.setPermissionVO(a);
 		AdminsVO.setAdminAccount(adminAccount);
 		AdminsVO.setAdminPassword(adminPassword);
-   	
+		AdminsVO.setCreatedTimestamp(createTimestamp);
 		dao.insert(AdminsVO);
 
 		
@@ -34,9 +38,10 @@ public class AdminsService {
 			String adminPassword, Integer adminNo) {
 
 		AdminsVO AdminsVO = new AdminsVO();
-	
+		PermissionService PermissionService = new PermissionService();
+		PermissionVO a = PermissionService.getOne(permissionNo);
 		AdminsVO.setAdminNickname(adminNickname);
-		AdminsVO.setPermissionNo(permissionNo);
+		AdminsVO.setPermissionVO(a);
 		AdminsVO.setAdminAccount(adminAccount);
 		AdminsVO.setAdminPassword(adminPassword);
 		AdminsVO.setAdminNo(adminNo);

@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.cooklab.admins.model.*" %>
-<%
-AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
 
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -333,7 +330,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                 <tr>
                                                     <th>
                                                         <input class="form-check-input" type="radio" name="permission"
-                                                            id="permission1" value="1"   <%= AdminsVO.getPermissionNo() ==1? "checked":"" %>>
+                                                            id="permission1" value="1"   ${ AdminsVO.getPermissionVO().getPermissionNo()==1? "checked":"" }>
                                                         <label class="form-check-label" for="permission1">
                                                             總管理員
                                                         </label>
@@ -341,7 +338,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission2"  value="2" <%= AdminsVO.getPermissionNo() ==2? "checked":"" %>>
+                                                    id="permission2"  value="2" ${ AdminsVO.getPermissionVO().getPermissionNo() ==2? "checked":"" }>
                                                 <label class="form-check-label" for="permission2">
                                                     食譜管理員
                                                 </label>
@@ -349,7 +346,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission3"  value="3" <%= AdminsVO.getPermissionNo() ==3? "checked":"" %>>
+                                                    id="permission3"  value="3"  ${ AdminsVO.getPermissionVO().getPermissionNo()==3? "checked":"" }>
                                                 <label class="form-check-label" for="permission3">
                                                     會員管理員
                                                 </label>
@@ -357,36 +354,13 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                 </tr>
                                                 <tr><th>
                                                     <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission4" value="4" <%= AdminsVO.getPermissionNo() ==4? "checked":"" %>>
+                                                    id="permission4" value="4" ${ AdminsVO.getPermissionVO().getPermissionNo() ==4? "checked":"" }>
                                                 <label class="form-check-label" for="permission4" >
                                                     廣告投放人員
                                                 </label>
                                             </th>
                                                 </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission5" value="4">
-                                                <label class="form-check-label" for="permission5" >
-                                                    客服人員
-                                                </label>
-                                            </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission6" value="3">
-                                                <label class="form-check-label" for="permission6" >
-                                                    工讀生 
-                                                </label>
-                                            </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission7" value="2">
-                                                <label class="form-check-label" for="permission7" >
-                                                    討論區管理員 
-                                                </label>
-                                            </th>
-                                                </tr>
+                                               
                                         
                                             </tbody>
                                         </table>

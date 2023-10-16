@@ -12,36 +12,46 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.cooklab.permission.model.PermissionVO;
+import com.google.gson.annotations.Expose;
 @Entity
 @Table(name="admins") 
 public class AdminsVO implements java.io.Serializable {
+	@Expose
 	@Id 
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	@Column(name = "admin_no" , insertable = false, updatable = false)  
 	private Integer adminNo;
+	@Expose
 	@Column(name = "admin_nickname")  
 	private String adminNickname;
-	@Column(name = "permission_no")  
+	@Transient
 	private Integer permissionNo;
+	@Expose
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no")
+	private PermissionVO permissionVO;
+	@Expose
 	@Column(name = "admin_account")  
 	private String adminAccount;
+	@Expose
 	@Column(name = "admin_password")  
 	private String adminPassword;
+	@Expose
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
+
 	
+
+
 	public PermissionVO getPermissionVO() {
 		return permissionVO;
 	}
 	public void setPermissionVO(PermissionVO permissionVO) {
 		this.permissionVO = permissionVO;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no")
-	private PermissionVO permissionVO;
-	
 	public Integer getAdminNo() {
 		return adminNo;
 	}
