@@ -25,7 +25,7 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "product_name")
 	private String productName;
 	
-	@Column(name = "product_picture")
+	@Column(name = "product_picture" ,columnDefinition = "blob")
 	private byte[]  productPicture;
 	
 	@Column(name = "sale_qty")
@@ -50,7 +50,7 @@ public class ProductVO implements java.io.Serializable {
 	private Integer storageQty;
 	
 	@ManyToOne
-	@JoinColumn(name="ingredient_category_no",referencedColumnName="ingredient_category_no")
+	@JoinColumn(name="ingredient_category_no",referencedColumnName="ingredient_category_no", insertable = false ,updatable = false)
 	private IngredientCategoryVO ingredientCategory;
 	
 	
@@ -58,7 +58,7 @@ public class ProductVO implements java.io.Serializable {
 	private Integer ingredientCategoryNo;
 	
 	@ManyToOne
-	@JoinColumn(name="kitchenware_category_no",referencedColumnName="kitchenware_category_no")
+	@JoinColumn(name="kitchenware_category_no",referencedColumnName="kitchenware_category_no", insertable = false ,updatable = false)
 	private KitchenwareCategoryVO KitchenwareCategory;
 	
 	

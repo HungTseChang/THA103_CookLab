@@ -1,6 +1,7 @@
 package com.cooklab.promo_code.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -30,10 +31,10 @@ public class PromoCodeVO implements Serializable{
 	private Timestamp endTime;
 	
 	@Column(name = "percentage_discount_amount")
-	private Integer percentageDiscountAmount;
+	private BigDecimal percentageDiscountAmount;
 	
 	@Column(name = "fixed_discount_amount")
-	private Integer fixedDiscountAmount;
+	private BigDecimal fixedDiscountAmount;
 	
 	@Column(name = "usages_allowed")
 	private Integer usagesAllowed;
@@ -76,19 +77,19 @@ public class PromoCodeVO implements Serializable{
 		this.endTime = endTime;
 	}
 
-	public Integer getPercentageDiscountAmount() {
+	public BigDecimal getPercentageDiscountAmount() {
 		return percentageDiscountAmount;
 	}
 
-	public void setPercentageDiscountAmount(Integer percentageDiscountAmount) {
+	public void setPercentageDiscountAmount(BigDecimal percentageDiscountAmount) {
 		this.percentageDiscountAmount = percentageDiscountAmount;
 	}
 
-	public Integer getFixedDiscountAmount() {
+	public BigDecimal getFixedDiscountAmount() {
 		return fixedDiscountAmount;
 	}
 
-	public void setFixedDiscountAmount(Integer fixedDiscountAmount) {
+	public void setFixedDiscountAmount(BigDecimal fixedDiscountAmount) {
 		this.fixedDiscountAmount = fixedDiscountAmount;
 	}
 

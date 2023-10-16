@@ -22,7 +22,7 @@ public class MemberOrderVO implements Serializable{
 	@Column(name = "member_id")
 	private Integer memberId ;
 	
-	@Column(name = "order_status")
+	@Column(name = "order_status", columnDefinition = "tinyint")
 	private Byte orderStatus;
 	
 	@Column(name = "total_order_amount")

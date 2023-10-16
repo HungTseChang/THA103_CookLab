@@ -64,9 +64,9 @@ public class MembersVO {
 //	private Set<RecipeCollectionVO> recipeCollectionS;
 //	
 //	//●食譜 recipe
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeVO> recipeS;
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeVO> recipeS;
 //	
 //	//●購物車明細 shopping_cart
 //	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
