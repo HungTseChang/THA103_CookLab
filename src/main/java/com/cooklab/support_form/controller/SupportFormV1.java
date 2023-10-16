@@ -16,7 +16,7 @@ import com.cooklab.support_form.model.SupportFormService;
 import com.cooklab.support_form.model.SupportFormVO;
 
 @WebServlet("/SupportFormServlet")
-public class SupportFormServlet extends HttpServlet {
+public class SupportFormV1 extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

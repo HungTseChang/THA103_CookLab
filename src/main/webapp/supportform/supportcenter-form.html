@@ -144,7 +144,7 @@
     </header>
     <!-- Header Section End -->
 
-    <!--t_SC_Start我自己的部分-->
+    <!--t_SC_Start-->
     <section class="hero hero-normal">
       <div class="container">
         <div class="row">
@@ -162,7 +162,7 @@
       </div>
     </section>
     <!--t_SC_End-->
-    <!--t_SC_Start我自己的部分-->
+    <!--t_SC_Start-->
 
     <section class="container mt-1">
       <h2 class="text-center">問題表單</h2>
@@ -171,18 +171,18 @@
 
       <form>
         <div class="form-row">
-          <div class="col">
-            <label for="inputName">姓名<span class="t_SC_redPoint">*</span></label>
-            <input type="text" class="form-control" placeholder="您的大名" id="realName" />
+          <div class="col" >
+            <label for="inputName">姓名<span class="t_SC_redPoint" id="name-check">*</span></label>
+            <input type="text" class="form-control" placeholder="您的大名" id="realName"  required/>
           </div>
           <div class="col">
-            <label for="inputMail">Email<span class="t_SC_redPoint">*</span></label>
-            <input type="text" class="form-control" placeholder="exmaple@gmail.com" id="replyEmail" />
+            <label for="inputMail">Email<span class="t_SC_redPoint"  id="email-check">*</span></label>
+            <input type="text" class="form-control" placeholder="exmaple@mail.com" id="replyEmail"  required/>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" >
           <br />
-          <label for="inputQuestionOption">問題類別<span class="t_SC_redPoint">*</span></label>
+          <label for="inputQuestionOption">問題類別<span class="t_SC_redPoint" id="categoryid-check">*</span></label>
           <select class="form-control w-100" id="supportFormCategoryId">
             <option value="default">請選擇問題類別</option>
             <option value="1">食譜相關</option>
@@ -191,14 +191,14 @@
             <option value="4">商品相關</option>
           </select>
         </div>
-        <div class="form-group">
-          <br /><br /><label for="inputTitle">標題<span class="t_SC_redPoint">*</span></label>
-          <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" />
+        <div class="form-group" >
+          <br /><br /><label for="inputTitle">標題<span class="t_SC_redPoint" id="title-check">*</span></label>
+          <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" required />
         </div>
 
-        <div class="form-group">
-          <label for="FormControlTextarea">問題內容<span class="t_SC_redPoint">*</span></label>
-          <textarea class="form-control" id="formContext" rows="3" placeholder="請在此輸入您的問題"></textarea>
+        <div class="form-group" >
+          <label for="FormControlTextarea">問題內容<span class="t_SC_redPoint" id="context-check">*</span></label>
+          <textarea class="form-control" id="formContext" rows="3" placeholder="請在此輸入您的問題" required></textarea>
         </div>
 
         <input type="hidden" class="form-control" id="formSource" value="官網表單" />
@@ -209,9 +209,9 @@
         </div>
       </form>
     </section>
-    <!-- 手風琴效果 -->
 
-    <!-- 我我自己的頁尾 -->
+
+    <!-- 頁尾 -->
     <section class="container mt-5">
       <h2 class="text-center">需要其他協助嗎?</h2>
       <hr class="t_SC_hr" />
