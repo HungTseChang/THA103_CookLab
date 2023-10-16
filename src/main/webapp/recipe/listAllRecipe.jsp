@@ -61,7 +61,7 @@ th, td {
 			<td>
 				<h3>所有食譜資料 - listAllRecipe.jsp</h3>
 				<h4>
-					<a href="/com.tha103.cooklab/recipe/select_page.jsp"><img src="/com.tha103.cooklab/recipe/images/back1.gif"
+					<a href="<%=request.getContextPath()%>/recipe/select_page.jsp"><img src="/com.tha103.cooklab/recipe/images/back1.gif"
 						width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>
@@ -92,7 +92,7 @@ th, td {
 				<td>${recipeVO.recipeNo}</td>
 				<td>${recipeVO.memberId}</td>
 				<td>${recipeVO.recipeName}</td>
-				<td><img style="max-width: 200px; max-height: 200px;" src="/com.tha103.cooklab/RecipeServletImg?recipe_no=${recipeVO.recipeNo}"></td> 
+				<td><img style="max-width: 200px; max-height: 200px;" src="<%=request.getContextPath()%>/RecipeServletImg?recipe_no=${recipeVO.recipeNo}"></td> 
 				<td>${recipeVO.introduction}</td>
 				<td>${recipeVO.additionalExplanation}</td>
 				<td>${recipeVO.region}</td>
@@ -103,7 +103,7 @@ th, td {
 				<td>${recipeVO.lastEditTimestamp}</td>
 				<td>${recipeVO.createdTimestamp}</td>
 				<td>
-					<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet"
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="recipe_no" value="${recipeVO.recipeNo}"> <input
@@ -111,7 +111,7 @@ th, td {
 					</FORM>
 				</td>
 				<td>
-					<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet"
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="刪除"> <input type="hidden"
 							name="recipe_no" value="${recipeVO.recipeNo}"> <input

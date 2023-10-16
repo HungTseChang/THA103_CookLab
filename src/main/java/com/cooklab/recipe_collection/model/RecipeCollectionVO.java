@@ -7,29 +7,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.members.model.MembersVO;
+import com.cooklab.recipe.model.RecipeVO;
 @Entity
 @Table(name = "recipe_collection")
 public class RecipeCollectionVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "collection_no", updatable = false)
-	private Integer collectionNo;
-	@Column(name = "recipe_no")
-	private Integer recipeNo;
-	@Column(name = "member_id")
-	private Integer memberId;
+	private Integer collectionNo;		//收藏編號(PK)
+	@ManyToOne
+	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no")
+	private RecipeVO recipe;		//食譜編號(FK)
+	@ManyToOne
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
+	private MembersVO members;		//會員編號(FK)
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
-	private Timestamp createdTimestamp;
+	private Timestamp createdTimestamp; //建立時間
 
 	public RecipeCollectionVO() {
 	}
 
-	public RecipeCollectionVO(Integer collectionNo, Integer recipeNo, Integer memberId, Timestamp createdTimestamp) {
+	public RecipeCollectionVO(Integer collectionNo, RecipeVO recipe, MembersVO members, Timestamp createdTimestamp) {
 		super();
 		this.collectionNo = collectionNo;
-		this.recipeNo = recipeNo;
-		this.memberId = memberId;
+		this.recipe = recipe;
+		this.members = members;
 		this.createdTimestamp = createdTimestamp;
 	}
 
@@ -41,20 +48,20 @@ public class RecipeCollectionVO implements java.io.Serializable {
 		this.collectionNo = collectionNo;
 	}
 
-	public Integer getRecipeNo() {
-		return recipeNo;
+	public RecipeVO getRecipe() {
+		return recipe;
 	}
 
-	public void setRecipeNo(Integer recipeNo) {
-		this.recipeNo = recipeNo;
+	public void setRecipe(RecipeVO recipe) {
+		this.recipe = recipe;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+	public MembersVO getMembers() {
+		return members;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setMembers(MembersVO members) {
+		this.members = members;
 	}
 
 	public Timestamp getCreatedTimestamp() {
@@ -67,7 +74,7 @@ public class RecipeCollectionVO implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "RecipeCollectionVO [collectionNo=" + collectionNo + ", recipeNo=" + recipeNo + ", memberId=" + memberId
+		return "RecipeCollectionVO [collectionNo=" + collectionNo + ", recipe=" + recipe + ", members=" + members
 				+ ", createdTimestamp=" + createdTimestamp + "]";
 	}
 }
