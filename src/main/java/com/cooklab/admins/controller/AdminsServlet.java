@@ -1,4 +1,4 @@
-package com.cooklab.admins.controler;
+package com.cooklab.admins.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -56,7 +56,7 @@ public class AdminsServlet extends HttpServlet {
 		case "delete":
 			forwardPath = delete(req, res);
 		default:
-			forwardPath = "/dashboard/admin/WCC_permission_management.jsp";
+			forwardPath = "/dashboard/admin/WCC_admin_management.jsp";
 		}
 //		res.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
@@ -82,7 +82,7 @@ public class AdminsServlet extends HttpServlet {
 		System.out.print(account + "||" + nickname + "||" + password + "||" + permission + "||" + adminNo);
 		AdminsService.update(nickname, permission, account, password, adminNo);
 //AdminsService.update("11",1,"22","3",2);
-		return getAlladmins(req, res);
+		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 
 	private String getAlladmins(HttpServletRequest req, HttpServletResponse res) {
@@ -97,9 +97,9 @@ public class AdminsServlet extends HttpServlet {
 		}
 		
 		String json = new Gson().toJson(list1);
-//		System.out.println(json);
+		System.out.println(json);
 		req.setAttribute("json", json);
-		return "/dashboard/admin/WCC_permission_management.jsp";
+		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 
 	private String getOne_For_Update(HttpServletRequest req, HttpServletResponse res) {
@@ -109,7 +109,7 @@ public class AdminsServlet extends HttpServlet {
 //		AdminsVOFake a = new AdminsVOFake(AdmonVO);
 		req.setAttribute("AdminsVO", AdmonVO);
 
-		return "/dashboard/admin/WCC_permission_update.jsp";
+		return "/dashboard/admin/WCC_admin_update.jsp";
 	}
 
 	private String inserAdmins(HttpServletRequest req, HttpServletResponse res) {
@@ -121,7 +121,7 @@ public class AdminsServlet extends HttpServlet {
 		Timestamp a =new Timestamp(System.currentTimeMillis());
 		AdminsService.add(nickname, permission, account, password,a);
 
-		return getAlladmins(req, res);
+		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 	
 	

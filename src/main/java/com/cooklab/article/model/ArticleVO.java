@@ -53,10 +53,11 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no")
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" , insertable = false, updatable = false)
 	private ArticleCategoryVO articleCategoryNo;
-	@Transient
-	private Byte articleCategory;
+//	@Transient
+	@Column (name="article_category")
+	private Integer articleCategory;
 //	
 	
 	public ArticleCategoryVO getArticleCategoryNo() {
@@ -88,10 +89,10 @@ public class ArticleVO implements java.io.Serializable {
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public Byte getArticleCategory() {
+	public Integer getArticleCategory() {
 		return articleCategory;
 	}
-	public void setArticleCategory(Byte articleCategory) {
+	public void setArticleCategory(Integer articleCategory) {
 		this.articleCategory = articleCategory;
 	}
 	public String getArticleTitle() {

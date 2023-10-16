@@ -1,4 +1,4 @@
-package com.cooklab.admins.model;
+package com.cooklab.article_report.model.model;
 
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import com.cooklab.article.model.ArticleHBDAO;
 import com.cooklab.article.model.ArticleVO;
 
 
-public class AdminsHBDAO implements AdminsDAO {
+public class ArticleReportHBDAO implements ArticleReportDAO {
 private SessionFactory factory;
-public AdminsHBDAO(SessionFactory factory) {
+public ArticleReportHBDAO(SessionFactory factory) {
 	this.factory = factory;
 }
 
@@ -25,25 +25,25 @@ private Session getSession() {
 }
 
 @Override
-public void insert(AdminsVO AdminsVO) {
+public void insert(ArticleReportVO ArticleReportVO) {
 	// 回傳給 service 剛新增成功的自增主鍵值
-	 getSession().save(AdminsVO);
+	 getSession().save(ArticleReportVO);
 }
 
 @Override
-public void update(AdminsVO AdminsVO) {
+public void update(ArticleReportVO ArticleReportVO) {
 	try {
-		System.out.println("嘗試updateAdminsVO");
-		getSession().update(AdminsVO);
+		System.out.println("嘗試updateArticleReportVO");
+		getSession().update(ArticleReportVO);
 	} catch (Exception e) {
 	}
 }
 
 @Override
-public void delete(Integer adminsNO) {
-	AdminsVO AdminsVO = getSession().get(AdminsVO.class, adminsNO);
-	if (AdminsVO != null) {
-		getSession().delete(AdminsVO);
+public void delete(Integer articleReportNo) {
+	ArticleReportVO ArticleReportVO = getSession().get(ArticleReportVO.class, articleReportNo);
+	if (ArticleReportVO != null) {
+		getSession().delete(ArticleReportVO);
 		// 回傳給 service，1代表刪除成功
 	} else {
 		// 回傳給 service，-1代表刪除失敗
@@ -51,14 +51,14 @@ public void delete(Integer adminsNO) {
 }
 
 @Override
-public AdminsVO findByPrimaryKey(Integer adminsNO) {
-	return getSession().get(AdminsVO.class, adminsNO);
+public ArticleReportVO findByPrimaryKey(Integer articleReportNo) {
+	return getSession().get(ArticleReportVO.class, articleReportNo);
 }
 
 @Override
-public List<AdminsVO> getAll() {
+public List<ArticleReportVO> getAll() {
 	System.out.println("嘗試getALL AdminsVO");
-	return getSession().createQuery("from AdminsVO", AdminsVO.class).list();
+	return getSession().createQuery("from ArticleReportVO", ArticleReportVO.class).list();
 }
 	
 

@@ -66,7 +66,7 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="articleReport" scope="page" class="com.cooklab.article_report.model.ArticleReportService" />
+  <jsp:useBean id="articleReport" scope="page" class="com.cooklab.article_report.model.model.ArticleReportService" />
  
   <li>
      <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/ArticleReportServlet" >

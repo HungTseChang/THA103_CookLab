@@ -46,6 +46,11 @@ public class PermissionVO implements java.io.Serializable {
 	@Expose
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
+	
+	
+	
+	
+	
 	public Integer getPermissionNo() {
 		return permissionNo;
 	}

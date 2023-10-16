@@ -1,4 +1,4 @@
-package com.cooklab.article_report.model;
+package com.cooklab.article_report.model.model;
 
 import java.util.List;
 

@@ -12,4 +12,21 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<!--      王群中_添加filter_給hibernate調控sessionfactory -->
+
+                         
+
+	<filter>
+        <filter-name>myFilter</filter-name>
+        <filter-class>com.cooklab.admins.filter.DashboardOpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>myFilter</filter-name>
+        <url-pattern>/AdminsServlet</url-pattern>
+         <url-pattern>/*</url-pattern>
+        
+    </filter-mapping>
+    
+<!--      王群中_添加filter -->
 </web-app>
