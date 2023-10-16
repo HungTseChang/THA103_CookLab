@@ -19,6 +19,8 @@ public  class ArticleCategoryHDAOIm implements ArticleCategoryDAO {
 				session.save(artVO);
 				
 				session.getTransaction().commit();
+				session.close();
+				
 		}catch(Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -33,6 +35,7 @@ public  class ArticleCategoryHDAOIm implements ArticleCategoryDAO {
 				session.beginTransaction();
 				session.update(artVO);
 				session.getTransaction().commit();
+				session.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -49,6 +52,7 @@ public  class ArticleCategoryHDAOIm implements ArticleCategoryDAO {
 				articleCategoryNo,ArticleCategoryVO.class).uniqueResult();
 				
 				session.getTransaction().commit();
+				return artVo;
 		}catch(Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -67,6 +71,7 @@ public  class ArticleCategoryHDAOIm implements ArticleCategoryDAO {
 				
 				
 				session.getTransaction().commit();
+				return list;
 		}catch(Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();

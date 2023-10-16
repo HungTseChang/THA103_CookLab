@@ -47,7 +47,7 @@ public class ArticleServlet extends HttpServlet{
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -60,7 +60,7 @@ public class ArticleServlet extends HttpServlet{
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -73,7 +73,7 @@ public class ArticleServlet extends HttpServlet{
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -86,6 +86,59 @@ public class ArticleServlet extends HttpServlet{
 			successView.forward(req, res);
 		}
 
+		if ("getOne_For_Display2".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String str = req.getParameter("articleNo");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.add("請輸入文章編號");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			Integer articleNo = null;
+			try {
+				articleNo = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.add("文章編號格式不正確");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 2.開始查詢資料 *****************************************/
+			ArticleService artSvc = new ArticleService();
+			ArticleVO artVO = artSvc.getOneArt(articleNo);
+			if (artVO == null) {
+				errorMsgs.add("查無資料");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
+			String url = "/article/article_content.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+		}
+		
+		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -99,13 +152,47 @@ public class ArticleServlet extends HttpServlet{
 			/*************************** 2.開始查詢資料 ****************************************/
 			ArticleService artSvc = new ArticleService();
 			ArticleVO artVO = artSvc.getOneArt(articleNo);
-
+			
+			
+			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
 			String url = "/article/update_Art_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
 			successView.forward(req, res);
 		}
+		
+		if ("getStatusUpdate".equals(action)) { 
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer articleNo = Integer.valueOf(req.getParameter("articleNo"));
+			
+			Byte articleStatus =null;
+			String articleStatusStr = req.getParameter("articleStatus");
+			articleStatus=Byte.valueOf(articleStatusStr);
+			
+			
+			
+			ArticleVO updatedArtVO = new ArticleVO();
+			updatedArtVO.setArticleNo(articleNo); 
+			updatedArtVO.setArticleStatus(articleStatus) ;
+			/*************************** 2.開始修改資料 ****************************************/
+			ArticleService artSvc = new ArticleService();
+			artSvc.updateArticleStatus(articleNo, articleStatus);
+
+			/*************************** 3.新增完成,準備轉交 ************/
+			req.setAttribute("updatedArtVO", updatedArtVO); // 資料庫取出的empVO物件,存入req
+			String url = "/mazer-main/dist/article/HO_discussion_allview.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
+			successView.forward(req, res);
+		}
+		
+		
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 
@@ -205,9 +292,9 @@ public class ArticleServlet extends HttpServlet{
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleService artSvc = new ArticleService();
-			artVO = artSvc.updateArt(articleCategory, articleTitle, memberId, articleStatus, articleContent,
-					articleCount, viewCount, articleNo);
-
+//			artVO = artSvc.updateArt( articleTitle, memberId, articleStatus, articleContent,
+//					articleCount, viewCount, articleNo);
+			artSvc.updateArt(artVO);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -218,7 +305,6 @@ public class ArticleServlet extends HttpServlet{
 			Timestamp lastEditTimestamp = Timestamp.valueOf(formattedTimestamp);
 			artVO.setLastEditTimestamp(lastEditTimestamp);
 			
-
 			
 			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url = "/article/listOneArt.jsp";
@@ -226,7 +312,7 @@ public class ArticleServlet extends HttpServlet{
 			successView.forward(req, res);
 		}
 
-		
+	
 if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -237,7 +323,6 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String articleCategoryStr = req.getParameter("articleCategory");
 			Integer articleCategory = null;
-			
 			if (articleCategoryStr != null && !articleCategoryStr.trim().isEmpty()) {
 			    try {
 			        articleCategory = Integer.valueOf(articleCategoryStr.trim());
@@ -327,7 +412,6 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			
 
 			ArticleVO artVO = new ArticleVO();
-
 			artVO.setArticleCategory(articleCategory);
 			artVO.setArticleTitle(articleTitle);
 			artVO.setMemberId(memberId);
@@ -351,11 +435,11 @@ req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也�
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ArticleService artSvc = new ArticleService();
-			artVO = artSvc.addArt(articleCategory, articleTitle, memberId, articleStatus, articleContent, articleCount,
-					viewCount);
-
+//			artVO = artSvc.addArt(articleCategory, articleTitle, memberId, articleStatus, articleContent, articleCount,
+//					viewCount);
+			artSvc.addArt(artVO);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url ="/article/listAllArticle.jsp";
+			String url ="/article/article_main.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}

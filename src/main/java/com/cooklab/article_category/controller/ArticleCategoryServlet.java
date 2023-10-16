@@ -27,26 +27,26 @@ public class ArticleCategoryServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/*************************** 1.接收請求參數 ****************************************/
-			Integer articleCategoryNo = Integer.valueOf(req.getParameter("articleCategoryNo"));
-
-			/*************************** 2.開始查詢資料 ****************************************/
-			ArticleCategoryService artSvc = new ArticleCategoryService();
-			ArticleCategoryVO artVO = artSvc.getOne(articleCategoryNo);
-
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/mazer-main/dist/article/HO_dscussion_cate.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
-			successView.forward(req, res);
-		}
+//		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to
+//			// send the ErrorPage view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			/*************************** 1.接收請求參數 ****************************************/
+//			Integer articleCategoryNo = Integer.valueOf(req.getParameter("articleCategoryNo"));
+//
+//			/*************************** 2.開始查詢資料 ****************************************/
+//			ArticleCategoryService artSvc = new ArticleCategoryService();
+//			ArticleCategoryVO artVO = artSvc.get
+//
+//			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+//			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
+//			String url = "/mazer-main/dist/article/HO_dscussion_cate.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+//			successView.forward(req, res);
+//		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 
@@ -56,23 +56,35 @@ public class ArticleCategoryServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer articleCategoryNo = Integer.valueOf(req.getParameter("articleCategoryNo"));
+//			Integer articleCategoryNo = Integer.valueOf(req.getParameter("articleNo").trim());
+
+			String articleCategoryNoString = req.getParameter("articleCategoryNo");
+			Integer articleCategoryNo =null;
+			if (articleCategoryNoString != null && !articleCategoryNoString.isEmpty()) {
+			    articleCategoryNo = Integer.parseInt(articleCategoryNoString);
+		
+			} else {
+				errorMsgs.add("文章分類號碼錯誤");
+			}
+			
+		
 			
 			byte categoryStatus = (byte)1;
 			
 			ArticleCategoryVO artVO = new ArticleCategoryVO();
 			
 			artVO.setCategoryStatus(categoryStatus);
-
+			artVO.setArticleCategoryNo(articleCategoryNo);
 			// Send the use back to the form, if there were errors
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleCategoryService artSvc = new ArticleCategoryService();
-			artVO = artSvc.upate(categoryStatus);
+			artSvc.updateArt(artVO);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url ="/mazer-main/dist/article/HO_dscussion_cate.jsp";
+			
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 		}
@@ -95,10 +107,11 @@ public class ArticleCategoryServlet extends HttpServlet {
 			}else if (!articleCategory.trim().matches(artrule)) {
 				errorMsgs.add("文章分類只能是中文");
 			}
-			
+			byte categoryStatus = (byte)0;
 			ArticleCategoryVO artVO = new ArticleCategoryVO();
 			
 			artVO.setArticleCategory(articleCategory);
+			artVO.setCategoryStatus(categoryStatus);
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -110,7 +123,7 @@ public class ArticleCategoryServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ArticleCategoryService artSvc = new ArticleCategoryService();
-			artVO= artSvc.add(articleCategory);
+			artSvc.add(artVO);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url ="/mazer-main/dist/article/HO_dscussion_cate.jsp";

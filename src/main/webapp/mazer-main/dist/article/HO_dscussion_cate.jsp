@@ -3,11 +3,11 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
-ArticleCategoryVO artVO2 = (ArticleCategoryVO) request.getAttribute("artVO");
+	ArticleCategoryVO artVO2 = (ArticleCategoryVO) request.getAttribute("artVO");
 
-ArticleCategoryService artSvc = new ArticleCategoryService();
-List<ArticleCategoryVO> list = artSvc.getAll();
-pageContext.setAttribute("list", list);
+	ArticleCategoryService artSvc = new ArticleCategoryService();
+	List<ArticleCategoryVO> list = artSvc.getAll();
+	pageContext.setAttribute("list", list);
 %>
 
 
@@ -88,51 +88,7 @@ pageContext.setAttribute("list", list);
 
 						<li class="sidebar-item has-sub"><a href="#"
 							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>食譜管理</span>
-						</a> <!-- <ul class="submenu ">
-        <li class="submenu-item ">
-            <a href="#">食譜管理</a>
-        </li>
-    </ul>
-</li> --></li>
-
-						<li class="sidebar-item has-sub"><a href="#"
-							class="sidebar-link"> <i class="bi bi-grid-1x2-fill"></i> <span>商城管理</span>
-						</a>
-							<ul class="submenu">
-								<li class="submenu-item"><a href="#">商品設定</a></li>
-								<li class="submenu-item"><a href="#">訂單管理</a></li>
-								<li class="submenu-item"><a href="#">優惠券設定</a></li>
-								<li class="submenu-item"><a href="#">廣告設定</a></li>
-								<li class="submenu-item"><a href="#">新增進貨表單</a></li>
-							</ul></li>
-						<li class="sidebar-item has-sub active"><a href="#"
-							class="sidebar-link toggle-submenu" data-toggle="submenu"> <i
-								class="bi bi-hexagon-fill"></i> <span>討論區管理</span>
-						</a>
-
-							<ul class="submenu " style="display: block">
-								<li class="submenu-item "><a href="#" class="sub_title ">看板分類</a>
-								</li>
-								<li class="submenu-item"><a href="#">文章管理</a></li>
-							</ul></li>
-						<li class="sidebar-item has-sub"><a href="#"
-							class="sidebar-link"> <i class="bi bi-pen-fill"></i> <span>數據分析</span>
-						</a>
-							<ul class="submenu">
-								<li class="submenu-item"><a href="#">會員數據</a></li>
-								<li class="submenu-item"><a href="#">食譜數據</a></li>
-								<li class="submenu-item"><a href="#">商城數據</a></li>
-								<li class="submenu-item"><a href="#">文章數據</a></li>
-							</ul></li>
-						<li class="sidebar-item has-sub"><a href="#"
-							class="sidebar-link"> <i class="bi bi-pen-fill"></i> <span>客服中心</span>
-						</a>
-							<ul class="submenu">
-								<li class="submenu-item"><a href="#">食譜檢舉</a></li>
-								<li class="submenu-item"><a href="#">討論區檢舉</a></li>
-								<li class="submenu-item"><a href="#">系統通知</a></li>
-							</ul></li>
-						<!-- ======================================================================================================== -->
+						</a> 
 					</ul>
 				</div>
 				<button class="sidebar-toggler btn x">
@@ -146,8 +102,8 @@ pageContext.setAttribute("list", list);
 					class="bi bi-justify fs-3"></i>
 				</a>
 			</header>
-			<!--   /////////////////////////////////////////////////////////////////////////////////////////  -->
-			<style>
+		
+<style>
 li a.sub_title {
 	background-color: #435ebe;
 	color: white !important;
@@ -209,7 +165,9 @@ td button.wcc {
 						<div class="col-md-9 card-header"
 							style="background-color: rgb(208, 250, 255); padding-bottom: 10px; border: 10px solid rgb(170, 199, 234);">
 							<div class="card">
-
+								<FORM METHOD="POST"
+									ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet">
+								
 								<div class="table-datatable"
 									style="max-height: 400px; overflow-y: scroll;">
 									<%-- 錯誤表列 --%>
@@ -224,42 +182,44 @@ td button.wcc {
 
 									<table class="table-container" style="width: 100%">
 										<tbody class="cate_list">
-											<c:forEach var="artVO" items="${list}">
+												<c:forEach var="artVO" items="${list}" >
+													<c:if test="${artVO.categoryStatus == 0}">
 												<tr>
-													<td><input class="form-check-input" type="checkbox"
-														name="${artVO.articleCategoryNo}" id="permission1" /> <label
-														class="form-check-label" for="permission1">
-															${artVO.articleCategory} </label></td>
+													<td>
+													<input  class="form-check-input" type="checkbox" value="${artVO.articleCategoryNo}"
+													name="articleCategoryNo" id="permission${artVO.articleCategoryNo}" />
+													<input type="hidden" name="action" value="update"></input> 
+													 
+													<label  class="form-check-label" for="permission${artVO.articleCategoryNo}"> 
+														${artVO.articleCategory} 
+														</label>
+													</td>
 												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
+												</c:if>
+												</c:forEach>
+											</tbody>
+										</table>
+									</div>
+									<button class="rounded-pill btn btn-primary"
+										style="float: right;" id="del_article_cate" type="submit">刪除文章分類
+									</button>
+								</Form>
 							</div>
+							
+							
 							<div style="position: relative; left: 10%">
-
 								<FORM METHOD="POST"
 									ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet">
 
-									<label for="newruletitle">新文章分類</label> <input type="text"
+									<label for="newruletitle">新文章分類</label> 
+									<input type="text"
 										id="newruletitle" style="position: relative"
 										name="articleCategory" placeholder="輸入分類"
-										value="<%=(artVO2 == null) ? "" : artVO2.getArticleCategory()%>"%>
+										value="<%=(artVO2 == null) ? "" : artVO2.getArticleCategory()%>">
 									<input type="hidden" name="action" value="insert">
 									<button class="rounded-pill btn btn-primary"
 										style="position: relative" id="add_article_cate" type="submit">新增文章分類</button>
-								</Form>
-
-
-
-								<FORM METHOD="POST"
-									ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet">
-									<a type="hidden" name="articleCategoryNo"
-										value="${artVO.articleCategoryNo}"></a> <a type="hidden"
-										name="action" value="delete"></a> <a
-										class="rounded-pill btn btn-primary"
-										style="position: relative" id="del_article_cate">刪除文章分類 </a>
-								</Form>
+									</Form>	
 							</div>
 						</div>
 
@@ -275,21 +235,24 @@ td button.wcc {
 				<div class="float-end">
 					<p>
 						Crafted with <span class="text-danger"><i
-							class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
-							Saugi</a>
+							class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.Saugi</a>
 					</p>
 				</div>
 			</div>
 		</footer>
 	</div>
-	<script src="../assets\vendors\jquery-3.7.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
-		src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="../assets/js/bootstrap.bundle.min.js"></script>
-	<script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
-	<script src="../assets/js/main.js"></script>
-	<script src="../assets\js\menu_ative.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
 	<script>
 		// Simple Datatable
 		//         let table1 = document.querySelector('#table1');
@@ -307,24 +270,16 @@ td button.wcc {
 			});
 		});
 
-		$(document).ready(function() {
+// $(document).ready(function() {
+// 	$('.form-check-input').click(function() {
+// 	    if ($(this).is(':checked')) {
+// 	      var selectedValue = $(this).val();
+// 	      alert('選取的值是: ' + selectedValue);
+// 	    }
+// 	  });
 
-			$(document).on("change", ".form-check-input", function() {
-				if ($(this).is(":checked")) {
-					console.log("you touch")
-				}
-			});
 
-			$(document).on("click", "#del_article_cate", function() {
-				$(".form-check-input").each(function() {
-					if ($(this).is(":checked")) {
-						$(this).closest("tr").remove();
-					}
-				});
-
-			});
-
-		});
+});
 	</script>
 </body>
 
