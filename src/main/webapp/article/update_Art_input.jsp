@@ -1,9 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.cooklab.article.model.ArticleVO"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_category.model.*"%>
 
 <% //見com.emp.controller.EmpServlet.java第163行存入req的empVO物件 (此為從資料庫取出的empVO, 也可以是輸入格式有錯誤時的empVO物件)
-  ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+  	ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+
+
+	ArticleCategoryService artSvc = new ArticleCategoryService();
+	List<ArticleCategoryVO> list = artSvc.getAll();
+ 	pageContext.setAttribute("list", list);
 %>
 --<%= artVO==null %>--<!-- line 114 -->
 <html>
@@ -49,7 +56,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>文章資料修改 - update_Art_input.jsp</h3>
-		 <h4><a href="/com.tha103.cooklab/article/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="<%= request.getContextPath() %>/article/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -65,7 +72,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="/com.tha103.cooklab/ArticleServlet" name="form1">
+<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" name="form1">
 <table>
 	<tr>
 		<td>文章編號:<font color=red><b>*</b></font></td>
@@ -73,11 +80,18 @@
 	</tr>
 	<tr>
 		<td>文章分類:</td>
-		<td><input type="TEXT" name="articleCategory" value="<%=artVO.getArticleCategory()%>" size="45"/></td>
+		<td>
+			<select size="1"   name="articleCategory">
+				<c:forEach var="artVO" items="${list}">
+					<option value="${artVO.articleCategoryNo}">
+								${artVO.articleCategory}
+				</c:forEach>
+			</select> 
+		</td>
 	</tr>
 	<tr>
 		<td>文章標題:</td>
-		<td><input type="TEXT" name="articleTitle"   value="<%=artVO.getArticleTitle()%>" size="45"/></td>
+		<td><input type="TEXT" name="articleTitle"   value="${artVO.articleTitle}" size="45"/></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>

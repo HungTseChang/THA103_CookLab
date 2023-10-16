@@ -1,29 +1,32 @@
 package com.cooklab.recipe_reaction.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.cooklab.recipe_reaction.model.RecipeReactionVO.*;
+
+import com.cooklab.members.model.MembersVO;
+import com.cooklab.recipe.model.RecipeVO;
+
 @Entity
 @Table(name = "recipe_reaction")
-@IdClass(CompositeDetail.class)
+@IdClass(RecipeReactionVO.CompositeDetail.class)
 public class RecipeReactionVO implements java.io.Serializable {
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "recipe_no", insertable = false, updatable = false)
-	private Integer recipeNo;
+	@ManyToOne
+	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no" , insertable = false, updatable = false)
+	private RecipeVO recipe;
 	@Id
-	@Column(name = "member_id", insertable = false, updatable = false)
-	private Integer memberId;
+	@ManyToOne
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
+	private MembersVO members;
 	@Column(name = "recipe_reaction_status")
 	private Byte recipeReactionStatus;
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
@@ -31,28 +34,28 @@ public class RecipeReactionVO implements java.io.Serializable {
 
 	// 特別加上對複合主鍵物件的 getter / setter
 	public CompositeDetail recipeNo() {
-		return new CompositeDetail(recipeNo, memberId);
+		return new CompositeDetail(recipe, members);
 	}
 
 	public void setCompositeKey(CompositeDetail key) {
-		this.recipeNo = key.getOid();
-		this.memberId = key.getBid();
+		this.recipe = key.getRecipe();
+		this.members = key.getMembers();
 	}
 
-	public Integer getRecipeNo() {
-		return recipeNo;
+	public RecipeVO getRecipe() {
+		return recipe;
 	}
 
-	public void setRecipeNo(Integer recipeNo) {
-		this.recipeNo = recipeNo;
+	public void setRecipe(RecipeVO recipe) {
+		this.recipe = recipe;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
+	public MembersVO getMembers() {
+		return members;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
+	public void setMembers(MembersVO members) {
+		this.members = members;
 	}
 
 	public Byte getRecipeReactionStatus() {
@@ -73,7 +76,7 @@ public class RecipeReactionVO implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "RecipeReactionVO [recipeNo=" + recipeNo + ", memberId=" + memberId + ", recipeReactionStatus="
+		return "RecipeReactionVO [recipeNo=" + recipe + ", memberId=" + members + ", recipeReactionStatus="
 				+ recipeReactionStatus + ", createTimestamp=" + createdTimestamp + "]";
 	}
 
@@ -81,34 +84,34 @@ public class RecipeReactionVO implements java.io.Serializable {
 	static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
 
-		private Integer recipeNo;
-		private Integer memberId;
+		private RecipeVO recipe;
+		private MembersVO members;
 
 		// 一定要有無參數建構子
 		public CompositeDetail() {
 			super();
 		}
 
-		public CompositeDetail(Integer oid, Integer bid) {
+		public CompositeDetail(RecipeVO recipe, MembersVO members) {
 			super();
-			this.recipeNo = oid;
-			this.memberId = bid;
+			this.recipe = recipe;
+			this.members = members;
 		}
 
-		public Integer getOid() {
-			return recipeNo;
+		public RecipeVO getRecipe() {
+			return recipe;
 		}
 
-		public void setOid(Integer oid) {
-			this.recipeNo = oid;
+		public void setRecipe(RecipeVO recipe) {
+			this.recipe = recipe;
 		}
 
-		public Integer getBid() {
-			return memberId;
+		public MembersVO getMembers() {
+			return members;
 		}
 
-		public void setBid(Integer bid) {
-			this.memberId = bid;
+		public void setMembers(MembersVO members) {
+			this.members = members;
 		}
 
 		// 一定要 override 此類別的 hashCode() 與 equals() 方法！
@@ -116,8 +119,8 @@ public class RecipeReactionVO implements java.io.Serializable {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((memberId == null) ? 0 : memberId.hashCode());
-			result = prime * result + ((recipeNo == null) ? 0 : recipeNo.hashCode());
+			result = prime * result + ((members == null) ? 0 : members.hashCode());
+			result = prime * result + ((recipe == null) ? 0 : recipe.hashCode());
 			return result;
 		}
 
@@ -128,7 +131,7 @@ public class RecipeReactionVO implements java.io.Serializable {
 
 			if (obj != null && getClass() == obj.getClass()) {
 				CompositeDetail compositeKey = (CompositeDetail) obj;
-				if (recipeNo.equals(compositeKey.recipeNo) && memberId.equals(compositeKey.memberId)) {
+				if (recipe.equals(compositeKey.recipe) && members.equals(compositeKey.members)) {
 					return true;
 				}
 			}

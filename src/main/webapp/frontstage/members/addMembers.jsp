@@ -1,17 +1,17 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.cooklab.members.model.*"%>
 
 
 <%
-//¨£com.emp.controller.EmpServlet.java²Ä238¦æ¦s¤JreqªºempVOª«¥ó (¦¹¬°¿é¤J®æ¦¡¦³¿ù»~®ÉªºempVOª«¥ó)
+//è¦‹com.emp.controller.EmpServlet.javaç¬¬238è¡Œå­˜å…¥reqçš„empVOç‰©ä»¶ (æ­¤ç‚ºè¼¸å…¥æ ¼å¼æœ‰éŒ¯èª¤æ™‚çš„empVOç‰©ä»¶)
 MembersVO memVO = (MembersVO) request.getAttribute("memVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>·|­û¸ê®Æ·s¼W - addEmp.jsp</title>
+<title>æœƒå“¡è³‡æ–™æ–°å¢ - addEmpMembers.jsp</title>
 
 <style>
 table#table-1 {
@@ -55,98 +55,106 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>­û¤u¸ê®Æ·s¼W - addEmp.jsp</h3>
+				<h3>æœƒå“¡è³‡æ–™æ–°å¢ - addMembers.jsp</h3>
 			</td>
 			<td>
 				<h4>
 					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">¦^­º­¶</a>
+						width="100" height="100" border="0">å›é¦–é </a>
 				</h4>
 			</td>
 		</tr>
 	</table>
 
-	<h3>¸ê®Æ·s¼W:</h3>
+	<h3>è³‡æ–™æ–°å¢:</h3>
 
-	<%-- ¿ù»~ªí¦C --%>
+	<%-- éŒ¯èª¤è¡¨åˆ— --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+		<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
 			</c:forEach>
 		</ul>
 	</c:if>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MembersServlet"
-		name="form1">
-
+	
+   		
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/MembersServlet" name="form1" enctype="multipart/form-data">
 		<table>
 
 			<tr>
-				<td>·|­û±b¸¹:</td>
+				<td>æœƒå“¡å¸³è™Ÿ:</td>
 				<td><input type="TEXT" name="member_account"
 					value="${empty memVO.getMemberAccount ?"abc123":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>·|­û±K½X:</td>
+				<td>æœƒå“¡å¯†ç¢¼:</td>
 				<td><input type="TEXT" name="member_password"
 					value="${empty memVO.getMemberPassword ?"123456":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>Â²¤¶:</td>
+				<td>ç°¡ä»‹:</td>
 				<td><input type="TEXT" name="member_introduce"
-					value="${empty memVO.getMemberIntroduce ?"³o¬O¨S¥ÎªºÂ²¤¶":""}" size="45" /></td>
+					value="${empty memVO.getMemberIntroduce ?"é€™æ˜¯æ²’ç”¨çš„ç°¡ä»‹":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>¤â¾÷:</td>
+				<td>æ‰‹æ©Ÿ:</td>
 				<td><input type="TEXT" name="member_cellphone"
 					value="${empty memVO.getMemberCellphone ?"0900-000-000":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>¹q¤l«H½c:</td>
+				<td>é›»å­ä¿¡ç®±:</td>
 				<td><input type="TEXT" name="member_mail"
 					value="${empty memVO.memberMail ?"TEST@gmail.com":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>¥Í¤é:</td>
+				<td>ç”Ÿæ—¥:</td>
 				<td><input name="member_date" id="f_date1" type="text"></td>
 			</tr>
 			<tr>
-				<td>³q°T¦a§}:</td>
+				<td>é€šè¨Šåœ°å€:</td>
 				<td><input type="TEXT" name="member_address"
-					value="${empty memVO.getMemberAddress ?"´ú¸Õ¦a§}123":""}" size="45" /></td>
+					value="${empty memVO.getMemberAddress ?"æ¸¬è©¦åœ°å€123":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>°ê§O:</td>
+				<td>åœ‹åˆ¥:</td>
 				<td><input type="TEXT" name="member_country"
-					value="${empty memVO.getMemberCountry ?"¥xÆW¤¤°ê":""}" size="45" /></td>
+					value="${empty memVO.getMemberCountry ?"å°ç£ä¸­åœ‹":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>·|­ûª¬ºA:</td>
+				<td>æœƒå“¡ç‹€æ…‹:</td>
 				<td><input type="TEXT" name="member_status"
 					value="${empty memVO.getMemberStatus ? "0":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>¼ÊºÙ:</td>
+				<td>æš±ç¨±:</td>
 				<td><input type="TEXT" name="member_nickname"
-					value="${empty memVO.getMemberNickname ?"¤p­¸¶H":""}" size="45" /></td>
+					value="${empty memVO.getMemberNickname ?"å°é£›è±¡":""}" size="45" /></td>
 			</tr>
 			<tr>
-				<td>©Ê§O:</td>
+				<td>æ€§åˆ¥:</td>
 				<td><input type="TEXT" name="member_gender"
 					value="${empty memVO.getMemberGender ?"1":""}" size="45" /></td>
 			</tr>
-
+			<tr>
+   		
+			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="°e¥X·s¼W">
-	</FORM>
+		<input type="file" id="image-upload" accept="image/*" style="display: none;" name="mem_img">
+		<button type="button" onclick="document.getElementById('image-upload').click();">é¸æ“‡åœ–ç‰‡</button>
 
+   		<img id="image-preview" src="" alt="åœ–ç‰‡é è¦½" style="display: none; max-width: 200px; max-height: 200px;">
+
+   		<br>
+		<br> 
+		<input type="hidden" name="action" value="insert"> 
+		<input type="submit" value="é€å‡ºæ–°å¢">
+	</FORM>
 </body>
 
 
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
 
 <%
 java.sql.Date MemberDate = null;
@@ -175,22 +183,38 @@ try {
 
 <script>
 
+
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+	       step: 1,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
 		   value: '<%=MemberDate%>'
-	//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-	//startDate:	            '2017/07/10',  // °_©l¤é
-	//minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-	//maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+	//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // å»é™¤ç‰¹å®šä¸å«
+	//startDate:	            '2017/07/10',  // èµ·å§‹æ—¥
+	//minDate:               '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+	//maxDate:               '+1970-01-01'  // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å¾Œ
 	});
+        document.getElementById('image-upload').addEventListener('change', function() {
+            var fileInput = this;
+            var imagePreview = document.getElementById('image-preview');
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
 
-	// ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                };
 
-	//      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
+                reader.readAsDataURL(fileInput.files[0]);
+                imagePreview.style="block";
+                console.log
+            }
+        });
+        
+	// ----------------------------------------------------------ä»¥ä¸‹ç”¨ä¾†æ’å®šç„¡æ³•é¸æ“‡çš„æ—¥æœŸ-----------------------------------------------------------
+
+	//      1.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å‰çš„æ—¥æœŸç„¡æ³•é¸æ“‡
 	//      var somedate1 = new Date('2017-06-15');
 	//      $('#f_date1').datetimepicker({
 	//          beforeShowDay: function(date) {
@@ -203,7 +227,7 @@ try {
 	//              return [true, ""];
 	//      }});
 
-	//      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
+	//      2.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å¾Œçš„æ—¥æœŸç„¡æ³•é¸æ“‡
 	//      var somedate2 = new Date('2017-06-15');
 	//      $('#f_date1').datetimepicker({
 	//          beforeShowDay: function(date) {
@@ -216,7 +240,7 @@ try {
 	//              return [true, ""];
 	//      }});
 
-	//      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
+	//      3.ä»¥ä¸‹ç‚ºå…©å€‹æ—¥æœŸä¹‹å¤–çš„æ—¥æœŸç„¡æ³•é¸æ“‡ (ä¹Ÿå¯æŒ‰éœ€è¦æ›æˆå…¶ä»–æ—¥æœŸ)
 	//      var somedate1 = new Date('2017-06-15');
 	//      var somedate2 = new Date('2017-06-25');
 	//      $('#f_date1').datetimepicker({
@@ -234,4 +258,6 @@ try {
 	//              return [true, ""];
 	//      }});
 </script>
+
+
 </html>

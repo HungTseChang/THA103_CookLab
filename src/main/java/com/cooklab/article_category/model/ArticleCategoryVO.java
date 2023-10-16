@@ -1,13 +1,19 @@
 package com.cooklab.article_category.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.cooklab.article.model.ArticleVO;
+
+
 
 @Entity
 @Table(name="article_category") 
@@ -17,7 +23,7 @@ public class ArticleCategoryVO {
 	@Column(name = "article_category_no" , insertable = false, updatable = false)  
 	private Integer articleCategoryNo;
 	
-	@Column(name = "article_category")  
+	@Column(name = "article_category" , updatable = false)  
 	private String articleCategory;
 	
 	@Column(name = "category_status")  
@@ -26,7 +32,18 @@ public class ArticleCategoryVO {
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
 	
+	@OneToMany(mappedBy = "articleCategoryVO")
+	private Set<ArticleVO> Articles;
+
 	
+	public Set<ArticleVO> getArticles() {
+		return Articles;
+	}
+
+	public void setArticles(Set<ArticleVO> articles) {
+		Articles = articles;
+	}
+
 	public ArticleCategoryVO() {
 		super();
 		// TODO Auto-generated constructor stub

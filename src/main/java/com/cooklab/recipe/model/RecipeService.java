@@ -1,8 +1,7 @@
 package com.cooklab.recipe.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
-import com.cooklab.recipe.*;
 
 public class RecipeService {
 	private RecipeDAO dao;
@@ -13,7 +12,7 @@ public class RecipeService {
 
 	public RecipeVO addRecipe(Integer memberId, String recipeName, byte[] coverImage, String introduction,
 			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
-			Byte recipeQuantity, Date lastEditTimestamp) {
+			Byte recipeQuantity, Timestamp lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
@@ -29,20 +28,25 @@ public class RecipeService {
 		recipeVO.setRecipeQuantity(recipeQuantity);
 		recipeVO.setLastEditTimestamp(lastEditTimestamp);
 		dao.insert(recipeVO);
-		
+
 		return recipeVO;
 	}
 
-	public RecipeVO updateRecipe(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage, String introduction,
-			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
-			Byte recipeQuantity, Date lastEditTimestamp) {
+	public RecipeVO updateRecipe(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage,
+			String introduction, String additionalExplanation, String region, Byte recipeStatus, Integer reportCount,
+			Integer viewCount, Byte recipeQuantity, Timestamp lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
 		recipeVO.setRecipeNo(recipeNo);
 		recipeVO.setMemberId(memberId);
 		recipeVO.setRecipeName(recipeName);
-		recipeVO.setCoverImage(coverImage);
+		if (coverImage != null) {
+			recipeVO.setCoverImage(coverImage);
+		} else {
+			coverImage = dao.findByPrimaryKey(recipeNo).getCoverImage();
+			recipeVO.setCoverImage(coverImage);
+		}
 		recipeVO.setIntroduction(introduction);
 		recipeVO.setAdditionalExplanation(additionalExplanation);
 		recipeVO.setRegion(region);

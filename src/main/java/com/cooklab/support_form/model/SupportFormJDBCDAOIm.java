@@ -131,8 +131,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 			pstmt.setInt(1, formNo);
 
 			pstmt.executeUpdate();
-			
-			System.out.println("刪除資料成功");
+		
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {

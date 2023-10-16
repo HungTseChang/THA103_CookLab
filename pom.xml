@@ -13,7 +13,7 @@
 	<artifactId>CookLab</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>com.tha103.cooklab</name>
+	<name>CookLab</name>
 	<description>com.tha103.cooklab</description>
 	<properties>
 		<java.version>17</java.version>
@@ -45,19 +45,12 @@
 		</dependency>
 
 		<!--WCC添加的 -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.10.1</version>
 		</dependency>
-
-
 		<!-- WCC添加的-->
 
 

@@ -64,14 +64,20 @@ var toolbarOptions = [
     },
   ],
 ];
-
 var quill = new Quill("#editor", {
-  modules: {
-    toolbar: toolbarOptions,
-  },
-  theme: "snow",
+	modules: {
+    	toolbar: toolbarOptions,
+   	 	clipboard: {
+      	matchVisual: false // 允许纯文本黏贴
+    	}
+  	},theme: "snow"
 });
 
+// 當編輯器內容更改時，將其同步到隱藏的textarea元素中
+quill.on('text-change', function() {
+  var editorContent = quill.root.innerHTML;
+  $('#hiddenContent').val(editorContent);
+});
 // 從YouTube 連接中獲得影片 ID 的輔助函數
 function getVideoIdFromUrl(url) {
   const videoIdRegex =
@@ -84,6 +90,6 @@ $(function(){
   $("#editor").one("click",function(){//one可以只讓效果只觸發一次，
       $("h2").text("");
   })
-
-
 });
+
+

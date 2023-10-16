@@ -1,24 +1,11 @@
 package com.cooklab.article_category.model;
 
 import java.util.List;
-import java.util.Map;
-
-import com.cooklab.article_category.model.ArticleCategoryVO;
 
 public interface ArticleCategoryDAO {
+	public void insert (ArticleCategoryVO artVO);
+	public void update (ArticleCategoryVO artVO);
 	
-	int insert(ArticleCategoryVO articleCategoryVO);
-
-	int update(ArticleCategoryVO articleCategoryVO);
-	
-	int delete(Integer articleCategoryNo);
-	 
-	ArticleCategoryVO getById(Integer articleCategoryNo);
-	
-	List<ArticleCategoryVO> getAll(Integer articleCategoryNo);
-	
-	
-	
-	
-
+	public ArticleCategoryVO  findByPrimaryKey(Integer articleCategoryNo);
+	public List<ArticleCategoryVO>getAll();
 }

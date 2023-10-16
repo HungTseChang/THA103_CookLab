@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="/com.tha103.cooklab/ArticleServlet" >
+    <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
         <b>輸入文章編號 (如1):</b>
         <input type="text" name="articleNo">  <!-- 送出的參數是name="xxx" -->
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,7 +63,7 @@
   <jsp:useBean id="artSvc" scope="page" class="com.cooklab.article.model.ArticleService" />
    
   <li>
-     <FORM METHOD="post" ACTION="/com.tha103.cooklab/ArticleServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
        <b>選擇文章編號:</b>
        <select size="1" name="articleNo">
          <c:forEach var="artVO" items="${artSvc.all}" > 
@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="/com.tha103.cooklab/ArticleServlet" >
+     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
        <b>選擇文章標題:</b>
        <select size="1" name="articleNo">
          <c:forEach var="artVO" items="${artSvc.all}" > 

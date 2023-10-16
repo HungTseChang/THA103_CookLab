@@ -57,7 +57,7 @@ th, td {
 			<td>
 				<h3>員工資料 - ListOneEmp.jsp</h3>
 				<h4>
-					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="images/back1.gif"
+					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="<%= request.getContextPath() %>/product/images/back1.gif"
 						width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>

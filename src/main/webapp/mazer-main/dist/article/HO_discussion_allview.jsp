@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
 <%
@@ -11,17 +12,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataTable - Mazer Admin Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css" />
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/bootstrap.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css" />
 
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/simple-datatables/style.css">
-
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/css/app.css">
-    <link rel="shortcut icon" href="http://localhost:8081/com.tha103.cooklab/mazer-main/dist/assets/images/favicon.svg" type="image/x-icon">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css" />
+<link rel="shortcut icon"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
+	type="image/x-icon" />
 </head>
 
 
@@ -258,30 +268,46 @@
                   </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="ArticleVO" items="${list}">
+                <c:forEach var="artVO" items="${list}">
                   <tr>
-                    <td>${ArticleVO.articleNo}</td>
-                    <td>${ArticleVO.articleCategory}</td>
-                    <td class="HO_article_title">${ArticleVO.articleTitle}</td>
+                    <td>${artVO.articleNo}</td>
+                    <td>${artVO.articleCategoryVO.articleCategory}</td>
+                    <td class="HO_article_title">${artVO.articleTitle}</td>
                     <td class="artice_status">
                       <a href="#" class="btn btn-success rounded-pill btn article_status" >
-                      ${ArticleVO.articleStatus}</a>
+                      ${artVO.articleStatus}</a>
                       </td>
-                    <td>${ArticleVO.memberId}</td>
-                    <td>${ArticleVO.createdTimestamp}</td>
+                    <td>${artVO.members.memberNickname}</td>
+        			<td><fmt:formatDate 
+        			value="${artVO.createdTimestamp}"
+					pattern="yyyy-MM-dd HH:mm:ss" />
+					</td>
+
+									
                     <td>
-                      <a class="wcc" href="">查看文章</a>
-                      <select class="ch_artice_status">
+                    <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
+<!--                  <a class="wcc" href="">查看文章</a> -->
+					  <input type="hidden" name="articleNo" value="${artVO.articleNo}">
+					  <input type="hidden" name="action" value="getOne_For_Display2">
+					  <input type="submit" class="wcc"  value="查看文章"> 
+					  </FORM>
+					 </td> 
+					 <td>
+					  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
+                      <select class="ch_artice_status" name="articleStatus">
                         <option>選擇狀態</option>
-                        <option id="artice_Option1">0</option>
-                        <option id="artice_Option2">1</option>
-                        <option id="artice_Option3">2</option>
-                        <option id="artice_Option4">3</option>
+                        <option id="artice_Option1" value= 0>公開</option>
+                        <option id="artice_Option2"	value= 1>非公開</option>
+                        <option id="artice_Option3"	value= 2>草稿</option>
+                        <option id="artice_Option4"	value= 3>刪除</option>
                       </select>
+                      <input type="hidden" name="articleNo" value="${artVO.articleNo}">
+                  	 <input type="hidden" name="action" value="getStatusUpdate">
+					  <input type="submit" >
+                      </FORM>
                     </td>
                   </c:forEach>
-    
-
+    			</tr>
                 </tbody>
               </table>
             </div>
@@ -303,7 +329,7 @@
     </div>
   </div>
 
-  <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
+  <script src="../assets/vendors/jquery-3.7.1.min.js"></script>
   <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
@@ -373,8 +399,13 @@
       });
     });
   </script>
-
-  <script src="assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets//vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
 </body>
 
 </html>

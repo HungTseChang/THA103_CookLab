@@ -206,13 +206,14 @@ public class SupportFormServlet extends HttpServlet {
 				errorMsgs.add("客戶姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 			}
 
-			Integer supportFormCategoryId = null;
-			try {
-				supportFormCategoryId = Integer.valueOf(req.getParameter("supportFormCategoryId").trim());
-			} catch (NumberFormatException e) {
-				supportFormCategoryId = 0;
-				errorMsgs.add("問題類別請填數字.");
-			}
+			Integer supportFormCategoryId = Integer.valueOf(req.getParameter("supportFormCategoryId").trim());
+//			Integer supportFormCategoryId = null;
+//			try {
+//				supportFormCategoryId = Integer.valueOf(req.getParameter("supportFormCategoryId").trim());
+//			} catch (NumberFormatException e) {
+//				supportFormCategoryId = 0;
+//				errorMsgs.add("問題類別請填數字.");
+//			}
 
 			String replyEmail = req.getParameter("replyEmail").trim();
 			if (replyEmail == null || replyEmail.trim().length() == 0) {
@@ -229,23 +230,23 @@ public class SupportFormServlet extends HttpServlet {
 				errorMsgs.add("反應內文請勿空白");
 			}
 
-			Byte formStatus = null;
-			try {
-				formStatus = Byte.valueOf(req.getParameter("formStatus").trim());
-			} catch (NumberFormatException e) {
-				formStatus = 0;
-				errorMsgs.add("表單狀態請填數字.");
-			}
+//			Byte formStatus = null;
+//			try {
+//				formStatus = Byte.valueOf(req.getParameter("formStatus").trim());
+//			} catch (NumberFormatException e) {
+//				formStatus = 0;
+//				errorMsgs.add("表單狀態請填數字.");
+//			}
 
 			String formSource = req.getParameter("formSource").trim();
-			if (formSource == null || formSource.trim().length() == 0) {
-				errorMsgs.add("表單來源請勿空白");
-			}
-
+//			if (formSource == null || formSource.trim().length() == 0) {
+//				errorMsgs.add("表單來源請勿空白");
+//			}
+//
 			String formSubmitter = req.getParameter("formSubmitter").trim();
-			if (formSubmitter == null || formSubmitter.trim().length() == 0) {
-				errorMsgs.add("表單建立者請勿空白");
-			}
+//			if (formSubmitter == null || formSubmitter.trim().length() == 0) {
+//				errorMsgs.add("表單建立者請勿空白");
+//			}
 
 			SupportFormVO sfVO = new SupportFormVO();
 			sfVO.setRealName(realName);
@@ -253,7 +254,7 @@ public class SupportFormServlet extends HttpServlet {
 			sfVO.setReplyEmail(replyEmail);
 			sfVO.setFormTitle(formTitle);
 			sfVO.setFormContext(formContext);
-			sfVO.setFormStatus(formStatus);
+//			sfVO.setFormStatus(formStatus);
 			sfVO.setFormSource(formSource);
 			sfVO.setFormSubmitter(formSubmitter);
 
@@ -266,11 +267,11 @@ public class SupportFormServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			SupportFormService sfSvc = new SupportFormService();
-			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formStatus,
+			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext,
 					formSource, formSubmitter);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/supportform/listAllSupportForm.jsp";
+			String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 		}

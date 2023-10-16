@@ -11,7 +11,7 @@
 }
 
 
-/*以下article_edit的css*/
+/*=========================================以下article_edit的css==============*/
 #edit_title {
     width: 658px;
     height: 42px;
@@ -78,7 +78,7 @@
 
 
 #article_top_title {
-    width: 860px;
+    width: auto;
     height: 35px;
     border: 2px
         /* solid purple; */
@@ -111,10 +111,12 @@
     padding-left: 20px;
 }
 
-#title_view {
-    color: black;
-    font-size: 20px;
 
+#title_view {
+    color:black;
+    font-size: 20px;
+    border: none;
+    background: none;
 }
 
 #title_colum_td {
@@ -124,7 +126,7 @@
 
 #article_sumbit {
     margin-left: 5px;
-    width: 263px;
+    width: 205px;
     color: #ff5733;
     border: solid 1px;
     box-shadow: none;
@@ -276,9 +278,17 @@ a.page-link_pr {
     box-shadow: none;
     /* 去除原本bootstranp5按鈕的陰影效果 */
 }
+/*===============================以下article_content的css===========================*/
+
+#a#creator {
+  color: black;
+  text-decoration: none; /* 取消下底線 */
+}
 
 
-/*以下是webchat*/
+
+
+/*===============================以下是webchat==================================*/
 .panel {
     border: 2px solid#D9430D;
     border-radius: 5px;

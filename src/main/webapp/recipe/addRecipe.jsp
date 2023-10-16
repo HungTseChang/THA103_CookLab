@@ -77,8 +77,8 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="/com.tha103.cooklab/RecipeServlet"
-		name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/RecipeServlet"
+		name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>會員編號:</td>
@@ -92,7 +92,8 @@ th, td {
 			</tr>
 			<tr>
 				<td>封面圖片:</td>
-				<td><input name="cover_image" id="f_date1" type="text"></td>
+				<td><input name="cover_image" type="file"
+					value="${recipeVO.coverImage}" size="45"></td>
 			</tr>
 			<tr>
 				<td>簡介:</td>

@@ -19,6 +19,13 @@ import com.cooklab.purchase_order_detail.model.PurchaseOrderDetailVO;
 @Entity
 @Table(name = "purchase_order")
 public class PurchaseOrderVO implements java.io.Serializable {
+	
+
+	
+	@OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+	@OrderBy("purchase_order_no asc")
+	private Set<PurchaseOrderDetailVO> purchaseOrderDetail;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "purchase_order_no", updatable = false, insertable = false)
@@ -36,9 +43,7 @@ public class PurchaseOrderVO implements java.io.Serializable {
 	@Column(name = "created_timestamp", updatable = false, insertable = false)
 	private Timestamp createdTimestamp;
 
-	@OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
-	@OrderBy("id asc")
-	private Set<PurchaseOrderDetailVO> purchaseOrderDetail;
+
 
 	public PurchaseOrderVO() {
 	}

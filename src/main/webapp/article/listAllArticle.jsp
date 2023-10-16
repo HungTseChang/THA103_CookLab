@@ -57,7 +57,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>所有文章資料 - listarticleArt.jsp</h3>
-		 <h4><a href="/com.tha103.cooklab/article/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="<%= request.getContextPath() %>/article/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -66,7 +66,7 @@
 		<th>文章編號</th>
 		<th>文章分類</th>
 		<th>文章標題</th>
-		<th>會員編號</th>
+		<th>會員暱稱</th>
 		<th>文章狀態</th>
 		<th>文章內文</th>
 		<th>回文數量</th>
@@ -75,14 +75,14 @@
 		<th>最後編輯時間</th>
 		<th>操作  </th>
 	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+<%-- 	<%@ include file="page1.file" %>  --%>
+	<c:forEach var="artVO" items="${list}" >
 		
 		<tr>
 			<td>${artVO.articleNo}</td>
-			<td>${artVO.articleCategory}</td>
+			<td>${artVO.articleCategoryVO.articleCategory}</td>
 			<td>${artVO.articleTitle}</td>
-			<td>${artVO.memberId}</td>
+			<td>${artVO.members.memberNickname}</td>
 			<td>${artVO.articleStatus}</td>
 			
 			<td>
@@ -97,6 +97,7 @@
                 </c:otherwise>
             </c:choose>
             </td>
+            
 			<td>${artVO.articleCount}</td>
 			<td>${artVO.viewCount}</td>
 			<td>${artVO.createdTimestamp}</td>
@@ -117,7 +118,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

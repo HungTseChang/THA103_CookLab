@@ -44,11 +44,11 @@ public class ProductImgServlet extends HttpServlet {
 				in.close();
 			} else {
 				// res.sendError(HttpServletResponse.SC_NOT_FOUND); //404 page 134 140
-				InputStream in = getServletContext().getResourceAsStream("/NoData/none2.jpg");
-				byte[] b = new byte[in.available()];
-				in.read(b);
-				out.write(b);
-				in.close();
+//				InputStream in = getServletContext().getResourceAsStream("/NoData/none2.jpg");
+//				byte[] b = new byte[in.available()];
+//				in.read(b);
+//				out.write(b);
+//				in.close();
 			}
 			rs.close();
 			stmt.close();
