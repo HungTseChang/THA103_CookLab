@@ -4,11 +4,12 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class PromoCodeService {
-
-	private PromoCodeDAO dao;
+	private PromoCodeHBDAO dao;
+//	private PromoCodeDAO dao;
 
 	public PromoCodeService() {
-		dao = new PromoCodeJDBCDAOIm();
+//		dao = new PromoCodeJDBCDAOIm();
+		dao = new PromoCodeHBDAO();
 	}
 
 	public PromoCodeVO addPromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,

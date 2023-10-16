@@ -95,4 +95,9 @@ public class AdvertiseVO implements java.io.Serializable {
 				+ ",advertise_img=" + AdvertiseImg + ",advertise_url=" + AdvertiseUrl + ",created_timestamp="
 				+ createdTimestamp + "]";
 	}
+
+	public void setCreatedTimestamp(Timestamp createdTimestamp2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

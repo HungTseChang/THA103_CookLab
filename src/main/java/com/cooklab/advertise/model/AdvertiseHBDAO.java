@@ -1,4 +1,4 @@
-package com.cooklab.promo_code.model;
+package com.cooklab.advertise.model;
 
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import org.hibernate.criterion.Projections;
 import com.cooklab.promo_code.model.*;
 import com.cooklab.util.HibernateUtil;
 
-public class PromoCodeHBDAO implements PromoCodeDAO {
+public class AdvertiseHBDAO implements AdvertiseDAO {
 	@Override
 	public void insert(PromoCodeVO PromoCodeVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
