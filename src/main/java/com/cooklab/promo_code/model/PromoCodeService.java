@@ -60,4 +60,17 @@ public class PromoCodeService {
 	public List<PromoCodeVO> getAll() {
 		return dao.getAll();
 	}
-}
+
+	public void delete(Integer promoCodeNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+		
+	}
+
+	
+		
+	
+

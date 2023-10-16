@@ -24,35 +24,35 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 		PromoCodeJDBCDAOIm dao = new PromoCodeJDBCDAOIm();
 
 		// 
-		PromoCodeVO promoCodeVO1 = new PromoCodeVO();
-		promoCodeVO1.setPromoCodeSerialNumber("000001");
-		promoCodeVO1.setStartTime(java.sql.Timestamp.valueOf("2023-09-09 12:34:56"));
-		promoCodeVO1.setEndTime(java.sql.Timestamp.valueOf("2023-09-12 12:34:56"));
-		promoCodeVO1.setPercentageDiscountAmount(0);
-		promoCodeVO1.setFixedDiscountAmount(1000);
-		promoCodeVO1.setUsagesAllowed(1000);
-		promoCodeVO1.setMinimumConsumption(0);
-		dao.insert(promoCodeVO1);
+//		PromoCodeVO promoCodeVO1 = new PromoCodeVO();
+//		promoCodeVO1.setPromoCodeSerialNumber("000001");
+//		promoCodeVO1.setStartTime(java.sql.Timestamp.valueOf("2023-09-09 12:34:56"));
+//		promoCodeVO1.setEndTime(java.sql.Timestamp.valueOf("2023-09-12 12:34:56"));
+//		promoCodeVO1.setPercentageDiscountAmount(0);
+//		promoCodeVO1.setFixedDiscountAmount(1000);
+//		promoCodeVO1.setUsagesAllowed(1000);
+//		promoCodeVO1.setMinimumConsumption(0);
+//		dao.insert(promoCodeVO1);
 
 		// 
-		PromoCodeVO  promoCodeVO2 = new PromoCodeVO();
-		promoCodeVO2.setPromoCodeSerialNumber("000001");
-		promoCodeVO2.setStartTime(java.sql.Timestamp.valueOf("2023-09-09 12:34:56"));
-		promoCodeVO2.setEndTime(java.sql.Timestamp.valueOf("2023-09-20 12:34:56"));
-		promoCodeVO2.setPercentageDiscountAmount(0);
-		promoCodeVO2.setFixedDiscountAmount(1000);
-		promoCodeVO2.setUsagesAllowed(1000);
-		promoCodeVO2.setMinimumConsumption(0);
-		promoCodeVO2.setPromoCodeNo(1);
-		dao.update(promoCodeVO2);
+//		PromoCodeVO  promoCodeVO2 = new PromoCodeVO();
+//		promoCodeVO2.setPromoCodeSerialNumber("000001");
+//		promoCodeVO2.setStartTime(java.sql.Timestamp.valueOf("2023-09-09 12:34:56"));
+//		promoCodeVO2.setEndTime(java.sql.Timestamp.valueOf("2023-09-20 12:34:56"));
+//		promoCodeVO2.setPercentageDiscountAmount(0);
+//		promoCodeVO2.setFixedDiscountAmount(1000);
+//		promoCodeVO2.setUsagesAllowed(1000);
+//		promoCodeVO2.setMinimumConsumption(0);
+//		promoCodeVO2.setPromoCodeNo(1);
+//		dao.update(promoCodeVO2);
 
 		// 
 //		dao.delete(1);
 
 		// 
-		PromoCodeVO promoCodeVO3 = dao.findByPrimaryKey(3);
-		System.out.print(promoCodeVO3);
-		System.out.println("---------------------");
+//		PromoCodeVO promoCodeVO3 = dao.findByPrimaryKey(3);
+//		System.out.print(promoCodeVO3);
+//		System.out.println("---------------------");
 
 		// 
 		List<PromoCodeVO> list = dao.getAll();

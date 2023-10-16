@@ -50,8 +50,8 @@ PromoCodeVO pcVO = (PromoCodeVO) request.getAttribute("pcVO");
 <h4>此頁暫練習採用 Script 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>表單資料 - listOneSupportForm.jsp</h3>
-		 <h4><a href="/THA103_CookLab/supportform/select_page.jsp">回首頁</a></h4>
+		 <h3>表單資料 - listOnePromoCode.jsp</h3>
+		 <h4><a href="/THA103_CookLab/promocode/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -76,7 +76,7 @@ PromoCodeVO pcVO = (PromoCodeVO) request.getAttribute("pcVO");
 			<td>${pcVO.fixedDiscountAmount}</td> 
 			<td>${pcVO.usagesAllowed}</td>
 			<td>${pcVO.minimumConsumption}</td>
-		<fmt:formatDate value="${sfVO.createdTimestamp}" pattern="yyyy-MM-dd HH:mm:ss" var="formattedTimestamp" />
+		<fmt:formatDate value="${pcVO.createdTimestamp}" pattern="yyyy-MM-dd HH:mm:ss" var="formattedTimestamp" />
 		<td>${formattedTimestamp}</td>
 	</tr>
 </table>

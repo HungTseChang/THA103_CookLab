@@ -81,11 +81,7 @@ th, td {
 
 
 
-			<tr>
-				<td>Àu´f½X½s¸¹:</td>
-				<td><input type="TEXT" name="promocodeno"
-					value="<%=(pcVO == null) ? "" : pcVO.getPromoCodeNo()%>" size="45" /></td>
-			</tr>
+			
 			<tr>
 				<td>Àu´f½X§Ç¸¹:</td>
 				<td><input type="TEXT" name="promocodeserialnumber"
