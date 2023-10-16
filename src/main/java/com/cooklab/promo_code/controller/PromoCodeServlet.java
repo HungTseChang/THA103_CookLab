@@ -1,6 +1,7 @@
 package com.cooklab.promo_code.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,55 +119,52 @@ public class PromoCodeServlet extends HttpServlet {
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no").trim());
 			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
-			TimetTime = Timestamp.valueof(req.getParameter("start_time"));
-			String recipeNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			if (recipeName == null || recipeName.trim().length() == 0) {
-				errorMsgs.add("食譜名稱: 請勿空白");
-			} else if (!recipeName.trim().matches(recipeNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("食譜名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			Timestamp startTime = Timestamp.valueOf(req.getParameter("start_time"));
+			String promoCodeSerialNumberReg = "^[(0-9)]{2,10}$";
+			if (promoCodeSerialNumber == null || promoCodeSerialNumber.trim().length() == 0) {
+				errorMsgs.add("優惠碼編號: 請勿空白");
+			} else if (!promoCodeSerialNumber.trim().matches(promoCodeSerialNumberReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("優惠碼編號: 只能是數字 , 且長度必需在2到10之間");
 			}
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
 			byte[] coverImage = null;
-			String introduction = req.getParameter("introduction");
-			String additionalExplanation = req.getParameter("additional_explanation");
-			String region = req.getParameter("region");
-			Byte recipeStatus = Byte.valueOf(req.getParameter("recipe_status"));
-			Integer reportCount = Integer.valueOf(req.getParameter("report_count"));
-			Integer viewCount = Integer.valueOf(req.getParameter("view_count"));
-			Byte recipeQuantity = Byte.valueOf(req.getParameter("recipe_quantity"));
-			Date lastEditTimestamp = new Date();
-
-			RecipeVO recipeVO = new RecipeVO();
-			recipeVO.setRecipeNo(recipeNo);
-			recipeVO.setMemberId(memberId);
-			recipeVO.setRecipeName(recipeName);
-			recipeVO.setCoverImage(coverImage);
-			recipeVO.setIntroduction(introduction);
-			recipeVO.setAdditionalExplanation(additionalExplanation);
-			recipeVO.setRegion(region);
-			recipeVO.setRecipeStatus(recipeStatus);
-			recipeVO.setReportCount(reportCount);
-			recipeVO.setViewCount(viewCount);
-			recipeVO.setRecipeQuantity(recipeQuantity);
-			recipeVO.setLastEditTimestamp(lastEditTimestamp);
+			Timestamp endTime = Timestamp.valueOf(req.getParameter("end_time"));
+			Integer percentageDiscountAmount = Integer.valueOf(req.getParameter("percentage_discount_amount"));
+			Integer fixedDiscountAmount =Integer.valueOf(req.getParameter("fixed_discount_amount"));
+			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
+			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
+			Timestamp createdTimestamp = Timestamp.valueOf(req.getParameter("created_timestamp"));
+			
+			PromoCodeVO promoCodeVO = new PromoCodeVO();
+			promoCodeVO.setPromoCodeNo(promoCodeNo);
+			promoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
+			promoCodeVO.setStartTime(startTime);
+			promoCodeVO.setEndTime(endTime);
+			promoCodeVO.setPercentageDiscountAmount(percentageDiscountAmount);
+			promoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
+			promoCodeVO.setUsagesAllowed(usagesAllowed);
+			promoCodeVO.setMinimumConsumption(minimumConsumption);
+			promoCodeVO.setCreatedTimestamp(createdTimestamp);
+		
+			
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("recipeVO", recipeVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("promoCodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("recipe/update_recipe_input.jsp");
+						.getRequestDispatcher("promocode/update_promoCode_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			RecipeService recipeSvc = new RecipeService();
-			recipeVO = recipeSvc.updateRecipe(recipeNo, memberId, recipeName, coverImage, introduction,
-					additionalExplanation, region, recipeStatus, reportCount, viewCount, recipeQuantity, lastEditTimestamp);
+			PromoCodeService promocodeSvc = new PromoCodeService();
+			promoCodeVO = promocodeSvc.updatePromoCode(promoCodeNo, promoCodeSerialNumber, startTime, endTime, percentageDiscountAmount,
+					fixedDiscountAmount, usagesAllowed, minimumConsumption, createdTimestamp);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("recipeVO", recipeVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/recipe/listOneRecipe.jsp";
+			req.setAttribute("promocodeVO", promoCodeVO); // 資料庫update成功後,正確的的empVO物件,存入req
+			String url = "/promocode/listOnePromoCode.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -180,24 +178,23 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
-			Integer memberId = Integer.valueOf(req.getParameter("member_id"));
-			String recipeName = req.getParameter("recipe_name");
-			String recipeNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			if (recipeName == null || recipeName.trim().length() == 0) {
-				errorMsgs.add("食譜名稱: 請勿空白");
-			} else if (!recipeName.trim().matches(recipeNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("食譜名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no").trim());
+			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
+			Timestamp startTime = Timestamp.valueOf(req.getParameter("start_time"));
+			String promoCodeSerialNumberReg = "^[(0-9)]{2,10}$";
+			if (promoCodeSerialNumber == null || promoCodeSerialNumber.trim().length() == 0) {
+				errorMsgs.add("優惠碼編號: 請勿空白");
+			} else if (!promoCodeSerialNumber.trim().matches(promoCodeSerialNumberReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("優惠碼編號: 只能是數字 , 且長度必需在2到10之間");
 			}
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
 			byte[] coverImage = null;
-			String introduction = req.getParameter("introduction");
-			String additionalExplanation = req.getParameter("additional_explanation");
-			String region = req.getParameter("region");
-			Byte recipeStatus = Byte.valueOf(req.getParameter("recipe_status"));
-			Integer reportCount = Integer.valueOf(req.getParameter("report_count"));
-			Integer viewCount = Integer.valueOf(req.getParameter("view_count"));
-			Byte recipeQuantity = Byte.valueOf(req.getParameter("recipe_quantity"));
-			Date lastEditTimestamp = new Date();
+			Timestamp endTime = Timestamp.valueOf(req.getParameter("end_time"));
+			Integer percentageDiscountAmount = Integer.valueOf(req.getParameter("percentage_discount_amount"));
+			Integer fixedDiscountAmount =Integer.valueOf(req.getParameter("fixed_discount_amount"));
+			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
+			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
+			Timestamp createdTimestamp = Timestamp.valueOf(req.getParameter("created_timestamp"));
 //			String job = req.getParameter("job").trim();
 //			if (job == null || job.trim().length() == 0) {
 //				errorMsgs.add("職位請勿空白");
@@ -229,34 +226,32 @@ public class PromoCodeServlet extends HttpServlet {
 //
 //			Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
 
-			RecipeVO recipeVO = new RecipeVO();
-			recipeVO.setMemberId(memberId);
-			recipeVO.setRecipeName(recipeName);
-			recipeVO.setCoverImage(coverImage);
-			recipeVO.setIntroduction(introduction);
-			recipeVO.setAdditionalExplanation(additionalExplanation);
-			recipeVO.setRegion(region);
-			recipeVO.setRecipeStatus(recipeStatus);
-			recipeVO.setReportCount(reportCount);
-			recipeVO.setViewCount(viewCount);
-			recipeVO.setRecipeQuantity(recipeQuantity);
-			recipeVO.setLastEditTimestamp(lastEditTimestamp);
+			PromoCodeVO promoCodeVO = new PromoCodeVO();
+			promoCodeVO.setPromoCodeNo(promoCodeNo);
+			promoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
+			promoCodeVO.setStartTime(startTime);
+			promoCodeVO.setEndTime(endTime);
+			promoCodeVO.setPercentageDiscountAmount(percentageDiscountAmount);
+			promoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
+			promoCodeVO.setUsagesAllowed(usagesAllowed);
+			promoCodeVO.setMinimumConsumption(minimumConsumption);
+			promoCodeVO.setCreatedTimestamp(createdTimestamp);
+		
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("recipeVO", recipeVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("recipe/addRecipe.jsp");
+				req.setAttribute("promocodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("promocode/addPromoCode.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			RecipeService reipceSvc = new RecipeService();
-			recipeVO = reipceSvc.addRecipe(memberId, recipeName, coverImage, introduction, additionalExplanation,
-					region, recipeStatus, reportCount, viewCount, recipeQuantity, lastEditTimestamp);
-
+			PromoCodeService promocodeSvc = new PromoCodeService();
+			promoCodeVO = promocodeSvc.addPromoCode(promoCodeNo, promoCodeSerialNumber, startTime, endTime, percentageDiscountAmount,
+					fixedDiscountAmount, usagesAllowed, minimumConsumption, createdTimestamp);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/recipe/listAllRecipe.jsp";
+			String url = "/promocode/listAllPromoCode.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -269,14 +264,14 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ***************************************/
-			Integer recipeNo = Integer.valueOf(req.getParameter("recipe_no"));
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code"));
 
 			/*************************** 2.開始刪除資料 ***************************************/
-			RecipeService recipeSvc = new RecipeService();
-			recipeSvc.deleteRecipe(recipeNo);
+			PromoCodeService promoCodeSvc = new PromoCodeService();
+			promoCodeSvc.deletePromocode(promoCodeNo);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/recipe/listAllRecipe.jsp";
+			String url = "/promocode/listAllPromoCode.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
