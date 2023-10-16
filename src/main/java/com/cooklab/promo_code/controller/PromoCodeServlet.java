@@ -75,7 +75,7 @@ public class PromoCodeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/recipe/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/promocode/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -99,10 +99,10 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			PromoCodeService promoCodeSvc = new PromoCodeService();
-			RecipeVO recipeVO = recipeSvc.getOneRecipe(recipeNo);
+			PromoCodeVO promocodeVO = promoCodeSvc.getOnePromoCode(promoCodeNo);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-			req.setAttribute("recipeVO", recipeVO); // 資料庫取出的empVO物件,存入req
+			req.setAttribute("promocodeVO", promocodeVO); // 資料庫取出的empVO物件,存入req
 			String url = "/recipe/update_recipe_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
@@ -116,9 +116,9 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer recipeNo = Integer.valueOf(req.getParameter("recipe_no").trim());
-			Integer memberId = Integer.valueOf(req.getParameter("member_id"));
-			String recipeName = req.getParameter("recipe_name");
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no").trim());
+			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
+			TimetTime = Timestamp.valueof(req.getParameter("start_time"));
 			String recipeNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (recipeName == null || recipeName.trim().length() == 0) {
 				errorMsgs.add("食譜名稱: 請勿空白");
