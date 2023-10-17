@@ -1,10 +1,13 @@
 package com.cooklab.article.model;
 import com.cooklab.article_category.model.ArticleCategoryVO;
+import com.cooklab.article_collection.model.ArticleCollectionVO;
+import com.cooklab.article_reaction.model.ArticleReactionVO;
 import com.cooklab.members.model.*;
 
 import java.io.Console;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -28,9 +32,23 @@ public class ArticleVO implements java.io.Serializable {
 	@Column(name = "article_no" , insertable = false, updatable = false)  
 	private Integer articleNo;
 	
+	
+	@OneToMany(mappedBy="articleC")
+	private Set<ArticleCollectionVO> articleC;
+	
+	
+	@OneToMany(mappedBy="articleR")
+	private Set<ArticleReactionVO> articleR;
+	
+	
 	@Column(name = "article_title")  
 	private String articleTitle;
-	@Transient
+	
+	public Set<ArticleReactionVO> getArticleR() {
+		return articleR;
+	}
+
+
 	@ManyToOne
 	@JoinColumn(name="member_id" ,referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO members;
@@ -55,10 +73,12 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
 	private Timestamp lastEditTimestamp;
-	@Transient
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" , insertable = false, updatable = false)
+
+	@ManyToOne
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" 
+	, insertable = false, updatable = false)
 	private ArticleCategoryVO articleCategoryNo;
+	
 //	@Transient
 	@Column (name="article_category")
 	private Integer articleCategory;
@@ -160,6 +180,13 @@ public class ArticleVO implements java.io.Serializable {
 	}
 	public void setLastEditTimestamp(Timestamp lastEditTimestamp) {
 		this.lastEditTimestamp = lastEditTimestamp;
+	}
+	
+	public void setArticleR(Set<ArticleReactionVO> articleR) {
+		this.articleR = articleR;
+	}
+	public void setArticleCategoryNo(ArticleCategoryVO articleCategoryNo) {
+		this.articleCategoryNo = articleCategoryNo;
 	}
 
 	public MembersVO getMembersVO() {

@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.cooklab.article.model.ArticleVO;
 import com.cooklab.members.model.MembersVO;
 
 @Entity
@@ -22,17 +23,32 @@ public class ArticleCollectionVO implements java.io.Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "article_collection_no", insertable = false ,updatable = false)
 	private Integer articleCollectionNo;
+	
+	
 	@Column(name = "article_no")
 	private Integer articleNo;
 	
+	public ArticleVO getArticleC() {
+		return articleC;
+	}
+	public void setArticleC(ArticleVO articleC) {
+		this.articleC = articleC;
+	}
+	@ManyToOne
+	@JoinColumn(name="article_no" ,referencedColumnName = "article_no"
+			, insertable = false ,updatable = false)
+	private ArticleVO articleC;
+	
+	
 	
 	@ManyToOne
-	@JoinColumn(name="member_id" ,referencedColumnName = "member_id")
+	@JoinColumn(name="member_id" ,referencedColumnName = "member_id"
+			, insertable = false ,updatable = false)
 	private MembersVO members;
 	
 	
-//	@Column(name = "member_id")
-//	private Integer memberId;
+	@Column(name = "member_id")
+	private Integer memberId;
 	
 	@Column(name = "created_timestamp", insertable = false ,updatable = false)
 	private Timestamp createdTimestamp;
@@ -59,12 +75,12 @@ public class ArticleCollectionVO implements java.io.Serializable{
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-//	public Integer getMemberId() {
-//		return memberId;
-//	}
-//	public void setMemberId(Integer memberId) {
-//		this.memberId = memberId;
-//	}
+	public Integer getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
 	public Timestamp getCreateTimestamp() {
 		return createdTimestamp;
 	}

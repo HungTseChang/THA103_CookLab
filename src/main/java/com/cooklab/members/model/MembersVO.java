@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.article_collection.model.ArticleCollectionVO;
+import com.cooklab.article_reaction.model.ArticleReactionVO;
 import com.cooklab.article_report.model.ArticleReportVO;
 import com.cooklab.article_sub.model.ArticleSubVO;
 import com.cooklab.article_sub_report.model.ArticleSubReportVO;
@@ -54,9 +55,9 @@ public class MembersVO {
 	private Set<RecipeCommentsReportVO> recipeCommentsReportS;
 	
 	//●食譜檢舉 recipe_report
-	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-	@OrderBy("member_id asc")
-	private Set<RecipeReportVO> recipeReportS;
+//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+//	@OrderBy("member_id asc")
+//	private Set<RecipeReportVO> recipeReportS;
 	
 	//●食譜收藏 recipe_collection
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
@@ -104,6 +105,11 @@ public class MembersVO {
 	@OrderBy("member_id asc")
 	private Set<ArticleCollectionVO> articleCollectionS;
 	
+	//●討論區文章反映 article_reaction
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<ArticleReactionVO> articleReactionS;
+	
 	//●討論區文章 article  
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")
@@ -114,6 +120,9 @@ public class MembersVO {
 	@OrderBy("member_id asc")
 	private Set<ArticleSubVO> articleSubS;
 	
+
+
+
 	//●討論區檢舉 article_report
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")
@@ -432,7 +441,15 @@ public class MembersVO {
 	public void setArticleReportS(Set<ArticleReportVO> articleReportS) {
 		this.articleReportS = articleReportS;
 	}
+	
+	public Set<ArticleReactionVO> getArticleReactionS() {
+		return articleReactionS;
+	}
 
+
+	public void setArticleReactionS(Set<ArticleReactionVO> articleReactionS) {
+		this.articleReactionS = articleReactionS;
+	}
 
 //	@Override
 //	public String toString() {
