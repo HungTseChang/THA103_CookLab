@@ -51,6 +51,7 @@ public void delete(Integer permissionNO) {
 
 @Override
 public PermissionVO findByPrimaryKey(Integer permissionNO) {
+	System.out.println("嘗試findByPrimaryKey PermissionVO");
 	return getSession().get(PermissionVO.class, permissionNO);
 }
 

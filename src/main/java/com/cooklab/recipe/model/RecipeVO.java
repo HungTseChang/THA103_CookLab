@@ -34,38 +34,46 @@ public class RecipeVO implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "recipe_no",insertable = false, updatable = false)
 	private Integer recipeNo;		//食譜編號(PK)
-
+	
+	//食譜反應關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeReactionVO> reaction;		//食譜反應關聯
+	private Set<RecipeReactionVO> reaction;		
 
+	//食譜留言關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeCommentsVO> comments;		//食譜留言關聯
+	private Set<RecipeCommentsVO> comments;		
 
+	//食譜檢舉關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeReportVO> report;			//食譜檢舉關聯
+	private Set<RecipeReportVO> report;			
 
+	//食譜收藏關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeCollectionVO> collection;	//食譜收藏關聯
+	private Set<RecipeCollectionVO> collection;	
 
+	//食譜標籤關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeHashtagVO> hashtag;		//食譜標籤關聯
+	private Set<RecipeHashtagVO> hashtag;		
 
+	//食譜使用食材關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeIngredientVO> ingredient;	//食譜使用食材關聯
+	private Set<RecipeIngredientVO> ingredient;	
 
+	//食譜使用廚具關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeKitchenwareVO> kitchenware; 	//食譜使用廚具關聯
+	private Set<RecipeKitchenwareVO> kitchenware; 	
 
+	//食譜步驟關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeStepVO> step;			//食譜步驟關聯
+	private Set<RecipeStepVO> step;			
 
 	@ManyToOne
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
@@ -91,7 +99,7 @@ public class RecipeVO implements java.io.Serializable {
 	@Column(name = "last_edit_timestamp")
 	private Timestamp lastEditTimestamp;	//最後編輯時間
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
-	private Timestamp createdTimestamp;		//修改時間
+	private Timestamp createdTimestamp;		//建立時間
 
 	public RecipeVO() {
 	}

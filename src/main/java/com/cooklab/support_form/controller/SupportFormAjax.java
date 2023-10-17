@@ -1,0 +1,100 @@
+package com.cooklab.support_form.controller;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+@WebServlet("/SupportFormAjax")
+public class SupportFormAjax extends HttpServlet {
+
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
+
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("Ajax發出請求");
+		req.setCharacterEncoding("UTF-8");
+		String action = req.getParameter("action");
+		// 創建Gson物件以便將資料打包為json格式回傳給前端
+		Gson gson = new Gson();
+
+		if ("insert".equals(action)) {
+			// 創建Map物件放入錯誤訊息
+			Map<String, String> errorMsgs = new HashMap<String, String>();
+
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+
+			String realName = req.getParameter("realName");
+			String realNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (realName == null || realName.trim().length() == 0) {
+				errorMsgs.put("errNameBlank", "姓名請勿空白");
+			} else if (!realName.trim().matches(realNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("errNameReg", "姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			}
+
+			Integer supportFormCategoryId = null;
+			String sfcid = req.getParameter("supportFormCategoryId").trim();
+			if (sfcid.equals("default")) {
+				errorMsgs.put("errCategory", "請選擇問題類別");
+			} else {
+				supportFormCategoryId = Integer.valueOf(sfcid);
+			}
+
+			String replyEmail = req.getParameter("replyEmail").trim();
+			if (replyEmail == null || replyEmail.trim().length() == 0) {
+				errorMsgs.put("errEmail", "回覆信箱請勿空白");
+			}
+
+			String formTitle = req.getParameter("formTitle").trim();
+			if (formTitle == null || formTitle.trim().length() == 0) {
+				errorMsgs.put("errTitle", "標題請勿空白");
+			}
+
+			String formContext = req.getParameter("formContext").trim();
+			if (formContext == null || formContext.trim().length() == 0) {
+				errorMsgs.put("errContext", "內容請勿空白");
+			}
+
+			String formSource = req.getParameter("formSource").trim();
+
+			String formSubmitter = req.getParameter("formSubmitter").trim();
+
+//			SupportFormVO sfVO = new SupportFormVO();
+//			sfVO.setRealName(realName);
+//			sfVO.setSupportFormCategoryId(supportFormCategoryId);
+//			sfVO.setReplyEmail(replyEmail);
+//			sfVO.setFormTitle(formTitle);
+//			sfVO.setFormContext(formContext);
+//			sfVO.setFormSource(formSource);
+//			sfVO.setFormSubmitter(formSubmitter);
+
+			if (!errorMsgs.isEmpty()) {
+				System.out.println("回傳錯誤訊息給Ajax");
+				String errjson = gson.toJson(errorMsgs);
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(errjson);
+				System.out.println("回傳錯誤訊息給Ajax成功");
+				return;
+			}
+
+			/*************************** 2.開始新增資料 ***************************************/
+//			SupportFormService sfSvc = new SupportFormService();
+//			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext,
+//					formSource, formSubmitter);
+
+			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+//			String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); 
+//			successView.forward(req, res);
+		}
+	}
+}

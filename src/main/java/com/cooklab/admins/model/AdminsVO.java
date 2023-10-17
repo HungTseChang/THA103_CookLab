@@ -27,11 +27,12 @@ public class AdminsVO implements java.io.Serializable {
 	@Expose
 	@Column(name = "admin_nickname")  
 	private String adminNickname;
-	@Transient
+//	@Transient
+	@Column(name = "permission_no")
 	private Integer permissionNo;
 	@Expose
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no")
+	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no"  , insertable = false, updatable = false)
 	private PermissionVO permissionVO;
 	@Expose
 	@Column(name = "admin_account")  

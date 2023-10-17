@@ -24,9 +24,9 @@ public class ArticleReportVO implements java.io.Serializable{
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	@Column(name = "article_report_no" , insertable = false, updatable = false)  
 		private Integer articleReportNo;
-	@Transient
+	@Column(name = "article_no")  
 		private Integer articleNo;
-	@Transient
+	@Column(name = "reporter_id")  
 		private Integer reporterId;
 		
 	@Column(name = "reporting_reason")  
@@ -41,12 +41,14 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Timestamp createdTimestamp;
 		
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "article_no", referencedColumnName = "article_no")
-	private ArticleVO ArticleVO;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reporter_id", referencedColumnName = "member_id")
+	@JoinColumn(name = "article_no", referencedColumnName = "article_no", insertable = false, updatable = false)
+	private ArticleVO ArticleVO;
+	
+	@Transient
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "reporter_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO MembersVO;
 	
 		public ArticleReportVO(Integer articleNo, Integer reporterId, String reportingReason, Byte reportingStatus) {

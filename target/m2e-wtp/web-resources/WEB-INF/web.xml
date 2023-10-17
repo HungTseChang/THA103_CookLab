@@ -12,9 +12,12 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<!-- 王群中_添加filter_給hibernate調控sessionfactory -->
 
 
+
+<!--      王群中_添加filter_給hibernate調控sessionfactory -->
+
+                         
 
 	<filter>
         <filter-name>myFilter</filter-name>
@@ -26,7 +29,6 @@
         <url-pattern>/PermissionServlet</url-pattern>    
         <url-pattern>/ArticleReportServlet</url-pattern>    
     </filter-mapping>
+<!--      王群中_添加filter -->
 
-	<!-- 王群中_添加filter -->
-	
 </web-app>

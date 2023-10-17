@@ -15,31 +15,7 @@
 <%@ page import="com.cooklab.article_report.model.*" %>
 <%@ page import="java.util.*"%>
 
-<%
 
-ArticleReportService ArticleReportService = new ArticleReportService();
-	List<ArticleReportVO> list = ArticleReportService.getAll();
-	 List<String> listtitle =new ArrayList<String>();
-	 List<String> listnickname = new ArrayList<String>();
-	 List<String> time= new ArrayList<String>();
-	 for(int i = 0 ; i < list.size();i++) {
-		 listtitle.add(list.get(i).getArticleVO().getArticleTitle());
-		 listnickname.add( list.get(i).getMembersVO().getMemberNickname()  );
-		 Timestamp timestamp = list.get(i).getCreatedTimestamp();
-		 Date originalDate = new Date(timestamp.getTime());
-	     SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	     String formattedDateString = '"'+targetFormat.format(originalDate)+'"';
-	     time.add(formattedDateString);
-
-	 }
-	 String json = new Gson().toJson(list);
-	 String title = new Gson().toJson(listtitle);
-	 String nickname =new Gson().toJson(listnickname);
-	 pageContext.setAttribute("json",json);
-	 pageContext.setAttribute("title",title);
-	 pageContext.setAttribute("nickname",nickname);
-	 pageContext.setAttribute("time",time);
-%>
 
 <!DOCTYPE html>
 <html>
