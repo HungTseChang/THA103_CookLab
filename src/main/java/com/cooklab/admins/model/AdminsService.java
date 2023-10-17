@@ -24,6 +24,7 @@ public class AdminsService {
 		
 		AdminsVO.setAdminNickname(adminNickname);
 		AdminsVO.setPermissionVO(a);
+		AdminsVO.setPermissionNo(permissionNo);
 		AdminsVO.setAdminAccount(adminAccount);
 		AdminsVO.setAdminPassword(adminPassword);
 		AdminsVO.setCreatedTimestamp(createTimestamp);
@@ -40,8 +41,9 @@ public class AdminsService {
 		AdminsVO AdminsVO = new AdminsVO();
 		PermissionService PermissionService = new PermissionService();
 		PermissionVO a = PermissionService.getOne(permissionNo);
-		AdminsVO.setAdminNickname(adminNickname);
 		AdminsVO.setPermissionVO(a);
+		AdminsVO.setAdminNickname(adminNickname);
+		AdminsVO.setPermissionNo(permissionNo);;
 		AdminsVO.setAdminAccount(adminAccount);
 		AdminsVO.setAdminPassword(adminPassword);
 		AdminsVO.setAdminNo(adminNo);

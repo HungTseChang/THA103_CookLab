@@ -72,11 +72,11 @@
                             <ul class="submenu " style="display: block;">
                           
                                 <li class="submenu-item active">
-                                    <a href=".\WCC_permission_management.html">管理管理者</a>
+                                    <a href=".\WCC_admin_management.html">管理管理者</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
+                                    <a href=".\WCC_admin_createrule.html">創立權限規則</a>
                                 </li>
                             
                             </ul>
@@ -305,7 +305,7 @@
         <span id="total-pages">of 1</span>
    								 </div>
                             <div class="col-md-8">
-                                <a href="${pageContext.request.contextPath}/dashboard/admin/WCC_permission_createnew.jsp" class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
+                                <a href="${pageContext.request.contextPath}/dashboard/admin/WCC_admin_createnew.jsp" class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
                             </div>
                         </div>
                     </div>
@@ -369,6 +369,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 console.log(myList);
  var number =myList.length;
+ 
+ 
+ 
     function updateTable() {    
     	var startIndex = (currentPage - 1) * rowsPerPage;
     	var endIndex = startIndex + rowsPerPage;

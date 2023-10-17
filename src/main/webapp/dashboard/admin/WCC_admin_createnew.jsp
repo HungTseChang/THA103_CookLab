@@ -63,11 +63,11 @@
                             <ul class="submenu " style="display: block;">
                           
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_management.html">管理管理者</a>
+                                    <a href=".\WCC_admin_management.html">管理管理者</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
+                                    <a href=".\WCC_admin_createrule.html">創立權限規則</a>
                                 </li>
                             
                             </ul>
