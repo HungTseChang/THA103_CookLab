@@ -36,6 +36,9 @@ pageContext.setAttribute("list", list);
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
 	type="image/x-icon">
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+	rel="stylesheet" />
 </head>
 
 <body>
@@ -230,8 +233,8 @@ pageContext.setAttribute("list", list);
 												<FORM METHOD="post"
 													ACTION="<%=request.getContextPath()%>/ProductServlet"
 													style="margin-bottom: 0px;">
-													<input type="submit" value="н╫зя" class="btn btn-info"> <input
-														type="hidden" name="productNo"
+													<input type="submit" value="н╫зя" class="btn btn-info">
+													<input type="hidden" name="productNo"
 														value="${productVO.productNo}"> <input
 														type="hidden" name="action" value="getOne_For_Update">
 												</FORM>

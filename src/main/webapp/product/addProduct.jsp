@@ -58,7 +58,8 @@ th, td {
 			</td>
 			<td>
 				<h4>
-					<a href="<%= request.getContextPath() %>/product/select_page.jsp"><img src="<%= request.getContextPath() %>/product/images/tomcat.png"
+					<a href="<%=request.getContextPath()%>/product/select_page.jsp"><img
+						src="<%=request.getContextPath()%>/product/images/tomcat.png"
 						width="100" height="100" border="0">回首頁</a>
 				</h4>
 			</td>
@@ -141,7 +142,8 @@ th, td {
 			<tr>
 				<td>廚具種類:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="kitchenwareCategoryNo">
-						<c:forEach var="KitchenwareCategoryVO" items="${kitchenwareCategorySvc.all}">
+						<c:forEach var="KitchenwareCategoryVO"
+							items="${kitchenwareCategorySvc.all}">
 							<option value="${KitchenwareCategoryVO.kitchenwareCategoryNo}"
 								${(productVO.kitchenwareCategoryNo==KitchenwareCategoryVO.kitchenwareCategoryNo)? 'selected':'' }>${KitchenwareCategoryVO.categoryName}
 						</c:forEach>
