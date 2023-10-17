@@ -71,6 +71,33 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "created_timestamp", updatable = false, insertable = false)
 	private Timestamp createdTimestamp;
 
+	
+	
+	
+	public IngredientCategoryVO getIngredientCategory() {
+		return ingredientCategory;
+	}
+
+
+
+	public void setIngredientCategory(IngredientCategoryVO ingredientCategory) {
+		this.ingredientCategory = ingredientCategory;
+	}
+
+
+
+	public KitchenwareCategoryVO getKitchenwareCategory() {
+		return KitchenwareCategory;
+	}
+
+
+
+	public void setKitchenwareCategory(KitchenwareCategoryVO kitchenwareCategory) {
+		KitchenwareCategory = kitchenwareCategory;
+	}
+
+
+
 	public ProductVO() {
 	}
 
