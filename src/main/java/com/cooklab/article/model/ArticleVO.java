@@ -30,7 +30,7 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Column(name = "article_title")  
 	private String articleTitle;
-	@Transient
+	
 	@ManyToOne
 	@JoinColumn(name="member_id" ,referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO members;
@@ -55,21 +55,21 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
 	private Timestamp lastEditTimestamp;
-	@Transient
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" , insertable = false, updatable = false)
-	private ArticleCategoryVO articleCategoryNo;
-//	@Transient
+	private ArticleCategoryVO articleCategory;
+	
 	@Column (name="article_category")
-	private Integer articleCategory;
+	private Integer articleCategoryNO;
 
 //	
 	
 	public ArticleCategoryVO getArticleCategoryNo() {
-		return articleCategoryNo;
+		return articleCategory;
 	}
 	public void setArticleCategoryVO(ArticleCategoryVO articleCategoryNo) {
-		this.articleCategoryNo = articleCategoryNo;
+		this.articleCategory = articleCategoryNo;
 	}
 	
 	public MembersVO getMembers() {
@@ -107,10 +107,10 @@ public class ArticleVO implements java.io.Serializable {
 	
 	
 	public Integer getArticleCategory() {
-		return articleCategory;
+		return articleCategoryNO;
 	}
 	public void setArticleCategory(Integer articleCategory) {
-		this.articleCategory = articleCategory;
+		this.articleCategoryNO = articleCategory;
 	}
 	
 	public String getArticleTitle() {

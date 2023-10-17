@@ -5,10 +5,15 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.cooklab.members.model.MembersVO;
 
 @Entity
 @Table(name = "member_order")
@@ -21,10 +26,14 @@ public class MemberOrderVO implements Serializable{
 	
 	@Column(name = "member_id")
 	private Integer memberId ;
-	
+//	=============WCC================
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+	private MembersVO  members;
+//	=============WCC================	
 	@Column(name = "order_status", columnDefinition = "tinyint")
-	private Byte orderStatus;
-	
+	private byte orderStatus;  
+//	==============WCC=============================
 	@Column(name = "total_order_amount")
 	private Integer totalOrderAmount;
 	

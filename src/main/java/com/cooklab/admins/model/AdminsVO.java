@@ -27,13 +27,13 @@ public class AdminsVO implements java.io.Serializable {
 	@Expose
 	@Column(name = "admin_nickname")  
 	private String adminNickname;
-//	@Transient
+
 	@Column(name = "permission_no")
 	private Integer permissionNo;
 	@Expose
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "permission_no", referencedColumnName = "permission_no"  , insertable = false, updatable = false)
-	private PermissionVO permissionVO;
+	private PermissionVO permission;
 	@Expose
 	@Column(name = "admin_account")  
 	private String adminAccount;
@@ -48,10 +48,10 @@ public class AdminsVO implements java.io.Serializable {
 
 
 	public PermissionVO getPermissionVO() {
-		return permissionVO;
+		return permission;
 	}
 	public void setPermissionVO(PermissionVO permissionVO) {
-		this.permissionVO = permissionVO;
+		this.permission = permissionVO;
 	}
 	public Integer getAdminNo() {
 		return adminNo;
