@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import com.cooklab.util.HibernateUtil;
 import com.cooklab.article.model.ArticleHBDAO;
 import com.cooklab.article.model.ArticleVO;
-
+import com.cooklab.article_report.model.*;
 
 public class ArticleReportHBDAO implements ArticleReportDAO {
 private SessionFactory factory;
@@ -57,7 +57,7 @@ public ArticleReportVO findByPrimaryKey(Integer articleReportNo) {
 
 @Override
 public List<ArticleReportVO> getAll() {
-	System.out.println("嘗試getALL AdminsVO");
+	System.out.println("嘗試getALL ArticleReportVO");
 	return getSession().createQuery("from ArticleReportVO", ArticleReportVO.class).list();
 }
 	

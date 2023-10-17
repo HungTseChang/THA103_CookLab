@@ -17,6 +17,7 @@ import com.cooklab.article.model.ArticleJDBCDAOIm;
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.members.model.MembersJDBCDAO;
 import com.cooklab.members.model.MembersVO;
+
 @Entity
 @Table(name="article_report") 
 public class ArticleReportVO implements java.io.Serializable{
@@ -24,8 +25,10 @@ public class ArticleReportVO implements java.io.Serializable{
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
 	@Column(name = "article_report_no" , insertable = false, updatable = false)  
 		private Integer articleReportNo;
+	
 	@Column(name = "article_no")  
 		private Integer articleNo;
+	
 	@Column(name = "reporter_id")  
 		private Integer reporterId;
 		
@@ -41,15 +44,21 @@ public class ArticleReportVO implements java.io.Serializable{
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 		private Timestamp createdTimestamp;
 		
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "article_no", referencedColumnName = "article_no", insertable = false, updatable = false)
-	private ArticleVO ArticleVO;
+	private ArticleVO article;
 	
-	@Transient
+	public void setArticleVO(ArticleVO articleVO) {
+		article = articleVO;
+	}
+	public void setMembersVO(MembersVO membersVO) {
+		members = membersVO;
+	}
+
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reporter_id", referencedColumnName = "member_id", insertable = false, updatable = false)
-	private MembersVO MembersVO;
+	private MembersVO members;
 	
 		public ArticleReportVO(Integer articleNo, Integer reporterId, String reportingReason, Byte reportingStatus) {
 		super();
@@ -124,32 +133,27 @@ public class ArticleReportVO implements java.io.Serializable{
 		public void setReportingAnswer(String reportingAnswer) {
 			this.reportingAnswer = reportingAnswer;
 		}
+
 //		public ArticleVO getArticleVO() {
-//			return ArticleVO;
+//			ArticleJDBCDAOIm  dao = new ArticleJDBCDAOIm();
+//			ArticleVO	 ArticleVO1=    dao.findByPrimaryKey(articleNo);
+//			
+//			return ArticleVO1;
+//			
 //		}
-//		public void setArticleVO(ArticleVO articleVO) {
-//			ArticleVO = articleVO;
-//		}
+		
 //		public MembersVO getMembersVO() {
-//			return MembersVO;
-//		}
-//		public void setMembersVO(MembersVO membersVO) {
-//			MembersVO = membersVO;
+//			MembersJDBCDAO dao = new MembersJDBCDAO();
+//			MembersVO	 MembersVO1= dao.findByPrimaryKey(reporterId);
+//			
+//			return MembersVO1;
+//			
 //		}
 		public ArticleVO getArticleVO() {
-			ArticleJDBCDAOIm  dao = new ArticleJDBCDAOIm();
-			ArticleVO	 ArticleVO1=    dao.findByPrimaryKey(articleNo);
-			
-			return ArticleVO1;
-			
+			return article;
 		}
-		
 		public MembersVO getMembersVO() {
-			MembersJDBCDAO dao = new MembersJDBCDAO();
-			MembersVO	 MembersVO1= dao.findByPrimaryKey(reporterId);
-			
-			return MembersVO1;
-			
+			return members;
 		}
 		
 		

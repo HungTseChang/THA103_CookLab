@@ -32,7 +32,7 @@ public class NotifyCenterVO {
 	@Column(name = "notify_content")
 	private String notifyContent;
 
-	@Column(name = "created_timestamp", insertable = false)
+	@Column(name = "created_timestamp", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
 
 	@ManyToOne

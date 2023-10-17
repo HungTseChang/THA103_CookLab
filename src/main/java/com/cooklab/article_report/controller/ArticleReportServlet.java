@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -98,11 +102,15 @@ public class ArticleReportServlet extends HttpServlet {
 		 List<ArticleReportVO> list1=   ahbdao.getAll();
 		 List<String> listtitle =new ArrayList<String>();
 		 List<String> listnickname = new ArrayList<String>();
+		 List<ArticleReportVOFake> list2 = new ArrayList<ArticleReportVOFake>();
+//		 System.out.println("嘗試")
 		 for(int i = 0 ; i < list1.size();i++) {
+			 ArticleReportVOFake ArticleReportVOFake = new ArticleReportVOFake(list1.get(i));
+			 list2.add(ArticleReportVOFake);
 			 listtitle.add(list1.get(i).getArticleVO().getArticleTitle());
 			 listnickname.add( list1.get(i).getMembersVO().getMemberNickname()  );
 		 }
-		 String json = new Gson().toJson(list1);
+		 String json = new Gson().toJson(list2);
 		 String title = new Gson().toJson(listtitle);
 		 String nickname =new Gson().toJson(listnickname);
 		 System.out.print(title);
@@ -351,7 +359,92 @@ private String delete(HttpServletRequest req, HttpServletResponse res) {
 }
 
 
+private class ArticleReportVOFake{
+	
+		private Integer articleReportNo;
+	
+		private Integer articleNo;
+	
+		private Integer reporterId;
+		
+		private String reportingReason;
+	
+		private Byte reportingStatus ;
+	
+	private String reportingAnswer;
+	
+	
+	
+		private  ArticleReportVOFake(ArticleReportVO ArticleReportVO) {
+		super();
+		this.articleReportNo = ArticleReportVO.getArticleReportNo();
+		this.articleNo = ArticleReportVO.getArticleVO().getArticleNo();
+		this.reporterId = ArticleReportVO.getMembersVO().getMemberId();
+		this.reportingReason = ArticleReportVO.getReportingReason();
+		this.reportingStatus = ArticleReportVO.getReportingStatus();
+		this.reportingAnswer = ArticleReportVO.getReportingAnswer();
+		this.createdTimestamp = ArticleReportVO.getCreatedTimestamp();
+	}
 
+		public Integer getArticleReportNo() {
+		return articleReportNo;
+	}
+
+	public void setArticleReportNo(Integer articleReportNo) {
+		this.articleReportNo = articleReportNo;
+	}
+
+	public Integer getArticleNo() {
+		return articleNo;
+	}
+
+	public void setArticleNo(Integer articleNo) {
+		this.articleNo = articleNo;
+	}
+
+	public Integer getReporterId() {
+		return reporterId;
+	}
+
+	public void setReporterId(Integer reporterId) {
+		this.reporterId = reporterId;
+	}
+
+	public String getReportingReason() {
+		return reportingReason;
+	}
+
+	public void setReportingReason(String reportingReason) {
+		this.reportingReason = reportingReason;
+	}
+
+	public Byte getReportingStatus() {
+		return reportingStatus;
+	}
+
+	public void setReportingStatus(Byte reportingStatus) {
+		this.reportingStatus = reportingStatus;
+	}
+
+	public String getReportingAnswer() {
+		return reportingAnswer;
+	}
+
+	public void setReportingAnswer(String reportingAnswer) {
+		this.reportingAnswer = reportingAnswer;
+	}
+
+	public Timestamp getCreatedTimestamp() {
+		return createdTimestamp;
+	}
+
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
+	}
+
+		private Timestamp createdTimestamp;
+	
+}
 
 
 

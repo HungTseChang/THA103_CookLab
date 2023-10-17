@@ -32,7 +32,7 @@ public class ArticleCategoryVO {
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
 	
-	@OneToMany(mappedBy = "articleCategoryVO")
+	@OneToMany(mappedBy = "articleCategory")
 	private Set<ArticleVO> Articles;
 
 	
