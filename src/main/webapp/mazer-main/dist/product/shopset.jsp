@@ -224,7 +224,8 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 											<div class="form-body">
 												<div class="row">
 													<div class="col-12">
-														<input type="file" id="p_file" class="form-control">
+														<input type="file" id="p_file" class="form-control"
+															name="productPicture">
 														<div id="preview">
 															<span class="text">預覽圖</span>
 														</div>
@@ -233,7 +234,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 														<div class="form-group">
 															<label for="productname-vertical">商品名稱</label> <input
 																type="text" id="productname-vertical"
-																class="form-control" name="productname"
+																class="form-control" name="productName"
 																value="${productVO.productName}" placeholder="商品名稱">
 														</div>
 													</div>
@@ -241,7 +242,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 														<div class="form-group">
 															<label for="productprice-vertical">商品售價</label> <input
 																type="number" id="productprice-vertical"
-																class="form-control" name="productprice"
+																class="form-control" name="productPrice"
 																value="${productVO.productPrice}" placeholder="商品售價">
 														</div>
 													</div>
@@ -249,7 +250,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 														<div class="form-group">
 															<label for="productprice-vertical">商品數量</label> <input
 																type="number" id="productprice-vertical"
-																class="form-control" name="productprice"
+																class="form-control" name="saleQty"
 																value="${productVO.saleQty}" placeholder="商品數量">
 														</div>
 													</div>
@@ -257,7 +258,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 														<div class="form-group">
 															<label for="productprice-vertical">商品庫存</label> <input
 																type="number" id="productprice-vertical"
-																class="form-control" name="productprice"
+																class="form-control" name="storageQty"
 																value="${productVO.storageQty}" placeholder="商品庫存">
 														</div>
 													</div>
@@ -265,18 +266,19 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 														<div class="form-group">
 															<label for="uptime-vertical">上架時間</label> <input
 																type="datetime-local" step="1" id="uptime-vertical"
-																value="${productVO.shelfTime}" class="form-control"
-																name="uptime">
+																value="${productVO.shelfTime.toLocalDateTime().format(DateTimeFormatter.ofPattern('yyyy-MM-dd\'T\'HH:mm:ss'))}" class="form-control"
+																name="shelfTime">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
 															<label for="downtime-vertical">下架時間</label> <input
 																type="datetime-local" step="1" id="downtime-vertical"
-																value="${productVO.offsaleTime}" class="form-control"
-																name="downtime">
+																value="${productVO.offsaleTime.toLocalDateTime().format(DateTimeFormatter.ofPattern('yyyy-MM-dd\'T\'HH:mm:ss'))}"
+																class="form-control" name="offsaleTime">
 														</div>
 													</div>
+
 													<div class="row">
 														<div class="col-md-6 mb-4">
 															<h6>食材標籤</h6>
@@ -324,8 +326,8 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 																商品簡介</div>
 															<div class="card-body" style="padding-left: 0;">
 																<div class="form-floating">
-																	<textarea class="form-control" id="floatingTextarea" name="productDec"
-																		value="${productVO.productDec}"></textarea>
+																	<textarea class="form-control" id="floatingTextarea"
+																		name="productDec" value="${productVO.productDec}"></textarea>
 																	<label for="floatingTextarea">簡介</label>
 																</div>
 															</div>
@@ -341,8 +343,8 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 																	<div style="width: auto; height: auto;">
 																		<div id="editor" contenteditable="false"></div>
 																		<!--如果改成 true就不能複製貼上WHY?  -->
-																		<textarea id="hiddenContent" name="productIntroduction"
-																			style="display: none;"
+																		<textarea id="hiddenContent"
+																			name="productIntroduction" style="display: none;"
 																			value="${productVO.productIntroduction}"></textarea>
 																	</div>
 																</div>

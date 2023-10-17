@@ -2,6 +2,10 @@ package com.cooklab.product.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -297,6 +301,7 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			String productIntroduction = req.getParameter("productIntroduction").trim();
+			System.out.println(productIntroduction);
 			if (productIntroduction == null || productIntroduction.trim().length() == 0) {
 				errorMsgs.add("商品簡介請勿空白");
 			}
@@ -318,20 +323,39 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			java.sql.Timestamp offsaleTime = null;
-			try {
-				offsaleTime = java.sql.Timestamp.valueOf(req.getParameter("offsaleTime").trim());
-			} catch (IllegalArgumentException e) {
-				offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
-				errorMsgs.add("請輸入日期!");
+			String offsaleTimeStr = req.getParameter("offsaleTime");
+			if (offsaleTimeStr != null) {
+			    try {
+			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+			        LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
+			        System.out.println(localDateTime);
+			        offsaleTime = Timestamp.valueOf(localDateTime);
+			    } catch (DateTimeParseException e) {
+			        e.printStackTrace();
+			        offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
+			        errorMsgs.add("請輸入有效日期時間!");
+			    }
+			} else {
+			    // 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
 
+
 			java.sql.Timestamp shelfTime = null;
-			try {
-				shelfTime = java.sql.Timestamp.valueOf(req.getParameter("shelfTime").trim());
-			} catch (IllegalArgumentException e) {
-				shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
-				errorMsgs.add("請輸入日期!");
+			String shelfTimeStr = req.getParameter("shelfTime");
+			if (shelfTimeStr != null) {
+			    try {
+			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+			        LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
+			        shelfTime = Timestamp.valueOf(localDateTime);
+			    } catch (DateTimeParseException e) {
+			        e.printStackTrace();
+			        shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
+			        errorMsgs.add("請輸入有效日期時間!");
+			    }
+			} else {
+			    // 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
+
 
 			Integer storageQty = null;
 			try {
