@@ -63,17 +63,17 @@ public class MembersVO {
 //	@OrderBy("member_id asc")
 //	private Set<RecipeCollectionVO> recipeCollectionS;
 //	
-//	//●食譜 recipe
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeVO> recipeS;
+	//●食譜 recipe
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeVO> recipeS;
 //	
-//	//●購物車明細 shopping_cart
+	//●購物車明細 shopping_cart
 //	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 //	@OrderBy("member_id asc")
 //	private Set<ShoppingCartVO> shoppingCartS;
 //	
-//	//●會員訂單 member_order
+	//●會員訂單 member_order
 //	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 //	@OrderBy("member_id asc")
 //	private Set<MemberOrderVO> memberOrderS;

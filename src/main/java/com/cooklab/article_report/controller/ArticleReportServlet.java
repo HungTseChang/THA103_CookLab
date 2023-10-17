@@ -1,4 +1,4 @@
-package com.cooklab.article_report.model;
+package com.cooklab.article_report.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -15,6 +15,7 @@ import java.util.Date;
 
 import com.cooklab.members.model.*;
 import com.cooklab.article.model.*;
+import com.cooklab.article_report.model.*;
 import com.google.gson.Gson;
 
 import javax.servlet.http.*;
