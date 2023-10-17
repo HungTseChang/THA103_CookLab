@@ -177,15 +177,19 @@ pageContext.setAttribute("list2", list2);
 
 	<div class="container" id="article_cat_btn">
     	  <div class="row">
-        	<div class="col-md-9" id="articel_cat">
+    	  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+        	<div class="d-flex" id="articel_cat" >
 				<c:forEach var="artVO2" items="${list2}" >
 					<c:if test="${artVO2.categoryStatus == 0 }" >
-          			<button type="button" class="btn custom-btn btn HO-btn-org">
-           				${artVO2.articleCategory} 
+					<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+					<button type="button" class="btn custom-btn btn HO-btn-org" onclick="submitForm()"
+          			style="display:flex;">
+          			${artVO2.articleCategory} 
           			</button>
- 				</c:if>
+ 					</c:if>
  				</c:forEach>
 			</div>
+			</FORM>
 		</div>
 	</div>
 
@@ -194,7 +198,6 @@ pageContext.setAttribute("list2", list2);
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-9" style="height: 600px;">
-
 					<div>
 						<table>
 							<tr>
@@ -206,25 +209,28 @@ pageContext.setAttribute("list2", list2);
 								<td id="article_date">發表時間</td>
 								<td id="article_count">點擊次數</td>
 							</tr>
-							<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-								<tr class="title_colum">
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
-									<td id="title_colum_td">
-										<a href="" id="cat_view">[${artVO.articleCategoryVO.articleCategory}]</a>
+							<c:forEach var="artVO" items="${list}">
+<%-- 							<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
+								<div style="display:none;"><c:if test="${artVO.articleStatus < 1 }"></div>
+<%-- 								<c:if test="${artVO.articleCategory ==  }"> --%>
+									<tr class="title_colum">
+									<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+										<td id="title_colum_td">
+											<a href="" id="cat_view">[${artVO.articleCategoryVO.articleCategory}]</a>
 								
-										<input type="submit" id="title_view" value="${artVO.articleTitle}"> 
-										<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-										<input type="hidden" name="action" value="getOne_For_Display">
-									</td>
+											<input type="submit" id="title_view" value="${artVO.articleTitle}"> 
+											<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+											<input type="hidden" name="action" value="getOne_For_Display">
+										</td>
 									
-									
-									<td id="article_creator">${artVO.members.memberNickname}</td>
-									<td id="article_date"><fmt:formatDate
+										<td id="article_creator">${artVO.members.memberNickname}</td>
+										<td id="article_date"><fmt:formatDate
 											value="${artVO.lastEditTimestamp}"
 											pattern="yyyy-MM-dd HH:mm:ss" /></td>
-
-									<td id="article_count">${artVO.viewCount}</td>
-								</tr>
+										<td id="article_count">${artVO.viewCount}</td>
+									</tr>
+									</c:if>
+<%-- 								</c:if> --%>
 							</c:forEach>
 							</FORM>
 						</table>

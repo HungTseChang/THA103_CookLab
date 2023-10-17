@@ -63,6 +63,8 @@ public class ArticleVO implements java.io.Serializable {
 	private ArticleCategoryVO articleCategoryVO;
 	
 	//@Transient 此註記可以無視此欄位
+	//使用Hibernate下可以忽略這一攔
+	//直接在Servlet set上面的值就可以完成新增跟修改
 	@Column(name = "article_category") 
 	private Integer articleCategory;
 	
@@ -163,12 +165,12 @@ public class ArticleVO implements java.io.Serializable {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
 
-//	public MembersVO getMembersVO() {
-//		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
-//		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
-//		return MembersVO1;
-//		
-//	}
+	public MembersVO getMembersVO() {
+		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
+		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
+		return MembersVO1;
+		
+	}
 
 	
 }

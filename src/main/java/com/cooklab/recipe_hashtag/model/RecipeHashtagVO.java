@@ -24,7 +24,7 @@ public class RecipeHashtagVO implements java.io.Serializable{
 	private Integer repiceHashTagNo;		//食譜使用標籤(PK)
 	@ManyToOne
 	@JoinColumn(name = "hashTag_no", referencedColumnName = "hashTag_no")
-	private HashtagVO hashTag;
+	private HashtagVO hashtag;
 	@ManyToOne
 	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no")
 	private RecipeVO recipe;
@@ -39,12 +39,12 @@ public class RecipeHashtagVO implements java.io.Serializable{
 		this.repiceHashTagNo = repiceHashTagNo;
 	}
 
-	public HashtagVO getHashTag() {
-		return hashTag;
+	public HashtagVO getHashtag() {
+		return hashtag;
 	}
 	
-	public void setHashTag(HashtagVO hashTag) {
-		this.hashTag = hashTag;
+	public void setHashtag(HashtagVO hashtag) {
+		this.hashtag = hashtag;
 	}
 	
 	public RecipeVO getRecipe() {
@@ -65,7 +65,7 @@ public class RecipeHashtagVO implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "RecipeHashtagVO [repiceHashTagNo=" + repiceHashTagNo + ", hashTag=" + hashTag + ", recipe=" + recipe
+		return "RecipeHashtagVO [repiceHashTagNo=" + repiceHashTagNo + ", hashtag=" + hashtag + ", recipe=" + recipe
 				+ ", createdTimestamp=" + createdTimestamp + "]";
 	}
 
