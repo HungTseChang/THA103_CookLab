@@ -52,7 +52,7 @@
   
   
   <li>
-    <FORM METHOD="post" ACTION="/THA103_CookLab/PromoCodeServlet" >
+    <FORM METHOD="post" ACTION="/com.tha103.cooklab/PromoCodeServlet" >
         <b>輸入優惠碼編號 (如1):</b>
         <input type="text" name="promocodeno">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -62,27 +62,12 @@
 
   <jsp:useBean id="pcSvc" scope="page" class="com.cooklab.promo_code.model.PromoCodeService" />
    
-  <li>
-     <FORM METHOD="post" ACTION="/THA103_CookLab/PromoCodeServlet" >
-       <b>選擇優惠碼:</b>
-       <select size="1" name="promocodeno">
-         <c:forEach var="pcVO" items="${pcSvc.all}" > 
-          <option value="${pcVO.promocodeNo}">${pcVO.promocodeNo}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
-    </FORM>
-  </li>
+ 
   
 </ul>
 
 
-<h3>表單管理</h3>
 
-<ul>
-  <li><a href='addSupportForm.jsp'>新增</a> 新客服表單</li>
-</ul>
 
 </body>
 </html>

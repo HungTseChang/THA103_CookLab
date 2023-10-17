@@ -56,7 +56,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>所有表單資料 - listAllPromoCode.jsp</h3>
-		 <h4><a href="/THA103_CookLab/promocode/select_page.jsp">回首頁</a></h4>
+		 <h4><a href="/com.tha103.cooklab/promocode/select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -74,7 +74,7 @@
 		
 	</tr>
 	<%@ include file="page1.file" %> 
-	<c:forEach var="sfVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="pcVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
 			<td>${pcVO.promoCodeNo}</td>
@@ -97,7 +97,7 @@
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/PromoCodeServlet" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="promocodeno"  value="${pcVO.promoCodemNo}">
+			     <input type="hidden" name="promocodeno"  value="${pcVO.promoCodeNo}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
