@@ -175,23 +175,23 @@ pageContext.setAttribute("list2", list2);
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
 
-	<div class="container" id="article_cat_btn">
-    	  <div class="row">
-    	  	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
-        	<div class="d-flex" id="articel_cat" >
-				<c:forEach var="artVO2" items="${list2}" >
+    <div class="container" id="article_cat_btn">
+      <div class="row">
+        <div class="col-md-9" id="articel_cat">
+        		<c:forEach var="artVO2" items="${list2}" >
 					<c:if test="${artVO2.categoryStatus == 0 }" >
-					<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-					<button type="button" class="btn custom-btn btn HO-btn-org" onclick="submitForm()"
-          			style="display:flex;">
-          			${artVO2.articleCategory} 
-          			</button>
- 					</c:if>
+					<button type="button" class="btn custom-btn "
+					 value="${artVO2.articleCategoryNo}">
+					${artVO2.articleCategory} </button>
+ 				</c:if>
  				</c:forEach>
-			</div>
-			</FORM>
-		</div>
-	</div>
+      		</div>
+      	<span></span>
+   	 	</div>
+    </div>
+	
+	
+
 
 	<section id="article_conten">
 		<%@ include file="page1.file"%>
@@ -211,10 +211,10 @@ pageContext.setAttribute("list2", list2);
 							</tr>
 							<c:forEach var="artVO" items="${list}">
 <%-- 							<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
-								<div style="display:none;"><c:if test="${artVO.articleStatus < 1 }"></div>
+							<div style="display:none;" id="inJSTL"><c:if test="${artVO.articleStatus < 1 }"></div>
 <%-- 								<c:if test="${artVO.articleCategory ==  }"> --%>
 									<tr class="title_colum">
-									<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
 										<td id="title_colum_td">
 											<a href="" id="cat_view">[${artVO.articleCategoryVO.articleCategory}]</a>
 								
@@ -226,10 +226,13 @@ pageContext.setAttribute("list2", list2);
 										<td id="article_creator">${artVO.members.memberNickname}</td>
 										<td id="article_date"><fmt:formatDate
 											value="${artVO.lastEditTimestamp}"
-											pattern="yyyy-MM-dd HH:mm:ss" /></td>
-										<td id="article_count">${artVO.viewCount}</td>
+											pattern="yyyy-MM-dd HH:mm:ss" />
+										</td>
+										<td id="article_count">
+										${artVO.viewCount}
+										</td>
 									</tr>
-									</c:if>
+									<div style="display:none;" id="inJSTL"></c:if></div>
 <%-- 								</c:if> --%>
 							</c:forEach>
 							</FORM>

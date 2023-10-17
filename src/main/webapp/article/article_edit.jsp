@@ -224,7 +224,7 @@ pageContext.setAttribute("list", list);
 						<div style="width: auto; height: 500px;">
 							<div id="editor" contenteditable="false"></div>
 													<!--如果改成 true就不能複製貼上WHY?  -->
-							<h2 class="firstview">快來寫下你的文章</h2>
+						
 							<textarea id="hiddenContent" name="articleContent" style="display: none;"></textarea>
 
 

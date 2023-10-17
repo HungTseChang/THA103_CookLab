@@ -9,11 +9,20 @@ $(function() {
 });
 
 //====  article_main   =========
+$(document).ready(function() {
+    $(".btn.custom-btn[value='1']").addClass("HO-btn-org");
+    
+});
+
 $(function() {
-	$(".btn.custom-btn").on("click", function() {
+    $(".btn.custom-btn").on("click", function(){
 		$(".btn.custom-btn").removeClass(".btn HO-btn-org");
-		$(this).toggleClass(".btn HO-btn-org");
-	});
+		$(this).toggleClass(".btn HO-btn-org");   
+
+		var catNum = $(this).val();
+        alert(catNum);
+    });
+		
 
 	$(".page-link").on("click", function() {
 		$(".page-link").removeClass(".btn HO-btn-org");
@@ -26,7 +35,6 @@ $(function() {
 		window.location.href = targetUrl; // 使用 JavaScript 跳转到目标 URL
 	});
 });
-
 
 //===============article_content==========================================
 

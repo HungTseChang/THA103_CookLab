@@ -190,7 +190,8 @@ td button.wcc {
 													name="articleCategoryNo" id="permission${artVO.articleCategoryNo}" />
 													<input type="hidden" name="action" value="update"></input> 
 													 
-													<label  class="form-check-label" for="permission${artVO.articleCategoryNo}"> 
+													<label  
+													class="form-check-label" for="permission${artVO.articleCategoryNo}"> 
 														${artVO.articleCategory} 
 														</label>
 													</td>
@@ -212,10 +213,14 @@ td button.wcc {
 									ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet">
 
 									<label for="newruletitle">新文章分類</label> 
+									<!--  <input type="text"
+										id="newruletitle" style="position: relative"
+										name="articleCategory" placeholder="輸入分類"
+										value="<%=(artVO2 == null) ? "" : artVO2.getArticleCategory()%>">-->
 									<input type="text"
 										id="newruletitle" style="position: relative"
 										name="articleCategory" placeholder="輸入分類"
-										value="<%=(artVO2 == null) ? "" : artVO2.getArticleCategory()%>">
+										value="${(artVO2 == null) ? '' : artVO2.getArticleCategory()}">
 									<input type="hidden" name="action" value="insert">
 									<button class="rounded-pill btn btn-primary"
 										style="position: relative" id="add_article_cate" type="submit">新增文章分類</button>
