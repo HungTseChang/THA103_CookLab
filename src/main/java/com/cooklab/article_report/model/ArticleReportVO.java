@@ -1,4 +1,4 @@
-package com.cooklab.article_report.model.model;
+package com.cooklab.article_report.model;
 
 import java.sql.Timestamp;
 
@@ -46,6 +46,7 @@ public class ArticleReportVO implements java.io.Serializable{
 	@JoinColumn(name = "article_no", referencedColumnName = "article_no", insertable = false, updatable = false)
 	private ArticleVO ArticleVO;
 	
+	@Transient
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reporter_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO MembersVO;

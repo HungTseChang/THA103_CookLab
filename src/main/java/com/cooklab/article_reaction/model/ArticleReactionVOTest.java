@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import com.cooklab.article_report.model.model.ArticleReportVO;
+import com.cooklab.article_report.model.ArticleReportVO;
 import com.cooklab.util.HibernateUtil;
 
 public class ArticleReactionVOTest {

@@ -15,7 +15,9 @@ import java.util.Date;
 
 import com.cooklab.members.model.*;
 import com.cooklab.article.model.*;
-import com.cooklab.article_report.model.*;
+import com.cooklab.article_report.model.ArticleReportJDBCDAOIm;
+import com.cooklab.article_report.model.ArticleReportService;
+import com.cooklab.article_report.model.ArticleReportVO;
 import com.google.gson.Gson;
 
 import javax.servlet.http.*;
@@ -135,6 +137,11 @@ private String confirmArticleReport(HttpServletRequest req, HttpServletResponse 
 	return  "/dashboard/article_report/WCC_article_report.jsp";
 }
 
+
+
+
+
+//===============================以下為大吳作業========================================
 private String getOneArticleReport(HttpServletRequest req, HttpServletResponse res) {
 	ArticleReportService aehbdao = new ArticleReportService();
 	Integer articleReportNo = null;

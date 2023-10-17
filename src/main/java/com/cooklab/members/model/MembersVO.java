@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.article_collection.model.ArticleCollectionVO;
-import com.cooklab.article_report.model.model.ArticleReportVO;
+import com.cooklab.article_report.model.ArticleReportVO;
 import com.cooklab.article_sub.model.ArticleSubVO;
 import com.cooklab.article_sub_report.model.ArticleSubReportVO;
 import com.cooklab.member_order.model.MemberOrderVO;

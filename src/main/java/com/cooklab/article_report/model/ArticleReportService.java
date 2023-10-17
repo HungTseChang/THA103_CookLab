@@ -1,14 +1,16 @@
-package com.cooklab.article_report.model.model;
+package com.cooklab.article_report.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import com.cooklab.util.HibernateUtil;
 
 public class ArticleReportService {
 
 	private ArticleReportDAO dao;
 	
 	public ArticleReportService() {
-		dao = new ArticleReportJDBCDAOIm();
+		dao = new ArticleReportHBDAO(HibernateUtil.getSessionFactory());
 	}
 
 	public ArticleReportVO add(Integer articleNo,Integer reporterId, String reportingReason, Byte reportingStatus,
