@@ -2,7 +2,7 @@ package com.cooklab.support_form.model;
 
 import java.util.List;
 
-public class SupportFormTest {
+public class SupportFormJDBCTest {
 	public static void main(String[] args) {
 		SupportFormJDBCDAOIm dao = new SupportFormJDBCDAOIm();
 

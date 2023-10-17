@@ -6,7 +6,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-SupportFormService sfSvc = new SupportFormService();
+SupportFormJDBCService sfSvc = new SupportFormJDBCService();
     List<SupportFormVO> list = sfSvc.getAll();
     pageContext.setAttribute("list",list);
 %>

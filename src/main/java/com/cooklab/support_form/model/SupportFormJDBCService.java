@@ -2,11 +2,11 @@ package com.cooklab.support_form.model;
 
 import java.util.List;
 
-public class SupportFormService {
+public class SupportFormJDBCService implements SupportFormServie {
 
 	private SupportFormDAO dao;
 
-	public SupportFormService() {
+	public SupportFormJDBCService() {
 		dao = new SupportFormJDBCDAOIm();
 	}
 
@@ -51,8 +51,8 @@ public class SupportFormService {
 		dao.delete(formNo);
 	}
 
-	public SupportFormVO getOneSupportForm(Integer supportFormno) {
-		return dao.findByPrimaryKey(supportFormno);
+	public SupportFormVO getOneSupportForm(Integer formNo) {
+		return dao.findByPrimaryKey(formNo);
 	}
 
 	public List<SupportFormVO> getAll() {

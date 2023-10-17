@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cooklab.support_form.model.SupportFormService;
+import com.cooklab.support_form.model.SupportFormJDBCService;
 import com.cooklab.support_form.model.SupportFormVO;
 
-@WebServlet("/SupportFormServlet")
-public class SupportFormV1 extends HttpServlet {
+@WebServlet("/SupportFormJDBCServlet")
+public class SupportFormJDBCServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -56,7 +56,7 @@ public class SupportFormV1 extends HttpServlet {
 			}
 
 			/*************************** 2.開始查詢資料 *****************************************/
-			SupportFormService sfSvc = new SupportFormService();
+			SupportFormJDBCService sfSvc = new SupportFormJDBCService();
 			SupportFormVO sfVO = sfSvc.getOneSupportForm(formNo);
 			if (sfVO == null) {
 				errorMsgs.add("查無資料");
@@ -86,7 +86,7 @@ public class SupportFormV1 extends HttpServlet {
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 
 			/*************************** 2.開始查詢資料 ****************************************/
-			SupportFormService sfSvc = new SupportFormService();
+			SupportFormJDBCService sfSvc = new SupportFormJDBCService();
 			SupportFormVO sfVO = sfSvc.getOneSupportForm(formNo);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
@@ -179,7 +179,7 @@ public class SupportFormV1 extends HttpServlet {
 			}
 
 			/*************************** 2.開始修改資料 *****************************************/
-			SupportFormService sfSvc = new SupportFormService();
+			SupportFormJDBCService sfSvc = new SupportFormJDBCService();
 			sfVO = sfSvc.updateSupportForm(formNo, realName, supportFormCategoryId, replyEmail, formTitle, formContext,
 					formStatus, formSource, formSubmitter, formResponder);
 
@@ -266,7 +266,7 @@ public class SupportFormV1 extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			SupportFormService sfSvc = new SupportFormService();
+			SupportFormJDBCService sfSvc = new SupportFormJDBCService();
 			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext,
 					formSource, formSubmitter);
 
@@ -285,7 +285,7 @@ public class SupportFormV1 extends HttpServlet {
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 
 			/*************************** 2.開始刪除資料 ***************************************/
-			SupportFormService sfSvc = new SupportFormService();
+			SupportFormJDBCService sfSvc = new SupportFormJDBCService();
 			sfSvc.deleteSupportForm(formNo);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/

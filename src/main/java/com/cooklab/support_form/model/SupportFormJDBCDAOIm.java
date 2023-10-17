@@ -20,7 +20,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 	private static final String UPDATE = "UPDATE support_form set real_name=?, support_form_category_id=?, reply_email=?, form_context=?, form_title=?, form_status=?, form_source=?,form_submitter=?, form_responder=? where form_no = ?;";
 
 	@Override
-	public void insert(SupportFormVO supportFormVO) {
+	public Integer insert(SupportFormVO supportFormVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -64,11 +64,12 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 
 	@Override
-	public void update(SupportFormVO supportFormVO) {
+	public Integer update(SupportFormVO supportFormVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -114,11 +115,12 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 
 	@Override
-	public void delete(Integer formNo) {
+	public Integer delete(Integer formNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -156,6 +158,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 

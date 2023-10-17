@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cooklab.support_form.model.SupportFormHService;
+import com.cooklab.support_form.model.SupportFormVO;
 import com.google.gson.Gson;
 
 @WebServlet("/SupportFormAjax")
@@ -20,7 +22,7 @@ public class SupportFormAjax extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		System.out.println("Ajax發出請求");
+		System.out.println("收到Ajax發出請求");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		// 創建Gson物件以便將資料打包為json格式回傳給前端
@@ -67,15 +69,16 @@ public class SupportFormAjax extends HttpServlet {
 
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 
-//			SupportFormVO sfVO = new SupportFormVO();
-//			sfVO.setRealName(realName);
-//			sfVO.setSupportFormCategoryId(supportFormCategoryId);
-//			sfVO.setReplyEmail(replyEmail);
-//			sfVO.setFormTitle(formTitle);
-//			sfVO.setFormContext(formContext);
-//			sfVO.setFormSource(formSource);
-//			sfVO.setFormSubmitter(formSubmitter);
+			SupportFormVO sfVO = new SupportFormVO();
+			sfVO.setRealName(realName);
+			sfVO.setSupportFormCategoryId(supportFormCategoryId);
+			sfVO.setReplyEmail(replyEmail);
+			sfVO.setFormTitle(formTitle);
+			sfVO.setFormContext(formContext);
+			sfVO.setFormSource(formSource);
+			sfVO.setFormSubmitter(formSubmitter);
 
+			// 錯誤驗證的訊息收集及回傳
 			if (!errorMsgs.isEmpty()) {
 				System.out.println("回傳錯誤訊息給Ajax");
 				String errjson = gson.toJson(errorMsgs);
@@ -87,14 +90,29 @@ public class SupportFormAjax extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-//			SupportFormService sfSvc = new SupportFormService();
-//			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext,
-//					formSource, formSubmitter);
+			SupportFormHService sfSvc = new SupportFormHService();
+			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formSource,
+					formSubmitter);
 
-			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-//			String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";
-//			RequestDispatcher successView = req.getRequestDispatcher(url); 
-//			successView.forward(req, res);
+			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
+			if (sfVO != null) {
+				System.out.println("回傳成功訊息給Ajax");
+				String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";
+
+				// 創建Map物件放入成功訊息
+				Map<String, String> successMsg = new HashMap<String, String>();
+				successMsg.put("success", "data transfer success");
+				successMsg.put("url", url);
+
+				String successjson = gson.toJson(successMsg);
+
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(successjson);
+				System.out.println("回傳成功訊息給Ajax完成");
+			} else {
+				//預計放入空頁面
+			}
 		}
 	}
 }
