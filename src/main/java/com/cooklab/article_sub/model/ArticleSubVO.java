@@ -1,6 +1,7 @@
 package com.cooklab.article_sub.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.cooklab.article.model.ArticleVO;
+import com.cooklab.article_reaction.model.ArticleReactionVO;
+import com.cooklab.article_sub_report.model.ArticleSubReportVO;
 import com.cooklab.members.model.MembersVO;
 
 @Entity
@@ -38,6 +42,9 @@ public class ArticleSubVO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="article_sub_no")
 	private Integer articleSubNo;
+	
+	@OneToMany(mappedBy="articleSub")
+	private Set<ArticleSubReportVO> articleSubReport;
 	
 	@Column (name="article_no")
 	private Integer articleNo;

@@ -1,4 +1,4 @@
-package com.cooklab.memeber_collection.model;
+package com.cooklab.member_collection.model;
 
 import java.util.List;
 

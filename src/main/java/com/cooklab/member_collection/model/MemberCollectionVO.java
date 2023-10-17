@@ -1,4 +1,4 @@
-package com.cooklab.memeber_collection.model;
+package com.cooklab.member_collection.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -32,8 +32,8 @@ public class MemberCollectionVO implements Serializable {
 	
 	@Column(name = "member_id_collectioned")  
 	private Integer memberIdCollectioned;
-	@Column(name = "member_id")  
-	private Integer memberId;
+//	@Column(name = "member_id")  
+//	private Integer memberId;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
@@ -57,13 +57,13 @@ public class MemberCollectionVO implements Serializable {
 		this.memberIdCollectioned = memberIdCollectioned;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
+//	public Integer getMemberId() {
+//		return memberId;
+//	}
+//
+//	public void setMemberId(Integer memberId) {
+//		this.memberId = memberId;
+//	}
 
 	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
@@ -73,10 +73,10 @@ public class MemberCollectionVO implements Serializable {
 		this.createdTimestamp = createdTimestamp;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberCollectionVO [memberCollectionNo=" + memberCollectionNo + ", memberIdCollectioned="
-				+ memberIdCollectioned + ", memberId=" + memberId + ", createdTimestamp=" + createdTimestamp + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "MemberCollectionVO [memberCollectionNo=" + memberCollectionNo + ", memberIdCollectioned="
+//				+ memberIdCollectioned + ", memberId=" + memberId + ", createdTimestamp=" + createdTimestamp + "]";
+//	}
 
 }

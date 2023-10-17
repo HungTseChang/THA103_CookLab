@@ -1,4 +1,4 @@
-package com.cooklab.memeber_collection.model;
+package com.cooklab.member_collection.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,13 +28,13 @@ public class MemberCollectionJDBCDAOIm implements MemberCollectionDAO{
 		// 
 		MemberCollectionVO memberCollectionVO = new MemberCollectionVO();
 		memberCollectionVO.setMemberIdCollectioned(2);
-		memberCollectionVO.setMemberId(1);
+//		memberCollectionVO.setMemberId(1);
 		dao.insert(memberCollectionVO);
 
 		// 
 		MemberCollectionVO memberCollectionVO2 = new MemberCollectionVO();
 		memberCollectionVO2.setMemberIdCollectioned(2);
-		memberCollectionVO2.setMemberId(1);
+//		memberCollectionVO2.setMemberId(1);
 		memberCollectionVO2.setMemberCollectionNo(1);
 		dao.insert(memberCollectionVO2);
 
@@ -69,7 +69,7 @@ public class MemberCollectionJDBCDAOIm implements MemberCollectionDAO{
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setInt(1, memberCollectionVO.getMemberIdCollectioned());
-			pstmt.setInt(2, memberCollectionVO.getMemberId());
+//			pstmt.setInt(2, memberCollectionVO.getMemberId());
 
 			pstmt.executeUpdate();
 
@@ -115,7 +115,7 @@ public class MemberCollectionJDBCDAOIm implements MemberCollectionDAO{
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setInt(1, memberCollectionVO.getMemberIdCollectioned());
-			pstmt.setInt(2, memberCollectionVO.getMemberId());
+//			pstmt.setInt(2, memberCollectionVO.getMemberId());
 			pstmt.setInt(3, memberCollectionVO.getMemberCollectionNo());
 
 
@@ -220,7 +220,7 @@ public class MemberCollectionJDBCDAOIm implements MemberCollectionDAO{
 				memberCollectionVO = new MemberCollectionVO();
 				memberCollectionVO.setMemberCollectionNo(rs.getInt("member_collection_no"));
 				memberCollectionVO.setMemberIdCollectioned(rs.getInt("member_id_collectioned"));
-				memberCollectionVO.setMemberId(rs.getInt("member_id"));
+//				memberCollectionVO.setMemberId(rs.getInt("member_id"));
 				memberCollectionVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 			}
 
@@ -282,7 +282,7 @@ public class MemberCollectionJDBCDAOIm implements MemberCollectionDAO{
 				memberCollectionVO = new MemberCollectionVO();
 				memberCollectionVO.setMemberCollectionNo(rs.getInt("member_collection_no"));
 				memberCollectionVO.setMemberIdCollectioned(rs.getInt("member_id_collectioned"));
-				memberCollectionVO.setMemberId(rs.getInt("member_id"));
+//				memberCollectionVO.setMemberId(rs.getInt("member_id"));
 				memberCollectionVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				list.add(memberCollectionVO); // Store the row in the list
 			}
