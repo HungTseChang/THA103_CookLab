@@ -30,7 +30,7 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Column(name = "article_title")  
 	private String articleTitle;
-	
+	@Transient
 	@ManyToOne
 	@JoinColumn(name="member_id" ,referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO members;
@@ -55,23 +55,21 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
 	private Timestamp lastEditTimestamp;
-	
-	@ManyToOne
-	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" 
-	,insertable = false, updatable = false)
-	//設定insertable = false, updatable = false 的情況下就只會作為查詢，來處理欄位衝突問題
-	private ArticleCategoryVO articleCategoryVO;
-	
-	//@Transient 此註記可以無視此欄位
-	@Column(name = "article_category") 
+	@Transient
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" , insertable = false, updatable = false)
+	private ArticleCategoryVO articleCategoryNo;
+//	@Transient
+	@Column (name="article_category")
 	private Integer articleCategory;
+
+//	
 	
-		
-	public ArticleCategoryVO getArticleCategoryVO() {
-		return articleCategoryVO;
+	public ArticleCategoryVO getArticleCategoryNo() {
+		return articleCategoryNo;
 	}
-	public void setArticleCategoryVO(ArticleCategoryVO articleCategoryVO) {
-		this.articleCategoryVO = articleCategoryVO;
+	public void setArticleCategoryVO(ArticleCategoryVO articleCategoryNo) {
+		this.articleCategoryNo = articleCategoryNo;
 	}
 	
 	public MembersVO getMembers() {
@@ -95,6 +93,7 @@ public class ArticleVO implements java.io.Serializable {
 //	}
 	
 	
+
 	public ArticleVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -163,12 +162,12 @@ public class ArticleVO implements java.io.Serializable {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
 
-//	public MembersVO getMembersVO() {
-//		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
-//		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
-//		return MembersVO1;
-//		
-//	}
+	public MembersVO getMembersVO() {
+		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
+		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
+		return MembersVO1;
+		
+	}
 
 	
 }

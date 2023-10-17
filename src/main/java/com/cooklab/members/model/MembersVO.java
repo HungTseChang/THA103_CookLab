@@ -44,60 +44,61 @@ public class MembersVO {
 	//●●● 請組員參考這部分去處理 ManyToOne ●●● =====================
 	
 //	//●食譜反應 recipe_reaction
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeReactionVO> recipeReactionS;
-//	
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeReactionVO> recipeReactionS;
+	
 //	//●食譜留言檢舉 recipe_comments_report
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeCommentsReportVO> recipeCommentsReportS;
-//	
-//	//●食譜檢舉 recipe_report
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeReportVO> recipeReportS;
-//	
-//	//●食譜收藏 recipe_collection
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeCollectionVO> recipeCollectionS;
-//	
-//	//●食譜 recipe
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeVO> recipeS;
-//	
-//	//●購物車明細 shopping_cart
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<ShoppingCartVO> shoppingCartS;
-//	
-//	//●會員訂單 member_order
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<MemberOrderVO> memberOrderS;
-//	
-//	//●優惠碼使用情況 promo_code_used
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<PromoCodeUsedVO> promoCodeUsedS;
-//	
-//	//●通知中心 notify_center
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<NotifyCenterVO> notifyCenterS;
-//	
-//	//●會員關注 memeber_collection
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<MemberCollectionVO> memberCollectionS;
-//	
-//	//●討論區回文檢舉 article_sub_report
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<ArticleSubReportVO> articleSubReportS;
-//	
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeCommentsReportVO> recipeCommentsReportS;
+	
+	//●食譜檢舉 recipe_report
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeReportVO> recipeReportS;
+	
+	//●食譜收藏 recipe_collection
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeCollectionVO> recipeCollectionS;
+	
+
+	//●食譜 recipe
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeVO> recipeS;
+	
+	//●購物車明細 shopping_cart
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<ShoppingCartVO> shoppingCartS;
+	
+	//●會員訂單 member_order
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<MemberOrderVO> memberOrderS;
+	
+	//●優惠碼使用情況 promo_code_used
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<PromoCodeUsedVO> promoCodeUsedS;
+	
+	//●通知中心 notify_center
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<NotifyCenterVO> notifyCenterS;
+	
+	//●會員關注 memeber_collection
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<MemberCollectionVO> memberCollectionS;
+	
+	//●討論區回文檢舉 article_sub_report
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<ArticleSubReportVO> articleSubReportS;
+	
 	//●討論區文章收藏 article_collection
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")
@@ -107,16 +108,16 @@ public class MembersVO {
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")
 	private Set<ArticleVO> articleS;
-//	
-//	//●討論區回文 article_sub 
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<ArticleSubVO> articleSubS;
-//	
-//	//●討論區檢舉 article_report
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<ArticleReportVO> articleReportS;
+	
+	//●討論區回文 article_sub 
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<ArticleSubVO> articleSubS;
+	
+	//●討論區檢舉 article_report
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<ArticleReportVO> articleReportS;
 	
 	//==================================================================================================
 	@Column (name="member_account")
@@ -283,114 +284,114 @@ public class MembersVO {
 	}
 
 
-//	public Set<RecipeReactionVO> getRecipeReactionS() {
-//		return recipeReactionS;
-//	}
-//
-//
-//	public void setRecipeReactionS(Set<RecipeReactionVO> recipeReactionS) {
-//		this.recipeReactionS = recipeReactionS;
-//	}
-//
-//
-//	public Set<RecipeCommentsReportVO> getRecipeCommentsReportS() {
-//		return recipeCommentsReportS;
-//	}
-//
-//
-//	public void setRecipeCommentsReportS(Set<RecipeCommentsReportVO> recipeCommentsReportS) {
-//		this.recipeCommentsReportS = recipeCommentsReportS;
-//	}
-//
-//
-//	public Set<RecipeReportVO> getRecipeReportS() {
-//		return recipeReportS;
-//	}
-//
-//
-//	public void setRecipeReportS(Set<RecipeReportVO> recipeReportS) {
-//		this.recipeReportS = recipeReportS;
-//	}
-//
-//
-//	public Set<RecipeCollectionVO> getRecipeCollectionS() {
-//		return recipeCollectionS;
-//	}
-//
-//
-//	public void setRecipeCollectionS(Set<RecipeCollectionVO> recipeCollectionS) {
-//		this.recipeCollectionS = recipeCollectionS;
-//	}
-//
-//
-//	public Set<RecipeVO> getRecipeS() {
-//		return recipeS;
-//	}
-//
-//
-//	public void setRecipeS(Set<RecipeVO> recipeS) {
-//		this.recipeS = recipeS;
-//	}
-//
-//
-//	public Set<ShoppingCartVO> getShoppingCartS() {
-//		return shoppingCartS;
-//	}
-//
-//
-//	public void setShoppingCartS(Set<ShoppingCartVO> shoppingCartS) {
-//		this.shoppingCartS = shoppingCartS;
-//	}
-//
-//
-//	public Set<MemberOrderVO> getMemberOrderS() {
-//		return memberOrderS;
-//	}
-//
-//
-//	public void setMemberOrderS(Set<MemberOrderVO> memberOrderS) {
-//		this.memberOrderS = memberOrderS;
-//	}
-//
-//
-//	public Set<PromoCodeUsedVO> getPromoCodeUsedS() {
-//		return promoCodeUsedS;
-//	}
-//
-//
-//	public void setPromoCodeUsedS(Set<PromoCodeUsedVO> promoCodeUsedS) {
-//		this.promoCodeUsedS = promoCodeUsedS;
-//	}
-//
-//
-//	public Set<NotifyCenterVO> getNotifyCenterS() {
-//		return notifyCenterS;
-//	}
-//
-//
-//	public void setNotifyCenterS(Set<NotifyCenterVO> notifyCenterS) {
-//		this.notifyCenterS = notifyCenterS;
-//	}
-//
-//
-//	public Set<MemberCollectionVO> getMemberCollectionS() {
-//		return memberCollectionS;
-//	}
-//
-//
-//	public void setMemberCollectionS(Set<MemberCollectionVO> memberCollectionS) {
-//		this.memberCollectionS = memberCollectionS;
-//	}
-//
-//
-//	public Set<ArticleSubReportVO> getArticleSubReportS() {
-//		return articleSubReportS;
-//	}
-//
-//
-//	public void setArticleSubReportS(Set<ArticleSubReportVO> articleSubReportS) {
-//		this.articleSubReportS = articleSubReportS;
-//	}
+	public Set<RecipeReactionVO> getRecipeReactionS() {
+		return recipeReactionS;
+	}
+
+
+	public void setRecipeReactionS(Set<RecipeReactionVO> recipeReactionS) {
+		this.recipeReactionS = recipeReactionS;
+	}
+
+
+	public Set<RecipeCommentsReportVO> getRecipeCommentsReportS() {
+		return recipeCommentsReportS;
+	}
+
+
+	public void setRecipeCommentsReportS(Set<RecipeCommentsReportVO> recipeCommentsReportS) {
+		this.recipeCommentsReportS = recipeCommentsReportS;
+	}
+
+
+	public Set<RecipeReportVO> getRecipeReportS() {
+		return recipeReportS;
+	}
+
+
+	public void setRecipeReportS(Set<RecipeReportVO> recipeReportS) {
+		this.recipeReportS = recipeReportS;
+	}
+
+
+	public Set<RecipeCollectionVO> getRecipeCollectionS() {
+		return recipeCollectionS;
+	}
+
+
+	public void setRecipeCollectionS(Set<RecipeCollectionVO> recipeCollectionS) {
+		this.recipeCollectionS = recipeCollectionS;
+	}
+
+
+	public Set<RecipeVO> getRecipeS() {
+		return recipeS;
+	}
+
+
+	public void setRecipeS(Set<RecipeVO> recipeS) {
+		this.recipeS = recipeS;
+	}
+
+
+	public Set<ShoppingCartVO> getShoppingCartS() {
+		return shoppingCartS;
+	}
+
+
+	public void setShoppingCartS(Set<ShoppingCartVO> shoppingCartS) {
+		this.shoppingCartS = shoppingCartS;
+	}
+
+
+	public Set<MemberOrderVO> getMemberOrderS() {
+		return memberOrderS;
+	}
+
+
+	public void setMemberOrderS(Set<MemberOrderVO> memberOrderS) {
+		this.memberOrderS = memberOrderS;
+	}
+
+
+	public Set<PromoCodeUsedVO> getPromoCodeUsedS() {
+		return promoCodeUsedS;
+	}
+
+
+	public void setPromoCodeUsedS(Set<PromoCodeUsedVO> promoCodeUsedS) {
+		this.promoCodeUsedS = promoCodeUsedS;
+	}
+
+
+	public Set<NotifyCenterVO> getNotifyCenterS() {
+		return notifyCenterS;
+	}
+
+
+	public void setNotifyCenterS(Set<NotifyCenterVO> notifyCenterS) {
+		this.notifyCenterS = notifyCenterS;
+	}
+
+
+	public Set<MemberCollectionVO> getMemberCollectionS() {
+		return memberCollectionS;
+	}
+
+
+	public void setMemberCollectionS(Set<MemberCollectionVO> memberCollectionS) {
+		this.memberCollectionS = memberCollectionS;
+	}
+
+
+	public Set<ArticleSubReportVO> getArticleSubReportS() {
+		return articleSubReportS;
+	}
+
+
+	public void setArticleSubReportS(Set<ArticleSubReportVO> articleSubReportS) {
+		this.articleSubReportS = articleSubReportS;
+	}
 
 
 	public Set<ArticleCollectionVO> getArticleCollectionS() {
@@ -412,25 +413,25 @@ public class MembersVO {
 		this.articleS = articleS;
 	}
 
-//
-//	public Set<ArticleSubVO> getArticleSubS() {
-//		return articleSubS;
-//	}
-//
-//
-//	public void setArticleSubS(Set<ArticleSubVO> articleSubS) {
-//		this.articleSubS = articleSubS;
-//	}
-//
-//
-//	public Set<ArticleReportVO> getArticleReportS() {
-//		return articleReportS;
-//	}
-//
-//
-//	public void setArticleReportS(Set<ArticleReportVO> articleReportS) {
-//		this.articleReportS = articleReportS;
-//	}
+
+	public Set<ArticleSubVO> getArticleSubS() {
+		return articleSubS;
+	}
+
+
+	public void setArticleSubS(Set<ArticleSubVO> articleSubS) {
+		this.articleSubS = articleSubS;
+	}
+
+
+	public Set<ArticleReportVO> getArticleReportS() {
+		return articleReportS;
+	}
+
+
+	public void setArticleReportS(Set<ArticleReportVO> articleReportS) {
+		this.articleReportS = articleReportS;
+	}
 
 
 //	@Override

@@ -18,7 +18,7 @@ import com.cooklab.product.model.ProductVO;
 @Table(name = "ingredient_category")
 public class IngredientCategoryVO implements java.io.Serializable {
 	
-	@OneToMany(mappedBy="IngredientCategory", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="ingredientCategory", cascade=CascadeType.ALL)
 	private Set<ProductVO>product ;
 	
 

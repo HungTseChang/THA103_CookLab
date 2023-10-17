@@ -37,7 +37,7 @@ public class AjaxTest extends HttpServlet {
 			System.out.println(formContext);
 			
 			//回傳資料給發出請求的ajax後續進行其他行為
-			response.getWriter().write("ok");;
+			response.getWriter().write("ok");
 		}
 	}
 

@@ -33,6 +33,7 @@ public void insert(AdminsVO AdminsVO) {
 @Override
 public void update(AdminsVO AdminsVO) {
 	try {
+		System.out.println("嘗試updateAdminsVO");
 		getSession().update(AdminsVO);
 	} catch (Exception e) {
 	}
@@ -56,7 +57,7 @@ public AdminsVO findByPrimaryKey(Integer adminsNO) {
 
 @Override
 public List<AdminsVO> getAll() {
-	System.out.println("ABCABCABCABCABCABCABCABCABC");
+	System.out.println("嘗試getALL AdminsVO");
 	return getSession().createQuery("from AdminsVO", AdminsVO.class).list();
 }
 	

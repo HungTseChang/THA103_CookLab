@@ -1,14 +1,11 @@
-package com.cooklab.admins.controler;
+package com.cooklab.advertise.model.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.ArrayList;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cooklab.admins.model.AdminsService;
-import com.cooklab.admins.model.AdminsVO;
-import com.cooklab.permission.model.PermissionVO;
+
 import com.google.gson.Gson;
 
-@WebServlet("/AdminsServlet")
-public class AdminsServlet extends HttpServlet {
+/**
+ * Servlet implementation class AdvertiseServlet
+ */
+@WebServlet("/AdvertiseServlet")
+public class AdvertiseServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
-	public AdminsServlet() {
+	public AdvertiseServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,17 +40,17 @@ public class AdminsServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String forwardPath = "";
 		switch (action) {
-		case "inserAdmins":
-			forwardPath = inserAdmins(req, res);
+		case "inserAdvertise":
+			forwardPath = inserAdvertise(req, res);
 			break;
-		case "getAlladmins":
-			forwardPath = getAlladmins(req, res);
+		case "getAllAdvertise":
+			forwardPath = getAllAdvertise(req, res);
 			break;
 		case "getOne_For_Update":
 			forwardPath = getOne_For_Update(req, res);
 			break;
-		case "updateAdmins":
-			forwardPath = updateAdmins(req, res);
+		case "updateAdvertise":
+			forwardPath = updateAdvertise(req, res);
 			break;
 		case "delete":
 			forwardPath = delete(req, res);

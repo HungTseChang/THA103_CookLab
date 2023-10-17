@@ -176,9 +176,21 @@ ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 		<div class="row">
 			<div id="c_user" class="col-md-3"
 				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-				<img src="https://picsum.photos/200" alt=""> 
+				<a>
+<%-- 				${artVO.members.memberPicture} --%>
+				<c:choose>
+                <c:when test="${artVO.members.memberPicture.startsWith('/9j/4AAQSkZJRgABAQEAZABkAAD/2wBDAAMCAgMCA')}">
+                    <!-- 這是Base64圖片，使用<img>元素顯示 -->
+                    <img src="data:image/jpeg;base64,${artVO.members.memberPicture}" alt="圖片描述">
+                </c:when>
+                <c:otherwise>
+                    <!-- 這是文本，直接顯示 -->
+                    ${artVO.members.memberPicture}
+                </c:otherwise>
+            </c:choose>
+				</a>
 				<a href="" id="creator"  style="color: black;">
-				作者:${artVO.members.memberNickname}</a>
+					${artVO.members.memberNickname}</a>
 			</div>
 
 

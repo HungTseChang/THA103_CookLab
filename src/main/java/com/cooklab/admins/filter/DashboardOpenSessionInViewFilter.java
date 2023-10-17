@@ -26,7 +26,7 @@ public class DashboardOpenSessionInViewFilter  implements Filter {
 
 			factory.getCurrentSession().getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+			System.out.println("出錯");
 			System.out.println(e);
 			factory.getCurrentSession().getTransaction().rollback();
 			e.printStackTrace();

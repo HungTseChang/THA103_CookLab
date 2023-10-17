@@ -3,20 +3,23 @@ package com.cooklab.recipe.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.cooklab.members.model.MembersVO;
+import com.cooklab.util.HibernateUtil;
+
 public class RecipeService {
 	private RecipeDAO dao;
 
 	public RecipeService() {
-		dao = new RecipeHDAOIm();
+		dao = new RecipeHDAOIm(HibernateUtil.getSessionFactory());
 	}
 
-	public RecipeVO addRecipe(Integer memberId, String recipeName, byte[] coverImage, String introduction,
+	public RecipeVO addRecipe(MembersVO members, String recipeName, byte[] coverImage, String introduction,
 			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
 			Byte recipeQuantity, Timestamp lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
-		recipeVO.setMemberId(memberId);
+		recipeVO.setMembers(members);
 		recipeVO.setRecipeName(recipeName);
 		recipeVO.setCoverImage(coverImage);
 		recipeVO.setIntroduction(introduction);
@@ -32,14 +35,14 @@ public class RecipeService {
 		return recipeVO;
 	}
 
-	public RecipeVO updateRecipe(Integer recipeNo, Integer memberId, String recipeName, byte[] coverImage,
+	public RecipeVO updateRecipe(Integer recipeNo, MembersVO members, String recipeName, byte[] coverImage,
 			String introduction, String additionalExplanation, String region, Byte recipeStatus, Integer reportCount,
 			Integer viewCount, Byte recipeQuantity, Timestamp lastEditTimestamp) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
 		recipeVO.setRecipeNo(recipeNo);
-		recipeVO.setMemberId(memberId);
+		recipeVO.setMembers(members);
 		recipeVO.setRecipeName(recipeName);
 		if (coverImage != null) {
 			recipeVO.setCoverImage(coverImage);

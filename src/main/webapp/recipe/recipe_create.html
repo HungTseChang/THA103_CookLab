@@ -170,7 +170,7 @@
                             <span class="recipe_content">食譜名稱:</span>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" class="form-control recipe-name" placeholder="請輸入食譜名稱" />
+                            <input type="text" id="recipeNmae" class="form-control recipe-name" placeholder="請輸入食譜名稱" />
                         </div>
                         <div class="col-md-2">
                             <button type="submit" class="site-btn" style="background-color: #f27405">確認名稱</button>
@@ -229,13 +229,13 @@
                     </div>
 
                     <div>
-                        <span class="recipe_content">食譜簡介:</span>
+                        <span id="introduction" class="recipe_content">食譜簡介:</span>
                         <textarea class="form-control martin-textarea" aria-label="With textarea" placeholder="內容"></textarea>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-2"><span class="recipe_content">份量(人數):</span></div>
-                        <select class="col-md-2">
+                        <select id="recipeQuantity" class="col-md-2">
                             <option value="option1">1</option>
                             <option value="option2">2</option>
                             <option value="option3">3</option>
@@ -387,7 +387,7 @@
                         <div class="right-column">儲存</div>
                         <div class="right-column">取消</div>
                         <div class="right-column">清除</div>
-                        <div class="right-column">發布</div>
+                        <div id="publish" class="right-column">發布</div>
                     </div>
                 </div>
             </div>
