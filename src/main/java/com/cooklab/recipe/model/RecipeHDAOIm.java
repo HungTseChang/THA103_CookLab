@@ -3,101 +3,58 @@ package com.cooklab.recipe.model;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.SessionFactory;
 
-import com.cooklab.util.HibernateUtil;
 
 public class RecipeHDAOIm implements RecipeDAO {
+	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
+	private SessionFactory factory;
+
+	public RecipeHDAOIm(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
+	// 以避免請求執行緒共用了同個 Session
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
 
 	@Override
-	public void insert(RecipeVO recipeVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public int insert(RecipeVO recipeVO) {
+		System.out.println("成功");
+		return (Integer) getSession().save(recipeVO);
+	}
+
+	@Override
+	public boolean update(RecipeVO recipeVO) {
 		try {
-			session.beginTransaction();
-			session.save(recipeVO);
-			session.getTransaction().commit();
-			System.out.println("新增");
+			getSession().update(recipeVO);
+			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
+			return false;
 		}
 	}
 
 	@Override
-	public void update(RecipeVO recipeVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			session.update(recipeVO);
-			session.getTransaction().commit();
-			System.out.println("更新");
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
+	public boolean delete(Integer recipeNo) {
+		RecipeVO vo = getSession().get(RecipeVO.class, recipeNo);
+		if (vo != null) {
+			getSession().delete(vo);
+			return true;
+		} else {
+			return false;
 		}
-
-	}
-
-	@Override
-	public void delete(Integer recipeNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			RecipeVO vo = session.get(RecipeVO.class, recipeNo);
-			if(vo !=null) {
-				session.delete(vo);
-			}
-			session.getTransaction().commit();
-			System.out.println("刪除");
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-
 	}
 
 	@Override
 	public RecipeVO findByPrimaryKey(Integer recipeNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			RecipeVO recipeVO = session.createQuery("from RecipeVO where  recipeNo =" + recipeNo, RecipeVO.class)
-					.uniqueResult();
-
-			session.getTransaction().commit();
-			System.out.println("搜一筆");
-			return recipeVO;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return null;
+		return getSession().get(RecipeVO.class, recipeNo);
 	}
 
 	@Override
 	public List<RecipeVO> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			List<RecipeVO> list = session.createQuery("from RecipeVO ", RecipeVO.class).list();
-			session.getTransaction().commit();
-			System.out.println("搜尋");
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return null;
+		return getSession().createQuery("from RecipeVO", RecipeVO.class).list();
 	}
 
 }

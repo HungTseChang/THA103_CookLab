@@ -22,15 +22,15 @@ public class AdvertiseVO implements java.io.Serializable {
 	@Column(name = "advertise_name")
 	private String AdvertiseName;
 	@Column(name = "advertise_shelf_time")
-	private Date AdvertiseShelfTime;
+	private Timestamp AdvertiseShelfTime;
 	@Column(name = "advertise_offsale_time")
-	private Date AdvertiseOffsaleTime;
+	private Timestamp AdvertiseOffsaleTime;
 	@Column(name = "advertise_img",columnDefinition="longblob")
 	private String AdvertiseImg;
 	@Column(name = "advertise_url",columnDefinition="text")
 	private String AdvertiseUrl;
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
-	private Date createdTimestamp;
+	private Timestamp createdTimestamp;
 
 	public Integer getAdvertiseNo() {
 		return AdvertiseNo;
@@ -48,11 +48,11 @@ public class AdvertiseVO implements java.io.Serializable {
 		AdvertiseName = advertiseName;
 	}
 
-	public Date getAdvertiseShelfTime() {
+	public Timestamp getAdvertiseShelfTime() {
 		return AdvertiseShelfTime;
 	}
 
-	public void setAdvertiseShelfTime(Date advertiseShelfTime) {
+	public void setAdvertiseShelfTime(Timestamp advertiseShelfTime) {
 		AdvertiseShelfTime = advertiseShelfTime;
 	}
 
@@ -64,11 +64,11 @@ public class AdvertiseVO implements java.io.Serializable {
 		AdvertiseImg = advertiseImg;
 	}
 
-	public Date getAdvertiseOffsaleTime() {
+	public Timestamp getAdvertiseOffsaleTime() {
 		return AdvertiseOffsaleTime;
 	}
 
-	public void setAdvertiseOffsaleTime(Date advertiseOffsaleTime) {
+	public void setAdvertiseOffsaleTime(Timestamp advertiseOffsaleTime) {
 		AdvertiseOffsaleTime = advertiseOffsaleTime;
 	}
 
@@ -80,11 +80,11 @@ public class AdvertiseVO implements java.io.Serializable {
 		AdvertiseUrl = advertiseUrl;
 	}
 
-	public Date getCreatedTimestamp() {
+	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 
