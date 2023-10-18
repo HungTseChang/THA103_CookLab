@@ -21,8 +21,9 @@ import com.cooklab.article_reaction.model.ArticleReactionVO;
 import com.cooklab.article_report.model.ArticleReportVO;
 import com.cooklab.article_sub.model.ArticleSubVO;
 import com.cooklab.article_sub_report.model.ArticleSubReportVO;
+import com.cooklab.member_collection.model.MemberCollectionVO;
 import com.cooklab.member_order.model.MemberOrderVO;
-import com.cooklab.memeber_collection.model.MemberCollectionVO;
+
 import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.promo_code_used.model.PromoCodeUsedVO;
 import com.cooklab.recipe.model.RecipeVO;
@@ -54,10 +55,10 @@ public class MembersVO {
 	@OrderBy("member_id asc")
 	private Set<RecipeCommentsReportVO> recipeCommentsReportS;
 	
-	//●食譜檢舉 recipe_report
-//	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
-//	@OrderBy("member_id asc")
-//	private Set<RecipeReportVO> recipeReportS;
+//	●食譜檢舉 recipe_report
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<RecipeReportVO> recipeReportS;
 	
 	//●食譜收藏 recipe_collection
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
