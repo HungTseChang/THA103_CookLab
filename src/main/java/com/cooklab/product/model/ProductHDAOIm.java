@@ -62,7 +62,22 @@ public class ProductHDAOIm implements ProductDAO {
 
 	@Override
 	public ProductVO findByPrimaryKey(Integer productNo) {
-		return getSession().get(ProductVO.class, productNo);
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			ProductVO productVO = session.createQuery("from ProductVO where  productNo =" + productNo, ProductVO.class)
+					.uniqueResult();
+
+			session.getTransaction().commit();
+			System.out.println("搜一筆");
+			return productVO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+//			HibernateUtil.shutdown();
+		}
+		return null;
 	}
 
 	@Override
