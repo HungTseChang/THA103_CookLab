@@ -25,7 +25,7 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "product_name")
 	private String productName;
 	
-	@Column(name = "product_picture" ,columnDefinition = "blob")
+	@Column(name = "product_picture" ,columnDefinition = "longblob")
 	private byte[]  productPicture;
 	
 	@Column(name = "sale_qty")

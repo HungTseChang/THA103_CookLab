@@ -436,7 +436,7 @@ public class ProductServlet extends HttpServlet {
 			/***************************
 			 * 3.�s�W����,�ǳ����(Send the Success view)
 			 ***********/
-			String url = "/product/listAllProduct.jsp";
+			String url = "/mazer-main/dist/product/shopview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 			successView.forward(req, res);
 		}
