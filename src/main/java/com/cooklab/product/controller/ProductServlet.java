@@ -107,7 +107,7 @@ public class ProductServlet extends HttpServlet {
 					ProductVO productVO = productSvc.getOneProduct(productNo);
 
 					req.setAttribute("productVO", productVO); // ��Ʈw���X��empVO����,�s�Jreq
-					String url = "/product/update_product_input.jsp";
+					String url = "/mazer-main/dist/product/shopupdate.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_emp_input.jsp
 					successView.forward(req, res);
 				} catch (NumberFormatException e) {
@@ -436,7 +436,7 @@ public class ProductServlet extends HttpServlet {
 			/***************************
 			 * 3.�s�W����,�ǳ����(Send the Success view)
 			 ***********/
-			String url = "/product/listAllProduct.jsp";
+			String url = "/mazer-main/dist/product/shopview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 			successView.forward(req, res);
 		}

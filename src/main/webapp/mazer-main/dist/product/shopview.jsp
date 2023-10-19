@@ -186,7 +186,7 @@ pageContext.setAttribute("list", list);
 						<div class="row">
 							<div class="col-12">
 								<div class="card-header">
-									<a class="btn btn-success rounded-pill" href="./shopset.html"
+									<a class="btn btn-success rounded-pill" href="<%= request.getContextPath()%>/mazer-main/dist/product/shopset.jsp"
 										style="margin-left: 20px;">新增商品</a>
 								</div>
 							</div>
