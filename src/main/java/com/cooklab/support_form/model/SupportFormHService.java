@@ -14,7 +14,7 @@ public class SupportFormHService implements SupportFormServie{
 	}
 
 	public SupportFormVO addSupportForm(String realName, Integer supportFormCategoryId, String replyEmail,
-			String formTitle, String formContext,String formSource,String formSubmitter) {
+			String formTitle, String formContext,String formSource,Byte formStatus,String formSubmitter) {
 
 		SupportFormVO supportFormVO = new SupportFormVO();
 
@@ -24,6 +24,7 @@ public class SupportFormHService implements SupportFormServie{
 		supportFormVO.setFormTitle(formTitle);
 		supportFormVO.setFormContext(formContext);
 		supportFormVO.setFormSource(formSource);
+		supportFormVO.setFormStatus(formStatus);
 		supportFormVO.setFormSubmitter(formSubmitter);
 		dao.insert(supportFormVO);
 

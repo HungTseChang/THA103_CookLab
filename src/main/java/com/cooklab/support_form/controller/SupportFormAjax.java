@@ -66,6 +66,9 @@ public class SupportFormAjax extends HttpServlet {
 			}
 
 			String formSource = req.getParameter("formSource").trim();
+			
+			Byte formStatus = null;
+			formStatus = Byte.valueOf(req.getParameter("formStatus"));
 
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 
@@ -75,6 +78,7 @@ public class SupportFormAjax extends HttpServlet {
 			sfVO.setReplyEmail(replyEmail);
 			sfVO.setFormTitle(formTitle);
 			sfVO.setFormContext(formContext);
+			sfVO.setFormStatus(formStatus);
 			sfVO.setFormSource(formSource);
 			sfVO.setFormSubmitter(formSubmitter);
 
@@ -91,7 +95,7 @@ public class SupportFormAjax extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			SupportFormHService sfSvc = new SupportFormHService();
-			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formSource,
+			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formSource,formStatus,
 					formSubmitter);
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/

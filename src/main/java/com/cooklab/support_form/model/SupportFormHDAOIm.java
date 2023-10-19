@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.cooklab.util.HibernateUtil;
+
 public class SupportFormHDAOIm implements SupportFormDAO {
 
 	// 宣告SessionFactory以便開啟Session執行交易
@@ -26,6 +28,18 @@ public class SupportFormHDAOIm implements SupportFormDAO {
 			return 1;
 		} catch (Exception e) {
 			return -1;
+		}
+	}
+	
+	//單獨測試HQL，實際上線不會使用此方法
+	public void add(SupportFormVO supportFormVO) {
+		//回傳給Service，1代表成功、-1代表失敗
+		try {
+			getSession().beginTransaction();
+			getSession().save(supportFormVO);
+			getSession().getTransaction().commit();
+		} catch (Exception e) {
+			getSession().getTransaction().rollback();
 		}
 	}
 
