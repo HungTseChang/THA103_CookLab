@@ -22,7 +22,6 @@ public class RecipeHDAOIm implements RecipeDAO {
 
 	@Override
 	public int insert(RecipeVO recipeVO) {
-		System.out.println("成功");
 		return (Integer) getSession().save(recipeVO);
 	}
 

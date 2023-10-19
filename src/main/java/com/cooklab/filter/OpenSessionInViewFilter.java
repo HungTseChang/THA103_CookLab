@@ -23,10 +23,10 @@ public class OpenSessionInViewFilter implements Filter {
 			factory.getCurrentSession().beginTransaction();
 			chain.doFilter(req, res);
 			factory.getCurrentSession().getTransaction().commit();
-			System.out.println("commit");
+			System.out.println("commit");	//測試
 		} catch (Exception e) {
-			System.out.println("rollback");
 			factory.getCurrentSession().getTransaction().rollback();
+			System.out.println("rollback"); //測試
 			e.printStackTrace();
 			chain.doFilter(req, res);
 		}

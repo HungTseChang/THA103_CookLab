@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Base64;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -22,7 +23,7 @@ import com.cooklab.recipe.model.RecipeService;
 import com.cooklab.recipe.model.RecipeVO;
 import com.google.gson.Gson;
 
-@WebServlet(urlPatterns = "/RecipeServlet")
+@WebServlet("/RecipeServlet")
 @MultipartConfig
 public class RecipeServlet extends HttpServlet {
 
@@ -35,7 +36,6 @@ public class RecipeServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 //		HttpSession session = req.getSession();
-		
 //		MembersVO members = (MembersVO) session.getAttribute("members");
 		MembersService membersSvc = new MembersService();// 測試
 		MembersVO members = membersSvc.getOneMember(1); // 測試
@@ -50,21 +50,17 @@ public class RecipeServlet extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 
 			String recipeName = req.getParameter("recipeName");
+			
 //			Part filePart = req.getPart("cover_image");
 //			InputStream in = filePart.getInputStream();
 //			byte[] coverImage = in.readAllBytes();
 //			in.close();
-
-			byte[] coverImage = null;//測試
-			
+			byte[] coverImage = Base64.getDecoder().decode(req.getParameter("coverImage"));
 			String introduction = req.getParameter("introduction");
 			String additionalExplanation = req.getParameter("additionalExplanation");
 			String region = req.getParameter("region");
 			Byte recipeStatus = Byte.valueOf(req.getParameter("recipeStatus"));
-			Integer reportCount = Integer.valueOf(req.getParameter("reportCount"));
-			Integer viewCount = Integer.valueOf(req.getParameter("viewCount"));
 			Byte recipeQuantity = Byte.valueOf(req.getParameter("recipeQuantity"));
-			Timestamp lastEditTimestamp = new Timestamp(new Date().getTime());
 
 			RecipeVO recipeVO = new RecipeVO();
 			recipeVO.setMembers(members);
@@ -74,10 +70,7 @@ public class RecipeServlet extends HttpServlet {
 			recipeVO.setAdditionalExplanation(additionalExplanation);
 			recipeVO.setRegion(region);
 			recipeVO.setRecipeStatus(recipeStatus);
-			recipeVO.setReportCount(reportCount);
-			recipeVO.setViewCount(viewCount);
 			recipeVO.setRecipeQuantity(recipeQuantity);
-			recipeVO.setLastEditTimestamp(lastEditTimestamp);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -89,12 +82,12 @@ public class RecipeServlet extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			RecipeService reipceSvc = new RecipeService();
-			recipeVO = reipceSvc.addRecipe(members, recipeName, coverImage, introduction, additionalExplanation,
-					region, recipeStatus, reportCount, viewCount, recipeQuantity, lastEditTimestamp);
+			recipeVO = reipceSvc.addRecipe(members, recipeName, coverImage, introduction, additionalExplanation, region,
+					recipeStatus, recipeQuantity);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/recipe/listAllRecipe.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+//			String url = "/recipe/listAllRecipe.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			return;
 		}
 
