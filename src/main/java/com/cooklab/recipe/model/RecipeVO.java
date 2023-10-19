@@ -29,77 +29,77 @@ import com.cooklab.recipe_step.model.RecipeStepVO;
 @Entity
 @Table(name = "recipe")
 public class RecipeVO implements java.io.Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "recipe_no",insertable = false, updatable = false)
-	private Integer recipeNo;		//食譜編號(PK)
-	
-	//食譜反應關聯
-	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-	@OrderBy("recipe_no asc")
-	private Set<RecipeReactionVO> reaction;		
+	@Column(name = "recipe_no", insertable = false, updatable = false)
+	private Integer recipeNo; // 食譜編號(PK)
 
-	//食譜留言關聯
+	// 食譜反應關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeCommentsVO> comments;		
+	private Set<RecipeReactionVO> reaction;
 
-	//食譜檢舉關聯
+	// 食譜留言關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeReportVO> report;			
+	private Set<RecipeCommentsVO> comments;
 
-	//食譜收藏關聯
+	// 食譜檢舉關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeCollectionVO> collection;	
+	private Set<RecipeReportVO> report;
 
-	//食譜標籤關聯
+	// 食譜收藏關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeHashtagVO> hashtag;		
+	private Set<RecipeCollectionVO> collection;
 
-	//食譜使用食材關聯
+	// 食譜標籤關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeIngredientVO> ingredient;	
+	private Set<RecipeHashtagVO> hashtag;
 
-	//食譜使用廚具關聯
+	// 食譜使用食材關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeKitchenwareVO> kitchenware; 	
+	private Set<RecipeIngredientVO> ingredient;
 
-	//食譜步驟關聯
+	// 食譜使用廚具關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
-	private Set<RecipeStepVO> step;			
+	private Set<RecipeKitchenwareVO> kitchenware;
+
+	// 食譜步驟關聯
+	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+	@OrderBy("recipe_no asc")
+	private Set<RecipeStepVO> step;
 
 	@ManyToOne
-	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
-	private MembersVO members;		//會員編號(FK)
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id", updatable = false)
+	private MembersVO members; // 會員編號(FK)
 	@Column(name = "recipe_name")
-	private String recipeName;		//食譜名稱
+	private String recipeName; // 食譜名稱
 	@Column(name = "cover_image", columnDefinition = "LONGBLOB")
-	private byte[] coverImage;		//食譜封面
+	private byte[] coverImage; // 食譜封面
 	@Column(name = "introduction")
-	private String introduction;	//簡介
+	private String introduction; // 簡介
 	@Column(name = "additional_explanation")
-	private String additionalExplanation;	//補充說明
+	private String additionalExplanation; // 補充說明
 	@Column(name = "region")
-	private String region;			//地區
+	private String region; // 地區
 	@Column(name = "recipe_status")
-	private Byte recipeStatus;		//食譜狀態
-	@Column(name = "report_count")
-	private Integer reportCount;	//檢舉次數
-	@Column(name = "view_count")
-	private Integer viewCount;		//瀏覽人次
+	private Byte recipeStatus; // 食譜狀態
+	@Column(name = "report_count", insertable = false)
+	private Integer reportCount; // 檢舉次數
+	@Column(name = "view_count", insertable = false)
+	private Integer viewCount; // 瀏覽人次
 	@Column(name = "recipe_quantity")
-	private Byte recipeQuantity;	//食譜份量
-	@Column(name = "last_edit_timestamp")
-	private Timestamp lastEditTimestamp;	//最後編輯時間
+	private Byte recipeQuantity; // 食譜份量
+	@Column(name = "last_edit_timestamp", insertable = false)
+	private Timestamp lastEditTimestamp; // 最後編輯時間
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
-	private Timestamp createdTimestamp;		//建立時間
+	private Timestamp createdTimestamp; // 建立時間
 
 	public RecipeVO() {
 	}
