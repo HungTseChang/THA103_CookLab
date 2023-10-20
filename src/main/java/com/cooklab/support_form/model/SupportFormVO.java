@@ -182,4 +182,24 @@ public class SupportFormVO implements Serializable {
 				+ formSubmitter + ", createdTimestamp=" + createdTimestamp + "]";
 	}
 
+	public String getFormCatIDName() {
+	    SFCategory[] categories = SFCategory.values();
+	    for (SFCategory category : categories) {
+	        if (category.getValue() == this.supportFormCategoryId) {
+	            return category.getDesc();
+	        }
+	    }
+	    return "查無此問題類別";
+	}
+	
+	public String getFormStatusName() {
+		SFStatus[] status = SFStatus.values();
+	    for (SFStatus astatus: status) {
+	        if (astatus.getValue() == this.formStatus) {
+	            return astatus.getDesc();
+	        }
+	    }
+	    return "異常狀態";
+	}
+
 }

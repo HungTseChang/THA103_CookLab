@@ -1,7 +1,9 @@
 package com.cooklab.support_form.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -27,6 +29,46 @@ public class SupportFormAjax extends HttpServlet {
 		String action = req.getParameter("action");
 		// 創建Gson物件以便將資料打包為json格式回傳給前端
 		Gson gson = new Gson();
+
+		if ("getAll".equals(action)) {
+			SupportFormHService sfSvc = new SupportFormHService();
+
+			// 呼叫Service方法的getAll，取得VO物件List，
+			List<SupportFormVO> list = sfSvc.getAll();
+
+			//宣告MAP物件的LIST集合，以便將VO取出的資料轉為MAP形式
+			List<Map<String, Object>> data = new ArrayList<>();
+
+			//使用FOR EACH一一取值並放置於MAP物件
+			for (SupportFormVO supportForm : list) {
+				Map<String, Object> supportFormMap = new HashMap<>();
+				supportFormMap.put("formNo", supportForm.getFormNo());
+				supportFormMap.put("realName", supportForm.getRealName());
+				supportFormMap.put("supportFormCategoryId", supportForm.getFormCatIDName());
+				supportFormMap.put("replyEmail", supportForm.getReplyEmail());
+				supportFormMap.put("formTitle", supportForm.getFormTitle());
+				supportFormMap.put("formContext", supportForm.getFormContext());
+				supportFormMap.put("formStatus", supportForm.getFormStatusName());
+				if (supportForm.getAdmins() != null) {
+				    supportFormMap.put("formResponderno", supportForm.getAdmins().getAdminNo());
+				    supportFormMap.put("formRespondername", supportForm.getAdmins().getAdminNickname());
+				} else {
+				    supportFormMap.put("formResponderno", 0);
+				    supportFormMap.put("formRespondername", "無");
+				}
+				supportFormMap.put("createdTimestamp",supportForm.getCreatedTimestamp());
+				data.add(supportFormMap);
+			}
+
+			// 使用Gson轉換為Json格式
+			String Data = gson.toJson(data);
+
+			// 回傳資料給Ajax進行進一步的處理
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(Data);
+			System.out.println("回傳資料給Ajax完成");
+		}
 
 		if ("insert".equals(action)) {
 			// 創建Map物件放入錯誤訊息
@@ -66,7 +108,7 @@ public class SupportFormAjax extends HttpServlet {
 			}
 
 			String formSource = req.getParameter("formSource").trim();
-			
+
 			Byte formStatus = null;
 			formStatus = Byte.valueOf(req.getParameter("formStatus"));
 
@@ -95,8 +137,8 @@ public class SupportFormAjax extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			SupportFormHService sfSvc = new SupportFormHService();
-			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formSource,formStatus,
-					formSubmitter);
+			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formSource,
+					formStatus, formSubmitter);
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
 			if (sfVO != null) {
@@ -115,7 +157,7 @@ public class SupportFormAjax extends HttpServlet {
 				res.getWriter().write(successjson);
 				System.out.println("回傳成功訊息給Ajax完成");
 			} else {
-				//預計放入空頁面
+				// 預計放入空頁面
 			}
 		}
 	}

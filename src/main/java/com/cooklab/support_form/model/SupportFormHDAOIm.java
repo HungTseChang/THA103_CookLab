@@ -75,7 +75,7 @@ public class SupportFormHDAOIm implements SupportFormDAO {
 
 	@Override
 	public List<SupportFormVO> getAll() {
-		return getSession().createQuery("from SupportFormVO", SupportFormVO.class).list();
+		return getSession().createQuery("select distinct s from SupportFormVO s left join fetch s.admins ", SupportFormVO.class).list();
 	}
 
 }
