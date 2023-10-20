@@ -172,17 +172,17 @@
       <form>
         <div class="form-row">
           <div class="col">
-            <label for="inputName">姓名<span class="t_SC_redPoint" id="name-check">*</span></label>
-            <input type="text" class="form-control" placeholder="您的大名" id="realName" required />
+            <label for="realName">姓名<span class="t_SC_redPoint" id="name-check">*</span></label>
+            <input type="text" class="form-control" placeholder="您的大名" id="realName" />
           </div>
           <div class="col">
-            <label for="inputMail">Email<span class="t_SC_redPoint" id="email-check">*</span></label>
-            <input type="text" class="form-control" placeholder="exmaple@mail.com" id="replyEmail" required />
+            <label for="replyEmail">Email<span class="t_SC_redPoint" id="email-check">*</span></label>
+            <input type="text" class="form-control" placeholder="請輸入您的Email" id="replyEmail" />
           </div>
         </div>
         <div class="form-group">
           <br />
-          <label for="inputQuestionOption">問題類別<span class="t_SC_redPoint" id="categoryid-check">*</span></label>
+          <label for="supportFormCategoryId">問題類別<span class="t_SC_redPoint" id="categoryid-check">*</span></label>
           <select class="form-control w-100" id="supportFormCategoryId">
             <option value="default">請選擇問題類別</option>
             <option value="1">食譜相關</option>
@@ -192,13 +192,13 @@
           </select>
         </div>
         <div class="form-group">
-          <br /><br /><label for="inputTitle">標題<span class="t_SC_redPoint" id="title-check">*</span></label>
-          <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" required />
+          <br /><br /><label for="formTitle">標題<span class="t_SC_redPoint" id="title-check">*</span></label>
+          <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" />
         </div>
 
         <div class="form-group">
-          <label for="FormControlTextarea">問題內容<span class="t_SC_redPoint" id="context-check">*</span></label>
-          <textarea class="form-control" id="formContext" rows="3" placeholder="請在此輸入您的問題" required></textarea>
+          <label for="formContext">問題內容<span class="t_SC_redPoint" id="context-check">*</span></label>
+          <textarea class="form-control" id="formContext" rows="3" placeholder="請在此輸入您的問題"></textarea>
         </div>
 
         <input type="hidden" class="form-control" id="formSource" value="官網表單" />
