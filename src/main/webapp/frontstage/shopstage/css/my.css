@@ -1,0 +1,95 @@
+.humberger__menu__cart ul {
+    display: inline-block;
+    margin-right: 50px;
+}
+/* 商品搜尋欄大小設定 */
+#rs_search_form{
+    width: 600px;
+    height: 50px;
+    border: 1px solid #ebebeb;
+    position: relative;
+}
+
+#rs_hero_search{
+    overflow: hidden;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 600px
+}
+
+/* 商品搜尋欄旁的下拉式選單 */
+#rs_categories_all{
+    background: #7fad39;
+	position: relative;
+	padding: 10px 0px 10px 40px;
+	cursor: pointer;
+
+}
+
+/* 商品預覽圖 */
+#rs_product__details__pic__item{
+    width: 100%; /* 圖片寬度 */
+    height: auto; /* 圖片高度 */
+}
+
+/*購物車商品區*/
+.shoping__cart__table table tbody tr td.shoping__cart__item_rs {
+	width: 630px;
+	text-align:center;
+}
+
+.shoping__cart__table table tbody tr td.shoping__cart__item_rs img {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.shoping__cart__table table tbody tr td.shoping__cart__item_rs h5 {
+	color: #1c1c1c;
+	display: inline-block;
+}
+
+/*結帳區*/
+.checkout__order .checkout__order__total {
+	font-size: 18px;
+	color: #1c1c1c;
+	font-weight: 700;
+	border-bottom: 1px solid #e1e1e1;
+	padding-bottom: 15px;
+	margin-bottom: 25px;
+}
+
+.checkout__order .checkout__order__total span {
+	float: right;
+	color: #dd2222;
+}
+
+#rs_order_total{
+    display: inline-block;
+    float: right;
+}
+
+#paypal {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #ebebeb;
+    padding-left: 20px;
+    font-size: 16px;
+    color: #b2b2b2;
+    border-radius: 4px;
+}
+
+#green_pay {
+    width: 100%;
+    height: 46px;
+    border: 1px solid #ebebeb;
+    padding-left: 20px;
+    font-size: 16px;
+    color: #b2b2b2;
+    border-radius: 4px;
+}
+
+#rs_orderboxdiv{
+    padding-bottom: 20px;
+}
