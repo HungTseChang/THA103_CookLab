@@ -273,56 +273,28 @@ pageContext.setAttribute("list", list);
 				</div>
 			</div>
 			<div class="row featured__filter">
-				<c:forEach var="productVO" items="${list}">
-					<div class="col-lg-4 col-md-4 col-sm-6 mix oranges fresh-meat">
-						<div class="featured__item">
-							<div class="featured__item__pic set-bg"
-								data-setbg="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}">
-								<ul class="featured__item__pic__hover">
-									<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-								</ul>
-							</div>
-							<div class="featured__item__text">
-								<h6>
-									<a href="#">${productVO.productName}</a>
-								</h6>
-								<h5>${productVO.productPrice}</h5>
+				<c:forEach var="productVO" items="${list}" varStatus="loop">
+					<c:if test="${loop.index < 9}">
+						<div class="col-lg-4 col-md-4 col-sm-6 mix oranges fresh-meat">
+							<div class="featured__item">
+								<div class="featured__item__pic set-bg"
+									data-setbg="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}">
+									<ul class="featured__item__pic__hover">
+										<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+									</ul>
+								</div>
+								<div class="featured__item__text">
+									<h6>
+										<a
+											href="<%= request.getContextPath() %>/ProductServlet2?action=getOne_For_Display&productNo=${productVO.productNo}">
+											${productVO.productName} </a>
+									</h6>
+									<h5>${productVO.productPrice}</h5>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</c:forEach>
-				<div class="col-lg-4 col-md-4 col-sm-6 mix fastfood vegetables">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg"
-							data-setbg="img/featured/feature-8.jpg">
-							<ul class="featured__item__pic__hover">
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-6 mix fastfood vegetables">
-					<div class="featured__item">
-						<div class="featured__item__pic set-bg"
-							data-setbg="img/featured/feature-8.jpg">
-							<ul class="featured__item__pic__hover">
-								<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="featured__item__text">
-							<h6>
-								<a href="#">Crab Pool Security</a>
-							</h6>
-							<h5>$30.00</h5>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
