@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
-import com.cooklab.advertise.model.AdvertiseVO;
+
 import com.cooklab.promo_code.model.*;
 import com.cooklab.util.HibernateUtil;
 

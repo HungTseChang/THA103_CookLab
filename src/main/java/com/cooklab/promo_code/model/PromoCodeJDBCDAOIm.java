@@ -76,8 +76,8 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 			pstmt.setString(1, promoCodeVO.getPromoCodeSerialNumber());
 			pstmt.setTimestamp(2, promoCodeVO.getStartTime());
 			pstmt.setTimestamp(3, promoCodeVO.getEndTime());
-			pstmt.setDouble(4, promoCodeVO.getPercentageDiscountAmount());
-			pstmt.setDouble(5, promoCodeVO.getFixedDiscountAmount());
+			pstmt.setBigDecimal(4, promoCodeVO.getPercentageDiscountAmount());
+			pstmt.setBigDecimal(5, promoCodeVO.getFixedDiscountAmount());
 			pstmt.setInt(6, promoCodeVO.getUsagesAllowed());
 			pstmt.setInt(7, promoCodeVO.getMinimumConsumption());
 
@@ -125,8 +125,8 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 			pstmt.setString(1, promoCodeVO.getPromoCodeSerialNumber());
 			pstmt.setTimestamp(2, promoCodeVO.getStartTime());
 			pstmt.setTimestamp(3, promoCodeVO.getEndTime());
-			pstmt.setDouble(4, promoCodeVO.getPercentageDiscountAmount());
-			pstmt.setDouble(5, promoCodeVO.getFixedDiscountAmount());
+			pstmt.setBigDecimal(4, promoCodeVO.getPercentageDiscountAmount());
+			pstmt.setBigDecimal(5, promoCodeVO.getFixedDiscountAmount());
 			pstmt.setInt(6, promoCodeVO.getUsagesAllowed());
 			pstmt.setInt(7, promoCodeVO.getMinimumConsumption());
 			pstmt.setInt(8, promoCodeVO.getPromoCodeNo());
@@ -163,7 +163,7 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 	}
 
 	@Override
-	public void delete(Integer promoCodeNo) {
+	public void delete(promoCodeNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -229,8 +229,8 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 				promoCodeVO.setPromoCodeSerialNumber(rs.getString("promo_code_serial_number"));
 				promoCodeVO.setStartTime(rs.getTimestamp("start_time"));
 				promoCodeVO.setEndTime(rs.getTimestamp("end_time"));
-				promoCodeVO.setPercentageDiscountAmount(rs.getInt("percentage_discount_amount"));
-				promoCodeVO.setFixedDiscountAmount(rs.getInt("fixed_discount_amount"));
+				promoCodeVO.setPercentageDiscountAmount(rs.getBigDecimal("percentage_discount_amount"));
+				promoCodeVO.setFixedDiscountAmount(rs.getBigDecimal("fixed_discount_amount"));
 				promoCodeVO.setUsagesAllowed(rs.getInt("usages_allowed"));
 				promoCodeVO.setMinimumConsumption(rs.getInt("minimum_consumption"));
 				promoCodeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
@@ -294,8 +294,8 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 				promoCodeVO.setPromoCodeSerialNumber(rs.getString("promo_code_serial_number"));
 				promoCodeVO.setStartTime(rs.getTimestamp("start_time"));
 				promoCodeVO.setEndTime(rs.getTimestamp("end_time"));
-				promoCodeVO.setPercentageDiscountAmount(rs.getInt("percentage_discount_amount"));
-				promoCodeVO.setFixedDiscountAmount(rs.getInt("fixed_discount_amount"));
+				promoCodeVO.setPercentageDiscountAmount(rs.getBigDecimal("percentage_discount_amount"));
+				promoCodeVO.setFixedDiscountAmount(rs.getBigDecimal("fixed_discount_amount"));
 				promoCodeVO.setUsagesAllowed(rs.getInt("usages_allowed"));
 				promoCodeVO.setMinimumConsumption(rs.getInt("minimum_consumption"));
 				promoCodeVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
@@ -336,6 +336,12 @@ public class PromoCodeJDBCDAOIm implements PromoCodeDAO {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public void delete(PromoCodeVO promoCode) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
