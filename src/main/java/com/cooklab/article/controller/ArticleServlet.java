@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cooklab.article.model.ArticleVO;
+import com.cooklab.article_category.model.ArticleCategoryService;
+import com.cooklab.article_category.model.ArticleCategoryVO;
 import com.cooklab.article.model.ArticleService;
 
 import java.sql.Timestamp;
@@ -33,7 +35,7 @@ public class ArticleServlet extends HttpServlet{
 		
 		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
 		
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getOne_For_Display".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -80,7 +82,6 @@ public class ArticleServlet extends HttpServlet{
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
-//			String url = "/article/listOneArt.jsp";
 			String url = "/article/article_content.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
@@ -133,10 +134,11 @@ public class ArticleServlet extends HttpServlet{
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/article/article_content.jsp";
+			String url = "/article/article_sub_edit.jsp";
+			
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
-		}
+		}	
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
@@ -162,7 +164,7 @@ public class ArticleServlet extends HttpServlet{
 			successView.forward(req, res);
 		}
 		
-		if ("getStatusUpdate".equals(action)) { 
+if ("getStatusUpdate".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -205,10 +207,10 @@ public class ArticleServlet extends HttpServlet{
 			Integer articleNo = Integer.valueOf(req.getParameter("articleNo").trim());
 
 			
-			Integer articleCategory = null;
+			Integer articleCategoryNo = null;
 			String articleCategoryStr = req.getParameter("articleCategory");
 			if (articleCategoryStr != null && !articleCategoryStr.trim().isEmpty()) {
-				articleCategory = Integer.valueOf(articleCategoryStr.trim());
+				articleCategoryNo = Integer.valueOf(articleCategoryStr.trim());
 			} else {
 				errorMsgs.add("文章分類輸入數字請勿空白");
 			}
@@ -242,7 +244,7 @@ public class ArticleServlet extends HttpServlet{
 
 				}
 			}
-
+			//=======================================================================
 			String articleContent = req.getParameter("articleContent");
 			if (articleContent == null || articleContent.trim().length() == 0) {
 				errorMsgs.add("文章內容請勿空白");
@@ -272,7 +274,7 @@ public class ArticleServlet extends HttpServlet{
 			
 			ArticleVO artVO = new ArticleVO();
 
-			artVO.setArticleCategory(articleCategory);
+			artVO.setArticleCategoryNo(articleCategoryNo);
 			artVO.setArticleTitle(articleTitle);
 			artVO.setMemberId(memberId);
 			artVO.setArticleStatus(articleStatus);
@@ -322,10 +324,10 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String articleCategoryStr = req.getParameter("articleCategory");
-			Integer articleCategory = null;
+			Integer articleCategoryNo = null;
 			if (articleCategoryStr != null && !articleCategoryStr.trim().isEmpty()) {
 			    try {
-			        articleCategory = Integer.valueOf(articleCategoryStr.trim());
+			    	articleCategoryNo = Integer.valueOf(articleCategoryStr.trim());
 			    } catch (NumberFormatException e) {
 			        // 處理無法解析的情況，例如添加錯誤消息
 			        errorMsgs.add("文章分類輸入數字以外無效");
@@ -412,7 +414,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			
 
 			ArticleVO artVO = new ArticleVO();
-			artVO.setArticleCategory(articleCategory);
+			artVO.setArticleCategoryNo(articleCategoryNo);
 			artVO.setArticleTitle(articleTitle);
 			artVO.setMemberId(memberId);
 			artVO.setArticleStatus(articleStatus);

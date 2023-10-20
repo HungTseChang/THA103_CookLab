@@ -10,19 +10,8 @@ $(function() {
 
 //====  article_main   =========
 $(document).ready(function() {
-    $(".btn.custom-btn[value='1']").addClass("HO-btn-org");
-    
-});
-
-$(function() {
-    $(".btn.custom-btn").on("click", function(){
-		$(".btn.custom-btn").removeClass(".btn HO-btn-org");
-		$(this).toggleClass(".btn HO-btn-org");   
-
-		var catNum = $(this).val();
-        alert(catNum);
-    });
-		
+	$(".btn.custom-btn[value='1']").addClass("HO-btn-org");
+	        
 
 	$(".page-link").on("click", function() {
 		$(".page-link").removeClass(".btn HO-btn-org");
@@ -43,20 +32,11 @@ $(function(){
     e.preventDefault();
   });
 });
-	
-	
-	
-
-
-
-
-
-
-
-
 
 
 //=======WebChat===========
+
+	
 var MyPoint = "/TogetherWS/james";
 var host = window.location.host;
 var path = window.location.pathname; //動態取得專案路徑
@@ -77,6 +57,7 @@ function connect() {
 		document.getElementById('sendMessage').disabled = false;
 		//document.getElementById('connect').disabled = true;
 		//document.getElementById('disconnect').disabled = false;
+
 	};
 
 	//onmessage收到資料的時候，service() 會執行n次
@@ -120,6 +101,9 @@ function sendMessage() {
 		webSocket.send(JSON.stringify(jsonObj));
 		inputMessage.value = "";
 		inputMessage.focus();
+		
+	
+		document.getElementById('messageForm').submit();
 	}
 }
 
@@ -127,4 +111,5 @@ function sendMessage() {
 function updateStatus(newStatus) {
 	statusOutput.innerHTML = newStatus;
 	}
+
 
