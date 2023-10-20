@@ -118,7 +118,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // �Ӧ�update_emp_input.jsp���ШD
-
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.

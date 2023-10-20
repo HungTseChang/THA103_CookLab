@@ -172,12 +172,14 @@ pageContext.setAttribute("list", list);
 	<section class="container mb-3">
 		<main class="searchbar-block-shop border rounded d-flex">
 			<!-- 搜尋框起始 -->
-			<form class="d-flex searchbar-form-shop">
+			<form class="d-flex searchbar-form-shop" method="get"
+				action="<%=request.getContextPath()%>/ProductServlet2">
 				<input type="text"
 					class="form-control border-0 searchbar-input-shop"
-					id="index-searchbar" aria-describedby="searchbar"
-					placeholder="輸入想搜尋的商品" />
-				<button type="button" class="btn ding-btn-org searchbar-btn-shop"
+					id="index-searchbar" aria-describedby="searchbar" name="keywords"
+					placeholder="輸入想搜尋的商品" /> <input type="hidden" name="action"
+					value="search" />
+				<button type="subbmit" class="btn ding-btn-org searchbar-btn-shop"
 					id="search-button">
 					<i class="bi bi-search"></i>
 				</button>
@@ -382,8 +384,8 @@ pageContext.setAttribute("list", list);
 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/owl.carousel.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/main.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/frontstage/shopstage/js/shop_sh.js"></script>
+	<!-- 	<script -->
+	<%-- 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/shop_sh.js"></script> --%>
 
 	<script>
 		// 获取轮播元素

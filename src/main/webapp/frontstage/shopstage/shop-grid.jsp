@@ -5,11 +5,9 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-List<ProductVO> list = (List<ProductVO>) request.getAttribute("productVO");
-
-System.out.println("a");
-System.out.println("a"+ list);
+List<ProductVO> productList = (List<ProductVO>) request.getAttribute("productList");
 %>
+
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -211,11 +209,11 @@ System.out.println("a"+ list);
 				</div>
 				<div class="col-lg-9 col-md-7">
 					<div class="row">
-						<c:forEach var="productVO" items="${list}">
+						<c:forEach var="product" items="${productList}">
 							<div class="col-lg-4 col-md-4 col-sm-6 mix oranges fresh-meat">
 								<div class="featured__item">
 									<div class="featured__item__pic set-bg"
-										data-setbg="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}">
+										data-setbg="<%= request.getContextPath() %>/ProductImgServlet?productNo=${product.productNo}">
 										<ul class="featured__item__pic__hover">
 											<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
 										</ul>
@@ -223,14 +221,15 @@ System.out.println("a"+ list);
 									<div class="featured__item__text">
 										<h6>
 											<a
-												href="<%= request.getContextPath() %>/ProductServlet2?action=getOne_For_Display&productNo=${productVO.productNo}">
-												${productVO.productName} </a>
+												href="<%= request.getContextPath() %>/ProductServlet2?action=getOne_For_Display&productNo=${product.productNo}">
+												${product.productName} </a>
 										</h6>
-										<h5>${productVO.productPrice}</h5>
+										<h5>${product.productPrice}</h5>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
+
 
 
 					</div>

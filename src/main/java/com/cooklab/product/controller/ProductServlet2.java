@@ -3,6 +3,7 @@ package com.cooklab.product.controller;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -110,7 +111,7 @@ public class ProductServlet2 extends HttpServlet {
 			 * 2.開始查詢資料
 			 *****************************************/
 			ProductService productSvc = new ProductService();
-			List<ProductVO> list = productSvc.findByKeyword(keywords);
+			List<Map<String, Object>> list = productSvc.findByKeyword(keywords);
 			if (list == null) {
 				errorMsgs.add("查無資料");
 			}
@@ -124,7 +125,7 @@ public class ProductServlet2 extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			
 
-			req.setAttribute("productVO", list); // 資料庫取出的productVO物件 存入req
+			req.setAttribute("productList", list); // 資料庫取出的productVO物件 存入req
 			System.out.println(list);
 			String url = "/frontstage/shopstage/shop-grid.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);

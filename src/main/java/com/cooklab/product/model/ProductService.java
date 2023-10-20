@@ -2,6 +2,7 @@ package com.cooklab.product.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import com.cooklab.util.HibernateUtil;
 
@@ -75,7 +76,7 @@ public class ProductService {
 		return dao.getAll();
 	}
 	
-	public List<ProductVO> findByKeyword(String keyword){
+	public List<Map<String, Object>> findByKeyword(String keyword){
 		return  dao.findByKeyword(keyword);
 	}
 }
