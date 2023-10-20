@@ -329,7 +329,7 @@ import="com.cooklab.purchase_order.model.*"%>
                     <div>
                         <span class="recipe_content">步驟:</span>
                         <div id="listStep">
-                            <div class="row">
+                            <div class="row step" step="1">
                                 <div class="col-md-3 text-center">
                                     <div class="step-img-view">
                                         <span class="text">步驟圖片</span>
@@ -338,16 +338,16 @@ import="com.cooklab.purchase_order.model.*"%>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2 step" step="1">步驟1:</span>
+                                        <span class="recipe_content col-md-2">步驟1:</span>
                                         <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
-                                    <textarea class="form-control martin-textarea step_content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                                    <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
                                 <i class="bi bi-list">&emsp;</i>
                                 <i class="bi bi-trash3-fill delete-step"></i>
                             </div>
 
-                            <div class="row">
+                            <div class="row step" step="2">
                                 <div class="col-md-3 text-center">
                                     <div class="step-img-view">
                                         <span class="text">步驟圖片</span>
@@ -356,16 +356,16 @@ import="com.cooklab.purchase_order.model.*"%>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2 step" step="2">步驟2:</span>
+                                        <span class="recipe_content col-md-2">步驟2:</span>
                                         <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
-                                    <textarea class="form-control martin-textarea step_content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                                    <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
                                 <i class="bi bi-list">&emsp;</i>
                                 <i class="bi bi-trash3-fill delete-step"></i>
                             </div>
 
-                            <div class="row">
+                            <div class="row step" step="3">
                                 <div class="col-md-3 text-center">
                                     <div class="step-img-view">
                                         <span class="text">步驟圖片</span>
@@ -374,10 +374,10 @@ import="com.cooklab.purchase_order.model.*"%>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2 step" step="3">步驟3:</span>
+                                        <span class="recipe_content col-md-2">步驟3:</span>
                                         <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
-                                    <textarea class="form-control martin-textarea step_content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                                    <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
 
                                 <i class="bi bi-list">&emsp;</i>
