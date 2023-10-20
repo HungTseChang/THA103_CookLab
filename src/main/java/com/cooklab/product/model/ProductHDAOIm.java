@@ -2,10 +2,11 @@ package com.cooklab.product.model;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
-import com.cooklab.purchase_order.model.PurchaseOrderVO;
 import com.cooklab.util.HibernateUtil;
 
 
@@ -99,6 +100,29 @@ public class ProductHDAOIm implements ProductDAO {
 			session.getTransaction().rollback();
 		} finally {
 //			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeyword(String keyword) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			
+			session.beginTransaction();
+			
+			Criteria criteria = session.createCriteria(ProductVO.class);
+			criteria.add(Restrictions.like("productName", "%" + keyword + "%"));			
+			List<ProductVO> list = criteria.list();
+			System.out.println(list);
+			
+			session.getTransaction().commit();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
 		return null;
 	}

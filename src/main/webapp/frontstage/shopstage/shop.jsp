@@ -177,7 +177,8 @@ pageContext.setAttribute("list", list);
 					class="form-control border-0 searchbar-input-shop"
 					id="index-searchbar" aria-describedby="searchbar"
 					placeholder="輸入想搜尋的商品" />
-				<button type="button" class="btn ding-btn-org searchbar-btn-shop">
+				<button type="button" class="btn ding-btn-org searchbar-btn-shop"
+					id="search-button">
 					<i class="bi bi-search"></i>
 				</button>
 			</form>
@@ -381,6 +382,8 @@ pageContext.setAttribute("list", list);
 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/owl.carousel.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/frontstage/shopstage/js/shop_sh.js"></script>
 
 	<script>
 		// 获取轮播元素

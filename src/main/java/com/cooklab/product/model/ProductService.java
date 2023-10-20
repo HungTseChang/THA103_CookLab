@@ -74,4 +74,8 @@ public class ProductService {
 	public List<ProductVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<ProductVO> findByKeyword(String keyword){
+		return  dao.findByKeyword(keyword);
+	}
 }

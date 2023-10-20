@@ -286,6 +286,7 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServle
     <script src="<%=request.getContextPath()%>/frontstage/shopstage/js/mixitup.min.js"></script>
     <script src="<%=request.getContextPath()%>/frontstage/shopstage/js/owl.carousel.min.js"></script>
     <script src="<%=request.getContextPath()%>/frontstage/shopstage/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/frontstage/shopstage/js/shop_sh.js"></script>
 
 
 </body>
