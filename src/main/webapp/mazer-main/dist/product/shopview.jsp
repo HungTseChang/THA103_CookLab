@@ -226,7 +226,7 @@ pageContext.setAttribute("list", list);
 											<td>${productVO.offsaleTime}</td>
 											<td>${productVO.shelfTime}</td>
 											<td>${productVO.storageQty}</td>
-											<td>${productVO.ingredientCategoryNo}</td>
+											<td>${productVO.ingredientCategoryNo}</td>	
 											<td>${productVO.kitchenwareCategoryNo}</td>
 											<td>${productVO.searchCount}</td>
 											<td>
