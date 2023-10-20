@@ -223,14 +223,16 @@
                 .wcc.none{
                     display: none;
                 }
+                input.red-placeholder::placeholder, textarea.red-placeholder::placeholder {
+    color: red; 
+                   }
             </style>
             <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>DataTable</h3>
-                            <p class="text-subtitle text-muted">For user to check they list</p>
+                            <h3>權限管理</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -343,12 +345,13 @@
  var number =myList.length;	
        
         
-        let permission = { 
+        const permission = { 
     	        0: `
-    	           <a class="btn btn-danger rounded-pill " value="0">X</a> 		   
+     	           <a class="btn btn-primary rounded-pill" value="0">O</a>
     	    		   `,
     	    	1: `
-    	           <a class="btn btn-primary rounded-pill" value="1">O</a>
+    	           <a class="btn btn-danger rounded-pill " value="1">X</a> 		   
+
     	    	`	   
     	       } 
         
@@ -397,19 +400,20 @@
     		$("#total-pages").text("of " + totalPages);
        }
        
+
 //         =============================================
        let saveupdate = function(e){
-        	let permissionNo= $(e.target).closest("tr").find("td[name='permissionNo']").text();
-        	let permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
-        	let superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-        	let cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
-        	let membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
-        	let advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
-        	let reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
-        	let articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
-        	let recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
+        let	permissionNo= $(e.target).closest("tr").find("td[name='permissionNo']").text();
+        let	 permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
+        let	superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
+        let	 cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
+        let	 membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
+        let	 advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
+        let	 reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
+        let	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
+        let	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
         	var save = $("<form>", {
-	            action: "${pageContext.request.contextPath}/PermissionServletServlet", // 表单提交的URL
+	            action: "${pageContext.request.contextPath}/PermissionServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	        });
         	save.append($("<input>", {
@@ -487,22 +491,63 @@
        $(document).on("click", "a.btn", function(e){
     	   modify(e);
        });
+        var permissionNo_old;
+       var permissionTitle_old;
+       var superAdmin_old;
+       var cancelAllPermission_old;
+       var membershipManagement_old;
+       var reportingManagement_old;
+       var articleManagement_old;
+       var recipeManagement_old;   
 //        ===========================================
+	
        $(document).on("click", "a.modify", function(e){
     	   if ( $("tr.hightlight").length == 0){
     	   light(e);
-    	   console.log("AA")
-    	   $(e.target).text("儲存修改")}else if(
+    	   $(e.target).text("儲存修改");
+           $(e.target).closest("td").append( '<a  class="cancelmodify wcc" style="margin-bottom: 0px;" >取消修改</a> ');
+       	permissionNo_old= $(e.target).closest("tr").find("td[name='permissionNo']").text();
+   	    permissionTitle_old= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
+   	   superAdmin_old= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
+    	cancelAllPermission_old= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
+   	 membershipManagement_old= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
+   	 advertisingManagement_old= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
+   	 reportingManagement_old= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
+   	 articleManagement_old= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
+   	 recipeManagement_old= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");        
+    	   }else if(
     			   $(e.target).closest("tr").hasClass("hightlight")
     	   ){
     		   $("tr.hightlight").removeClass("hightlight");
     		   $(e.target).text("修改");
+    		   $(e.target).closest("td").find('a.cancelmodify').remove();
     		   saveupdate(e);
     	   }else{
     		   alter("已有其他欄位正在修改");
     	   }
     	   
        });
+//  =================================================================      
+        $(document).on("click", "a.cancelmodify", function(e){
+           $(e.target).closest("tr").find("td[name='permissionNo']").text(permissionNo_old);
+       	    $(e.target).closest("tr").find("td[name='permissionTitle']").text(permissionTitle_old);
+       	   superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").html(permission[superAdmin_old]);
+        	cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").html(permission[cancelAllPermission_old]);
+       	 membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").html(permission[membershipManagement_old]);
+       	 advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").html(permission[advertisingManagement_old]);
+       	 reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").html(permission[reportingManagement_old]);
+       	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").html(permission[articleManagement_old]);
+       	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").html(permission[recipeManagement_old]); 
+		   $("tr.hightlight").removeClass("hightlight");
+		   $(e.target).closest("tr").find('a.modify').text("修改");
+		   $(e.target).closest("td").find('a.cancelmodify').remove();
+        });
+       
+       
+       
+       
+       
+       
 //        ======================
        $("#select1").change(function() {
      	   rowsPerPage = $(this).val();
@@ -529,8 +574,8 @@
         
         
         let addnew = function(){
+        	 if (! $("tr.hightlight").length == 0){return;}
             var currentTime = new Date();
-               // 格式化时间为 "YYYY-MM-DD HH:MM:SS" 形式
             var formattedTime = currentTime.getFullYear() + "-"
                 + (currentTime.getMonth() + 1) + "-"
                 + currentTime.getDate() + " "
@@ -538,17 +583,14 @@
                 + currentTime.getMinutes() + ":"
                 + currentTime.getSeconds();
         	
-//                 let selection = "<select>";
-//                 selection += "<option value='0'>X</option>";
-//                 selection += "<option value='1'>O</option>";
-//                 selection += "</select>";
-        		let selection = ' <a class="btn btn-danger rounded-pill " value="0">X</a> 	';
+
+        		let selection = ' <a class="btn btn-danger rounded-pill " value="1">X</a> 	';
         		
         		
         	let newone = ""
         		newone += "<tr class='hightlight'>";
         		newone += "<td name='permissionNo'>"+"新的權限"+"</td>";
-        		newone +=" <td name='permissionTitle'>"+"<input id='newtitle' type='text'>"+"</td>";
+        		newone +=" <td name='permissionTitle'>"+"<input id='newtitle' type='text' placeholder='請輸入權限名稱'>"+"</td>";
         		newone +=" <td name='superAdmin'>"+selection+"</td>";
         		newone +=" <td  name='cancelAllPermission'>"+selection+"</td>";
         		newone +=" <td name='membershipManagement'>"+selection+"</td>"; 
@@ -559,9 +601,6 @@
         		newone +=" <td name='createdTimestamp'>"+formattedTime+"</td>"; 
         		newone +=`
       				<td>
-//         			  <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/PermissionServlet" style="margin-bottom: 0px;">
-//    			     <input type="submit" value="新增">
-//    			     <input type="hidden" name="action" value="insert"></FORM>
 						<a  class="insert wcc" style="margin-bottom: 0px;">新增</a>
 		    			</td>
       			<td>
@@ -570,7 +609,8 @@
       			`
         		newone +="</tr>";
         		 $("table#table1").children("tbody").append(newone);
-        		
+         		$(e.target).closest("div.table-datatable").scrollTop($(e.target).closest("div.table-datatable")[0].scrollHeight);
+
         }
         
         $("a#enter0").on("click",function(){
@@ -578,24 +618,31 @@
         })
         
          $(document).on("click", "a.insert", function(e){
-         	let permissionNo= $(e.target).closest("tr").find("td[name='permissionNo']").text();
-        	let permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
-        	let superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("input").attr("value");
-        	let cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").attr("value");
-        	let membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").attr("value");
-        	let advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").attr("value");
-        	let reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").attr("value");
-        	let articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").attr("value");
-        	let recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").attr("value");
+        	 console.log("AA");
+        	let permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").find("input").val();
+        	if(permissionTitle==null || permissionTitle.trim()==""){
+        		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").attr("placeholder","title不可為空");
+        		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").addClass("red-placeholder");
+        		$(e.target).closest("div.table-datatable").scrollLeft(0);
+        		$(e.target).closest("div.table-datatable").scrollTop($(e.target).closest("div.table-datatable")[0].scrollHeight);
+
+           	 console.log("結果為空值");
+        		return;
+        	}
+          	 console.log("結果非空值");
+
+        	let superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
+        	let cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
+        	let membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
+        	let advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
+        	let reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
+        	let articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
+        	let recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
+        	
         	var save = $("<form>", {
-	            action: "${pageContext.request.contextPath}/PermissionServletServlet", // 表单提交的URL
+	            action: "${pageContext.request.contextPath}/PermissionServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	        });
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "permissionNo",
-	               value: permissionNo
-	           }));
         	save.append($("<input>", {
 	               type: "text",
 	               name: "permissionTitle",
@@ -639,7 +686,7 @@
         	save.append($("<input>", {
 	               type: "text",
 	               name: "action",
-	               value: "update"
+	               value: "insert"
 	           }));
         	save.appendTo("body").hide();
         	save.submit();
@@ -647,6 +694,14 @@
         	 
         	 
          })
+         
+                  $(document).on("click", "a.cancel", function(e){
+                	  $(e.target).closest("tr").remove()
+                  })
+         
+         
+         
+         
         
        updateTable();
         })

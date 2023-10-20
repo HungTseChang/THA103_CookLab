@@ -39,6 +39,9 @@ public class PermissionServlet extends HttpServlet {
 		case "getPermission":
 			forwardPath = getPermission(req, res);
 			break;
+		case "insert":
+			forwardPath = insert(req, res);
+			break;
 		case "update":
 			forwardPath = update(req, res);
 			break;
@@ -57,6 +60,23 @@ public class PermissionServlet extends HttpServlet {
 
 
 
+
+	private String insert(HttpServletRequest req, HttpServletResponse res) {
+		PermissionService PermissionService = new PermissionService();
+//		Integer permissionNo = Integer.valueOf(req.getParameter("permissionNo"));
+		String permissionTitle = req.getParameter("permissionTitle");
+		Byte superAdmin =Byte.valueOf(req.getParameter("superAdmin"));
+		Byte cancelAllPermission =Byte.valueOf(req.getParameter("cancelAllPermission"));
+		Byte membershipManagement =Byte.valueOf(req.getParameter("membershipManagement"));
+		Byte advertisingManagement =Byte.valueOf(req.getParameter("advertisingManagement"));
+		Byte reportingManagement =Byte.valueOf(req.getParameter("reportingManagement"));
+		Byte articleManagement =Byte.valueOf(req.getParameter("articleManagement"));
+		Byte recipeManagement =Byte.valueOf(req.getParameter("recipeManagement"));
+		Timestamp a =new Timestamp(System.currentTimeMillis());
+		PermissionService.add(permissionTitle, superAdmin, cancelAllPermission, membershipManagement, advertisingManagement, reportingManagement, articleManagement, recipeManagement,a);
+		
+		return "/dashboard/permission/WCC_permission.jsp";
+	}
 
 	private String getPermission(HttpServletRequest req, HttpServletResponse res) {
 		PermissionService PermissionService = new PermissionService();
