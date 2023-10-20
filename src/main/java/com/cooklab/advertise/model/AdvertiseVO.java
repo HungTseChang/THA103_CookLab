@@ -87,6 +87,25 @@ public class AdvertiseVO implements java.io.Serializable {
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
+	
+	
+
+	public AdvertiseVO(Integer advertiseNo, String advertiseName, Timestamp advertiseShelfTime,
+			Timestamp advertiseOffsaleTime, String advertiseImg, String advertiseUrl, Timestamp createdTimestamp) {
+		super();
+		AdvertiseNo = advertiseNo;
+		AdvertiseName = advertiseName;
+		AdvertiseShelfTime = advertiseShelfTime;
+		AdvertiseOffsaleTime = advertiseOffsaleTime;
+		AdvertiseImg = advertiseImg;
+		AdvertiseUrl = advertiseUrl;
+		this.createdTimestamp = createdTimestamp;
+	}
+
+	public AdvertiseVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public String toString() {

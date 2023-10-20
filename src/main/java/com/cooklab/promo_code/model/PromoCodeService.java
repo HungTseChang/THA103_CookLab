@@ -12,43 +12,43 @@ public class PromoCodeService {
 		dao = new PromoCodeHBDAO();
 	}
 
-	public PromoCodeVO addPromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,
-			Timestamp endTime, Integer percentageDiscountAmount, Integer fixedDiscountAmount, Integer usagesAllowed,
-			Integer minimumConsumption, Timestamp createdTimestamp) {
-
-		PromoCodeVO PromoCodeVO = new PromoCodeVO();
-
-		PromoCodeVO.setPromoCodeNo(promoCodeNo);
-		PromoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
-		PromoCodeVO.setStartTime(startTime);
-		PromoCodeVO.setEndTime(endTime);
-		PromoCodeVO.setPercentageDiscountAmount(percentageDiscountAmount);
-		PromoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
-		PromoCodeVO.setMinimumConsumption(minimumConsumption);
-		PromoCodeVO.setCreatedTimestamp(createdTimestamp);
-		dao.insert(PromoCodeVO);
-
-		return PromoCodeVO;
-	}
-
-	public PromoCodeVO updatePromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,
-			Timestamp endTime, Integer percentageDiscountAmount, Integer fixedDiscountAmount, Integer usagesAllowed,
-			Integer minimumConsumption, Timestamp createdTimestamp) {
-
-		PromoCodeVO PromoCodeVO = new PromoCodeVO();
-
-		PromoCodeVO.setPromoCodeNo(promoCodeNo);
-		PromoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
-		PromoCodeVO.setStartTime(startTime);
-		PromoCodeVO.setEndTime(endTime);
-		PromoCodeVO.setPercentageDiscountAmount(percentageDiscountAmount);
-		PromoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
-		PromoCodeVO.setMinimumConsumption(minimumConsumption);
-		PromoCodeVO.setCreatedTimestamp(createdTimestamp);
-		dao.update(PromoCodeVO);
-
-		return PromoCodeVO;
-	}
+//	public PromoCodeVO addPromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,
+//			Timestamp endTime, Integer percentageDiscountAmount, Integer fixedDiscountAmount, Integer usagesAllowed,
+//			Integer minimumConsumption, Timestamp createdTimestamp) {
+//
+//		PromoCodeVO PromoCodeVO = new PromoCodeVO();
+//
+//		PromoCodeVO.setPromoCodeNo(promoCodeNo);
+//		PromoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
+//		PromoCodeVO.setStartTime(startTime);
+//		PromoCodeVO.setEndTime(endTime);
+//		PromoCodeVO.setPercentageDiscountAmount(percentageDiscountAmount);
+//		PromoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
+//		PromoCodeVO.setMinimumConsumption(minimumConsumption);
+//		PromoCodeVO.setCreatedTimestamp(createdTimestamp);
+//		dao.insert(PromoCodeVO);
+//
+//		return PromoCodeVO;
+//	}
+//
+//	public PromoCodeVO updatePromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,
+//			Timestamp endTime, Integer percentageDiscountAmount, Integer fixedDiscountAmount, Integer usagesAllowed,
+//			Integer minimumConsumption, Timestamp createdTimestamp) {
+//
+//		PromoCodeVO PromoCodeVO = new PromoCodeVO();
+//
+//		PromoCodeVO.setPromoCodeNo(promoCodeNo);
+//		PromoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
+//		PromoCodeVO.setStartTime(startTime);
+//		PromoCodeVO.setEndTime(endTime);
+//		PromoCodeVO.setPercentageDiscountAmount(percentageDiscountAmount);
+//		PromoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
+//		PromoCodeVO.setMinimumConsumption(minimumConsumption);
+//		PromoCodeVO.setCreatedTimestamp(createdTimestamp);
+//		dao.update(PromoCodeVO);
+//
+//		return PromoCodeVO;
+//	}
 
 	public void deletePromocode(Integer promocodeno) {
 		dao.delete(promocodeno);
@@ -63,7 +63,7 @@ public class PromoCodeService {
 	}
 
 	public void delete(Integer promoCodeNo) {
-		// TODO Auto-generated method stub
+		dao.delete(promoCodeNo);
 		
 	}
 

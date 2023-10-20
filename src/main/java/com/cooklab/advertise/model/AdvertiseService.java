@@ -60,10 +60,8 @@ public class AdvertiseService {
 	}
 	
 	
-	
-	
-	public void deleteAd(Integer advertiseNO) {
-		dao.delete(advertiseNO);
+	public void deleteAd(AdvertiseVO advertiseVO) {
+		dao.delete(advertiseVO);
 	}
 
 	public AdvertiseVO getOneAd(Integer advertiseNO) {

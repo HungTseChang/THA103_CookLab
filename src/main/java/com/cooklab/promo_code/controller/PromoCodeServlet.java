@@ -1,6 +1,7 @@
 package com.cooklab.promo_code.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
@@ -129,8 +130,8 @@ public class PromoCodeServlet extends HttpServlet {
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
 			byte[] coverImage = null;
 			Timestamp endTime = Timestamp.valueOf(req.getParameter("end_time"));
-			Integer percentageDiscountAmount = Integer.valueOf(req.getParameter("percentage_discount_amount"));
-			Integer fixedDiscountAmount =Integer.valueOf(req.getParameter("fixed_discount_amount"));
+			BigDecimal percentageDiscountAmount = BigDecimal.valueOf(req.getParameter("percentage_discount_amount"));
+			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(req.getParameter("fixed_discount_amount"));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
 			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
 			Timestamp createdTimestamp = Timestamp.valueOf(req.getParameter("created_timestamp"));
@@ -190,8 +191,8 @@ public class PromoCodeServlet extends HttpServlet {
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
 			byte[] coverImage = null;
 			Timestamp endTime = Timestamp.valueOf(req.getParameter("end_time"));
-			Integer percentageDiscountAmount = Integer.valueOf(req.getParameter("percentage_discount_amount"));
-			Integer fixedDiscountAmount =Integer.valueOf(req.getParameter("fixed_discount_amount"));
+			BigDecimal percentageDiscountAmount = BigDecimal.valueOf(req.getParameter("percentage_discount_amount"));
+			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(req.getParameter("fixed_discount_amount"));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
 			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
 			Timestamp createdTimestamp = Timestamp.valueOf(req.getParameter("created_timestamp"));
