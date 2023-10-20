@@ -37,6 +37,8 @@ public class PromoCodeServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		
+		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -89,6 +91,9 @@ public class PromoCodeServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
+		
+		
+		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -110,7 +115,7 @@ public class PromoCodeServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update".equals(action)) { // 來自update_promoCode_input.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -255,7 +260,7 @@ public class PromoCodeServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+		if ("delete".equals(action)) { // 來自listAllPromoCode.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
