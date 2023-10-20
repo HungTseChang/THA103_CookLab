@@ -1,6 +1,6 @@
 let coverImageBase64;
 let step;
-let stepImgBase64;
+let stepImgBase64 = [];
 /*============================================================ function ============================================================*/
 //去除base64標頭
 function removeDataUrlHeader(dataUrl) {
@@ -112,24 +112,25 @@ $("#listKitchenware").on("click", ".delete-kitchenware", function () {
 
 //步驟新增一列
 $("#addStep").on("click", function () {
-    step = parseInt($("#listStep .row:last").find(".step").attr("step")) + 1;
-    let addStep = `<div class="row">
+    step = parseInt($("#listStep .step:last").attr("step")) + 1;
+    console.log($("#listStep .row:last"));
+    let addStep = `<div class="row step" step="${step}">
                     <div class="col-md-3 text-center">
-                        <div class="preview"><span class="text">步驟圖片</span></div>
+                        <div class="step-img-view"><span class="text">步驟圖片</span></div>
                     </div>
                     <div class="col-md-8">
                         <div class="row">
-                            <span class="recipe_content col-md-2 step" step="${step}">步驟${step}:</span>
+                            <span class="recipe_content col-md-2">步驟${step}:</span>
                             <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                         </div>
-                        <textarea class="form-control martin-textarea step_content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                     </div>
                     <i class="bi bi-list">&emsp;</i>
                     <i class="bi bi-trash3-fill delete-step"></i>
                  </div>`;
     $("#listStep").append(addStep);
 });
-//刪除一列食材
+//刪除一列步驟
 $("#listStep").on("click", ".delete-step", function () {
     $(this).parent().remove();
 });
@@ -141,14 +142,15 @@ $(".step-img-view").on("click", function () {
 $(".step-img-input").on("change", function () {
     let fileInput = this;
     let stepImgView = $(this).parent();
-    console.log(fileInput);
     if (fileInput.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             let img_str = `<img src = "${e.target.result}" class = "step-img" >`;
             stepImgView.find("img").remove();
             stepImgView.append(img_str);
-            stepImgBase64 = removeDataUrlHeader(e.target.result);
+
+            step = parseInt($(fileInput).parents(".step").attr("step"));
+            stepImgBase64[step - 1] = removeDataUrlHeader(e.target.result);
         };
         reader.readAsDataURL(fileInput.files[0]); //觸發了 FileReader 對象處理讀取所選文件的數據並將其轉換為數據URL
     }
@@ -206,8 +208,41 @@ $(".step-img-input").on("change", function () {
 /*============================================================ ajax ============================================================*/
 
 /*============================== 發布食譜 ==============================*/
+
 $("#publish").on("click", function () {
-    let createRecipe = {
+    let ingredient = document.querySelectorAll(".ingredient"); //所有食材
+    let ingredientArray = []; //食材陣列
+    let ingredientQuantity = document.querySelectorAll(".ingredient-quantity"); //所有食材
+    let ingredientQuantitytArray = []; //食材份量陣列
+    let kitchenware = document.querySelectorAll(".kitchenware"); //所有廚具
+    let kitchenwareArray = []; //廚具陣列
+    let stepTime = document.querySelectorAll(".step-time"); //所有步驟時間
+    let stepTimeArray = []; //步驟時間陣列
+    let stepContent = document.querySelectorAll(".step-content"); //所有步驟內容
+    let stepContentArray = []; //步驟內容陣列
+
+    //把食材的值放入陣列
+    for (var i = 0; i < ingredient.length; i++) {
+        var ingredientValue = ingredient[i].value;
+        var quantityValue = ingredientQuantity[i].value;
+        ingredientArray.push(ingredientValue);
+        ingredientQuantitytArray.push(quantityValue);
+    }
+    //把廚具的值放入陣列
+    for (var i = 0; i < kitchenware.length; i++) {
+        var value = kitchenware[i].value;
+        kitchenwareArray.push(value);
+    }
+    //把步驟時間的值放入陣列
+    for (var i = 0; i < stepTime.length; i++) {
+        // var imgValue =
+        var timeValue = stepTime[i].value;
+        var contentValue = stepContent[i].value;
+        stepTimeArray.push(timeValue);
+        stepContentArray.push(contentValue);
+    }
+    //送出的資料
+    const createRecipe = {
         recipeName: $("#recipeName").val(),
         coverImage: coverImageBase64,
         introduction: $("#introduction").val(),
@@ -216,9 +251,19 @@ $("#publish").on("click", function () {
         region: "地區", //測試
         recipeStatus: 1,
         recipeQuantity: $("#recipeQuantity").val(),
+
+        ingredient: JSON.stringify(ingredientArray),
+        ingredientQuantity: JSON.stringify(ingredientQuantitytArray),
+
+        kitchenware: JSON.stringify(kitchenwareArray),
+
+        stepImg: JSON.stringify(stepImgBase64),
+        stepTime: JSON.stringify(stepTimeArray),
+        stepContent: JSON.stringify(stepContentArray),
+
         action: "insert",
     };
-
+    //ajax送新增請求
     $.ajax({
         url: "http://localhost:8081/CookLab/RecipeServlet", // 資料請求的網址
         type: "POST", // GET | POST | PUT | DELETE | PATCH
@@ -240,6 +285,7 @@ $("#publish").on("click", function () {
         success: function (data) {
             // request 成功取得回應後執行
             console.log("ajax成功");
+            console.log(data);
         },
         error: function (xhr) {
             // request 發生錯誤的話執行

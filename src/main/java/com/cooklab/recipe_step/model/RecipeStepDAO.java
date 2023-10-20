@@ -2,10 +2,16 @@ package com.cooklab.recipe_step.model;
 
 import java.util.List;
 
+import com.cooklab.recipe.model.RecipeVO;
+
 public interface RecipeStepDAO {
-	public void insert(RecipeStepVO recipeStepVO);
-    public void update(RecipeStepVO recipeStepVO);
-    public void delete(Integer recipeNo);
-    public RecipeStepVO findByPrimaryKey(Integer recipeNo);
-    public List<RecipeStepVO> getAll();
+	public int insert(RecipeStepVO recipeStepVO);
+
+	public boolean update(RecipeStepVO recipeStepVO);
+
+	public boolean delete(RecipeVO recipeVO);
+
+	public RecipeStepVO findByPrimaryKey(RecipeVO recipeVO);
+
+	public List<RecipeStepVO> getAll();
 }
