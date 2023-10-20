@@ -23,7 +23,7 @@ let statusrender = function () {
 let init = function () {
   $.ajax({
     type: "GET",
-    url: "http://localhost:8081/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormAjax",
     data: { action: "getAll" },
     dataType: "json",
     success: function (data) {
@@ -56,7 +56,11 @@ let init = function () {
                     </tr>`);
       });
 
-      statusrender(); //呼叫美化處理狀態外觀的函式
+      //呼叫美化處理狀態外觀的函式
+      statusrender();
+      //使用Simple Datatable第三方函式提供分頁樣式及簡易搜尋
+      let table1 = document.querySelector("#table1");
+      let dataTable = new simpleDatatables.DataTable(table1);
     },
     error: function (xhr) {
       console.log(xhr);

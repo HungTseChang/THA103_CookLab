@@ -44,10 +44,12 @@ public class SupportFormAjax extends HttpServlet {
 				Map<String, Object> supportFormMap = new HashMap<>();
 				supportFormMap.put("formNo", supportForm.getFormNo());
 				supportFormMap.put("realName", supportForm.getRealName());
+				//此處使用列舉類別，將資料庫的int數值，轉變成有意義的字串
 				supportFormMap.put("supportFormCategoryId", supportForm.getFormCatIDName());
 				supportFormMap.put("replyEmail", supportForm.getReplyEmail());
 				supportFormMap.put("formTitle", supportForm.getFormTitle());
 				supportFormMap.put("formContext", supportForm.getFormContext());
+				//此處使用列舉類別，將資料庫的int數值，轉變成有意義的字串
 				supportFormMap.put("formStatus", supportForm.getFormStatusName());
 				if (supportForm.getAdmins() != null) {
 				    supportFormMap.put("formResponderno", supportForm.getAdmins().getAdminNo());

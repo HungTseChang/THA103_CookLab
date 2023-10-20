@@ -73,6 +73,7 @@ public class SupportFormHDAOIm implements SupportFormDAO {
 		return getSession().get(SupportFormVO.class, formNo);
 	}
 
+	//為了排除1+N問題，此處使用left join語法
 	@Override
 	public List<SupportFormVO> getAll() {
 		return getSession().createQuery("select distinct s from SupportFormVO s left join fetch s.admins ", SupportFormVO.class).list();
