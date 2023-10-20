@@ -4,10 +4,10 @@ import java.util.*;
 
 
 
-public interface ArticleSubDAO_interface {
+public interface ArticleSubDAO {
 	public void insert(ArticleSubVO articleSubVO);
     public void update(ArticleSubVO articleSubVO);
-    public void delete(Integer articleSubNO);
+    public void delete(Integer articleSubNo);
     public ArticleSubVO findByPrimaryKey(Integer articleSubNo);
     public List<ArticleSubVO> getAll();
 

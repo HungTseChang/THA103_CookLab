@@ -7,7 +7,7 @@ import com.cooklab.util.Util;
 import java.sql.*;
 
 
-public class ArticleSubJDBCDAO implements ArticleSubDAO_interface {
+public class ArticleSubJDBCDAO implements ArticleSubDAO {
 
 	private static final String INSERT_STMT = "INSERT INTO article_sub (article_no, member_id , article_sub_status, article_sub_content, article_sub_count) values(?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT article_sub_no, article_no, member_id, created_timestamp, article_sub_status, article_sub_content, article_sub_count , last_edit_timestamp  From article_sub order by article_sub_no";

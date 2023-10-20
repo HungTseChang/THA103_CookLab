@@ -35,8 +35,10 @@ public class ArticleTest {
            	
 //           	=============================================		
 			////查詢
-	List<ArticleVO> list1 = session.createQuery("from ArticleVO").list();
-			
+    		ArticleVO a2 = session.createQuery("from ArticleVO where articleCategoryNo = 3", ArticleVO.class).uniqueResult();
+    		System.out.println(a2);			
+          	
+          	
 			session.getTransaction().commit();
 			session.close();
 			

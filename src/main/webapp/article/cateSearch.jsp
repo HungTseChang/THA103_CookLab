@@ -1,33 +1,34 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.cooklab.article.model.*"%>
-<%@ page import="com.cooklab.article_sub.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%
-    ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
-//     這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
+<%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_category.model.*"%>
+<%  
+	ArticleCategoryVO artCate = (ArticleCategoryVO) request.getAttribute("artCate");
+	
+ 	ArticleService artSvc = new ArticleService();
+	List<ArticleVO> list = artSvc.getAll();
+ 	pageContext.setAttribute("list", list);
 
-	ArticleSubService artSvc2 =new ArticleSubService();
-	List<ArticleSubVO> list2 = artSvc2.getAll();
+	ArticleCategoryService artSvc2 =new ArticleCategoryService();
+	List<ArticleCategoryVO> list2 = artSvc2.getAll();
 	pageContext.setAttribute("list2",list2);
-			
 %>
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
-<meta charset="UTF-8">
-<meta name="description" content="Ogani Template">
-<meta name="keywords" content="Ogani, unica, creative, html">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>HO_article_content</title>
+<meta charset="UTF-8" />
+<meta name="description" content="Ogani Template" />
+<meta name="keywords" content="Ogani, unica, creative, html" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>cateSearch${artCate.articleCategoryNo}</title>
 
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-	rel="stylesheet">
+	rel="stylesheet" />
 
 <!-- Css Styles -->
 <link rel="stylesheet"
@@ -51,20 +52,20 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/slicknav.min.css"
 	type="text/css">
-
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/style.css"
 	type="text/css">
-
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/HO.css" type="text/css">
+	href="<%=request.getContextPath()%>/article/css/HO.css"
+	type="text/css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/ding.css"
 	type="text/css">
-
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 	沒有上面的jquery-3.6.0.min.js，就不能直接在js使用EL語法 -->
 </head>
 
-<body>
+<body onload="connect();" onunload="disconnect();">
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
@@ -74,7 +75,7 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="<%=request.getContextPath()%>/article/img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -152,8 +153,8 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="./index.html"><img style="height: 150px"
-							src="img/indexlogo.png" alt="" /></a>
+						<a href="./index.html"><img
+							style="height: 150px" src="img/indexlogo.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="col-lg-9 d-flex align-items-center">
@@ -178,97 +179,124 @@
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+<FORM  id="categoryForm" METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;">
+    <div class="container" id="article_cat_btn">
+      <div class="row">
+        <div class="d-flex" id="articel_cate">
+        		<c:forEach var="artVO2" items="${list2}" >
+        			<c:if test="${artVO2.articleCategoryNo == 1 }">
+        			<a class="btn custom-btn"   id="${artVO2.articleCategoryNo}" style="color: #ff5733; margin-right:3px;"
+        			 href="<%=request.getContextPath()%>/article/article_main.jsp">
+            			${artVO2.articleCategory}</a>
+        			</c:if>
+		    		<c:if test="${artVO2.categoryStatus == 0 && artVO2.articleCategoryNo != 1 }">
+		    		 <form METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;">
+            			<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"
+            			style="margin-right:3px;">
+                		${artVO2.articleCategory}
+            			</button>
+            			<input type="hidden" name="action" value="cateSearch">
+        			</form>
+    				</c:if>
+ 				</c:forEach>
+      		</div>
+   	 	</div>
+    </div>
+  </FORM>
+	<%-- 			<c:forEach var="artVO2" items="${list2}"> --%>
+<%--     			<c:if test="${artVO2.categoryStatus == 0 }"> --%>
+<%--         			<form METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;"> --%>
+<%--             			<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"> --%>
+<%--                 		${artVO2.articleCategory} --%>
+<!--             			</button> -->
+<!--             			<input type="hidden" name="action" value="cateSearch"> -->
+<!--         			</form> -->
+<%--     			</c:if> --%>
+<%-- 			</c:forEach> --%>
+	
 
-	<div class="container" style="margin-top: 30px;">
-		<div class="row">
-		
-		
-			<div id="c_user" class="col-md-3"
-				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-				<a>${artVO.members.memberPicture}</a>
-				<a href="" id="creator"  style="color: black;">
-					${artVO.members.memberNickname}</a>
-			</div>
-		<c:forEach var="artVO2" items="${list2}">
-		<c:if test="${artVO2.articleNo == artVO.articleNo}">
-						<a>${artVO.members.memberPicture}</a>
-				<a href="" id="creator"  style="color: black;">
-					${artVO.members.memberNickname}</a>
-					</c:if>
-					</c:forEach>>
-
-
-			<div class="col-8">
-				<div class="row">
-					<div id="article_content" class="col" style="position: relative;">
-						<h7 class="conten_title"> <span>
-						[${artVO.articleCategory.articleCategory}]${artVO.articleTitle}</span></h7><p>
-							發表時間:<fmt:formatDate value="${artVO.lastEditTimestamp}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
-						</p>
-						<td>
-							<!-- 這是文本，直接顯示 ，在老師的網面上需要使用base64來讀網頁，
-             			     可是使用quill新增的圖文，可以直接顯示--> ${artVO.articleContent}
-						</td> <br> <br>
-						
-						<div id="like-dislike">
-							<img
-								src="<%=request.getContextPath()%>/article/img/HO/like.png"
-								alt=""><span style="margin-right: 10px;">10</span> <img
-								src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
-								alt=""><span>10</span>
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+	<section id="article_conten">
+		<%@ include file="page1.file"%>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9" style="height: 600px;">
+					<div>
+						<table>
+							<tr>
+								<td id="title_colum_td">
+								<a href="" id="cat_view">文章分類</a> 
+								<a href="" id="title_view">標題</a>
+								</td>
+								<td id="article_creator">發文作者</td>
+								<td id="article_date">發表時間</td>
+								<td id="article_count">點擊次數</td>
+							</tr>
+							<c:forEach var="artVO" items="${list}">
+							<div style="display:none;" id="stJSTL"><c:if test="${artVO.articleStatus < 1 }"></div>
+ 								<c:if test="${artVO.articleCategoryNo == artCate.articleCategoryNo}"> 
+									<tr class="title_colum">
+										<td id="title_colum_td">
+											<a href="" id="cat_view">[${artVO.articleCategory.articleCategory}]</a>
 								
-								
-							<button  class="btn custom-btn" type="submit">回覆</button>
-						</div>
+											<input type="submit" id="title_view" value="${artVO.articleTitle}"> 
+											<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+											<input type="hidden" name="action" value="getOne_For_Display">
+										</td>
+									
+										<td id="article_creator">${artVO.members.memberNickname}</td>
+										<td id="article_date"><fmt:formatDate
+											value="${artVO.lastEditTimestamp}"
+											pattern="yyyy-MM-dd HH:mm:ss" />
+										</td>
+										<td id="article_count">
+										${artVO.viewCount}</td>
+									</tr>
+									</c:if>
+ 								</c:if>
+							</c:forEach>
 						
-						<hr>
-	<c:forEach var="artVO2" items="${list2}">
-		<c:if test="${artVO2.articleNo == artVO.articleNo}">
-        <div id="article_content" class="col" style="position: relative;">
-            <h7 class="conten_title"></h7>
-            <p>
-                發表時間:<fmt:formatDate value="${artVO2.lastEditTimeStamp}" pattern="yyyy-MM-dd HH:mm:ss" />
-            </p>
-            <td>${artVO2.articleSubContent}</td> 
-            <br> <br>
-
-            <div id="like-dislike">
-                <img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt=""><span style="margin-right: 10px;">10</span>
-                <img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt=""><span>10</span>
-
-                <button class="btn custom-btn" type="submit">回覆</button>
-            </div>
-
-            <hr>
-        </div>
-    </c:if>
-</c:forEach>
-			
-
-						
-						<div class="col" style="height: 150px; width: 1000px;">
-							<div id="reply" class="d-flex justify-content-start ">
-								<textarea name="articleSubContent" id="reply_input"></textarea>
-
-							</div>
-							<input type="submit" class="btn custom-btn" value="快速回覆"
-							style="margin-top:5px;"> 
-							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-							<input type="hidden" name="memberId" value="5" size="45" /> 
-							<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
-							<input type="hidden" name="articleSubCount"  value="0" size="45" /> 
-							<input type="hidden" name="action" value="insert">
-						</div>
-				</FORM>
+						</table>
 					</div>
+				</div>
+			</FORM>	
+				<!-- 以下群聊視窗範圍 -->
+				<div class="col-lg-3">
+					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"
+						href="<%=request.getContextPath()%>/article/article_edit.jsp">
+						發文</a>
+
+
+					<div class="statusOutput" id="statusOutput">CookTalk</div>
+					<textarea id="messagesArea" class="panel message-area" readonly></textarea>
+					<div class="panel input-area">
+						<input id="message" class="text-field" type="text"
+							placeholder="Message"
+							onkeydown="if (event.keyCode == 13) sendMessage();" /> <input
+							type="submit" id="sendMessage" class="btn ding-btn-org"
+							value="Send" onclick="sendMessage();" />
+					</div>
+
 				</div>
 			</div>
 		</div>
+	</section>
 
-
+	<!-- 頁簽-->
+	<%@ include file="page2.file"%>
+	<div class="d-flex justify-content-center">
+		<nav aria-label="Page navigation example" style="margin-top: 5px">
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link_pr" href="#">Previous</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<!--Q2 active 沒有效果-->
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link_ne" href="#">Next</a></li>
+			</ul>
+		</nav>
 	</div>
+
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
 		<div class="container">
@@ -334,25 +362,24 @@
 		</div>
 	</footer>
 	<!-- Footer Section End -->
+	<script>
+		$(document).ready(function() {
+    		var cateNum = ${artCate.articleCategoryNo};
+    		 $(".btn.custom-btn[value="+ cateNum +"]").addClass("HO-btn-org");
 
+		});
 
+		    
+	</script>	
 	<!-- Js Plugins -->
-	<script
-		src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
-
-
-
 </body>
-
 </html>

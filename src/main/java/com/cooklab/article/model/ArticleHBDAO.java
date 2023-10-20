@@ -41,7 +41,7 @@ public class ArticleHBDAO implements ArticleDAO {
 
 	   ArticleVO1  = session.get(ArticleVO.class,ArticleVO.getArticleNo());
        	if(ArticleVO1 != null) {
-			ArticleVO1.setArticleCategory(ArticleVO.getArticleCategory());
+			ArticleVO1.setArticleCategoryNo(ArticleVO.getArticleCategoryNo());
 			ArticleVO1.setArticleTitle(ArticleVO.getArticleTitle());
 			ArticleVO1.setMemberId(ArticleVO.getMemberId());
 			ArticleVO1.setArticleStatus(ArticleVO.getArticleStatus());

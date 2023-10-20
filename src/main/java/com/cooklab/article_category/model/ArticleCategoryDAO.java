@@ -7,5 +7,7 @@ public interface ArticleCategoryDAO {
 	public void update (ArticleCategoryVO artVO);
 	
 	public ArticleCategoryVO  findByPrimaryKey(Integer articleCategoryNo);
+	
+	
 	public List<ArticleCategoryVO>getAll();
 }

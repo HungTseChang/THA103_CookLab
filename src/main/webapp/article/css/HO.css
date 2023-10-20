@@ -95,6 +95,14 @@
 
 }
 
+.title_colum.odd {
+    background: #F29422;
+}
+
+.title_colum.even {
+     background: #F27405;
+}
+
 /* 为基数项设置不同的背景颜色 */
 .title_colum:nth-child(odd) {
     background: #F27405;
