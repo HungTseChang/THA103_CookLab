@@ -16,12 +16,12 @@ import com.cooklab.util.HibernateUtil;
 
 public class AdvertiseHBDAO implements AdvertiseDAO {
 	@Override
-	public void insert(PromoCodeVO PromoCodeVO) {
+	public void insert(AdvertiseVO AdvertiseVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
-           	session.save(PromoCodeVO);
+           	session.save(AdvertiseVO);
 			session.getTransaction().commit();
 			session.close();
 			
@@ -37,21 +37,20 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 
 //============================insert完結=======================================
 	@Override
-	public void update(PromoCodeVO PromoCodeVO) {
+	public void update(AdvertiseVO AdvertiseVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		PromoCodeVO   PromoCodeVO1 = null;
+		AdvertiseVO  AdvertiseVO1 = null;
 		try {
 			session.beginTransaction();
 
-			PromoCodeVO1  = session.get(PromoCodeVO.class,PromoCodeVO.getPromoCodeNo());
-       	if(PromoCodeVO1 != null) {
-       		PromoCodeVO1.setPromoCodeSerialNumber(PromoCodeVO.getPromoCodeSerialNumber());
-       		PromoCodeVO1.setStartTime(PromoCodeVO.getStartTime());
-       		PromoCodeVO1.setEndTime(PromoCodeVO.getEndTime());
-       		PromoCodeVO1.setPercentageDiscountAmount(PromoCodeVO.getPercentageDiscountAmount());
-       		PromoCodeVO1.setFixedDiscountAmount(PromoCodeVO.getFixedDiscountAmount());
-       		PromoCodeVO1.setUsagesAllowed(PromoCodeVO.getUsagesAllowed());
-       		PromoCodeVO1.setMinimumConsumption(PromoCodeVO.getMinimumConsumption());
+			AdvertiseVO1  = session.get(AdvertiseVO.class,AdvertiseVO.getAdvertiseNo());
+       	if(AdvertiseVO1 != null) {
+       		AdvertiseVO1.setAdvertiseName(AdvertiseVO.getAdvertiseName());
+       		AdvertiseVO1.setAdvertiseShelfTime(AdvertiseVO.getAdvertiseShelfTime());
+       		AdvertiseVO1.setAdvertiseOffsaleTime(AdvertiseVO.getAdvertiseOffsaleTime());
+       		AdvertiseVO1.setAdvertiseImg(AdvertiseVO.getAdvertiseImg());
+       		AdvertiseVO1.setAdvertiseUrl(AdvertiseVO.getAdvertiseUrl());
+       	
        		
        	}
 			session.getTransaction().commit();
@@ -69,13 +68,13 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 	
 //=================================update結束========================================
 @Override
-	public void delete(Integer promoCodeNo) {
+	public void delete(Integer advertiseNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			PromoCodeVO promoCodeVO2 = session.get(PromoCodeVO.class, promoCodeNo);
-      	if(promoCodeVO2 != null) {
-       		session.delete(promoCodeVO2);
+			AdvertiseVO advertiseVO2 = session.get(AdvertiseVO.class, advertiseNo);
+      	if(advertiseVO2 != null) {
+       		session.delete(advertiseVO2);
        	}
 		session.getTransaction().commit();
 		session.close();
@@ -90,22 +89,20 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 
 //===============================delete結束======================================
 	@Override
-	public PromoCodeVO findByPrimaryKey(Integer promoCodeNo) {
+	public AdvertiseVO findByPrimaryKey(Integer advertiseNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		PromoCodeVO PromoCodeVO3 =null;
+		AdvertiseVO AdvertiseVO3 =null;
 		try {
 			session.beginTransaction();
-			 PromoCodeVO3 =session.get(PromoCodeVO.class, promoCodeNo);
+			 AdvertiseVO3 =session.get(AdvertiseVO.class, advertiseNo);
 //			System.out.println(
-//					"promoCodeNo :"+PromoCodeVO3.getpromoCodeNo()+"\n  "
-//				+ "PromoCodeSerialNumber :"+PromoCodeVO3.getPromoCodeSerialNumber()+"\n"
-//				+"StartTime :"+ PromoCodeVO3.getStartTime()+"\n"
-//				+"EndTime :"+PromoCodeVO3.getEndTime()+"\n"
-//				+"PercentageDiscountAmount :"+PromoCodeVO3.getPercentageDiscountAmount()+"\n"
-//				+"FixedDiscountAmount :"+PromoCodeVO3.getFixedDiscountAmount()+"\n"
-//				+"UsagesAllowed :"+PromoCodeVO3.getUsagesAllowed()+"\n"
-//				+"MinimumConsumption :"+PromoCodeVO3.getMinimumConsumption()+"\n"
-//				+"tCreatedTimestamp :"+PromoCodeVO3.getCreatedTimestamp()
+//					"advertiseNo :"+AdvertiseVO3.getadvertiseNo()+"\n  "
+//				+ "AdvertiseName :"+AdvertiseVO3.getAdvertiseName()+"\n"
+//				+"AdvertiseShelfTime :"+ AdvertiseVO3.getAdvertiseShelfTime()+"\n"
+//				+"AdvertiseOffsaleTime :"+AdvertiseVO3.getAdvertiseOffsaleTime()+"\n"
+//				+"AdvertiseImg :"+AdvertiseVO3.getAdvertiseImg()+"\n"
+//				+"AdvertiseUrl :"+AdvertiseVO3.getAdvertiseUrl()+"\n"
+//				+"CreatedTimestamp :"+AdvertiseVO3.getCreatedTimestamp()
 //				+"\n"+"============================================="
 //						); 
 //    
@@ -117,32 +114,30 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 	} finally {
 		HibernateUtil.shutdown();
 	}
-		return PromoCodeVO3;
+		return AdvertiseVO3;
 	}
 
 //===========================findByPrimaryKey結束==============================================
 	@Override
-	public List<PromoCodeVO> getAll() {
-		List<PromoCodeVO> list1 = new ArrayList<PromoCodeVO>();
+	public List<AdvertiseVO> getAll() {
+		List<AdvertiseVO> list1 = new ArrayList<AdvertiseVO>();
 
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
-			list1 = session.createQuery("from PromoCodeVO",PromoCodeVO.class).list();
+			list1 = session.createQuery("from AdvertiseVO",AdvertiseVO.class).list();
 //			for(int i=0; i<list1.size();i++) {
 //				System.out.println(
-//			"promoCodeNo :"+PromoCodeVO3.getpromoCodeNo()+"\n  "
-//		+ "PromoCodeSerialNumber :"+PromoCodeVO3.getPromoCodeSerialNumber()+"\n"
-//		+"StartTime :"+ PromoCodeVO3.getStartTime()+"\n"
-//		+"EndTime :"+PromoCodeVO3.getEndTime()+"\n"
-//		+"PercentageDiscountAmount :"+PromoCodeVO3.getPercentageDiscountAmount()+"\n"
-//		+"FixedDiscountAmount :"+PromoCodeVO3.getFixedDiscountAmount()+"\n"
-//		+"UsagesAllowed :"+PromoCodeVO3.getUsagesAllowed()+"\n"
-//		+"MinimumConsumption :"+PromoCodeVO3.getMinimumConsumption()+"\n"
-//		+"tCreatedTimestamp :"+PromoCodeVO3.getCreatedTimestamp()
-//		+"\n"+"============================================="
-//				); 
+//			//					"advertiseNo :"+AdvertiseVO3.getadvertiseNo()+"\n  "
+//			+ "AdvertiseName :"+AdvertiseVO3.getAdvertiseName()+"\n"
+//			+"AdvertiseShelfTime :"+ AdvertiseVO3.getAdvertiseShelfTime()+"\n"
+//			+"AdvertiseOffsaleTime :"+AdvertiseVO3.getAdvertiseOffsaleTime()+"\n"
+//			+"AdvertiseImg :"+AdvertiseVO3.getAdvertiseImg()+"\n"
+//			+"AdvertiseUrl :"+AdvertiseVO3.getAdvertiseUrl()+"\n"
+//			+"CreatedTimestamp :"+AdvertiseVO3.getCreatedTimestamp()
+//			+"\n"+"============================================="
+//					); 
 //
 			
 			
@@ -167,29 +162,25 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 	
 	public static void main(String[] args) {
 
-		PromoCodeHBDAO dao = new PromoCodeHBDAO();
+		AdvertiseHBDAO dao = new AdvertiseHBDAO();
 		// 新增
 		// 新增
-//		PromoCodeVO PromoCodeVO1 = new PromoCodeVO();
-//		PromoCodeVO1.setPromoCodeSerialNumber(1);
-//		PromoCodeVO1.setStartTime("2020-11-11");
-//		PromoCodeVO1.setEndTime("2020-12-12");
-//		PromoCodeVO1.setPercentageDiscountAmount(50);
-//		PromoCodeVO1.setFixedDiscountAmount(50);
-//		PromoCodeVO1.setUsagesAllowed(1000);
-//		PromoCodeVO1.setMinimumConsumption(20);
-//		dao.insert(PromoCodeVO1);
+//		AdvertiseVO AdvertiseVO1 = new AdvertiseVO();
+//		AdvertiseVO1.setAdvertiseName(1);
+//		AdvertiseVO1.setAdvertiseShelfTime("2020-11-11");
+//		AdvertiseVO1.setAdvertiseOffsaleTime("2020-12-12");
+//		AdvertiseVO1.setAdvertiseImg(50);
+//		AdvertiseVO1.setAdvertiseUrl(50);
+//		dao.insert(AdvertiseVO1);
 
 ////			// 修改
-//		PromoCodeVO PromoCodeVO2 = new PromoCodeVO();
-//		PromoCodeVO2.setPromoCodeSerialNumber(2);
-//		PromoCodeVO2.setStartTime("2022-10-10");
-//		PromoCodeVO2.setEndTime("2022-11-11");
-//		PromoCodeVO2.setPercentageDiscountAmount(30);
-//		PromoCodeVO2.setFixedDiscountAmount(30);
-//		PromoCodeVO2.setUsagesAllowed(500);
-//		PromoCodeVO2.setMinimumConsumption(100);
-//		dao.insert(PromoCodeVO2);
+//		AdvertiseVO AdvertiseVO2 = new AdvertiseVO();
+//		AdvertiseVO2.setAdvertiseName(2);
+//		AdvertiseVO2.setAdvertiseShelfTime("2022-10-10");
+//		AdvertiseVO2.setAdvertiseOffsaleTime("2022-11-11");
+//		AdvertiseVO2.setAdvertiseImg(30);
+//		AdvertiseVO2.setAdvertiseUrl(30);
+//		dao.insert(AdvertiseVO2);
 //
 //////			// 刪除
 //			dao.delete(3);
@@ -197,33 +188,28 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 //
 //////
 //////			// 查詢
-			PromoCodeVO PromoCodeVO3 = dao.findByPrimaryKey(2);
+			AdvertiseVO AdvertiseVO3 = dao.findByPrimaryKey(2);
 			
-//			System.out.print(PromoCodeVO3.getPromoCodeNo() + ",");
-//			System.out.print(PromoCodeVO3.getPromoCodeSerialNumber() + ",");
-//			System.out.print(PromoCodeVO3.getStartTime() + ",");
-//			System.out.print(PromoCodeVO3.getEndTime() + ",");
-//			System.out.print(PromoCodeVO3.getPercentageDiscountAmount() + ",");
-//			System.out.print(PromoCodeVO3.getFixedDiscountAmount() + ",");
-//			System.out.print(PromoCodeVO3.getUsagesAllowed()+ ",");
-//			System.out.print(PromoCodeVO3.getMinimumConsumption()+",");
-//			System.out.println(PromoCodeVO3.getCreatedTimestamp() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseNo() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseName() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseShelfTime() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseOffsaleTime() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseImg() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseUrl() + ",");
+//			System.out.println(AdvertiseVO3.getCreatedTimestamp() + ",");
 //
 //			System.out.println("---------------------");
 //////
 //////			// 查詢
-//		List<PromoCodeVO> list = dao.getAll();
-//		for (PromoCodeVO PromoCodeVO : list) {
-//			System.out.print(PromoCodeVO3.getPromoCodeNo() + ",");
-//			System.out.print(PromoCodeVO3.getPromoCodeSerialNumber() + ",");
-//			System.out.print(PromoCodeVO3.getStartTime() + ",");
-//			System.out.print(PromoCodeVO3.getEndTime() + ",");
-//			System.out.print(PromoCodeVO3.getPercentageDiscountAmount() + ",");
-//			System.out.print(PromoCodeVO3.getFixedDiscountAmount() + ",");
-//			System.out.print(PromoCodeVO3.getUsagesAllowed()+ ",");
-//			System.out.print(PromoCodeVO3.getMinimumConsumption()+",");
-//			System.out.println(PromoCodeVO3.getCreatedTimestamp() + ",");
-//
+//		List<AdvertiseVO> list = dao.getAll();
+//		for (AdvertiseVO AdvertiseVO : list) {
+//			System.out.print(AdvertiseVO3.getAdvertiseNo() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseName() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseShelfTime() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseOffsaleTime() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseImg() + ",");
+//			System.out.print(AdvertiseVO3.getAdvertiseUrl() + ",");
+//			System.out.println(AdvertiseVO3.getCreatedTimestamp() + ",");
 //			System.out.println("---------------------");
 //		}
 //	
