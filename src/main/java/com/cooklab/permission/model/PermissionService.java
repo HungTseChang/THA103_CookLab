@@ -16,7 +16,7 @@ public class PermissionService {
 	
 	public PermissionVO add(String permissionTitle, Byte superAdmin, Byte cancelAllPermission,
 			Byte membershipManagement, Byte advertisingManagement, Byte reportingManagement, Byte articleManagement,
-			Byte recipeManagement) {
+			Byte recipeManagement, Timestamp createTimestamp) {
 
 		PermissionVO PermissionVO = new PermissionVO();
 
@@ -29,6 +29,7 @@ public class PermissionService {
 		PermissionVO.setReportingManagement(reportingManagement);
 		PermissionVO.setArticleManagement(articleManagement);
 		PermissionVO.setRecipeManagement(recipeManagement);		
+		PermissionVO.setCreatedTimestamp(createTimestamp);
 		dao.insert(PermissionVO);
 
 		
