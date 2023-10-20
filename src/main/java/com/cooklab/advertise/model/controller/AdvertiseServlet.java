@@ -96,7 +96,7 @@ public class AdvertiseServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			AdvertiseService adSvc = new AdvertiseService();
-			AdvertiseVO advertiseVO = adSvc.getOneAd(advertiseno);
+			adSvc.getOneAd(advertiseno);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
@@ -158,7 +158,7 @@ public class AdvertiseServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的advertiseVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/update_advertise_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
@@ -167,7 +167,7 @@ public class AdvertiseServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			AdvertiseService adSvc = new AdvertiseService();
-			advertiseVO = adSvc.updateAd( advertisename, advertiseshelftime, advertiseoffsaletime, advertiseimg,advertiseurl);
+			adSvc.updateAd(advertiseVO);
 			
 			
 
@@ -237,8 +237,8 @@ public class AdvertiseServlet extends HttpServlet {
 			}
 
 			/*************************** 2.開始新增資料 ***************************************/
-			AdvertiseService advertiseSvc = new AdvertiseService();
-			advertiseSvc.addAd(advertisename, advertiseshelftime, advertiseoffsaletime, advertiseimg, advertiseurl);
+			AdvertiseService adSvc = new AdvertiseService();
+			adSvc.addAd(advertiseVO);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/emp/listAllEmp.jsp";
@@ -252,11 +252,13 @@ public class AdvertiseServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ***************************************/
-			Integer advertiseno = Integer.valueOf(req.getParameter("advertiseno"));
+			Integer advertiseno = Integer.valueOf(req.getParameter("advertiseno").trim());
+			AdvertiseVO advertiseVO = new AdvertiseVO();
+			advertiseVO.setAdvertiseNo(advertiseno);
 
 			/*************************** 2.開始刪除資料 ***************************************/
-			AdvertiseService advertiseSvc = new AdvertiseService();
-			advertiseSvc.deleteAd(advertiseno);
+			AdvertiseService adSvc = new AdvertiseService();
+			adSvc.deleteAd(advertiseVO);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 			String url = "/advertise/listAllAdvertise.jsp";

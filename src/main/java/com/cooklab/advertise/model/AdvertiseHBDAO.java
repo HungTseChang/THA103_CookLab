@@ -9,8 +9,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
-import com.cooklab.article_category.model.ArticleCategoryVO;
-import com.cooklab.promo_code.model.*;
 import com.cooklab.util.HibernateUtil;
 
 public class AdvertiseHBDAO implements AdvertiseDAO {

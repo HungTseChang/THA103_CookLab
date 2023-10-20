@@ -3,6 +3,8 @@ package com.cooklab.promo_code.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.cooklab.advertise.model.AdvertiseVO;
+
 public class PromoCodeService {
 	private PromoCodeHBDAO dao;
 //	private PromoCodeDAO dao;
@@ -50,21 +52,25 @@ public class PromoCodeService {
 //		return PromoCodeVO;
 //	}
 
-	public void deletePromocode(Integer promocodeno) {
-		dao.delete(promocodeno);
+	public void addPc (PromoCodeVO promoCodeVO) {
+		dao.insert(promoCodeVO);
+	}
+	
+	public void  updatePc(PromoCodeVO promoCodeVO) {
+		dao.update(promoCodeVO);
+	}
+	
+	
+	public void deletePc(PromoCodeVO promoCodeVO) {
+		dao.delete(promoCodeVO);
 	}
 
-	public PromoCodeVO getOnePromoCode(Integer promocodeno) {
-		return dao.findByPrimaryKey(promocodeno);
+	public PromoCodeVO getOnePc(Integer promoCodeNO) {
+		return dao.findByPrimaryKey(promoCodeNO);
 	}
 
 	public List<PromoCodeVO> getAll() {
 		return dao.getAll();
-	}
-
-	public void delete(Integer promoCodeNo) {
-		dao.delete(promoCodeNo);
-		
 	}
 
 
