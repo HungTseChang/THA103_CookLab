@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,12 +15,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DataTable - Mazer Admin Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/bootstrap.css">
-
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/style.css">
+   <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/style.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
@@ -69,14 +68,14 @@
                                 <i class="bi bi-stack"></i>
                                 <span>權限管理</span>
                             </a>
-                            <ul class="submenu " style="display: block;">
+                            <ul class="submenu ">
                           
-                                <li class="submenu-item active">
-                                    <a href=".\WCC_admin_management.html">管理管理者</a>
+                                <li class="submenu-item ">
+                                    <a href=".\WCC_permission_management.html">管理管理者</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_admin_createrule.html">創立權限規則</a>
+                                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
                                 </li>
                             
                             </ul>
@@ -185,7 +184,6 @@
                             </ul>
                         </li>
                         <!-- ======================================================================================================== -->
-
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -197,12 +195,8 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-            <!--   /////////////////////////////////////////////////////////////////////////////////////////  -->
+            <!--/////////////////////////////////////////////////////////////////////////////////////////  -->
             <style>
-            table{
-              border-collapse: collapse;
-        width: 100%;
-        }
                 td a.wcc {
                     border: 1px solid rgb(151, 135, 249);
                     background-color: rgb(195, 241, 253);
@@ -211,26 +205,7 @@
                 }
 
                 td button.wcc {
-                    border-radius: 20px;}
-                   table, th, td {
-                    border: 1px solid rgb(47, 46, 48);
-                    padding: 5px;
-                     white-space: nowrap
-                     
-                }
-                td{
-                        white-space: nowrap; 
-      					  overflow: hidden; 
-      					  text-overflow: ellipsis; 
-                }
-
-                .hightlight {
-                    border-color: blue;
-                    background-color: rgb(163, 163, 248);
-                }
-
-                .-none {
-                    display: none;
+                    border-radius: 20px;
                 }
             </style>
             <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -251,19 +226,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-12"></div>
-            </div>
-            <section class="section" style="background-color: rgb(208, 250, 255);   height: 500px;">
-                <div class="row" style="height: 100%;">
-                    <div class="col-md-1" style="background-color:rgb(208, 250, 255);"></div>
-                    <div class="col-md-10" style=" background-color:  rgb(208, 250, 255);">
-                        <div class="card">
-                            <div class="card-header" style="background-color: rgb(208, 250, 255);">
-                                <span style="font-size: 30px;">權限規則</span>
-                            </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header">
                             <div class="row" style="background-color: white">
-                             <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;"> <lable style="background-color:white; padding-left: 20px;: border-color:white;">資料查詢:</lable></div>    
-                               <div class="col-md-6"  >                     
+                             <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;"> <lable style="background-color:white; padding-left: 20px;: border-color:white;">資料查詢:</lable></div>
+                           <div class="col-md-6"  >                     
                        <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 編號、管理員、帳號、暱稱或時間" style="pading-color:  rgb(208, 250, 255);" >
                               </div>
                                 <div class="datable dropdown" style="padding:10px;">
@@ -274,206 +242,199 @@
                         <option value="20">20</option>
                         </select>
                         <label>每頁展示筆數</label>
+                        </div>                        </div>
+                        <div class="card-body">
+                            <table class="table"  id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>會員編號</th>
+                                        <th>暱稱</th>
+                                        <th>帳號</th>
+                                        <th>電子信箱</th>
+                                        <th>會員狀態</th>
+                                        <th>會員管理</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                            </table>
                         </div>
-                            <div class="table-datatable " style="width: 100%; height: 400px;  overflow-y: scroll; overflow-x: scroll; padding:0;">
-                                <table class="table-container" id="table1" style="width: 100%; font-size: 20px; border-top:40px;">
-                                    <thead style="background-color: rgb(212, 212, 212);">
-                                        <tr>
-                                            <th style="width: 146;">管理者編號</th>
-                                            <th>管理者暱稱</th>
-                                            <th>管理者權限編號</th>
-                                              <th>管理者帳號</th>
-                                                <th>管理者建立時間</th>
-                                                   <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-           
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                              </div>
-                       
-
-                        </div>
-
-                        <div class="row">
+                    </div>
                            <div class="col-md-4 pagination">
         <span class="page-item wcc" id="prev-page">上一頁</span>
         <span class="page-item wcc" id="next-page">下一頁</span>
         <span id="current-page">1</span>
         <span id="total-pages">of 1</span>
    								 </div>
-                            <div class="col-md-8">
-                                <a   class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
-                            </div>
-                        </div>
+                </section>
+            </div>
+
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2021 &copy; Mazer</p>
                     </div>
-                    <div class="col-md-1" style="background-color: rgb(208, 250, 255);"></div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                href="http://ahmadsaugi.com">A. Saugi</a></p>
+                    </div>
                 </div>
-            </section>
+            </footer>
         </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            $("button.wcc").on('click', (e) => {
+                Swal.fire({
+                    icon: "success",
+                    title: "重設密碼成功!"
+                })
+            })
 
-        </section>
 
-    </div>
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-start">
-                <p>2021 &copy; Mazer</p>
-            </div>
-            <div class="float-end">
-                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                        href="http://ahmadsaugi.com">A. Saugi</a></p>
-            </div>
-        </div>
-    </footer>
-    </div>
-    </div>
+
+
+        })
+    </script>
     <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  
+    <script>
+    $(document).ready(function(e) {
+    	$(document).on("click","a.wcc",function(e){
+    		let memberNO = $(e.target).closest("tr").find("td[name='memberid']").text();
+    		var form = $("<form>", {
+	            action: "<%=request.getContextPath() %>/MemberdashboardServlet", // 表单提交的URL
+	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	        });
+		       form.append($("<input>", {
+	               type: "text",
+	               name: "memberNO",
+	               value: memberNO
+	           }));
+		    
+		       form.append($("<input>", {
+	               type: "text",
+	               name: "action",
+	               value: "getone"
+	           }));
+		       form.appendTo("body").hide();
+		       form.submit();
+		       form.remove();
+    	
+    	
+    	})
+    	
+    	
+    	
+    	
+    	
+//     	================================
+    	$("#searchbar").on("keyup", function() {
+        var value1 = $(this).val().toLowerCase();
+        $("#table1 tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1);
+        });
+      });
+    	
+//     	=================================
+    	 var rowsPerPage = 5;
+    	 var currentPage = 1;
+    	 var myList;
+
+    	 if('${json}'){
+    		 myList=JSON.parse('${json}');
+    		}else{ 
+    			console.log("reload");
+    			var form = $("<form>", {
+    	            action: "<%=request.getContextPath() %>/MemberdashboardServlet", // 表单提交的URL
+    	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+    	        });
+    		    
+    		       form.append($("<input>", {
+    	               type: "text",
+    	               name: "action",
+    	               value: "getAll"
+    	           }));
+    		       form.appendTo("body").hide();
+    		       form.submit();
+    		       form.remove();
+    		}
+    	
+//     	==========放入資料===================
+    	 console.log(myList);
+     var status ={
+    		 0:'  <span class="badge bg-success">正常</span>',
+    		 1:' <span class="badge bg-danger">註銷</span>'
+     }
+    	 var number =myList.length;
+    	     	 
+    	    function updateTable() {    
+    	    	var startIndex = (currentPage - 1) * rowsPerPage;
+    	    	var endIndex = startIndex + rowsPerPage;
+    	    	var tableBody = $("table#table1").children("tbody");
+    	    	tableBody.empty();
+    		for(let i = startIndex ; i<endIndex ;i++){
+    	    	        	  
+    	  if (i <number){
+    		  let aa = myList[i];
+    	  	  let text = "";
+    		  text += "<tr>";
+    		  text += "<td class='wcc' name='memberid'>"+aa.memberId+"</td>";
+    		  text +=" <td class='wcc'>"+aa.memberNickname+"</td>";
+    		  text +=" <td class='wcc'>"+aa.memberAccount+"</td>";
+    		  text +=" <td>"+aa.memberMail+"</td>";
+    		  text +=" <td>"+status[aa.memberStatus]+"</td>";
+    		  text +=" <td>"+ '<a class="wcc">詳細資料</a><button class="wcc">重設密碼</button>' +"</td>";
+    		  text += "<tr>";
+    		  $("table#table1").children("tbody").append(text);
+    	     	   }
+    		}
+    	$("#current-page").text(currentPage);
+    	var totalPages = Math.ceil(number/ rowsPerPage);
+    	$("#total-pages").text("of " + totalPages);
+    		}
+    	    $("#select1").change(function() {
+    	 	   rowsPerPage = $(this).val();
+    	 	   currentPage = 1;
+    	 	   updateTable();
+    	  });
+    	    $("#prev-page").click(function() {
+    	        if (currentPage > 1) {
+    	            currentPage--;
+    	            updateTable();
+    	        }
+    	        
+    	        
+    	    });
+    	    
+    	    $("#next-page").click(function() {
+    	        var totalPages = Math.ceil(number / rowsPerPage);
+    	        if (currentPage < totalPages) {
+    	            currentPage++;
+    	            updateTable();
+    	        }
+    	    });
+//     	    ================
+    	
+    	updateTable();
+    	
+    	
+    	
+    })
+        
+        
+        
+        
+        
+    </script>
+      <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="<%=request.getContextPath() %>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script src="<%=request.getContextPath() %>/dashboard/assets/js/main.js"></script>
     <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
-
-<script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-// 	================================
-	$("#searchbar").on("keyup", function() {
-    var value1 = $(this).val().toLowerCase();
-    $("#table1 tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1);
-    });
-  });
-	
-// 	=================================
- var rowsPerPage = 5;
- var currentPage = 1;
- var myList;
-
- if('${json}'){
-	 myList=JSON.parse('${json}');
-	}else{ 
-		console.log("reload");
-		var form = $("<form>", {
-            action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
-            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
-        });
-	    
-	       form.append($("<input>", {
-               type: "text",
-               name: "action",
-               value: "getAlladmins"
-           }));
-	       form.appendTo("body").hide();
-	       form.submit();
-	       form.remove();
-	}
-//  =================================
-	$(document).on("click","a#enter0",function(){
-		var form1 = $("<form>", {
-            action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
-            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
-        });
-	    
-	       form1.append($("<input>", {
-               type: "text",
-               name: "action",
-               value: "insert"
-           }));
-	       form1.appendTo("body").hide();
-	       form1.submit();
-	       form1.remove();
-	})
- 
- 
- 
- 
-//  ====================================
-console.log(myList);
- var number =myList.length;
- 
- 
- 
-    function updateTable() {    
-    	var startIndex = (currentPage - 1) * rowsPerPage;
-    	var endIndex = startIndex + rowsPerPage;
-    	var tableBody = $("table#table1").children("tbody");
-    	tableBody.empty();
-	for(let i = startIndex ; i<endIndex ;i++){
-    	        	  
-  if (i <number){
-	  let aa = myList[i];
-  	  let text = "";
-	  text += "<tr>";
-	  text += "<td class='wcc'>"+aa.adminNo+"</td>";
-	  text +=" <td class='wcc'>"+aa.adminNickname+"</td>";
-	  text +=" <td class='wcc'>"+aa.permissionNo+"</td>";
-	  text +=" <td>"+aa.adminAccount+"</td>";
-	  text +=" <td>"+aa.createdTimestamp+"</td>";
-	  text +=`
-			<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
-		     <input type="submit" value="修改">
-		     <input type="hidden" name="adminNo"  value=`;
-		    text +=aa.adminNo;
-		    text +=` >
-		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-		</td>
-		<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
-		     <input type="submit" value="刪除">
-		     <input type="hidden" name="adminNo"  value=`;
-	  text +=aa.adminNo;
-	  text +=`>
-		     <input type="hidden" name="action" value="delete"></FORM>
-		</td>
-		  `;
-	  text += "<tr>";
-	  $("table#table1").children("tbody").append(text);
-     	   }
-	}
-$("#current-page").text(currentPage);
-var totalPages = Math.ceil(number/ rowsPerPage);
-$("#total-pages").text("of " + totalPages);
-	}
-    $("#select1").change(function() {
- 	   rowsPerPage = $(this).val();
- 	   currentPage = 1;
- 	   updateTable();
-  });
-    $("#prev-page").click(function() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable();
-        }
-        
-        
-    });
-    
-    $("#next-page").click(function() {
-        var totalPages = Math.ceil(number / rowsPerPage);
-        if (currentPage < totalPages) {
-            currentPage++;
-            updateTable();
-        }
-    });
-    
-
-    
-    
-    
-    updateTable();
-    
-	
-    })
-
-</script>
 
 </body>
 

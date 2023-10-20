@@ -12,14 +12,14 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/dashboard/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="<%=request.getContextPath() %>/dashboard/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="<%=request.getContextPath() %>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -287,7 +287,7 @@
                                                                         id="first-name-icon" value="${AdminsVO.adminPassword}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
-                                                                            <use xlink:href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
+                                                                            <use xlink:href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
                                                                         </svg>                                                                   
                                                                      </div>
                                                                 </div>
@@ -303,7 +303,7 @@
                                                                         id="first-name-icon" value="${AdminsVO.adminPassword}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
-                                                                            <use xlink:href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
+                                                                            <use xlink:href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
                                                                         </svg>                                                                   
                                                                      </div>
                                                                 </div>
@@ -377,16 +377,15 @@
         </footer>
     </div>
     </div>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
-     <script>
-     
-     document.addEventListener("DOMContentLoaded",function () {    
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
+     <script>document.addEventListener("DOMContentLoaded",function () {    
     $("a#insert").on("click",function(){
   	  var account= $("input[name='account']").val()+"";
 	  var nickname= $("input[name='nickname']").val()+"";
@@ -400,7 +399,7 @@
 		  return;
 	  }
   	  var form = $("<form>", {
-            action: "${pageContext.request.contextPath}/AdminsServlet", // 表单提交的URL
+            action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
             method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         });
 	    

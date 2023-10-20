@@ -10,12 +10,12 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/dashboard/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="<%=request.getContextPath() %>/dashboard/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="<%=request.getContextPath() %>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -309,13 +309,13 @@
         </div>
     </footer>
     </div>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
         	 var rowsPerPage = 5;
@@ -327,7 +327,7 @@
         		}else{ 
         			console.log("reload");
         			var form = $("<form>", {
-        	            action: "${pageContext.request.contextPath}/PermissionServlet", // 表单提交的URL
+        	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
         	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         	        });
         		    
@@ -382,7 +382,7 @@
                      <a  class="modify wcc" style="margin-bottom: 0px;">修改</a>
     			</td>
     			<td>
-    			  <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/PermissionServlet" style="margin-bottom: 0px;">
+    			  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/PermissionServlet" style="margin-bottom: 0px;">
     			     <input type="submit" value="刪除">
     			     <input type="hidden" name="permissionNo"  value=`;
     		  text +=aa.permissionNo;
@@ -413,7 +413,7 @@
         let	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
         let	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
         	var save = $("<form>", {
-	            action: "${pageContext.request.contextPath}/PermissionServlet", // 表单提交的URL
+	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	        });
         	save.append($("<input>", {
@@ -609,8 +609,8 @@
       			`
         		newone +="</tr>";
         		 $("table#table1").children("tbody").append(newone);
-         		$(e.target).closest("div.table-datatable").scrollTop($(e.target).closest("div.table-datatable")[0].scrollHeight);
-
+         		$("div.table-datatable").scrollTop($("div.table-datatable")[0].scrollHeight);
+         		$("div.table-datatable").scrollLeft(0);
         }
         
         $("a#enter0").on("click",function(){
@@ -623,8 +623,8 @@
         	if(permissionTitle==null || permissionTitle.trim()==""){
         		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").attr("placeholder","title不可為空");
         		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").addClass("red-placeholder");
-        		$(e.target).closest("div.table-datatable").scrollLeft(0);
-        		$(e.target).closest("div.table-datatable").scrollTop($(e.target).closest("div.table-datatable")[0].scrollHeight);
+        		$("div.table-datatable").scrollLeft(0);
+        		$("div.table-datatable").scrollTop($("div.table-datatable")[0].scrollHeight);
 
            	 console.log("結果為空值");
         		return;
@@ -640,7 +640,7 @@
         	let recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
         	
         	var save = $("<form>", {
-	            action: "${pageContext.request.contextPath}/PermissionServlet", // 表单提交的URL
+	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	        });
         	save.append($("<input>", {
