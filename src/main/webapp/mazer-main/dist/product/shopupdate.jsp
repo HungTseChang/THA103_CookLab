@@ -224,6 +224,14 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 											<div class="form-body">
 												<div class="row">
 													<div class="col-12">
+														<tr>
+															<td class="wide-row">商品編號:<font color=red><b>*</b></font></td>
+															<td><input type="text" name="productNo"
+																value="<%=productVO.getProductNo()%>" readonly></td>
+														</tr>
+
+													</div>
+													<div class="col-12" style="margin-top: 20px;">
 														<input type="file" id="p_file" class="form-control"
 															name="productPicture">
 														<div id="preview">
@@ -274,8 +282,8 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO");
 														<div class="form-group">
 															<label for="downtime-vertical">下架時間</label> <input
 																type="datetime-local" step="1" id="downtime-vertical"
-																value="${productVO.offsaleTime}"
-																class="form-control" name="offsaleTime">
+																value="${productVO.offsaleTime}" class="form-control"
+																name="offsaleTime">
 														</div>
 													</div>
 

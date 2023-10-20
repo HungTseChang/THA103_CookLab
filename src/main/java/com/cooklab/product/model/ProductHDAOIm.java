@@ -40,12 +40,17 @@ public class ProductHDAOIm implements ProductDAO {
 	}
 
 	@Override
-	public boolean update(ProductVO productVO) {
+	public void update(ProductVO productVO) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			getSession().update(productVO);
-			return true;
+			session.beginTransaction();
+			session.update(productVO);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+//			HibernateUtil.shutdown();
 		}
 	}
 
