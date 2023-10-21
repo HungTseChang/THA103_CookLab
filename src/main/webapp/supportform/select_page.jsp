@@ -60,7 +60,7 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="sfSvc" scope="page" class="com.cooklab.support_form.model.SupportFormService" />
+  <jsp:useBean id="sfSvc" scope="page" class="com.cooklab.support_form.model.SupportFormJDBCService" />
    
   <li>
      <FORM METHOD="post" ACTION="/THA103_CookLab/SupportFormServlet" >

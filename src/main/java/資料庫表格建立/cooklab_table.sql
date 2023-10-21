@@ -152,7 +152,7 @@ CREATE TABLE product (
 	product_name 			VARCHAR(20) NOT NULL,
 	sale_qty 				INT UNSIGNED NOT NULL,
 	product_dec 			LONGTEXT,
-	product_introduction	VARCHAR(500),
+	product_introduction	LONGTEXT,
 	product_price 			INT UNSIGNED NOT NULL,
 	offsale_time 			DATETIME,
 	shelf_time 				DATETIME,

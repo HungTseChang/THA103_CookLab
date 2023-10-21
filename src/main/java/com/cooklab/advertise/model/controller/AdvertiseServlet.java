@@ -2,9 +2,13 @@ package com.cooklab.advertise.model.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cooklab.advertise.model.AdvertiseService;
+import com.cooklab.advertise.model.AdvertiseVO;
 
 import com.google.gson.Gson;
 
@@ -21,164 +27,243 @@ import com.google.gson.Gson;
  */
 @WebServlet("/AdvertiseServlet")
 public class AdvertiseServlet extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
-
-	public AdvertiseServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		String forwardPath = "";
-		switch (action) {
-		case "inserAdvertise":
-			forwardPath = inserAdvertise(req, res);
-			break;
-		case "getAllAdvertise":
-			forwardPath = getAllAdvertise(req, res);
-			break;
-		case "getOne_For_Update":
-			forwardPath = getOne_For_Update(req, res);
-			break;
-		case "updateAdvertise":
-			forwardPath = updateAdvertise(req, res);
-			break;
-		case "delete":
-			forwardPath = delete(req, res);
-		default:
-			forwardPath = "/dashboard/admin/WCC_permission_management.jsp";
+
+		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			String str = req.getParameter("advertiseno");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.put("advertiseno", "請輸入廣告編號");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/select_page.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			Integer advertiseno = null;
+			try {
+				advertiseno = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.put("advertise", "廣告編號格式不正確");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/select_page.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 2.開始查詢資料 *****************************************/
+			AdvertiseService adSvc = new AdvertiseService();
+			AdvertiseVO advertiseVO = adSvc.getOneAd(advertiseno);
+			if (advertiseVO == null) {
+				errorMsgs.put("advertiseno", "查無資料");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/select_page.jsp");
+				failureView.forward(req, res);
+				return;// 程式中斷
+			}
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("advertiseVO", advertiseVO); // 資料庫取出的advertiseVO物件,存入req
+			String url = "/advertise/listOneAdvertise.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
 		}
-//		res.setContentType("text/html; charset=UTF-8");
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
-		dispatcher.forward(req, res);
 
-	}
+		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
-	private String delete(HttpServletRequest req, HttpServletResponse res) {
-		AdminsService AdminsService = new AdminsService();
-		Integer adminNo = Integer.valueOf(req.getParameter("adminNo"));
-		AdminsService.delete(adminNo);
-		return getAlladmins(req, res);
-	}
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 
-	private String updateAdmins(HttpServletRequest req, HttpServletResponse res) {
-		AdminsService AdminsService = new AdminsService();
-		String account = req.getParameter("account");
-		String nickname = req.getParameter("nickname");
-		String password = req.getParameter("password");
-		Integer permission = Integer.valueOf(req.getParameter("permission"));
-		Integer adminNo = Integer.valueOf(req.getParameter("adminNo"));
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer advertiseno = Integer.valueOf(req.getParameter("advertiseno"));
 
-		System.out.print(account + "||" + nickname + "||" + password + "||" + permission + "||" + adminNo);
-		AdminsService.update(nickname, permission, account, password, adminNo);
-//AdminsService.update("11",1,"22","3",2);
-		return getAlladmins(req, res);
-	}
+			/*************************** 2.開始查詢資料 ****************************************/
+			AdvertiseService adSvc = new AdvertiseService();
+			adSvc.getOneAd(advertiseno);
 
-	private String getAlladmins(HttpServletRequest req, HttpServletResponse res) {
-		AdminsService AdminsService = new AdminsService();
-		List<AdminsVO> list = AdminsService.getAll();
-		List<AdminsVOFake> list1 = new ArrayList<AdminsVOFake>();
-		AdminsVOFake a;
-		for(int i =0;i<list.size();i++) {
-			 a = new AdminsVOFake(list.get(i));
-			 list1.add(a);
-			 
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+
+			String url = "/advertise/update_advertise_input.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_advertise_input.jsp
+			successView.forward(req, res);
 		}
+
+		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Integer advertiseno = Integer.valueOf(req.getParameter("advertiseno").trim());
+
+			String advertisename = req.getParameter("advertisename");
+			String advertisenameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (advertisename == null || advertisename.trim().length() == 0) {
+				errorMsgs.put("advertisename", "廣告名稱: 請勿空白");
+			} else if (!advertisename.trim().matches(advertisenameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("advertisename", "廣告名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			}
+
+			java.sql.Timestamp advertiseshelftime = null;
+			try {
+				advertiseshelftime = java.sql.Timestamp.valueOf(req.getParameter("advertiseshelftime").trim());
+			} catch (IllegalArgumentException e) {
+				errorMsgs.put("advertiseshelftime", "請輸入廣告上架日期");
+			}
+
+			java.sql.Timestamp advertiseoffsaletime = null;
+			try {
+				advertiseoffsaletime = java.sql.Timestamp.valueOf(req.getParameter("advertiseoffsaletime").trim());
+			} catch (IllegalArgumentException e) {
+				errorMsgs.put("advertiseoffsaletime", "請輸入廣告下架日期");
+			}
+			String advertiseimg = null;
+			if (advertiseimg == null || advertiseimg.trim().length() == 0) {
+
+				errorMsgs.put("advertiseimg", "請輸入圖片");
+			}
+
+			String advertiseurl = null;
+			if (advertiseurl == null || advertiseurl.trim().length() == 0) {
+
+				errorMsgs.put("advertiseurl", "請輸入圖片鏈結");
+			}
+			
+			AdvertiseVO advertiseVO = new AdvertiseVO();
+			
+			advertiseVO.setAdvertiseNo(advertiseno);
+			advertiseVO.setAdvertiseName(advertisename);
+			advertiseVO.setAdvertiseShelfTime(advertiseshelftime);
+			advertiseVO.setAdvertiseOffsaleTime(advertiseoffsaletime);
+			advertiseVO.setAdvertiseImg(advertiseimg);
+			advertiseVO.setAdvertiseUrl(advertiseurl);
 		
-		String json = new Gson().toJson(list1);
-//		System.out.println(json);
-		req.setAttribute("json", json);
-		return "/dashboard/admin/WCC_permission_management.jsp";
-	}
 
-	private String getOne_For_Update(HttpServletRequest req, HttpServletResponse res) {
-		AdminsService AdminsService = new AdminsService();
-		Integer adminNo = Integer.valueOf(req.getParameter("adminNo"));
-		AdminsVO AdmonVO = AdminsService.getOne(adminNo);
-//		AdminsVOFake a = new AdminsVOFake(AdmonVO);
-		req.setAttribute("AdminsVO", AdmonVO);
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的advertiseVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/update_advertise_input.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
 
-		return "/dashboard/admin/WCC_permission_update.jsp";
-	}
 
-	private String inserAdmins(HttpServletRequest req, HttpServletResponse res) {
-		AdminsService AdminsService = new AdminsService();
-		String account = req.getParameter("account");
-		String nickname = req.getParameter("nickname");
-		String password = req.getParameter("password");
-		Integer permission = Integer.valueOf(req.getParameter("permission"));
-		Timestamp a =new Timestamp(System.currentTimeMillis());
-		AdminsService.add(nickname, permission, account, password,a);
+			/*************************** 2.開始修改資料 *****************************************/
+			AdvertiseService adSvc = new AdvertiseService();
+			adSvc.updateAd(advertiseVO);
+			
+			
 
-		return getAlladmins(req, res);
-	}
-	
-	
-	private class AdminsVOFake{
-		private Integer adminNo;
-		private String adminNickname;
-		private Integer permissionNo;
-		private String adminAccount;
-		private String adminPassword;
-		private Timestamp createdTimestamp;
-		public AdminsVOFake(AdminsVO AdminsVO) {
-			super();
-			this.adminNo = AdminsVO.getAdminNo();
-			this.adminNickname = AdminsVO.getAdminNickname();
-			this.permissionNo = AdminsVO.getPermissionVO().getPermissionNo();
-			this.adminAccount = AdminsVO.getAdminAccount();
-			this.adminPassword = AdminsVO.getAdminPassword();
-			this.createdTimestamp = AdminsVO.getCreatedTimestamp();
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+			req.setAttribute("advertiseVO", advertiseVO); // 資料庫update成功後,正確的的advertiseVO物件,存入req
+			String url = "/advertise/listOneAdvertise.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneAdvertise.jsp
+			successView.forward(req, res);
 		}
-		public Integer getAdminNo() {
-			return adminNo;
-		}
-		public void setAdminNo(Integer adminNo) {
-			this.adminNo = adminNo;
-		}
-		public String getAdminNickname() {
-			return adminNickname;
-		}
-		public void setAdminNickname(String adminNickname) {
-			this.adminNickname = adminNickname;
-		}
-		public Integer getPermissionNo() {
-			return permissionNo;
-		}
-		public void setPermissionNo(Integer permissionNo) {
-			this.permissionNo = permissionNo;
-		}
-		public String getAdminAccount() {
-			return adminAccount;
-		}
-		public void setAdminAccount(String adminAccount) {
-			this.adminAccount = adminAccount;
-		}
-		public String getAdminPassword() {
-			return adminPassword;
-		}
-		public void setAdminPassword(String adminPassword) {
-			this.adminPassword = adminPassword;
-		}
-		public Timestamp getCreatedTimestamp() {
-			return createdTimestamp;
-		}
-		public void setCreatedTimestamp(Timestamp createdTimestamp) {
-			this.createdTimestamp = createdTimestamp;
-		}
+
+		if ("insert".equals(action)) { // 來自addAdvertise.jsp的請求
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			Integer advertiseno = Integer.valueOf(req.getParameter("advertiseno").trim());
+
+			String advertisename = req.getParameter("advertisename");
+			String advertisenameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (advertisename == null || advertisename.trim().length() == 0) {
+				errorMsgs.put("advertisename", "廣告名稱: 請勿空白");
+			} else if (!advertisename.trim().matches(advertisenameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("advertisename", "廣告名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			}
+
+			java.sql.Timestamp advertiseshelftime = null;
+			try {
+				advertiseshelftime = java.sql.Timestamp.valueOf(req.getParameter("advertiseshelftime").trim());
+			} catch (IllegalArgumentException e) {
+				errorMsgs.put("advertiseshelftime", "請輸入廣告上架日期");
+			}
+
+			java.sql.Timestamp advertiseoffsaletime = null;
+			try {
+				advertiseoffsaletime = java.sql.Timestamp.valueOf(req.getParameter("advertiseoffsaletime").trim());
+			} catch (IllegalArgumentException e) {
+				errorMsgs.put("advertiseoffsaletime", "請輸入廣告下架日期");
+			}
+			String advertiseimg = null;
+			if (advertiseimg == null || advertiseimg.trim().length() == 0) {
+
+				errorMsgs.put("advertiseimg", "請輸入圖片");
+			}
+
+			String advertiseurl = null;
+			if (advertiseurl == null || advertiseurl.trim().length() == 0) {
+
+				errorMsgs.put("advertiseurl", "請輸入圖片鏈結");
+			}
+
+			AdvertiseVO advertiseVO = new AdvertiseVO();
+			advertiseVO.setAdvertiseNo(advertiseno);
+			advertiseVO.setAdvertiseName(advertisename);
+			advertiseVO.setAdvertiseShelfTime(advertiseshelftime);
+			advertiseVO.setAdvertiseOffsaleTime(advertiseoffsaletime);
+			advertiseVO.setAdvertiseImg(advertiseimg);
+			advertiseVO.setAdvertiseUrl(advertiseurl);
 		
-		
-		
+
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/update_advertise_input.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
+
+			/*************************** 2.開始新增資料 ***************************************/
+			AdvertiseService adSvc = new AdvertiseService();
+			adSvc.addAd(advertiseVO);
+
+			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			String url = "/emp/listAllEmp.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);
+		}
+
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			Map<String, String> errorMsgs = new LinkedHashMap<String, String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ***************************************/
+			Integer advertiseno = Integer.valueOf(req.getParameter("advertiseno").trim());
+			AdvertiseVO advertiseVO = new AdvertiseVO();
+			advertiseVO.setAdvertiseNo(advertiseno);
+
+			/*************************** 2.開始刪除資料 ***************************************/
+			AdvertiseService adSvc = new AdvertiseService();
+			adSvc.deleteAd(advertiseVO);
+
+			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
+			String url = "/advertise/listAllAdvertise.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+			successView.forward(req, res);
+		}
 	}
-	
 }

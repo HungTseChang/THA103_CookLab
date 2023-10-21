@@ -23,7 +23,7 @@ import com.cooklab.article_sub.model.ArticleSubVO;
 import com.cooklab.article_sub_report.model.ArticleSubReportVO;
 import com.cooklab.member_collection.model.MemberCollectionVO;
 import com.cooklab.member_order.model.MemberOrderVO;
-
+import com.cooklab.member_collection.model.MemberCollectionVO;
 import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.promo_code_used.model.PromoCodeUsedVO;
 import com.cooklab.recipe.model.RecipeVO;
@@ -314,14 +314,14 @@ public class MembersVO {
 	}
 
 
-	public Set<RecipeReportVO> getRecipeReportS() {
-		return recipeReportS;
-	}
-
-
-	public void setRecipeReportS(Set<RecipeReportVO> recipeReportS) {
-		this.recipeReportS = recipeReportS;
-	}
+//	public Set<RecipeReportVO> getRecipeReportS() {
+//		return recipeReportS;
+//	}
+//
+//
+//	public void setRecipeReportS(Set<RecipeReportVO> recipeReportS) {
+//		this.recipeReportS = recipeReportS;
+//	}
 
 
 	public Set<RecipeCollectionVO> getRecipeCollectionS() {

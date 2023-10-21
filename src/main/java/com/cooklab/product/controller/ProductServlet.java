@@ -107,7 +107,8 @@ public class ProductServlet extends HttpServlet {
 					ProductVO productVO = productSvc.getOneProduct(productNo);
 
 					req.setAttribute("productVO", productVO); // ��Ʈw���X��empVO����,�s�Jreq
-					String url = "/product/update_product_input.jsp";
+					String url = "/mazer-main/dist/product/shopupdate.jsp";
+					System.out.println("ProductNo: " + req.getParameter("productNo"));
 					RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_emp_input.jsp
 					successView.forward(req, res);
 				} catch (NumberFormatException e) {
@@ -117,7 +118,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // �Ӧ�update_emp_input.jsp���ШD
-
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -126,6 +127,8 @@ public class ProductServlet extends HttpServlet {
 			/***************************
 			 * 1.�����ШD�Ѽ� - ��J�榡�����~�B�z
 			 **********************/
+			System.out.println("ProductNo: " + req.getParameter("productNo"));
+
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 
 			String productName = req.getParameter("productName");
@@ -163,19 +166,36 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			java.sql.Timestamp offsaleTime = null;
-			try {
-				offsaleTime = java.sql.Timestamp.valueOf(req.getParameter("offsaleTime").trim());
-			} catch (IllegalArgumentException e) {
-				offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
-				errorMsgs.add("請輸入日期!");
+			String offsaleTimeStr = req.getParameter("offsaleTime");
+			if (offsaleTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
+					System.out.println(localDateTime);
+					offsaleTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入有效日期時間!");
+				}
+			} else {
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
 
 			java.sql.Timestamp shelfTime = null;
-			try {
-				shelfTime = java.sql.Timestamp.valueOf(req.getParameter("shelfTime").trim());
-			} catch (IllegalArgumentException e) {
-				shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
-				errorMsgs.add("請輸入日期!");
+			String shelfTimeStr = req.getParameter("shelfTime");
+			if (shelfTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
+					shelfTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入有效日期時間!");
+				}
+			} else {
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
 
 			Integer storageQty = null;
@@ -215,26 +235,23 @@ public class ProductServlet extends HttpServlet {
 			} else {
 				searchCount = 0; // 或者根据你的业务逻辑设置一个默认值
 			}
-			
-	        // 處理上傳圖片
+
+			// 處理上傳圖片
 			Part filePart = req.getPart("productPicture");
 			byte[] buf;
 			InputStream in = null; // 在条件之外初始化
 
 			if (filePart.getSize() == 0) {
-			    ProductService productSvc = new ProductService();
-			    buf = productSvc.getOneProduct(productNo).getProductPicture();
-			    System.out.println(0);
+				ProductService productSvc = new ProductService();
+				buf = productSvc.getOneProduct(productNo).getProductPicture();
+				System.out.println(0);
 			} else {
-			    in = filePart.getInputStream();
-			    buf = new byte[in.available()]; // 在这里初始化
-			    in.read(buf);
-			    in.close();
-			    System.out.println(1);
+				in = filePart.getInputStream();
+				buf = new byte[in.available()]; // 在这里初始化
+				in.read(buf);
+				in.close();
+				System.out.println(1);
 			}
-
-	        	
-
 
 			ProductVO productVO = new ProductVO();
 
@@ -265,13 +282,13 @@ public class ProductServlet extends HttpServlet {
 			ProductService productSvc = new ProductService();
 			productVO = productSvc.updateProduct(productNo, productName, saleQty, productDec, productIntroduction,
 					productPrice, offsaleTime, shelfTime, storageQty, ingredientCategoryNo, kitchenwareCategoryNo,
-					searchCount,buf);
+					searchCount, buf);
 
 			/***************************
 			 * 3.�ק粒��,�ǳ����(Send the Success view)
 			 *************/
 			req.setAttribute("productVO", productVO); // ��Ʈwupdate���\��,���T����empVO����,�s�Jreq
-			String url = "/product/listOneProduct.jsp";
+			String url = "/mazer-main/dist/product/shopview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // �ק令�\��,���listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -325,37 +342,35 @@ public class ProductServlet extends HttpServlet {
 			java.sql.Timestamp offsaleTime = null;
 			String offsaleTimeStr = req.getParameter("offsaleTime");
 			if (offsaleTimeStr != null) {
-			    try {
-			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-			        LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
-			        System.out.println(localDateTime);
-			        offsaleTime = Timestamp.valueOf(localDateTime);
-			    } catch (DateTimeParseException e) {
-			        e.printStackTrace();
-			        offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
-			        errorMsgs.add("請輸入有效日期時間!");
-			    }
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
+					System.out.println(localDateTime);
+					offsaleTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入有效日期時間!");
+				}
 			} else {
-			    // 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
-
 
 			java.sql.Timestamp shelfTime = null;
 			String shelfTimeStr = req.getParameter("shelfTime");
 			if (shelfTimeStr != null) {
-			    try {
-			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-			        LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
-			        shelfTime = Timestamp.valueOf(localDateTime);
-			    } catch (DateTimeParseException e) {
-			        e.printStackTrace();
-			        shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
-			        errorMsgs.add("請輸入有效日期時間!");
-			    }
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
+					shelfTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入有效日期時間!");
+				}
 			} else {
-			    // 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
-
 
 			Integer storageQty = null;
 			try {
@@ -395,14 +410,12 @@ public class ProductServlet extends HttpServlet {
 				searchCount = 0; // 或者根据你的业务逻辑设置一个默认值
 			}
 
-	        // 處理上傳圖片
-	        Part filePart = req.getPart("productPicture");
+			// 處理上傳圖片
+			Part filePart = req.getPart("productPicture");
 			InputStream in = filePart.getInputStream();
-			byte[] buf = new byte[in.available()];   // byte[] buf = in.readAllBytes();  // Java 9 的新方法
+			byte[] buf = new byte[in.available()]; // byte[] buf = in.readAllBytes(); // Java 9 的新方法
 			in.read(buf);
 			in.close();
-			
-
 
 			ProductVO productVO = new ProductVO();
 
@@ -431,12 +444,12 @@ public class ProductServlet extends HttpServlet {
 			 ***************************************/
 			ProductService productSvc = new ProductService();
 			productVO = productSvc.addProduct(productName, saleQty, productDec, productIntroduction, productPrice,
-					offsaleTime, shelfTime, storageQty, ingredientCategoryNo, kitchenwareCategoryNo,buf);
+					offsaleTime, shelfTime, storageQty, ingredientCategoryNo, kitchenwareCategoryNo, buf);
 
 			/***************************
 			 * 3.�s�W����,�ǳ����(Send the Success view)
 			 ***********/
-			String url = "/product/listAllProduct.jsp";
+			String url = "/mazer-main/dist/product/shopview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -467,6 +480,5 @@ public class ProductServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 	}
-
 
 }
