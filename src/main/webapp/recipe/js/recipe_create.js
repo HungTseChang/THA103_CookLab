@@ -4,81 +4,95 @@ let stepImgBase64 = [];
 /*============================================================ function ============================================================*/
 //去除base64標頭
 function removeDataUrlHeader(dataUrl) {
-    if (dataUrl.startsWith("data:")) {
-        const commaIndex = dataUrl.indexOf(",");
-        if (commaIndex !== -1) {
-            return dataUrl.substring(commaIndex + 1);
-        }
-    }
-    return dataUrl;
+	if (dataUrl.startsWith("data:")) {
+		const commaIndex = dataUrl.indexOf(",");
+		if (commaIndex !== -1) {
+			return dataUrl.substring(commaIndex + 1);
+		}
+	}
+	return dataUrl;
+}
+//刪除按鈕限制
+function checkDeleteButtonStatus(listDelete) {
+	if (listDelete.length > 1) {
+		listDelete.each(function(index) {
+			$(this).prop("style", "display:inlineblock"); // 启用所有删除按钮
+			//			if (index === deleteButtons.length - 1) {
+			//				$(this).prop("disabled", true); // 禁用最后一个删除按钮
+			//			}
+		});
+	} else {
+		listDelete.prop("style", "display:none");
+	}
 }
 
 /*============================================================ event ============================================================*/
-$("#btnTag").on("click", function () {
-    $("#tagBox").removeClass("none");
+$("#btnTag").on("click", function() {
+	$("#tagBox").removeClass("none");
 });
 
-$(".btn_modal_close").on("click", function () {
-    $("#tagBox").addClass("none");
+$(".btn_modal_close").on("click", function() {
+	$("#tagBox").addClass("none");
 });
 
 // modal 中的半透明黑色區域
-$("#tagBox").on("click", function () {
-    $(this).addClass("none");
+$("#tagBox").on("click", function() {
+	$(this).addClass("none");
 });
 
 // 點擊 lightbox 中的白色區域，不會關掉 modal
-$("#tagBox article").on("click", function (e) {
-    e.stopPropagation();
+$("#tagBox article").on("click", function(e) {
+	e.stopPropagation();
 });
 
-$(".addTag").on("click", function (e) {
-    let that = this;
-    let tagText = $(that).text();
-    let clone = $(this).clone();
-    $("#selectTag input").before(clone.removeClass("addTag").addClass("deleteTag"));
-    $(this).addClass("disabled-button");
-    clone.on("mouseover", function () {
-        $(this).append(" x");
-    });
-    clone.on("mouseout", function () {
-        $(this).text(tagText);
-    });
-    clone.on("click", function () {
-        $(this).remove();
-        $(that).removeClass("disabled-button");
-    });
+$(".addTag").on("click", function(e) {
+	let that = this;
+	let tagText = $(that).text();
+	let clone = $(this).clone();
+	$("#selectTag input").before(clone.removeClass("addTag").addClass("deleteTag"));
+	$(this).addClass("disabled-button");
+	clone.on("mouseover", function() {
+		$(this).append(" x");
+	});
+	clone.on("mouseout", function() {
+		$(this).text(tagText);
+	});
+	clone.on("click", function() {
+		$(this).remove();
+		$(that).removeClass("disabled-button");
+	});
 });
 
 /*============================== 新增成品圖 ==============================*/
 
 //讓成品圖可以觸發選圖
-$("#coverImageView").on("click", function () {
-    document.getElementById("coverImageInput").click(); //使用jQuery會產生問題
+$("#coverImageView").on("click", function() {
+	document.getElementById("coverImageInput").click(); //使用jQuery會產生問題
 });
 //透過File取得預覽圖
-$("#coverImageInput").on("change", function () {
-    let fileInput = document.getElementById("coverImageInput");
-    let coverImageView = document.getElementById("coverImageView");
+$("#coverImageInput").on("change", function() {
+	let fileInput = document.getElementById("coverImageInput");
+	let coverImageView = document.getElementById("coverImageView");
 
-    if (fileInput.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            let img_str = `<img src = "${e.target.result}" id = "coverImage" >`;
-            $("#coverImageView img").remove();
-            $("#coverImageView").append(img_str);
-            coverImageBase64 = removeDataUrlHeader(e.target.result);
-        };
-        reader.readAsDataURL(fileInput.files[0]); //觸發了 FileReader 對象處理讀取所選文件的數據並將其轉換為數據URL
-    }
+	if (fileInput.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			let img_str = `<img src = "${e.target.result}" id = "coverImage" >`;
+			$("#coverImageView img").remove();
+			$("#coverImageView").append(img_str);
+			coverImageBase64 = removeDataUrlHeader(e.target.result);
+		};
+		reader.readAsDataURL(fileInput.files[0]); //觸發了 FileReader 對象處理讀取所選文件的數據並將其轉換為數據URL
+	}
 });
 /*============================== 新增食材 ==============================*/
 
-//食材新增一列
-$("#addIngredient").on("click", function () {
-    let addIngredient = `<div class="row align-items-center " style="margin: 5px">
+//新增一列食材
+$("#addIngredient").on("click", function() {
+	let addIngredient = `<div class="row align-items-center " style="margin: 5px">
                              <div class="col-md-5 ">
-                                 <input type="text" class="form-control ingredient" placeholder="請輸入食材" />
+                                 <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)"/>
+                                 <div class="search-results"></div>
                              </div>
                              <div class="col-md-4">
                                  <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
@@ -86,37 +100,44 @@ $("#addIngredient").on("click", function () {
                          <i class="bi bi-list">&emsp;</i>
                          <i class="bi bi-trash3-fill delete-ingredient"></i>
                          </div>`;
-    $("#listIngredient").append(addIngredient);
+	$("#listIngredient").append(addIngredient);
+	checkDeleteButtonStatus($(".delete-ingredient"));
 });
 //刪除一列食材
-$("#listIngredient").on("click", ".delete-ingredient", function () {
-    $(this).parent().remove();
+$("#listIngredient").on("click", ".delete-ingredient", function() {
+	$(this).parent().remove();
+	checkDeleteButtonStatus($(".delete-ingredient"));
 });
+
 /*============================== 新增廚具 ==============================*/
 //廚具新增一列
-$("#addKitchenware").on("click", function () {
-    let addKitchenware = `<div class="row align-items-center" style="margin: 5px">
+$("#addKitchenware").on("click", function() {
+	let addKitchenware = `<div class="row align-items-center" style="margin: 5px">
                             <div class="col-md-5">
-                                <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" />
+                                <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)"/>
+                                <div class="search-results"></div>
                             </div>
                             <i class="bi bi-list">&emsp;</i>
                             <i class="bi bi-trash3-fill delete-kitchenware"></i>
                           </div>`;
-    $("#listKitchenware").append(addKitchenware);
+	$("#listKitchenware").append(addKitchenware);
 });
 //刪除一列食材
-$("#listKitchenware").on("click", ".delete-kitchenware", function () {
-    $(this).parent().remove();
+$("#listKitchenware").on("click", ".delete-kitchenware", function() {
+	$(this).parent().remove();
 });
 /*============================== 新增步驟 ==============================*/
 
 //步驟新增一列
-$("#addStep").on("click", function () {
-    step = parseInt($("#listStep .step:last").attr("step")) + 1;
-    console.log($("#listStep .row:last"));
-    let addStep = `<div class="row step" step="${step}">
+$("#addStep").on("click", function() {
+	step = parseInt($("#listStep .step:last").attr("step")) + 1;
+	console.log($("#listStep .row:last"));
+	let addStep = `<div class="row step" step="${step}">
                     <div class="col-md-3 text-center">
-                        <div class="step-img-view"><span class="text">步驟圖片</span></div>
+                        <div class="step-img-view">
+                        	<span class="text">步驟圖片</span>
+                        	<input type="file" class="step-img-input" accept="image/*" style="display: none" />
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <div class="row">
@@ -128,32 +149,34 @@ $("#addStep").on("click", function () {
                     <i class="bi bi-list">&emsp;</i>
                     <i class="bi bi-trash3-fill delete-step"></i>
                  </div>`;
-    $("#listStep").append(addStep);
+	$("#listStep").append(addStep);
+	checkDeleteButtonStatus($(".delete-step"));
 });
 //刪除一列步驟
-$("#listStep").on("click", ".delete-step", function () {
-    $(this).parent().remove();
+$("#listStep").on("click", ".delete-step", function() {
+	$(this).parent().remove();
+	checkDeleteButtonStatus($(".delete-step"));
 });
 //讓成品圖可以觸發選圖
-$(".step-img-view").on("click", function () {
-    this.querySelector(".step-img-input").click(); //使用jQuery會產生問題
+$("#listStep").on("click", ".step-img-view", function() {
+	this.querySelector(".step-img-input").click(); //使用jQuery會產生問題
 });
 //透過File取得預覽圖
-$(".step-img-input").on("change", function () {
-    let fileInput = this;
-    let stepImgView = $(this).parent();
-    if (fileInput.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            let img_str = `<img src = "${e.target.result}" class = "step-img" >`;
-            stepImgView.find("img").remove();
-            stepImgView.append(img_str);
+$("#listStep").on("change", ".step-img-input", function() {
+	let fileInput = this;
+	let stepImgView = $(this).parent();
+	if (fileInput.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			let img_str = `<img src = "${e.target.result}" class = "step-img" >`;
+			stepImgView.find("img").remove();
+			stepImgView.append(img_str);
 
-            step = parseInt($(fileInput).parents(".step").attr("step"));
-            stepImgBase64[step - 1] = removeDataUrlHeader(e.target.result);
-        };
-        reader.readAsDataURL(fileInput.files[0]); //觸發了 FileReader 對象處理讀取所選文件的數據並將其轉換為數據URL
-    }
+			step = parseInt($(fileInput).parents(".step").attr("step"));
+			stepImgBase64[step - 1] = removeDataUrlHeader(e.target.result);
+		};
+		reader.readAsDataURL(fileInput.files[0]); //觸發了 FileReader 對象處理讀取所選文件的數據並將其轉換為數據URL
+	}
 });
 
 /*============================== xxx ==============================*/
@@ -207,94 +230,146 @@ $(".step-img-input").on("change", function () {
 
 /*============================================================ ajax ============================================================*/
 
+/*============================== 搜尋商品 ==============================*/
+//顯示搜尋完的結果
+function displaySearchResults(results, product) {
+	let searchResults = product.nextElementSibling;
+	searchResults.innerHTML = "";
+	results.forEach(function(result) {
+		const resultItem = `<div class="result-item">${result}</div>`;
+		$(searchResults).append(resultItem);
+	});
+}
+function searchProduct(product) {
+	const search = product.value;
+	const category = product.getAttribute("category");
+	if (search.trim() != "") {
+		$.ajax({
+			url: `http://localhost:8081/CookLab/Recipe${category}Servlet`,
+			type: "POST",
+			data: { search, action: "search", category },
+			dataType: "json",
+			beforeSend: function() { },
+			headers: {},
+			success: function(data) {
+				displaySearchResults(data, product);
+			},
+			error: function(xhr) {
+				console.log("ajax失敗");
+				console.log(xhr);
+			},
+			complete: function(xhr) {
+				// request 完成之後執行(在 success / error 事件之後執行)
+				// console.log(xhr);
+			},
+		});
+	} else {
+		product.nextElementSibling.innerHTML = "";
+	}
+}
+$(".search-init").on("click", ".result-item", function() {
+	$(this).parent().prev().val($(this).text());
+	$(".search-init .search-results").html("");
+});
+
+$(document).on("mousedown", function(event) {
+	var target = $(event.target);
+	if (!target.is(".search-init .search-results") && !target.parents(".search-init .search-results").length) {
+		$(".search-init .search-results").html("");
+	}
+});
+
+
+//    document.querySelector(".search-results").addEventListener("click", function (e) {
+//    e.preventDefault(); // 阻止默认的 blur 行为
+//    product.value = e.target.textContent;
+//    console.log(product.value);
+//    console.log("測試");
+//	});
+
 /*============================== 發布食譜 ==============================*/
 
-$("#publish").on("click", function () {
-    let ingredient = document.querySelectorAll(".ingredient"); //所有食材
-    let ingredientArray = []; //食材陣列
-    let ingredientQuantity = document.querySelectorAll(".ingredient-quantity"); //所有食材
-    let ingredientQuantitytArray = []; //食材份量陣列
-    let kitchenware = document.querySelectorAll(".kitchenware"); //所有廚具
-    let kitchenwareArray = []; //廚具陣列
-    let stepTime = document.querySelectorAll(".step-time"); //所有步驟時間
-    let stepTimeArray = []; //步驟時間陣列
-    let stepContent = document.querySelectorAll(".step-content"); //所有步驟內容
-    let stepContentArray = []; //步驟內容陣列
+$("#publish").on("click", function() {
+	let ingredient = document.querySelectorAll(".ingredient"); //所有食材
+	let ingredientArray = []; //食材陣列
+	let ingredientQuantity = document.querySelectorAll(".ingredient-quantity"); //所有食材
+	let ingredientQuantitytArray = []; //食材份量陣列
+	let kitchenware = document.querySelectorAll(".kitchenware"); //所有廚具
+	let kitchenwareArray = []; //廚具陣列
+	let stepTime = document.querySelectorAll(".step-time"); //所有步驟時間
+	let stepTimeArray = []; //步驟時間陣列
+	let stepContent = document.querySelectorAll(".step-content"); //所有步驟內容
+	let stepContentArray = []; //步驟內容陣列
 
-    //把食材的值放入陣列
-    for (var i = 0; i < ingredient.length; i++) {
-        var ingredientValue = ingredient[i].value;
-        var quantityValue = ingredientQuantity[i].value;
-        ingredientArray.push(ingredientValue);
-        ingredientQuantitytArray.push(quantityValue);
-    }
-    //把廚具的值放入陣列
-    for (var i = 0; i < kitchenware.length; i++) {
-        var value = kitchenware[i].value;
-        kitchenwareArray.push(value);
-    }
-    //把步驟時間的值放入陣列
-    for (var i = 0; i < stepTime.length; i++) {
-        // var imgValue =
-        var timeValue = stepTime[i].value;
-        var contentValue = stepContent[i].value;
-        stepTimeArray.push(timeValue);
-        stepContentArray.push(contentValue);
-    }
-    //送出的資料
-    const createRecipe = {
-        recipeName: $("#recipeName").val(),
-        coverImage: coverImageBase64,
-        introduction: $("#introduction").val(),
-        additionalExplanation: $("#additionalExplanation").val(),
-        // region: $("#region").val(),
-        region: "地區", //測試
-        recipeStatus: 1,
-        recipeQuantity: $("#recipeQuantity").val(),
+	//把食材的值放入陣列
+	for (var i = 0; i < ingredient.length; i++) {
+		var ingredientValue = ingredient[i].value;
+		var quantityValue = ingredientQuantity[i].value;
+		ingredientArray.push(ingredientValue);
+		ingredientQuantitytArray.push(quantityValue);
+	}
+	//把廚具的值放入陣列
+	for (var i = 0; i < kitchenware.length; i++) {
+		var value = kitchenware[i].value;
+		kitchenwareArray.push(value);
+	}
+	//把步驟時間的值放入陣列
+	for (var i = 0; i < stepTime.length; i++) {
+		// var imgValue =
+		var timeValue = stepTime[i].value;
+		var contentValue = stepContent[i].value;
+		stepTimeArray.push(timeValue);
+		stepContentArray.push(contentValue);
+	}
+	//送出的資料
+	const createRecipe = {
+		//食譜table
+		recipeName: $("#recipeName").val(),
+		coverImage: coverImageBase64,
+		introduction: $("#introduction").val(),
+		additionalExplanation: $("#additionalExplanation").val(),
+		// region: $("#region").val(),
+		region: "地區", //測試
+		recipeStatus: 1,
+		recipeQuantity: $("#recipeQuantity").val(),
+		//食材table
+		ingredient: JSON.stringify(ingredientArray),
+		ingredientQuantity: JSON.stringify(ingredientQuantitytArray),
+		//廚具table
+		kitchenware: JSON.stringify(kitchenwareArray),
+		//步驟table
+		stepImg: JSON.stringify(stepImgBase64),
+		stepTime: JSON.stringify(stepTimeArray),
+		stepContent: JSON.stringify(stepContentArray),
 
-        ingredient: JSON.stringify(ingredientArray),
-        ingredientQuantity: JSON.stringify(ingredientQuantitytArray),
-
-        kitchenware: JSON.stringify(kitchenwareArray),
-
-        stepImg: JSON.stringify(stepImgBase64),
-        stepTime: JSON.stringify(stepTimeArray),
-        stepContent: JSON.stringify(stepContentArray),
-
-        action: "insert",
-    };
-    //ajax送新增請求
-    $.ajax({
-        url: "http://localhost:8081/CookLab/RecipeServlet", // 資料請求的網址
-        type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: createRecipe, // 將物件資料(不用雙引號) 傳送到指定的 url
-        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-        beforeSend: function () {
-            // 在 request 發送之前執行
-        },
-        headers: {
-            // request 如果有表頭資料想要設定的話
-            // "X-CSRF-Token":"abcde"   // 參考寫法
-        },
-        statusCode: {
-            // 狀態碼
-            200: function (res) {},
-            404: function (res) {},
-            500: function (res) {},
-        },
-        success: function (data) {
-            // request 成功取得回應後執行
-            console.log("ajax成功");
-            console.log(data);
-        },
-        error: function (xhr) {
-            // request 發生錯誤的話執行
-            console.log("ajax失敗");
-            console.log(xhr);
-        },
-        complete: function (xhr) {
-            // request 完成之後執行(在 success / error 事件之後執行)
-            console.log(xhr);
-        },
-    });
+		action: "insert",
+	};
+	//ajax送新增請求
+	$.ajax({
+		url: "http://localhost:8081/CookLab/RecipeServlet", // 資料請求的網址
+		type: "POST", // GET | POST | PUT | DELETE | PATCH
+		data: createRecipe, // 將物件資料(不用雙引號) 傳送到指定的 url
+		dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+		beforeSend: function() {
+			// 在 request 發送之前執行
+		},
+		headers: {
+			// request 如果有表頭資料想要設定的話
+			// "X-CSRF-Token":"abcde"   // 參考寫法
+		},
+		success: function(data) {
+			// request 成功取得回應後執行
+			console.log("ajax成功");
+			console.log(data);
+		},
+		error: function(xhr) {
+			// request 發生錯誤的話執行
+			console.log("ajax失敗");
+			console.log(xhr);
+		},
+		complete: function(xhr) {
+			// request 完成之後執行(在 success / error 事件之後執行)
+			console.log(xhr);
+		},
+	});
 });

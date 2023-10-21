@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -167,6 +168,21 @@ public class ProductHDAOIm implements ProductDAO {
 	    }
 	    return null;
 	}
+
+	@Override
+	public ProductVO findByProductName(String productName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByProductNames(String productName, String category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 
 
 }

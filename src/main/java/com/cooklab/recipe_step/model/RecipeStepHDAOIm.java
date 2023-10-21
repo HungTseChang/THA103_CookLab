@@ -8,6 +8,7 @@
 	import org.hibernate.SessionFactory;
 
 import com.cooklab.recipe.model.RecipeVO;
+import com.cooklab.recipe_step.model.RecipeStepVO.CompositeDetail;
 
 	public class RecipeStepHDAOIm implements RecipeStepDAO{
 			private SessionFactory factory;
@@ -21,8 +22,8 @@ import com.cooklab.recipe.model.RecipeVO;
 			}
 
 			@Override
-			public int insert(RecipeStepVO recipeStepVO) {
-				return (Integer) getSession().save(recipeStepVO);
+			public CompositeDetail insert(RecipeStepVO recipeStepVO) {
+				return (CompositeDetail) getSession().save(recipeStepVO);
 			}
 
 			@Override
