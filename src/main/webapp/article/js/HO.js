@@ -33,6 +33,17 @@ $(function(){
   });
 });
 
+$(document).ready(function(){
+	
+	$('#replyForm').submit(function(e){
+		e.preventDefault();
+		
+		$('html,body').animate({
+			scrollTop:$(document).height()
+		},'fast');
+	});
+});
+
 
 //=======WebChat===========
 

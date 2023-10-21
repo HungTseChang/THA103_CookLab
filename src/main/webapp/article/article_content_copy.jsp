@@ -178,126 +178,86 @@
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
 
-
-		<div class="container" style="margin-top: 30px;">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+	<div class="container" style="margin-top: 30px;">
 		<div class="row">
-			<div id="c_user" class="col-md-3"
+		<div id="c_user" class="col-md-3"
 				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
 				<a>${artVO.members.memberPicture}</a>
-				
-				<a href="">${artVO.members.memberNickname}</a>
+				<a href="" id="creator"  style="color: black;">
+					${artVO.members.memberNickname}</a>
 			</div>
+
 			<div class="col-8">
 				<div class="row">
 					<div id="article_content" class="col" style="position: relative;">
-						<h7 class="conten_title"> 
-						<span>[${artVO.articleCategory.articleCategory}] ${artVO.articleTitle}</span>
-						</h7>
+						<h7 class="conten_title"> <span>
+						[${artVO.articleCategory.articleCategory}]${artVO.articleTitle}</span></h7>
 						<p>
 							發表時間:<fmt:formatDate value="${artVO.lastEditTimestamp}"
 								pattern="yyyy-MM-dd HH:mm:ss" />
-						</p>						
-						
-						<p> ${artVO.articleContent}</p>
-
-						<br> <br>
-						<div id="like-dislike">
-                			<img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt="">
-                			<span style="margin-right: 10px;">10</span>
-                			<img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
-                			<span>10</span>
-
-                			<button class="btn custom-btn" type="submit">回覆</button>
-            			</div>
-						<hr  style="border: 1px solid #F29422; ">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<c:forEach var="artVO2" items="${list2}">
-	<c:if test="${artVO2.articleNo == artVO.articleNo}">
-	<div class="container" style="margin-top: 30px;">
-		<div class="row">
-			<div id="c_user" class="col-md-3"
-				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-				<a>${artVO2.members.memberPicture}</a>
-				
-				 <a href=""id="creator">${artVO2.members.memberNickname}</a>
-			</div>
-			<div class="col-8">
-				<div class="row">
-					<div id="article_content" class="col" style="position: relative;">
-						<h7 class="conten_title"> 
-						<span>RE#[${artVO.articleCategory.articleCategory}] ${artVO.articleTitle}</span>
-						</h7>
-						<p>
-							發表時間:<fmt:formatDate value="${artVO2.lastEditTimeStamp}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
 						</p>
-						<p>${artVO2.articleSubContent}</p>
-		
-						<br> <br>
-						 <div id="like-dislike">
-                			<img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt="">
-                			<span style="margin-right: 10px;">10</span>
-                			<img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
-                			<span>10</span>
-
-                			<button class="btn custom-btn" type="submit">回覆</button>
-            			</div>
-						<hr  style="border: 1px solid #F29422; ">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</c:if>
-	</c:forEach>
-	<!--  下面是回文的部分需要再調整-->
-	<FORM  id="replyForm" METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
-	<div class="container" style="margin-top: 10px;">
-		<div class="row">
-			<div id="c_user" class="col-md-3"
-				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-				<%-- 錯誤表列 --%>
-				<div style="margin-top :50px">
-					<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-					</c:if>
-				</div>
-			</div>
-			<div class="col-8">
-				<div class="row">
-					<div id="article_content" class="col" style="position: relative;">
-
-						<div id="reply" >
-							<textarea name="articleSubContent" id="reply_input" style="width:100%; height: 80px;" ></textarea>
+						<td>
+							<!-- 這是文本，直接顯示 ，在老師的網面上需要使用base64來讀網頁，
+             			     可是使用quill新增的圖文，可以直接顯示--> ${artVO.articleContent}
+						</td> <br> <br>
+						
+						<div id="like-dislike">
+							<img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt="">
+								<span style="margin-right: 10px;">10</span>
+							<img  src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
+							<span>10</span>
+								
+								
+							<button  class="btn custom-btn" type="submit">回覆</button>
 						</div>
-						<div class="d-flex justify-content-start" style="margin-top: 3px;">
+						
+						<hr>
+	<c:forEach var="artVO2" items="${list2}">
+		<c:if test="${artVO2.articleNo == artVO.articleNo}">
+        <div id="article_content" class="col" style="position: relative;">
+            <h7 class="conten_title"></h7>
+            <p>
+                發表時間:<fmt:formatDate value="${artVO2.lastEditTimeStamp}" pattern="yyyy-MM-dd HH:mm:ss" />
+            </p>
+            <td>${artVO2.articleSubContent}</td> 
+            <br> <br>
+
+            <div id="like-dislike">
+                <img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt=""><span style="margin-right: 10px;">10</span>
+                <img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt=""><span>10</span>
+
+                <button class="btn custom-btn" type="submit">回覆</button>
+            </div>
+
+            <hr>
+        </div>
+    </c:if>
+</c:forEach>
+			
+
+						
+						<div class="col" style="height: 150px; width: 1000px;">
+							<div id="reply" class="d-flex justify-content-start ">
+								<textarea name="articleSubContent" id="reply_input"></textarea>
+
+							</div>
 							<input type="submit" class="btn custom-btn" value="快速回覆"
 							style="margin-top:5px;"> 
 							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-							<input type="hidden" name="memberId" value="3" size="45" /> 
+							<input type="hidden" name="memberId" value="5" size="45" /> 
 							<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
 							<input type="hidden" name="articleSubCount"  value="0" size="45" /> 
 							<input type="hidden" name="action" value="insert">
-							
 						</div>
+				</FORM>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 	</div>
-	</FORM>
-	
-	
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
 		<div class="container">
