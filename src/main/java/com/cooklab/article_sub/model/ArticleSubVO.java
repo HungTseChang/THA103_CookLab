@@ -48,14 +48,16 @@ public class ArticleSubVO {
 	
 	@Column (name="article_no")
 	private Integer articleNo;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	
+	@ManyToOne
 	@JoinColumn(name = "article_no", referencedColumnName = "article_no", insertable = false, updatable = false)
 	private ArticleVO article;
 	
 	@Column (name="member_id")
 	private Integer memberId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO members;
 	
@@ -69,7 +71,7 @@ public class ArticleSubVO {
 	private Integer articleSubCount;
 	
 	@Column (name="last_edit_timestamp" ,insertable = false)
-	private Timestamp lastEditTimeStampstame;
+	private Timestamp lastEditTimeStamp;
 
 	@Column (name="created_timestamp",insertable = false)
 	private Timestamp createdTimestamp;
@@ -151,12 +153,12 @@ public class ArticleSubVO {
 	}
 
 	
-	public Timestamp getLastEditTimeStampstame() {
-		return lastEditTimeStampstame;
+	public Timestamp getLastEditTimeStamp() {
+		return lastEditTimeStamp;
 	}
 
 	public void setLastEditTimeStampstame(Timestamp lastEditTimeStampstame) {
-		this.lastEditTimeStampstame = lastEditTimeStampstame;
+		this.lastEditTimeStamp = lastEditTimeStamp;
 	}
 
 	@Override
@@ -164,7 +166,7 @@ public class ArticleSubVO {
 		return "ArticleSubVO [articleSubNo=" + articleSubNo + ", articleNo=" + articleNo + ", memberId=" + memberId
 				+ ", createdTimestamp=" + createdTimestamp + ", articleSubStatus=" + articleSubStatus
 				+ ", articleSubContent=" + articleSubContent + ", articleSubCount=" + articleSubCount
-				+ ", lastEditTimeStampstame=" + lastEditTimeStampstame + "]";
+				+ ", lastEditTimeStampstame=" + lastEditTimeStamp + "]";
 	}
 
 }

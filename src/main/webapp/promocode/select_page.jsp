@@ -48,7 +48,7 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllPromoCode.jsp'>清單</a> 所有優惠碼  <br><br></li>
+  <li><a href="<%=request.getContextPath()%>/promocode/listAllPromoCode.jsp">清單</a> 所有優惠碼  <br><br></li>
   
   
   <li>

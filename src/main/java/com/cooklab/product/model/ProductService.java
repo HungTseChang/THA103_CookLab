@@ -2,13 +2,16 @@ package com.cooklab.product.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+
+import com.cooklab.util.HibernateUtil;
 
 public class ProductService {
 
 	private ProductDAO dao;
 
 	public ProductService() {
-		dao = new ProductJDBCDAOIm();
+		dao = new ProductHDAOIm(HibernateUtil.getSessionFactory());
 	}
 
 	public ProductVO addProduct(String productName, Integer saleQty, String productDec, String productIntroduction,
@@ -50,7 +53,12 @@ public class ProductService {
 		productVO.setIngredientCategoryNo(ingredientCategoryNo);
 		productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
 		productVO.setSearchCount(searchCount);
-		productVO.setProductPicture(productPicture);
+		if (productPicture != null) {
+			productVO.setProductPicture(productPicture);
+		} else {
+			productPicture = dao.findByPrimaryKey(productNo).getProductPicture();
+			productVO.setProductPicture(productPicture);
+		}
 		System.out.println("Received productNo: " + productNo);
 		dao.update(productVO);
 		return productVO;
@@ -66,5 +74,9 @@ public class ProductService {
 
 	public List<ProductVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<Map<String, Object>> findByKeyword(String keyword){
+		return  dao.findByKeyword(keyword);
 	}
 }

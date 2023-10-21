@@ -3,10 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_sub.model.*"%>
+
 <%
     ArticleService artSvc = new ArticleService();
     List<ArticleVO> list = artSvc.getAll();
     pageContext.setAttribute("list",list);
+    
+    ArticleSubService artSvc2 = new ArticleSubService();
+    List<ArticleSubVO> list2 = artSvc2.getAll();
+	pageContext.setAttribute("list2",list2); 
 %>
 <head>
     <meta charset="UTF-8">
@@ -271,24 +277,20 @@
                 <c:forEach var="artVO" items="${list}">
                   <tr>
                     <td>${artVO.articleNo}</td>
-                    <td>${artVO.articleCategoryVO.articleCategory}</td>
+                    <td>${artVO.articleCategory.articleCategory}</td>
                     <td class="HO_article_title">${artVO.articleTitle}</td>
                     <td class="artice_status">
                       <a href="#" class="btn btn-success rounded-pill btn article_status" >
                       ${artVO.articleStatus}</a>
                       </td>
                     <td>${artVO.members.memberNickname}</td>
-        			<td><fmt:formatDate 
-        			value="${artVO.createdTimestamp}"
-					pattern="yyyy-MM-dd HH:mm:ss" />
-					</td>
-
-									
+        			<td><fmt:formatDate value="${artVO.createdTimestamp}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+														
                     <td>
                     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
-<!--                  <a class="wcc" href="">查看文章</a> -->
+                  <a class="wcc" href="">查看文章</a>
 					  <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-					  <input type="hidden" name="action" value="getOne_For_Display2">
+					  <input type="hidden" name="action" value="getOne_For_Display">
 					  <input type="submit" class="wcc"  value="查看文章"> 
 					  </FORM>
 					 </td> 
@@ -303,6 +305,46 @@
                       </select>
                       <input type="hidden" name="articleNo" value="${artVO.articleNo}">
                   	 <input type="hidden" name="action" value="getStatusUpdate">
+					  <input type="submit" >
+                      </FORM>
+                    </td>
+                  </c:forEach>
+                  
+				<!--     ===========下面sub_art的forEach =======       -->
+                  
+                  <c:forEach var="artVO2" items="${list2}">
+                  <tr>
+                    <td>${artVO2.articleSubNo}</td>
+                    <td>${artVO2.article.articleNo}的回文</td>
+                    <td class="HO_article_title">RE# ${artVO2.article.articleTitle}</td>
+                    <td class="artice_status">
+                      <a href="#" class="btn btn-success rounded-pill btn article_status" >
+                      ${artVO2.articleSubStatus}</a>
+                    </td>
+                    <td>${artVO2.members.memberNickname}</td>
+        			<td><fmt:formatDate 
+        			value="${artVO2.createdTimestamp}"
+ 					pattern="yyyy-MM-dd HH:mm:ss" /> 
+					</td>									
+                    <td>
+                    <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleSubServlet" >
+                		 <a class="wcc" href="">查看文章</a>
+					  <input type="hidden" name="articleNo" value="${artVO2.articleSubNo}">
+					  <input type="hidden" name="action" value="getOne_For_Display">
+					  <input type="submit" class="wcc"  value="查看文章"> 
+					  </FORM>
+					 </td> 
+					 <td>
+					  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleSubServlet" >
+                      <select class="ch_artice_status" name="articleSubStatus">
+                        <option>選擇狀態</option>
+                        <option id="artice_Option1" value= 0>公開</option>
+                        <option id="artice_Option2"	value= 1>非公開</option>
+                        <option id="artice_Option3"	value= 2>草稿</option>
+                        <option id="artice_Option4"	value= 3>刪除</option>
+                      </select>
+                      <input type="hidden" name="articleNo" value="${artVO2.articleSubNo}">
+                  	 <input type="hidden" name="action" value="update">
 					  <input type="submit" >
                       </FORM>
                     </td>
@@ -344,6 +386,7 @@
       $(document).ready("change", ".btn.article_status", function () { 
         // console.log("you touch me");
       });
+    	
       $(document).ready(function () {
         //取得數字
         var $articleStatusBtn = $('.article_status');

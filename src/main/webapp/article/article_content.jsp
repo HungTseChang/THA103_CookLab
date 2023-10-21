@@ -1,10 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.cooklab.article.model.*"%>
-
+<%@ page import="com.cooklab.article_sub.model.*"%>
+<%@ page import="java.util.*"%>
 <%
-ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
-//EmpServlet.java(Concroller), 存入req的empVO物件
+    ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+//     這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
+
+	ArticleSubService artSvc2 =new ArticleSubService();
+	List<ArticleSubVO> list2 = artSvc2.getAll();
+	pageContext.setAttribute("list2",list2);
+			
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -171,62 +178,90 @@ ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
 
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 
 	<div class="container" style="margin-top: 30px;">
 		<div class="row">
+		
+		
 			<div id="c_user" class="col-md-3"
 				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-				<a>
-<%-- 				${artVO.members.memberPicture} --%>
-				<c:choose>
-                <c:when test="${artVO.members.memberPicture.startsWith('/9j/4AAQSkZJRgABAQEAZABkAAD/2wBDAAMCAgMCA')}">
-                    <!-- 這是Base64圖片，使用<img>元素顯示 -->
-                    <img src="data:image/jpeg;base64,${artVO.members.memberPicture}" alt="圖片描述">
-                </c:when>
-                <c:otherwise>
-                    <!-- 這是文本，直接顯示 -->
-                    ${artVO.members.memberPicture}
-                </c:otherwise>
-            </c:choose>
-				</a>
+				<a>${artVO.members.memberPicture}</a>
 				<a href="" id="creator"  style="color: black;">
 					${artVO.members.memberNickname}</a>
 			</div>
+		<c:forEach var="artVO2" items="${list2}">
+		<c:if test="${artVO2.articleNo == artVO.articleNo}">
+						<a>${artVO.members.memberPicture}</a>
+				<a href="" id="creator"  style="color: black;">
+					${artVO.members.memberNickname}</a>
+					</c:if>
+					</c:forEach>>
 
 
 			<div class="col-8">
 				<div class="row">
 					<div id="article_content" class="col" style="position: relative;">
-						<h7 class="conten_title"> <span>[${artVO.articleCategoryVO.articleCategory}]${artVO.articleTitle}</span>
-						</h7>
-						<p>
-							發表時間:
-							<fmt:formatDate value="${artVO.lastEditTimestamp}"
+						<h7 class="conten_title"> <span>
+						[${artVO.articleCategory.articleCategory}]${artVO.articleTitle}</span></h7><p>
+							發表時間:<fmt:formatDate value="${artVO.lastEditTimestamp}"
 								pattern="yyyy-MM-dd HH:mm:ss" />
 						</p>
 						<td>
 							<!-- 這是文本，直接顯示 ，在老師的網面上需要使用base64來讀網頁，
              			     可是使用quill新增的圖文，可以直接顯示--> ${artVO.articleContent}
 						</td> <br> <br>
+						
 						<div id="like-dislike">
-							<img src="<%=request.getContextPath()%>/article/img/HO/like.png"
+							<img
+								src="<%=request.getContextPath()%>/article/img/HO/like.png"
 								alt=""><span style="margin-right: 10px;">10</span> <img
 								src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
 								alt=""><span>10</span>
-							<button type="submit">回覆</button>
+								
+								
+							<button  class="btn custom-btn" type="submit">回覆</button>
 						</div>
-
-
-						<!-- <div id="replied"><img id="user_avatar" src="https://picsum.photos/id/237/50" alt=""><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis nihil harum molestiae, tenetur quod, dolore officiis, consequuntur error facilis veniam porro nemo eum sequi earum totam. Quaerat possimus nam consequatur?</p></div> -->
+						
 						<hr>
+	<c:forEach var="artVO2" items="${list2}">
+		<c:if test="${artVO2.articleNo == artVO.articleNo}">
+        <div id="article_content" class="col" style="position: relative;">
+            <h7 class="conten_title"></h7>
+            <p>
+                發表時間:<fmt:formatDate value="${artVO2.lastEditTimeStamp}" pattern="yyyy-MM-dd HH:mm:ss" />
+            </p>
+            <td>${artVO2.articleSubContent}</td> 
+            <br> <br>
 
+            <div id="like-dislike">
+                <img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt=""><span style="margin-right: 10px;">10</span>
+                <img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt=""><span>10</span>
+
+                <button class="btn custom-btn" type="submit">回覆</button>
+            </div>
+
+            <hr>
+        </div>
+    </c:if>
+</c:forEach>
+			
+
+						
 						<div class="col" style="height: 150px; width: 1000px;">
 							<div id="reply" class="d-flex justify-content-start ">
-								<textarea name="" id="reply_input">這邊可以快速留言....</textarea>
+								<textarea name="articleSubContent" id="reply_input"></textarea>
 
 							</div>
-							<button type="submit">送出</button>
+							<input type="submit" class="btn custom-btn" value="快速回覆"
+							style="margin-top:5px;"> 
+							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+							<input type="hidden" name="memberId" value="5" size="45" /> 
+							<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
+							<input type="hidden" name="articleSubCount"  value="0" size="45" /> 
+							<input type="hidden" name="action" value="insert">
 						</div>
+				</FORM>
 					</div>
 				</div>
 			</div>
@@ -234,13 +269,6 @@ ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
 
 	</div>
-
-
-
-	</div>
-
-	</div>
-
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
 		<div class="container">

@@ -14,8 +14,7 @@ public class RecipeService {
 	}
 
 	public RecipeVO addRecipe(MembersVO members, String recipeName, byte[] coverImage, String introduction,
-			String additionalExplanation, String region, Byte recipeStatus, Integer reportCount, Integer viewCount,
-			Byte recipeQuantity, Timestamp lastEditTimestamp) {
+			String additionalExplanation, String region, Byte recipeStatus, Byte recipeQuantity) {
 
 		RecipeVO recipeVO = new RecipeVO();
 
@@ -26,10 +25,7 @@ public class RecipeService {
 		recipeVO.setAdditionalExplanation(additionalExplanation);
 		recipeVO.setRegion(region);
 		recipeVO.setRecipeStatus(recipeStatus);
-		recipeVO.setReportCount(reportCount);
-		recipeVO.setViewCount(viewCount);
 		recipeVO.setRecipeQuantity(recipeQuantity);
-		recipeVO.setLastEditTimestamp(lastEditTimestamp);
 		dao.insert(recipeVO);
 
 		return recipeVO;

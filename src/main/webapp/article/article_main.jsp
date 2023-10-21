@@ -5,13 +5,13 @@
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
-ArticleService artSvc = new ArticleService();
-List<ArticleVO> list = artSvc.getAll();
-pageContext.setAttribute("list", list);
+    ArticleService artSvc = new ArticleService();
+    List<ArticleVO> list = artSvc.getAll();
+    pageContext.setAttribute("list", list);
 
-ArticleCategoryService artSvc2 = new ArticleCategoryService();
-List<ArticleCategoryVO> list2 = artSvc2.getAll();
-pageContext.setAttribute("list2", list2);
+	ArticleCategoryService artSvc2 =new ArticleCategoryService();
+	List<ArticleCategoryVO> list2 = artSvc2.getAll();
+	pageContext.setAttribute("list2",list2);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -21,7 +21,7 @@ pageContext.setAttribute("list2", list2);
 <meta name="keywords" content="Ogani, unica, creative, html" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>Ogani | Template</title>
+<title>Ogani main_cate</title>
 
 <!-- Google Font -->
 <link
@@ -59,6 +59,8 @@ pageContext.setAttribute("list2", list2);
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/ding.css"
 	type="text/css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 	沒有上面的jquery-3.6.0.min.js，就不能直接在js使用EL語法 -->
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -71,7 +73,7 @@ pageContext.setAttribute("list2", list2);
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="<%=request.getContextPath()%>/article/img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -174,21 +176,32 @@ pageContext.setAttribute("list2", list2);
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
-
+<%-- <FORM  id="categoryForm" METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;"> --%>
     <div class="container" id="article_cat_btn">
       <div class="row">
-        <div class="col-md-9" id="articel_cat">
-        		<c:forEach var="artVO2" items="${list2}" >
-					<c:if test="${artVO2.categoryStatus == 0 }" >
-					<button type="button" class="btn custom-btn "
-					 value="${artVO2.articleCategoryNo}">
-					${artVO2.articleCategory} </button>
- 				</c:if>
- 				</c:forEach>
+        <div class="d-flex" id="articel_cat">
+			<c:forEach var="artVO2" items="${list2}">
+     			<c:if test="${artVO2.articleCategoryNo == 1 }">
+						<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"
+						style="margin-right:3px;">
+                		${artVO2.articleCategory}
+            			</button>        			
+            		</c:if>
+    				<c:if test="${artVO2.categoryStatus == 0 && artVO2.articleCategoryNo != 1 }">
+        			<form METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;">
+            			<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"
+            			style="margin-right:3px;">
+                		${artVO2.articleCategory}
+            			</button>
+            			<input type="hidden" name="action" value="cateSearch">
+        			</form>
+    			</c:if>
+			</c:forEach>				
       		</div>
       	<span></span>
    	 	</div>
     </div>
+<!--   </FORM> -->
 	
 	
 
@@ -209,14 +222,15 @@ pageContext.setAttribute("list2", list2);
 								<td id="article_date">發表時間</td>
 								<td id="article_count">點擊次數</td>
 							</tr>
+							
+<%-- 							 begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
 							<c:forEach var="artVO" items="${list}">
-<%-- 							<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
-							<div style="display:none;" id="inJSTL"><c:if test="${artVO.articleStatus < 1 }"></div>
-<%-- 								<c:if test="${artVO.articleCategory ==  }"> --%>
-									<tr class="title_colum">
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+								<c:if test="${artVO.articleStatus < 1 }">
+ 								
+									<tr class="title_colum ${artVO.articleNo % 2 == 0 ? 'even' : 'odd'}">
 										<td id="title_colum_td">
-											<a href="" id="cat_view">[${artVO.articleCategoryVO.articleCategory}]</a>
+											<a href="" id="cat_view">[${artVO.articleCategory.articleCategory}]</a>
 								
 											<input type="submit" id="title_view" value="${artVO.articleTitle}"> 
 											<input type="hidden" name="articleNo" value="${artVO.articleNo}">
@@ -232,27 +246,27 @@ pageContext.setAttribute("list2", list2);
 										${artVO.viewCount}
 										</td>
 									</tr>
-									<div style="display:none;" id="inJSTL"></c:if></div>
-<%-- 								</c:if> --%>
+ 								</c:if>
+ 								</FORM>
 							</c:forEach>
-							</FORM>
+						
 						</table>
 					</div>
 				</div>
+			
 				<!-- 以下群聊視窗範圍 -->
 				<div class="col-lg-3">
 					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"
-						href="<%=request.getContextPath()%>/article/article_edit.jsp">
-						發文</a>
-
+						href="<%=request.getContextPath()%>/article/article_edit.jsp">發文</a>
 
 					<div class="statusOutput" id="statusOutput">CookTalk</div>
 					<textarea id="messagesArea" class="panel message-area" readonly></textarea>
 					<div class="panel input-area">
+
 						<input id="message" class="text-field" type="text"
 							placeholder="Message"
-							onkeydown="if (event.keyCode == 13) sendMessage();" /> <input
-							type="submit" id="sendMessage" class="btn ding-btn-org"
+							onkeydown="if (event.keyCode == 13) sendMessage();" /> 
+						<input  type="submit" id="sendMessage" class="btn ding-btn-org"
 							value="Send" onclick="sendMessage();" />
 					</div>
 
@@ -341,7 +355,6 @@ pageContext.setAttribute("list2", list2);
 		</div>
 	</footer>
 	<!-- Footer Section End -->
-
 	<!-- Js Plugins -->
 	<script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>

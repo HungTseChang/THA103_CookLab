@@ -170,8 +170,13 @@ VALUE(1,"忘記密碼","我忘了密碼該怎麼半",99,3),
 -- 新增 權限類別
 
 INSERT INTO permission(permission_title,super_admin,cancel_all_permission,membership_management,advertising_management,reporting_management,article_management,recipe_management) 
-VALUE("董事長",1,1,1,1,1,1,1),
-     ("清潔工",2,2,2,2,2,2,2);
+VALUE
+("總管理員",0,0,0,0,0,0,0),
+     ("會員管理員",1,1,0,1,1,1,1),
+     ("廣告管理員",1,1,1,0,1,1,1),
+     ("客服管理員",1,1,1,1,0,1,1),
+     ("文章管理員",1,1,1,1,1,0,1),
+     ("食譜管理員",1,1,1,1,1,1,0);
 
 -- 新增管理員
 

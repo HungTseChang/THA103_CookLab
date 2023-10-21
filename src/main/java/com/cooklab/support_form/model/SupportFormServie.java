@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SupportFormServie {
 	public SupportFormVO addSupportForm(String realName, Integer supportFormCategoryId, String replyEmail,
-			String formTitle, String formContext, String formSource, String formSubmitter);
+			String formTitle, String formContext, String formSource,Byte formStatus, String formSubmitter);
 
 	public SupportFormVO updateSupportForm(Integer formNo, String realName, Integer supportFormCategoryId,
 			String replyEmail, String formTitle, String formContext, Byte formStatus, String formSource,

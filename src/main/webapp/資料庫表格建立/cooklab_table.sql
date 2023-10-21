@@ -70,6 +70,7 @@ CREATE TABLE recipe_comments_report (
 	recipe_comments_no 		INT NOT NULL,
 	reporting_comments_reason VARCHAR(500),
 	reporting_status 			TINYINT,
+	reporting_answer   VARCHAR(500),
 	created_timestamp			DATETIME DEFAULT now(),
 	CONSTRAINT recipe_comments_report_fk1 FOREIGN KEY (member_id) REFERENCES members (member_id),
 	CONSTRAINT recipe_comments_report_fk2 FOREIGN KEY (recipe_comments_no) REFERENCES recipe_comments (recipe_comments_no)
@@ -104,6 +105,7 @@ CREATE TABLE recipe_report (
 	recipe_no 			INT NOT NULL,
 	reporting_reason 	VARCHAR(500) DEFAULT NULL,
 	reporting_status 	TINYINT,
+     reporting_answer   VARCHAR(500),
 	created_timestamp	DATETIME DEFAULT now(),
 	CONSTRAINT recipe_report_fk1 FOREIGN KEY (member_id) REFERENCES members(member_id),
 	CONSTRAINT recipe_report_fk2 FOREIGN KEY (recipe_no) REFERENCES recipe(recipe_no)
@@ -158,6 +160,7 @@ CREATE TABLE product (
 	ingredient_category_no 	INT,
 	kitchenware_category_no	INT,
 	search_count 			INT,
+    product_picture         BLOB,
 	created_timestamp 		DATETIME DEFAULT now(),
 	CONSTRAINT product_fk1 FOREIGN KEY (ingredient_category_no) REFERENCES ingredient_category(ingredient_category_no),
 	CONSTRAINT product_fk2 FOREIGN KEY (kitchenware_category_no) REFERENCES kitchenware_category(kitchenware_category_no)
@@ -268,10 +271,18 @@ CREATE TABLE order_detail(
     CONSTRAINT order_detail_fk2 FOREIGN KEY (product_no) REFERENCES product (product_no)
 );
 
+-- 討論區文章分類
+CREATE TABLE article_category(
+    article_category_no    INT AUTO_INCREMENT PRIMARY KEY,
+    article_category    VARCHAR(30),
+    category_status 	tinyint default 0 ,
+    created_timestamp 	DATETIME DEFAULT now()
+);
+
 -- 討論區文章
 CREATE TABLE article(
     article_no    		INT AUTO_INCREMENT PRIMARY KEY,
-    article_category    VARCHAR(20),
+    article_category    INT NOT NULL,
     article_title 		VARCHAR(100) NOT NULL,
     member_id     		INT NOT NULL,
     article_status  	TINYINT   NOT NULL,
@@ -280,7 +291,8 @@ CREATE TABLE article(
 	view_count  		INT,
 	last_edit_timestamp	DATETIME DEFAULT now() ,
     created_timestamp 	DATETIME DEFAULT now(),
-    CONSTRAINT article_fk FOREIGN KEY (member_id) REFERENCES members (member_id)
+    CONSTRAINT article_member_id_fk FOREIGN KEY (member_id) REFERENCES members (member_id),
+	CONSTRAINT article_category_fk FOREIGN KEY (article_category) REFERENCES article_category(article_category_no)
 );
 
 -- 討論區文章檢舉
@@ -290,6 +302,7 @@ CREATE TABLE article_report(
 	reporter_id 		INT NOT NULL,
 	reporting_reason 	VARCHAR(500) NOT NULL,
 	reporting_status 	TINYINT NOT NULL,
+    reporting_answer   VARCHAR(500),
 	created_timestamp	DATETIME DEFAULT now(),
 	CONSTRAINT article_report_fk1 FOREIGN KEY (article_no) REFERENCES article (article_no),
 	CONSTRAINT article_report_fk2 FOREIGN KEY (reporter_id) REFERENCES  members (member_id)
@@ -347,6 +360,7 @@ CREATE TABLE article_sub_report(
 	reporter_id 			INT NOT NULL,
 	reporting_reason  		VARCHAR(500) NOT NULL,
 	reporting_status 		TINYINT NOT NULL,
+	reporting_answer         VARCHAR(500),
 	created_timestamp		DATETIME DEFAULT now(),
 	CONSTRAINT article_sub_report_fk1 FOREIGN KEY (article_sub_no) REFERENCES article_sub (article_sub_no),
 	CONSTRAINT article_sub_report_fk2 FOREIGN KEY (reporter_id) REFERENCES  members (member_id)
@@ -402,7 +416,7 @@ CREATE TABLE admins(
 	admin_account 		VARCHAR(20) NOT NULL,
 	admin_password 		VARCHAR(20) NOT NULL,
 	created_timestamp 	DATETIME DEFAULT now(),
-	CONSTRAINT admins_fk FOREIGN KEY(permission_no) REFERENCES permission(permission_no) 
+	CONSTRAINT admins_fk FOREIGN KEY(permission_no) REFERENCES permission(permission_no)
 );
 
 -- 廣告
@@ -456,11 +470,20 @@ CREATE TABLE support_form (
     form_context 				LONGTEXT NOT NULL,
     form_title					VARCHAR(100) NOT NULL,
     form_status					TINYINT NOT NULL,
-    created_timestamp 			DATETIME DEFAULT now()
+    form_source					VARCHAR(30) NOT NULL,
+	form_submitter				VARCHAR(30) NOT NULL,
+    form_responder				INT,
+    created_timestamp 			DATETIME DEFAULT now(),
+	CONSTRAINT support_form_fk1 FOREIGN KEY (form_responder) REFERENCES admins(admin_no)
 ); 
 
-
-
-
-
-
+-- 表單處理紀錄
+CREATE TABLE support_form_record (
+	record_no 					INT AUTO_INCREMENT PRIMARY KEY,
+	form_no 					INT NOT NULL,
+    record_context				LONGTEXT NOT NULL,
+	admin_no					INT NOT NULL,
+    created_timestamp 			DATETIME DEFAULT now(),
+	CONSTRAINT support_form_record_fk1 FOREIGN KEY (form_no) REFERENCES support_form(form_no),
+	CONSTRAINT support_form_record_fk2 FOREIGN KEY (admin_no) REFERENCES admins(admin_no)
+); 

@@ -18,14 +18,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/style.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/dashboard/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/app.css">
+    <link rel="shortcut icon" href="<%=request.getContextPath() %>/dashboard/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="<%=request.getContextPath() %>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -261,13 +261,12 @@
                             <div class="card-header" style="background-color: rgb(208, 250, 255);">
                                 <span style="font-size: 30px;">權限規則</span>
                             </div>
-                            <div class="row">
-                             <div class="col-md-2"  style="background-color: rgb(208, 250, 255);"> <lable style=" ">資料查詢</lable></div>    
-                               <div class="col-md-4" >                     
-                       <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 管理員、帳號或暱稱" style="pading-color:  rgb(208, 250, 255);" >
+                            <div class="row" style="background-color: white">
+                             <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;"> <lable style="background-color:white; padding-left: 20px;: border-color:white;">資料查詢:</lable></div>    
+                               <div class="col-md-6"  >                     
+                       <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 編號、管理員、帳號、暱稱或時間" style="pading-color:  rgb(208, 250, 255);" >
                               </div>
-                              </div>
-                         <div class="datable dropdown">
+                                <div class="datable dropdown" style="padding:10px;">
                         <select class="wcc" id="select1">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -276,8 +275,8 @@
                         </select>
                         <label>每頁展示筆數</label>
                         </div>
-                            <div class="table-datatable " style="width: 100%; height: 400px;  overflow-y: scroll; overflow-x: scroll;">
-                                <table class="table-container" id="table1" style="width: 100%; font-size: 20px;">
+                            <div class="table-datatable " style="width: 100%; height: 400px;  overflow-y: scroll; overflow-x: scroll; padding:0;">
+                                <table class="table-container" id="table1" style="width: 100%; font-size: 20px; border-top:40px;">
                                     <thead style="background-color: rgb(212, 212, 212);">
                                         <tr>
                                             <th style="width: 146;">管理者編號</th>
@@ -285,6 +284,7 @@
                                             <th>管理者權限編號</th>
                                               <th>管理者帳號</th>
                                                 <th>管理者建立時間</th>
+                                                   <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -294,6 +294,8 @@
                                     </tbody>
                                 </table>
                             </div>
+                              </div>
+                       
 
                         </div>
 
@@ -305,7 +307,7 @@
         <span id="total-pages">of 1</span>
    								 </div>
                             <div class="col-md-8">
-                                <a href="${pageContext.request.contextPath}/dashboard/admin/WCC_admin_createnew.jsp" class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
+                                <a   class="btn btn-info rounded-pill" id="enter0" value=0>新增內容</a>
                             </div>
                         </div>
                     </div>
@@ -330,20 +332,26 @@
     </footer>
     </div>
     </div>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
 
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-
-
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
-
-<script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+// 	================================
+	$("#searchbar").on("keyup", function() {
+    var value1 = $(this).val().toLowerCase();
+    $("#table1 tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1);
+    });
+  });
+	
+// 	=================================
  var rowsPerPage = 5;
  var currentPage = 1;
  var myList;
@@ -353,7 +361,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}else{ 
 		console.log("reload");
 		var form = $("<form>", {
-            action: "${pageContext.request.contextPath}/AdminsServlet", // 表单提交的URL
+            action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
             method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         });
 	    
@@ -365,8 +373,28 @@ document.addEventListener("DOMContentLoaded", function () {
 	       form.appendTo("body").hide();
 	       form.submit();
 	       form.remove();
-			console.log("reload");
 	}
+//  =================================
+	$(document).on("click","a#enter0",function(){
+		var form1 = $("<form>", {
+            action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
+            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+        });
+	    
+	       form1.append($("<input>", {
+               type: "text",
+               name: "action",
+               value: "insert"
+           }));
+	       form1.appendTo("body").hide();
+	       form1.submit();
+	       form1.remove();
+	})
+ 
+ 
+ 
+ 
+//  ====================================
 console.log(myList);
  var number =myList.length;
  
@@ -390,7 +418,7 @@ console.log(myList);
 	  text +=" <td>"+aa.createdTimestamp+"</td>";
 	  text +=`
 			<td>
-		  <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/AdminsServlet" style="margin-bottom: 0px;">
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
 		     <input type="submit" value="修改">
 		     <input type="hidden" name="adminNo"  value=`;
 		    text +=aa.adminNo;
@@ -398,7 +426,7 @@ console.log(myList);
 		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 		</td>
 		<td>
-		  <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/AdminsServlet" style="margin-bottom: 0px;">
+		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
 		     <input type="submit" value="刪除">
 		     <input type="hidden" name="adminNo"  value=`;
 	  text +=aa.adminNo;
@@ -436,10 +464,7 @@ $("#total-pages").text("of " + totalPages);
         }
     });
     
-    function searchbar(){
-    	
-    	
-    }
+
     
     
     

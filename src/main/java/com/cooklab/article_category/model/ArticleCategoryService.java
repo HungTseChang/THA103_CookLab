@@ -21,7 +21,9 @@ public class ArticleCategoryService {
 		dao.update(articleVO);
 	}
 
-
+	public ArticleCategoryVO getOne (Integer articleCategoryNo) {
+		return dao.findByPrimaryKey(articleCategoryNo);
+	}
 
 
 	public List<ArticleCategoryVO> getAll() {
