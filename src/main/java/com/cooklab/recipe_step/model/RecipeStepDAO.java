@@ -3,9 +3,10 @@ package com.cooklab.recipe_step.model;
 import java.util.List;
 
 import com.cooklab.recipe.model.RecipeVO;
+import com.cooklab.recipe_step.model.RecipeStepVO.CompositeDetail;
 
 public interface RecipeStepDAO {
-	public int insert(RecipeStepVO recipeStepVO);
+	public CompositeDetail insert(RecipeStepVO recipeStepVO);
 
 	public boolean update(RecipeStepVO recipeStepVO);
 

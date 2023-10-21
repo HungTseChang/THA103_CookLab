@@ -2,6 +2,7 @@
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 
@@ -12,4 +13,6 @@ public interface ProductDAO {
     public ProductVO findByPrimaryKey(Integer productNo);
     public List<ProductVO> getAll();
     public List<Map<String, Object>> findByKeyword(String keyword);
+    public ProductVO findByProductName(String productName);
+    public List<ProductVO> findByProductNames(String productName, String category);
 }

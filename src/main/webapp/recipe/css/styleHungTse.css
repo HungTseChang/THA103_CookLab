@@ -79,6 +79,26 @@
 	border: none;
   margin: 10px;
   }
+
+  .search-results {
+    /* display: none;  */
+    background-color: #fff;
+    position: absolute;
+    top: 100%; /* 相对于输入框的下方 */
+    left: 0;
+    right: 0;
+  }
+  
+  /* 样式用于搜索结果项 */
+  .result-item {
+    display:block;
+    position:relative;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1;
+  }
+
   .right-column{
     background: #D9430D;
     margin: 20px;
@@ -154,3 +174,4 @@
     height: auto; /* 自动增加容器的高度 */
     flex-wrap: wrap;
 }
+
