@@ -144,7 +144,7 @@ pageContext.setAttribute("list", list);
 				<div class="col-lg-3">
 					<div class="header__logo">
 						<a href="./index.html"><img style="height: 150px"
-							src="img/indexlogo.png" alt="" /></a>
+							src="<%=request.getContextPath() %>/frontstage/shopstage/img/indexlogo.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="col-lg-9 d-flex align-items-center">
@@ -283,7 +283,13 @@ pageContext.setAttribute("list", list);
 								<div class="featured__item__pic set-bg"
 									data-setbg="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}">
 									<ul class="featured__item__pic__hover">
-										<li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+										<li><a href="#" class="add-to-cart"
+											data-product-no="${productVO.productNo}"
+											data-product-name="${productVO.productName}"
+											data-product-price="${productVO.productPrice}"
+											data-product-image="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}">
+												<i class="fa fa-shopping-cart"></i>
+										</a></li>
 									</ul>
 								</div>
 								<div class="featured__item__text">
@@ -384,8 +390,8 @@ pageContext.setAttribute("list", list);
 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/owl.carousel.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/main.js"></script>
-	<!-- 	<script -->
-	<%-- 		src="<%=request.getContextPath()%>/frontstage/shopstage/js/shop_sh.js"></script> --%>
+	<script
+		src="<%=request.getContextPath()%>/frontstage/shopstage/js/shop_sh.js"></script>
 
 	<script>
 		// 获取轮播元素
@@ -400,5 +406,65 @@ pageContext.setAttribute("list", list);
 		// 启用自动播放
 		myCarousel.cycle();
 	</script>
+
+	<script>
+	$(".add-to-cart").on("click", function() {
+		// 获取产品信息
+	    let productNo = $(this).data("product-no");
+	    let productName = $(this).data("product-name");
+	    let productPrice = $(this).data("product-price");
+	    let productImage = $(this).data("product-image");
+
+	    // 构建产品信息对象
+	    let productInfo = {
+	        productNo: productNo,
+	        productName: productName,
+	        productPrice: productPrice,
+	        productImage: productImage,
+	        quantity: 1, // 默认购买数量为1
+	        action: "buttonadd1"
+	    };
+
+	    console.log(productInfo); // 输出 productInfo 对象，确保数据正确
+		$.ajax({
+			url: "/CookLab/CartServlet", // 资料请求的网址
+			type: "POST", // GET | POST | PUT | DELETE | PATCH
+			data: productInfo, // 将对象数据（不需要双引号）发送到指定的 URL
+			dataType: "json", // 预期会接收到返回数据的格式：json | xml | html
+			beforeSend: function() {
+				// 在请求发送之前执行
+			},
+			headers: {
+				// 如果请求有请求头数据要设置的话
+				// "X-CSRF-Token": "abcde" // 参考写法
+			},
+			statusCode: {
+				// 状态码
+				200: function(res) {},
+				404: function(res) {},
+				500: function(res) {},
+			},
+			success: function(data) {
+				// 请求成功取得响应后执行
+				console.log(data);
+				console.log("Ajax 成功");
+				alert("添加商品成功");
+			},
+			error: function(xhr) {
+				// 请求发生错误的话执行
+				console.log("请求失败，状态码：" + xhr.status);
+				console.log(xhr.responseText);
+				console.log(xhr);
+				 alert("添加到购物车时发生错误，请重试。");
+			},
+			complete: function(xhr) {
+				// 请求完成之后执行（在 success / error 事件之后执行）
+				console.log(xhr);
+			},
+		});
+	});
+</script>
+
+
 </body>
 </html>
