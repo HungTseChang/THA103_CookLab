@@ -1,0 +1,85 @@
+#t_CS_search {
+	display: flex;
+	justify-content: center;
+	background-image: url('../img/t_SC/img_tomato.jpg'); /* 添加背景圖片的路徑 */
+	background-size: cover; /* 背景圖片填滿容器 */
+	padding-top: 50px; /* 上邊界間距為 50px */
+	padding-bottom: 50px; /* 下邊界間距為 50px */
+	align-items: flex-end; /* 將子元素垂直對齊到底部 */
+}
+#t_SC_search_btn
+{
+	width: 30%;
+}
+
+/* 將圖片置中 */
+.t_SC_card-img-top {
+
+  padding: 1em 0;
+  display: block;
+  margin: auto;
+}
+
+/* 調整圖片大小 */
+.t_SC_card-img-top {
+  max-width: 20%;
+  height: auto;
+}
+
+/* 將文字置中並調整大小 */
+.t_SC_card-text {
+  text-align: center;
+  font-size: 16px;
+}
+
+/* 加上框線並設置為灰色 */
+.t_SC_card {
+  border: 1px solid #ccc;
+}
+
+.t_SC_popular_question-mb-4 {
+  margin-bottom: 1.5rem;
+}
+.t_SC_popular_questio_row {
+  margin-top: -15px;
+  margin-bottom: -15px;
+}
+
+/* 新增的協助區塊樣式 */
+.t_SC_help-block {
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(247, 247, 247);
+  border: 1px solid #a6a6a6;
+  margin-bottom: 15px;
+	border-radius: 10px; /* 添加圓角效果 */
+
+}
+/* .t_SC_help-block.t_SC_right{
+	margin-left: auto;
+}
+.t_SC_help-block.t_SC_left{
+	margin-right: auto;
+} */
+
+.t_SC_help-image {
+  max-height: 90%;
+  margin-right: 10px;
+}
+
+.t_SC_help-text {
+  font-size: 22px;
+}
+
+.t_SC_row {
+  display: flex;
+  justify-content: center;
+}
+
+.t_SC_redPoint{
+	color:red;
+}
+/*=============================================*/
+

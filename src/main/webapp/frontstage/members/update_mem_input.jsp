@@ -136,7 +136,7 @@
 		<button type="button" onclick="document.getElementById('image-upload').click();">選擇圖片</button>
 		
 		<input type="hidden" name="mem_preview" value="/com.tha103.cooklab/MembersImgServlet?memberId=<%=memVO.getMemberId()%>">
-   		<img id="image-preview" src="/com.tha103.cooklab/MembersImgServlet?memberId=<%=memVO.getMemberId()%>" alt="圖片預覽" style="display:none; max-width: 200px; max-height: 200px;">
+   		<img id="image-preview" src="/CookLab/MembersImgServlet?memberId=<%=memVO.getMemberId()%>" alt="圖片預覽" style="display:none; max-width: 200px; max-height: 200px;">
 
    		<br>
 		<br> 
