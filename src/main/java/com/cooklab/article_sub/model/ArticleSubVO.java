@@ -166,7 +166,7 @@ public class ArticleSubVO {
 		return "ArticleSubVO [articleSubNo=" + articleSubNo + ", articleNo=" + articleNo + ", memberId=" + memberId
 				+ ", createdTimestamp=" + createdTimestamp + ", articleSubStatus=" + articleSubStatus
 				+ ", articleSubContent=" + articleSubContent + ", articleSubCount=" + articleSubCount
-				+ ", lastEditTimeStampstame=" + lastEditTimeStamp + "]";
+				+ ", lastEditTimeStamp=" + lastEditTimeStamp + "]";
 	}
 
 }

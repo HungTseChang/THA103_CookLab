@@ -140,10 +140,13 @@ public class ArticleSubServlet extends HttpServlet {
 			artVO.setArticleSubStatus(articleSubStatus);
 			artVO.setArticleSubContent(articleSubContent);
 			
+//			ArticleVO artVONo = new ArticleVO();
+//			artVONo.setArticleNo(articleNo);
+			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_edit.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_content.jsp");
 				failureView.forward(req, res);
 				return;
 			}
