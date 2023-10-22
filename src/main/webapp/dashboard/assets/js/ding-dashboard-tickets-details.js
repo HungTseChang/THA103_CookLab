@@ -111,6 +111,8 @@ let changeAdmin = function () {
         $("#formStatus").text(data.formStatus);
         $("#res").modal("hide");
         statusrender();
+        let changedAdmininfo = "變更處理人員：" + data.adminNickname + "(" + data.adminNo + ")";
+        recordload(changedAdmininfo);
       } else {
         if (data.errCloseCase) {
           alert(data.errCloseCase);
@@ -141,6 +143,7 @@ let closecase = function () {
         $("#formStatus").text(data.formStatus);
         $("#clsecase").modal("hide");
         statusrender();
+        insertrecord("結案");
         window.location.href = data.url;
       } else {
         alert(data.errCloseCase);
@@ -153,7 +156,7 @@ let closecase = function () {
 };
 
 //進入網頁載入處理紀錄
-let recordload = function () {
+let recordload = function (recordContext) {
   let formNo = $("#formNo").val();
   $.ajax({
     type: "GET",
@@ -177,6 +180,10 @@ let recordload = function () {
                       <td>${record.recordContext}</td>
                     </tr>`);
       });
+
+      if (recordContext) {
+        insertrecord(recordContext);
+      }
     },
     error: function (xhr) {
       console.log(xhr);
@@ -199,10 +206,10 @@ let recordarea = function () {
 };
 
 //新增表單紀錄
-let insertrecord = function () {
+let insertrecord = function (recordContext) {
   let data = {
     formNo: $("#formNo").val(),
-    recordContext: $("#recordContext").val(),
+    recordContext: recordContext,
     action: "insert",
   };
 
@@ -251,7 +258,8 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#addconfirm", function () {
-    insertrecord();
+    let recordContext = $("#recordContext").val();
+    insertrecord(recordContext);
   });
 
   $(document).on("click", "#addcancel", function () {
