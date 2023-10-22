@@ -1,7 +1,7 @@
 package com.cooklab.recipe_ingredient.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -25,39 +25,48 @@ public class RecipeIngredientServlet extends HttpServlet{
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		res.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
+		
 		String action = req.getParameter("action");
-
+		Gson gson = new Gson();
+		
 		if ("insert".equals(action)) {
-			Gson gson = new Gson();
-			List<String> errorMsgs = new LinkedList<String>();
-			RecipeIngredientService RecipeIngredientSvc = new RecipeIngredientService();
-
-			req.setAttribute("errorMsgs", errorMsgs);
-
-
+			
 			RecipeVO recipeVO = (RecipeVO) req.getAttribute("recipe");		
-			ProductVO productVO = (ProductVO) new ProductService().getOneProduct(1);//測試
 			String[] ingredient = gson.fromJson(req.getParameter("ingredient"), String[].class);
 			String[] textLabel= new String[ingredient.length];
 			String[] ingredientQuantity = gson.fromJson(req.getParameter("ingredientQuantity"), String[].class);
 
 			for (int i = 0; i < ingredientQuantity.length; i++) {
-//				productVO = new ProductService().getOneProduct(ingredient[]);
-//				if(productVO==null) {
-//					textLabel[i]=ingredient[i];
-//				}
-				RecipeIngredientVO recipeIngredientVO = new RecipeIngredientVO();
-				recipeIngredientVO = RecipeIngredientSvc.addRecipeIngredient(recipeVO, productVO, textLabel[i],
+				ProductVO productVO = new ProductService().findByProductName((ingredient[i]));
+				if(productVO==null) {
+					textLabel[i]=ingredient[i];
+				}
+				RecipeIngredientVO recipeIngredientVO = new RecipeIngredientService().addRecipeIngredient(recipeVO, productVO, textLabel[i],
 						ingredientQuantity[i]);
 			}
 
 			RequestDispatcher addRecipeKitchenware = req.getRequestDispatcher("/RecipeKitchenwareServlet");
 			addRecipeKitchenware.forward(req, res);	
 			return;
-//			res.getWriter().write("2");
 		}
+		if ("search".equals(action)) {
+			
+			String ingredient = req.getParameter("search");
+			List<String> listProductName = new ArrayList<String>();
+			List<ProductVO>listProductVO = new ProductService().findByProductNames(ingredient,"ingredientCategoryNo");
+			for(ProductVO productVO: listProductVO) {
+				listProductName.add(productVO.getProductName());
+			}
+				
+	        String jsonString = gson.toJson(listProductName);
+	        res.getWriter().write(jsonString);
+	        return;
+		}
+		
+		
+		
 	}
 
 }

@@ -96,7 +96,7 @@ th, td {
 			<td><%=memVO.getMemberNickname()%></td>
 			<td><%=memVO.getMemberGender()%></td>
 			 <td><img style="max-width: 200px; max-height: 200px;" 
-			 src="/com.tha103.cooklab/MembersImgServlet?memberId=${memVO.memberId}"></td> 
+			 src="/CookLab/MembersImgServlet?memberId=${memVO.memberId}"></td> 
 			<td><%=memVO.getCredcreatedTimestamp()%></td>
 			<td><%=memVO.getLastEditTimestamp()%></td>
 

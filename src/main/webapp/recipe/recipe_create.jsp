@@ -258,12 +258,13 @@ import="com.cooklab.purchase_order.model.*"%>
                     </div>
 
                     <div>
-                        <div id="listIngredient">
+                        <div id="listIngredient"class="search-init">
                             <span class="recipe_content">食材:</span>
 
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" />
+                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
+                                    <div class="search-results"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
@@ -274,7 +275,8 @@ import="com.cooklab.purchase_order.model.*"%>
 
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" />
+                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
+                                    <div class="search-results"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
@@ -285,7 +287,8 @@ import="com.cooklab.purchase_order.model.*"%>
 
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" />
+                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
+                                    <div class="search-results"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
@@ -299,10 +302,11 @@ import="com.cooklab.purchase_order.model.*"%>
 
                     <div>
                         <span class="recipe_content">廚具:</span>
-                        <div id="listKitchenware">
+                        <div id="listKitchenware" class="search-init">
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" />
+                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
+                                    <div class="search-results"></div>
                                 </div>
 
                                 <i class="bi bi-list">&emsp;</i>
@@ -310,14 +314,16 @@ import="com.cooklab.purchase_order.model.*"%>
                             </div>
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" />
+                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
+                                    <div class="search-results"></div>
                                 </div>
                                 <i class="bi bi-list">&emsp;</i>
                                 <i class="bi bi-trash3-fill delete-kitchenware"></i>
                             </div>
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" />
+                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
+                                    <div class="search-results"></div>
                                 </div>
                                 <i class="bi bi-list">&emsp;</i>
                                 <i class="bi bi-trash3-fill delete-kitchenware"></i>
