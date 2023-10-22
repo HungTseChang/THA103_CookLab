@@ -234,7 +234,8 @@
 								
 											<input type="submit" id="title_view" value="${artVO.articleTitle}"> 
 											<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-											<input type="hidden" name="action" value="getOne_For_Display">
+											<input type="hidden" name="viewCount" value="${artVO.viewCount}">
+											<input type="hidden" name="action" value="getViewCount">
 										</td>
 									
 										<td id="article_creator">${artVO.members.memberNickname}</td>

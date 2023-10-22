@@ -222,6 +222,13 @@
           padding: 4px;
           border-radius: 20px;
         }
+        
+         td input.wcc {
+          border: 1px solid rgb(151, 135, 249);
+          background-color: rgb(195, 241, 253);
+          padding: 4px;
+          border-radius: 20px;
+        }
 
         td button.wcc {
           border-radius: 20px;
@@ -288,7 +295,7 @@
 														
                     <td>
                     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
-                  <a class="wcc" href="">查看文章</a>
+                  
 					  <input type="hidden" name="articleNo" value="${artVO.articleNo}">
 					  <input type="hidden" name="action" value="getOne_For_Display">
 					  <input type="submit" class="wcc"  value="查看文章"> 
@@ -327,9 +334,10 @@
  					pattern="yyyy-MM-dd HH:mm:ss" /> 
 					</td>									
                     <td>
+                    
                     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleSubServlet" >
-                		 <a class="wcc" href="">查看文章</a>
-					  <input type="hidden" name="articleNo" value="${artVO2.articleSubNo}">
+<!--                 		 <a class="wcc" href="">查看文章</a> -->
+					  <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
 					  <input type="hidden" name="action" value="getOne_For_Display">
 					  <input type="submit" class="wcc"  value="查看文章"> 
 					  </FORM>
@@ -370,17 +378,25 @@
       </footer>
     </div>
   </div>
+	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
-  <script src="../assets/vendors/jquery-3.7.1.min.js"></script>
-  <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-  <script src="../assets/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-  <script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
+	<script>
+		Simple Datatable
+		        let table1 = document.querySelector('#table1');
+		        let dataTable = new simpleDatatables.DataTable(table1);
+	</script>	
+
   <script>
-    let table1 = document.querySelector("#table1");
-    let dataTable = new simpleDatatables.DataTable(table1);
-
-
     $(function () {
     	//jsp中使用read的話，會誤認為ajax要轉接網頁要改用ready
       $(document).ready("change", ".btn.article_status", function () { 
@@ -442,13 +458,6 @@
       });
     });
   </script>
-	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets//vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
-    <script src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
 </body>
 
 </html>

@@ -36,7 +36,7 @@ public class ArticleTest {
 //           	=============================================		
 			////查詢
     		ArticleVO a2 = session.createQuery("from ArticleVO where articleCategoryNo = 3", ArticleVO.class).uniqueResult();
-    		System.out.println(a2);			
+//    		System.out.println(a2);			
           	
           	
 			session.getTransaction().commit();
@@ -48,8 +48,9 @@ public class ArticleTest {
 		} finally {
 			HibernateUtil.shutdown();
 		}
-	
-
+		
+		Integer viewCount = 1 + Integer.valueOf(("6"));
+		System.out.println(viewCount);
 	}
 
 }

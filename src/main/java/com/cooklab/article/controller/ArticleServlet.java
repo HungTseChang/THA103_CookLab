@@ -46,7 +46,8 @@ public class ArticleServlet extends HttpServlet{
 			String str = req.getParameter("articleNo");
 			if (str == null || (str.trim()).length() == 0) {
 				errorMsgs.add("請輸入文章編號");
-			}
+			}	
+			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
@@ -66,8 +67,7 @@ public class ArticleServlet extends HttpServlet{
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-
-			/*************************** 2.開始查詢資料 *****************************************/
+			/*************************** 2-1.開始查詢資料 *****************************************/
 			ArticleService artSvc = new ArticleService();
 			ArticleVO artVO = artSvc.getOneArt(articleNo);
 			if (artVO == null) {
@@ -79,7 +79,11 @@ public class ArticleServlet extends HttpServlet{
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
-
+			
+			/*************************** 2-2.修改點擊數資料 *****************************************/
+//			ArticleService artSvc2 = new ArticleService();
+//			artSvc2.updateViewCount(articleNo, viewCount);
+			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
 			String url = "/article/article_content.jsp";
@@ -141,6 +145,8 @@ public class ArticleServlet extends HttpServlet{
 		}	
 		
 		
+		
+		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -160,6 +166,33 @@ public class ArticleServlet extends HttpServlet{
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("artVO", artVO); // 資料庫取出的empVO物件,存入req
 			String url = "/article/update_Art_input.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
+			successView.forward(req, res);
+		}
+if ("getViewCount".equals(action)) { 
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer articleNo = Integer.valueOf(req.getParameter("articleNo"));
+			
+			Integer viewCount = Integer.valueOf(req.getParameter("viewCount"))+1;
+		
+			ArticleVO u1 = new ArticleVO();
+			u1.setArticleNo(articleNo); 
+			u1.setViewCount(viewCount);
+			/*************************** 2.開始修改資料 ****************************************/
+			ArticleService artSvc = new ArticleService();
+			artSvc.updateViewCount(articleNo, viewCount);
+			/*************************** 2-2開始查詢 ****************************************/
+//			ArticleService artSvc2 = new ArticleService();
+			ArticleVO artVO2 = artSvc.getOneArt(articleNo);
+			/*************************** 3.新增完成,準備轉交 ******************************/
+			req.setAttribute("artVO", artVO2); // 資料庫取出的empVO物件,存入req
+			String url ="/article/article_content.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
 			successView.forward(req, res);
 		}
@@ -187,7 +220,7 @@ if ("getStatusUpdate".equals(action)) {
 			ArticleService artSvc = new ArticleService();
 			artSvc.updateArticleStatus(articleNo, articleStatus);
 
-			/*************************** 3.新增完成,準備轉交 ************/
+			/*************************** 3.新增完成,準備轉交 ******************************/
 			req.setAttribute("updatedArtVO", updatedArtVO); // 資料庫取出的empVO物件,存入req
 			String url = "/mazer-main/dist/article/HO_discussion_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp

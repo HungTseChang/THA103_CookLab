@@ -178,6 +178,7 @@
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
 
+	<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 
 		<div class="container" style="margin-top: 30px;">
 		<div class="row">
@@ -206,8 +207,10 @@
                 			<span style="margin-right: 10px;">10</span>
                 			<img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
                 			<span>10</span>
-
-                			<button class="btn custom-btn" type="submit">回覆</button>
+                			
+							<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
+							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+							<input type="hidden" name="action" value="subSearch">
             			</div>
 						<hr  style="border: 1px solid #F29422; ">
 					</div>
@@ -215,9 +218,11 @@
 			</div>
 		</div>
 	</div>
+	</FORM>
 	
 	<c:forEach var="artVO2" items="${list2}">
 	<c:if test="${artVO2.articleNo == artVO.articleNo}">
+<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 	<div class="container" style="margin-top: 30px;">
 		<div class="row">
 			<div id="c_user" class="col-md-3"
@@ -244,19 +249,24 @@
                 			<span style="margin-right: 10px;">10</span>
                 			<img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
                 			<span>10</span>
-
-                			<button class="btn custom-btn" type="submit">回覆</button>
+                			
+                			<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
+							<input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
+							<input type="hidden" name="action" value="subSearch2">
             			</div>
 						<hr  style="border: 1px solid #F29422; ">
 					</div>
 				</div>
 			</div>
+		</Form>
 		</div>
 	</div>
 	</c:if>
 	</c:forEach>
+	
+	
 	<!--  下面是回文的部分需要再調整-->
-	<FORM  id="replyForm" METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+	<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 	<div class="container" style="margin-top: 10px;">
 		<div class="row">
 			<div id="c_user" class="col-md-3"

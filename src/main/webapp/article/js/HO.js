@@ -26,23 +26,23 @@ $(document).ready(function() {
 });
 
 //===============article_content==========================================
-
-$(function(){
-  $("a#creator").on("click", function(e){ 
-    e.preventDefault();
-  });
-});
-
-$(document).ready(function(){
-	
-	$('#replyForm').submit(function(e){
-		e.preventDefault();
-		
-		$('html,body').animate({
-			scrollTop:$(document).height()
-		},'fast');
-	});
-});
+//
+//$(function(){
+//  $("a#creator").on("click", function(e){ 
+//    e.preventDefault();
+//  });
+//});
+//
+//$(document).ready(function(){
+//	
+//	$('#replyForm').submit(function(e){
+//		e.preventDefault();
+//		
+//		$('html,body').animate({
+//			scrollTop:$(document).height()
+//		},'fast');
+//	});
+//});
 
 
 //=======WebChat===========
