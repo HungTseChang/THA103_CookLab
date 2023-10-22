@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface SupportFormServie {
 	public SupportFormVO addSupportForm(String realName, Integer supportFormCategoryId, String replyEmail,
-			String formTitle, String formContext, String formSource,Byte formStatus, String formSubmitter);
+			String formTitle, String formContext, Byte formSource,Byte formStatus, String formSubmitter);
 
 	public SupportFormVO updateSupportForm(Integer formNo, String realName, Integer supportFormCategoryId,
-			String replyEmail, String formTitle, String formContext, Byte formStatus, String formSource,
+			String replyEmail, String formTitle, String formContext, Byte formStatus, Byte formSource,
 			String formSubmitter, Integer formResponder);
 
 	public void deleteSupportForm(Integer formNo);

@@ -36,7 +36,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 			pstmt.setString(4, supportFormVO.getFormContext());
 			pstmt.setString(5, supportFormVO.getFormTitle());
 			pstmt.setByte(6, supportFormVO.getFormStatus());
-			pstmt.setString(7, supportFormVO.getFormSource());
+			pstmt.setByte(7, supportFormVO.getFormSource());
 			pstmt.setString(8, supportFormVO.getFormSubmitter());
 
 			pstmt.executeUpdate();
@@ -85,7 +85,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 			pstmt.setString(4, supportFormVO.getFormContext());
 			pstmt.setString(5, supportFormVO.getFormTitle());
 			pstmt.setByte(6, supportFormVO.getFormStatus());
-			pstmt.setString(7, supportFormVO.getFormSource());
+			pstmt.setByte(7, supportFormVO.getFormSource());
 			pstmt.setString(8, supportFormVO.getFormSubmitter());
 			pstmt.setInt(9, supportFormVO.getFormResponder());
 			pstmt.setInt(10, supportFormVO.getFormNo());
@@ -189,7 +189,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 				supportFormVO.setFormTitle(rs.getString("form_title"));
 				supportFormVO.setFormContext(rs.getString("form_context"));
 				supportFormVO.setFormStatus(rs.getByte("form_status"));
-				supportFormVO.setFormSource(rs.getString("form_source"));
+				supportFormVO.setFormSource(rs.getByte("form_source"));
 				supportFormVO.setFormSubmitter(rs.getString("form_submitter"));
 				supportFormVO.setFormResponder(rs.getInt("form_responder"));
 				supportFormVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
@@ -254,7 +254,7 @@ public class SupportFormJDBCDAOIm implements SupportFormDAO {
 				supportFormVO.setFormTitle(rs.getString("form_title"));
 				supportFormVO.setFormContext(rs.getString("form_context"));
 				supportFormVO.setFormStatus(rs.getByte("form_status"));
-				supportFormVO.setFormSource(rs.getString("form_source"));
+				supportFormVO.setFormSource(rs.getByte("form_source"));
 				supportFormVO.setFormSubmitter(rs.getString("form_submitter"));
 				supportFormVO.setFormResponder(rs.getInt("form_responder"));
 				supportFormVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));

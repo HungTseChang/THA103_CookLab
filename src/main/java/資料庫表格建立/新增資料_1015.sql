@@ -276,7 +276,7 @@ INSERT INTO member_collection (member_id_collectioned,member_id)
             
 INSERT INTO support_form (real_name,support_form_category_id,reply_email,form_context,
 form_status,form_title,form_source,form_submitter)
-VALUE("客戶",1,"AAA@cooklab.com","問題很多",1,"就是問題","官方表單","客服A");
+VALUE("客戶",1,"AAA@cooklab.com","問題很多",1,"就是問題",1,"客服A");
 
 INSERT INTO support_form_record (form_no,record_context,admin_no)
 VALUE(1,"我是處理紀錄",1);

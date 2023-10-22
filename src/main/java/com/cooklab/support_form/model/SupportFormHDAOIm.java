@@ -1,11 +1,12 @@
 package com.cooklab.support_form.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.cooklab.util.HibernateUtil;
+import com.cooklab.support_form_record.model.SupportFormRecordVO;
 
 public class SupportFormHDAOIm implements SupportFormDAO {
 
@@ -28,18 +29,6 @@ public class SupportFormHDAOIm implements SupportFormDAO {
 			return 1;
 		} catch (Exception e) {
 			return -1;
-		}
-	}
-	
-	//單獨測試HQL，實際上線不會使用此方法
-	public void add(SupportFormVO supportFormVO) {
-		//回傳給Service，1代表成功、-1代表失敗
-		try {
-			getSession().beginTransaction();
-			getSession().save(supportFormVO);
-			getSession().getTransaction().commit();
-		} catch (Exception e) {
-			getSession().getTransaction().rollback();
 		}
 	}
 
@@ -77,6 +66,16 @@ public class SupportFormHDAOIm implements SupportFormDAO {
 	@Override
 	public List<SupportFormVO> getAll() {
 		return getSession().createQuery("select distinct s from SupportFormVO s left join fetch s.admins ", SupportFormVO.class).list();
+	}
+	
+	// 實作從單一表單編號查詢所有關聯的表單記錄方法
+	public List<SupportFormRecordVO> getRecordByFormNo(Integer formNo) {
+		SupportFormVO sfvo = getSession().get(SupportFormVO.class, formNo);
+		List<SupportFormRecordVO> sfrlist = new ArrayList<SupportFormRecordVO>();
+		for(SupportFormRecordVO sfrvo: sfvo.getSupportFormRecords()) {
+			sfrlist.add(sfrvo);
+		}
+		return sfrlist;
 	}
 
 }

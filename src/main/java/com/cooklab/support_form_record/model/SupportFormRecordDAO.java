@@ -3,9 +3,9 @@
 import java.util.List;
 
 public interface SupportFormRecordDAO {
-    public void insert(SupportFormRecordVO supportFormRecord);
-    public void update(SupportFormRecordVO supportFormRecord);
-    public void delete(Integer recordNo);
+    public Integer insert(SupportFormRecordVO supportFormRecord);
+    public Integer update(SupportFormRecordVO supportFormRecord);
+    public Integer delete(Integer recordNo);
     public SupportFormRecordVO findByPrimaryKey(Integer recordNo);
     public List<SupportFormRecordVO> getAll();
 }
