@@ -8,4 +8,5 @@ public interface IngredientCategoryDAO {
     public void delete(Integer ingredientCategoryNo);
     public IngredientCategoryVO findByPrimaryKey(Integer ingredientCategoryNo);
     public List<IngredientCategoryVO> getAll();
+    public List<Object[]> getIngredientAndKitchenwareTags();
 }
