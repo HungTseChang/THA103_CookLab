@@ -364,7 +364,6 @@
           </div>
         </section>
       </div>
-
       <footer>
         <div class="footer clearfix mb-0 text-muted">
             <div class="float-start">
@@ -378,6 +377,11 @@
       </footer>
     </div>
   </div>
+  	<script>
+// 		Simple Datatable
+// 		        let table1 = document.querySelector('#table1');
+// 		        let dataTable = new simpleDatatables.DataTable(table1);
+	</script>	
 	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -390,13 +394,11 @@
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
-	<script>
-		Simple Datatable
-		        let table1 = document.querySelector('#table1');
-		        let dataTable = new simpleDatatables.DataTable(table1);
-	</script>	
+
 
   <script>
+  	let table1 = document.querySelector("#table1");
+  	let dataTable = new simpleDatatables.DataTable(table1);
     $(function () {
     	//jsp中使用read的話，會誤認為ajax要轉接網頁要改用ready
       $(document).ready("change", ".btn.article_status", function () { 

@@ -224,7 +224,6 @@ pageContext.setAttribute("list", list);
 						<div style="width: auto; height: 500px;">
 							<div id="editor" contenteditable="false"></div> <!--如果改成 true就不能複製貼上WHY?  -->
 							
-							<a>※ 引述《${artVO.members.memberPicture}》之銘言${artVO.articleCategory}</a>
 							<textarea id="hiddenContent" name="articleContent" style="display: none;"></textarea>
 
 

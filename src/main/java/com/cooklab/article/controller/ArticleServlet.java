@@ -180,7 +180,7 @@ if ("getViewCount".equals(action)) {
 			Integer articleNo = Integer.valueOf(req.getParameter("articleNo"));
 			
 			Integer viewCount = Integer.valueOf(req.getParameter("viewCount"))+1;
-		
+			System.out.println(viewCount);
 			ArticleVO u1 = new ArticleVO();
 			u1.setArticleNo(articleNo); 
 			u1.setViewCount(viewCount);
@@ -193,7 +193,7 @@ if ("getViewCount".equals(action)) {
 			/*************************** 3.新增完成,準備轉交 ******************************/
 			req.setAttribute("artVO", artVO2); // 資料庫取出的empVO物件,存入req
 			String url ="/article/article_content.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 		
@@ -216,6 +216,10 @@ if ("getStatusUpdate".equals(action)) {
 			ArticleVO updatedArtVO = new ArticleVO();
 			updatedArtVO.setArticleNo(articleNo); 
 			updatedArtVO.setArticleStatus(articleStatus) ;
+//			ArticleVO updatedArtVO = new ArticleService().getOneArt(articleNo);
+//			updatedArtVO.setArticleStatus(articleStatus) ;
+//			new ArticleService().updateArt(updatedArtVO);
+			
 			/*************************** 2.開始修改資料 ****************************************/
 			ArticleService artSvc = new ArticleService();
 			artSvc.updateArticleStatus(articleNo, articleStatus);
