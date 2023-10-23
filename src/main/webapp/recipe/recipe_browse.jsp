@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <%@ page import="java.util.*"%> <%@ page
+import="com.cooklab.purchase_order.model.*"%>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -84,9 +86,7 @@
             </nav>
             <div id="mobile-menu-wrap"></div>
             <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a>
                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
             </div>
             <div class="humberger__menu__contact">
@@ -107,25 +107,16 @@
                         <div class="col-lg-6">
                             <div class="header__top__right">
                                 <div class="header__top__right__auth">
-                                    <a href="#">
-                                        <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i>
-                                        <span class="ding-nav-text">購物車</span>
-                                    </a>
+                                    <a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">購物車</span> </a>
                                 </div>
                                 <div class="header__top__right__auth">
-                                    <a href="#">
-                                        <i class="fa fa-user m-0 ml-2 fa-lg"></i>
-                                        <span class="ding-nav-text">會員中心</span>
-                                    </a>
+                                    <a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">會員中心</span> </a>
                                 </div>
                                 <div class="header__top__right__auth">
                                     <a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
                                 </div>
                                 <div class="header__top__right__auth">
-                                    <a href="#">
-                                        <i class="bi bi-bell m-0 ml-2 fa-lg"></i>
-                                        <span class="ding-nav-text">通知中心</span>
-                                    </a>
+                                    <a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">通知中心</span> </a>
                                 </div>
                             </div>
                         </div>
@@ -177,57 +168,9 @@
                         </div>
                     </div>
 
-                    <button type="button" id="btnTag">標籤選取</button>
-                    <div id="tagBox" class="none">
-                        <article>
-                            <p>已選擇標籤:</p>
-                            <div id="selectTag" class="form-control d-flex align-items-center">
-                                <input type="text" class="searchTag" />
-                            </div>
-                            <p>熱門標籤:</p>
-                            <button class="addTag badge badge-secondary">番茄</button>
-                            <button class="addTag badge badge-secondary">湯姆</button>
-                            <p>烹飪方式:</p>
-                            <button class="addTag badge badge-secondary">烤</button>
-                            <button class="addTag badge badge-secondary">煮</button>
-                            <button class="addTag badge badge-secondary">燉</button>
-                            <button class="addTag badge badge-secondary">生食</button>
-                            <button class="addTag badge badge-secondary">蒸</button>
-                            <button class="addTag badge badge-secondary">炸</button>
-                            <button class="addTag badge badge-secondary">炒</button>
-                            <button class="addTag badge badge-secondary">涼拌</button>
-                            <button class="addTag badge badge-secondary">煮</button>
-                            <p>餐點類型:</p>
-                            <button class="addTag badge badge-secondary">早餐</button>
-                            <button class="addTag badge badge-secondary">午餐</button>
-                            <button class="addTag badge badge-secondary">晚餐</button>
-                            <button class="addTag badge badge-secondary">點心</button>
-                            <button class="addTag badge badge-secondary">甜點</button>
-                            <button class="addTag badge badge-secondary">點心</button>
-                            <button class="addTag badge badge-secondary">湯</button>
-                            <button class="addTag badge badge-secondary">沙拉</button>
-                            <button class="addTag badge badge-secondary">前菜</button>
-                            <button class="addTag badge badge-secondary">主菜</button>
-                            <p>特殊飲食需求:</p>
-                            <button class="addTag badge badge-secondary">素食</button>
-                            <button class="addTag badge badge-secondary">無麩質</button>
-                            <button class="addTag badge badge-secondary">低卡路里</button>
-                            <button class="addTag badge badge-secondary">無糖</button>
-                            <button class="addTag badge badge-secondary">甜點</button>
-                            <p>節日:</p>
-                            <button class="addTag badge badge-secondary">春節</button>
-                            <button class="addTag badge badge-secondary">情人節</button>
-                            <button class="addTag badge badge-secondary">清明節</button>
-                            <button class="addTag badge badge-secondary">母親節</button>
-                            <br />
-                            <div class="text-right"><button type="button" class="btn_modal_close text-right">關閉</button></div>
-                        </article>
-                    </div>
-
                     <div class="text-center" style="margin: 30px">
                         <div id="coverImageView">
-                            <span class="text">成品圖片<br />(點擊或拖曳)</span>
-                            <input type="file" id="coverImageInput" accept="image/*" style="display: none" />
+                            <span class="text">成品圖片<br />(點擊或拖曳) </span> <input type="file" id="coverImageInput" accept="image/*" style="display: none" />
                         </div>
                     </div>
 
@@ -240,7 +183,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-2"><span class="recipe_content">份量(人數):</span></div>
+                        <div class="col-lg-2">
+                            <span class="recipe_content">份量(人數):</span>
+                        </div>
                         <select id="recipeQuantity" class="col-md-2">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -256,75 +201,69 @@
                     </div>
 
                     <div>
-                        <div id="listIngredient">
+                        <div id="listIngredient" class="search-init">
                             <span class="recipe_content">食材:</span>
 
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" onkeyup="searchProduct(this)" />
+                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
                                     <div class="search-results"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-ingredient"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
                             </div>
 
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" onkeyup="searchProduct(this)" />
+                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
                                     <div class="search-results"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-ingredient"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
                             </div>
 
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" onkeyup="searchProduct(this)" />
+                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
                                     <div class="search-results"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-ingredient"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
                             </div>
                         </div>
                         <button id="addIngredient" class="col-md-9 form-control">加入食材</button>
                     </div>
-
+                    <a href="http://localhost:8081/CookLab/recipe/recipe_browse.html?recipeNo=1">sadsad</a>
                     <div>
                         <span class="recipe_content">廚具:</span>
-                        <div id="listKitchenware">
+                        <div id="listKitchenware" class="search-init">
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" onkeyup="searchProduct(this)" />
+                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
                                     <div class="search-results"></div>
                                 </div>
 
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-kitchenware"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
                             </div>
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" onkeyup="searchProduct(this)" />
+                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
                                     <div class="search-results"></div>
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-kitchenware"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
                             </div>
                             <div class="row align-items-center" style="margin: 5px">
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" onkeyup="searchProduct(this)" />
+                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
                                     <div class="search-results"></div>
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-kitchenware"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
                             </div>
                         </div>
                         <button id="addKitchenware" class="col-md-5 form-control">加入廚具</button>
@@ -335,57 +274,42 @@
                         <div id="listStep">
                             <div class="row step" step="1">
                                 <div class="col-md-3 text-center">
-                                    <div class="step-img-view">
-                                        <span class="text">步驟圖片</span>
-                                        <input type="file" class="step-img-input" accept="image/*" style="display: none" />
-                                    </div>
+                                    <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2">步驟1:</span>
-                                        <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                        <span class="recipe_content col-md-2">步驟1:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
                                     <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-step"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
                             </div>
 
                             <div class="row step" step="2">
                                 <div class="col-md-3 text-center">
-                                    <div class="step-img-view">
-                                        <span class="text">步驟圖片</span>
-                                        <input type="file" class="step-img-input" accept="image/*" style="display: none" />
-                                    </div>
+                                    <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2">步驟2:</span>
-                                        <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                        <span class="recipe_content col-md-2">步驟2:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
                                     <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-step"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
                             </div>
 
                             <div class="row step" step="3">
                                 <div class="col-md-3 text-center">
-                                    <div class="step-img-view">
-                                        <span class="text">步驟圖片</span>
-                                        <input type="file" class="step-img-input" accept="image/*" style="display: none" />
-                                    </div>
+                                    <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2">步驟3:</span>
-                                        <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                        <span class="recipe_content col-md-2">步驟3:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
                                     <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
 
-                                <i class="bi bi-list">&emsp;</i>
-                                <i class="bi bi-trash3-fill delete-step"></i>
+                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
                             </div>
                         </div>
                         <button id="addStep" class="form-control">新增步驟</button>
@@ -444,9 +368,7 @@
                                 <button type="submit" class="btn ding-btn-org">訂閱</button>
                             </form>
                             <div class="footer__widget__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-instagram"></i></a> <a href="#"><i class="fa fa-twitter"></i></a>
                             </div>
                         </div>
                     </div>
@@ -461,10 +383,7 @@
                                     <script>
                                         document.write(new Date().getFullYear());
                                     </script>
-                                    All rights reserved | This template is made with
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                    by
-                                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>
                             </div>

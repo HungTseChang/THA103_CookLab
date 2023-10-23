@@ -58,15 +58,16 @@ public class ProductHDAOrRecipeTest implements ProductDAO {
 
 	@Override
 	public ProductVO findByProductName(String productName) {
-		return getSession().createQuery("from ProductVO where productName = '" + productName + "'", ProductVO.class)
-				.uniqueResult();
+		return getSession().createQuery("from ProductVO where productName = :productName ", ProductVO.class)
+				.setParameter("productName", productName).uniqueResult();
 	}
 
 	@Override
 	public List<ProductVO> findByProductNames(String productName, String category) {
-		return getSession().createQuery(
-				"from ProductVO where productName like '%" + productName + "%' and " + category + " is not null",
-				ProductVO.class).list();
+		return getSession()
+				.createQuery("from ProductVO where productName like :productName and " + category + " is not null",
+						ProductVO.class)
+				.setParameter("productName", "%" + productName + "%").list();
 	}
 
 }

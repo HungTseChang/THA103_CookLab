@@ -52,6 +52,6 @@ public class RecipeKitchenwareHDAOIm implements RecipeKitchenwareDAO {
 
 	@Override
 	public List<RecipeKitchenwareVO> getAll() {
-		return getSession().createQuery("from recipeIngredientVO", RecipeKitchenwareVO.class).list();
+		return getSession().createQuery("from RecipeKitchenwareVO", RecipeKitchenwareVO.class).list();
 	}
 }

@@ -51,7 +51,7 @@ public class RecipeIngredientHDAOIm implements RecipeIngredientDAO{
 
 		@Override
 		public List<RecipeIngredientVO> getAll() {
-			return getSession().createQuery("from recipeIngredientVO", RecipeIngredientVO.class).list();
+			return getSession().createQuery("from RecipeIngredientVO", RecipeIngredientVO.class).list();
 		}
 }
 
