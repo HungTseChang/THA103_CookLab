@@ -333,6 +333,42 @@ a.page-link_pr {
     width: 250px;
 }
 
+/* 下面是自己與他人的顯示部分 */
+/* ul li{ */
+/*   display:inline-block; */
+/*   clear: both; */
+/*   padding: 20px; */
+/*   border-radius: 30px; */
+/*   margin-bottom: 2px; */
+/*   font-family: Helvetica, Arial, sans-serif; */
+/* } */
+
+.friend{
+  background: #eee;
+  float: left;
+}
+
+.me{
+  float: right;
+  background: #0084ff;
+  color: #fff;
+}
+
+.friend + .me{
+  border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+  border-bottom-right-radius: 30px;
+}
+
+/* 上面是自己與他人的顯示部分 */
+
 /* .statusOutput {
     background: #F27405;
     text-align: center;

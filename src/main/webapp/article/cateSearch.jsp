@@ -215,7 +215,6 @@
 <%-- 			</c:forEach> --%>
 	
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
 	<section id="article_conten">
 		<%@ include file="page1.file"%>
 		<div class="container">
@@ -232,8 +231,10 @@
 								<td id="article_date">發表時間</td>
 								<td id="article_count">點擊次數</td>
 							</tr>
-							<c:forEach var="artVO" items="${list}">
-							<div style="display:none;" id="stJSTL"><c:if test="${artVO.articleStatus < 1 }"></div>
+						<c:forEach var="artVO" items="${list}">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+							
+							<c:if test="${artVO.articleStatus < 1 }">
  								<c:if test="${artVO.articleCategoryNo == artCate.articleCategoryNo}"> 
 									<tr class="title_colum">
 										<td id="title_colum_td">
@@ -249,17 +250,16 @@
 											value="${artVO.lastEditTimestamp}"
 											pattern="yyyy-MM-dd HH:mm:ss" />
 										</td>
-										<td id="article_count">
-										${artVO.viewCount}</td>
+										<td id="article_count">${artVO.viewCount}</td>
 									</tr>
-									</c:if>
- 								</c:if>
-							</c:forEach>
-						
-						</table>
-					</div>
-				</div>
-			</FORM>	
+								</c:if>
+ 							</c:if>
+						</FORM>	
+				</c:forEach>
+			</table>
+		</div>
+	</div>
+		
 				<!-- 以下群聊視窗範圍 -->
 				<div class="col-lg-3">
 					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"

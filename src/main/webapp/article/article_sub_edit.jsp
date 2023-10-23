@@ -1,15 +1,16 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
+<%@ page import="com.cooklab.article_sub.model.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
+
 ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
-ArticleCategoryService artSvc = new ArticleCategoryService();
-List<ArticleCategoryVO> list = artSvc.getAll();
-pageContext.setAttribute("list", list);
-
+ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
+// System.out.println(artSub);
 %>
 
 
@@ -22,7 +23,7 @@ pageContext.setAttribute("list", list);
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Ogani | Template</title>
+<title>Ogani | Template ${artSub.articleSubNo} ${artVO.articleNo}</title>
 
 <!-- Google Font -->
 <link
@@ -75,7 +76,7 @@ pageContext.setAttribute("list", list);
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="<%=request.getContextPath()%>/article/img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -201,26 +202,47 @@ pageContext.setAttribute("list", list);
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" name="form1">
-						<input type="hidden" name="memberId" value="5" size="45" /> 
+						<input type="hidden" name="memberId" value="1" size="45" /> 
 						<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
 						<input  type="hidden" name="articleSubCount"  value="0" size="45" /> 
-							
+					<c:choose> 
+       					<c:when test="${not empty artVO.articleContent}"> 
+         						<input type="text" id="edit_title" name="articleTitle"  style="color:gray;"  								
+         						value="RE [${artVO.articleCategory.articleCategory}]${artVO.articleTitle}" readonly>
+            			</c:when> 
+             					<c:otherwise> 
+            						<input type="text" id="edit_title" name="articleTitle"  style="color:gray;" 
+									value="RE ${artSub.articleSubNo}" readonly>
+           					</c:otherwise>
+     				</c:choose>	 
 
-						<input type="text" id="edit_title" name="articleTitle"  style="color:gray;" 
-						value="RE [${artVO.articleCategory.articleCategory}]${artVO.articleTitle}" readonly>
-
-						<div style="width: auto; sheight: 500px;">
-							<div id="editor" contenteditable="false"></div>
-													<!--如果改成 true就不能複製貼上WHY?  -->
 						
-							<textarea id="hiddenContent" name="articleContent" style="display: none;"></textarea>
 
+						<div style="width: auto; height: 500px;">
+							<div id="editor" contenteditable="false">
+	        					<c:choose> 
+           							<c:when test="${not empty artVO.articleContent}">
+                						<a style="color: gray;">※ 引述《${artVO.members.memberNickname}》之銘言${artVO.articleContent}</a>
+            						</c:when> 
+           							<c:otherwise> 
+										<a style="color: gray;">//※ 引述 ${artSub.articleSubContent}</a>             						
+									</c:otherwise> 
+       						  	</c:choose> 
+							</div>
+							<textarea id="hiddenContent" name="articleSubContent" style="display: none;"></textarea>
 
-							<p style="margin-top: 5px;">
-								驗證碼顯示位置: <input type="text" value="請輸入驗證碼">
+							<p style="margin-top: 5px;">驗證碼顯示位置: 
+								<input type="text" value="請輸入驗證碼">
+								<c:choose>
+            						<c:when test="${not empty artVO.articleContent}">
+               							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+             						</c:when> 
+             						<c:otherwise> 
+										<input type="hidden" name="articleNo" value="${artSub.article}">
+             						</c:otherwise>
+        							 </c:choose>								 
 								<input type="hidden" name="action" value="insert">
 								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button>
-
 		
 
 								<button class="btn ding-btn-org" id="btn_clean">清除</button>

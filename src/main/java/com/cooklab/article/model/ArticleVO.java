@@ -213,7 +213,7 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Override
 	public String toString() {
-		return "ArticleVO [articleNo=" + articleNo + ", articleC=" + articleC + ", articleR=" + articleR
+		return "ArticleVO [articleNo=" + articleNo 
 				+ ", articleTitle=" + articleTitle + ", memberId=" + memberId
 				+ ", createdTimestamp=" + createdTimestamp + ", articleStatus=" + articleStatus + ", articleContent="
 				+ articleContent + ", articleCount=" + articleCount + ", viewCount=" + viewCount

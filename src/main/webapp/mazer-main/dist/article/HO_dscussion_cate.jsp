@@ -165,8 +165,7 @@ td button.wcc {
 						<div class="col-md-9 card-header"
 							style="background-color: rgb(208, 250, 255); padding-bottom: 10px; border: 10px solid rgb(170, 199, 234);">
 							<div class="card">
-								<FORM METHOD="POST"
-									ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet">
+
 								
 								<div class="table-datatable"
 									style="max-height: 400px; overflow-y: scroll;">

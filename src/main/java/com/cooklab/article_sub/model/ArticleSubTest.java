@@ -11,7 +11,7 @@ import com.cooklab.util.HibernateUtil;
 public class ArticleSubTest {
 	public static void main(String[] args) throws Exception {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		ArticleSubJDBCDAO dao = new ArticleSubJDBCDAO();
+		ArticleSubHDAO dao = new ArticleSubHDAO();
 
 //		// 新增
 //		Emp emp1 = new Emp();
@@ -35,16 +35,16 @@ public class ArticleSubTest {
 		try {			
 			//查詢全部
 			session.beginTransaction();
-			Query<ArticleSubVO> query3 = session.createQuery(
-					" from ArticleSubVO", ArticleSubVO.class);
-			List<ArticleSubVO> list2 = query3.list();
-			System.out.println(list2);
-			
+//			Query<ArticleSubVO> query3 = session.createQuery(
+//					" from ArticleSubVO", ArticleSubVO.class);
+//			List<ArticleSubVO> list2 = query3.list();
+//			System.out.println(list2);
+//			
 			
 			//查詢資料(單筆)
-//			ArticleSubVO articleSubVO = session.createQuery("from ArticleSubVO where articleSubNo = 3", ArticleSubVO.class).uniqueResult();
-//			System.out.println(articleSubVO);
-//			
+			ArticleSubVO articleSubVO = session.createQuery("from ArticleSubVO where articleSubNo = 5", ArticleSubVO.class).uniqueResult();
+			System.out.println(articleSubVO);
+			
 			session.getTransaction().commit();
 
 		} catch (Exception e) {
