@@ -1,14 +1,14 @@
 package com.cooklab.support_form.model;
 
-public enum SFStatus {
-	UNCHECKED((byte) 0, "未處理"),
-	ONPROCESS((byte) 1, "處理中"),
-    CASECLOSED((byte) 2, "已結案");
+public enum SFSource {
+	SUPPORTCENTER((byte) 1, "官網表單"),
+	GENERAL((byte) 2, "人工建單"),
+    MAILBOX((byte) 3, "客服信箱");
 
     private final Byte value;
     private final String desc;
 
-    SFStatus(Byte value, String desc) {
+    SFSource(Byte value, String desc) {
         this.value = value;
         this.desc = desc;
     }

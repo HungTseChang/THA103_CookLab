@@ -51,7 +51,7 @@ let init = function () {
                        ${createdTimestamp.toLocaleString()}
                       </td>
                       <td>
-                          <a href="#" class="btn btn-primary" data-formid="${supportform.formNo}">詳細</a>
+                          <a href="#" class="btn btn-primary form-details" data-formid="${supportform.formNo}">詳細</a>
                       </td>
                     </tr>`);
       });
@@ -70,4 +70,10 @@ let init = function () {
 
 $(document).ready(function () {
   init();
+
+  $(document).on("click", ".form-details", function (e) {
+    e.preventDefault();
+    var formId = $(this).data("formid");
+    window.location.href = "support-ticket-details.html?formNo=" + formId;
+  });
 });

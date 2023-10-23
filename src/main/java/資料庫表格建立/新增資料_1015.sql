@@ -188,12 +188,12 @@ VALUE("前台管理",1,"AAA123","1234"),
 
 INSERT INTO advertise(advertise_name,advertise_shelf_time,advertise_offsale_time,advertise_img,advertise_url) VALUE("優惠券推廣","2023-02-02",NULL,"2023-03-03","https://www.youtube.com/"); 
 
-insert into notify_center(member_id, notify_type, notify_read, notify_content)
- value(1, 1, 0 , "隨便打打不要在意喔1"),
-      (2, 0, 0 ,  "隨便打打不要在意喔2"),
-      ( 3, 1, 0 ,  "隨便打打不要在意喔3"),
-	   ( 4, 1, 0 , "隨便打打不要在意喔4"),
-	   ( 5, 1, 0 , '隨便打打不要在意喔5');
+insert into notify_center(member_id, notify_type, notify_content,notifytime)
+ value(1, 1,  "隨便打打不要在意喔1",now()),
+      (2, 0,   "隨便打打不要在意喔2",now()),
+      ( 3, 1,   "隨便打打不要在意喔3",now()),
+	   ( 4, 1,  "隨便打打不要在意喔4",now()),
+	   ( 5, 1,  '隨便打打不要在意喔5',now());
     
 -- 新增討論區文章分類
 Insert into article_category(article_category)
@@ -276,7 +276,7 @@ INSERT INTO member_collection (member_id_collectioned,member_id)
             
 INSERT INTO support_form (real_name,support_form_category_id,reply_email,form_context,
 form_status,form_title,form_source,form_submitter)
-VALUE("客戶",1,"AAA@cooklab.com","問題很多",1,"就是問題","官方表單","客服A");
+VALUE("客戶",1,"AAA@cooklab.com","問題很多",1,"就是問題",1,"客服A");
 
 INSERT INTO support_form_record (form_no,record_context,admin_no)
 VALUE(1,"我是處理紀錄",1);

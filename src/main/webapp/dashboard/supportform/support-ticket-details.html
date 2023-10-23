@@ -9,8 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/bootstrap.css" />
 
-    <link rel="stylesheet" href="../assets/vendors/simple-datatables/style.css" />
-
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css" />
     <link rel="stylesheet" href="../assets/css/app.css" />
@@ -37,14 +35,14 @@
               <li class="sidebar-title">Menu</li>
               <!-- ============================================================================================== -->
               <li class="sidebar-item">
-                <a href="/dashboard/WCC_Homepage.jsp" class="sidebar-link">
+                <a href="WCC_Homepage.html" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
                   <span>後台首頁</span>
                 </a>
               </li>
 
               <li class="sidebar-item">
-                <a href="/dashboard/memeber/WCC_memeber.jsp" class="sidebar-link">
+                <a href="WCC_memeber.html" class="sidebar-link">
                   <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                   <span>會員管理</span>
                 </a>
@@ -57,11 +55,11 @@
                 </a>
                 <ul class="submenu">
                   <li class="submenu-item">
-                    <a href="/dashboard/admin/WCC_admin_management.jsp">管理管理者</a>
+                    <a href=".\WCC_permission_management.html">管理管理者</a>
                   </li>
 
                   <li class="submenu-item">
-                    <a href="/dashboard/permission/WCC_permission.jsp">創立權限規則</a>
+                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
                   </li>
                 </ul>
               </li>
@@ -164,7 +162,7 @@
                     <a href="WCC_official_notify.html">系統通知</a>
                   </li>
                   <li class="submenu-item active">
-                    <a href="ding-support-tickets-table.html">問題表單</a>
+                    <a href="support-tickets-table.html">問題表單</a>
                   </li>
                 </ul>
               </li>
@@ -182,9 +180,7 @@
           </a>
         </header>
 
-        <!-- 問題表單清單起始 -->
         <div class="page-heading">
-          <!-- 問題表單Header -->
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
@@ -193,64 +189,145 @@
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/dashboard/WCC_Homepage.jsp">控制台</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">問題表單</li>
+                    <li class="breadcrumb-item"><a href="WCC_Homepage.jsp">控制台</a></li>
+                    <li class="breadcrumb-item"><a href="support-tickets-table.html">問題表單</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">問題表單詳情</li>
                   </ol>
                 </nav>
               </div>
             </div>
           </div>
-          <!-- 問題表單Header -->
+          <!-- 表單主區域起始 -->
           <section class="section">
             <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                <span>表單列表</span>
-                <a href="/dashboard/supportform/ding-support-ticket-add.html" class="btn btn-lg btn-primary">新增表單</a>
-              </div>
               <div class="card-body">
-                <table class="table table-striped" id="table1">
-                  <thead>
-                    <!-- 欄位名稱起始 -->
-                    <tr>
-                      <th>表單編號</th>
-                      <th>問題類別</th>
-                      <th>表單標題</th>
-                      <th>客戶姓名</th>
-                      <th>回覆信箱</th>
-                      <th>處理狀態</th>
-                      <th>處理客服</th>
-                      <th>進件時間</th>
-                      <th>動作</th>
-                      <!-- 欄位名稱結束 -->
-                    </tr>
-                  </thead>
-                  <tbody class="ticket-list">
-                    <!-- 資料列模板起始 -->
-                    <!-- <tr>
-                      <td>0</td>
-                      <td>範例</td>
-                      <td>範例</td>
-                      <td>範例</td>
-                      <td>test@cooklab.com</td>
-                      <td>
-                        <span class="badge bg-warning text-dark">未處理</span>
-                      </td>
-                      <td>
-                        <span class="text-dark">admins</span>
-                      </td>
-                      <td>2023/10/20 14:28</td>
-                      <td>
-                        <a href="ding-support-ticket-reply.html" class="btn btn-primary">詳細</a>
-                      </td>
-                    </tr> -->
-                    <!-- 資料列模板結束 -->
-                  </tbody>
-                </table>
+                <div class="row px-4">
+                  <div class="form-group col-6">
+                    <label for="formNo">表單編號</label>
+                    <input type="text" class="form-control-plaintext" id="formNo" value="等待資料取得" />
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="formSource" id="source-check">表單來源</label>
+                    <input type="text" class="form-control-plaintext" id="formSource" value="等待資料取得" />
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="supportFormCategoryId" id="categoryid-check">問題類別</label>
+                    <p class="form-control-static" id="supportFormCategoryId">等待資料取得</p>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="formSubmitter">表單建立者</label>
+                    <p class="form-control-static" id="formSubmitter">等待資料取得</p>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="createdTimestamp">進件時間</label>
+                    <p class="form-control-static" id="createdTimestamp">等待資料取得</p>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="formTitle" id="title-check">表單標題</label>
+                    <p class="form-control-static" id="formTitle">等待資料取得</p>
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="realName" id="name-check">客戶姓名</label>
+                    <input type="text" class="form-control-plaintext" id="realName" value="等待資料取得" />
+                  </div>
+
+                  <div class="form-group col-6">
+                    <label for="replyEmail" id="email-check">回覆信箱</label>
+                    <input type="text" class="form-control-plaintext" id="replyEmail" value="等待資料取得" />
+                  </div>
+
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="formContext">表單內文</label>
+                      <p class="form-control-static" id="formContext">等待資料取得</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-body pb-0" id="recordarea">
+                        <!-- 表單紀錄起始 -->
+                        <table class="table table-bordered">
+                          <thead class="text-center">
+                            <tr>
+                              <th scope="col" class="col-1">紀錄人員</th>
+                              <th scope="col" class="col-2">處理時間</th>
+                              <th scope="col" class="col-9">處理紀錄</th>
+                            </tr>
+                          </thead>
+                          <tbody class="record-list"></tbody>
+                        </table>
+                        <!-- 表單紀錄結束 -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 案件狀態起始 -->
+                <div class="row">
+                  <div class="d-flex justify-content-around align-items-center">
+                    <div>案件狀態：<span class="badge fs" id="formStatus"></span></div>
+                    <div class="d-flex align-items-center">
+                      負責人員：<span id="formResponder">Example</span>
+                      <!-- 觸發交接視窗 -->
+                      <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#res" id="res-change">交接</button>
+                      <!-- Modal -->
+                      <div class="modal fade" id="res" tabindex="-1" aria-labelledby="resModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="resModalLabel">變更處理人員</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body form-group">
+                              <select class="form-select admins"></select>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                              <button type="button" class="btn btn-primary" id="res-change-confirm">確認變更</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div><button type="button" class="btn btn-primary" id="addrecord">新增處理紀錄</button></div>
+                    <!-- 結案按鈕Begin -->
+                    <div>
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#clsecase" id="preclose">結案</button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="clsecase" tabindex="-1" aria-labelledby="clsecase" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="clsecase">確認是否結案?</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                              <button type="button" class="btn btn-primary" id="closecase">確認結案</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 結案按鈕End -->
+                  </div>
+                </div>
+                <!-- 案件狀態結束 -->
               </div>
             </div>
           </section>
+          <!-- 表單主區域結束 -->
         </div>
-        <!-- 問題表單清單結束 -->
 
         <footer>
           <div class="footer clearfix mb-0 text-muted">
@@ -269,25 +346,11 @@
         </footer>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
-    <script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <!-- ===========================引入了JQuerry_start======================================== -->
-    <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
-    <!-- ===========================引入了JQuerry_end================ -->
-    <!-- ==============================讓button有a標籤的功能_start==================================================== -->
-    <script>
-      $(document).on("click", "button.btn.btn-primary", function (e) {
-        if ($(e.target).val() != "") {
-          var a = $(e.target).val();
-          console.log(a);
-          location = a;
-        }
-      });
-    </script>
-    <!-- =========================讓button有a標籤的功能_end============================================ -->
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/ding-dashboard-tickets-table.js"></script>
+    <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/ding-dashboard-tickets-details.js"></script>
   </body>
 </html>

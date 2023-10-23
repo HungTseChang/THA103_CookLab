@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.cooklab.members.model.MembersVO;
+import com.cooklab.support_form.model.SFStatus;
 
 @Entity
 @Table(name = "notify_center")
@@ -24,13 +25,16 @@ public class NotifyCenterVO {
 	private Integer notifyNo;
 
 	@Column(name = "notify_type")
-	private Integer notifyType;
+	private Byte notifyType;
 
 	@Column(name = "notify_read")
 	private Byte notifyRead;
 
 	@Column(name = "notify_content")
 	private String notifyContent;
+	
+	@Column(name = "notifytime", insertable = false)
+	private Timestamp notifyTime;
 
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
@@ -61,11 +65,11 @@ public class NotifyCenterVO {
 		this.memberId = memberId;
 	}
 
-	public Integer getNotifyType() {
+	public Byte getNotifyType() {
 		return notifyType;
 	}
 
-	public void setNotifyType(Integer notifyType) {
+	public void setNotifyType(Byte notifyType) {
 		this.notifyType = notifyType;
 	}
 
@@ -101,11 +105,40 @@ public class NotifyCenterVO {
 		this.members = members;
 	}
 
+	public Timestamp getNotifyTime() {
+		return notifyTime;
+	}
+
+	public void setNotifyTime(Timestamp notifyTime) {
+		this.notifyTime = notifyTime;
+	}
+
 	@Override
 	public String toString() {
-		return "NotifyCenterVO [notifyNo=" + notifyNo + ", memberId=" + memberId + ", notifyType=" + notifyType
-				+ ", notifyRead=" + notifyRead + ", notifyContent=" + notifyContent + ", createdTimestamp="
-				+ createdTimestamp + "]";
+		return "NotifyCenterVO [notifyNo=" + notifyNo + ", notifyType=" + notifyType + ", notifyRead=" + notifyRead
+				+ ", notifyContent=" + notifyContent + ", notifyTime=" + notifyTime + ", createdTimestamp="
+				+ createdTimestamp +  ", memberId=" + memberId + "]";
+	}
+
+
+	public String getNCTypeName() {
+		NCType[] type = NCType.values();
+	    for (NCType atype: type) {
+	        if (atype.getValue() == this.notifyType) {
+	            return atype.getDesc();
+	        }
+	    }
+	    return "無此類別";
+	}
+	
+	public String getNCReadName() {
+		NCRead[] read = NCRead.values();
+	    for (NCRead aread: read) {
+	        if (aread.getValue() == this.notifyRead) {
+	            return aread.getDesc();
+	        }
+	    }
+	    return "未知的讀取狀態";
 	}
 
 }
