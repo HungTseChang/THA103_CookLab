@@ -92,7 +92,6 @@ public class SupportFormRecordAjax extends HttpServlet {
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				res.getWriter().write(successjson);
-				System.out.println("已送出回應");
 			}
 		}
 

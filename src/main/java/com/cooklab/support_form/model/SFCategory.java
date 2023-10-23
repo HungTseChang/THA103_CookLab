@@ -1,15 +1,15 @@
 package com.cooklab.support_form.model;
 
 public enum SFCategory {
-	RECIPE(1, "食譜問題"),
-	FORUM(2, "討論區問題"),
-    ORDER(3, "訂單問題"),
-	PRODUCT(4, "商品問題");
+	RECIPE((byte) 1, "食譜問題"),
+	FORUM((byte) 2, "討論區問題"),
+    ORDER((byte) 3, "訂單問題"),
+	PRODUCT((byte) 4, "商品問題");
 
-    private final int value;
+    private final Byte value;
     private final String desc;
 
-    SFCategory(int value, String desc) {
+    SFCategory(Byte value, String desc) {
         this.value = value;
         this.desc = desc;
     }

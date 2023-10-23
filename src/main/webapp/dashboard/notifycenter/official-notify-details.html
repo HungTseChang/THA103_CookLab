@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CookLab控制台-問題表單</title>
+    <title>CookLab控制台-通知詳情</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/bootstrap.css" />
+
+    <link rel="stylesheet" href="../assets/vendors/simple-datatables/style.css" />
 
     <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css" />
@@ -29,7 +31,6 @@
               </div>
             </div>
           </div>
-          <!-- 側邊欄位起始 -->
           <div class="sidebar-menu">
             <ul class="menu">
               <li class="sidebar-title">Menu</li>
@@ -158,18 +159,17 @@
                   <li class="submenu-item">
                     <a href="WCC_article_report.html">討論區檢舉</a>
                   </li>
-                  <li class="submenu-item">
-                    <a href="WCC_official_notify.html">系統通知</a>
-                  </li>
                   <li class="submenu-item active">
-                    <a href="support-tickets-table.html">問題表單</a>
+                    <a href="../notifycenter/official-notify.html">系統通知</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="../supportform/support-tickets-table.html">問題表單</a>
                   </li>
                 </ul>
               </li>
               <!-- ======================================================================================================== -->
             </ul>
           </div>
-          <!-- 側邊欄位結束 -->
           <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
         </div>
       </div>
@@ -184,82 +184,77 @@
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>建立問題表單</h3>
+                <h3>通知詳情</h3>
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="WCC_Homepage.jsp">控制台</a></li>
-                    <li class="breadcrumb-item"><a href="support-tickets-table.html">問題表單</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">建立問題表單</li>
+                    <li class="breadcrumb-item"><a href="../WCC_Homepage.jsp">控制台</a></li>
+                    <li class="breadcrumb-item"><a href="../notifycenter/official-notify.html">系統通知</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">通知詳情</li>
                   </ol>
                 </nav>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- 表單區塊start -->
-          <section id="multiple-column-form">
-            <div class="row match-height">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-content">
-                    <div class="card-body">
-                      <form class="form">
-                        <div class="row">
-                          <div class="col-md-6 col-12">
-                            <div class="form-group">
-                              <label for="supportFormCategoryId" id="categoryid-check">問題類別</label>
-                              <select class="form-select w-25" id="supportFormCategoryId">
-                                <option value="default">請選擇問題類別</option>
-                                <option value="1">食譜相關</option>
-                                <option value="2">討論區相關</option>
-                                <option value="3">訂單相關</option>
-                                <option value="4">商品相關</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-12">
-                            <div class="form-group">
-                              <label for="formTitle" id="title-check">表單標題</label>
-                              <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" />
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-12">
-                            <div class="form-group">
-                              <label for="realName" id="name-check">客戶姓名</label>
-                              <input type="text" class="form-control" placeholder="請輸入客戶姓名" id="realName" />
-                            </div>
-                          </div>
-                          <div class="col-md-6 col-12">
-                            <div class="form-group">
-                              <label for="replyEmail" id="email-check">回覆信箱</label>
-                              <input type="text" class="form-control" placeholder="請輸入客戶Email" id="replyEmail" />
-                            </div>
-                          </div>
-                          <div class="col-12">
-                            <div class="form-group">
-                              <label for="formContext" id="context-check">客戶反應</label>
-                              <textarea class="form-control" id="formContext" rows="3" placeholder="請輸入客戶反應問題"></textarea>
-                            </div>
-                          </div>
+        <!-- 表單主區域起始 -->
+        <section class="section">
+          <div class="card">
+            <div class="card-body">
+              <div class="row px-4">
+                <div class="form-group col-6">
+                  <label for="notifyNo">通知編號</label>
+                  <input type="text" class="form-control-plaintext" id="notifyNo" value="等待資料取得" />
+                </div>
 
-                          <div class="col-12 text-center mt-3">
-                            <input type="hidden" class="form-control" id="formSource" value="2" />
-                            <input type="hidden" class="form-control" id="formStatus" value="0" />
-                            <input type="hidden" id="action" value="insert-dashboard" />
-                            <input type="submit" id="formsubmit" class="btn btn-lg btn-primary" value="送出表單" />
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+                <div class="form-group col-6">
+                  <label for="memberId" id="id-check">會員編號</label>
+                  <input type="text" class="form-control-plaintext" id="memberId" value="等待資料取得" />
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="memberAccount">會員帳號</label>
+                  <p class="form-control-static" id="memberAccount">等待資料取得</p>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="memberNickname">會員暱稱</label>
+                  <p class="form-control-static" id="memberNickname">等待資料取得</p>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="notifyType" id="type-check">通知類別</label>
+                  <p class="form-control-static" id="notifyType">等待資料取得</p>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="notifyRead" id="read-check">讀取狀態</label>
+                  <p class="form-control-static" id="notifyRead">等待資料取得</p>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="notifyTime" id="time-check">通知時間</label>
+                  <p class="form-control-static" id="notifyTime">等待資料取得</p>
+                </div>
+
+                <div class="form-group col-6">
+                  <label for="createdTimestamp">建立時間</label>
+                  <p class="form-control-static" id="createdTimestamp">等待資料取得</p>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-group">
+                    <label for="notifyContent">通知內文</label>
+                    <p class="form-control-static" id="notifyContent">等待資料取得</p>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-          <!-- 表單區塊start end -->
-        </div>
+          </div>
+        </section>
+        <!-- 表單主區域結束 -->
 
         <footer>
           <div class="footer clearfix mb-0 text-muted">
@@ -268,21 +263,18 @@
             </div>
             <div class="float-end">
               <p>
-                Crafted with
-                <span class="text-danger"><i class="bi bi-heart"></i></span>
-                by
-                <a href="http://ahmadsaugi.com">A. Saugi</a>
+                Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
               </p>
             </div>
           </div>
         </footer>
       </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/ding-dashboard-ticket-add.js"></script>
+    <script src="../assets\js\menu_ative.js"></script>
+    <script src="../assets\js/ding-notify-details.js"></script>
   </body>
 </html>

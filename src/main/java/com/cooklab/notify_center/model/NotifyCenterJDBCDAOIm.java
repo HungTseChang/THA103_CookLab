@@ -5,7 +5,7 @@ import java.sql.*;
 
 import com.cooklab.util.Util;
 
-public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
+public class NotifyCenterJDBCDAOIm implements NotifyCenterDAO {
 	private static final String INSERT_STMT = "INSERT INTO notify_center (member_id, notify_type, notify_read,notify_content) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT notify_no ,member_id, notify_type, notify_read, notify_content, created_timestamp From notify_center order by notify_no";
 	private static final String GET_ONE_STMT = "SELECT notify_no ,member_id,notify_type,notify_read, notify_content, created_timestamp From notify_center where notify_no=?";
@@ -13,7 +13,7 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 	private static final String UPDATE = "UPDATE notify_center set member_id=?,notify_type=?,notify_read=?,notify_content=?  where notify_no=?";
 
 	@Override
-	public void insert(NotifyCenterVO notifyCenterVO) {
+	public Integer insert(NotifyCenterVO notifyCenterVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -53,11 +53,12 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				}
 			}
 		}
+		return null;
 
 	}
 
 	@Override
-	public void update(NotifyCenterVO notifyCenterVO) {
+	public Integer update(NotifyCenterVO notifyCenterVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -98,11 +99,12 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				}
 			}
 		}
+		return null;
 
 	}
 
 	@Override
-	public void delete(Integer notifyNo) {
+	public Integer delete(Integer notifyNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -139,6 +141,7 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				}
 			}
 		}
+		return notifyNo;
 
 	}
 
@@ -164,7 +167,7 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				notifyCenterVO = new NotifyCenterVO();
 				notifyCenterVO.setNotifyNo(rs.getInt("notify_no"));
 				notifyCenterVO.setMemberId(rs.getInt("member_id"));
-				notifyCenterVO.setNotifyType(rs.getInt("notify_type"));
+				notifyCenterVO.setNotifyType(rs.getByte("notify_type"));
 				notifyCenterVO.setNotifyRead(rs.getByte("notify_read"));
 				notifyCenterVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
 				notifyCenterVO.setNotifyContent(rs.getString("notify_content"));
@@ -224,7 +227,7 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 				notifyCenterVO = new NotifyCenterVO();
 				notifyCenterVO.setNotifyNo(rs.getInt("notify_no"));
 				notifyCenterVO.setMemberId(rs.getInt("member_id"));
-				notifyCenterVO.setNotifyType(rs.getInt("notify_type"));
+				notifyCenterVO.setNotifyType(rs.getByte("notify_type"));
 				notifyCenterVO.setNotifyRead(rs.getByte("notify_read"));
 				notifyCenterVO.setNotifyContent(rs.getString("notify_content"));
 				notifyCenterVO.setCreatedTimestamp(rs.getTimestamp("created_timestamp"));
@@ -266,22 +269,20 @@ public class NotifyCenterJDBCDAO implements NotifyCenterDAO_interface {
 
 	public static void main(String[] args) {
 
-		NotifyCenterJDBCDAO dao = new NotifyCenterJDBCDAO();
-		// ���J
+		NotifyCenterJDBCDAOIm dao = new NotifyCenterJDBCDAOIm();
+
 //		NotifyCenterVO notifyCenterVO= new NotifyCenterVO( 3, 1, 1 ,"�H�K�������n�b�N��6");
 //		dao.insert(notifyCenterVO);
 
-		// ��s
 //		NotifyCenterVO notifyCenterVO= new NotifyCenterVO( 4, 1, 1 ,"�H�K�������n�b�N��6");
 //		notifyCenterVO.setNotifyNo(1);
 //		dao.update(notifyCenterVO);
 
-		// �R��
 //		dao.delete(6);
-		// �d�@��
+
 //		NotifyCenterVO notifyCenterVO = dao.findByPrimaryKey(3);
 //		System.out.println(notifyCenterVO);
-		// �d����
+
 		List<NotifyCenterVO> list = dao.getAll();
 		for (NotifyCenterVO aNotifyCenterVO : list) {
 			System.out.println(aNotifyCenterVO);

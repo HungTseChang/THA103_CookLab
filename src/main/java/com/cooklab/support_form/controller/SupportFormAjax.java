@@ -216,7 +216,7 @@ public class SupportFormAjax extends HttpServlet {
 		if ("getAll".equals(action)) {
 			SupportFormHService sfSvc = new SupportFormHService();
 
-			// 呼叫Service方法的getAll，取得VO物件List，
+			// 呼叫Service方法的getAll，取得VO物件List
 			List<SupportFormVO> list = sfSvc.getAll();
 
 			// 宣告MAP物件的LIST集合，以便將VO取出的資料轉為MAP形式

@@ -434,9 +434,10 @@ CREATE TABLE advertise (
 CREATE TABLE notify_center (
 	notify_no 			INT AUTO_INCREMENT  PRIMARY KEY,
 	member_id  			INT NOT NULL,
-	notify_type 		INT,
-	notify_read 		TINYINT,
+	notify_type 		TINYINT,
+	notify_read 		TINYINT DEFAULT 0 ,
 	notify_content 		VARCHAR(500),
+	notifytime	DATETIME,
 	created_timestamp	DATETIME DEFAULT now(),
     CONSTRAINT notify_center_fk FOREIGN KEY(member_id) REFERENCES members(member_id) 
 ); 

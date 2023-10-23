@@ -176,7 +176,7 @@ let recordload = function (recordContext) {
 
         list.append(`<tr>
                       <th scope="row" class="align-middle text-center">${recorderInfo}</th>
-                      <td>${formattedDate}</td>
+                      <td class="text-center">${formattedDate}</td>
                       <td>${record.recordContext}</td>
                     </tr>`);
       });
