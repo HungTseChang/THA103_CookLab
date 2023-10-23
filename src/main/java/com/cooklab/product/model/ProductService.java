@@ -11,7 +11,7 @@ public class ProductService {
 	private ProductDAO dao, dao2;
 
 	public ProductService() {
-//		dao = new ProductHDAOIm(HibernateUtil.getSessionFactory());
+		dao = new ProductHDAOIm(HibernateUtil.getSessionFactory());
 		dao2 = new ProductHDAOrRecipeTest(HibernateUtil.getSessionFactory());// 測試
 	}
 
