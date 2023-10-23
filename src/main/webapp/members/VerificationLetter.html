@@ -2,11 +2,11 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="cooking recipe" />
-    <meta name="keywords" content="cooking, recipe, html" />
+    <meta name="description" content="CookLab Register" />
+    <meta name="keywords" content="Recipe" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>廚藝實驗室</title>
+    <title>會員註冊</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -145,96 +145,41 @@
     </header>
     <!-- Header Section End -->
 
-    <!-- 會員中心區塊開始 -->
+    <!-- 註冊區塊開始 -->
     <section>
       <div class="container">
         <div class="row ding-panel">
-          <aside class="col-3">
-            <div>
-              <ul class="list-group text-center">
-                <li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">帳戶</li>
-                <li class="list-group-item list-group-item-action">訂單</li>
-                <li class="list-group-item list-group-item-action">關注</li>
-                <li class="list-group-item list-group-item-action">食譜</li>
-                <li class="list-group-item list-group-item-action">討論區文章</li>
-                <li class="list-group-item list-group-item-action">通知中心</li>
-              </ul>
+          <div class="col-12 p-2 bg-light border">
+            <div class="row mb-2">
+              <div class="h2 mx-auto ding-panel-title">驗證信已發出，請收取Mail後輸入驗證碼成為正式會員</div>
             </div>
-          </aside>
-          <div class="col-9 p-2 bg-light border">
             <div class="row">
-              <div class="col-8">
-                <!-- -----------會員資料表單(僅檢視)開始----------->
-                <form class="pl-5">
+              <div class="col-12 d-flex justify-content-center">
+                <!-- -----------註冊表單開始----------->
+                <form id="VerificationForm">
                   <div class="form-group form-row">
-                    <label for="account" class="col-sm-2 col-form-label ding-data-short">帳號：</label>
-                    <div class="col-sm-10">
-                      <input type="text" readonly class="form-control-plaintext" id="account" value="tomato01" />
+                    <label for="verificationCode" class="col-form-label" >驗證碼：</label>
+                    <div>
+                      <input type="text" class="form-control" id="verificationCode" placeholder="請輸入驗證碼" />
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn ding-btn-org ml-2">再次寄出驗證信</button>
                     </div>
                   </div>
-                  <div class="form-group form-row">
-                    <label for="gender" class="col-sm-2 col-form-label ding-data-short">性別：</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="gender" value="男" />
-                    </div>
-                  </div>
-                  <div class="form-group form-row">
-                    <label for="nickname" class="col-sm-2 col-form-label ding-data-short">暱稱：</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="nickname" value="水果" />
-                    </div>
-                  </div>
-                  <div class="form-group form-row">
-                    <label for="birthdate" class="col-sm-2 col-form-label ding-data-short">生日：</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="birthdate" value="1970/1/1" />
-                    </div>
-                  </div>
-                  <div class="form-group form-row">
-                    <label for="address" class="col-sm-2 col-form-label ding-data-short">地址：</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="address" value="浣熊市番茄區柳橙路87號" />
-                    </div>
-                  </div>
-                  <div class="form-group form-row">
-                    <label for="location" class="col-sm-3 col-form-label ding-data-long">所在地區：</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control-plaintext" id="location" value="台灣" />
-                    </div>
-                  </div>
-                  <div class="form-group form-row">
-                    <label for="phonenumber" class="col-sm-3 col-form-label ding-data-long">聯絡電話：</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control-plaintext" id="phonenumber" value="0911111111" />
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="email" class="col-sm-3 col-form-label ding-data-long">電子信箱：</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control-plaintext" id="email" value="tomato@cooklab.com" />
-                    </div>
-                  </div>
-                  <div class="ding-mem-btn">
-                    <button type="button" class="btn ding-btn-org">編輯資料</button>
-                    <button type="button" class="btn ding-btn-org">修改密碼</button>
+                  
+                  <div class="text-center">
+                    <button type="submit" class="btn ding-btn-org w-100">確認</button>
                   </div>
                 </form>
-                <!-- -----------會員資料表單(僅檢視)結束--------- -->
+                <!-- -----------註冊表單結束--------- -->
               </div>
-              <!-- -------------會員頭像開始------------ -->
-              <div class="col-3 ding-mem-img">
-                <img src="https://picsum.photos/200" alt="會員頭像" class="rounded-circle mt-4" />
-                <div class="mt-2">
-                  <button type="button" class="btn ding-btn-outline-org">更換頭像</button>
-                </div>
-              </div>
-              <!-- -------------會員頭像結束------------ -->
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- 會員中心區塊結束 -->
+    <!-- 註冊區塊結束 -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -302,7 +247,7 @@
       </div>
     </footer>
     <!-- Footer Section End -->
-
+ 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -312,5 +257,81 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    
+    <script>
+
+      //========================= 這裡是判斷是否有登入過的 ajax ================================
+    $.ajax({
+	    type: "GET", // 指定请求类型为GET
+	    url: "http://localhost:8081/CookLab/Register", // 你的Servlet URL
+	    success: function(data) {
+	        // 请求成功后的处理
+	        console.log("成功获取数据: " + data);
+	    },
+	    error: function() {
+	        // 请求失败后的处理
+	        console.error("获取数据失败");
+	    }
+	  });
+    //==================================================================================
+    
+    
+    $("#VerificationForm").submit(function (event) {
+	    event.preventDefault();
+      var verCode = $("#verificationCode").val();
+      
+	    var data = {
+	      verCode: verCode,
+	    };
+	    $.ajax({
+	      type: "POST",
+	      url: "http://localhost:8081/CookLab/Verification", // 替换为你的Servlet的URL
+	      data: data,
+	      success: function (res) {
+          if(res.Sres == "success") //驗證成功
+            window.location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";
+          else
+           alert("驗證碼輸入錯誤，請重試");	
+            // if(res.wrongType === undefined)
+            // {
+              
+            //   if(res.RedirectURL  === undefined)
+            // 	  {
+            //       location.href = "member-panel.jsp";	
+            //   }
+                
+            //   else
+            //   {
+            	  
+            //   }
+            //     //重導至首頁
+            //     //location.href  = res.RedirectURL;
+            // }
+            // else
+            // {
+            //   if(res.wrongType == 1)
+            //   {
+            //       alert("密碼不正確");
+            //   }
+            //   else if(res.wrongType == 2)
+            //   {
+            //       alert("請輸入密碼");
+            //   }
+            //   else if(res.wrongType == 3)
+            //   {
+            //       alert("查無此帳號");
+            //   }
+            // }
+	        
+	
+	        // 可以在这里执行其他操作，如重定向或显示消息
+	      },
+	      error: function () {
+	        // 在请求失败时执行的操作
+	        console.log("失敗");
+	      }
+    });
+  });
+    </script>
   </body>
 </html>

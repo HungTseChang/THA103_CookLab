@@ -24,13 +24,12 @@ maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class MembersSignServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		//doPost(req, res);
-
+		//此處方法作用為 在[登入後] 去確認使用者是否有需要回去的網頁 沒有的話預設進入 member-panel.html
 		HttpSession session = req.getSession();
-		System.out.println(session);
 		if(session.getAttribute("account")!= null)
 		{
 			System.out.println(session.getAttribute("account"));
-			res.sendRedirect("http://localhost:8081/CookLab/members/member-panel.html");
+			res.sendRedirect("http://localhost:8081/CookLab/members/member-panel.jsp");
 			
 		}
 	}
@@ -52,26 +51,26 @@ public class MembersSignServlet extends HttpServlet{
 		//驗證 ==================================================================
 		MembersService memSer = new MembersService();
 		MembersVO memVO = new MembersVO();
-		
+
 		// 在Servlet中创建一个Gson对象
 		Gson gson = new Gson();
 		HashMap<String, Object> hmap = new HashMap<>();
 		
 		try{
+			//查出 memberVO
 			memVO = memSer.getOneMemberAccount(account);
+			//如果密碼不為空值
 			if(memVO.getMemberPassword() != null)
 			{
-				
+				//如果密碼正確
 				if(password.equals(memVO.getMemberPassword()))
 				{
-//					out.print("密碼正確");
 					//創造一個 session 物件
 					HttpSession session = req.getSession();
 					session.setAttribute("account", account);
 					session.setAttribute("userId", memVO.getMemberId());
-//					session.setAttribute("RedirectURL",session.getAttribute("location"));
+					session.setAttribute("membersVO", memVO);
 					
-
 					hmap.put("account", account);
 					hmap.put("userId", memVO.getMemberId());
 					hmap.put("RedirectURL",session.getAttribute("location"));
@@ -79,33 +78,45 @@ public class MembersSignServlet extends HttpServlet{
 					
 
 					// 设置响应的Content Type为JSON
-//					res.setContentType("application/json");
+					res.setContentType("application/json");
+					res.setCharacterEncoding("UTF-8");
+					
 					// 将JSON数据写入响应
 					res.getWriter().write(jsonData);
 					
 				}
+				//如果密碼不正確
 				else
 				{
-					hmap.put("wrongType", "1");	//密碼不正確
+					hmap.put("wrongType", "1");	
+					System.out.println("1");
 					String jsonData = gson.toJson(hmap);
+					// 设置响应的Content Type为JSON
+					res.setContentType("application/json");
+					res.setCharacterEncoding("UTF-8");
 					res.getWriter().write(jsonData);
 				}
 			}
+			//如果密碼為空值
 			else
 			{
 				hmap.put("wrongType", "2");	//帳號不正確
+				System.out.println("2");
 				String jsonData = gson.toJson(hmap);
+				// 设置响应的Content Type为JSON
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
 				res.getWriter().write(jsonData);
 			}
-				
-//			System.out.println(memVO.getMemberPassword());
 		}catch(NullPointerException e) {
-			hmap.put("wrongType", "3");	//未輸入帳密
+			hmap.put("wrongType", "3");	//查無此帳號
+			System.out.println("3");
+			String jsonData = gson.toJson(hmap);
+			// 设置响应的Content Type为JSON
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
 		}
 
-		//=====================================================================
-//		System.out.println(account);
-//		System.out.println(password);
-        // 进行其他操作
 	}
 }

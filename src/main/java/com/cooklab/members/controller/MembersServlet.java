@@ -167,14 +167,14 @@ public class MembersServlet extends HttpServlet {
 			else
 				errorMsgs.add("帳號: 請勿空白");
 
-			String memberPassword = req.getParameter("member_password").trim();
-			if (memberPassword != null && !memberPassword.isEmpty()) {
-			    // 在這裡進行對 memberPassword 的資料驗證
-			    memVO.setMemberPassword(memberPassword);
-			}
-			else
-				errorMsgs.add("密碼: 請勿空白");
-
+//			String memberPassword = req.getParameter("member_password").trim();
+//			if (memberPassword != null && !memberPassword.isEmpty()) {
+//			    // 在這裡進行對 memberPassword 的資料驗證
+//			    memVO.setMemberPassword(memberPassword);
+//			}
+//			else
+//				errorMsgs.add("密碼: 請勿空白");
+														
 			String memberIntroduce = req.getParameter("member_introduce").trim();
 			if (memberIntroduce != null && !memberIntroduce.isEmpty()) {
 			    // 在這裡進行對 memberIntroduce 的資料驗證
@@ -287,25 +287,38 @@ public class MembersServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/frontstage/members/update_mem_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/members/member-panel-editting.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
 //
 //			/*************************** 2.開始修改資料 *****************************************//
 			MembersService memSvc = new MembersService();
-			memVO = memSvc.updateMember(memberId,memberAccount,memberPassword,memberIntroduce,
-					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
-					,memberStatus,buf,memberNickname,memberGender);
-
+			memVO = memSvc.updateMember(memberId,memberAccount,memberIntroduce,
+					memberCellphone,memberMail, memberDate,memberAddress
+					,buf,memberNickname,memberGender);
+			System.out.println(memberCellphone);
 //			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			memVO = memSvc.getOneMember(memberId);
-			req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/frontstage/members/listOneMembers.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
-			successView.forward(req, res);
-		}
+//			memVO = memSvc.getOneMember(memberId);
+//			req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req
+//			String url = "/members/member-panel.jsp";
+//			System.out.println("轉送到"+url);
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+//			successView.forward(req, res);
 
+			
+			memVO = memSvc.getOneMember(memberId);
+			//將新值存回 seesion 裏頭
+			HttpSession session = req.getSession();
+			session.setAttribute("membersVO", memVO);
+			
+			req.setAttribute("memVO", memVO);
+			String url = "/members/member-panel.jsp";
+			System.out.println("重定向到" + url);
+			String contextPath = req.getContextPath(); // 获取Servlet上下文路径
+			res.sendRedirect(contextPath + url); // 执行重定向
+		}
+//==========================================================================================================================================================================
 		if ("insert".equals(action)) { // 來自addMembers.jsp的請求
 
 			MembersVO memVO = new MembersVO();
@@ -417,7 +430,7 @@ public class MembersServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memVO", memVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/frontstage/members/addMembers.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/members/member_panel_editting.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -425,13 +438,13 @@ public class MembersServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 ****************************************/
 			MembersService memSvc = new MembersService();
 //			/*************************** 2.開始新增資料 ***************************************/
-			memVO = memSvc.addMembers(memberAccount,memberPassword,memberIntroduce,
-					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
-					,memberStatus,buf,memberNickname,memberGender);
+//			memVO = memSvc.addMembers(memberAccount,memberPassword,memberIntroduce,
+//					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
+//					,memberStatus,buf,memberNickname,memberGender);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 //			req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/frontstage/members/listAllMembers.jsp";
+			String url = "/members/member_panel.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}

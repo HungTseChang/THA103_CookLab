@@ -9,6 +9,7 @@ public interface MembersDAO_interface {
     public void delete(Integer memberId);
     public MembersVO findByPrimaryKey(Integer memberId);
     public MembersVO findByMembersAccout(String memberAccount);
+	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus);
     public List<MembersVO> getAll();
 
 //  public List<MembersVO> getAll(Map<String, String[]> map); 
