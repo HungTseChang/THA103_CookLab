@@ -417,15 +417,16 @@
     <script>
     $(document).ready(function(){
    	 var member;
-    	
+   	member= null;
    	member=JSON.parse('${json}');
-   let	member_id =member.memberId
+   let	member_id =member.memberId 
     $("#member_id").val(member_id);	
    let member_account = member.memberAccount;
     $("#member_account").val(member_account);	
-   let member_password = member.memberPassword;
+   var member_password = member.memberPassword;
     $("#member_password").val(member_password);	
-    
+    $("#member_password2").val(member_password);	
+    console.log(member_password);
    let member_nickname = member.memberNickname;
     $("#member_nickname").val(member_nickname);	
     
@@ -453,9 +454,10 @@
     let option = "option[value='"+member_status+"']";
     $("#member_status").find(option).prop("selected", true);
     
+    if('${picture}'){
     let member_picture = "data:image/jpeg;base64,"+JSON.parse('${picture}');
     $("img#member_picture").attr("src", member_picture);
-	
+    }
     	
    $("a#confirm").on("click",function(){
 	   var id =    $("#member_id").val();
@@ -470,10 +472,26 @@
                name: "memberID",
                value: id
            }));
+		       form.append($("<input>", {
+	               type: "text",
+	               name: "account",
+	               value: member_account
+	           }));
+		       form.append($("<input>", {
+	               type: "text",
+	               name: "email",
+	               value: member_mail
+	           }));
+	    	 
 	       form.append($("<input>", {
                type: "text",
                name: "password",
                value: password
+           }));
+	       form.append($("<input>", {
+               type: "text",
+               name: "password1",
+               value: member_password
            }));
 	       form.append($("<input>", {
                type: "text",
@@ -505,6 +523,7 @@
             $("a#changecode1").on("click",function(e){
                 if($(e.target).closest("div").find("#member_password2").hasClass("none")
                 ){
+                	$("input#member_password2").val($("#member_password").val());
                 $("#allblock").removeClass("none");
                 }else{
                   let a =  $("#member_password2").val();
@@ -512,10 +531,7 @@
                   console.log($("#member_password").val());
                   $("input#member_password2").addClass("none")
                   $("input#member_password").removeClass("none");
-                  Swal.fire({
-                    icon: "success",
-                    title: "重設密碼成功!"
-                })
+
                 }
 
             })

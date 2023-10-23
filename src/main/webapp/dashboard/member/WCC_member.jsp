@@ -286,11 +286,39 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            $("button.wcc").on('click', (e) => {
-                Swal.fire({
-                    icon: "success",
-                    title: "重設密碼成功!"
-                })
+            $(document).on('click',"button.wcc", function(e){
+            	if(!confirm("確定要重設密碼?")){ return;}
+            	let memid =  $(e.target).closest("tr").find("td[name='memberid']").text();
+            	let Email =   $(e.target).closest("tr").find("td[name='email']").text();
+            	let account =   $(e.target).closest("tr").find("td[name='account']").text();
+            	  $.ajax({
+                      type: "POST",
+                      url:  "<%=request.getContextPath() %>/MemberdashboardServlet",
+                      data: {
+                          action:"rdnPassword",
+                          memberid:memid,
+                          account:account,
+                          email:Email
+                      },
+                      success: function(response) {
+                    	  console.log(response);
+                    	  if(response==="success"){
+                          Swal.fire({
+                              icon: "success",
+                              title: account +"重設密碼成功!"
+                              
+                          })}else{
+                              Swal.fire({
+                                  icon: "danger",
+                                  title: account+"重設密碼失敗!"
+                              })
+                          }
+                    	  
+                    	  
+                      }
+                  });
+            	          	
+
             })
 
 
@@ -382,9 +410,9 @@
     	  	  let text = "";
     		  text += "<tr>";
     		  text += "<td class='wcc' name='memberid'>"+aa.memberId+"</td>";
-    		  text +=" <td class='wcc'>"+aa.memberNickname+"</td>";
-    		  text +=" <td class='wcc'>"+aa.memberAccount+"</td>";
-    		  text +=" <td>"+aa.memberMail+"</td>";
+    		  text +=" <td class='wcc' name='nickname'>"+aa.memberNickname+"</td>";
+    		  text +=" <td class='wcc' name='account'>"+aa.memberAccount+"</td>";
+    		  text +=" <td name ='email'>"+aa.memberMail+"</td>";
     		  text +=" <td>"+status[aa.memberStatus]+"</td>";
     		  text +=" <td>"+ '<a class="wcc">詳細資料</a><button class="wcc">重設密碼</button>' +"</td>";
     		  text += "<tr>";
@@ -418,6 +446,9 @@
     	    });
 //     	    ================
     	
+	
+	
+
     	updateTable();
     	
     	

@@ -1,6 +1,7 @@
 package com.cooklab.members.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -68,8 +70,8 @@ public class MemberdashboardServlet extends HttpServlet{
 		case"update":
 			forwardPath =update(req, res);
 			break;
-		case"redopassword":
-			forwardPath =redopassword(req, res);
+		case"rdnPassword":
+			forwardPath =rdnPassword(req, res);
 			break;
 		default:
 			forwardPath = "/dashboard/member/WCC_member.jsp";
@@ -79,18 +81,52 @@ public class MemberdashboardServlet extends HttpServlet{
 
 	}
 
-//	private String redopassword(HttpServletRequest req, HttpServletResponse res) {
-//		EmailSender EmailSender = new EmailSender();
-//		EmailSender.sendMail(to, sub, "你的密碼已更新為");
-//		return null;
-//	}
+	private String rdnPassword(HttpServletRequest req, HttpServletResponse res) {
+		EmailSender EmailSender = new EmailSender();
+		Integer memberid = Integer.valueOf(req.getParameter("memberid").trim());
+		String account = (req.getParameter("account").trim());
+		String email = (req.getParameter("email").trim());
+	String	rndpassword = EmailSender.randomPassword(12);
+	MemberServletFake MembersService = new MemberServletFake();
+	 MembersVO result = MembersService.updateMember(memberid, rndpassword);
+	 String response = "fail";
+	 if(result != null) {
+		 
+		 String subtitlte ="廚藝實驗室: 您的密碼已重設";
+		 String context =account+"您好: 你的密碼已重設為: "+rndpassword+"請記得更新你的密碼";
+				 EmailSender.sendMail(email, subtitlte,context);
+				 response="success";
+	 }
+	 try {
+		 res.setContentType("text/plain");
+		 PrintWriter writer = res.getWriter();
+		 writer.write(response);
+		 writer.close();
+		
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	 
+		return  "/dashboard/member/WCC_member.jsp";
+		
+	}
 
 	private String update(HttpServletRequest req, HttpServletResponse res) {
 		MemberServletFake MembersService = new MemberServletFake();
 		Integer NO = Integer.valueOf(req.getParameter("memberID").trim());
 		String passowrd = req.getParameter("password");
+		String account = req.getParameter("account");
+		String email = req.getParameter("email");
 		Byte status = Byte.valueOf(req.getParameter("memberStatus").trim());
-		MembersService.addMembers(NO, passowrd, status);
+		String passowrd1 = MembersService.getOneMember(NO).getMemberPassword();
+		if(!passowrd.equals(passowrd1)) {
+			EmailSender EmailSender = new EmailSender();
+			 String subtitlte ="廚藝實驗室: 您的密碼已重設";
+			 String context =account+"您好: 你的密碼已重設為: "+passowrd+"請記得更新你的密碼";
+		     EmailSender.sendMail(email, subtitlte,context);						
+		}
+		
+		MembersService.updateMember(NO, passowrd, status);
 		return  "/dashboard/member/WCC_member.jsp";
 	}
 
@@ -99,12 +135,15 @@ public class MemberdashboardServlet extends HttpServlet{
 		Integer NO = Integer.valueOf(req.getParameter("memberNO").trim());
 		MembersVO Members = MembersService.getOneMember(NO);
 		MembersVOFake MembersFake = new MembersVOFake(Members);
+		System.out.println(MembersFake.getMemberPassword());
+		if( MembersFake.getMemberPicture() != null) {
 		byte[] imageBytes =  MembersFake.getMemberPicture();
 		String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-		String json = new Gson().toJson(MembersFake);
 		String picture = new Gson().toJson(base64Image);
-		req.setAttribute("json", json);
 		req.setAttribute("picture", picture);
+		}
+		String json = new Gson().toJson(MembersFake);
+		req.setAttribute("json", json);
 
 		return "/dashboard/member/WCC_member_info.jsp";
 	}
@@ -130,7 +169,7 @@ public class MemberdashboardServlet extends HttpServlet{
 	private MemberServletFake() {
 		dao = new MembersJDBCDAO();
 	}
-		public MembersVO addMembers(Integer memberId,String memberPassword,Byte memberStatus) {
+		public MembersVO updateMember(Integer memberId,String memberPassword,Byte memberStatus) {
 			MembersService MembersService = new MembersService();
 			MembersVO MembersVO = MembersService.getOneMember(memberId);
 			MembersVO.setMemberPassword(memberPassword);
@@ -138,6 +177,14 @@ public class MemberdashboardServlet extends HttpServlet{
 			dao.update(MembersVO);
 			return MembersVO;
 			}
+		public MembersVO updateMember(Integer memberId,String memberPassword) {
+			MembersService MembersService = new MembersService();
+			MembersVO MembersVO = MembersService.getOneMember(memberId);
+			MembersVO.setMemberPassword(memberPassword);
+			dao.update(MembersVO);
+			return MembersVO;
+		}
+		
 			
 		}
 
