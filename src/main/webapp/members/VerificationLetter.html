@@ -156,11 +156,11 @@
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <!-- -----------註冊表單開始----------->
-                <form>
+                <form id="VerificationForm">
                   <div class="form-group form-row">
-                    <label for="verificationCode" class="col-form-label">驗證碼：</label>
+                    <label for="verificationCode" class="col-form-label" >驗證碼：</label>
                     <div>
-                      <input type="text" class="form-control" id="verificationCode" value="請輸入驗證碼" />
+                      <input type="text" class="form-control" id="verificationCode" placeholder="請輸入驗證碼" />
                     </div>
                     
                     <div>
@@ -169,7 +169,7 @@
                   </div>
                   
                   <div class="text-center">
-                    <button type="button" class="btn ding-btn-org w-100">確認</button>
+                    <button type="submit" class="btn ding-btn-org w-100">確認</button>
                   </div>
                 </form>
                 <!-- -----------註冊表單結束--------- -->
@@ -247,7 +247,7 @@
       </div>
     </footer>
     <!-- Footer Section End -->
-
+ 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -257,5 +257,81 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    
+    <script>
+
+      //========================= 這裡是判斷是否有登入過的 ajax ================================
+    $.ajax({
+	    type: "GET", // 指定请求类型为GET
+	    url: "http://localhost:8081/CookLab/Register", // 你的Servlet URL
+	    success: function(data) {
+	        // 请求成功后的处理
+	        console.log("成功获取数据: " + data);
+	    },
+	    error: function() {
+	        // 请求失败后的处理
+	        console.error("获取数据失败");
+	    }
+	  });
+    //==================================================================================
+    
+    
+    $("#VerificationForm").submit(function (event) {
+	    event.preventDefault();
+      var verCode = $("#verificationCode").val();
+      
+	    var data = {
+	      verCode: verCode,
+	    };
+	    $.ajax({
+	      type: "POST",
+	      url: "http://localhost:8081/CookLab/Verification", // 替换为你的Servlet的URL
+	      data: data,
+	      success: function (res) {
+          if(res.Sres == "success") //驗證成功
+            window.location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";
+          else
+           alert("驗證碼輸入錯誤，請重試");	
+            // if(res.wrongType === undefined)
+            // {
+              
+            //   if(res.RedirectURL  === undefined)
+            // 	  {
+            //       location.href = "member-panel.jsp";	
+            //   }
+                
+            //   else
+            //   {
+            	  
+            //   }
+            //     //重導至首頁
+            //     //location.href  = res.RedirectURL;
+            // }
+            // else
+            // {
+            //   if(res.wrongType == 1)
+            //   {
+            //       alert("密碼不正確");
+            //   }
+            //   else if(res.wrongType == 2)
+            //   {
+            //       alert("請輸入密碼");
+            //   }
+            //   else if(res.wrongType == 3)
+            //   {
+            //       alert("查無此帳號");
+            //   }
+            // }
+	        
+	
+	        // 可以在这里执行其他操作，如重定向或显示消息
+	      },
+	      error: function () {
+	        // 在请求失败时执行的操作
+	        console.log("失敗");
+	      }
+    });
+  });
+    </script>
   </body>
 </html>

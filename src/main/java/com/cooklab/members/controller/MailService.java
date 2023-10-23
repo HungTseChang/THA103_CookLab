@@ -11,6 +11,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
 public class MailService {
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
@@ -69,14 +70,14 @@ public class MailService {
 		String subject = "密碼通知";
 
 		String ch_name = "peter1";
-		String passRandom = genAuthCode();
-		String messageText =  ch_name +" 您好!\n\n["+ passRandom +"]\n\n為您在廚藝實驗室(CookLab)的驗證碼，請於10分鐘內輸入" +"\n" ;
-
-		MailService mailService = new MailService();
-		mailService.sendMail(to, subject, messageText);
+//		String passRandom = genAuthCode();
+//		String messageText =  ch_name +" 您好!\n\n["+ passRandom +"]\n\n為您在廚藝實驗室(CookLab)的驗證碼，請於10分鐘內輸入" +"\n" ;
+//
+//		MailService mailService = new MailService();
+//		mailService.sendMail(to, subject, messageText);
 	}
 	
-	public static String genAuthCode() {
+	public String genAuthCode() {
 		
 		String verificationCode="";
 		int ret;

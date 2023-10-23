@@ -225,10 +225,18 @@
                     <div>
                       <input type="text" class="form-control" id="email" placeholder="請輸入Email" />
                     </div>
+                    
                     <!-- <div>
                       <button type="button" class="btn ding-btn-org ml-2">發送驗證信</button>
                     </div>-->
                   </div>
+                  
+                  <div class="form-group form-row">
+					  <label for="introduction" class="col-sm-3 col-form-label ding-data-long">簡介：</label>
+					  <div class="col-sm-9">
+					    <textarea class="form-control" name="member_introduce" id="introduction" rows="5"></textarea>
+					  </div>
+				  </div>
                   <!-- <div class="form-group form-row">
                     <label for="VerificationCode" class="col-form-label">驗證碼：</label>
                     <div>
@@ -336,7 +344,6 @@
       // 当男性单选按钮被选中时，获取值 0
       if (maleRadioButton.checked) {
         gender = 0;
-        console.log("性别值：" + gender);
       }
     });
 
@@ -345,7 +352,6 @@
       // 当女性单选按钮被选中时，获取值 1
       if (femaleRadioButton.checked) {
         gender = 1;
-        console.log("性别值：" + gender);
       }
     });
     //========================= 用 AJAX 傳送欄位驗證  ================================
@@ -364,6 +370,7 @@
 	    var location = $("#locationC").val();
 	    var phonenumber = $("#phonenumber").val();
 	    var email = $("#email").val();
+	    var introduction =$("#introduction").val();
 
 	    //___________________________________
 	    let account_regex = new RegExp(/(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/);
@@ -416,44 +423,47 @@
         address:address,
         location:location,
         phonenumber:phonenumber,
-        email:email
+        email:email,
+        introduction:introduction
 	    };
-		console.log(location);
 	    // // 发送 AJAX POST 请求到后端Servlet
 	    $.ajax({
 	      type: "POST",
 	      url: "http://localhost:8081/CookLab/Register", // 替换为你的Servlet的URL
 	      data: data,
 	      success: function (res) {
-          console.log(res);
-            if(res.wrongType === undefined)
-            {
+          console.log("收到嚕");
+          window.location.href = "http://localhost:8081/CookLab/members/VerificationLetter.html";	
+            // if(res.wrongType === undefined)
+            // {
               
-              if(res.RedirectURL  === undefined)
-            	  {}
-                //location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";	
-              else
-              {
+            //   if(res.RedirectURL  === undefined)
+            // 	  {
+            //       location.href = "member-panel.jsp";	
+            //   }
+                
+            //   else
+            //   {
             	  
-              }
-                //重導至首頁
-                //location.href  = res.RedirectURL;
-            }
-            else
-            {
-              if(res.wrongType == 1)
-              {
-                  alert("密碼不正確");
-              }
-              else if(res.wrongType == 2)
-              {
-                  alert("請輸入密碼");
-              }
-              else if(res.wrongType == 3)
-              {
-                  alert("查無此帳號");
-              }
-            }
+            //   }
+            //     //重導至首頁
+            //     //location.href  = res.RedirectURL;
+            // }
+            // else
+            // {
+            //   if(res.wrongType == 1)
+            //   {
+            //       alert("密碼不正確");
+            //   }
+            //   else if(res.wrongType == 2)
+            //   {
+            //       alert("請輸入密碼");
+            //   }
+            //   else if(res.wrongType == 3)
+            //   {
+            //       alert("查無此帳號");
+            //   }
+            // }
 	        
 	
 	        // 可以在这里执行其他操作，如重定向或显示消息
@@ -490,8 +500,6 @@
       code: country.cca3, // 或者 country.cca3，具体根据 API 数据而定
       name: country.name.common
     }));
-    console.log(countriesData[0].code);
-    console.log(countriesData[0].name);
 
     $.each(countriesData,function(index) {
     $("#locationC").append("<option value='"+countriesData[index].code+"'>"+countriesData[index].name+"</option>");

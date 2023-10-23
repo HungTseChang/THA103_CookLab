@@ -15,7 +15,7 @@ public class MembersService {
 
 	public MembersVO addMembers(String memberAccount, String memberPassword,String memberIntroduce,
 			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress,String memberCountry
-			,Byte memberStatus, byte[] memberPicture,String memberNickname,Byte memberGender
+			,Byte memberStatus, String memberNickname,Byte memberGender
 			) {
 
 		MembersVO membersVO = new MembersVO();
@@ -31,7 +31,7 @@ public class MembersService {
 		membersVO.setMemberStatus(memberStatus);
 		membersVO.setMemberNickname(memberNickname);
 		membersVO.setMemberGender(memberGender);
-		membersVO.setMemberPicture(memberPicture);
+//		membersVO.setMemberPicture(memberPicture);
 		
 		dao.insert(membersVO);
 
@@ -75,7 +75,13 @@ public class MembersService {
 	public MembersVO getOneMemberAccount(String memberAccount) {
 		return dao.findByMembersAccout(memberAccount);
 	}
-
+	//修改使用者狀態
+	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus)
+	{
+		MembersVO membersVO = new MembersVO();
+		dao.updateMemberStatus(memberId, memberStatus);
+		return membersVO;
+	}
 	public List<MembersVO> getAll() {
 		return dao.getAll();
 	}

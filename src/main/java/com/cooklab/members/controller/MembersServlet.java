@@ -438,9 +438,9 @@ public class MembersServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 ****************************************/
 			MembersService memSvc = new MembersService();
 //			/*************************** 2.開始新增資料 ***************************************/
-			memVO = memSvc.addMembers(memberAccount,memberPassword,memberIntroduce,
-					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
-					,memberStatus,buf,memberNickname,memberGender);
+//			memVO = memSvc.addMembers(memberAccount,memberPassword,memberIntroduce,
+//					memberCellphone,memberMail, memberDate,memberAddress,memberCountry
+//					,memberStatus,buf,memberNickname,memberGender);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 //			req.setAttribute("memVO", memVO); // 資料庫update成功後,正確的的empVO物件,存入req
