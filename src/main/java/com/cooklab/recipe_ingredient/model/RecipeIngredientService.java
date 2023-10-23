@@ -1,9 +1,5 @@
 package com.cooklab.recipe_ingredient.model;
 
-import java.sql.Timestamp;
-import java.util.List;
-
-import com.cooklab.members.model.MembersVO;
 import com.cooklab.product.model.ProductVO;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.util.HibernateUtil;
