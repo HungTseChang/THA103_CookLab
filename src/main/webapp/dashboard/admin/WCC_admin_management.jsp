@@ -262,10 +262,20 @@
                                 <span style="font-size: 30px;">權限規則</span>
                             </div>
                             <div class="row" style="background-color: white">
-                             <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;"> <lable style="background-color:white; padding-left: 20px;: border-color:white;">資料查詢:</lable></div>    
-                               <div class="col-md-6"  >                     
+                             <div class="col-md-3"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;"> 
+                           <select class="wcc" id="selectsearch" style="background-color:white; padding-left: 20px;: border-color:white;">
+                        <option value="adminNo">管理者編號</option>
+                        <option value="adminNickname">管理者暱稱</option>              
+                       <option value="permissionNo">管理者權限編號</option>                                 
+                        <option value="adminAccount">管理者帳號</option>                                         
+                          <option value="createdTimestamp">時間</option>                       
+                        <option value="wcc" selected>所有欄位</option>
+                        </select>                                 </div>    
+                               <div class="col-md-6"  >                    
+                             
                        <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 編號、管理員、帳號、暱稱或時間" style="pading-color:  rgb(208, 250, 255);" >
-                              </div>
+                                                     </div>
+                              
                                 <div class="datable dropdown" style="padding:10px;">
                         <select class="wcc" id="select1">
                         <option value="5">5</option>
@@ -279,15 +289,15 @@
                                 <table class="table-container" id="table1" style="width: 100%; font-size: 20px; border-top:40px;">
                                     <thead style="background-color: rgb(212, 212, 212);">
                                         <tr>
-                                            <th style="width: 146;">管理者編號</th>
+                                            <th class="number" name="adminNo" style="width: 146;">管理者編號</th>
                                             <th>管理者暱稱</th>
-                                            <th>管理者權限編號</th>
+                                            <th class="number" name="permissionNo">管理者權限編號</th>
                                               <th>管理者帳號</th>
                                                 <th>管理者建立時間</th>
                                                    <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tbody">
            
 
 
@@ -295,6 +305,7 @@
                                 </table>
                             </div>
                               </div>
+                                       </div>
                        
 
                         </div>
@@ -345,9 +356,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 // 	================================
 	$("#searchbar").on("keyup", function() {
-    var value1 = $(this).val().toLowerCase();
-    $("#table1 tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value1) > -1);
+	    var value1 = $(this).val().toLowerCase();
+	    var detail = "td"+"."+$("#selectsearch").val();
+    $("#tbody tr").filter(function() {
+      $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
     });
   });
 	
@@ -395,67 +407,79 @@ document.addEventListener("DOMContentLoaded", function () {
  
  
 //  ====================================
-console.log(myList);
+var tbodyall;
  var number =myList.length;
- 
- 
- 
-    function updateTable() {    
-    	var startIndex = (currentPage - 1) * rowsPerPage;
-    	var endIndex = startIndex + rowsPerPage;
-    	var tableBody = $("table#table1").children("tbody");
-    	tableBody.empty();
-	for(let i = startIndex ; i<endIndex ;i++){
-    	        	  
-  if (i <number){
-	  let aa = myList[i];
-  	  let text = "";
-	  text += "<tr>";
-	  text += "<td class='wcc'>"+aa.adminNo+"</td>";
-	  text +=" <td class='wcc'>"+aa.adminNickname+"</td>";
-	  text +=" <td class='wcc'>"+aa.permissionNo+"</td>";
-	  text +=" <td>"+aa.adminAccount+"</td>";
-	  text +=" <td>"+aa.createdTimestamp+"</td>";
-	  text +=`
-			<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
-		     <input type="submit" value="修改">
-		     <input type="hidden" name="adminNo"  value=`;
-		    text +=aa.adminNo;
-		    text +=` >
-		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-		</td>
-		<td>
-		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
-		     <input type="submit" value="刪除">
-		     <input type="hidden" name="adminNo"  value=`;
-	  text +=aa.adminNo;
-	  text +=`>
-		     <input type="hidden" name="action" value="delete"></FORM>
-		</td>
-		  `;
-	  text += "<tr>";
-	  $("table#table1").children("tbody").append(text);
-     	   }
+	var textall = "";
+console.log(number);
+	var onload = function(){
+		let tableBodya = $("table#table1").children("tbody");
+ 	   for (let i=0;i <myList.length;i++){
+     	  let aa = myList[i];
+  		let text = "";
+  		text += "<tr>";
+  	  text += "<td class='wcc adminNo'>"+aa.adminNo+"</td>";
+  	  text +=" <td class='wcc adminNickname'>"+aa.adminNickname+"</td>";
+  	  text +=" <td class='wcc permissionNo'>"+aa.permissionNo+"</td>";
+  	  text +=" <td class='wcc adminAccount'>"+aa.adminAccount+"</td>";
+  	  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
+  	  text +=`
+  			<td>
+  		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
+  		     <input type="submit" value="修改">
+  		     <input type="hidden" name="adminNo"  value=`;
+  		    text +=aa.adminNo;
+  		    text +=` >
+  		     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+  		</td>
+  		<td>
+  		  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/AdminsServlet" style="margin-bottom: 0px;">
+  		     <input type="submit" value="刪除">
+  		     <input type="hidden" name="adminNo"  value=`;
+  	  text +=aa.adminNo;
+  	  text +=`>
+  		     <input type="hidden" name="action" value="delete"></FORM>
+  		</td>
+  		  `;
+  	  text += "</tr>";
+  	textall+=text;
+ 	   }
+  	  tableBodya.append(textall);
+  	 tbodyall =$('#tbody tr').toArray();
+	console.log(tbodyall);
+	
 	}
-$("#current-page").text(currentPage);
-var totalPages = Math.ceil(number/ rowsPerPage);
-$("#total-pages").text("of " + totalPages);
-	}
-    $("#select1").change(function() {
- 	   rowsPerPage = $(this).val();
- 	   currentPage = 1;
- 	   updateTable();
-  });
-    $("#prev-page").click(function() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateTable();
-        }
+	function updateTable() {    
+		var startIndex = (currentPage - 1) * rowsPerPage;
+		var endIndex = startIndex + rowsPerPage;
+		var tableBody = $("table#table1").children("tbody");
+		tableBody.empty();
+
+		          for(let i = startIndex ; i<endIndex ;i++){
+		        	  
+		        	   if (i <  tbodyall.length){
+		        	  let aa = tbodyall[i];
+
+		           $("table#table1").children("tbody").append(aa);
+		        	   }
+		          }
+		          $("#current-page").text(currentPage);
+		          var totalPages = Math.ceil(myList.length / rowsPerPage);
+		          $("#total-pages").text("of " + totalPages);
+		} 
+		         
+		$("#select1").change(function() {
+			   rowsPerPage = $(this).val();
+			   currentPage = 1;
+			   updateTable();
+		});
+		          $("#prev-page").click(function() {
+		              if (currentPage > 1) {
+		                  currentPage--;
+		                  updateTable();
+		              }		              		              
+		          });
         
-        
-    });
-    
+      
     $("#next-page").click(function() {
         var totalPages = Math.ceil(number / rowsPerPage);
         if (currentPage < totalPages) {
@@ -464,10 +488,19 @@ $("#total-pages").text("of " + totalPages);
         }
     });
     
+// ====================
+    $(document).on("click","tr th.number",function(e){
 
-    
-    
-    
+	var column ="td."+$(e.target).attr("name");
+	tbodyall.sort(function(a,b){
+		var dateA = $(a).find(column).text(); 
+        var dateB = $(b).find(column).text();
+        return dateA - dateB;
+	})
+    updateTable();	 
+	})
+	onload();
+//  ==========================   
     updateTable();
     
 	

@@ -5,6 +5,9 @@ import javax.mail.internet.*;
 import java.util.Properties;
 
 public class EmailSender {
+
+
+
 	public void sendMail(String to, String subject, String messageText) {
 
 		try {
@@ -29,7 +32,7 @@ public class EmailSender {
 	        //     ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
 	        //     ●5-3) 最後按【產生】密碼
 			final String myGmail = "dnlas2004@gmail.com";
-			final String myGmail_password = com.cooklab.util.Util.PASSWORD;
+			final String myGmail_password = com.cooklab.util.Util.PASSWORDPlus;
 			Session session = Session.getInstance(props, new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(myGmail, myGmail_password);
@@ -53,8 +56,27 @@ public class EmailSender {
 		}
 	}
 
+	
+	public  String randomPassword(int length) {
+    	String aaa = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%^&*()<>?";
+    	int random;
+    	String randomPassword ="";
+    			for(int i=0;i<length;i++) {
+    				random=(int)(Math.random()*76);
+    				randomPassword+= aaa.charAt(random);    				
+    			}
+//    			System.out.print(randomPassword);
+		return randomPassword;
+	}
 
-    
+//public static void main(String args[]) {
+//	
+//	
+//	EmailSender a =	 new EmailSender();
+//	a.sendMail("dnlas2004@gmail.com", "AA", "CC");
+//}
+                                       
+                                       
         
     
 }
