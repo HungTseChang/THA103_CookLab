@@ -14,7 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/members/member-panel-editting.html","/members/member-panel-news.html","/members/member-panel.html"})
+@WebFilter(urlPatterns = { "/members/member-panel-editting.jsp",
+		"/members/member-panel-news.html",
+		"/members/member-panel.jsp"
+		})
 public class LoginFilter extends HttpFilter implements Filter{
 	
 	public LoginFilter() {

@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.cooklab.members.model.*"%>
+
+<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+
+<%
+//获取名为 "username" 的属性值
+MembersVO memVO = (MembersVO) session.getAttribute("membersVO"); 
+
+%>
+
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
@@ -166,67 +176,79 @@
               <div class="col-8">
                 <!-- -----------會員資料表單(僅檢視)開始----------->
                 <form class="pl-5">
+                   <div class="form-group form-row">
+                    <label for="memberstatus" class="col-sm-2 col-form-label ding-data-short">狀態：</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly   class="form-control-plaintext" id="memberStatus" name="member_status" value="<%=memVO.getMemberStatus()%>" />
+                    </div>
+                  </div>
                   <div class="form-group form-row">
                     <label for="account" class="col-sm-2 col-form-label ding-data-short">帳號：</label>
                     <div class="col-sm-10">
-                      <input type="text" readonly class="form-control-plaintext" id="account" value="tomato01" />
+                      <input type="text" readonly class="form-control-plaintext" id="account" value="<%=memVO.getMemberAccount()%>" />
                     </div>
                   </div>
                   <div class="form-group form-row">
                     <label for="gender" class="col-sm-2 col-form-label ding-data-short">性別：</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="gender" value="男" />
+                      <input type="text" class="form-control-plaintext" id="gender" value="<%= memVO.getMemberGender() == 0 ? "男" : "女" %>" />
                     </div>
                   </div>
                   <div class="form-group form-row">
                     <label for="nickname" class="col-sm-2 col-form-label ding-data-short">暱稱：</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="nickname" value="水果" />
+                      <input type="text" class="form-control-plaintext" id="nickname" value="<%=memVO.getMemberNickname()%>" />
                     </div>
                   </div>
                   <div class="form-group form-row">
                     <label for="birthdate" class="col-sm-2 col-form-label ding-data-short">生日：</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="birthdate" value="1970/1/1" />
+                      <input type="text" class="form-control-plaintext" id="birthdate" value="<%=memVO.getMemberDate()%>" />
                     </div>
                   </div>
                   <div class="form-group form-row">
                     <label for="address" class="col-sm-2 col-form-label ding-data-short">地址：</label>
                     <div class="col-sm-10">
-                      <input type="text" class="form-control-plaintext" id="address" value="浣熊市番茄區柳橙路87號" />
+                      <input type="text" class="form-control-plaintext" id="address" value="<%=memVO.getMemberAddress()%>" />
                     </div>
                   </div>
                   <div class="form-group form-row">
-                    <label for="location" class="col-sm-3 col-form-label ding-data-long">所在地區：</label>
+                    <label for="location" class="col-sm-3 col-form-label ding-data-long">國別：</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control-plaintext" id="location" value="台灣" />
+                      <input type="text" class="form-control-plaintext" id="location" value="<%=memVO.getMemberCountry()%>" />
                     </div>
                   </div>
                   <div class="form-group form-row">
                     <label for="phonenumber" class="col-sm-3 col-form-label ding-data-long">聯絡電話：</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control-plaintext" id="phonenumber" value="0911111111" />
+                      <input type="text" class="form-control-plaintext" id="phonenumber" value="<%=memVO.getMemberCellphone()%>" />
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="email" class="col-sm-3 col-form-label ding-data-long">電子信箱：</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control-plaintext" id="email" value="tomato@cooklab.com" />
+                      <input type="text" class="form-control-plaintext" id="email" value="<%=memVO.getMemberMail()%>" />
                     </div>
                   </div>
+                  <div class="form-group row">
+					  <label for="introduction" class="col-sm-3 col-form-label ding-data-long">簡介：</label>
+					  <div class="col-sm-9">
+					    <textarea class="form-control" readonly  name="member_introduce" id="introduction" rows="5"><%= memVO.getMemberIntroduce()%></textarea>
+					  </div>
+					</div>
+					                  
                   <div class="ding-mem-btn">
-                    <button type="button" class="btn ding-btn-org">編輯資料</button>
-                    <button type="button" class="btn ding-btn-org">修改密碼</button>
+                    <button type="button" class="btn ding-btn-org" id="editMemberInfoBtn" onclick="redirectToEdit()">編輯資料</button>
+                    <button type="button" class="btn ding-btn-org" id="revisePasswordBtn">修改密碼</button>
                   </div>
                 </form>
                 <!-- -----------會員資料表單(僅檢視)結束--------- -->
               </div>
               <!-- -------------會員頭像開始------------ -->
               <div class="col-3 ding-mem-img">
-                <img src="https://picsum.photos/200" alt="會員頭像" class="rounded-circle mt-4" />
-                <div class="mt-2">
-                  <button type="button" class="btn ding-btn-outline-org">更換頭像</button>
-                </div>
+              	<img style="max-width: 200px; max-height: 200px;" 
+			 alt="會員頭像" src="/CookLab/MembersImgServlet?memberId=<%=memVO.getMemberId()%>" class="rounded-circle mt-4">
+
               </div>
               <!-- -------------會員頭像結束------------ -->
             </div>
@@ -312,5 +334,24 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+    	function redirectToEdit(){
+    		window.location.href = "member-panel-editting.jsp";
+    	}
+	    //置換會員狀態的顯示
+	    
+	    var statusValue = document.getElementById("memberStatus");
+
+    	
+	    if (statusValue.getAttribute('value') == "0") {
+	    	statusValue.setAttribute('value','已啟用');
+	    } else if (statusValue.getAttribute('value') == "1") {
+	    	statusValue.setAttribute('value','未驗證');
+	    } else if (statusValue.getAttribute('value') == "2") {
+	    	statusValue.setAttribute('value','已註銷');
+	    } else {
+	    	statusValue.setAttribute('value','未知');;
+	    }
+    </script>
   </body>
 </html>

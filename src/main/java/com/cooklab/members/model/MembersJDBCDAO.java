@@ -14,8 +14,8 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT member_id,member_account,member_password,member_introduce,member_cellphone,member_mail,member_date,member_address,member_country,member_status,member_picture,member_nickname,member_gender ,created_timestamp ,last_edit_timestamp From members where member_id=?";
 	private static final String GET_ONE_STMT_MEM_ACCOUNT = "SELECT member_id,member_account,member_password,member_introduce,member_cellphone,member_mail,member_date,member_address,member_country,member_status,member_picture,member_nickname,member_gender ,created_timestamp ,last_edit_timestamp From members where member_account=?";
 	private static final String DELETE = "DELETE FROM members where member_id = ?";
-	private static final String UPDATE = "UPDATE members set member_account=?,member_password=?,member_introduce=?,member_cellphone=?,member_mail=?,"
-			+ "member_date=?,member_address=?,member_country=?,member_status=?,member_picture=?,"
+	private static final String UPDATE = "UPDATE members set member_account=?,member_introduce=?,member_cellphone=?,member_mail=?,"
+			+ "member_date=?,member_address=?,member_picture=?,"
 			+ "member_nickname=?,member_gender=? ,last_edit_timestamp=now()  where member_id=?";
 
 	@Override
@@ -84,18 +84,18 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, membersVO.getMemberAccount());
-			pstmt.setString(2, membersVO.getMemberPassword());
-			pstmt.setString(3, membersVO.getMemberIntroduce());
-			pstmt.setString(4, membersVO.getMemberCellphone());
-			pstmt.setString(5, membersVO.getMemberMail());
-			pstmt.setDate(6, (java.sql.Date) membersVO.getMemberDate());
-			pstmt.setString(7, membersVO.getMemberAddress());
-			pstmt.setString(8, membersVO.getMemberCountry());
-			pstmt.setInt(9, membersVO.getMemberStatus());
-			pstmt.setBytes(10, membersVO.getMemberPicture());
-			pstmt.setString(11, membersVO.getMemberNickname());
-			pstmt.setInt(12, membersVO.getMemberGender());
-			pstmt.setInt(13, membersVO.getMemberId());
+//			pstmt.setString(2, membersVO.getMemberPassword());
+			pstmt.setString(2, membersVO.getMemberIntroduce());
+			pstmt.setString(3, membersVO.getMemberCellphone());
+			pstmt.setString(4, membersVO.getMemberMail());
+			pstmt.setDate(5, (java.sql.Date) membersVO.getMemberDate());
+			pstmt.setString(6, membersVO.getMemberAddress());
+//			pstmt.setString(7, membersVO.getMemberCountry());
+//			pstmt.setInt(8, membersVO.getMemberStatus());
+			pstmt.setBytes(7, membersVO.getMemberPicture());
+			pstmt.setString(8, membersVO.getMemberNickname());
+			pstmt.setInt(9, membersVO.getMemberGender());
+			pstmt.setInt(10, membersVO.getMemberId());
 
 			pstmt.executeUpdate();
 

@@ -16,22 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.cooklab.members.model.MembersVO;
 
-@WebServlet("/Sign")
+@WebServlet("/Register")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10,      // 10MB
 maxRequestSize = 1024 * 1024 * 50)   // 50MB
 
-public class MembersSignServlet extends HttpServlet{
+public class MembersRegisterServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		//doPost(req, res);
-		//此處方法作用為 在[登入後] 去確認使用者是否有需要回去的網頁 沒有的話預設進入 member-panel.html
-		HttpSession session = req.getSession();
-		if(session.getAttribute("account")!= null)
-		{
-			System.out.println(session.getAttribute("account"));
-			res.sendRedirect("http://localhost:8081/CookLab/members/member-panel.jsp");
-			
-		}
+		doPost(req, res);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -41,10 +33,16 @@ public class MembersSignServlet extends HttpServlet{
         // 獲取 PrintWriter 用來輸出到前端  =========================================
         PrintWriter out = res.getWriter();
 		
-		//取得Ajax傳來的帳號密碼 ====================================================
+		//取得Ajax傳來的新增資訊 ====================================================
 		String account = req.getParameter("account");
 		String password = req.getParameter("password");
-		
+		String gender = req.getParameter("gender");
+		String nickname = req.getParameter("nickname");
+		String birthdate = req.getParameter("birthdate");
+		String address = req.getParameter("address");
+		String location = req.getParameter("location");
+		String phonenumber = req.getParameter("phonenumber");
+		String email = req.getParameter("email");
 		
 		//加密 ==================================================================
 		

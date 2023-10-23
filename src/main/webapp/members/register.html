@@ -156,7 +156,7 @@
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
                 <!-- -----------註冊表單開始----------->
-                <form>
+                <form id="register_form">
                   <div class="form-group form-row">
                     <label for="account" class="col-form-label">帳號：</label>
                     <div>
@@ -164,15 +164,27 @@
                     </div>
                   </div>
                   <div class="form-group form-row">
+                    <label for="account" class="col-form-label">密碼：</label>
+                    <div>
+                      <input type="password" class="form-control" id="password" placeholder="請輸入密碼" />
+                    </div>
+                  </div>
+                   <div class="form-group form-row">
+                   <label for="account" class="col-form-label">再次輸入密碼：</label>
+                   <div>
+                     <input type="password" class="form-control" id="rePassword" placeholder="請輸入密碼" />
+                   </div>
+                  </div>
+                  <div class="form-group form-row">
                     <label for="gender" class="col-sm-3 col-form-label ding-data-short">性別：</label>
                     <div class="col-sm-9">
                       <div class="custom-control custom-radio custom-control-inline mt-2">
                         <input type="radio" id="male" name="gender" class="custom-control-input" />
-                        <label class="custom-control-label" for="male">男</label>
+                        <label class="custom-control-label" for="male" value="0">男</label>
                       </div>
                       <div class="custom-control custom-radio custom-control-inline mt-2">
                         <input type="radio" id="female" name="gender" class="custom-control-input" />
-                        <label class="custom-control-label" for="female">女</label>
+                        <label class="custom-control-label" for="female" value="1">女</label>
                       </div>
                     </div>
                   </div>
@@ -191,13 +203,15 @@
                   <div class="form-group form-row">
                     <label for="realname" class="col-form-label">地址：</label>
                     <div>
-                      <input type="text" class="form-control" id="realname" placeholder="請輸入地址" />
+                      <input type="text" class="form-control" id="address" placeholder="請輸入地址" />
                     </div>
                   </div>
                   <div class="form-group form-row">
-                    <label for="location" class="col-form-label">所在地區：</label>
+                    <label for="location" class="col-form-label">國別：</label>
                     <div>
-                      <input type="text" class="form-control" id="location" placeholder="所在地區" value="" />
+                      <select id="locationC">
+                        <option value="0">請選擇國別</option>
+                    </select>
                     </div>
                   </div>
                   <div class="form-group form-row">
@@ -211,18 +225,18 @@
                     <div>
                       <input type="text" class="form-control" id="email" placeholder="請輸入Email" />
                     </div>
-                    <div>
+                    <!-- <div>
                       <button type="button" class="btn ding-btn-org ml-2">發送驗證信</button>
-                    </div>
+                    </div>-->
                   </div>
-                  <div class="form-group form-row">
+                  <!-- <div class="form-group form-row">
                     <label for="VerificationCode" class="col-form-label">驗證碼：</label>
                     <div>
                       <input type="text" class="form-control" id="phonenumber" placeholder="請輸入驗證碼" />
                     </div>
-                  </div>
+                  </div>-->
                   <div class="text-center">
-                    <button type="button" class="btn ding-btn-org w-100">註冊</button>
+                    <button type="submit" class="btn ding-btn-org w-100">註冊</button>
                   </div>
                 </form>
                 <!-- -----------註冊表單結束--------- -->
@@ -304,11 +318,191 @@
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
+    <!-- <script src="js/jquery.nice-select.min.js"></script> -->
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+
+    //___________________________________
+    //性別按鈕
+    var maleRadioButton = document.getElementById("male");
+    var femaleRadioButton = document.getElementById("female");
+    var gender = null;
+    // 监听男性单选按钮的点击事件
+    maleRadioButton.addEventListener("click", function() {
+      // 当男性单选按钮被选中时，获取值 0
+      if (maleRadioButton.checked) {
+        gender = 0;
+        console.log("性别值：" + gender);
+      }
+    });
+
+    // 监听女性单选按钮的点击事件
+    femaleRadioButton.addEventListener("click", function() {
+      // 当女性单选按钮被选中时，获取值 1
+      if (femaleRadioButton.checked) {
+        gender = 1;
+        console.log("性别值：" + gender);
+      }
+    });
+    //========================= 用 AJAX 傳送欄位驗證  ================================
+        // 为表单提交按钮添加点击事件处理程序
+    $("#register_form").submit(function (event) {
+	      // console.log("eee");
+	    // // 阻止表单默认提交行为
+	    event.preventDefault();
+	    // // 获取输入的用户名和密码
+	    var account = $("#account").val();
+	    var password = $("#password").val();
+	    var rePassword = $("#rePassword").val();
+	    var nickname = $("#nickname").val();
+	    var birthdate = $("#birthdate").val();
+	    var address = $("#address").val();
+	    var location = $("#locationC").val();
+	    var phonenumber = $("#phonenumber").val();
+	    var email = $("#email").val();
+
+	    //___________________________________
+	    let account_regex = new RegExp(/(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/);
+	    if(!account_regex.test(account))
+	    {
+	    	alert("帳號需為 6 ~ 20 字英文數字組成\n至少包含1個大寫英文\n至少包含一個數字");
+			return;
+	    }
+	    let password_regex = new RegExp(/^(?=.*\d)(?=.*[a-zA-Z]).{6,16}$/);
+	    if(!password_regex.test(password))
+	    {
+	  		 alert("密碼需為 6 ~ 16 字英文組成\n至少包含1個大小寫英文\n至少包含一個數字")
+			return;
+	    }
+	    if(password != rePassword)
+	    {
+	  		 alert("密碼比對不相同，請再次輸入")
+			return;
+	    }
+	    if(gender == null)
+	    {
+	  		 alert("請輸入性別")
+			return;
+	    }
+	    let nickname_regex = new RegExp(/^.{1,20}$/);
+	    if(!nickname_regex.test(nickname))
+	    {
+	  		 alert("暱稱請輸入 1~20 個字元")
+			return;
+	    }
+	    let phonenumber_regex = new RegExp(/^09[0-9]{8}$/);
+	    if(!phonenumber_regex.test(phonenumber))
+	    {
+	  		 alert("手機格式錯誤")
+			return;
+	    }
+	    let email_regex = new RegExp(/^[^@\s]+@[^@\s]+\.[^@\s]+$/);
+	    if(!email_regex.test(email))
+	    {
+	  		 alert("Email格式錯誤")
+			return;
+	    }
+	    // // 创建包含用户名和密码的数据对象
+	    var data = {
+	      account: account,
+	      password: password,
+        gender: gender,
+        nickname:nickname,
+        birthdate:birthdate,
+        address:address,
+        location:location,
+        phonenumber:phonenumber,
+        email:email
+	    };
+		console.log(location);
+	    // // 发送 AJAX POST 请求到后端Servlet
+	    $.ajax({
+	      type: "POST",
+	      url: "http://localhost:8081/CookLab/Register", // 替换为你的Servlet的URL
+	      data: data,
+	      success: function (res) {
+          console.log(res);
+            if(res.wrongType === undefined)
+            {
+              
+              if(res.RedirectURL  === undefined)
+            	  {}
+                //location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";	
+              else
+              {
+            	  
+              }
+                //重導至首頁
+                //location.href  = res.RedirectURL;
+            }
+            else
+            {
+              if(res.wrongType == 1)
+              {
+                  alert("密碼不正確");
+              }
+              else if(res.wrongType == 2)
+              {
+                  alert("請輸入密碼");
+              }
+              else if(res.wrongType == 3)
+              {
+                  alert("查無此帳號");
+              }
+            }
+	        
+	
+	        // 可以在这里执行其他操作，如重定向或显示消息
+	      },
+	      error: function () {
+	        // 在请求失败时执行的操作
+	        console.log("失敗");
+	      }
+    });
+  });
+    
+  // $(document).ready(function() {
+  //   // 在这里执行您的代码
+  //   // var test = document.getElementById("location");
+  //   $("#locationC").append("<option value='1'>Text</option>");
+  //   $("#locationC").append("<option value='2'>Text</option>");
+  //   $("#locationC").append("<option value='3'>Text</option>");
+  //   $("#locationC").append("<option value='4'>Text</option>");
+  //   $("#locationC").append("<option value='5'>Text</option>");
+  //   $("#locationC").append("<option value='6'>Text</option>");
+  //   console.log("22");
+  //   });
+
+  //     option.value = country.code; // 使用国家代码作为值
+  //     option.text = country.name;  // 使用国家名称作为显示文本
+  //     countrySelect.appendChild(option);
+
+
+  fetch("https://restcountries.com/v3/all")
+  .then(response => response.json())
+  .then(data => {
+    // 提取国家的代码（code）和名称（name）
+    const countriesData = data.map(country => ({
+      code: country.cca3, // 或者 country.cca3，具体根据 API 数据而定
+      name: country.name.common
+    }));
+    console.log(countriesData[0].code);
+    console.log(countriesData[0].name);
+
+    $.each(countriesData,function(index) {
+    $("#locationC").append("<option value='"+countriesData[index].code+"'>"+countriesData[index].name+"</option>");
+      
+    });
+  })
+  .catch(error => {
+    console.error("获取数据时发生错误: " + error);
+  });
+
+
+    </script>
   </body>
 </html>
