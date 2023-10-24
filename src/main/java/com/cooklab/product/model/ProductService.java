@@ -89,5 +89,7 @@ public class ProductService {
 	public List<ProductVO> findByProductNames(String productName, String category) {
 		return dao2.findByProductNames(productName, category);
 	}
-
+	public String insert(ProductVO product) {
+		return dao.insert(product);
+	}
 }

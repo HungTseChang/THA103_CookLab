@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // 如果数据中有商品种类字段，你需要根据字段填充，否则可以使用默认值
         row.append("<td>" + (item.Category ? item.Category : "N/A") + "</td>");
 
-        var detailButton = "<td><a class='btn btn-info' href='./shopset.html'>詳細資料</a></td>";
+        var detailButton = "<td><a class='btn btn-info detail-button' data-product-no='" + item.productNo + "'>詳細資料</a></td>";
+
+
         row.append(detailButton);
 
         // 将行添加到表格的 tbody
@@ -62,4 +64,18 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("请求数据失败");
     },
   });
+});
+
+
+
+//======================詳細資料跳轉==========================
+$(document).on("click", ".detail-button", function () {
+  // 获取所选商品的编号
+  var productNo = $(this).data("product-no");
+  
+  // 构建详细信息页面的URL，包括商品编号作为参数
+  var detailPageUrl = "./shopupdate.html?productNo=" + productNo;
+  
+  // 导航到详细信息页面
+  window.location.href = detailPageUrl;
 });

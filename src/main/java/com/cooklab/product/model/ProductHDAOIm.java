@@ -29,19 +29,21 @@ public class ProductHDAOIm implements ProductDAO {
 	}
 
 	@Override
-	public void insert(ProductVO productVO) {
+	public String insert(ProductVO productVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 			session.save(productVO);
-			System.out.println("成功");
+			System.out.println("新增成功");
 			session.getTransaction().commit();
+			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
 //			HibernateUtil.shutdown();
 		}
+		return "false";
 	}
 
 	@Override
