@@ -46,6 +46,17 @@ public class KitchenwareCategoryVO implements java.io.Serializable {
 		return kitchenwareCategoryNo;
 	}
 
+	
+	
+	
+	public Set<ProductVO> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<ProductVO> product) {
+		this.product = product;
+	}
+
 	public void setKitchenwareCategoryNo(Integer kitchenwareCategoryNo) {
 		this.kitchenwareCategoryNo = kitchenwareCategoryNo;
 	}

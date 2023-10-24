@@ -186,9 +186,8 @@ public class IngredientServlet extends HttpServlet {
 				ingredientCategory.setCategoryName(updatedCategoryName);
 				ingredientSvc.update(ingredientCategory);
 
-				
 			}
-			
+
 			if ("廚具".equals(updatedCategoryTag)) {
 				/***************************
 				 * 2.開始查詢資料
@@ -197,10 +196,10 @@ public class IngredientServlet extends HttpServlet {
 				KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
 				kitchenwareCategory.setKitchenwareCategoryNo(categoryId);
 				kitchenwareCategory.setCategoryName(updatedCategoryName);
-				kitchenwareSvc.update(kitchenwareCategory);	
+				kitchenwareSvc.update(kitchenwareCategory);
 				System.out.println(kitchenwareCategory);
 			}
-			
+
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			/// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
 			Map<String, String> responseData = new HashMap<>();
@@ -213,17 +212,15 @@ public class IngredientServlet extends HttpServlet {
 			res.getWriter().write(json);
 
 		}
-		
+
 		if ("insert".equals(action)) {
-			
-			String categoryTag = req.getParameter("categoryTag");
-	        String categoryName = req.getParameter("categoryName");
-	        
-	        IngredientService ingredientSvc = new IngredientService();
+
+			String categoryName = req.getParameter("categoryName");
+			IngredientService ingredientSvc = new IngredientService();
 			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
 			ingredientCategory.setCategoryName(categoryName);
 			ingredientSvc.insert(ingredientCategory);
-			
+
 			System.out.println(ingredientCategory);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			/// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
@@ -235,8 +232,54 @@ public class IngredientServlet extends HttpServlet {
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(json);
+
+		}
+		if ("delete".equals(action)) {
+			Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
+
+			IngredientService ingredientSvc = new IngredientService();
+			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
+			ingredientCategory.setIngredientCategoryNo(categoryId);
+
+			String message = ingredientSvc.deleteCategory(ingredientCategory);
+
+			if ("删除成功".equals(message)) {
+				// 删除成功，返回成功消息
+				System.out.println("删除成功");
+			} else {
+				// 删除失败，返回错误消息
+				System.out.println("删除失败：" + message);
+			}
+
+			// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
+			Map<String, String> responseData = new HashMap<>();
+			boolean success = "成功".equals(message); // 检查消息是否为成功
+			responseData.put("success", success ? "true" : "false");
+			responseData.put("message", message);
+			String json = new Gson().toJson(responseData);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(json);
+		}
+		if ("checkName".equals(action)) {
+			String categoryName = req.getParameter("categoryName");
+			IngredientService ingredientSvc = new IngredientService();
+			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
+			ingredientCategory.setCategoryName(categoryName);
 			
-        }
+			boolean nameExists = ingredientSvc.findByName(ingredientCategory) != null;
+			  
+
+		    // 创建响应数据，根据 `nameExists` 决定操作是否成功
+		    Map<String, String> responseData = new HashMap<>();
+		    responseData.put("success", nameExists ? "false" : "true");
+		    responseData.put("message", nameExists ? "已有相同名稱" : "名稱可用");
+		    
+		    String json = new Gson().toJson(responseData);
+		    res.setContentType("application/json");
+		    res.setCharacterEncoding("UTF-8");
+		    res.getWriter().write(json);
+		}
 	}
 
 }

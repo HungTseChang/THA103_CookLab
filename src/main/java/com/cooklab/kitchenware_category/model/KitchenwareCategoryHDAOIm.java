@@ -2,18 +2,19 @@ package com.cooklab.kitchenware_category.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.junit.jupiter.api.Test;
 
-import com.cooklab.ingredient_category.model.IngredientCategoryVO;
-import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
+
+import com.cooklab.product.model.ProductVO;
 import com.cooklab.util.HibernateUtil;
 
 public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
@@ -65,8 +66,20 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 	}
 
 	@Override
-	public void delete(Integer kitchenwareCategoryNo) {
-		// TODO Auto-generated method stub
+	public void delete(KitchenwareCategoryVO kitchenwareCategory) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			// 使用Hibernate的更新方法将对象保存到数据库
+			session.delete(kitchenwareCategory);
+			System.out.println("刪除成功");
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+
 		
 	}
 
@@ -104,6 +117,53 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 		}
 		return null;
 	}
+
+	@Override
+	public boolean hasAssociatedProducts(Integer kitchenwareCategoryNo) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+
+		KitchenwareCategoryVO category = session.get(KitchenwareCategoryVO.class, kitchenwareCategoryNo);
+
+		if (category != null) {
+			Set<ProductVO> products = category.getProduct();
+			boolean hasAssociatedProducts = !products.isEmpty();
+			session.getTransaction().commit();
+			return hasAssociatedProducts;
+		} else {
+			session.getTransaction().commit();
+			return false;
+		}
+	}
+
+	@Override
+	public KitchenwareCategoryVO findByName(KitchenwareCategoryVO kitchenwareCategory) {
+	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    try {
+	        session.beginTransaction();
+	        
+	        CriteriaBuilder builder = session.getCriteriaBuilder();
+	        CriteriaQuery<KitchenwareCategoryVO> criteria = builder.createQuery(KitchenwareCategoryVO.class);
+	        Root<KitchenwareCategoryVO> root = criteria.from(KitchenwareCategoryVO.class);
+	        
+	        // 构建查询条件
+	        Predicate namePredicate = builder.equal(root.get("categoryName"), kitchenwareCategory.getCategoryName());
+	        criteria.select(root).where(namePredicate);
+
+	        Query<KitchenwareCategoryVO> query = session.createQuery(criteria);
+	        
+	        KitchenwareCategoryVO result = query.uniqueResult();
+	        
+	        session.getTransaction().commit();
+	        
+	        return result;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	        return null;
+	    }
+	}
+
 
 	
 
