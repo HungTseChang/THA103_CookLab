@@ -372,8 +372,8 @@
 	<script>
 	//=======WebChat===========
 
-	
-	var MyPoint = "/TogetherWS/james";
+	var self = "GV";
+	var MyPoint = "/TogetherWS";
 	var host = window.location.host;
 	var path = window.location.pathname; //動態取得專案路徑
 	var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -386,37 +386,49 @@
 	function connect() {
 		// create a websocket
 		webSocket = new WebSocket(endPointURL); //把上方的網址傳進來
-		//onopen 就像是init() 執行一次
-		webSocket.onopen = function(event) { 
-			//onxxxx(當xxx的時候)，當作JS的事件處理
-			updateStatus("CookTALK Connected");
-			document.getElementById('sendMessage').disabled = false
-			
-			addListener();
-		}
 
-		//onmessage收到資料的時候，service() 會執行n次
-		webSocket.onmessage = function(event) {//收到後推推來的資料，要顯示文字
-			var messagesArea = document.getElementById("messagesArea");
-			var jsonObj = JSON.parse(event.data);//先把json資料轉成jsonObj
-			//取得username以及訊息，因為是文字訊息，還要自己家換行符號"\r\n"
-			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
+		//onopen 就像是init() 執行一次
+		webSocket.onopen = function(event) { //onxxxx(當xxx的時候)，當作JS的事件處理
+			updateStatus("CookTALK Connected");
+			document.getElementById('sendMessage').disabled = false;
+			//document.getElementById('connect').disabled = true;
+			//document.getElementById('disconnect').disabled = false;
+			var jsonObj = JSON.parse(event.data);
+			var messages = JSON.parse(jsonObj.message);
+ 			for (var i = 0; i < messages.length; i++) {
+ 				var messagesArea = document.getElementById("messagesArea");
+ 				var historyData = JSON.parse(messages[i]);
+ 				var showMsg = historyData.message;
+ 				// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
+ 				var message = jsonObj.userName + ": " + showMsg + "\r\n";
+ 				messagesArea.value = messagesArea.value + message; 			
+ 				}
 			
-			messagesArea.value = messagesArea.value + message;//把文字顯示到對話框當中
-			//messagesArea.scrollTop = messagesArea.scrollHeight;//設定有人發訊息會跑去最新訊息
-		};
-		
+		}
+		//onmessage收到資料的時候，service() 會執行n次
+		webSocket.onmessage = function(event) {
+			var messagesArea = document.getElementById("messagesArea");
+			var jsonObj = JSON.parse(event.data);
+
+			
+			
+			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
+			messagesArea.value = messagesArea.value + message;
+			//messagesArea.scrollTop = messagesArea.scrollHeight;
+			//設定有人發訊息會跑去最新訊息
+	
+
 		//onclose 就像 desotry() 執行一次
 		//webSocket.onclose = function(event) {
 			//updateStatus("WebSocket Disconnected");
 		};
-
+	}
 
 	//var inputUserName = document.getElementById("userName");
 	// inputUserName.focus(); 這段出現錯誤暫時封住
 
 	function sendMessage() {
-		var userName = "gimy";
+		var userName = "GV";
 		var inputMessage = document.getElementById("message");
 		var message = inputMessage.value.trim();
 		
@@ -430,15 +442,14 @@
 			inputMessage.focus();
 		} else {
 			var jsonObj = {
-				"type" : "chat",	
-				"sender": self,
-				"message": message
+				"room":"Article",		
+				"userName" : self,
+				"message" : message   //空字串
+
 			};
 			webSocket.send(JSON.stringify(jsonObj));
 			inputMessage.value = "";
 			inputMessage.focus();
-		
-			
 		}
 	}
 
@@ -447,21 +458,6 @@
 		statusOutput.innerHTML = newStatus;
 		}
 	
-	
-	function addListener() {//送history資料
-		var container = document.getElementById("row");
-		container.addEventListener( function(e) {
-			var friend = e.srcElement.textContent;
-			//配合聊天畫面的版面這行有所不同，配合HTML的結構所設定
-			updateFriendName(friend);
-			var jsonObj = { //準備json物件，傳給後端，告知這是要查詢歷史紀錄的動作
-					"type" : "history", //出現歷史資訊
-					"sender" : self,
-					"message" : ""   ,//空字串
-				};
-			webSocket.send(JSON.stringify(jsonObj));//再把資料送到後端，交由後端(FriendWS)處理
-		});
-	}
 	</script>
 	
 	

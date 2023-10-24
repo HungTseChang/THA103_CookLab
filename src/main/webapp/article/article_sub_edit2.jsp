@@ -6,7 +6,7 @@
 <%@ page import="com.cooklab.article_sub.model.ArticleSubVO"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
-ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO");
+ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 %>
 
 
@@ -19,7 +19,7 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO");
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Ogani | Template ${artSub.articleSubNo}</title>
+<title>Ogani${artVO.articleSubNo}</title>
 
 <!-- Google Font -->
 <link
@@ -203,30 +203,30 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO");
 						<input type="hidden" name="articleSubCount"  value="0" size="45" /> 
 
             			<input type="text" id="edit_title" name="articleTitle"  style="color:gray;" 
-									value="RE ${artSub.articleSubNo}" readonly>
+									value="RE ${artVO.article.articleTitle}" readonly>
            		 
 
 						
 
 						<div style="width: auto; height: 500px;">
 							<div id="editor" contenteditable="false">
-								<a style="color: gray;">${artSub.articleSubContent}</a>             						
+								<a style="color: gray;">${artVO.articleSubContent}</a>             						
 							</div>
 							<textarea id="hiddenContent" name="articleSubContent" style="display: none;"></textarea>
 
-							<p style="margin-top: 5px;">驗證碼顯示位置: 
-								<input type="text" value="請輸入驗證碼">
+<!-- 							<p style="margin-top: 5px;">驗證碼顯示位置:  -->
+<!-- 								<input type="text" value="請輸入驗證碼"> -->
 							
-								<input type="hidden" name="articleNo" value="${artSub.articleNo}">
+<%-- 								<input type="hidden" name="articleNo" value="${artVO.articleNo}"> --%>
        								 
-								<input type="hidden" name="action" value="insert">
-								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button>
+<!-- 								<input type="hidden" name="action" value="insert"> -->
+<!-- 								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button> -->
 		
 
-								<button class="btn ding-btn-org" id="btn_clean">清除</button>
-								<button class="btn ding-btn-org" id="btn_cancel">取消</button>
-							</p>
-					</form>
+<!-- 								<button class="btn ding-btn-org" id="btn_clean">清除</button> -->
+<!-- 								<button class="btn ding-btn-org" id="btn_cancel">取消</button> -->
+<!-- 							</p> -->
+<!-- 					</form> -->
 				</div>
 			</div>
 		</div>

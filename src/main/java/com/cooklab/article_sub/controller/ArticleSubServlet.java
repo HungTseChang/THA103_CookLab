@@ -181,9 +181,7 @@ public class ArticleSubServlet extends HttpServlet {
 			String articleSubContent = req.getParameter("articleSubContent");
 			if (articleSubContent == null || articleSubContent.trim().length() == 0) {
 				errorMsgs.add("內容請勿空白");
-			}
-
-			
+			}			
 			byte articleSubStatus = (byte)0;
 			
 			ArticleSubVO artVO = new ArticleSubVO();
@@ -210,7 +208,6 @@ public class ArticleSubServlet extends HttpServlet {
 			/*************************** 2-2.開始查詢資料 ***************************************/
 			ArticleService artSvc2 = new ArticleService();
 			ArticleVO artVO2 = artSvc2.getOneArt(articleNo);
-
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url ="/article/article_content.jsp";
 			req.setAttribute("artVO", artVO2); //取得查詢用參數，資料庫取出的empVO物件,存入req
@@ -321,7 +318,7 @@ public class ArticleSubServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO2", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/article/article_sub_edit.jsp";
+			String url = "/article/article_sub_edit2.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}

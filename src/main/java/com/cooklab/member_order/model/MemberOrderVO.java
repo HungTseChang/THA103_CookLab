@@ -31,7 +31,7 @@ public class MemberOrderVO implements Serializable{
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
 //	=============WCC================	
-	@Column(name = "order_status", columnDefinition = "tinyint")
+	@Column(name = "order_status", columnDefinition = "int")
 	private byte orderStatus;  
 //	==============WCC=============================
 	@Column(name = "total_order_amount")

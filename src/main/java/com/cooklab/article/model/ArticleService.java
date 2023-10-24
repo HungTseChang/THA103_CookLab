@@ -4,13 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.cooklab.article.model.ArticleVO;
+import com.cooklab.util.HibernateUtil;
 
 public class ArticleService {
 	private ArticleDAO dao;
 
 	public ArticleService() {
 //		dao = new ArticleJDBCDAOIm();
-		dao = new ArticleHBDAO();
+		dao = new ArticleHBDAO(HibernateUtil.getSessionFactory());
 	}
 
 //	public ArticleVO addArt(Integer articleCategory, String articleTitle, Integer memberId,
@@ -72,19 +73,16 @@ public class ArticleService {
 	}
 
 	public void updateViewCount(Integer articleNo, Integer viewCount) {
-//		ArticleVO existingArticle = dao.findByPrimaryKey(articleNo);
-//
-//		// 设置新的 articleStatus 值
-//		existingArticle.setViewCount(viewCount);
-//		// 调用 DAO 更新 articleStatus
-//		dao.update(existingArticle);
-		
-		
-		ArticleVO vo = new ArticleVO();
-		vo.setArticleNo(1);
-		vo.setViewCount(10);
-		dao.update(vo);
+		ArticleVO existingArticle = dao.findByPrimaryKey(articleNo);
 
+		// 设置新的 articleStatus 值
+		existingArticle.setArticleNo(articleNo);
+		existingArticle.setViewCount(viewCount);
+		// 调用 DAO 更新 articleStatus
+		dao.update(existingArticle);
+		
+		
+	
 	}
 
 	public void deleteArt(Integer articleNo) {

@@ -4,12 +4,13 @@ import java.util.List;
 
 
 import com.cooklab.article_category.model.*;
+import com.cooklab.util.HibernateUtil;
 
 public class ArticleCategoryService {
 	private ArticleCategoryDAO dao;
 	
 	public ArticleCategoryService () {
-		dao = new ArticleCategoryHDAOIm();
+		dao = new ArticleCategoryHDAOIm(HibernateUtil.getSessionFactory());
 	}
 	
 	

@@ -33,7 +33,7 @@ public class ArticleServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
+//		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
 		
 		if ("getOne_For_Display".equals(action)) { 
 
@@ -188,8 +188,8 @@ if ("getViewCount".equals(action)) {
 			ArticleService artSvc = new ArticleService();
 			artSvc.updateViewCount(articleNo, viewCount);
 			/*************************** 2-2開始查詢 ****************************************/
-//			ArticleService artSvc2 = new ArticleService();
-			ArticleVO artVO2 = artSvc.getOneArt(articleNo);
+			ArticleService artSvc2 = new ArticleService();
+			ArticleVO artVO2 = artSvc2.getOneArt(articleNo);
 			/*************************** 3.新增完成,準備轉交 ******************************/
 			req.setAttribute("artVO", artVO2); // 資料庫取出的empVO物件,存入req
 			String url ="/article/article_content.jsp";

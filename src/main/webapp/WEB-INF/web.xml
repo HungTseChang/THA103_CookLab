@@ -13,9 +13,6 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<!-- 王群中_添加filter_給hibernate調控sessionfactory -->
-
-
-
 	<filter>
         <filter-name>myFilter</filter-name>
         <filter-class>com.cooklab.admins.filter.DashboardOpenSessionInViewFilter</filter-class>
@@ -30,4 +27,18 @@
 
 	<!-- 王群中_添加filter -->
 	
+	<!-- 以下阿宅註冊filter -->
+	<filter>
+        <filter-name>ArticleFilter</filter-name>
+        <filter-class>com.cooklab.article.controller.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ArticleFilter</filter-name>
+        <url-pattern>/ArticleServlet</url-pattern>
+        <url-pattern>/ArticleSubServlet</url-pattern>    
+        <url-pattern>/ArticleCategoryServlet</url-pattern>   
+        <url-pattern>/article/*</url-pattern>  
+		 <url-pattern>/mazer-main/dist/article/*</url-pattern>
+    </filter-mapping>
+    <!-- 所有需要用到hibernate(.getAll)語法的都要註冊，包括JSP頁面 -->
 </web-app>

@@ -2,12 +2,13 @@ package com.cooklab.article_sub.model;
 
 import java.util.List;
 import com.cooklab.article_sub.model.*;
+import com.cooklab.util.HibernateUtil;
 public class ArticleSubService {
 	
 	private ArticleSubDAO dao;
 	
 	public ArticleSubService() {
-		dao = new ArticleSubHDAO();
+		dao = new ArticleSubHDAO(HibernateUtil.getSessionFactory());
 	}
 	
 	public void add (ArticleSubVO  articleSubVO) {
@@ -36,7 +37,7 @@ public class ArticleSubService {
 		    ArticleSubService articleSubService = new ArticleSubService();
 
 		    // 指定要查询的 articleSubNo
-		    Integer articleSubNo = 10; // 替换成你想要查询的主键值
+		    Integer articleSubNo = 5; // 替换成你想要查询的主键值
 
 		    // 调用 getOneSubArt 方法
 		    ArticleSubVO result = articleSubService.getOneSubArt(articleSubNo);
