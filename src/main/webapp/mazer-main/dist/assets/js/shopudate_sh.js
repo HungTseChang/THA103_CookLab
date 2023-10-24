@@ -53,6 +53,16 @@ $(document).ready(function () {
         $("#kitchenTypeOptions").show();
       }
 
+      // 商品簡介和詳情的填充
+      $("#floatingTextarea").text(data.productIntroduction);
+
+      // 找到包含商品详情的 div 元素
+      var editorDiv = $(".ql-editor");
+      // 在该 div 中找到 p 标签
+      var pTag = editorDiv.find("p");
+      // 设置 p 标签的文本内容为商品详情
+      pTag.html(data.productDescription);
+
       // 从服务器接收的日期字符串
       var shelfTimeStr = data.shelfTime;
       var offsaleTimeStr = data.offsaleTime;
@@ -68,16 +78,6 @@ $(document).ready(function () {
       // 将格式化后的日期设置到表单字段中
       $("#uptime-vertical").val(formattedShelfTime);
       $("#downtime-vertical").val(formattedOffsaleTime);
-
-      // 商品簡介和詳情的填充
-      $("#floatingTextarea").val(data.productIntroduction);
-
-      // 找到包含商品详情的 div 元素
-      var editorDiv = $(".ql-editor");
-      // 在该 div 中找到 p 标签
-      var pTag = editorDiv.find("p");
-      // 设置 p 标签的文本内容为商品详情
-      pTag.html(data.productDescription);
     },
     error: function (xhr) {
       console.log(xhr.responseText);
@@ -108,4 +108,16 @@ function populateSelectOptions2(containerId, options) {
     select.append(option);
     // console.log(select.append(option));
   }
+}
+
+// 格式化日期函数
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');  // 月份从0开始，所以需要加1
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }

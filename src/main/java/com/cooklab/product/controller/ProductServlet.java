@@ -323,7 +323,7 @@ public class ProductServlet extends HttpServlet {
 				productDetailMap.put("selectedFoodType", productVO.getIngredientCategoryNo());
 			} else {
 				productDetailMap.put("selectedPart", "kitchenType");
-				productDetailMap.put("selectedFoodType", productVO.getKitchenwareCategoryNo());
+				productDetailMap.put("selectedKitchenType", productVO.getKitchenwareCategoryNo());
 			}
 
 			productDetailMap.put("foodTypeOptions", dataMapList2);
