@@ -123,7 +123,6 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no").trim());
 			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
 			Timestamp startTime = Timestamp.valueOf(req.getParameter("start_time"));
 			String promoCodeSerialNumberReg = "^[(0-9)]{2,10}$";
@@ -139,10 +138,8 @@ public class PromoCodeServlet extends HttpServlet {
 			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(Long.valueOf(req.getParameter("fixed_discount_amount")));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
 			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
-			Timestamp createdTimestamp = Timestamp.valueOf(req.getParameter("created_timestamp"));
 			
 			PromoCodeVO promoCodeVO = new PromoCodeVO();
-			promoCodeVO.setPromoCodeNo(promoCodeNo);
 			promoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
 			promoCodeVO.setStartTime(startTime);
 			promoCodeVO.setEndTime(endTime);
@@ -150,7 +147,7 @@ public class PromoCodeServlet extends HttpServlet {
 			promoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
 			promoCodeVO.setUsagesAllowed(usagesAllowed);
 			promoCodeVO.setMinimumConsumption(minimumConsumption);
-			promoCodeVO.setCreatedTimestamp(createdTimestamp);
+
 		
 			
 
@@ -174,7 +171,7 @@ public class PromoCodeServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 
-		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
+		if ("insert".equals(action)) { // 來自addpromocode.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -182,8 +179,6 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-
-			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no").trim());
 			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
 			Timestamp startTime = Timestamp.valueOf(req.getParameter("start_time"));
 			String promoCodeSerialNumberReg = "^[(0-9)]{2,10}$";
@@ -199,7 +194,7 @@ public class PromoCodeServlet extends HttpServlet {
 			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(Long.valueOf(req.getParameter("fixed_discount_amount")));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
 			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
-			Timestamp createdTimestamp = Timestamp.valueOf(req.getParameter("created_timestamp"));
+
 //			String job = req.getParameter("job").trim();
 //			if (job == null || job.trim().length() == 0) {
 //				errorMsgs.add("職位請勿空白");
@@ -232,7 +227,7 @@ public class PromoCodeServlet extends HttpServlet {
 //			Integer deptno = Integer.valueOf(req.getParameter("deptno").trim());
 
 			PromoCodeVO promoCodeVO = new PromoCodeVO();
-			promoCodeVO.setPromoCodeNo(promoCodeNo);
+		
 			promoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
 			promoCodeVO.setStartTime(startTime);
 			promoCodeVO.setEndTime(endTime);
@@ -240,7 +235,7 @@ public class PromoCodeServlet extends HttpServlet {
 			promoCodeVO.setFixedDiscountAmount(fixedDiscountAmount);
 			promoCodeVO.setUsagesAllowed(usagesAllowed);
 			promoCodeVO.setMinimumConsumption(minimumConsumption);
-			promoCodeVO.setCreatedTimestamp(createdTimestamp);
+
 		
 
 			// Send the use back to the form, if there were errors
