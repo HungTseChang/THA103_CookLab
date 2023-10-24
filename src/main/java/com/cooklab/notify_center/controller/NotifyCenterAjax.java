@@ -107,38 +107,29 @@ public class NotifyCenterAjax extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String idStr = req.getParameter("memberId");
 			Integer memberId = null;
-			if(idStr == null || idStr.trim().length() == 0) {
+			if (idStr == null || idStr.trim().length() == 0) {
 				errorMsgs.put("errIdblank", "請輸入會員編號");
-			}else {
-				memberId = Integer.valueOf(idStr);
-			}
-
-			// 以下member資料取得方式為JDBC版
-			MembersService mSvc = new MembersService();
-			MembersVO mVO = mSvc.getOneMember(memberId);
-			if (mVO == null) {
-				errorMsgs.put("errId", "查無該會員編號，請重新確認");
 			} else {
-				System.out.println("查詢會員編號成功");
+				// 以下member資料取得方式為JDBC版
+				MembersService mSvc = new MembersService();
+				Integer memberIdcheck = Integer.valueOf(idStr);
+				MembersVO mVO = mSvc.getOneMember(memberIdcheck);
+				if (mVO == null) {
+					errorMsgs.put("errId", "查無該會員編號，請重新確認");
+				} else {
+					memberId = memberIdcheck;
+					System.out.println("查詢會員編號成功");
+				}
 			}
 
-			Timestamp notifyTime = null;
 			String notifyTimeStr = req.getParameter("notifyTime");
 			System.out.println("取得時間為：" + notifyTimeStr);
-			if (notifyTimeStr != null) {
-				try {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-					String formattedDateTime = notifyTimeStr + ":00";
-
-					notifyTime = Timestamp.valueOf(formattedDateTime);
-					;
-				} catch (Exception e) {
-					e.printStackTrace();
-					notifyTime = new Timestamp(System.currentTimeMillis());
-					errorMsgs.put("errTime", "請選擇日期時間");
-				}
+			Timestamp notifyTime = null;
+			if (notifyTimeStr != null && !notifyTimeStr.trim().isEmpty()) {
+				notifyTime = Timestamp.valueOf(notifyTimeStr);
+				System.out.println("即將送進資料庫的時間格式為：" + notifyTime);
 			} else {
+				errorMsgs.put("errTime", "請選擇日期時間");
 			}
 
 			Byte notifyType = null;

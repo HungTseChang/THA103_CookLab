@@ -27,14 +27,16 @@ let notifyload = function () {
       if (data.success) {
         window.location.href = data.url;
       } else {
-        if (data.errType) {
-          $("#type-check").append(`<div class="text-danger errCheck">${data.errType}</div>`);
+        if (data.errIdblank) {
+          console.log(data.errIdblank);
+          $("#idcheck").append(`<div class="text-danger errCheck">${data.errIdblank}</div>`);
         }
         if (data.errId) {
-          $("id-check").append(`<div class="text-danger errCheck">${data.errId}</div>`);
+          console.log(data.errId);
+          $("#idcheck").append(`<div class="text-danger errCheck">${data.errId}</div>`);
         }
-        if (data.errIdblank) {
-          $("id-check").append(`<div class="text-danger errCheck">${data.errIdblank}</div>`);
+        if (data.errType) {
+          $("#type-check").append(`<div class="text-danger errCheck">${data.errType}</div>`);
         }
         if (data.errTime) {
           $("#time-check").append(`<div class="text-danger errCheck">${data.errTime}</div>`);
@@ -53,7 +55,7 @@ let notifyload = function () {
 $(document).ready(function () {
   flatpickr(".flatpickr-no-config", {
     enableTime: true,
-    dateFormat: "Y-m-d H:i",
+    dateFormat: "Y-m-d H:i:ss",
   });
 
   $("#formsubmit").on("click", function (e) {

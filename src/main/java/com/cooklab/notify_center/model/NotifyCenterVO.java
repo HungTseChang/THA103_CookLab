@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.support_form.model.SFStatus;
 
 @Entity
 @Table(name = "notify_center")
@@ -27,13 +26,13 @@ public class NotifyCenterVO {
 	@Column(name = "notify_type")
 	private Byte notifyType;
 
-	@Column(name = "notify_read")
+	@Column(name = "notify_read", insertable = false)
 	private Byte notifyRead;
 
 	@Column(name = "notify_content")
 	private String notifyContent;
 	
-	@Column(name = "notifytime", insertable = false)
+	@Column(name = "notifytime")
 	private Timestamp notifyTime;
 
 	@Column(name = "created_timestamp", insertable = false, updatable = false)
