@@ -458,14 +458,27 @@ $("#select1").change(function() {
          
 //         ==============
 $(document).on("click","tr th.number",function(e){
-
 	var column ="td."+$(e.target).attr("name");
+	var textArray = [];
+	$(column).each(function() {
+	    textArray.push($(this).text());
+	});
+	var sortedArray = textArray.slice().sort();
+	var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
+if(isSorted){
+	tbodyall.sort(function(a,b){
+		var dateA = $(a).find(column).text(); 
+        var dateB = $(b).find(column).text();
+        return dateB - dateA;
+	})
+	
+}else{
 	tbodyall.sort(function(a,b){
 		var dateA = $(a).find(column).text(); 
         var dateB = $(b).find(column).text();
         return dateA - dateB;
 	})
-
+}
     updateTable();
 
 	 
