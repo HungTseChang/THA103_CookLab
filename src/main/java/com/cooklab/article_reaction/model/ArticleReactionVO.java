@@ -33,7 +33,7 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	@ManyToOne
 	@JoinColumn(name="article_no" ,referencedColumnName = "article_no"
 			, insertable = false ,updatable = false)
-	private  ArticleVO articleR ;
+	private  ArticleVO article ;
 	
 	@Column(name = "article_no")  //若無宣告則會用屬性的名稱來找表格欄位，所以非必要加，但一般還是會加
 	private Integer articleNo;
@@ -98,6 +98,22 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	}
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
+	}
+
+	public MembersVO getMembers() {
+		return members;
+	}
+
+	public void setMembers(MembersVO members) {
+		this.members = members;
+	}
+
+	public ArticleVO getArticle() {
+		return article;
+	}
+
+	public void setArticle(ArticleVO article) {
+		this.article = article;
 	}
 
 	

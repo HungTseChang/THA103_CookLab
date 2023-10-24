@@ -28,16 +28,11 @@ public class ArticleCollectionVO implements java.io.Serializable{
 	@Column(name = "article_no")
 	private Integer articleNo;
 	
-	public ArticleVO getArticleC() {
-		return articleC;
-	}
-	public void setArticleC(ArticleVO articleC) {
-		this.articleC = articleC;
-	}
+
 	@ManyToOne
 	@JoinColumn(name="article_no" ,referencedColumnName = "article_no"
 			, insertable = false ,updatable = false)
-	private ArticleVO articleC;
+	private ArticleVO article;
 	
 	
 	
@@ -86,6 +81,15 @@ public class ArticleCollectionVO implements java.io.Serializable{
 	}
 	public void setCreateTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
+	}
+	
+	
+	
+	public ArticleVO getArticle() {
+		return article;
+	}
+	public void setArticle(ArticleVO article) {
+		this.article = article;
 	}
 	@Override
 	public String toString() {

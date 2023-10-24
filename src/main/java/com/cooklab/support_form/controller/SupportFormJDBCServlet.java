@@ -145,10 +145,8 @@ public class SupportFormJDBCServlet extends HttpServlet {
 				errorMsgs.add("表單狀態請填數字.");
 			}
 
-			String formSource = req.getParameter("formSource").trim();
-			if (formSource == null || formSource.trim().length() == 0) {
-				errorMsgs.add("表單來源請勿空白");
-			}
+			Byte formSource = null;
+			formSource =  Byte.valueOf(req.getParameter("formSource"));
 
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 			if (formSubmitter == null || formSubmitter.trim().length() == 0) {
@@ -230,19 +228,17 @@ public class SupportFormJDBCServlet extends HttpServlet {
 				errorMsgs.add("反應內文請勿空白");
 			}
 
-//			Byte formStatus = null;
-//			try {
-//				formStatus = Byte.valueOf(req.getParameter("formStatus").trim());
-//			} catch (NumberFormatException e) {
-//				formStatus = 0;
-//				errorMsgs.add("表單狀態請填數字.");
-//			}
+			Byte formStatus = null;
+			try {
+				formStatus = Byte.valueOf(req.getParameter("formStatus").trim());
+			} catch (NumberFormatException e) {
+				formStatus = 0;
+				errorMsgs.add("表單狀態請填數字.");
+			}
 
-			String formSource = req.getParameter("formSource").trim();
-//			if (formSource == null || formSource.trim().length() == 0) {
-//				errorMsgs.add("表單來源請勿空白");
-//			}
-//
+			Byte formSource = null;
+			formSource =  Byte.valueOf(req.getParameter("formSource"));
+			
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 //			if (formSubmitter == null || formSubmitter.trim().length() == 0) {
 //				errorMsgs.add("表單建立者請勿空白");
@@ -254,7 +250,7 @@ public class SupportFormJDBCServlet extends HttpServlet {
 			sfVO.setReplyEmail(replyEmail);
 			sfVO.setFormTitle(formTitle);
 			sfVO.setFormContext(formContext);
-//			sfVO.setFormStatus(formStatus);
+			sfVO.setFormStatus(formStatus);
 			sfVO.setFormSource(formSource);
 			sfVO.setFormSubmitter(formSubmitter);
 
@@ -268,7 +264,7 @@ public class SupportFormJDBCServlet extends HttpServlet {
 			/*************************** 2.開始新增資料 ***************************************/
 			SupportFormJDBCService sfSvc = new SupportFormJDBCService();
 			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext,
-					formSource, formSubmitter);
+					formSource,formStatus, formSubmitter);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";

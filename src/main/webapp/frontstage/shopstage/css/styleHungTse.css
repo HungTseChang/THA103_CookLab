@@ -1,0 +1,20 @@
+  .preview{
+    border: 1px solid lightgray;
+    display: inline-block;
+    width: 200px;
+    min-height: 150px;
+    position: relative;
+    display:inline-block;
+  }
+  .preview span.text{
+    position: absolute;
+    display: inline-block;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    color: lightgray;
+  }
+  .preview img.preview_img{
+    width: 100%;
+  }

@@ -2,10 +2,12 @@ package com.cooklab.recipe_ingredient.model;
 
 import java.util.List;
 
+import com.cooklab.recipe.model.RecipeVO;
+
 public interface RecipeIngredientDAO {
-	public void insert(RecipeIngredientVO recipeIngredientVO);
-    public void update(RecipeIngredientVO recipeIngredientVO);
-    public void delete(Integer recipeIngredientNo);
+	public int insert(RecipeIngredientVO recipeIngredientVO);
+    public boolean update(RecipeIngredientVO recipeIngredientVO);
+    public boolean delete(RecipeVO recipe);
     public RecipeIngredientVO findByPrimaryKey(Integer recipeIngredientNo);
     public List<RecipeIngredientVO> getAll();
 }

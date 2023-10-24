@@ -55,8 +55,8 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>所有會員資料 - listAllMembers.jsp</h3>
-		 <h4><a href="/com.tha103.cooklab/frontstage/members/select_page.jsp">
-		 <img src="/com.tha103.cooklab/frontstage/members/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="/CookLab/frontstage/members/select_page.jsp">
+		 <img src="/CookLab/frontstage/members/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -99,7 +99,7 @@
 			<td>${membersVO.memberNickname}</td>
 			<td>${membersVO.memberGender}</td>
 			 <td><img style="max-width: 200px; max-height: 200px;" 
-			 src="/com.tha103.cooklab/MembersImgServlet?memberId=${membersVO.memberId}"></td> 
+			 src="/CookLab/MembersImgServlet?memberId=${membersVO.memberId}"></td> 
 			<td>${membersVO.credcreatedTimestamp}</td>
 			<td>${membersVO.lastEditTimestamp}</td>
 			<td>

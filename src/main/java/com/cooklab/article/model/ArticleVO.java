@@ -2,6 +2,7 @@ package com.cooklab.article.model;
 import com.cooklab.article_category.model.ArticleCategoryVO;
 import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.article_reaction.model.ArticleReactionVO;
+import com.cooklab.article_sub.model.ArticleSubVO;
 import com.cooklab.members.model.*;
 
 import java.io.Console;
@@ -33,12 +34,15 @@ public class ArticleVO implements java.io.Serializable {
 	private Integer articleNo;
 	
 	
-	@OneToMany(mappedBy="articleC")
+	@OneToMany(mappedBy="article")
 	private Set<ArticleCollectionVO> articleC;
 	
 	
-	@OneToMany(mappedBy="articleR")
+	@OneToMany(mappedBy="article")
 	private Set<ArticleReactionVO> articleR;
+	
+	@OneToMany(mappedBy="article")
+	private Set<ArticleSubVO> articleS;
 	
 	
 	@Column(name = "article_title")  
@@ -46,7 +50,8 @@ public class ArticleVO implements java.io.Serializable {
 	
 
 	@ManyToOne
-	@JoinColumn(name="member_id" ,referencedColumnName = "member_id", insertable = false, updatable = false)
+	@JoinColumn(name="member_id" ,referencedColumnName = "member_id"
+	, insertable = false, updatable = false)
 	private MembersVO members;
 	
 	@Column(name = "member_id")  
@@ -58,7 +63,7 @@ public class ArticleVO implements java.io.Serializable {
 	@Column(name = "article_status")  
 	private Byte articleStatus;
 	
-	@Column(name = "article_content" ,columnDefinition="longtext")
+	@Column(name = "article_content"  , columnDefinition = "longtext")
 	private String articleContent;
 
 	@Column(name = "article_count")
@@ -71,21 +76,17 @@ public class ArticleVO implements java.io.Serializable {
 	private Timestamp lastEditTimestamp;
 
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" , insertable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" 
+	, insertable = false, updatable = false)
 	private ArticleCategoryVO articleCategory;
 	
 	@Column (name="article_category")
-	private Integer articleCategoryNO;
+	private Integer articleCategoryNo;
 
 //	
 	
-	public ArticleCategoryVO getArticleCategoryNo() {
-		return articleCategory;
-	}
-	public void setArticleCategoryVO(ArticleCategoryVO articleCategoryNo) {
-		this.articleCategory = articleCategoryNo;
-	}
+
 	
 	public MembersVO getMembers() {
 		return members;
@@ -113,21 +114,28 @@ public class ArticleVO implements java.io.Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	
+
 	public Integer getArticleNo() {
 		return articleNo;
 	}
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	
-	
-	public Integer getArticleCategory() {
-		return articleCategoryNO;
+	public Set<ArticleCollectionVO> getArticleC() {
+		return articleC;
 	}
-	public void setArticleCategory(Integer articleCategory) {
-		this.articleCategoryNO = articleCategory;
+	public void setArticleC(Set<ArticleCollectionVO> articleC) {
+		this.articleC = articleC;
 	}
-	
+	public Set<ArticleReactionVO> getArticleR() {
+		return articleR;
+	}
+	public void setArticleR(Set<ArticleReactionVO> articleR) {
+		this.articleR = articleR;
+	}
 	public String getArticleTitle() {
 		return articleTitle;
 	}
@@ -170,25 +178,47 @@ public class ArticleVO implements java.io.Serializable {
 	public void setViewCount(Integer viewCount) {
 		this.viewCount = viewCount;
 	}
+	public ArticleCategoryVO getArticleCategory() {
+		return articleCategory;
+	}
+	public void setArticleCategory(ArticleCategoryVO articleCategory) {
+		this.articleCategory = articleCategory;
+	}
+	public Integer getArticleCategoryNo() {
+		return articleCategoryNo;
+	}
+	public void setArticleCategoryNo(Integer articleCategoryNo) {
+		this.articleCategoryNo = articleCategoryNo;
+	}
 	public Timestamp getLastEditTimestamp() {
 		return lastEditTimestamp;
 	}
 	public void setLastEditTimestamp(Timestamp lastEditTimestamp) {
 		this.lastEditTimestamp = lastEditTimestamp;
 	}
-	
-	public void setArticleR(Set<ArticleReactionVO> articleR) {
-		this.articleR = articleR;
-	}
-	public void setArticleCategoryNo(ArticleCategoryVO articleCategoryNo) {
-		this.articleCategoryNo = articleCategoryNo;
-	}
 
 	public MembersVO getMembersVO() {
 		MembersJDBCDAO mbjdbc = new MembersJDBCDAO();
 		MembersVO MembersVO1 =mbjdbc.findByPrimaryKey(memberId);
-		return MembersVO1;
-		
+		return MembersVO1;		
+	}
+	
+	public Set<ArticleSubVO> getArticleS() {
+		return articleS;
+	}
+	public void setArticleS(Set<ArticleSubVO> articleS) {
+		this.articleS = articleS;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "ArticleVO [articleNo=" + articleNo 
+				+ ", articleTitle=" + articleTitle + ", memberId=" + memberId
+				+ ", createdTimestamp=" + createdTimestamp + ", articleStatus=" + articleStatus + ", articleContent="
+				+ articleContent + ", articleCount=" + articleCount + ", viewCount=" + viewCount
+				+ ", lastEditTimestamp=" + lastEditTimestamp + ", articleCategory=" + articleCategory
+				+ ", articleCategoryNo=" + articleCategoryNo + "]";
 	}
 
 	

@@ -24,12 +24,12 @@ public class RecipeHashtagVO implements java.io.Serializable{
 	private Integer repiceHashTagNo;		//食譜使用標籤(PK)
 	@ManyToOne
 	@JoinColumn(name = "hashTag_no", referencedColumnName = "hashTag_no")
-	private HashtagVO hashtag;
+	private HashtagVO hashtag;		//標籤編號(FK)
 	@ManyToOne
 	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no")
-	private RecipeVO recipe;
+	private RecipeVO recipe;	//食譜編號(FK)
 	@Column(name = "created_timestamp",insertable = false ,updatable = false)
-	private Timestamp createdTimestamp;
+	private Timestamp createdTimestamp;	//建立時間
 	
 	public Integer getRepiceHashTagNo() {
 		return repiceHashTagNo;

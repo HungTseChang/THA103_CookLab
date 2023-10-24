@@ -5,13 +5,13 @@
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
-ArticleService artSvc = new ArticleService();
-List<ArticleVO> list = artSvc.getAll();
-pageContext.setAttribute("list", list);
+    ArticleService artSvc = new ArticleService();
+    List<ArticleVO> list = artSvc.getAll();
+    pageContext.setAttribute("list", list);
 
-ArticleCategoryService artSvc2 = new ArticleCategoryService();
-List<ArticleCategoryVO> list2 = artSvc2.getAll();
-pageContext.setAttribute("list2", list2);
+	ArticleCategoryService artSvc2 =new ArticleCategoryService();
+	List<ArticleCategoryVO> list2 = artSvc2.getAll();
+	pageContext.setAttribute("list2",list2);
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -21,7 +21,7 @@ pageContext.setAttribute("list2", list2);
 <meta name="keywords" content="Ogani, unica, creative, html" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<title>Ogani | Template</title>
+<title>Ogani main_cate</title>
 
 <!-- Google Font -->
 <link
@@ -59,6 +59,8 @@ pageContext.setAttribute("list2", list2);
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/article/css/ding.css"
 	type="text/css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 	沒有上面的jquery-3.6.0.min.js，就不能直接在js使用EL語法 -->
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -71,7 +73,7 @@ pageContext.setAttribute("list2", list2);
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="<%=request.getContextPath()%>/article/img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -174,21 +176,32 @@ pageContext.setAttribute("list2", list2);
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
-
+<%-- <FORM  id="categoryForm" METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;"> --%>
     <div class="container" id="article_cat_btn">
       <div class="row">
-        <div class="col-md-9" id="articel_cat">
-        		<c:forEach var="artVO2" items="${list2}" >
-					<c:if test="${artVO2.categoryStatus == 0 }" >
-					<button type="button" class="btn custom-btn "
-					 value="${artVO2.articleCategoryNo}">
-					${artVO2.articleCategory} </button>
- 				</c:if>
- 				</c:forEach>
+        <div class="d-flex" id="articel_cat">
+			<c:forEach var="artVO2" items="${list2}">
+     			<c:if test="${artVO2.articleCategoryNo == 1 }">
+						<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"
+						style="margin-right:3px;">
+                		${artVO2.articleCategory}
+            			</button>        			
+            		</c:if>
+    				<c:if test="${artVO2.categoryStatus == 0 && artVO2.articleCategoryNo != 1 }">
+        			<form METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;">
+            			<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"
+            			style="margin-right:3px;">
+                		${artVO2.articleCategory}
+            			</button>
+            			<input type="hidden" name="action" value="cateSearch">
+        			</form>
+    			</c:if>
+			</c:forEach>				
       		</div>
       	<span></span>
    	 	</div>
     </div>
+<!--   </FORM> -->
 	
 	
 
@@ -209,18 +222,20 @@ pageContext.setAttribute("list2", list2);
 								<td id="article_date">發表時間</td>
 								<td id="article_count">點擊次數</td>
 							</tr>
+							
+<%-- 							 begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" --%>
 							<c:forEach var="artVO" items="${list}">
-<%-- 							<c:forEach var="artVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>"> --%>
-							<div style="display:none;" id="inJSTL"><c:if test="${artVO.articleStatus < 1 }"></div>
-<%-- 								<c:if test="${artVO.articleCategory ==  }"> --%>
-									<tr class="title_colum">
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+								<c:if test="${artVO.articleStatus < 1 }">
+ 								
+									<tr class="title_colum ${artVO.articleNo % 2 == 0 ? 'even' : 'odd'}">
 										<td id="title_colum_td">
-											<a href="" id="cat_view">[${artVO.articleCategoryVO.articleCategory}]</a>
+											<a href="" id="cat_view">[${artVO.articleCategory.articleCategory}]</a>
 								
 											<input type="submit" id="title_view" value="${artVO.articleTitle}"> 
 											<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-											<input type="hidden" name="action" value="getOne_For_Display">
+											<input type="hidden" name="viewCount" value="${artVO.viewCount}">
+											<input type="hidden" name="action" value="getViewCount">
 										</td>
 									
 										<td id="article_creator">${artVO.members.memberNickname}</td>
@@ -232,31 +247,34 @@ pageContext.setAttribute("list2", list2);
 										${artVO.viewCount}
 										</td>
 									</tr>
-									<div style="display:none;" id="inJSTL"></c:if></div>
-<%-- 								</c:if> --%>
+ 								</c:if>
+ 								</FORM>
 							</c:forEach>
-							</FORM>
+						
 						</table>
 					</div>
 				</div>
+			
 				<!-- 以下群聊視窗範圍 -->
+
 				<div class="col-lg-3">
 					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"
-						href="<%=request.getContextPath()%>/article/article_edit.jsp">
-						發文</a>
-
+						href="<%=request.getContextPath()%>/article/article_edit.jsp">發文</a>
 
 					<div class="statusOutput" id="statusOutput">CookTalk</div>
+<!-- 					<div id="messagesArea" class="panel message-area" ></div> -->
 					<textarea id="messagesArea" class="panel message-area" readonly></textarea>
+					
 					<div class="panel input-area">
-						<input id="message" class="text-field" type="text"
-							placeholder="Message"
-							onkeydown="if (event.keyCode == 13) sendMessage();" /> <input
-							type="submit" id="sendMessage" class="btn ding-btn-org"
+
+						<input id="message" class="text-field" type="text" placeholder="Message"
+							onkeydown="if (event.keyCode == 13) sendMessage();" /> 
+						<input  type="submit" id="sendMessage" class="btn ding-btn-org"
 							value="Send" onclick="sendMessage();" />
 					</div>
 
 				</div>
+
 			</div>
 		</div>
 	</section>
@@ -341,7 +359,6 @@ pageContext.setAttribute("list2", list2);
 		</div>
 	</footer>
 	<!-- Footer Section End -->
-
 	<!-- Js Plugins -->
 	<script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
@@ -352,5 +369,102 @@ pageContext.setAttribute("list2", list2);
 	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
-</body>
+	<script>
+	//=======WebChat===========
+
+	
+	var MyPoint = "/TogetherWS/james";
+	var host = window.location.host;
+	var path = window.location.pathname; //動態取得專案路徑
+	var webCtx = path.substring(0, path.indexOf('/', 1));
+	//ws 是websocket的通訊協定
+	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	// ws://localhost:8081/WebSocketChatWeb/TogetherWS/james
+	var statusOutput = document.getElementById("statusOutput");
+	var webSocket;
+
+	function connect() {
+		// create a websocket
+		webSocket = new WebSocket(endPointURL); //把上方的網址傳進來
+		//onopen 就像是init() 執行一次
+		webSocket.onopen = function(event) { 
+			//onxxxx(當xxx的時候)，當作JS的事件處理
+			updateStatus("CookTALK Connected");
+			document.getElementById('sendMessage').disabled = false
+			
+			addListener();
+		}
+
+		//onmessage收到資料的時候，service() 會執行n次
+		webSocket.onmessage = function(event) {//收到後推推來的資料，要顯示文字
+			var messagesArea = document.getElementById("messagesArea");
+			var jsonObj = JSON.parse(event.data);//先把json資料轉成jsonObj
+			//取得username以及訊息，因為是文字訊息，還要自己家換行符號"\r\n"
+			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
+			
+			messagesArea.value = messagesArea.value + message;//把文字顯示到對話框當中
+			//messagesArea.scrollTop = messagesArea.scrollHeight;//設定有人發訊息會跑去最新訊息
+		};
+		
+		//onclose 就像 desotry() 執行一次
+		//webSocket.onclose = function(event) {
+			//updateStatus("WebSocket Disconnected");
+		};
+
+
+	//var inputUserName = document.getElementById("userName");
+	// inputUserName.focus(); 這段出現錯誤暫時封住
+
+	function sendMessage() {
+		var userName = "gimy";
+		var inputMessage = document.getElementById("message");
+		var message = inputMessage.value.trim();
+		
+		var currentDate = new Date(); // 先抓到目前的時間
+		var hours = currentDate.getHours().toString().padStart(2, '0');
+		var minutes = currentDate.getMinutes().toString().padStart(2, '0');
+		var currentTime = hours + ':' + minutes;
+
+		if (message === "") {
+			alert("Input a message");
+			inputMessage.focus();
+		} else {
+			var jsonObj = {
+				"type" : "chat",	
+				"sender": self,
+				"message": message
+			};
+			webSocket.send(JSON.stringify(jsonObj));
+			inputMessage.value = "";
+			inputMessage.focus();
+		
+			
+		}
+	}
+
+
+	function updateStatus(newStatus) {
+		statusOutput.innerHTML = newStatus;
+		}
+	
+	
+	function addListener() {//送history資料
+		var container = document.getElementById("row");
+		container.addEventListener( function(e) {
+			var friend = e.srcElement.textContent;
+			//配合聊天畫面的版面這行有所不同，配合HTML的結構所設定
+			updateFriendName(friend);
+			var jsonObj = { //準備json物件，傳給後端，告知這是要查詢歷史紀錄的動作
+					"type" : "history", //出現歷史資訊
+					"sender" : self,
+					"message" : ""   ,//空字串
+				};
+			webSocket.send(JSON.stringify(jsonObj));//再把資料送到後端，交由後端(FriendWS)處理
+		});
+	}
+	</script>
+	
+	
+	
+	</body>
 </html>

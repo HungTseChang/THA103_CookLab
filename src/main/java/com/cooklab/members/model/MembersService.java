@@ -15,7 +15,7 @@ public class MembersService {
 
 	public MembersVO addMembers(String memberAccount, String memberPassword,String memberIntroduce,
 			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress,String memberCountry
-			,Byte memberStatus, byte[] memberPicture,String memberNickname,Byte memberGender
+			,Byte memberStatus, String memberNickname,Byte memberGender
 			) {
 
 		MembersVO membersVO = new MembersVO();
@@ -31,30 +31,30 @@ public class MembersService {
 		membersVO.setMemberStatus(memberStatus);
 		membersVO.setMemberNickname(memberNickname);
 		membersVO.setMemberGender(memberGender);
-		membersVO.setMemberPicture(memberPicture);
+//		membersVO.setMemberPicture(memberPicture);
 		
 		dao.insert(membersVO);
 
 		return membersVO;
 	}
 
-	public MembersVO updateMember(Integer memberId,String memberAccount, String memberPassword,String memberIntroduce,
-			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress,String memberCountry
-			,Byte memberStatus, byte[] memberPicture,String memberNickname,Byte memberGender 
+	public MembersVO updateMember(Integer memberId,String memberAccount,String memberIntroduce,
+			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress
+			, byte[] memberPicture,String memberNickname,Byte memberGender 
 			) {
 
 		MembersVO membersVO = new MembersVO();
 //
 		membersVO.setMemberId(memberId);
 		membersVO.setMemberAccount(memberAccount);
-		membersVO.setMemberPassword(memberPassword);
+//		membersVO.setMemberPassword(memberPassword);
 		membersVO.setMemberIntroduce(memberIntroduce);
 		membersVO.setMemberCellphone(memberCellphone);
 		membersVO.setMemberMail(memberMail);
 		membersVO.setMemberDate(memberDate);
 		membersVO.setMemberAddress(memberAddress);
-		membersVO.setMemberCountry(memberCountry);
-		membersVO.setMemberStatus(memberStatus);
+//		membersVO.setMemberCountry(memberCountry);
+//		membersVO.setMemberStatus(memberStatus);
 		membersVO.setMemberNickname(memberNickname);
 		membersVO.setMemberGender(memberGender);
 		membersVO.setMemberPicture(memberPicture);
@@ -75,7 +75,13 @@ public class MembersService {
 	public MembersVO getOneMemberAccount(String memberAccount) {
 		return dao.findByMembersAccout(memberAccount);
 	}
-
+	//修改使用者狀態
+	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus)
+	{
+		MembersVO membersVO = new MembersVO();
+		dao.updateMemberStatus(memberId, memberStatus);
+		return membersVO;
+	}
 	public List<MembersVO> getAll() {
 		return dao.getAll();
 	}

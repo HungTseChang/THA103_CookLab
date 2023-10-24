@@ -2,18 +2,22 @@ package com.cooklab.product.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+
+import com.cooklab.util.HibernateUtil;
 
 public class ProductService {
 
-	private ProductDAO dao;
+	private ProductDAO dao, dao2;
 
 	public ProductService() {
-		dao = new ProductJDBCDAOIm();
+		dao = new ProductHDAOIm(HibernateUtil.getSessionFactory());
+		dao2 = new ProductHDAOrRecipeTest(HibernateUtil.getSessionFactory());// 測試
 	}
 
 	public ProductVO addProduct(String productName, Integer saleQty, String productDec, String productIntroduction,
 			Integer productPrice, Timestamp offsaleTime, Timestamp shelfTime, Integer storageQty,
-			Integer ingredientCategoryNo, Integer kitchenwareCategoryNo,byte[] productPicture) {
+			Integer ingredientCategoryNo, Integer kitchenwareCategoryNo, byte[] productPicture) {
 
 		ProductVO productVO = new ProductVO();
 		productVO.setProductName(productName);
@@ -27,7 +31,7 @@ public class ProductService {
 		productVO.setIngredientCategoryNo(ingredientCategoryNo);
 		productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
 		productVO.setProductPicture(productPicture);
-		
+
 		dao.insert(productVO);
 
 		return productVO;
@@ -35,7 +39,8 @@ public class ProductService {
 
 	public ProductVO updateProduct(Integer productNo, String productName, Integer saleQty, String productDec,
 			String productIntroduction, Integer productPrice, Timestamp offsaleTime, Timestamp shelfTime,
-			Integer storageQty, Integer ingredientCategoryNo, Integer kitchenwareCategoryNo, Integer searchCount,byte[] productPicture) {
+			Integer storageQty, Integer ingredientCategoryNo, Integer kitchenwareCategoryNo, Integer searchCount,
+			byte[] productPicture) {
 
 		ProductVO productVO = new ProductVO();
 		productVO.setProductNo(productNo);
@@ -50,7 +55,12 @@ public class ProductService {
 		productVO.setIngredientCategoryNo(ingredientCategoryNo);
 		productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
 		productVO.setSearchCount(searchCount);
-		productVO.setProductPicture(productPicture);
+		if (productPicture != null) {
+			productVO.setProductPicture(productPicture);
+		} else {
+			productPicture = dao.findByPrimaryKey(productNo).getProductPicture();
+			productVO.setProductPicture(productPicture);
+		}
 		System.out.println("Received productNo: " + productNo);
 		dao.update(productVO);
 		return productVO;
@@ -67,4 +77,17 @@ public class ProductService {
 	public List<ProductVO> getAll() {
 		return dao.getAll();
 	}
+
+	public List<Map<String, Object>> findByKeyword(String keyword) {
+		return dao.findByKeyword(keyword);
+	}
+
+	public ProductVO findByProductName(String productName) {
+		return dao2.findByProductName(productName);
+	}
+
+	public List<ProductVO> findByProductNames(String productName, String category) {
+		return dao2.findByProductNames(productName, category);
+	}
+
 }

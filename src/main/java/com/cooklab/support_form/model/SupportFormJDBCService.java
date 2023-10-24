@@ -11,7 +11,7 @@ public class SupportFormJDBCService implements SupportFormServie {
 	}
 
 	public SupportFormVO addSupportForm(String realName, Integer supportFormCategoryId, String replyEmail,
-			String formTitle, String formContext,String formSource,String formSubmitter) {
+			String formTitle, String formContext,Byte formSource,Byte formStatus,String formSubmitter) {
 
 		SupportFormVO supportFormVO = new SupportFormVO();
 
@@ -21,6 +21,7 @@ public class SupportFormJDBCService implements SupportFormServie {
 		supportFormVO.setFormTitle(formTitle);
 		supportFormVO.setFormContext(formContext);
 		supportFormVO.setFormSource(formSource);
+		supportFormVO.setFormStatus(formStatus);
 		supportFormVO.setFormSubmitter(formSubmitter);
 		dao.insert(supportFormVO);
 
@@ -28,7 +29,7 @@ public class SupportFormJDBCService implements SupportFormServie {
 	}
 
 	public SupportFormVO updateSupportForm(Integer formNo, String realName, Integer supportFormCategoryId,
-			String replyEmail, String formTitle, String formContext, Byte formStatus,String formSource,String formSubmitter,Integer formResponder) {
+			String replyEmail, String formTitle, String formContext, Byte formStatus,Byte formSource,String formSubmitter,Integer formResponder) {
 
 		SupportFormVO supportFormVO = new SupportFormVO();
 

@@ -1,9 +1,12 @@
 package com.cooklab.support_form.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import com.cooklab.support_form_record.model.SupportFormRecordVO;
 
 public class SupportFormHDAOIm implements SupportFormDAO {
 
@@ -59,9 +62,20 @@ public class SupportFormHDAOIm implements SupportFormDAO {
 		return getSession().get(SupportFormVO.class, formNo);
 	}
 
+	//為了排除1+N問題，此處使用left join語法
 	@Override
 	public List<SupportFormVO> getAll() {
-		return getSession().createQuery("from SupportFormVO", SupportFormVO.class).list();
+		return getSession().createQuery("select distinct s from SupportFormVO s left join fetch s.admins ", SupportFormVO.class).list();
+	}
+	
+	// 實作從單一表單編號查詢所有關聯的表單記錄方法
+	public List<SupportFormRecordVO> getRecordByFormNo(Integer formNo) {
+		SupportFormVO sfvo = getSession().get(SupportFormVO.class, formNo);
+		List<SupportFormRecordVO> sfrlist = new ArrayList<SupportFormRecordVO>();
+		for(SupportFormRecordVO sfrvo: sfvo.getSupportFormRecords()) {
+			sfrlist.add(sfrvo);
+		}
+		return sfrlist;
 	}
 
 }

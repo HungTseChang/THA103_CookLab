@@ -47,7 +47,7 @@ public class SupportFormVO implements Serializable {
 	private Byte formStatus;
 
 	@Column(name = "form_source")
-	private String formSource;
+	private Byte formSource;
 
 	@Column(name = "form_submitter")
 	private String formSubmitter;
@@ -56,7 +56,7 @@ public class SupportFormVO implements Serializable {
 	private Timestamp createdTimestamp;
 
 	@OneToMany(mappedBy = "supportForms", cascade = CascadeType.ALL)
-	@OrderBy("form_no")
+	@OrderBy("record_no")
 	private Set<SupportFormRecordVO> supportFormRecords;
 
 	@ManyToOne
@@ -126,11 +126,11 @@ public class SupportFormVO implements Serializable {
 		this.formStatus = formStatus;
 	}
 
-	public String getFormSource() {
+	public Byte getFormSource() {
 		return formSource;
 	}
 
-	public void setFormSource(String formSource) {
+	public void setFormSource(Byte formSource) {
 		this.formSource = formSource;
 	}
 
@@ -180,6 +180,36 @@ public class SupportFormVO implements Serializable {
 				+ supportFormCategoryId + ", replyEmail=" + replyEmail + ", formTitle=" + formTitle + ", formContext="
 				+ formContext + ", formStatus=" + formStatus + ", formSource=" + formSource + ", formSubmitter="
 				+ formSubmitter + ", createdTimestamp=" + createdTimestamp + "]";
+	}
+
+	public String getFormCatIDName() {
+	    SFCategory[] categories = SFCategory.values();
+	    for (SFCategory category : categories) {
+	        if (category.getValue() == this.supportFormCategoryId) {
+	            return category.getDesc();
+	        }
+	    }
+	    return "無此問題類別";
+	}
+	
+	public String getFormStatusName() {
+		SFStatus[] status = SFStatus.values();
+	    for (SFStatus astatus: status) {
+	        if (astatus.getValue() == this.formStatus) {
+	            return astatus.getDesc();
+	        }
+	    }
+	    return "無此狀態";
+	}
+	
+	public String getFormSourceName() {
+		SFSource[] source = SFSource.values();
+	    for (SFSource asource: source) {
+	        if (asource.getValue() == this.formSource) {
+	            return asource.getDesc();
+	        }
+	    }
+	    return "無此來源";
 	}
 
 }

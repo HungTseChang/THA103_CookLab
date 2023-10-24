@@ -48,11 +48,11 @@
 </c:if>
 
 <ul>
-  <li><a href='http://localhost:8081/com.tha103.cooklab/frontstage/members/listAllMembers.jsp'>List</a> all Members.  <br><br></li>
+  <li><a href='http://localhost:8081/CookLab/frontstage/members/listAllMembers.jsp'>List</a> all Members.  <br><br></li>
   
   
   <li>
-    <FORM METHOD="post" ACTION="/com.tha103.cooklab/MembersServlet" >
+    <FORM METHOD="post" ACTION="/CookLab/MembersServlet" >
         <b>輸入會員編號 (如a123456):</b>
         <input type="text" name="memberAccount">
         <input type="hidden" name="action" value="getOne_For_Display">
@@ -63,7 +63,7 @@
   <jsp:useBean id="membersSvc" scope="page" class="com.cooklab.members.model.MembersService" />
    
   <li>
-     <FORM METHOD="post" ACTION="/com.tha103.cooklab/MembersServlet" >
+     <FORM METHOD="post" ACTION="/CookLab/MembersServlet" >
        <b>選擇會員帳號:</b>
        <select size="1" name="memberAccount">
          <c:forEach var="MembersVO" items="${membersSvc.all}" > 
@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="/com.tha103.cooklab/MembersServlet" >
+     <FORM METHOD="post" ACTION="/CookLab/MembersServlet" >
        <b>選擇會員暱稱:</b>
        <select size="1" name="memberAccount">
          <c:forEach var="MembersVO" items="${membersSvc.all}" > 
