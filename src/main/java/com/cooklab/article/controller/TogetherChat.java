@@ -18,6 +18,7 @@ import javax.websocket.server.ServerEndpoint;
 import com.cooklab.article.model.ChatMessage;
 import com.cooklab.article.model.JedisHandleMessage;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 //下方類似@WebServlet("/xxxx")用於註冊
 @ServerEndpoint("/TogetherWS")
@@ -34,11 +35,25 @@ public class TogetherChat {
 		//下面直接讀取資redis讀取歷史資料
 		
 		String room= "Article";
+//		List<String> historyData = JedisHandleMessage.getHistoryMsg(room);
+//		String historyMsg = gson.toJson(historyData);
+//	    ChatMessage cmHistory = new ChatMessage(room, userName,historyMsg);
+//	    //發送歷史訊息到對話窗
+//	    userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
 		List<String> historyData = JedisHandleMessage.getHistoryMsg(room);
-		String historyMsg = gson.toJson(historyData);
-	    ChatMessage cmHistory = new ChatMessage(room, userName,historyMsg);
-	    //發送歷史訊息到對話窗
-	    userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
+
+		for (String data : historyData) {
+		    JsonObject historyObj = gson.fromJson(data, JsonObject.class);
+
+		    String userName1 = historyObj.get("userName").getAsString();
+		    String message = historyObj.get("message").getAsString();
+
+		    
+		    ChatMessage cmHistory = new ChatMessage(room, userName1, message);
+		    userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
+		}
+
+	
 	    
 	    
 	}

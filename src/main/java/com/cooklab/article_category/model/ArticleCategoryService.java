@@ -3,7 +3,6 @@ package com.cooklab.article_category.model;
 import java.util.List;
 
 
-import com.cooklab.article_category.model.*;
 import com.cooklab.util.HibernateUtil;
 
 public class ArticleCategoryService {

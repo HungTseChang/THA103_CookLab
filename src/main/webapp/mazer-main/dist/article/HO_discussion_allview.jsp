@@ -5,6 +5,8 @@
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_sub.model.*"%>
 
+<!-- 1使用EL的IF語法，把數字改文字，2.在後端處理好轉換再傳送 -->
+
 <%
     ArticleService artSvc = new ArticleService();
     List<ArticleVO> list = artSvc.getAll();
@@ -405,6 +407,7 @@
         // console.log("you touch me");
       });
     	
+
       $(document).ready(function () {
         //取得數字
         var $articleStatusBtn = $('.article_status');
