@@ -12,7 +12,8 @@ public interface ProductDAO {
     public boolean delete(Integer productNo);
     public ProductVO findByPrimaryKey(Integer productNo);
     public List<ProductVO> getAll();
-    public List<Map<String, Object>> findByKeyword(String keyword);
+    public List<ProductVO> findByKeyword(String keyword);
     public ProductVO findByProductName(String productName);
     public List<ProductVO> findByProductNames(String productName, String category);
+    public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize);
 }

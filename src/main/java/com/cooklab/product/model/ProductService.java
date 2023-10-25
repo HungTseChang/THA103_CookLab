@@ -78,7 +78,7 @@ public class ProductService {
 		return dao.getAll();
 	}
 
-	public List<Map<String, Object>> findByKeyword(String keyword) {
+	public List<ProductVO> findByKeyword(String keyword) {
 		return dao.findByKeyword(keyword);
 	}
 
@@ -95,5 +95,9 @@ public class ProductService {
 	
 	public String update(ProductVO productVO) {
 		return dao.update(productVO);
+	}
+	
+	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize){
+		return dao.findByKeywordWithPagination(keyword, page, pageSize);
 	}
 }

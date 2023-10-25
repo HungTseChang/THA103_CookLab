@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
@@ -54,14 +55,14 @@ public class ProductHDAOIm implements ProductDAO {
 			session.update(productVO);
 			session.getTransaction().commit();
 			System.out.println("更新成功");
-			return "success" ;
+			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
 //			HibernateUtil.shutdown();
 		}
-		return "false" ;
+		return "false";
 	}
 
 	@Override
@@ -114,63 +115,38 @@ public class ProductHDAOIm implements ProductDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> findByKeyword(String keyword) {
-	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	    try {
-	        session.beginTransaction();
+	public List<ProductVO> findByKeyword(String keyword) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
 
-	        Criteria criteria = session.createCriteria(ProductVO.class);
+			Criteria criteria = session.createCriteria(ProductVO.class);
 
-	        // 创建一个 Disjunction 来组合多个查询条件
-	        Disjunction disjunction = Restrictions.disjunction();
+			// 创建一个 Disjunction 来组合多个查询条件
+			Disjunction disjunction = Restrictions.disjunction();
 
-	        // 添加多个模糊查询条件
-	        criteria.add(Restrictions.or(
-	                Restrictions.like("productName", "%" + keyword + "%"),
-	                Restrictions.like("productDec", "%" + keyword + "%"),
-	                Restrictions.like("productIntroduction", "%" + keyword + "%")
-	            ));
+			// 添加多个模糊查询条件
+			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
+					Restrictions.like("productDec", "%" + keyword + "%"),
+					Restrictions.like("productIntroduction", "%" + keyword + "%")));
 
-	        // 将 Disjunction 添加到 Criteria
-	        criteria.add(disjunction);
+			// 将 Disjunction 添加到 Criteria
+			criteria.add(disjunction);
 
-	        // 设置 DISTINCT_ROOT_ENTITY 以确保返回不同的实体
-	        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			// 设置 DISTINCT_ROOT_ENTITY 以确保返回不同的实体
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-	        List<ProductVO> products = criteria.list();
+			List<ProductVO> products = criteria.list();
 
-	        List<Map<String, Object>> result = new ArrayList<>();
-
-	        for (ProductVO product : products) {
-	            // 创建一个 Map 以存储每个产品的信息
-	            Map<String, Object> productInfo = new HashMap<>();
-	            productInfo.put("productNo", product.getProductNo());
-	            productInfo.put("productName", product.getProductName());
-	            productInfo.put("productPicture", product.getProductPicture());
-	            productInfo.put("saleQty", product.getSaleQty());
-	            productInfo.put("productDec", product.getProductDec());
-	            productInfo.put("productIntroduction", product.getProductIntroduction());
-	            productInfo.put("productPrice", product.getProductPrice());
-	            productInfo.put("offsaleTime", product.getOffsaleTime());
-	            productInfo.put("shelfTime", product.getShelfTime());
-	            productInfo.put("ingredientCategory", product.getIngredientCategory());
-	            productInfo.put("KitchenwareCategory", product.getKitchenwareCategory());
-	            productInfo.put("searchCount", product.getSearchCount());
-	            productInfo.put("createdTimestamp", product.getCreatedTimestamp());
-
-	            // 将 Map 对象添加到结果集合
-	            result.add(productInfo);
-	        }
-
-	        session.getTransaction().commit();
-	        return result;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    } finally {
-	        HibernateUtil.shutdown();
-	    }
-	    return null;
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
 	}
 
 	@Override
@@ -185,8 +161,39 @@ public class ProductHDAOIm implements ProductDAO {
 		return null;
 	}
 
+	@Override
+	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
 
-	
+			Criteria criteria = session.createCriteria(ProductVO.class);
+			Disjunction disjunction = Restrictions.disjunction();
+			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
+					Restrictions.like("productDec", "%" + keyword + "%"),
+					Restrictions.like("productIntroduction", "%" + keyword + "%")));
 
+			criteria.add(disjunction);
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			// 计算起始索引
+			int startIndex = (page - 1) * pageSize;
+			// 设置起始索引和最大结果数
+			criteria.setFirstResult(startIndex);
+			criteria.setMaxResults(pageSize);
+
+			List<ProductVO> products = criteria.list();
+
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
 
 }
