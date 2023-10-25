@@ -3,7 +3,7 @@ let reset = function () {
   $(".errCheck").remove();
 };
 
-let notifyload = function () {
+let notifyadd = function () {
   let memberId = $("#memberId").val().trim();
   let notifyType = $("#notifyType").val();
   let notifyTime = $("#notifyTime").val();
@@ -41,8 +41,8 @@ let notifyload = function () {
         if (data.errTime) {
           $("#time-check").append(`<div class="text-danger errCheck">${data.errTime}</div>`);
         }
-        if (data.errContentt) {
-          $("#content-check").append(`<div class="text-danger errCheck">${data.errContentt}</div>`);
+        if (data.errContent) {
+          $("#content-check").append(`<div class="text-danger errCheck">${data.errContent}</div>`);
         }
       }
     },
@@ -61,6 +61,6 @@ $(document).ready(function () {
   $("#formsubmit").on("click", function (e) {
     e.preventDefault();
     reset();
-    notifyload();
+    notifyadd();
   });
 });

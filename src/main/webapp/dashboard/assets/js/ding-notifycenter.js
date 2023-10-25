@@ -2,7 +2,7 @@
 let init = function () {
   $.ajax({
     type: "GET",
-    url: "http://localhost:8081/THA103_CookLab/NotifyCenterAjax",
+    url: "/THA103_CookLab/NotifyCenterAjax",
     data: { action: "getAll" },
     dataType: "json",
     success: function (data) {

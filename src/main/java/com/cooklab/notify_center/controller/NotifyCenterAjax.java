@@ -118,16 +118,13 @@ public class NotifyCenterAjax extends HttpServlet {
 					errorMsgs.put("errId", "查無該會員編號，請重新確認");
 				} else {
 					memberId = memberIdcheck;
-					System.out.println("查詢會員編號成功");
 				}
 			}
 
 			String notifyTimeStr = req.getParameter("notifyTime");
-			System.out.println("取得時間為：" + notifyTimeStr);
 			Timestamp notifyTime = null;
 			if (notifyTimeStr != null && !notifyTimeStr.trim().isEmpty()) {
 				notifyTime = Timestamp.valueOf(notifyTimeStr);
-				System.out.println("即將送進資料庫的時間格式為：" + notifyTime);
 			} else {
 				errorMsgs.put("errTime", "請選擇日期時間");
 			}
@@ -142,7 +139,7 @@ public class NotifyCenterAjax extends HttpServlet {
 
 			String notifyContent = req.getParameter("notifyContent").trim();
 			if (notifyContent == null || notifyContent.trim().length() == 0) {
-				errorMsgs.put("errContentt", "內容請勿空白");
+				errorMsgs.put("errContent", "內容請勿空白");
 			}
 
 			// 錯誤驗證的訊息收集及回傳
@@ -230,7 +227,7 @@ public class NotifyCenterAjax extends HttpServlet {
 
 			String notifyContent = req.getParameter("notifyContent").trim();
 			if (notifyContent == null || notifyContent.trim().length() == 0) {
-				errorMsgs.put("errContentt", "內容請勿空白");
+				errorMsgs.put("errContent", "內容請勿空白");
 			}
 
 			// 錯誤驗證的訊息收集及回傳
