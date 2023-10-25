@@ -385,7 +385,6 @@ td button.wcc {
 							var textall = "";
 							var tbodyall;
 							var number = myList.length;
-							console.log(number);
 							var onload = function() {
 								let tableBodya = $("table#table1").children("tbody");
 								for (let i = 0; i < number; i++) {
@@ -422,7 +421,6 @@ td button.wcc {
 									if (i < tbodyall.length) {
 										let bb = tbodyall[i];
 										$("table#table1").children("tbody").append(bb);
-										console.log(i);
 										}								}
 								$("#current-page").text(currentPage);
 								var totalPages = Math.ceil(myList.length/rowsPerPage);
@@ -458,17 +456,34 @@ td button.wcc {
 									});
 							//     	    ======排序==========
 
-							$(document).on("click", "tr th.number", function(e) {
-								var column = "td." + $(e.target).attr("name");
-								tbodyall.sort(function(a, b) {
-									var dateA = $(a).find(column).text();
-									var dateB = $(b).find(column).text();
-									return dateA - dateB;
-								})
-								updateTable();
-							})
+$(document).on("click","tr th.number",function(e){
+	var column ="td."+$(e.target).attr("name");
+	var textArray = [];
+	$(column).each(function() {
+	    textArray.push($(this).text());
+	});
+	var sortedArray = textArray.slice().sort();
+	var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
+if(isSorted){
+	tbodyall.sort(function(a,b){
+		var dateA = $(a).find(column).text(); 
+        var dateB = $(b).find(column).text();
+        return dateB - dateA;
+	})
+	
+}else{
+	tbodyall.sort(function(a,b){
+		var dateA = $(a).find(column).text(); 
+        var dateB = $(b).find(column).text();
+        return dateA - dateB;
+	})
+}
+    updateTable();
 
-							// ==========	
+	 
+	})
+	
+	// ==========	
 onload();
 							updateTable();
 

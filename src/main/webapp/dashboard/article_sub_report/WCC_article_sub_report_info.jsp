@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="com.cooklab.article_report.model.*"%>
+    <%@ page import="com.cooklab.article_sub_report.model.*"%>
+    <%@ page import="com.cooklab.members.model.*"%>
+    
 <%@ page import =" java.util.List"%>
 <%@ page import="org.hibernate.Session"%>
 <%@ page import="com.cooklab.util.HibernateUtil" %>
@@ -216,7 +219,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>討論區檢舉</h3>
+                            <h3>討論區回文檢舉</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -246,34 +249,34 @@
                                                     <div class="form-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>文章檢舉編號</label>
+                                                                <label>回文檢舉編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getArticleReportNo()} " disabled>
+                                                                <input type="text" value="${ArticleSubReportVO.getArticleSubReportNo()} " disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>文章檢舉時間</label>
+                                                                <label>回文檢舉時間</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getCreatedTimestamp()}" disabled>
+                                                                <input type="text" value="${ArticleSubReportVO.getCreatedTimestamp()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員編號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getReporterId()}" disabled>
+                                                                <input type="text" value="${ArticleSubReportVO.getReporterId()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員帳號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getMembersVO().getMemberAccount()}"disabled>
+                                                                <input type="text" value="${ArticleSubReportVO.getMembers().getMemberAccount()}"disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員暱稱(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getMembersVO().getMemberNickname()}"
+                                                                <input type="text" value="${ArticleSubReportVO.getMembers().getMemberNickname()}"
                                                                     disabled>
                                                             </div>
 
@@ -299,29 +302,35 @@
                                                                 <label>文章編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getArticleNo()}" disabled>
+                                                                <input type="text" value="${Article.getArticleNo()}" disabled>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <label>文章名稱</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getArticleVO().getArticleTitle()}" disabled>
+                                                                <input type="text" value="${Article.getArticleTitle()}" disabled>
+                                                            </div>
+                                                                    <div class="col-md-6">
+                                                                <label>回文編號</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <input type="text" value="${ArticleSubReportVO.getArticleSubNo()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員編號(文章作者)</label>
+                                                                <label>會員編號(留言者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
                                                                 <input type="text" value="${MembersVO.getMemberId()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員帳號(文章作者)</label>
+                                                                <label>會員帳號(留言者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
                                                                 <input type="text" value="${MembersVO.getMemberAccount()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員暱稱(文章作者)</label>
+                                                                <label>會員暱稱(留言者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
                                                                 <input type="text" value="${MembersVO.getMemberNickname()}" disabled>
@@ -344,7 +353,7 @@
                                 <div style="width: 100%; min-height: 100px; padding-left:80PX">
                                     <textarea id="context" style="width: 70%; 
                                     resize: none; overflow: hidden;  padding:10PX; min-height:70px;" 
-                                     disabled> ${ArticleReportVO.getReportingReason()}</textarea>
+                                     disabled> ${ArticleSubReportVO.getReportingReason()}</textarea>
 
                                 </div>
                             </div>
@@ -369,7 +378,7 @@
 
                                 </div>
                                 <div style="text-align: right;">
-                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
+                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
                                 </div>
                             </div>
                                 <div class="col-md-2"></div>
@@ -419,38 +428,35 @@
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
-           var status = "${ArticleReportVO.getReportingStatus()}";
-           console.log(status);
-           console.log(status==0);
-           console.log(status=="0");
+           var status = "${ArticleSubReportVO.getReportingStatus()}";
 
           if(status==0){
         	  $("#pass").prop("checked", true);  }else{  $("#failed").prop("checked", true)}
           
-         if("${ArticleReportVO.getReportingAnswer()}" != null){
-        	 $("textarea#context1").val("${ArticleReportVO.getReportingAnswer()}");
+         if("${ArticleSubReportVO.getReportingAnswer()}" != null){
+        	 $("textarea#context1").val("${ArticleSubReportVO.getReportingAnswer()}");
          } 
           
           $("a#confirm").on("click",function(){
-        	  var articleReportNO = "${ArticleReportVO.getArticleReportNo()}"
+        	  var articleSubReportNO = "${ArticleSubReportVO.getArticleSubReportNo()}"
         	  var status= $("input[name='result']:checked").val()+"";
         	 var answer = $("textarea#context1").val();
         	
         	  
         	  var form = $("<form>", {
-                  action: "<%=request.getContextPath()%>/ArticleReportServlet", // 表单提交的URL
+                  action: "<%=request.getContextPath()%>/ArticleSubReportServlet", // 表单提交的URL
                   method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
               });
       	    
       	       form.append($("<input>", {
                      type: "text",
                      name: "action",
-                     value: "confirmArticleReport"
+                     value: "confirmArticleSubReport"
                  }));
     	       form.append($("<input>", {
                    type: "text",
-                   name: "articleReportNo",
-                   value: articleReportNO
+                   name: "articleSubReportNo",
+                   value: articleSubReportNO
                }));
     	       form.append($("<input>", {
                    type: "text",

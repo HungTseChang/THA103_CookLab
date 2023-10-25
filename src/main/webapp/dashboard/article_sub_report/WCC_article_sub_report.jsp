@@ -236,7 +236,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>討論區檢舉</h3>
+                            <h3>討論區回文檢舉</h3>
                             <p class="text-subtitle text-muted"></p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
@@ -260,12 +260,13 @@
                         
                          <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;">
                         <select class="wcc" id="selectsearch" style="background-color:white; padding-left: 20px;: border-color:white;">
-                        <option value="articleReportNo">檢舉編號</option>
+                        <option value="articleSubReportNo">檢舉編號</option>
                         <option value="reporterId">檢舉者ID</option>              
                        <option value="reporterAccount">檢舉者帳號</option>                                 
-                        <option value="reporterNikname">檢舉者暱稱</option>
+                        <option value="reporterNickname">檢舉者暱稱</option>
                          <option value="articleNo">文章編號</option>
                         <option value="articleTitle">文章名稱</option>   
+                        <option value="articleSubNo">回文編號</option>                           
                         <option value="reportingStatus">檢舉狀態</option>                                           
                           <option value="createdTimestamp">時間</option>                       
                         <option value="wcc" selected>所有欄位</option>
@@ -286,14 +287,15 @@
                             <table class="table table-striped" id="table1" style="scrollCollapse: true">
                                 <thead>
                                     <tr>
-                                        <th class="resizable number articleReportNo" name="articleReportNo">文章檢舉編號</th>
+                                        <th class="resizable number articleSubReportNo" name="articleSubReportNo">回文檢舉編號</th>
                                         <th class="resizable number reporterId"name="reporterId">會員編號(檢舉者)</th>
-                                        <th class="resizable reporterAccount"name=" reporterAccount">會員帳號(檢舉者)</th>                                    
-                                        <th class="resizable reporterNikname"name=" reporterNikname">會員暱稱(檢舉者)</th>
+                                        <th class="resizable reporterAccount"name="reporterAccount">會員帳號(檢舉者)</th>                                    
+                                        <th class="resizable reporterNickname"name="reporterNickname">會員暱稱(檢舉者)</th>
                                         <th class="resizable number articleNo"name="articleNo">文章編號</th>
-                                        <th class="resizable articleTitle"name=" articleTitle">文章名稱</th>                
-                                        <th class="resizable reportingReason"name=" reportingReason">檢舉理由</th>
-                                        <th class="resizable reportingStatus"name=" reportingStatus">檢舉狀態</th>
+                                        <th class="resizable articleTitle"name="articleTitle">文章名稱</th>                
+                                        <th class="resizable number articleNo"name="articleSubNo">回文編號</th>                
+                                        <th class="resizable reportingReason"name="reportingReason">檢舉理由</th>
+                                        <th class="resizable reportingStatus"name="reportingStatus">檢舉狀態</th>
                                         <th class="resizable createdTimestamp"name=" createdTimestamp">檢舉時間</th>
                                         <th class="resizable">操作</th>
                                     </tr>
@@ -338,27 +340,22 @@
         		
 //         =====================================
 	var myList;     
-	var nikname;
-       var title;     	
-       var account;
        var rowsPerPage =5;
        var currentPage = 1;
 	if('${json}'){
 	 myList=JSON.parse('${json}');
- 	title = JSON.parse('${title}');
-	nikname = JSON.parse('${nickname}');
-	account = JSON.parse('${account}');
+	 console.log(myList);
 	}else{ 
 		console.log("reload");
 		var form = $("<form>", {
-            action: "<%=request.getContextPath()%>/ArticleReportServlet", // 表单提交的URL
+            action: "<%=request.getContextPath()%>/ArticleSubReportServlet",
             method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         });
 	    
 	       form.append($("<input>", {
                type: "text",
                name: "action",
-               value: "getArticleReport"
+               value: "getArticleSubReport"
            }));
 	       form.appendTo("body").hide();
 	       form.submit();
@@ -383,20 +380,21 @@
      	  }		
      	  let text = "";
 		  text += "<tr>";
-		  text += "<td class='wcc articleReportNo'>"+aa.articleReportNo+"</td>";
+		  text += "<td class='wcc articleSubReportNo'>"+aa.articleSubReportNo+"</td>";
 		  text +=" <td class='wcc reporterId'>"+aa.reporterId+"</td>";
-		  text +=" <td class='wcc  reporterAccount'>"+account[i]+"</td>";
-		  text +=" <td class='wcc  reporterNikname'>"+nikname[i]+"</td>";
+		  text +=" <td class='wcc  reporterAccount'>"+aa.reporterAccount+"</td>";
+		  text +=" <td class='wcc  reporterNickname'>"+aa.reporterNickname+"</td>";
 		  text +=" <td class='wcc articleNo'>"+aa.articleNo+"</td>";
-		  text +=" <td class='wcc articleTitle'>"+title[i]+"</td>";
+		  text +=" <td class='wcc articleTitle'>"+aa.articleTitle+"</td>";
+		  text +=" <td class='wcc articleSubNo'>"+aa.articleSubNo+"</td>";
 		  text +=" <td class='wcc reportingReason'>"+aa.reportingReason+"</td>";
 		  text +=" <td class='wcc reportingStatus'>"+status[aa.reportingStatus]+"</td>";
 		  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
 		  text += "<td>";
-    	  text +=  " <form action='<%=request.getContextPath()%>/ArticleReportServlet' method='get'>"; 
+    	  text +=  " <form action='<%=request.getContextPath()%>/ArticleSubReportServlet' method='get'>"; 
     	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
-		  text += "<input type='hidden' name='articleReportNo' value='";
-		  text += aa.articleReportNo+"'>";
+		  text += "<input type='hidden' name='articleSubReportNo' value='";
+		  text += aa.articleSubReportNo+"'>";
 		  text += "<input type='hidden' name='action' value='changeData'></form></td>";
 		  text += "</tr>";	
 		  textall+=text;
