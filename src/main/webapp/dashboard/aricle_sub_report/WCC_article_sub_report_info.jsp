@@ -21,11 +21,11 @@
 
    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/css/app.css">
 </head>
 
 <body>
@@ -35,7 +35,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/memeber/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="<%=request.getContextPath()%>/dashboard/memeber/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -172,7 +172,7 @@
                                     <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
                                 </li>
                                 <li class="submenu-item active">
-                                    <a href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="WCC_official_notify.html">系統通知</a>
@@ -369,7 +369,7 @@
 
                                 </div>
                                 <div style="text-align: right;">
-                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
+                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
                                 </div>
                             </div>
                                 <div class="col-md-2"></div>
@@ -397,19 +397,19 @@
         </div>
     </div>
     
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <!-- <script>
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script> -->
 
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded",function () {
@@ -438,7 +438,7 @@
         	
         	  
         	  var form = $("<form>", {
-                  action: "${pageContext.request.contextPath}/ArticleReportServlet", // 表单提交的URL
+                  action: "<%=request.getContextPath()%>/ArticleReportServlet", // 表单提交的URL
                   method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
               });
       	    

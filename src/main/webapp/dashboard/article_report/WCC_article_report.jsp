@@ -26,11 +26,11 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/resizable-columns/1.1.0/css/resizable-columns.min.css">
     
     <style>
@@ -69,7 +69,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -209,7 +209,7 @@
                                     <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
                                 </li>
                                 <li class="submenu-item active">
-                                    <a href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="WCC_official_notify.html">系統通知</a>
@@ -324,7 +324,7 @@
         </div>
     </div>
 
-<script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 //         	===========================================
@@ -351,7 +351,7 @@
 	}else{ 
 		console.log("reload");
 		var form = $("<form>", {
-            action: "${pageContext.request.contextPath}/ArticleReportServlet", // 表单提交的URL
+            action: "<%=request.getContextPath()%>/ArticleReportServlet", // 表单提交的URL
             method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         });
 	    
@@ -393,7 +393,7 @@
 		  text +=" <td class='wcc reportingStatus'>"+status[aa.reportingStatus]+"</td>";
 		  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
 		  text += "<td>";
-    	  text +=  " <form action='${pageContext.request.contextPath}/ArticleReportServlet' method='get'>"; 
+    	  text +=  " <form action='<%=request.getContextPath()%>/ArticleReportServlet' method='get'>"; 
     	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
 		  text += "<input type='hidden' name='articleReportNo' value='";
 		  text += aa.articleReportNo+"'>";
@@ -493,12 +493,12 @@ if(isSorted){
         
          </script>
     
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
 
 </body>
 
