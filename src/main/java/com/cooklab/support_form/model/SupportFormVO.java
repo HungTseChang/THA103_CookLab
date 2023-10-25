@@ -47,7 +47,7 @@ public class SupportFormVO implements Serializable {
 	private Byte formStatus;
 
 	@Column(name = "form_source")
-	private String formSource;
+	private Byte formSource;
 
 	@Column(name = "form_submitter")
 	private String formSubmitter;
@@ -56,7 +56,7 @@ public class SupportFormVO implements Serializable {
 	private Timestamp createdTimestamp;
 
 	@OneToMany(mappedBy = "supportForms", cascade = CascadeType.ALL)
-	@OrderBy("form_no")
+	@OrderBy("record_no")
 	private Set<SupportFormRecordVO> supportFormRecords;
 
 	@ManyToOne
@@ -126,11 +126,11 @@ public class SupportFormVO implements Serializable {
 		this.formStatus = formStatus;
 	}
 
-	public String getFormSource() {
+	public Byte getFormSource() {
 		return formSource;
 	}
 
-	public void setFormSource(String formSource) {
+	public void setFormSource(Byte formSource) {
 		this.formSource = formSource;
 	}
 
@@ -189,7 +189,7 @@ public class SupportFormVO implements Serializable {
 	            return category.getDesc();
 	        }
 	    }
-	    return "查無此問題類別";
+	    return "無此問題類別";
 	}
 	
 	public String getFormStatusName() {
@@ -199,7 +199,17 @@ public class SupportFormVO implements Serializable {
 	            return astatus.getDesc();
 	        }
 	    }
-	    return "異常狀態";
+	    return "無此狀態";
+	}
+	
+	public String getFormSourceName() {
+		SFSource[] source = SFSource.values();
+	    for (SFSource asource: source) {
+	        if (asource.getValue() == this.formSource) {
+	            return asource.getDesc();
+	        }
+	    }
+	    return "無此來源";
 	}
 
 }

@@ -246,6 +246,22 @@
                 </div>
                 <div class="col-md-12 card-header"
                     style="background-color: rgb(208, 250, 255); padding-bottom: 10px;  border: 10px solid rgb(170, 199, 234);">
+                    <div class="row" style="background-color: white">
+								<div class="col-md-2"
+									style="text-align: right; display: flex; flex-direction: column; justify-content: center;">
+									<select class="wcc" id="selectsearch"
+										style="background-color: white; padding-left: 20px; : border-color: white;">
+										<option value="permissionNo">權限編號</option>
+										<option value="permissionTitle">權限名稱</option>
+										<option value="createdTimestamp">時間</option>
+										<option value="wcc" selected>上述所有欄位</option>
+									</select>
+								</div>
+								<div class="col-md-6">
+									<input type="text" id="searchbar" class="form-control"
+										placeholder="請輸入 編號、權限名稱、時間"
+										style="pading-color: rgb(208, 250, 255);">
+								</div>
                     <div class="card">
                          <div class="datable dropdown">
                         <select class="wcc" id="select1">
@@ -261,19 +277,19 @@
                                 style="width: 100%;white-space: nowrap; overflow: auto; border-collapse: collapse; border: 1px solid #000;">
                                 <thead style="position: sticky;top: 0; background-color: white;">
                                     <tr class="title">
-                                        <th>職稱編號</th>
-                                        <th>職稱名稱</th>
-                                        <th>總管理權限</th>
-                                        <th>停止所有權限</th>
-                                        <th>會員管理權限</th>
-                                        <th>廣告投放權限</th>
-                                        <th>檢舉管理權限</th>
-                                        <th>討論區權限</th>
-                                        <th>食譜管理權限</th>
-                                         <th>創建時間</th>
+                                        <th class="number" name="permissionNo">職稱編號</th>
+                                        <th class="permit permissionTitle" name="permissionTitle">職稱名稱</th>
+                                        <th class="permit" name="superAdmin">總管理權限</th>
+                                        <th class="permit" name="cancelAllPermission">停止所有權限</th>
+                                        <th class="permit" name="membershipManagement">會員管理權限</th>
+                                        <th class="permit" name="advertisingManagement">廣告投放權限</th>
+                                        <th class="permit" name="reportingManagement">檢舉管理權限</th>
+                                        <th class="permit" name="articleManagement">討論區權限</th>
+                                        <th class="permit" name="recipeManagement">食譜管理權限</th>
+                                         <th class="wcc createdTimestamp ">創建時間</th>
                                     </tr>
                                 </thead>
-                                <tbody style="white-space: nowrap; overflow: auto;">
+                                <tbody id="tbody" style="white-space: nowrap; overflow: auto;">
                                   
 
 
@@ -341,10 +357,21 @@
         		       form.remove();
         				console.log("reload");
         		}
-        	console.log(myList);
- var number =myList.length;	
        
-        
+// ====================搜尋欄==============================================    
+	
+	   $("#searchbar").on("keyup", function() {
+    var value1 = $(this).val().toLowerCase();
+    var detail = "td"+"."+$("#selectsearch").val();
+    $("#tbody tr").filter(function() {
+      $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
+    });
+  });	
+	
+// ========================放入資料========================================	
+var textall = "";
+var tbodyall;
+var number =myList.length;	
         const permission = { 
     	        0: `
      	           <a class="btn btn-primary rounded-pill" value="0">O</a>
@@ -354,6 +381,51 @@
 
     	    	`	   
     	       } 
+   
+        
+		var onload = function() {
+			let tableBodya = $("table#table1").children("tbody");
+	    	tableBodya.empty();
+			for (let i = 0; i < number; i++) {
+				let aa = myList[i];
+
+	    	    let text = "";
+	    	  text += "<tr>";
+	   		  text += "<td class='wcc permissionNo'  name='permissionNo' value="+aa.permissionNo+">"+aa.permissionNo+"</td>";
+	   		  text +=" <td class='wcc permissionTitle'  name='permissionTitle'>"+aa.permissionTitle+"</td>";
+	   		  text +=" <td class='wcc ' name='superAdmin'>"+permission[aa.superAdmin]+"</td>";
+	   		  text +=" <td class='wcc ' name='cancelAllPermission'>"+permission[aa.cancelAllPermission]+"</td>";
+	   		  text +=" <td class='wcc ' name='membershipManagement'>"+permission[aa.membershipManagement]+"</td>"; 
+	   		  text +=" <td class='wcc ' name='advertisingManagement'>"+permission[aa.advertisingManagement]+"</td>"; 
+	   		  text +=" <td class='wcc ' name='reportingManagement'>"+permission[aa.reportingManagement]+"</td>"; 
+	   		  text +=" <td class='wcc ' name='articleManagement'>"+permission[aa.articleManagement]+"</td>"; 
+    		  text +=" <td  class='wcc ' name='recipeManagement'>"+permission[aa.recipeManagement]+"</td>"; 
+	   		  text +=" <td class='wcc  ' createdTimestamp'  name='createdTimestamp'>"+aa.createdTimestamp+"</td>"; 
+	   		  text +=`
+	   			<td>
+	                  <a  class="modify wcc" style="margin-bottom: 0px;">修改</a>
+	   			</td>
+	    		<td>
+   			  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/PermissionServlet" style="margin-bottom: 0px;">
+	  			     <input type="submit" value="刪除">
+	    		     <input type="hidden" name="permissionNo"  value=`;
+	    		  text +=aa.permissionNo;
+	    		  text +=`>
+	    			     <input type="hidden" name="action" value="delete"></FORM>
+	    			</td>
+	    			  `;
+	    		  text += "</tr>";
+			
+				textall += text;
+
+			}
+			tableBodya.append(textall);
+			tbodyall = $('#tbody tr').toArray();
+		}
+        
+        
+//    ====================================================== 	       
+    	       
         
        let  updateTable  = function(){
     	    	var startIndex = (currentPage - 1) * rowsPerPage;
@@ -364,35 +436,7 @@
     		for(let i = startIndex ; i<endIndex ;i++){
     	    	        	  
     	  if (i <number){
-    		  let aa = myList[i];
-    	  	  let text = "";
-    		  text += "<tr>";
-    		  text += "<td name='permissionNo' value="+aa.permissionNo+">"+aa.permissionNo+"</td>";
-    		  text +=" <td name='permissionTitle'>"+aa.permissionTitle+"</td>";
-    		  text +=" <td name='superAdmin'>"+permission[aa.superAdmin]+"</td>";
-    		  text +=" <td  name='cancelAllPermission'>"+permission[aa.cancelAllPermission]+"</td>";
-    		  text +=" <td name='membershipManagement'>"+permission[aa.membershipManagement]+"</td>"; 
-    		  text +=" <td name='advertisingManagement'>"+permission[aa.advertisingManagement]+"</td>"; 
-    		  text +=" <td name='reportingManagement'>"+permission[aa.reportingManagement]+"</td>"; 
-    		  text +=" <td name='articleManagement'>"+permission[aa.articleManagement]+"</td>"; 
-    		  text +=" <td name='recipeManagement'>"+permission[aa.recipeManagement]+"</td>"; 
-    		  text +=" <td name='createdTimestamp'>"+aa.createdTimestamp+"</td>"; 
-    		  text +=`
-    				<td>
-                     <a  class="modify wcc" style="margin-bottom: 0px;">修改</a>
-    			</td>
-    			<td>
-    			  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/PermissionServlet" style="margin-bottom: 0px;">
-    			     <input type="submit" value="刪除">
-    			     <input type="hidden" name="permissionNo"  value=`;
-    		  text +=aa.permissionNo;
-    		  text +=`>
-    			     <input type="hidden" name="action" value="delete"></FORM>
-    			</td>
-    			  `;
-    		  text += "</tr>";
-
-    		  tableBody.append(text);
+    		  tableBody.append(tbodyall[i]);
     	     	   }
     		}   	
     		$("#current-page").text(currentPage);
@@ -480,7 +524,6 @@
        let modify = function (e) {
            e.preventDefault();
             let value =  $(e.target).attr("value")
-           console.log(value);
            if ($(e.target).closest("tr").hasClass("hightlight")){
         	 if(value==0){
         		 $(e.target).closest("td").html(permission[1]);
@@ -527,7 +570,7 @@
     	   }
     	   
        });
-//  =================================================================      
+//  ===================取消修改========================================      
         $(document).on("click", "a.cancelmodify", function(e){
            $(e.target).closest("tr").find("td[name='permissionNo']").text(permissionNo_old);
        	    $(e.target).closest("tr").find("td[name='permissionTitle']").text(permissionTitle_old);
@@ -548,7 +591,7 @@
        
        
        
-//        ======================
+//        ==========改變頁數==========
        $("#select1").change(function() {
      	   rowsPerPage = $(this).val();
      	   currentPage = 1;
@@ -571,7 +614,7 @@
             }
         });
         
-        
+//         ===========新增============================================================
         
         let addnew = function(){
         	 if (! $("tr.hightlight").length == 0){return;}
@@ -618,7 +661,6 @@
         })
         
          $(document).on("click", "a.insert", function(e){
-        	 console.log("AA");
         	let permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").find("input").val();
         	if(permissionTitle==null || permissionTitle.trim()==""){
         		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").attr("placeholder","title不可為空");
@@ -699,10 +741,72 @@
                 	  $(e.target).closest("tr").remove()
                   })
          
-         
-         
-         
-        
+//  ======================大小排序======================================        
+	 $(document).on("click","tr th.number",function(e){
+			var column ="td."+$(e.target).attr("name");
+			var textArray = [];
+			$(column).each(function() {
+			    textArray.push($(this).text());
+			});
+
+			var sortedArray = textArray.slice().sort();
+			var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
+		if(isSorted){
+			tbodyall.sort(function(a,b){
+				var dateA = $(a).find(column).text(); 
+		        var dateB = $(b).find(column).text();
+		        return dateB - dateA;
+			})
+			
+		}else{
+			tbodyall.sort(function(a,b){
+				var dateA = $(a).find(column).text(); 
+		        var dateB = $(b).find(column).text();
+		        return dateA - dateB;
+			})
+		}
+		    updateTable();
+			 
+			})    
+//          ===============權限部分大小順序牌=================================
+	var toggele = true;
+	 $(document).on("click","tr th.permit",function(e){
+		 
+			let column ="td[name='"+$(e.target).attr("name")+"']";
+			let textArray = [];
+			let permit = $(column).find("a");
+			permit.each(function() {
+			    textArray.push($(this).attr("value"));
+			});
+			let sortedArray = textArray.slice().sort();
+			let isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
+		if(isSorted && toggele){
+			tbodyall.sort(function(a,b){
+				let dateA = $(a).find(column).find("a").attr("value"); 
+		        let dateB = $(b).find(column).find("a").attr("value");
+		        toggele = false;
+
+		        return dateB - dateA;
+			})
+			
+		}else{
+			tbodyall.sort(function(a,b){
+				let dateA = $(a).find(column).find("a").attr("value"); 
+		        let dateB = $(b).find(column).find("a").attr("value");
+		        toggele = true;
+		        return dateA - dateB;
+			})
+		}
+		    updateTable();
+
+			 
+			})    
+	
+	
+	
+	
+// 	======================================
+        onload();
        updateTable();
         })
 

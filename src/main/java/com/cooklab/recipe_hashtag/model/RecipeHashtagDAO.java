@@ -4,9 +4,9 @@ import java.util.*;
 
 
 public interface RecipeHashtagDAO {
-    public void insert(RecipeHashtagVO recipeHashtagVO);
-    public void update(RecipeHashtagVO recipeHashtagVO);
-    public void delete(Integer repiceHashTagNo);
+    public int insert(RecipeHashtagVO recipeHashtagVO);
+    public boolean update(RecipeHashtagVO recipeHashtagVO);
+    public boolean delete(Integer repiceHashTagNo);
     public RecipeHashtagVO findByPrimaryKey(Integer repiceHashTagNo);
     public List<RecipeHashtagVO> getAll();
     //萬用複合查詢(傳入參數型態Map)(回傳 List)

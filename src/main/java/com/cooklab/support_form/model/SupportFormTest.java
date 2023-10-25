@@ -17,9 +17,9 @@ public class SupportFormTest {
 		sfvoH.setFormTitle("test");
 		sfvoH.setFormContext("abcdefgs");
 		sfvoH.setFormStatus((byte) 1);
-		sfvoH.setFormSource("test");
+		sfvoH.setFormSource((byte)1);
 		sfvoH.setFormSubmitter("test");
-		hdao.add(sfvoH);
+		hdao.insert(sfvoH);
 
 	 
 //		SupportFormVO supportFormVO1 = new SupportFormVO();

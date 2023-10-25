@@ -1,13 +1,19 @@
 package com.cooklab.product.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,8 +24,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.cooklab.ingredient_category.model.IngredientCategoryVO;
+import com.cooklab.ingredient_category.model.IngredientService;
+import com.cooklab.kitchenware_category.model.KitchenwareCategoryService;
+import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
 import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
+import com.cooklab.util.JedisUtil;
+import com.google.gson.Gson;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 @WebServlet("/ProductServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -36,6 +51,661 @@ public class ProductServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		if ("search".equals(action)) {
+
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+			ProductService productSvc = new ProductService();
+			List<ProductVO> listproductVO = productSvc.getAll();
+
+			// 创建一个列表来存储 HashMap
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+
+//						 遍历 listalltags
+			// 遍历 listingredientCategoryVO
+			for (ProductVO item : listproductVO) {
+				// 创建一个 HashMap 来存储当前项的数据
+				Map<String, String> itemMap = new HashMap<>();
+
+				// 获取数据并放入 HashMap
+				String productNo = item.getProductNo().toString();
+				itemMap.put("productNo", productNo);
+
+				String productName = item.getProductName();
+				itemMap.put("productName", productName);
+
+				// 读取图像文件并编码为Base64字符串
+				byte[] productPicture = item.getProductPicture();
+				if (productPicture != null) {
+					String productImage = Base64.getEncoder().encodeToString(productPicture);
+					itemMap.put("productImage", productImage);
+				} else {
+					// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
+					itemMap.put("productImage", "");
+				}
+
+				String saleQty = item.getSaleQty().toString();
+				itemMap.put("saleQty", saleQty);
+
+				String productDec = item.getProductDec();
+				itemMap.put("productDec", productDec);
+
+				String productIntroduction = item.getProductIntroduction();
+				itemMap.put("productIntroduction", productIntroduction);
+
+				String productPrice = item.getProductPrice().toString();
+				itemMap.put("productPrice", productPrice);
+
+				if (item.getOffsaleTime() != null) {
+					String offsaleTime = item.getOffsaleTime().toString();
+					itemMap.put("offsaleTime", offsaleTime);
+				} else {
+					itemMap.put("offsaleTime", "無設定");
+				}
+
+				if (item.getShelfTime() != null) {
+					String shelfTime = item.getShelfTime().toString();
+					itemMap.put("shelfTime", shelfTime);
+				} else {
+					itemMap.put("shelfTime", "無設定");
+				}
+
+				if (item.getIngredientCategory() != null) {
+					String ingredientCategory = item.getIngredientCategory().getCategoryName();
+					itemMap.put("Category", ingredientCategory);
+				}
+
+				if (item.getKitchenwareCategory() != null) {
+					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
+					itemMap.put("Category", kitchenwareCategory);
+				}
+				// 将 HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+
+			// 输出查询结果到控制台
+			System.out.println(dataMapList);
+//				        System.out.println(dataMapList);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			// 将查询结果列表转换为JSON格式
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+
+			// 将JSON数据写入响应
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+
+		if ("searchkeyword".equals(action)) {
+
+			String keywords = req.getParameter("keywords");
+
+			// 获取页码和每页显示的数量参数
+			int page = Integer.parseInt(req.getParameter("page"));
+			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+			ProductService productSvc = new ProductService();
+			List<ProductVO> totallistproduct = productSvc.findByKeyword(keywords);
+
+			int totalProductCount = totallistproduct.size();
+			System.out.println(totalProductCount);
+			// 查询当前页的商品数据
+			List<ProductVO> listproduct = productSvc.findByKeywordWithPagination(keywords, page, pageSize);
+
+			// 创建一个列表来存储 HashMap
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+
+			for (ProductVO item : listproduct) {
+				// 创建一个 HashMap 来存储当前项的数据
+				Map<String, String> itemMap = new HashMap<>();
+
+				itemMap.put("totalProductCount", String.valueOf(totalProductCount));
+				itemMap.put("currentPage", String.valueOf(page));
+				itemMap.put("pageSize", String.valueOf(pageSize));
+				itemMap.put("products", String.valueOf(listproduct));
+
+				// 获取数据并放入 HashMap
+				String productNo = item.getProductNo().toString();
+				itemMap.put("productNo", productNo);
+
+				String productName = item.getProductName();
+				itemMap.put("productName", productName);
+
+				// 读取图像文件并编码为Base64字符串
+				byte[] productPicture = item.getProductPicture();
+				if (productPicture != null) {
+					String productImage = Base64.getEncoder().encodeToString(productPicture);
+					itemMap.put("productImage", productImage);
+				} else {
+					// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
+					itemMap.put("productImage", "");
+				}
+
+				String saleQty = item.getSaleQty().toString();
+				itemMap.put("saleQty", saleQty);
+
+				String productDec = item.getProductDec();
+				itemMap.put("productDec", productDec);
+
+				String productIntroduction = item.getProductIntroduction();
+				itemMap.put("productIntroduction", productIntroduction);
+
+				String productPrice = item.getProductPrice().toString();
+				itemMap.put("productPrice", productPrice);
+
+				if (item.getOffsaleTime() != null) {
+					String offsaleTime = item.getOffsaleTime().toString();
+					itemMap.put("offsaleTime", offsaleTime);
+				} else {
+					itemMap.put("offsaleTime", "無設定");
+				}
+
+				if (item.getShelfTime() != null) {
+					String shelfTime = item.getShelfTime().toString();
+					itemMap.put("shelfTime", shelfTime);
+				} else {
+					itemMap.put("shelfTime", "無設定");
+				}
+
+				if (item.getIngredientCategory() != null) {
+					String ingredientCategory = item.getIngredientCategory().getCategoryName();
+					itemMap.put("Category", ingredientCategory);
+				}
+
+				if (item.getKitchenwareCategory() != null) {
+					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
+					itemMap.put("Category", kitchenwareCategory);
+				}
+				// 将 HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+
+			// 输出查询结果到控制台
+			System.out.println(dataMapList);
+//				        System.out.println(dataMapList);
+			System.out.println(totalProductCount);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			// 将查询结果列表转换为JSON格式
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+
+			// 将JSON数据写入响应
+			res.setContentType("application/json; charset :UTF-8");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+
+		if ("Indexget".equals(action)) {
+			ProductService productSvc = new ProductService();
+			List<ProductVO> listproduct = productSvc.getAll();
+
+			// 创建一个列表来存储 HashMap
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+
+//									 遍历 listalltags
+			// 遍历 listingredientCategoryVO
+			for (ProductVO item : listproduct) {
+				// 创建一个 HashMap 来存储当前项的数据
+				Map<String, String> itemMap = new HashMap<>();
+
+				// 获取数据并放入 HashMap
+				String productNo = item.getProductNo().toString();
+				itemMap.put("productNo", productNo);
+
+				String productName = item.getProductName();
+				itemMap.put("productName", productName);
+
+				// 读取图像文件并编码为Base64字符串
+				byte[] productPicture = item.getProductPicture();
+				if (productPicture != null) {
+					String productImage = Base64.getEncoder().encodeToString(productPicture);
+					itemMap.put("productImage", productImage);
+				} else {
+					// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
+					itemMap.put("productImage", "");
+				}
+
+				String saleQty = item.getSaleQty().toString();
+				itemMap.put("saleQty", saleQty);
+
+				String productDec = item.getProductDec();
+				itemMap.put("productDec", productDec);
+
+				String productIntroduction = item.getProductIntroduction();
+				itemMap.put("productIntroduction", productIntroduction);
+
+				String productPrice = item.getProductPrice().toString();
+				itemMap.put("productPrice", productPrice);
+
+				if (item.getOffsaleTime() != null) {
+					String offsaleTime = item.getOffsaleTime().toString();
+					itemMap.put("offsaleTime", offsaleTime);
+				} else {
+					itemMap.put("offsaleTime", "無設定");
+				}
+
+				if (item.getShelfTime() != null) {
+					String shelfTime = item.getShelfTime().toString();
+					itemMap.put("shelfTime", shelfTime);
+				} else {
+					itemMap.put("shelfTime", "無設定");
+				}
+
+				if (item.getIngredientCategory() != null) {
+					String ingredientCategory = item.getIngredientCategory().getCategoryName();
+					itemMap.put("Category", ingredientCategory);
+				}
+
+				if (item.getKitchenwareCategory() != null) {
+					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
+					itemMap.put("Category", kitchenwareCategory);
+				}
+				// 将 HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+
+			// 输出查询结果到控制台
+			System.out.println(dataMapList);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			// 将查询结果列表转换为JSON格式
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+
+			// 将JSON数据写入响应
+			res.setContentType("application/json; charset:UTF-8");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+
+		if ("insertOne".equals(action)) {
+
+			// =============接收參數====================
+			String productName = req.getParameter("productname");
+			Integer productPrice = Integer.valueOf(req.getParameter("productprice"));
+			Integer saleQty = Integer.valueOf(req.getParameter("saleQty"));
+			Integer storageQty = Integer.valueOf(req.getParameter("storageQty"));
+
+			java.sql.Timestamp shelfTime = null;
+			String shelfTimeStr = req.getParameter("uptime");
+			if (shelfTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
+					shelfTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
+				}
+			} else {
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
+			}
+
+			java.sql.Timestamp offsaleTime = null;
+			String offsaleTimeStr = req.getParameter("uptime");
+			if (offsaleTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
+					System.out.println(localDateTime);
+					offsaleTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
+				}
+			} else {
+
+			}
+
+			String productIntroduction = req.getParameter("productIntroduction");
+			String productDec = req.getParameter("productDescription");
+
+			String category = req.getParameter("selectedFoodType");
+
+			String selectedFoodType = req.getParameter("selectedFoodType");
+			String selectedKitchenType = req.getParameter("selectedKitchenType");
+
+			Integer ingredientCategoryNo = null;
+			Integer kitchenwareCategoryNo = null;
+
+			if (selectedFoodType != null && !selectedFoodType.isEmpty()) {
+				try {
+					ingredientCategoryNo = Integer.valueOf(selectedFoodType);
+				} catch (NumberFormatException e) {
+					// 处理无效的整数值
+					ingredientCategoryNo = null; // 设置为0
+				}
+			}
+
+			if (selectedKitchenType != null && !selectedKitchenType.isEmpty()) {
+				try {
+					kitchenwareCategoryNo = Integer.valueOf(selectedKitchenType);
+				} catch (NumberFormatException e) {
+					// 处理无效的整数值
+					kitchenwareCategoryNo = null; // 设置为0
+				}
+			}
+
+			Part filePart = req.getPart("productImage");
+			InputStream fileContent = filePart.getInputStream();
+
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+			while ((bytesRead = fileContent.read(buffer)) != -1) {
+				outputStream.write(buffer, 0, bytesRead);
+			}
+
+			byte[] imageBytes = outputStream.toByteArray();
+
+//			System.out.println(imageBytes);
+//			System.out.println(Category2);
+
+//			***************************
+//			 * 2.開始新增資料
+//			 *****************************************/
+			ProductService productSvc = new ProductService();
+			ProductVO productVO = new ProductVO();
+			productVO.setProductName(productName);
+			productVO.setProductPrice(productPrice);
+			productVO.setProductDec(productDec);
+			productVO.setProductIntroduction(productIntroduction);
+			productVO.setProductPicture(imageBytes);
+			productVO.setSaleQty(saleQty);
+			productVO.setStorageQty(storageQty);
+			productVO.setOffsaleTime(offsaleTime);
+			productVO.setShelfTime(shelfTime);
+
+			if (category.equals("foodType")) {
+				productVO.setIngredientCategoryNo(ingredientCategoryNo);
+				productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
+			} else {
+				productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
+				productVO.setIngredientCategoryNo(ingredientCategoryNo);
+			}
+			;
+
+			String message = productSvc.insert(productVO);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+
+			// 创建一个 Map 来存储消息和 productVO 数据
+			Map<String, Object> responseMap = new HashMap<>();
+			responseMap.put("message", message);
+			responseMap.put("productInfo", productVO);
+
+			// 使用 Gson 将对象转换为 JSON 字符串
+			Gson gson = new Gson();
+			String productJson = gson.toJson(responseMap);
+
+			// 设置响应的内容类型为 JSON
+			res.setContentType("application/json");
+
+			// 将 JSON 字符串写入响应输出流
+			res.getWriter().write(productJson);
+
+		}
+
+		if ("getDetail".equals(action)) {
+
+			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+			ProductService productSvc = new ProductService();
+			ProductVO productVO = productSvc.getOneProduct(productNo);
+
+			KitchenwareCategoryService KitchenwareSvc = new KitchenwareCategoryService();
+			List<KitchenwareCategoryVO> KitchenwareCategoryVO = KitchenwareSvc.getAll();
+
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+			for (KitchenwareCategoryVO item : KitchenwareCategoryVO) {
+				Map<String, String> itemMap = new HashMap<>();
+
+				String categoryNo = item.getKitchenwareCategoryNo().toString();
+				String categoryName = item.getCategoryName();
+				itemMap.put("kitchenwareCategoryNo", categoryNo);
+				itemMap.put("categoryName", categoryName);
+				itemMap.put("categoryTag", "廚具");
+
+				// 将 HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+
+			IngredientService IngredientSvc = new IngredientService();
+			List<IngredientCategoryVO> listingredientCategoryVO = IngredientSvc.getAll();
+
+			List<Map<String, String>> dataMapList2 = new ArrayList<>();
+			for (IngredientCategoryVO item : listingredientCategoryVO) {
+
+				Map<String, String> itemMap = new HashMap<>();
+
+				String categoryNo = item.getIngredientCategoryNo().toString();
+
+				String categoryName = item.getCategoryName();
+				itemMap.put("ingredientCategoryNo", categoryNo);
+				itemMap.put("categoryName", categoryName);
+				itemMap.put("categoryTag", "食材");
+
+				dataMapList2.add(itemMap);
+			}
+
+			Map<String, Object> productDetailMap = new HashMap<>();
+
+			productDetailMap.put("productName", productVO.getProductName());
+			productDetailMap.put("productPrice", productVO.getProductPrice());
+			productDetailMap.put("saleQty", productVO.getSaleQty());
+			productDetailMap.put("storageQty", productVO.getStorageQty());
+			productDetailMap.put("shelfTime", productVO.getShelfTime());
+			productDetailMap.put("offsaleTime", productVO.getOffsaleTime());
+			productDetailMap.put("productIntroduction", productVO.getProductIntroduction());
+			productDetailMap.put("productDescription", productVO.getProductDec());
+
+			if (productVO.getIngredientCategory() != null) {
+				productDetailMap.put("selectedPart", "foodType");
+				productDetailMap.put("selectedFoodType", productVO.getIngredientCategoryNo());
+			} else {
+				productDetailMap.put("selectedPart", "kitchenType");
+				productDetailMap.put("selectedKitchenType", productVO.getKitchenwareCategoryNo());
+			}
+			// 读取图像文件并编码为Base64字符串
+			byte[] productPicture = productVO.getProductPicture();
+			if (productPicture != null) {
+				String productImage = Base64.getEncoder().encodeToString(productPicture);
+				productDetailMap.put("productImage", productImage);
+			} else {
+				// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
+				productDetailMap.put("productImage", "");
+			}
+			productDetailMap.put("foodTypeOptions", dataMapList2);
+			productDetailMap.put("kitchenTypeOptions", dataMapList);
+			// 2. 使用Gson将Map对象转换为JSON字符串
+			Gson gson = new Gson();
+			String productDetailJson = gson.toJson(productDetailMap);
+
+			System.out.println(productDetailJson);
+			// 3. 设置响应的内容类型为JSON
+			res.setContentType("application/json; charset=UTF-8");
+
+			// 将JSON字符串作为响应写入输出流
+			res.getWriter().write(productDetailJson);
+
+		}
+		if ("updateProduct".equals(action)) {
+			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
+
+			String productName = req.getParameter("productname");
+
+			Integer productPrice = Integer.valueOf(req.getParameter("productprice"));
+			Integer saleQty = Integer.valueOf(req.getParameter("saleQty"));
+			Integer storageQty = Integer.valueOf(req.getParameter("storageQty"));
+
+			java.sql.Timestamp shelfTime = null;
+			String shelfTimeStr = req.getParameter("uptime");
+			if (shelfTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
+					shelfTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
+				}
+			} else {
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
+			}
+
+			java.sql.Timestamp offsaleTime = null;
+			String offsaleTimeStr = req.getParameter("uptime");
+			if (offsaleTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
+					System.out.println(localDateTime);
+					offsaleTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
+				}
+			} else {
+
+			}
+
+			String productIntroduction = req.getParameter("productIntroduction");
+			String productDec = req.getParameter("productDescription");
+			System.out.println(productDec);
+			String category = req.getParameter("selectedPart");
+
+			String selectedFoodType = req.getParameter("selectedFoodType");
+			String selectedKitchenType = req.getParameter("selectedKitchenType");
+
+			Integer ingredientCategoryNo = null;
+			Integer kitchenwareCategoryNo = null;
+
+			if (category.equals("foodType")) {
+				try {
+					ingredientCategoryNo = Integer.valueOf(selectedFoodType);
+					kitchenwareCategoryNo = null;
+				} catch (NumberFormatException e) {
+					// 处理无效的整数值
+					ingredientCategoryNo = null; // 设置为0
+				}
+			} else {
+				kitchenwareCategoryNo = Integer.valueOf(selectedKitchenType);
+				ingredientCategoryNo = null;
+			}
+
+			Part filePart = req.getPart("productImage");
+			String fileName = filePart.getSubmittedFileName();
+			System.out.println(fileName);
+			System.out.println(filePart);
+			byte[] imageBytes = null;
+
+			if (filePart != null) {
+				fileName = filePart.getSubmittedFileName();
+				if (fileName != null && !fileName.isEmpty()) {
+					System.out.println("New file uploaded");
+					// 处理新文件上传逻辑
+					InputStream fileContent = filePart.getInputStream();
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					byte[] buffer = new byte[4096];
+					int bytesRead;
+
+					while ((bytesRead = fileContent.read(buffer)) != -1) {
+						outputStream.write(buffer, 0, bytesRead);
+					}
+
+					imageBytes = outputStream.toByteArray();
+				} else {
+					System.out.println("No new file uploaded");
+					ProductService productSvc = new ProductService();
+					imageBytes = productSvc.getOneProduct(productNo).getProductPicture();
+					System.out.println("old picture");
+					// 处理未上传新文件的逻辑
+				}
+			}
+
+//			***************************
+//			 * 2.開始新增資料
+//			 *****************************************/
+			ProductService productSvc = new ProductService();
+			ProductVO productVO = new ProductVO();
+			productVO.setProductNo(productNo);
+			productVO.setProductName(productName);
+			productVO.setProductPrice(productPrice);
+			productVO.setProductDec(productDec);
+			productVO.setProductIntroduction(productIntroduction);
+			productVO.setProductPicture(imageBytes);
+			productVO.setSaleQty(saleQty);
+			productVO.setStorageQty(storageQty);
+			productVO.setOffsaleTime(offsaleTime);
+			productVO.setShelfTime(shelfTime);
+
+			if (category.equals("foodType")) {
+				productVO.setIngredientCategoryNo(ingredientCategoryNo);
+				productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
+			} else {
+				productVO.setKitchenwareCategoryNo(kitchenwareCategoryNo);
+				productVO.setIngredientCategoryNo(ingredientCategoryNo);
+			}
+			;
+
+			String message = productSvc.update(productVO);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+
+			// 创建一个 Map 来存储消息和 productVO 数据
+			Map<String, Object> responseMap = new HashMap<>();
+			responseMap.put("message", message);
+			responseMap.put("productInfo", productVO);
+
+			// 使用 Gson 将对象转换为 JSON 字符串
+			Gson gson = new Gson();
+			String productJson = gson.toJson(responseMap);
+
+			// 设置响应的内容类型为 JSON
+			res.setContentType("application/json; charset=UTF-8");
+
+			// 将 JSON 字符串写入响应输出流
+			res.getWriter().write(productJson);
+		}
+
+		if ("getHotKeywords".equals(action)) {
+			JedisPool jedisPool = JedisUtil.getJedisPool();
+			Jedis jedis = jedisPool.getResource();
+			List<Map<String, String>> hotKeywordsList = new ArrayList<>();
+			try {
+				jedis.select(3);
+				Set<String> hotKeywordSet = jedis.smembers("daily_random_product_names");
+
+				for (String keyword : hotKeywordSet) {
+					Map<String, String> keywordMap = new HashMap<>();
+					keywordMap.put("productName", keyword);
+					keywordMap.put("keyword", keyword);
+					hotKeywordsList.add(keywordMap);
+				}
+			} finally {
+				jedis.close();
+			}
+
+			// 使用 Gson 将对象转换为 JSON 字符串
+			Gson gson = new Gson();
+			String productJson = gson.toJson(hotKeywordsList);
+
+			// 设置响应的内容类型为 JSON
+			res.setContentType("application/json; charset=UTF-8");
+
+			// 将 JSON 字符串写入响应输出流
+			res.getWriter().write(productJson);
+
+		}
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -118,7 +788,7 @@ public class ProductServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // �Ӧ�update_emp_input.jsp���ШD
-			
+
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.

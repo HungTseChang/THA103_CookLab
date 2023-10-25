@@ -26,11 +26,11 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/dashboard/assets/css/app.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/dashboard/assets/css/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/resizable-columns/1.1.0/css/resizable-columns.min.css">
     
     <style>
@@ -69,7 +69,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="${pageContext.request.contextPath}/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -209,7 +209,7 @@
                                     <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
                                 </li>
                                 <li class="submenu-item active">
-                                    <a href="${pageContext.request.contextPath}/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="WCC_official_notify.html">系統通知</a>
@@ -253,8 +253,27 @@
     <section class="section">
                     <div class="card">
                         <div class="card-header">
+                                <span style="font-size: 30px;">文章檢舉</span>
                         </div>
                         <div class="card-body" style="width: 100%; overflow: scroll">
+						  <div class="row" style="background-color: white">
+                        
+                         <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;">
+                        <select class="wcc" id="selectsearch" style="background-color:white; padding-left: 20px;: border-color:white;">
+                        <option value="articleReportNo">檢舉編號</option>
+                        <option value="reporterId">檢舉者ID</option>              
+                       <option value="reporterAccount">檢舉者帳號</option>                                 
+                        <option value="reporterNikname">檢舉者暱稱</option>
+                         <option value="articleNo">文章編號</option>
+                        <option value="articleTitle">文章名稱</option>   
+                        <option value="reportingStatus">檢舉狀態</option>                                           
+                          <option value="createdTimestamp">時間</option>                       
+                        <option value="wcc" selected>所有欄位</option>
+                        </select>                          </div>    
+                               <div class="col-md-6"  >                     
+                       <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 編號、ID、帳號、暱稱或時間" style="pading-color:  rgb(208, 250, 255);" >
+
+                              </div>
                         <div class="datable dropdown">
                         <select class="wcc" id="select1">
                         <option value="5">5</option>
@@ -267,23 +286,25 @@
                             <table class="table table-striped" id="table1" style="scrollCollapse: true">
                                 <thead>
                                     <tr>
-                                        <th class="resizable">文章檢舉編號</th>
-                                        <th class="resizable">會員編號(檢舉者)</th>
-                                        <th class="resizable">會員暱稱(檢舉者)</th>
-                                        <th class="resizable">文章編號</th>
-                                        <th class="resizable">文章名稱</th>                
-                                        <th class="resizable">檢舉理由</th>
-                                        <th class="resizable">檢舉狀態</th>
-                                        <th class="resizable">檢舉時間</th>
+                                        <th class="resizable number articleReportNo" name="articleReportNo">文章檢舉編號</th>
+                                        <th class="resizable number reporterId"name="reporterId">會員編號(檢舉者)</th>
+                                        <th class="resizable reporterAccount"name=" reporterAccount">會員帳號(檢舉者)</th>                                    
+                                        <th class="resizable reporterNikname"name=" reporterNikname">會員暱稱(檢舉者)</th>
+                                        <th class="resizable number articleNo"name="articleNo">文章編號</th>
+                                        <th class="resizable articleTitle"name=" articleTitle">文章名稱</th>                
+                                        <th class="resizable reportingReason"name=" reportingReason">檢舉理由</th>
+                                        <th class="resizable reportingStatus"name=" reportingStatus">檢舉狀態</th>
+                                        <th class="resizable createdTimestamp"name=" createdTimestamp">檢舉時間</th>
                                         <th class="resizable">操作</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="tbody">
 
 
                                 </tbody>
                             </table>
                         </div>
+                                                      </div>
                     </div>
    <div class="pagination">
         <span class="page-item wcc" id="prev-page">上一頁</span>
@@ -303,36 +324,95 @@
         </div>
     </div>
 
-<script src="${pageContext.request.contextPath}/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+<script src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        	console.log("A");
-        	var myList;     
-        	var nikname;
-               var title;     	
-               var rowsPerPage = 5;
-               var currentPage = 1;
-        	if('${json}'){
-        	 myList=JSON.parse('${json}');
-         	title = JSON.parse('${title}');
-        	nikname = JSON.parse('${nickname}');
-        	}else{ 
-        		console.log("reload");
-        		var form = $("<form>", {
-                    action: "${pageContext.request.contextPath}/ArticleReportServlet", // 表单提交的URL
-                    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
-                });
-        	    
-        	       form.append($("<input>", {
-                       type: "text",
-                       name: "action",
-                       value: "getArticleReport"
-                   }));
-        	       form.appendTo("body").hide();
-        	       form.submit();
-        	       form.remove();
-        			console.log("reload");
-        	}
+//         	===========================================
+   $("#searchbar").on("keyup", function() {
+    var value1 = $(this).val().toLowerCase();
+    var detail = "td"+"."+$("#selectsearch").val();
+    $("#tbody tr").filter(function() {
+      $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
+    });
+  });
+        		
+//         =====================================
+	var myList;     
+	var nikname;
+       var title;     	
+       var account;
+       var rowsPerPage =5;
+       var currentPage = 1;
+	if('${json}'){
+	 myList=JSON.parse('${json}');
+ 	title = JSON.parse('${title}');
+	nikname = JSON.parse('${nickname}');
+	account = JSON.parse('${account}');
+	}else{ 
+		console.log("reload");
+		var form = $("<form>", {
+            action: "<%=request.getContextPath()%>/ArticleReportServlet", // 表单提交的URL
+            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+        });
+	    
+	       form.append($("<input>", {
+               type: "text",
+               name: "action",
+               value: "getArticleReport"
+           }));
+	       form.appendTo("body").hide();
+	       form.submit();
+	       form.remove();
+			console.log("reload");
+	}
+	
+	
+	
+	
+	var textall = "";
+	var tbodyall;
+
+	var onload = function(){
+		let tableBodya = $("table#table1").children("tbody");
+		let text = "";
+ 	   for (let i=0;i <  myList.length;i++){
+     	  let aa = myList[i];
+     	  let status ={
+     			  0:" <span class='badge bg-success'>已處理</span>",
+     			  1:" <span class='badge bg-danger'>未處理</span>",
+     	  }		
+     	  let text = "";
+		  text += "<tr>";
+		  text += "<td class='wcc articleReportNo'>"+aa.articleReportNo+"</td>";
+		  text +=" <td class='wcc reporterId'>"+aa.reporterId+"</td>";
+		  text +=" <td class='wcc  reporterAccount'>"+account[i]+"</td>";
+		  text +=" <td class='wcc  reporterNikname'>"+nikname[i]+"</td>";
+		  text +=" <td class='wcc articleNo'>"+aa.articleNo+"</td>";
+		  text +=" <td class='wcc articleTitle'>"+title[i]+"</td>";
+		  text +=" <td class='wcc reportingReason'>"+aa.reportingReason+"</td>";
+		  text +=" <td class='wcc reportingStatus'>"+status[aa.reportingStatus]+"</td>";
+		  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
+		  text += "<td>";
+    	  text +=  " <form action='<%=request.getContextPath()%>/ArticleReportServlet' method='get'>"; 
+    	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
+		  text += "<input type='hidden' name='articleReportNo' value='";
+		  text += aa.articleReportNo+"'>";
+		  text += "<input type='hidden' name='action' value='changeData'></form></td>";
+		  text += "</tr>";	
+		  textall+=text;
+}
+ 	  tableBodya.append(textall);
+ 	 tbodyall =$('#tbody tr').toArray();
+	}
+	
+	
+	
+	
+	
+	//         =====================================
+
+        	
+
 
 
 function updateTable() {    
@@ -343,33 +423,10 @@ tableBody.empty();
 
           for(let i = startIndex ; i<endIndex ;i++){
         	  
-        	   if (i <  myList.length){
-        	  let aa = myList[i];
-        	  let status ={
-        			  0:" <span class='badge bg-success'>已處理</span>",
-        			  1:" <span class='badge bg-danger'>未處理</span>",
-        	  }
+        	   if (i <  tbodyall.length){
+        	  let aa = tbodyall[i];
 
-        	  let text = "";
-        		  text += "<tr>";
-        		  text += "<td class='wcc'>"+aa.articleReportNo+"</td>";
-        		  text +=" <td class='wcc'>"+aa.reporterId+"</td>";
-        		  text +=" <td>"+nikname[i]+"</td>";
-        		  text +=" <td class='wcc'>"+aa.articleNo+"</td>";
-        		  text +=" <td>"+title[i]+"</td>";
-        		  text +=" <td>"+aa.reportingReason+"</td>";
-        		  text +=" <td>"+status[aa.reportingStatus]+"</td>";
-        		  text +=" <td>"+aa.createdTimestamp+"</td>";
-        		  text += "<td>";
-            	  text +=  " <form action='${pageContext.request.contextPath}/ArticleReportServlet' method='get'>"; 
-            	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
-        		  text += "<input type='hidden' name='articleReportNo' value='";
-        		  text += aa.articleReportNo+"'>";
-        		  text += "<input type='hidden' name='action' value='changeData'></form></td>";
-        		  text += "</tr>";
-          		console.log("A"+nikname);
-        		console.log("B"+title);
-           $("table#table1").children("tbody").append(text);
+           $("table#table1").children("tbody").append(aa);
         	   }
           }
           $("#current-page").text(currentPage);
@@ -398,18 +455,50 @@ $("#select1").change(function() {
                   updateTable();
               }
           });
+         
+//         ==============
+$(document).on("click","tr th.number",function(e){
+	var column ="td."+$(e.target).attr("name");
+	var textArray = [];
+	$(column).each(function() {
+	    textArray.push($(this).text());
+	});
+	var sortedArray = textArray.slice().sort();
+	var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
+if(isSorted){
+	tbodyall.sort(function(a,b){
+		var dateA = $(a).find(column).text(); 
+        var dateB = $(b).find(column).text();
+        return dateB - dateA;
+	})
+	
+}else{
+	tbodyall.sort(function(a,b){
+		var dateA = $(a).find(column).text(); 
+        var dateB = $(b).find(column).text();
+        return dateA - dateB;
+	})
+}
+    updateTable();
+
+	 
+	})
+	
+	
+// 	==============
           
+      onload();    
           updateTable();
         })
         
          </script>
     
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets/js/main.js"></script>
-    <script src="${pageContext.request.contextPath}/dashboard/assets\js\menu_ative.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
 
 </body>
 

@@ -434,9 +434,10 @@ CREATE TABLE advertise (
 CREATE TABLE notify_center (
 	notify_no 			INT AUTO_INCREMENT  PRIMARY KEY,
 	member_id  			INT NOT NULL,
-	notify_type 		INT,
-	notify_read 		TINYINT,
+	notify_type 		TINYINT,
+	notify_read 		TINYINT DEFAULT 0 ,
 	notify_content 		VARCHAR(500),
+	notifytime	DATETIME,
 	created_timestamp	DATETIME DEFAULT now(),
     CONSTRAINT notify_center_fk FOREIGN KEY(member_id) REFERENCES members(member_id) 
 ); 
@@ -469,8 +470,8 @@ CREATE TABLE support_form (
 	reply_email  				VARCHAR(100) NOT NULL,
     form_context 				LONGTEXT NOT NULL,
     form_title					VARCHAR(100) NOT NULL,
-    form_status					TINYINT NOT NULL,
-    form_source					VARCHAR(30) NOT NULL,
+    form_status					TINYINT NOT NULL DEFAULT 0,
+    form_source					TINYINT NOT NULL,
 	form_submitter				VARCHAR(30) NOT NULL,
     form_responder				INT,
     created_timestamp 			DATETIME DEFAULT now(),

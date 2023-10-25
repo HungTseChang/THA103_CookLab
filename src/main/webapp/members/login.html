@@ -256,7 +256,7 @@
 	        // 请求失败后的处理
 	        console.error("获取数据失败");
 	    }
-	});
+	  });
     
     
     
@@ -297,37 +297,30 @@
 	      type: "POST",
 	      url: "http://localhost:8081/CookLab/Sign", // 替换为你的Servlet的URL
 	      data: data,
-	      success: function (data) {
-
-	        // 在请求成功后执行的操作
-	        // response 變量包含来自Servlet的響應數據
-            console.log(data);
-          	var res = JSON.parse(data);
-            console.log(res);
-            if(res.wrongType == null)
+	      success: function (res) {
+          console.log(res);
+            if(res.wrongType === undefined)
             {
+              
               if(res.RedirectURL  === undefined)
-                location.href = "http://localhost:8081/CookLab/members/member-panel.html";	
+                location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";	
               else
                 //重導至首頁
                 location.href  = res.RedirectURL;
             }
             else
             {
-              switch(res.wrongType)
+              if(res.wrongType == 1)
               {
-                case 1:
-                  alert("1");
-                break;
-                case 2:
-                  alert("2");
-
-                break;
-
-                case 3:
-                  alert("3");
-
-                break;
+                  alert("密碼不正確");
+              }
+              else if(res.wrongType == 2)
+              {
+                  alert("請輸入密碼");
+              }
+              else if(res.wrongType == 3)
+              {
+                  alert("查無此帳號");
               }
             }
 	        

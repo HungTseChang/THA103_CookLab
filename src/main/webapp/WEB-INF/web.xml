@@ -22,6 +22,7 @@
         <url-pattern>/AdminsServlet</url-pattern>
         <url-pattern>/PermissionServlet</url-pattern>    
         <url-pattern>/ArticleReportServlet</url-pattern>    
+        <url-pattern>/ArticleSubReportServlet</url-pattern>    
         <url-pattern>//MemberdashboardServlet</url-pattern>    
     </filter-mapping>
 

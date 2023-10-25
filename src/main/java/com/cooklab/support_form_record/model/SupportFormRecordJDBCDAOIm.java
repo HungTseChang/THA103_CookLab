@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import com.cooklab.util.*;
@@ -18,7 +17,7 @@ public class SupportFormRecordJDBCDAOIm implements SupportFormRecordDAO {
 	private static final String GET_ALL_STMT = "SELECT record_no,form_no,record_context,admin_no,created_timestamp from support_form_record";
 
 	@Override
-	public void insert(SupportFormRecordVO supportFormRecord) {
+	public Integer insert(SupportFormRecordVO supportFormRecord) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -58,11 +57,12 @@ public class SupportFormRecordJDBCDAOIm implements SupportFormRecordDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 
 	@Override
-	public void update(SupportFormRecordVO supportFormRecord) {
+	public Integer update(SupportFormRecordVO supportFormRecord) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -104,11 +104,12 @@ public class SupportFormRecordJDBCDAOIm implements SupportFormRecordDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 
 	@Override
-	public void delete(Integer recordNo) {
+	public Integer delete(Integer recordNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -147,6 +148,7 @@ public class SupportFormRecordJDBCDAOIm implements SupportFormRecordDAO {
 				}
 			}
 		}
+		return recordNo;
 
 	}
 

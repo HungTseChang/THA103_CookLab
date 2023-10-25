@@ -102,6 +102,7 @@ public class ArticleReportServlet extends HttpServlet {
 		 List<ArticleReportVO> list1=   ahbdao.getAll();
 		 List<String> listtitle =new ArrayList<String>();
 		 List<String> listnickname = new ArrayList<String>();
+		 List<String> listaccount = new ArrayList<String>();
 		 List<ArticleReportVOFake> list2 = new ArrayList<ArticleReportVOFake>();
 //		 System.out.println("嘗試")
 		 for(int i = 0 ; i < list1.size();i++) {
@@ -109,16 +110,17 @@ public class ArticleReportServlet extends HttpServlet {
 			 list2.add(ArticleReportVOFake);
 			 listtitle.add(list1.get(i).getArticleVO().getArticleTitle());
 			 listnickname.add( list1.get(i).getMembersVO().getMemberNickname()  );
+			 listaccount.add( list1.get(i).getMembersVO().getMemberAccount()  );
 		 }
 		 String json = new Gson().toJson(list2);
 		 String title = new Gson().toJson(listtitle);
 		 String nickname =new Gson().toJson(listnickname);
-		 System.out.print(title);
-		 System.out.print(nickname);
+		 String account =new Gson().toJson(listaccount);
 
 		 req.setAttribute("json",json);
 		 req.setAttribute("title",title);
 		 req.setAttribute("nickname",nickname);
+		 req.setAttribute("account",account);
 
 		
 		return "/dashboard/article_report/WCC_article_report.jsp";

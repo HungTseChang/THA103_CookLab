@@ -145,10 +145,8 @@ public class SupportFormJDBCServlet extends HttpServlet {
 				errorMsgs.add("表單狀態請填數字.");
 			}
 
-			String formSource = req.getParameter("formSource").trim();
-			if (formSource == null || formSource.trim().length() == 0) {
-				errorMsgs.add("表單來源請勿空白");
-			}
+			Byte formSource = null;
+			formSource =  Byte.valueOf(req.getParameter("formSource"));
 
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 			if (formSubmitter == null || formSubmitter.trim().length() == 0) {
@@ -238,11 +236,9 @@ public class SupportFormJDBCServlet extends HttpServlet {
 				errorMsgs.add("表單狀態請填數字.");
 			}
 
-			String formSource = req.getParameter("formSource").trim();
-//			if (formSource == null || formSource.trim().length() == 0) {
-//				errorMsgs.add("表單來源請勿空白");
-//			}
-//
+			Byte formSource = null;
+			formSource =  Byte.valueOf(req.getParameter("formSource"));
+			
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 //			if (formSubmitter == null || formSubmitter.trim().length() == 0) {
 //				errorMsgs.add("表單建立者請勿空白");
