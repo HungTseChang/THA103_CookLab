@@ -25,11 +25,11 @@ import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
 import com.cooklab.recipe_reaction.model.RecipeReactionVO;
 import com.cooklab.recipe_report.model.RecipeReportVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name = "recipe")
 public class RecipeVO implements java.io.Serializable {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "recipe_no", insertable = false, updatable = false)
@@ -44,7 +44,7 @@ public class RecipeVO implements java.io.Serializable {
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")
 	private Set<RecipeCommentsVO> comments;
-
+	
 	// 食譜檢舉關聯
 	@OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
 	@OrderBy("recipe_no asc")

@@ -368,7 +368,8 @@ $("#publish").on("click", function () {
             // "X-CSRF-Token":"abcde"   // 參考寫法
         },
         success: function (data) {
-            if (data == "sucess") {
+            if (data.sucess !=null) {
+                window.location.href = "http://localhost:8081/CookLab/recipe/recipe_browse.html?recipeNo="+data.sucess;
             } else {
                 alert(data);
             }

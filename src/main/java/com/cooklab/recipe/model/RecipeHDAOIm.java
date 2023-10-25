@@ -5,17 +5,13 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-
 public class RecipeHDAOIm implements RecipeDAO {
-	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
 	private SessionFactory factory;
 
 	public RecipeHDAOIm(SessionFactory factory) {
 		this.factory = factory;
 	}
 
-	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-	// 以避免請求執行緒共用了同個 Session
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
@@ -54,6 +50,17 @@ public class RecipeHDAOIm implements RecipeDAO {
 	@Override
 	public List<RecipeVO> getAll() {
 		return getSession().createQuery("from RecipeVO", RecipeVO.class).list();
+	}
+
+	@Override
+	public List<RecipeVO> getByPage(Integer offset, Integer limit) {
+		return getSession().createQuery("from RecipeVO where recipeStatus = 0", RecipeVO.class).setFirstResult(offset)
+				.setMaxResults(limit).list();
+	}
+
+	@Override
+	public long getCount() {
+		return (long) getSession().createQuery("select count(*) from RecipeVO").uniqueResult();
 	}
 
 }
