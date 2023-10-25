@@ -312,7 +312,7 @@
                                                                 <label>會員編號(文章作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleReportVO.getArticleVO().getMemberId()}" disabled>
+                                                                <input type="text" value="${MembersVO.getMemberId()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label>會員帳號(文章作者)</label>
@@ -321,7 +321,7 @@
                                                                 <input type="text" value="${MembersVO.getMemberAccount()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員暱稱(食譜作者)</label>
+                                                                <label>會員暱稱(文章作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
                                                                 <input type="text" value="${MembersVO.getMemberNickname()}" disabled>
