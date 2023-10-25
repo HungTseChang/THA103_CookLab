@@ -1,6 +1,8 @@
 package com.cooklab.recipe_hashtag.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +40,9 @@ public class RecipeHashtagServlet extends HttpServlet{
 				HashtagVO hashtagVO = new HashtagService().findByHashtagName(listRecipeHashtag[i]);
 				RecipeHashtagVO recipeHashtagVO = new RecipeHashtagService().addRecipeHashtag(hashtagVO, recipeVO);
 			}
-			res.getWriter().write(gson.toJson("sucess"));
+			Map<String, String> mapSucess= new HashMap<>();
+			mapSucess.put("sucess", recipeVO.getRecipeNo().toString());
+			res.getWriter().write(gson.toJson(mapSucess));
 			return;
 		}
 

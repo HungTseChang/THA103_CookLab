@@ -70,4 +70,11 @@ public class RecipeService {
 	public List<RecipeVO> getAll() {
 		return dao.getAll();
 	}
+	public List<RecipeVO> getByPage(Integer offset,Integer limit) {
+		return dao.getByPage(offset, limit) ;
+	}
+
+	public long getCount() {
+		return dao.getCount();
+	}
 }
