@@ -92,4 +92,8 @@ public class ProductService {
 	public String insert(ProductVO product) {
 		return dao.insert(product);
 	}
+	
+	public String update(ProductVO productVO) {
+		return dao.update(productVO);
+	}
 }

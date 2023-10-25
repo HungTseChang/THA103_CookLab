@@ -1,5 +1,12 @@
 // 在页面加载后执行
 $(document).ready(function () {
+  var quill = new Quill("#full", {
+    bounds: "#full-container .editor",
+    modules: {
+      toolbar: [[{ font: [] }, { size: [] }], ["bold", "italic", "underline", "strike"], [{ color: [] }, { background: [] }], [{ script: "super" }, { script: "sub" }], [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }], ["direction", { align: [] }], ["link", "image", "video"], ["clean"]],
+    },
+    theme: "snow",
+  });
   console.log("Document is ready.");
   // 获取URL参数
   const urlParams = new URLSearchParams(window.location.search);
@@ -13,10 +20,17 @@ $(document).ready(function () {
     dataType: "json",
     success: function (data) {
       console.log(data);
+      console.log(data.productDescription);
+      var img = new Image();
+      img.src = "data:image/jpeg;base64," + data.productImage;
+      img.onload = function () {
+        console.log("Image loaded successfully.");
+      };
+      img.onerror = function () {
+        console.log("Image failed to load.");
+      };
 
       // 填充食材和廚具種類的下拉選項
-      console.log(data.foodTypeOptions);
-      console.log(data.kitchenTypeOptions);
       populateSelectOptions1("foodTypeOptions", data.foodTypeOptions);
       populateSelectOptions2("kitchenTypeOptions", data.kitchenTypeOptions);
 
@@ -26,14 +40,12 @@ $(document).ready(function () {
       $("#saleQty-vertical").val(data.saleQty);
       $("#storageQty-vertical").val(data.storageQty);
       $("#selectedPart").val(data.selectedPart);
+      $("#preview img.preview_img").attr("src", "data:image/jpeg;base64," + data.productImage);
 
       // 从服务器端接收的数据
       var selectedPart = data.selectedPart;
       var selectedFoodType = data.selectedFoodType;
       var selectedKitchenType = data.selectedKitchenType;
-      console.log(selectedFoodType);
-      console.log(selectedKitchenType);
-
       // 设置选择框的值
       $("#partSelect").val(selectedPart);
 
@@ -55,13 +67,7 @@ $(document).ready(function () {
 
       // 商品簡介和詳情的填充
       $("#floatingTextarea").text(data.productIntroduction);
-
-      // 找到包含商品详情的 div 元素
-      var editorDiv = $(".ql-editor");
-      // 在该 div 中找到 p 标签
-      var pTag = editorDiv.find("p");
-      // 设置 p 标签的文本内容为商品详情
-      pTag.html(data.productDescription);
+      $("#full .ql-editor").html(data.productDescription);
 
       // 从服务器接收的日期字符串
       var shelfTimeStr = data.shelfTime;
@@ -81,7 +87,7 @@ $(document).ready(function () {
     },
     error: function (xhr) {
       console.log(xhr.responseText);
-      alert("请求数据失败");
+      alert("error");
     },
   });
 });
@@ -113,11 +119,72 @@ function populateSelectOptions2(containerId, options) {
 // 格式化日期函数
 function formatDate(date) {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');  // 月份从0开始，所以需要加1
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // 月份从0开始，所以需要加1
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+//============更新===============================
+$("#update").click(function (e) {
+  e.preventDefault();
+
+  // 收集表单数据
+  var formData = new FormData();
+  e.preventDefault(); // 阻止默认表单提交行为
+  console.log("a");
+  // 创建一个 FormData 对象
+  var formData = new FormData();
+  // 获取选中的食材或廚具種類的值
+  var selectedFoodType = $("#foodTypeOptions select").val();
+  var selectedKitchenType = $("#kitchenTypeOptions select").val();
+  // 添加表单数据到 FormData 对象
+  formData.append("productname", $("#productname-vertical").val());
+  formData.append("productprice", $("#productprice-vertical").val());
+  formData.append("saleQty", $("#saleQty-vertical").val());
+  formData.append("storageQty", $("#storageQty-vertical").val());
+  formData.append("uptime", $("#uptime-vertical").val());
+  formData.append("downtime", $("#downtime-vertical").val());
+  formData.append("selectedPart", $("#partSelect").val());
+  formData.append("selectedFoodType", selectedFoodType);
+  formData.append("selectedKitchenType", selectedKitchenType);
+  // 添加商品简介和详细描述到 FormData 对象
+  formData.append("productIntroduction", $("#floatingTextarea").val());
+  formData.append("productDescription", $("#full .ql-editor").html());
+  formData.append("action", "updateProduct");
+  // 图像文件
+  var productImage = $("#p_file")[0].files[0];
+  formData.append("productImage", productImage);
+  // 商品编号
+  const urlParams = new URLSearchParams(window.location.search);
+  const productNo = urlParams.get("productNo");
+  formData.append("productNo", productNo);
+  console.log(formData);
+  // 执行AJAX请求
+  $.ajax({
+    url: "/CookLab/ProductServlet",
+    type: "POST",
+    data: formData,
+    dataType: "json",
+    processData: false, // 不对数据进行序列化处理
+    contentType: false, // 不设置请求头
+    success: function (data) {
+      // 处理成功响应
+      console.log(data);
+
+      if (data.message === "success") {
+        alert(data.message);
+        window.location.href = "./shopview.html";
+      } else {
+        alert("更新失败");
+      }
+    },
+    error: function (xhr) {
+      // 处理错误响应
+      console.log(xhr.responseText);
+      alert("更新失败");
+    },
+  });
+});

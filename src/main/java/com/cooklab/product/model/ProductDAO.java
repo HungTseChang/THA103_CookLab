@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface ProductDAO {
     public String insert(ProductVO product);
-    public void update(ProductVO product);
+    public String update(ProductVO product);
     public boolean delete(Integer productNo);
     public ProductVO findByPrimaryKey(Integer productNo);
     public List<ProductVO> getAll();

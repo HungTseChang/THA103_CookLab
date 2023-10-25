@@ -175,6 +175,7 @@
                               <input type="file" id="p_file" class="form-control" />
                               <div id="preview">
                                 <span class="text">預覽圖</span>
+                                <img id="productImage" class="preview_img" src="" alt="Product Image" />
                               </div>
                             </div>
                             <div class="col-12" style="margin-top: 20px">
@@ -241,7 +242,7 @@
                                   </div>
                                   <div class="card-body" style="padding-left: 0">
                                     <div style="width: auto; height: auto">
-                                      <div id="editor" contenteditable="false"></div>
+                                      <div id="full" contenteditable="false"></div>
                                       <!--如果改成 true就不能複製貼上WHY?  -->
                                       <textarea id="hiddenContent" name="productIntroduction" style="display: none"></textarea>
                                     </div>
@@ -252,8 +253,7 @@
                           </div>
                           <div class="col-12">
                             <div class="col-12 d-flex justify-content-end">
-                              <button type="submit" class="btn btn-primary me-1 mb-1" id="insert">Submit</button>
-                              <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                              <button type="submit" class="btn btn-primary me-1 mb-1" id="update">保存</button>
                             </div>
                           </div>
                         </div>
@@ -281,6 +281,9 @@
         </footer>
       </div>
     </div>
+    <!--     <script src="../assets/js/quill.js"></script> -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<!--     <script src="../assets/js/pages/form-editor.js"></script> -->
     <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
@@ -288,6 +291,7 @@
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
+
     <script>
       var preview_el = document.getElementById("preview");
       var p_file_el = document.getElementById("p_file");
@@ -295,15 +299,6 @@
         var reader = new FileReader(); // 用來讀取檔案
         reader.readAsDataURL(file); // 讀取檔案
         reader.addEventListener("load", function () {
-          //console.log(reader.result);
-          /*
-								let img_node = document.createElement("img"); // <img>
-								img_node.setAttribute("src", reader.result); // <img src="base64">
-								img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
-								preview_el.innerHTML = '';
-								preview_el.append(img_node);
-								 */
-
           let img_str = '<img src="' + reader.result + '" class="preview_img">';
           preview_el.innerHTML = img_str;
         });
@@ -320,32 +315,6 @@
 
     <!-- Include Choices JavaScript -->
     <script src="../assets/vendors/choices.js/choices.min.js"></script>
-
-    <script src="../assets/vendors/summernote/summernote-lite.min.js"></script>
-    <script>
-      $("#summernote").summernote({
-        tabsize: 2,
-        height: 120,
-      });
-      $("#hint").summernote({
-        height: 100,
-        toolbar: false,
-        placeholder: "type with apple, orange, watermelon and lemon",
-        hint: {
-          words: ["apple", "orange", "watermelon", "lemon"],
-          match: /\b(\w{1,})$/,
-          search: function (keyword, callback) {
-            callback(
-              $.grep(this.words, function (item) {
-                return item.indexOf(keyword) === 0;
-              })
-            );
-          },
-        },
-      });
-    </script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="../assets/js/quill.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/shopudate_sh.js"></script>
   </body>
