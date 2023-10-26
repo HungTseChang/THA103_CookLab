@@ -27,13 +27,13 @@ public class OrderDetailVO implements Serializable {
 
 	// 訂單
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_no", referencedColumnName = "order_no")
+	@JoinColumn(name = "order_no", referencedColumnName = "order_no" ,insertable = false, updatable = false)
 	private MemberOrderVO memberOrder;
 
 
 	// 商品
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_no", referencedColumnName = "product_no")
+	@JoinColumn(name = "product_no", referencedColumnName = "product_no" ,insertable = false, updatable = false)
 	private ProductVO product;
 
 	@Column(name = "order_no")

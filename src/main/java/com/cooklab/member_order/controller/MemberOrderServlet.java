@@ -3,7 +3,9 @@ package com.cooklab.member_order.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -145,7 +147,7 @@ public class MemberOrderServlet extends HttpServlet {
 			
 			JsonArray cartItems = new JsonParser().parse(cartData).getAsJsonArray();
 
-			
+			Set<OrderDetailVO> details = new LinkedHashSet<>();
 			for (int i = 0; i < cartItems.size(); i++) {
 				JsonObject cartItem = cartItems.get(i).getAsJsonObject();
 				int productNo = cartItem.get("productNo").getAsInt();
@@ -158,11 +160,10 @@ public class MemberOrderServlet extends HttpServlet {
 
 				// 訂單明細 訂單關聯
 				orderDetail.setMemberOrder(memberOrder);
-
-				// 将订单明细添加到订单的订单明细集合
-				memberOrder.getOrderDetail().add(orderDetail);
+				
+				details.add(orderDetail);
 			}
-
+			memberOrder.setOrderDetail(details);
 			// 保存订单到数据库（使用 Hibernate 或 JPA）
 			MemberOrderService memberOrderSvc = new MemberOrderService();
 			memberOrderSvc.insert(memberOrder);
