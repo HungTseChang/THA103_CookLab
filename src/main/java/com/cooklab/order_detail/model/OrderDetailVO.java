@@ -27,20 +27,20 @@ public class OrderDetailVO implements Serializable {
 
 	// 訂單
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_no", referencedColumnName = "order_no" ,insertable = false, updatable = false)
+	@JoinColumn(name = "order_no", referencedColumnName = "order_no" , updatable = false)
 	private MemberOrderVO memberOrder;
 
 
 	// 商品
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_no", referencedColumnName = "product_no" ,insertable = false, updatable = false)
+	@JoinColumn(name = "product_no", referencedColumnName = "product_no" , updatable = false)
 	private ProductVO product;
 
-	@Column(name = "order_no")
-	private Integer orderNo;
+//	@Column(name = "order_no")
+//	private Integer orderNo;
 
-	@Column(name = "product_no")
-	private Integer productNo;
+//	@Column(name = "product_no")
+//	private Integer productNo;
 
 	@Column(name = "order_qty")
 	private Integer orderQty;
@@ -75,21 +75,21 @@ public class OrderDetailVO implements Serializable {
 		this.orderDetailNo = orderDetailNo;
 	}
 
-	public Integer getOrderNo() {
-		return orderNo;
-	}
+//	public Integer getOrderNo() {
+//		return orderNo;
+//	}
+//
+//	public void setOrderNo(Integer orderNo) {
+//		this.orderNo = orderNo;
+//	}
 
-	public void setOrderNo(Integer orderNo) {
-		this.orderNo = orderNo;
-	}
-
-	public Integer getProductNo() {
-		return productNo;
-	}
-
-	public void setProductNo(Integer productNo) {
-		this.productNo = productNo;
-	}
+//	public Integer getProductNo() {
+//		return productNo;
+//	}
+//
+//	public void setProductNo(Integer productNo) {
+//		this.productNo = productNo;
+//	}
 
 	public Integer getOrderQty() {
 		return orderQty;
@@ -99,12 +99,7 @@ public class OrderDetailVO implements Serializable {
 		this.orderQty = orderQty;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderDetailVO [orderDetailNo=" + orderDetailNo + ", orderNo=" + orderNo + ", productNo=" + productNo
-				+ ", orderQty=" + orderQty + ", createdTimestamp=" + createdTimestamp + "]";
-	}
-
+	
 	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}

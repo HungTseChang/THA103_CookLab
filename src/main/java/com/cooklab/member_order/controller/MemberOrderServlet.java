@@ -18,6 +18,8 @@ import com.cooklab.member_order.model.MemberOrderVO;
 import com.cooklab.members.model.MembersService;
 import com.cooklab.members.model.MembersVO;
 import com.cooklab.order_detail.model.OrderDetailVO;
+import com.cooklab.product.model.ProductService;
+import com.cooklab.product.model.ProductVO;
 import com.cooklab.promo_code.model.PromoCodeService;
 import com.cooklab.promo_code.model.PromoCodeVO;
 import com.google.gson.Gson;
@@ -152,10 +154,13 @@ public class MemberOrderServlet extends HttpServlet {
 				JsonObject cartItem = cartItems.get(i).getAsJsonObject();
 				int productNo = cartItem.get("productNo").getAsInt();
 				int quantity = cartItem.get("quantity").getAsInt();
-
+				
+				ProductVO productvo = new ProductVO();
+				ProductService productSvc = new ProductService();
+				productvo = productSvc.getOneProduct(productNo);
 				
 				OrderDetailVO orderDetail = new OrderDetailVO();
-				orderDetail.setProductNo(productNo); 
+				orderDetail.setProduct(productvo); 
 				orderDetail.setOrderQty(quantity); 
 
 				// 訂單明細 訂單關聯
