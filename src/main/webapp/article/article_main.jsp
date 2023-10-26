@@ -6,7 +6,8 @@
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
     ArticleService artSvc = new ArticleService();
-    List<ArticleVO> list = artSvc.getAll();
+	Byte test =0;
+	List<ArticleVO> list = artSvc.getStatus(test);
     pageContext.setAttribute("list", list);
 
 	ArticleCategoryService artSvc2 =new ArticleCategoryService();
@@ -223,9 +224,8 @@
 							
 							<%@ include file="page1.file"%>
 							<c:forEach var="artVO" items="${list}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;"
-								>
-								<c:if test="${artVO.articleStatus < 1 }">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
+<%-- 								<c:if test="${artVO.articleStatus < 1 }"> --%>
  								
 									<tr class="title_colum ${artVO.articleNo % 2 == 0 ? 'even' : 'odd'}">
 										<td id="title_colum_td">
@@ -246,7 +246,7 @@
 										${artVO.viewCount}
 										</td>
 									</tr>
- 								</c:if>
+<%--  								</c:if> --%>
  								</FORM>
 							</c:forEach>
 						
@@ -255,8 +255,6 @@
 				</div>
 			
 				<!-- 以下群聊視窗範圍 -->
-<!-- 	<textarea id="messagesArea" class="panel message-area" readonly></textarea> -->
-
 				<div class="col-lg-3">
 					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"
 						href="<%=request.getContextPath()%>/article/article_edit.jsp">發文</a>

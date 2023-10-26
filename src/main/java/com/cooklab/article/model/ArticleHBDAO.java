@@ -182,8 +182,13 @@ public class ArticleHBDAO implements ArticleDAO {
 //		
 //	}
 //	=============================updateArticleStatus結束==================================================
-
+	@Override
+	public List <ArticleVO> findByStatus(Byte articleStatus) {
+		
+		return getSession().createQuery("from  ArticleVO where articleStatus = :articleStatus",ArticleVO.class).setParameter("articleStatus", articleStatus).list();
+	}
 	public static void main(String[] args) {
 
 	}
+
 }

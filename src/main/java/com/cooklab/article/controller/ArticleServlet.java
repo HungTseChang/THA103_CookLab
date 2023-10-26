@@ -208,17 +208,24 @@ if ("getStatusUpdate".equals(action)) {
 			Integer articleNo = Integer.valueOf(req.getParameter("articleNo"));
 			
 			Byte articleStatus =null;
-			String articleStatusStr = req.getParameter("articleStatus");
-			articleStatus=Byte.valueOf(articleStatusStr);
-			
-			
-			
+			try {
+				String articleStatusStr = req.getParameter("articleStatus");
+				articleStatus=Byte.valueOf(articleStatusStr);
+			}catch (NumberFormatException e) {
+				errorMsgs.add("選擇狀態.");
+			}
 			ArticleVO updatedArtVO = new ArticleVO();
 			updatedArtVO.setArticleNo(articleNo); 
 			updatedArtVO.setArticleStatus(articleStatus) ;
 //			ArticleVO updatedArtVO = new ArticleService().getOneArt(articleNo);
 //			updatedArtVO.setArticleStatus(articleStatus) ;
 //			new ArticleService().updateArt(updatedArtVO);
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("updatedArtVO", updatedArtVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
 			
 			/*************************** 2.開始修改資料 ****************************************/
 			ArticleService artSvc = new ArticleService();
@@ -463,7 +470,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			// Send the use back to the form, if there were errors
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/article/article_edit.jsp");
 				failureView.forward(req, res);

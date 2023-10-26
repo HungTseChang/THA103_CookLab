@@ -3,10 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_sub.model.*"%>
+<%@ page import="com.cooklab.article_reaction.model.*"%>
 <%@ page import="java.util.*"%>
 <%
+ArticleReactionService reaSvc = new ArticleReactionService();
+
+	ArticleReactionVO reaction = reaSvc.findTwo(1, 1);
+	//P204 、P337你沒有setAttribute用EL 就會抓不到值
+	pageContext.setAttribute("reaction",reaction);
+
+	
+//  這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
     ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
-//     這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
 
 	ArticleSubService artSvc2 =new ArticleSubService();
 	List<ArticleSubVO> list2 = artSvc2.getAll();
@@ -179,7 +187,7 @@
 	<!--上方表頭結束-->
 
 	<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
-
+		
 		<div class="container" style="margin-top: 30px;">
 		<div class="row">
 			<div id="c_user" class="col-md-3"
@@ -202,10 +210,11 @@
 						<p> ${artVO.articleContent}</p>
 
 						<br> <br>
-						<div id="like-dislike">
-                			<img src="<%=request.getContextPath()%>/article/img/HO/like.png" alt="">
+						<div id="like-dislike"  class="button-group">
+                			<img class="good" src="<%=request.getContextPath()%>/article/img/HO/like.png" alt="">
                 			<span style="margin-right: 10px;">10</span>
-                			<img src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
+                			
+                			<img class="bad" src="<%=request.getContextPath()%>/article/img/HO/dislike.png" alt="">
                 			<span>10</span>
                 			
 							<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
@@ -389,8 +398,33 @@
 		src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
+	<script src="<%=request.getContextPath()%>/article/js/GJ.js"></script>
+	
+	
+	<script>
+	$(document).ready(function(){
+		$(".button-group").each(function(){
+			const $group = $(this);
+			$group.find(".clickable").click(function (){
+				const $image = $(this);
+				const isEnlarged = $image.data("enlarged");
 
+				$group.find(".clickable").css("transform","scale(1");
+				$(this).css("transform","scale(1.2)");
 
+				if (!isEnlarged){
+					$image.css("transform","scale(1)");
+					$image.data("enlared",false);
+				}else{
+					$group.find(".clickable").css("transform", "scale(1)"); 
+	                $image.css("transform", "scale(1.2)");
+	                $image.data("enlarged", true);
+				}
+			});
+
+		})
+	})
+	</script>
 
 </body>
 

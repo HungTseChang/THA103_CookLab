@@ -2,7 +2,7 @@
 $(function() {
 
 	$("#btn_drawft").click(function() {
-		$("input[name='articleStatus']").val("3");
+		$("input[name='articleStatus']").val("1");
 		//還可以進行其他操作，例如驗證或其他處理
 		$("#form1").submit();
 	})

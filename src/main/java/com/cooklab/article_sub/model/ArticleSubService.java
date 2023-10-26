@@ -1,6 +1,8 @@
 package com.cooklab.article_sub.model;
 
 import java.util.List;
+
+import com.cooklab.article.model.ArticleVO;
 import com.cooklab.article_sub.model.*;
 import com.cooklab.util.HibernateUtil;
 public class ArticleSubService {
@@ -30,7 +32,13 @@ public class ArticleSubService {
 	public List<ArticleSubVO> getAll(){
 		return dao.getAll();
 	}
-	
+	public void updateArticleStatus(Integer articleSubNo, Byte articleSubStatus) {
+		ArticleSubVO existingArticle = dao.findByPrimaryKey(articleSubNo);
+
+		existingArticle.setArticleSubStatus(articleSubStatus);
+		dao.update(existingArticle);
+
+	}
 	
 	
 	 public static void main(String[] args) {

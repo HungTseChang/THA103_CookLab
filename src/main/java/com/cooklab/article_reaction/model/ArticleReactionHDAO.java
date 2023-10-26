@@ -47,7 +47,7 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 //			
-				session.update(ArticleReactionVO);
+				session.saveOrUpdate(ArticleReactionVO);
 		}catch(Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -62,14 +62,23 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 	}
 	
 	
+//	@Override
+//	public ArticleReactionVO findByTwoCol(Integer memberId, Integer articleNo) {
+//		return getSession().createQuery("from ArticleReactionVO where memberId = '" + memberId + "'" +
+//	"articleNo= '"+ articleNo + "'"
+//	, ArticleReactionVO.class)
+//				.uniqueResult();
+//		
+//	}
+	
 	@Override
 	public ArticleReactionVO findByTwoCol(Integer memberId, Integer articleNo) {
-		return getSession().createQuery("from ArticleReactionVO where memberId = '" + memberId + "'" +
-	"articleNo= '"+ articleNo + "'"
-	, ArticleReactionVO.class)
-				.uniqueResult();
-		
+	    return getSession().createQuery("from ArticleReactionVO where memberId = :memberId and articleNo = :articleNo", ArticleReactionVO.class)
+	            .setParameter("memberId", memberId)
+	            .setParameter("articleNo", articleNo)
+	            .uniqueResult();
 	}
+
 
 	@Override
 	public List<ArticleReactionVO> getAll() {
@@ -85,9 +94,7 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 	}
 	
 	public static void main(String[] args) {
-		ArticleReactionService a1 = new ArticleReactionService();
-		
-		
+				
 	}
 
 }

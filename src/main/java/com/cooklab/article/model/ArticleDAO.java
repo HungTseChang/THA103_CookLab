@@ -13,5 +13,7 @@ public interface ArticleDAO {
     
     public void delete(Integer articleNo);
     public ArticleVO findByPrimaryKey(Integer articleNo);
+    
+    public List<ArticleVO> findByStatus(Byte articleStatus);
     public List<ArticleVO> getAll();
 }

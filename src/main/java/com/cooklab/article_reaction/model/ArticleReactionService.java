@@ -15,8 +15,11 @@ public class ArticleReactionService {
 		dao.update(ArticleReactionVO);
 	}
 	//下面是一次用兩個欄位收尋
-	public void findTwo (Integer memberId , Integer articleNo) {
-		dao.findByTwoCol(memberId, articleNo);
+	public ArticleReactionVO findTwo (Integer memberId , Integer articleNo) {
+		return dao.findByTwoCol(memberId, articleNo);
 	}
 	
+	public ArticleReactionVO getOne (Integer articleReactionNo ) {
+		return dao.findByPrimaryKey(articleReactionNo);
+	}
 }

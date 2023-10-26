@@ -10,7 +10,7 @@ public class ArticleService {
 	private ArticleDAO dao;
 
 	public ArticleService() {
-//		dao = new ArticleJDBCDAOIm();
+
 		dao = new ArticleHBDAO(HibernateUtil.getSessionFactory());
 	}
 
@@ -80,9 +80,6 @@ public class ArticleService {
 		existingArticle.setViewCount(viewCount);
 		// 调用 DAO 更新 articleStatus
 		dao.update(existingArticle);
-		
-		
-	
 	}
 
 	public void deleteArt(Integer articleNo) {
@@ -91,6 +88,10 @@ public class ArticleService {
 
 	public ArticleVO getOneArt(Integer articleNo) {
 		return dao.findByPrimaryKey(articleNo);
+	}
+	
+	public List<ArticleVO> getStatus(Byte articleStatus) {
+		return dao.findByStatus(articleStatus);
 	}
 
 	public List<ArticleVO> getAll() {

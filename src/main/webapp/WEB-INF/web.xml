@@ -38,7 +38,7 @@
         <url-pattern>/ArticleServlet</url-pattern>
         <url-pattern>/ArticleSubServlet</url-pattern>    
         <url-pattern>/ArticleCategoryServlet</url-pattern>
-         <url-pattern>/ArticleReactionServlet</url-pattern>    
+         <url-pattern>/ArticleReactionServlet</url-pattern>  
         <url-pattern>/article/*</url-pattern>  
 		 <url-pattern>/mazer-main/dist/article/*</url-pattern>
     </filter-mapping>

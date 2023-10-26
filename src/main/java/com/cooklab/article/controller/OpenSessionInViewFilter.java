@@ -14,7 +14,6 @@ import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
 
-
 public class OpenSessionInViewFilter implements Filter {
 
 	@Override

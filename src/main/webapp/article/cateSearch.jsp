@@ -8,7 +8,8 @@
 	ArticleCategoryVO artCate = (ArticleCategoryVO) request.getAttribute("artCate");
 	
  	ArticleService artSvc = new ArticleService();
-	List<ArticleVO> list = artSvc.getAll();
+ 	Byte test = 0;
+	List<ArticleVO> list = artSvc.getStatus(test);
  	pageContext.setAttribute("list", list);
 
 	ArticleCategoryService artSvc2 =new ArticleCategoryService();
@@ -234,7 +235,7 @@
 						<c:forEach var="artVO" items="${list}">
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
 							
-							<c:if test="${artVO.articleStatus < 1 }">
+							
  								<c:if test="${artVO.articleCategoryNo == artCate.articleCategoryNo}"> 
 									<tr class="title_colum">
 										<td id="title_colum_td">
@@ -253,7 +254,7 @@
 										<td id="article_count">${artVO.viewCount}</td>
 									</tr>
 								</c:if>
- 							</c:if>
+ 						
 						</FORM>	
 				</c:forEach>
 			</table>
