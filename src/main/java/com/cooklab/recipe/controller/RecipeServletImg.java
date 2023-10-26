@@ -23,18 +23,22 @@ public class RecipeServletImg extends HttpServlet {
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 
-		Integer recipeNo = Integer.valueOf(req.getParameter("recipe_no").trim());
+		Integer recipeNo = Integer.valueOf(req.getParameter("recipeNo").trim());
 		RecipeService recipeSvc = new RecipeService();
 		RecipeVO recipeVO = recipeSvc.getOneRecipe(recipeNo);
 		byte[] coverImage= recipeVO.getCoverImage();
 		
 		InputStream is = new ByteArrayInputStream(coverImage);
 		BufferedInputStream in = new BufferedInputStream(is);
-		byte[] buf = new byte[4 * 1024]; // 4K buffer
-		int len;
-		while ((len = in.read(buf)) != -1) {
-			out.write(buf, 0, len);
-		}
+		byte[] readAllBytes = in.readAllBytes();
+		out.write(readAllBytes);
 		in.close();
+		is.close();
+//		
+//		byte[] buf = new byte[4 * 1024]; // 4K buffer
+//		int len;
+//		while ((len = in.read(buf)) != -1) {
+//			out.write(buf, 0, len);
+//		}
 	}
 }

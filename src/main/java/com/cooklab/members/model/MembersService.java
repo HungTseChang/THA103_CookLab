@@ -3,6 +3,9 @@ package com.cooklab.members.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.cooklab.recipe.model.RecipeHDAOIm;
+import com.cooklab.util.HibernateUtil;
+
 public class MembersService {
 
 	
@@ -10,7 +13,7 @@ public class MembersService {
 	private MembersDAO_interface dao;
 
 	public MembersService() {
-		dao = new MembersJDBCDAO();
+		dao = new MembersHDAOIm(HibernateUtil.getSessionFactory());
 	}
 
 	public MembersVO addMembers(String memberAccount, String memberPassword,String memberIntroduce,
@@ -79,7 +82,18 @@ public class MembersService {
 	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus)
 	{
 		MembersVO membersVO = new MembersVO();
-		dao.updateMemberStatus(memberId, memberStatus);
+		membersVO.setMemberId(memberId);
+		membersVO.setMemberStatus(memberStatus);
+		dao.updateMemberStatus(membersVO);
+		return membersVO;
+	}
+	//修改使用者密碼
+	public MembersVO updateMemberPassword(Integer memberId,String memberPassword)
+	{
+		MembersVO membersVO = new MembersVO();
+		membersVO.setMemberId(memberId);
+		membersVO.setMemberPassword(memberPassword);
+		dao.updateMemberPassword(membersVO);
 		return membersVO;
 	}
 	public List<MembersVO> getAll() {

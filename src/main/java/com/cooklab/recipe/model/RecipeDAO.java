@@ -8,4 +8,6 @@ public interface RecipeDAO  {
     public boolean delete(Integer recipeNo);
     public RecipeVO findByPrimaryKey(Integer recipeNo);
     public List<RecipeVO> getAll();
+    public List<RecipeVO> getByPage(Integer offset,Integer limit);
+    public long getCount();
 }

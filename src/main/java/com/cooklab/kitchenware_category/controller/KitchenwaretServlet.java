@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cooklab.ingredient_category.model.IngredientCategoryVO;
-import com.cooklab.ingredient_category.model.IngredientService;
 import com.cooklab.kitchenware_category.model.KitchenwareCategoryService;
 import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
 import com.google.gson.Gson;
@@ -102,7 +100,7 @@ public class KitchenwaretServlet extends HttpServlet {
 			 * 1接收請求參數
 			 **********************/
 			// 从前端获取数据
-			String updatedCategoryTag = req.getParameter("categoryTag");
+
 			String updatedCategoryName = req.getParameter("categoryName");
 			Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
 
@@ -128,7 +126,6 @@ public class KitchenwaretServlet extends HttpServlet {
 
 		if ("insert".equals(action)) {
 
-			String categoryTag = req.getParameter("categoryTag");
 			String categoryName = req.getParameter("categoryName");
 
 			KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
@@ -148,6 +145,56 @@ public class KitchenwaretServlet extends HttpServlet {
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(json);
 
+		}
+		
+		if ("delete".equals(action)) {
+		    Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
+		    
+		    KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
+		    KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
+		    kitchenwareCategory.setKitchenwareCategoryNo(categoryId);
+		    
+		    String message = kitchenwareSvc.deleteCategory(kitchenwareCategory);
+
+		    if ("删除成功".equals(message)) {
+		        // 删除成功，返回成功消息
+		        System.out.println("删除成功");
+		    } else {
+		        // 删除失败，返回错误消息
+		        System.out.println("删除失败：" + message);
+		    }
+
+		    // 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
+		    Map<String, String> responseData = new HashMap<>();
+		    boolean success = "成功".equals(message); // 检查消息是否为成功
+		    responseData.put("success", success ? "true" : "false");
+		    responseData.put("message", message);
+		    String json = new Gson().toJson(responseData);
+		    res.setContentType("application/json");
+		    res.setCharacterEncoding("UTF-8");
+		    res.getWriter().write(json);
+		}
+		
+		if ("checkName".equals(action)) {
+			
+			String categoryName = req.getParameter("categoryName");
+		    
+		    KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
+		    KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
+		    kitchenwareCategory.setCategoryName(categoryName);
+		    
+		    boolean nameExists = kitchenwareSvc.findByName(kitchenwareCategory) != null;
+		  
+
+		    // 创建响应数据，根据 `nameExists` 决定操作是否成功
+		    Map<String, String> responseData = new HashMap<>();
+		    responseData.put("success", nameExists ? "false" : "true");
+		    responseData.put("message", nameExists ? "已有相同名稱" : "名稱可用");
+		    
+		    String json = new Gson().toJson(responseData);
+		    res.setContentType("application/json");
+		    res.setCharacterEncoding("UTF-8");
+		    res.getWriter().write(json);
 		}
 	}
 

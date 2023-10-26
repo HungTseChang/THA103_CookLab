@@ -20,9 +20,7 @@ public class IngredientCategoryVO implements java.io.Serializable {
 	
 	@OneToMany(mappedBy="ingredientCategory", cascade=CascadeType.ALL)
 	private Set<ProductVO>product ;
-	
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ingredient_category_no", updatable = false, insertable = false)
@@ -36,6 +34,23 @@ public class IngredientCategoryVO implements java.io.Serializable {
 
 	public IngredientCategoryVO() {
 	}
+	
+	
+	
+
+	public Set<ProductVO> getProduct() {
+		return product;
+	}
+
+
+
+
+	public void setProduct(Set<ProductVO> product) {
+		this.product = product;
+	}
+
+
+
 
 	public IngredientCategoryVO(Integer ingredientCategoryNo, String categoryName, Timestamp createdTimestamp) {
 		super();

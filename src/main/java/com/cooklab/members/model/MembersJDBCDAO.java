@@ -20,7 +20,7 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 	private static final String UPDATESTATUS = "UPDATE members set member_status=? ,last_edit_timestamp=now() where member_id=?";
 
 	@Override
-	public void insert(MembersVO membersVO) {
+	public int insert(MembersVO membersVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -69,11 +69,11 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 				}
 			}
 		}
-
+		return 1;
 	}
 
 	@Override
-	public void update(MembersVO membersVO) {
+	public boolean update(MembersVO membersVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -123,11 +123,12 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 				}
 			}
 		}
+		return true;
 
 	}
 
 	@Override
-	public void delete(Integer memberId) {
+	public boolean delete(Integer memberId) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -165,7 +166,7 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 				}
 			}
 		}
-
+		return true;
 	}
 
 	@Override
@@ -408,11 +409,10 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 	}
 
 	@Override
-	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus) {
+	public boolean updateMemberStatus(MembersVO membersVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		MembersVO memVO = new MembersVO();
 
 		try {
 
@@ -420,8 +420,8 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATESTATUS);
 
-			pstmt.setInt(1, memberStatus);
-			pstmt.setInt(2, memberId);
+			pstmt.setInt(1, membersVO.getMemberStatus());
+			pstmt.setInt(2, membersVO.getMemberId());
 
 			pstmt.executeUpdate();
 
@@ -449,6 +449,6 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 			}
 		}
 
-		return memVO;
+		return true;
 	}
 }

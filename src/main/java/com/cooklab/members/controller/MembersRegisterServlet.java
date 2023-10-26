@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.cooklab.members.model.MembersVO;
+import com.cooklab.util.JedisPoolUtil;
 import com.cooklab.members.controller.*;
 
 import redis.clients.jedis.JedisPool;
@@ -87,13 +88,17 @@ public class MembersRegisterServlet extends HttpServlet{
 		memVO.setMemberCountry(location);
 		memVO.setMemberCellphone(phonenumber);
 		memVO.setMemberMail(email);
-		
+
+		System.out.println("第0節點======================================");
 		//寫入資料庫
 		MembersService memSrv = new MembersService();
+		System.out.println("第一節點======================================");
 		memVO = memSrv.addMembers(account,password,introduce,
 				phonenumber,email, sqlDate,address,location,(byte) 1,nickname,genderByte);
 		//再查一次
-		memVO = memSrv.getOneMemberAccount(account);
+		System.out.println("第二節點======================================");
+		MembersService memSrv2 = new MembersService();
+		memVO = memSrv2.getOneMemberAccount(account);
 		
 		//取得 session 物件
 		HttpSession session = req.getSession();
@@ -110,14 +115,14 @@ public class MembersRegisterServlet extends HttpServlet{
 		String messageText =  ch_name +" 您好!\n\n["+ passRandom +"]\n\n為您在廚藝實驗室(CookLab)的驗證碼，請於10分鐘內輸入" +"\n" ;
 
 		MailService mailService = new MailService();
-		mailService.sendMail(to, subject, messageText);	
+		new Thread(()->mailService.sendMail(to, subject, messageText)).start();	
 		
 		//將驗證碼存入Redis
-		Jedis jedis = new Jedis("localhost", 6379);
+		Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
 		jedis.select(14);
 		jedis.set("Member:"+ memVO.getMemberId(), passRandom);
 		jedis.expire("Member:"+memVO.getMemberId(), 600);
-		
+		jedis.close();
 		//跳轉頁面
 		Gson gson = new Gson();
 		HashMap<String, Object> hmap = new HashMap<>();
