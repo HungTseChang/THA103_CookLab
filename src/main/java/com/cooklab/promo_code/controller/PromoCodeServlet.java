@@ -3,6 +3,9 @@ package com.cooklab.promo_code.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -103,6 +106,16 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 ****************************************/
 			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no"));
+			
+			try {
+			    int value = Integer.parseInt("promo_code_no");
+			    // 使用整數值
+			} catch (NumberFormatException e) {
+			    // 發生數字轉換錯誤，可以處理例外情況
+			    int defaultValue = 0; // 預設值
+			    // 使用預設值或顯示錯誤訊息給用戶
+			   System.out.println("123");
+			} 
 
 			/*************************** 2.開始查詢資料 ****************************************/
 			PromoCodeService PcSvc = new PromoCodeService();
@@ -180,16 +193,44 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
-			Timestamp startTime = Timestamp.valueOf(req.getParameter("start_time"));
-			String promoCodeSerialNumberReg = "^[(0-9)]{2,10}$";
-			if (promoCodeSerialNumber == null || promoCodeSerialNumber.trim().length() == 0) {
-				errorMsgs.add("優惠碼編號: 請勿空白");
-			} else if (!promoCodeSerialNumber.trim().matches(promoCodeSerialNumberReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("優惠碼編號: 只能是數字 , 且長度必需在2到10之間");
+			
+			java.sql.Timestamp startTime = null;
+			String startTimeStr = req.getParameter("start_time");
+			
+			if (startTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(startTimeStr, formatter);
+					startTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					startTime = new java.sql.Timestamp(System.currentTimeMillis());
+				}
+			} else {
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
-//			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
-			byte[] coverImage = null;
-			Timestamp endTime = Timestamp.valueOf(req.getParameter("end_time"));
+			String promoCodeSerialNumberReg = "^[(a-zA-Z0-9_)]{2,10}$";
+			if (promoCodeSerialNumber == null || promoCodeSerialNumber.trim().length() == 0) {
+				errorMsgs.add("優惠碼序號: 請勿空白");
+			} else if (!promoCodeSerialNumber.trim().matches(promoCodeSerialNumberReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("優惠碼序號: 只能是英數字 , 且長度必需在2到10之間");
+			}
+		
+			
+			java.sql.Timestamp endTime = null;
+			String endTimeStr = req.getParameter("end_time");
+			if (endTimeStr != null) {
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+					LocalDateTime localDateTime = LocalDateTime.parse(endTimeStr, formatter);
+					endTime = Timestamp.valueOf(localDateTime);
+				} catch (DateTimeParseException e) {
+					e.printStackTrace();
+					endTime = new java.sql.Timestamp(System.currentTimeMillis());
+				}
+			} else {
+				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
+			}
 			BigDecimal percentageDiscountAmount = BigDecimal.valueOf(Long.valueOf(req.getParameter("percentage_discount_amount")));
 			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(Long.valueOf(req.getParameter("fixed_discount_amount")));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
@@ -241,7 +282,7 @@ public class PromoCodeServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("promocodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("promocode/addPromoCode.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -250,7 +291,7 @@ public class PromoCodeServlet extends HttpServlet {
 			PromoCodeService PcSvc = new PromoCodeService();
 			PcSvc.addPc(promoCodeVO);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/promocode/listAllPromoCode.jsp";
+			String url = "/mazer-main/dist/promo_code/promo_code_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -263,7 +304,7 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 ***************************************/
-			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code"));
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_No"));
 			PromoCodeVO promoCodeVO = new PromoCodeVO();
 			promoCodeVO.setPromoCodeNo(promoCodeNo);
 

@@ -200,9 +200,9 @@ td.HO_article_title {
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+									<li class="breadcrumb-item"><a href="./promo_code_set.jsp">優惠券設定</a>
 									</li>
-									<li class="breadcrumb-item active" aria-current="page">
+									<li class="breadcrumb-item active" aria-currentx="page">
 										優惠券管理</li>
 								</ol>
 							</nav>
@@ -217,14 +217,14 @@ td.HO_article_title {
 								<thead>
 									<tr>
 										<th class="first_col">優惠券編號</th>
-										<th>優惠券序號</th>
-										<th class="sec_col">生效時間</th>
-										<th class="thrid_col">失效時間</th>
-										<th class="forth_col">百分比折價金額</th>
-										<th>固定折價金額</th>
-										<th class="last_column">可使用次數</th>
-										<th>最低消費門檻</th>
-										<th>最後編輯時間</th>
+										<th class="sec_col">優惠券序號</th>
+										<th class="thrid_col">生效時間</th>
+										<th class="forth_col">失效時間</th>
+										<th class="fifth_col">百分比折價金額</th>
+										<th class="sixth_col">固定折價金額</th>
+										<th class="seventh_col">可使用次數</th>
+										<th class="eighth_col">最低消費門檻</th>
+										<th class="last_column">最後編輯時間</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -309,6 +309,7 @@ td.HO_article_title {
 
 
 	<script>
+<!--
 		let table1 = document.querySelector("#table1");
 		let dataTable = new simpleDatatables.DataTable(table1);
 		$(function() {
@@ -383,7 +384,7 @@ td.HO_article_title {
 									break;
 								}
 							});
-		});
+		}); -->
 	</script>
 </body>
 
