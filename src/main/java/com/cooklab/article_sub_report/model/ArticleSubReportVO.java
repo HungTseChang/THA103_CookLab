@@ -27,14 +27,64 @@ public class ArticleSubReportVO  {
 	@Column (name="article_sub_report_no")
 	private Integer articleSubReportNo;
 	
-//	@Column (name="article_sub_no")
-//	private Integer articleSubNo;
+	@Column (name="article_sub_no")
+	private Integer articleSubNo;
+	
+	public Integer getArticleSubNo() {
+		return articleSubNo;
+	}
+
+
+
+	public void setArticleSubNo(Integer articleSubNo) {
+		this.articleSubNo = articleSubNo;
+	}
+
+
+
+	public ArticleSubVO getArticleSub() {
+		return articleSub;
+	}
+
+
+
+	public void setArticleSub(ArticleSubVO articleSub) {
+		this.articleSub = articleSub;
+	}
+
+
+
+	public Integer getReporterId() {
+		return reporterId;
+	}
+
+
+
+	public void setReporterId(Integer reporterId) {
+		this.reporterId = reporterId;
+	}
+
+
+
+	public MembersVO getMembers() {
+		return members;
+	}
+
+
+
+	public void setMembers(MembersVO members) {
+		this.members = members;
+	}
+
+
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "article_sub_no", referencedColumnName = "article_sub_no", insertable = false, updatable = false)
 	private ArticleSubVO articleSub;
 	
-//	@Column (name="reporter_id")
-//	private Integer reporterId;
+	@Column (name="reporter_id")
+	private Integer reporterId;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reporter_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
@@ -57,17 +107,17 @@ public class ArticleSubReportVO  {
 	
 	
 	
-//	public ArticleSubReportVO( Integer articleSubNo, Integer reporterId,
-//			String reportingReason, byte reportingStatus ,String reportingAnswer ) {
-//		super();
-//		this.articleSubReportNo = articleSubReportNo;
-//		this.articleSubNo = articleSubNo;
-//		this.reporterId = reporterId;
-//		this.reportingReason = reportingReason;
-//		this.reportingStatus = reportingStatus;
-//		this.reportingAnswer = reportingAnswer;
-//		
-//	}
+	public ArticleSubReportVO( Integer articleSubNo, Integer reporterId,
+			String reportingReason, byte reportingStatus ,String reportingAnswer, Integer articleSubReportNo ) {
+		super();
+		this.articleSubReportNo = articleSubReportNo;
+		this.articleSubNo = articleSubNo;
+		this.reporterId = reporterId;
+		this.reportingReason = reportingReason;
+		this.reportingStatus = reportingStatus;
+		this.reportingAnswer = reportingAnswer;
+		
+	}
 
 
 	public Integer getArticleSubReportNo() {
@@ -76,18 +126,8 @@ public class ArticleSubReportVO  {
 	public void setArticleSubReportNo(Integer articleSubReportNo) {
 		this.articleSubReportNo = articleSubReportNo;
 	}
-//	public Integer getArticleSubNo() {
-//		return articleSubNo;
-//	}
-//	public void setArticleSubNo(Integer articleSubNo) {
-//		this.articleSubNo = articleSubNo;
-//	}
-//	public Integer getReporterId() {
-//		return reporterId;
-//	}
-//	public void setReporterId(Integer reporterId) {
-//		this.reporterId = reporterId;
-//	}
+
+
 	public String getReportingReason() {
 		return reportingReason;
 	}
@@ -121,13 +161,7 @@ public class ArticleSubReportVO  {
 
 
 
-//	@Override
-//	public String toString() {
-//		return "ArticleSubReportVO [articleSubReportNo=" + articleSubReportNo + ", articleSubNo=" + articleSubNo
-//				+ ", reporterId=" + reporterId + ", reportingReason=" + reportingReason + ", reportingStatus="
-//				+ reportingStatus + ", reportingAnswer=" + reportingAnswer + ", createdTimestamp=" + createdTimestamp
-//				+ "]";
-//	}
+
 	
 	
 	

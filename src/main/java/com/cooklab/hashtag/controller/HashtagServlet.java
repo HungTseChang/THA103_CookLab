@@ -45,24 +45,25 @@ public class HashtagServlet extends HttpServlet {
 				popular.add(hashtagVO.getHashtagName());
 			}
 			for (HashtagVO hashtagVO : listHashtagVO) {
-				switch (hashtagVO.getCategoryTags()) {
-				case "烹飪方式": {
-					cook.add(hashtagVO.getHashtagName());
-					break;
-				}
-				case "餐點類型": {
-					meal.add(hashtagVO.getHashtagName());
-					break;
-				}
-				case "特殊飲食需求": {
-					particular.add(hashtagVO.getHashtagName());
-				}
-					break;
-				case "節日": {
-					festival.add(hashtagVO.getHashtagName());
-					break;
-				}
-				}
+				if (hashtagVO.getCategoryTags() != null)
+					switch (hashtagVO.getCategoryTags()) {
+					case "烹飪方式": {
+						cook.add(hashtagVO.getHashtagName());
+						break;
+					}
+					case "餐點類型": {
+						meal.add(hashtagVO.getHashtagName());
+						break;
+					}
+					case "特殊飲食需求": {
+						particular.add(hashtagVO.getHashtagName());
+					}
+						break;
+					case "節日": {
+						festival.add(hashtagVO.getHashtagName());
+						break;
+					}
+					}
 			}
 			mapCategory.put("popular", popular);
 			mapCategory.put("cook", cook);
