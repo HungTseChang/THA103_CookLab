@@ -1,8 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.promo_code.model.*"%>
+
+
 
 <%
 PromoCodeService pcSvc = new PromoCodeService();
@@ -13,8 +15,6 @@ PromoCodeService pcSvc2 = new PromoCodeService();
 List<PromoCodeVO> list2 = pcSvc2.getAll();
 pageContext.setAttribute("list2", list2);
 %>
-<!DOCTYPE html>
-<html lang="zh-tw">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,30 +23,26 @@ pageContext.setAttribute("list2", list2);
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css">
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css" />
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
-	type="image/x-icon">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.css">
-<link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-<link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
+	type="image/x-icon" />
 </head>
+
+
+
 
 <body>
 	<div id="app">
@@ -56,7 +52,7 @@ pageContext.setAttribute("list2", list2);
 					<div class="d-flex justify-content-between">
 						<div class="logo">
 							<a href="index.html"><img src="assets/images/logo/logo.png"
-								alt="Logo" srcset=""></a>
+								alt="Logo" srcset="" /></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -66,82 +62,77 @@ pageContext.setAttribute("list2", list2);
 				</div>
 				<div class="sidebar-menu">
 					<ul class="menu">
-						<li class="sidebar-title">Menu</li>
-
-
-						<!-- ============================================================================================== -->
-						<li class="sidebar-item  "><a href="WCC_Homepage.html"
-							class='sidebar-link'> <i class="bi bi-grid-fill"></i> <span>å¾Œå°é¦–é </span>
+						<!-------------------------------------------------------------------------------->
+						<li class="sidebar-item"><a href="WCC_Homepage.html"
+							class="sidebar-link"> <i class="bi bi-grid-fill"></i> <span>«á¥x­º­¶</span>
 						</a></li>
 
-
-						<li class="sidebar-item "><a href="WCC_memeber.html"
-							class='sidebar-link'> <i
-								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>æœƒå“¡ç®¡ç†</span>
+						<li class="sidebar-item"><a href="WCC_memeber.html"
+							class="sidebar-link"> <i
+								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>·|­ûºŞ²z</span>
 						</a></li>
 
-
-						<li class="sidebar-item  has-sub "><a href="#"
-							class='sidebar-link'> <i class="bi bi-stack"></i> <span>æ¬Šé™ç®¡ç†</span>
+						<li class="sidebar-item"><a href="#" class="sidebar-link">
+								<i class="bi bi-stack"></i> <span>Åv­­ºŞ²z</span>
 						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a
-									href=".\WCC_permission_createnew.html">å‰µå»ºç®¡ç†</a></li>
-								<li class="submenu-item "><a
-									href=".\WCC_permission_management.html">ç®¡ç†ç®¡ç†è€…</a></li>
-								<li class="submenu-item "><a href="#">ç·¨è¼¯ç®¡ç†è€…</a></li>
-								<li class="submenu-item "><a
-									href=".\WCC_permission_createrule.html">å‰µç«‹æ¬Šé™è¦å‰‡</a></li>
-								<li class="submenu-item "><a href="#">æ¬Šé™ç®¡ç†-ç·¨è¼¯/æŸ¥è©¢æ¬Šé™è¦å‰‡-æŸ¥è©¢</a>
+							<ul class="submenu">
+								<li class="submenu-item"><a
+									href=".\WCC_permission_createnew.html">³Ğ«ØºŞ²z</a></li>
+								<li class="submenu-item"><a
+									href=".\WCC_permission_management.html">ºŞ²zºŞ²zªÌ</a></li>
+								<li class="submenu-item"><a href="#">½s¿èºŞ²zªÌ</a></li>
+								<li class="submenu-item"><a
+									href=".\WCC_permission_createrule.html">³Ğ¥ßÅv­­³W«h</a></li>
+								<li class="submenu-item"><a href="#">Åv­­ºŞ²z-½s¿è/¬d¸ßÅv­­³W«h-¬d¸ß</a>
 								</li>
 							</ul></li>
 
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-collection-fill"></i> <span>é£Ÿè­œç®¡ç†</span>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>­¹ÃĞºŞ²z</span>
 						</a> <!-- <ul class="submenu ">
         <li class="submenu-item ">
-            <a href="#">é£Ÿè­œç®¡ç†</a>
+            <a href="#">­¹ÃĞºŞ²z</a>
         </li>
     </ul>
-</li> -->
-						<li class="sidebar-item  has-sub active"><a href="#"
-							class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>å•†åŸç®¡ç†</span>
+</li> --></li>
+
+						<li class="sidebar-item has-sub active"><a href="#"
+							class="sidebar-link"> <i class="bi bi-grid-1x2-fill"></i> <span>°Ó«°ºŞ²z</span>
 						</a>
-							<ul class="submenu " style="display: block">
-								<li class="submenu-item "><a href="#">å•†å“è¨­å®š</a></li>
-								<li class="submenu-item "><a href="#">è¨‚å–®ç®¡ç†</a></li>
-								<li class="submenu-item "><a href="#">æ–°å¢å„ªæƒ åˆ¸</a></li>
-								<li class="submenu-item active "><a href="#">å„ªæƒ åˆ¸ç®¡ç†</a></li>
-								<li class="submenu-item "><a href="#">å»£å‘Šç®¡ç†</a></li>
-								<li class="submenu-item"><a href="#">å»£å‘Šç®¡ç†</a></li>
-								<li class="submenu-item "><a href="#">æ–°å¢é€²è²¨è¡¨å–®</a></li>
+							<ul class="submenu" style="display: block">
+								<li class="submenu-item"><a href="#">°Ó«~³]©w</a></li>
+								<li class="submenu-item"><a href="#">­q³æºŞ²z</a></li>
+								<li class="submenu-item active"><a href="#">Àu´f¨é³]©w</a></li>
+								<li class="submenu-item"><a href="#">¼s§i³]©w</a></li>
+								<li class="submenu-item"><a href="#">·s¼W¶i³fªí³æ</a></li>
 							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>è¨è«–å€ç®¡ç†</span>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-hexagon-fill"></i> <span>°Q½×°ÏºŞ²z</span>
 						</a>
 
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">çœ‹æ¿åˆ†é¡</a></li>
-								<li class="submenu-item "><a href="#">æ–‡ç« ç®¡ç†</a></li>
+							<ul class="submenu" >
+								<li class="submenu-item"><a href="#">¬İªO¤ÀÃş</a></li>
+								<li class="submenu-item"><a href="#"
+									class="sub_title ">¤å³¹ºŞ²z</a></li>
 							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>æ•¸æ“šåˆ†æ</span>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-pen-fill"></i> <span>¼Æ¾Ú¤ÀªR</span>
 						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">æœƒå“¡æ•¸æ“š</a></li>
-								<li class="submenu-item "><a href="#">é£Ÿè­œæ•¸æ“š</a></li>
-								<li class="submenu-item "><a href="#">å•†åŸæ•¸æ“š</a></li>
-								<li class="submenu-item "><a href="#">æ–‡ç« æ•¸æ“š</a></li>
+							<ul class="submenu">
+								<li class="submenu-item"><a href="#">·|­û¼Æ¾Ú</a></li>
+								<li class="submenu-item"><a href="#">­¹ÃĞ¼Æ¾Ú</a></li>
+								<li class="submenu-item"><a href="#">°Ó«°¼Æ¾Ú</a></li>
+								<li class="submenu-item"><a href="#">¤å³¹¼Æ¾Ú</a></li>
 							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>å®¢æœä¸­å¿ƒ</span>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-pen-fill"></i> <span>«ÈªA¤¤¤ß</span>
 						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">é£Ÿè­œæª¢èˆ‰</a></li>
-								<li class="submenu-item "><a href="#">è¨è«–å€æª¢èˆ‰</a></li>
-								<li class="submenu-item "><a href="#">ç³»çµ±é€šçŸ¥</a></li>
+							<ul class="submenu">
+								<li class="submenu-item"><a href="#">­¹ÃĞÀËÁ|</a></li>
+								<li class="submenu-item"><a href="#">°Q½×°ÏÀËÁ|</a></li>
+								<li class="submenu-item"><a href="#">¨t²Î³qª¾</a></li>
 							</ul></li>
-						<!-- ======================================================================================================== -->
+						<!----------------------------------------------------------------------------->
 					</ul>
 				</div>
 				<button class="sidebar-toggler btn x">
@@ -157,7 +148,28 @@ pageContext.setAttribute("list2", list2);
 			</header>
 			<!--/////////////////////////////////////////////////////////////////////////////////////////  -->
 			<style>
+li a.sub_title {
+	background-color: #435ebe;
+	color: white !important;
+	display: block;
+	padding: 0.2rem 0.5rem !important;
+	font-size: 1rem;
+	display: flex;
+	align-items: center;
+	border-radius: 0.5rem;
+	transition: all .5s;
+	text-decoration: none;
+	color: #25396f;
+}
+
 td a.wcc {
+	border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
+}
+
+td input.wcc {
 	border: 1px solid rgb(151, 135, 249);
 	background-color: rgb(195, 241, 253);
 	padding: 4px;
@@ -167,22 +179,31 @@ td a.wcc {
 td button.wcc {
 	border-radius: 20px;
 }
+
+td.HO_article_title {
+	/* width: 15%; */
+	/* white-space: wrap; */
+	/*³]©w¤å¦r¤@¦æ*/
+	text-overflow: ellipsis;
+	/*clip(¹w³])|ellipsis(¬Ù²¤²Å¸¹)*/
+	/* overflow: hidden; */
+}
 </style>
 			<!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
 			<div class="page-heading">
 				<div class="page-title">
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
-							<h3>å„ªæƒ åˆ¸ç¸½è¦½</h3>
-							<p class="text-subtitle text-muted">For user to check they
-								list</p>
+							<h3>Àu´f¨éºŞ²z</h3>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="./promo_code_set.jsp">å„ªæƒ åˆ¸è¨­å®š</a></li>
-									<li class="breadcrumb-item active" aria-current="page">å„ªæƒ åˆ¸ç¸½è¦½</li>
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+									</li>
+									<li class="breadcrumb-item active" aria-current="page">
+										Àu´f¨éºŞ²z</li>
 								</ol>
 							</nav>
 						</div>
@@ -190,108 +211,67 @@ td button.wcc {
 				</div>
 				<section class="section">
 					<div class="card">
-						<div class="card-header">å„ªæƒ ç¢¼ç¸½è¦½</div>
+
 						<div class="card-body">
 							<table class="table table-striped" id="table1">
 								<thead>
 									<tr>
-										<th>å„ªæƒ ç¢¼ç·¨è™Ÿ</th>
-										<th>å„ªæƒ ç¢¼åç¨±</th>
-										<th>å„ªæƒ ç¢¼åºè™Ÿ</th>
-										<th>å„ªæƒ ç¢¼é–‹å§‹</th>
-										<th>å„ªæƒ ç¢¼çµæŸ</th>
-										<th>å„ªæƒ ç¢¼ç¸½å…±æ¬¡æ•¸</th>
-										<th>å„ªæƒ ç¢¼å‰©é¤˜æ¬¡æ•¸</th>
+										<th class="first_col">Àu´f¨é½s¸¹</th>
+										<th>Àu´f¨é§Ç¸¹</th>
+										<th class="sec_col">¥Í®Ä®É¶¡</th>
+										<th class="thrid_col">¥¢®Ä®É¶¡</th>
+										<th class="forth_col">¦Ê¤À¤ñ§é»ùª÷ÃB</th>
+										<th>©T©w§é»ùª÷ÃB</th>
+										<th class="last_column">¥i¨Ï¥Î¦¸¼Æ</th>
+										<th>³Ì§C®ø¶OªùÂe</th>
+										<th>³Ì«á½s¿è®É¶¡</th>
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach var="pcVO" items="${list}">
 
-									<tr>
-										<td>0000001</td>
-										<td>æ»¿å…©åƒå…é‹è²»</td>
-										<td>ZXC1234</td>
-										<td>2023/01/01</td>
-										<td>2023/12/30</td>
-										<td>100</td>
-										<td>20</td>
-										<td><span class="badge bg-success">ä¸Šæ¶ä¸­</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
-									<tr>
-										<td>0000002</td>
-										<td>æ»¿å…©åƒå…é‹è²»</td>
-										<td>ZXC1234</td>
-										<td>2023/01/01</td>
-										<td>2023/12/30</td>
-										<td>100</td>
-										<td>50</td>
-										<td><span class="badge bg-success">ä¸Šæ¶ä¸­</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
-									<tr>
-										<td>0000003</td>
-										<td>æ»¿å…©åƒå…é‹è²»</td>
-										<td>ZXC1234</td>
-										<td>2023/01/01</td>
-										<td>2023/12/30</td>
-										<td>100</td>
-										<td>50</td>
-										<td><span class="badge bg-success">ä¸Šæ¶ä¸­</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
-									<tr>
-										<td>0000004</td>
-										<td>æ»¿å…©åƒå…é‹è²»</td>
-										<td>ZXC1234</td>
-										<td>2023/01/01</td>
-										<td>2023/12/30</td>
-										<td>100</td>
-										<td>50</td>
-										<td><span class="badge bg-success">ä¸Šæ¶ä¸­</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
-									<tr>
-										<td>0000005</td>
-										<td>æ»¿å…©åƒå…é‹è²»</td>
-										<td>ZXC1234</td>
-										<td>2023/01/01</td>
-										<td>2023/12/30</td>
-										<td>100</td>
-										<td>50</td>
-										<td><span class="badge bg-success">ä¸Šæ¶ä¸­</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
-									<tr>
-										<td>0000006</td>
-										<td>æ»¿å…©åƒå…é‹è²»</td>
-										<td>ZXC1234</td>
-										<td>2023/01/01</td>
-										<td>2023/12/30</td>
-										<td>100</td>
-										<td>50</td>
-										<td><span class="badge bg-success">ä¸Šæ¶ä¸­</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
-									<tr>
-										<td>0000007</td>
-										<td>æ–°æœƒå“¡é¦–è³¼æ»¿ä¸€åƒæŠ˜å…©ç™¾</td>
-										<td>ASD1234</td>
-										<td>2023/01/01</td>
-										<td>2023/01/30</td>
-										<td>100</td>
-										<td>0</td>
-										<td><span class="badge bg-danger">ä¸‹æ¶</span></td>
-										<td><button class="wcc">åˆªé™¤å„ªæƒ ç¢¼</button></td>
-									</tr>
+										<tr>
+											<td>${pcVO.promoCodeNo}</td>
+											<td>${pcVO.promoCodeSerialNumber}</td>
+											<td>${pcVO.startTime}</td>
+											<td>${pcVO.endTime}</td>
+											<td>${pcVO.percentageDiscountAmount}</td>
+											<td>${pcVO.fixedDiscountAmount}</td>
+											<td>${pcVO.usagesAllowed}</td>
+											<td>${pcVO.minimumConsumption}</td>
+											<td>${pcVO.createdTimestamp}</td>
 
+
+											<td>
+												<FORM METHOD="post"
+													ACTION="<%=request.getContextPath()%>/PromoCodeServlet"
+													style="margin-bottom: 0px;">
+													<input type="submit" value="­×§ï"> <input
+														type="hidden" name="promoCodeNo"
+														value="${pcVO.promoCodeNo}"> <input type="hidden"
+														name="action" value="getOne_For_Update">
+												</FORM>
+											</td>
+											<td>
+												<FORM METHOD="post"
+													ACTION="<%=request.getContextPath()%>/PromoCodeServlet"
+													style="margin-bottom: 0px;">
+													<input type="submit" value="§R°£"> <input
+														type="hidden" name="promoCodeNo"
+														value="${pcVO.promoCodeNo}"> <input type="hidden"
+														name="action" value="delete">
+												</FORM>
+											</td>
+										</tr>
+									</c:forEach>
+
+									
 								</tbody>
 							</table>
 						</div>
 					</div>
-
 				</section>
 			</div>
-
 			<footer>
 				<div class="footer clearfix mb-0 text-muted">
 					<div class="float-start">
@@ -309,52 +289,102 @@ td button.wcc {
 		</div>
 	</div>
 	<script>
-        document.addEventListener("DOMContentLoaded", function () {
-            $("button.wcc").on('click', (e) => {
-                Swal.fire({
-                    icon: "success",
-                    title: "åˆªé™¤å„ªæƒ åˆ¸æˆåŠŸ!"
-                })
-            })
-
-
-
-
-        })
-    </script>
+		// 		Simple Datatable
+		// 		        let table1 = document.querySelector('#table1');
+		// 		        let dataTable = new simpleDatatables.DataTable(table1);
+	</script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
 	<script
-		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
-
-	<script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
 
 
+	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+		$(function() {
+			//jsp¤¤¨Ï¥Îreadªº¸Ü¡A·|»~»{¬°ajax­nÂà±µºô­¶­n§ï¥Îready
+			$(document).ready("change", ".btn.article_status", function() {
+				// console.log("you touch me");
+			});
 
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
+			$(document).ready(function() {
+				//¨ú±o¼Æ¦r
+				var $articleStatusBtn = $('.article_status');
+				// §â¨C­Óa¼ĞÅÒªº¼Æ¦rÂà¬°¤å¦r
+				$articleStatusBtn.each(function() {
+					var $this = $(this);
+					var status = parseInt($this.text());
 
+					switch (status) {
+					case 0:
+						$this.text('¤½¶}');
+						break;
+					case 1:
+						$this.text('«D¤½¶}');
+						break;
+					case 2:
+						$this.text('¯ó½Z');
+						break;
+					case 3:
+						$this.text('§R°£');
+						break;
+					}
+				});
+			});
+
+			$(document)
+					.on(
+							"change",
+							".ch_artice_status",
+							function() {
+								let selectedOption = $(this).find(
+										"option:selected").text();
+								console.log(selectedOption);
+								let parentRow = $(this).closest("tr"); //¥Î¨Ó§ä´M¸Ó°Ï°ìªº¤÷¤¸¯À<tr>¡A
+								//¨Ï¥Îfind§ä¨ì¤÷¤¸¯À<tr>°Ï°ì¡A¤~¥i¥H«ü©w¸Ó<tr>°Ï°ìªº¤º®e§ïÅÜ¡A¶i¦Ó¤£¼vÅT¨ì¨ä¥L<tr>°Ï°ì
+								switch (selectedOption) {
+								case "0":
+									let new_status1 = `<a href="#" class="btn btn-success rounded-pill btn article_status">¤½¶}</a>`;
+									parentRow.find(".btn.article_status")
+											.remove();
+									parentRow.find(".artice_status").append(
+											new_status1);
+									break;
+								case "1":
+									let new_status2 = `<a href="#" class="btn btn-info rounded-pill btn article_status">«D¤½¶}</a>`;
+									parentRow.find(".btn.article_status")
+											.remove();
+									parentRow.find(".artice_status").append(
+											new_status2);
+									break;
+								case "2":
+									let new_status3 = `<a href="#" class="btn btn-warning rounded-pill btn article_status">¯ó½Z</a>`;
+									parentRow.find(".btn.article_status")
+											.remove();
+									parentRow.find(".artice_status").append(
+											new_status3);
+									break;
+								case "3":
+									let new_status4 = `<a href="#" class="btn btn-danger rounded-pill btn article_status">§R°£</a>`;
+									parentRow.find(".btn.article_status")
+											.remove();
+									parentRow.find(".artice_status").append(
+											new_status4);
+									break;
+								}
+							});
+		});
+	</script>
 </body>
 
 </html>
