@@ -52,15 +52,14 @@ public class PromoCodeService {
 //		return PromoCodeVO;
 //	}
 
-	public void addPc (PromoCodeVO promoCodeVO) {
+	public void addPc(PromoCodeVO promoCodeVO) {
 		dao.insert(promoCodeVO);
 	}
-	
-	public void  updatePc(PromoCodeVO promoCodeVO) {
+
+	public void updatePc(PromoCodeVO promoCodeVO) {
 		dao.update(promoCodeVO);
 	}
-	
-	
+
 	public void deletePc(PromoCodeVO promoCodeVO) {
 		dao.delete(promoCodeVO);
 	}
@@ -73,11 +72,8 @@ public class PromoCodeService {
 		return dao.getAll();
 	}
 
-
-		
+	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
+		return dao.findByPromoCodeSerialNumber(promoCodeSerialNumber);
 	}
 
-	
-		
-	
-
+}

@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 	// 首先定义全局变量
 	let currentPage = 1; // 当前页码
-	let pageSize = 3; // 每页显示的商品数量
+	let pageSize = 6; // 每页显示的商品数量
 	let totalProductCount = 0; // 商品总数量
 	let totalPages = 0; // 总页数
 
@@ -110,6 +110,33 @@ $(document).ready(function() {
 							}
 						});
 					});
+					// 为每个购物车图标添加事件监听器
+					icon.addEventListener('click', function(event) {
+						event.preventDefault(); // 阻止默认的按钮点击行为
+
+						const productId = aTitle.getAttribute('data-product-id'); // 获取商品ID
+						const requestData = {
+							action: 'buttonadd1', // 指定要调用的方法，例如 'addToCart'
+							productNo: productId, // 商品的ID
+							quantity: 1
+						};
+						console.log(requestData);
+						console.log(productId);
+						$.ajax({
+							url: '/CookLab/CartServlet', // 服务器端URL
+							type: 'GET', // 使用GET请求
+							data: requestData, // 发送的参数
+							dataType: 'json', // 预期的响应数据类型
+							success: function(response) {
+								// 处理成功添加到购物车的响应
+								console.log('商品已添加到购物车');
+								alert("商品添加到購物車囉");
+							},
+							error: function(xhr) {
+								console.log('AJAX请求失败：' + xhr.status);
+							}
+						});
+					});
 
 				});
 				// 更新总商品数量和页数
@@ -127,54 +154,54 @@ $(document).ready(function() {
 		});
 	}
 
-		function updatePaginationButtons() {
-			const paginationContainer = $("#pagination-container");
-			const paginationList = paginationContainer.find(".pagination");
-			paginationList.empty(); // 清空分页按钮
-	
-			if (totalPages <= 1) {
-				// 如果只有一页，不显示分页按钮
-				paginationContainer.hide();
-			} else {
-				paginationContainer.show();
-	
-				// 添加Previous按钮
-				const previousButton = $("<li class='page-item' id='previous-page'><a class='page-link' href='#'>Previous</a></li>");
-				previousButton.click(function() {
-					if (currentPage > 1) {
-						currentPage--;
-						loadPage(currentPage);
-						updatePaginationButtons(); // 更新按钮状态
-					}
-				});
-				paginationList.append(previousButton);
-	
-				// 添加数字页码按钮
-				for (let page = 1; page <= totalPages; page++) {
-					const pageButton = $(`<li class='page-item'><a class='page-link' href='#'>${page}</a></li>`);
-					pageButton.click(function() {
-						loadPage(page);
-						currentPage = page; // 设置当前页码
-						updatePaginationButtons(); // 更新按钮状态
-					});
-					if (page === currentPage) {
-						pageButton.addClass("active");
-					}
-					paginationList.append(pageButton);
+	function updatePaginationButtons() {
+		const paginationContainer = $("#pagination-container");
+		const paginationList = paginationContainer.find(".pagination");
+		paginationList.empty(); // 清空分页按钮
+
+		if (totalPages <= 1) {
+			// 如果只有一页，不显示分页按钮
+			paginationContainer.hide();
+		} else {
+			paginationContainer.show();
+
+			// 添加Previous按钮
+			const previousButton = $("<li class='page-item' id='previous-page'><a class='page-link' href='#'>Previous</a></li>");
+			previousButton.click(function() {
+				if (currentPage > 1) {
+					currentPage--;
+					loadPage(currentPage);
+					updatePaginationButtons(); // 更新按钮状态
 				}
-	
-				// 添加Next按钮
-				const nextButton = $("<li class='page-item' id='next-page'><a class='page-link' href='#'>Next</a></li>");
-				nextButton.click(function() {
-					if (currentPage < totalPages) {
-						currentPage++;
-						loadPage(currentPage);
-						updatePaginationButtons(); // 更新按钮状态
-					}
+			});
+			paginationList.append(previousButton);
+
+			// 添加数字页码按钮
+			for (let page = 1; page <= totalPages; page++) {
+				const pageButton = $(`<li class='page-item'><a class='page-link' href='#'>${page}</a></li>`);
+				pageButton.click(function() {
+					loadPage(page);
+					currentPage = page; // 设置当前页码
+					updatePaginationButtons(); // 更新按钮状态
 				});
-				paginationList.append(nextButton);
+				if (page === currentPage) {
+					pageButton.addClass("active");
+				}
+				paginationList.append(pageButton);
 			}
+
+			// 添加Next按钮
+			const nextButton = $("<li class='page-item' id='next-page'><a class='page-link' href='#'>Next</a></li>");
+			nextButton.click(function() {
+				if (currentPage < totalPages) {
+					currentPage++;
+					loadPage(currentPage);
+					updatePaginationButtons(); // 更新按钮状态
+				}
+			});
+			paginationList.append(nextButton);
 		}
+	}
 
 	// 分页按钮点击事件处理
 	previousPageButton.click(function() {

@@ -1,7 +1,9 @@
 package com.cooklab.product.model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.cooklab.ingredient_category.model.IngredientCategoryVO;
 import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
+import com.cooklab.order_detail.model.OrderDetailVO;
 
 @Entity
 @Table(name = "product")
@@ -53,6 +57,8 @@ public class ProductVO implements java.io.Serializable {
 	@JoinColumn(name="ingredient_category_no",referencedColumnName="ingredient_category_no", insertable = false ,updatable = false)
 	private IngredientCategoryVO ingredientCategory;
 	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private Set<OrderDetailVO> orderDetail;
 	
 	@Column(name = "ingredient_category_no")
 	private Integer ingredientCategoryNo;
@@ -74,6 +80,18 @@ public class ProductVO implements java.io.Serializable {
 	
 	
 	
+	public Set<OrderDetailVO> getOrderDetail() {
+		return orderDetail;
+	}
+
+
+
+	public void setOrderDetail(Set<OrderDetailVO> orderDetail) {
+		this.orderDetail = orderDetail;
+	}
+
+
+
 	public IngredientCategoryVO getIngredientCategory() {
 		return ingredientCategory;
 	}
