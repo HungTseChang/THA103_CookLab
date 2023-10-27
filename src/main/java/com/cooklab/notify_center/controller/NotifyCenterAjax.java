@@ -2,7 +2,6 @@ package com.cooklab.notify_center.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cooklab.members.model.MembersService;
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.notify_center.model.NotifyCenterHService;
 import com.cooklab.notify_center.model.NotifyCenterVO;
+import com.cooklab.notify_center.service.NotifyCenterHService;
 import com.google.gson.Gson;
 
 @WebServlet("/NotifyCenterAjax")
@@ -96,7 +95,6 @@ public class NotifyCenterAjax extends HttpServlet {
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(Data);
-			System.out.println("Ajax回傳資料成功");
 		}
 
 		// 後台建立系統通知
@@ -107,38 +105,25 @@ public class NotifyCenterAjax extends HttpServlet {
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			String idStr = req.getParameter("memberId");
 			Integer memberId = null;
-			if(idStr == null || idStr.trim().length() == 0) {
+			if (idStr == null || idStr.trim().length() == 0) {
 				errorMsgs.put("errIdblank", "請輸入會員編號");
-			}else {
-				memberId = Integer.valueOf(idStr);
-			}
-
-			// 以下member資料取得方式為JDBC版
-			MembersService mSvc = new MembersService();
-			MembersVO mVO = mSvc.getOneMember(memberId);
-			if (mVO == null) {
-				errorMsgs.put("errId", "查無該會員編號，請重新確認");
 			} else {
-				System.out.println("查詢會員編號成功");
-			}
-
-			Timestamp notifyTime = null;
-			String notifyTimeStr = req.getParameter("notifyTime");
-			System.out.println("取得時間為：" + notifyTimeStr);
-			if (notifyTimeStr != null) {
-				try {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-					String formattedDateTime = notifyTimeStr + ":00";
-
-					notifyTime = Timestamp.valueOf(formattedDateTime);
-					;
-				} catch (Exception e) {
-					e.printStackTrace();
-					notifyTime = new Timestamp(System.currentTimeMillis());
-					errorMsgs.put("errTime", "請選擇日期時間");
+				Integer memberIdcheck = Integer.valueOf(idStr);
+				MembersService mSvc = new MembersService();
+				MembersVO mVO = mSvc.getOneMember(memberIdcheck);
+				if (mVO == null) {
+					errorMsgs.put("errId", "查無該會員編號，請重新確認");
+				} else {
+					memberId = memberIdcheck;
 				}
+			}
+
+			String notifyTimeStr = req.getParameter("notifyTime");
+			Timestamp notifyTime = null;
+			if (notifyTimeStr != null && !notifyTimeStr.trim().isEmpty()) {
+				notifyTime = Timestamp.valueOf(notifyTimeStr);
 			} else {
+				errorMsgs.put("errTime", "請選擇日期時間");
 			}
 
 			Byte notifyType = null;
@@ -151,7 +136,7 @@ public class NotifyCenterAjax extends HttpServlet {
 
 			String notifyContent = req.getParameter("notifyContent").trim();
 			if (notifyContent == null || notifyContent.trim().length() == 0) {
-				errorMsgs.put("errContentt", "內容請勿空白");
+				errorMsgs.put("errContent", "內容請勿空白");
 			}
 
 			// 錯誤驗證的訊息收集及回傳
@@ -165,11 +150,6 @@ public class NotifyCenterAjax extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			NotifyCenterVO ncVO = new NotifyCenterVO();
-			// 會員編號先使用JDBC版本置入資料
-//			ncVO.setMemberId(memberId);
-//			ncVO.setNotifyTime(notifyTime);
-//			ncVO.setNotifyType(notifyType);
-//			ncVO.setNotifyContent(notifyContent);
 			NotifyCenterHService ncSvc = new NotifyCenterHService();
 			ncVO = ncSvc.addNotifyCenter(notifyType, notifyContent, notifyTime, memberId);
 
@@ -200,33 +180,41 @@ public class NotifyCenterAjax extends HttpServlet {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer notifyNo = Integer.valueOf(req.getParameter("notifyNo").trim());
-			Integer memberId = Integer.valueOf(req.getParameter("memberId"));
 
-			Timestamp notifyTime = null;
-			String notifyTimeStr = req.getParameter("notifyTime");
-			System.out.println("取得時間為：" + notifyTimeStr);
-			if (notifyTimeStr != null) {
-				try {
-					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-					String formattedDateTime = notifyTimeStr + ":00";
-
-					notifyTime = Timestamp.valueOf(formattedDateTime);
-					;
-				} catch (Exception e) {
-					e.printStackTrace();
-					notifyTime = new Timestamp(System.currentTimeMillis());
-					errorMsgs.put("errTime", "請選擇日期時間");
-				}
+			String idStr = req.getParameter("memberId");
+			Integer memberId = null;
+			if (idStr == null || idStr.trim().length() == 0) {
+				errorMsgs.put("errIdblank", "請輸入會員編號");
 			} else {
+				Integer memberIdcheck = Integer.valueOf(idStr);
+				MembersService mSvc = new MembersService();
+				MembersVO mVO = mSvc.getOneMember(memberIdcheck);
+				if (mVO == null) {
+					errorMsgs.put("errId", "查無該會員編號，請重新確認");
+				} else {
+					memberId = memberIdcheck;
+				}
+			}
+
+			String notifyTimeStr = req.getParameter("notifyTime");
+			Timestamp notifyTime = null;
+			if (notifyTimeStr != null && !notifyTimeStr.trim().isEmpty()) {
+				notifyTime = Timestamp.valueOf(notifyTimeStr);
+			} else {
+				errorMsgs.put("errTime", "請選擇日期時間");
 			}
 
 			Byte notifyType = null;
-			String ncTStr = req.getParameter("notifyType").trim();
-			if (ncTStr.equals("default")) {
-				errorMsgs.put("errType", "請選擇問題類別");
+			String ncStr = req.getParameter("notifyType").trim();
+			if (ncStr.equals("default")) {
+				errorMsgs.put("errType", "請選擇通知類別");
 			} else {
-				notifyType = Byte.valueOf(ncTStr);
+				notifyType = Byte.valueOf(ncStr);
+			}
+
+			String notifyContent = req.getParameter("notifyContent").trim();
+			if (notifyContent == null || notifyContent.trim().length() == 0) {
+				errorMsgs.put("errContent", "內容請勿空白");
 			}
 
 			Byte notifyRead = null;
@@ -235,11 +223,6 @@ public class NotifyCenterAjax extends HttpServlet {
 				errorMsgs.put("errRead", "請選擇讀取狀態");
 			} else {
 				notifyRead = Byte.valueOf(ncRStr);
-			}
-
-			String notifyContent = req.getParameter("notifyContent").trim();
-			if (notifyContent == null || notifyContent.trim().length() == 0) {
-				errorMsgs.put("errContentt", "內容請勿空白");
 			}
 
 			// 錯誤驗證的訊息收集及回傳
@@ -256,22 +239,19 @@ public class NotifyCenterAjax extends HttpServlet {
 			NotifyCenterHService ncSvc = new NotifyCenterHService();
 			ncVO = ncSvc.updateNotifyCenter(notifyNo, notifyType, notifyRead, notifyContent, notifyTime, memberId);
 			/*************************** 3.修改完成,準備轉交資料予前端 *************/
-			if (ncVO != null) {
-				String url = "/THA103_CookLab/dashboard/notifycenter/official-notify.html";
+			String url = "/THA103_CookLab/dashboard/notifycenter/official-notify.html";
 
-				// 創建Map物件放入成功訊息
-				Map<String, String> successMsg = new HashMap<String, String>();
-				successMsg.put("success", "data transfer success");
-				successMsg.put("url", url);
+			// 創建Map物件放入成功訊息
+			Map<String, String> successMsg = new HashMap<String, String>();
+			successMsg.put("success", "data transfer success");
+			successMsg.put("url", url);
 
-				String successjson = gson.toJson(successMsg);
+			String successjson = gson.toJson(successMsg);
 
-				res.setContentType("application/json");
-				res.setCharacterEncoding("UTF-8");
-				res.getWriter().write(successjson);
-			} else {
-				// 預計放入空頁面
-			}
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(successjson);
+
 		}
 	}
 

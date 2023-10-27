@@ -1,3 +1,9 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const RECIPECREATE_POINT = "/RecipeCreateServlet";
+const HASHTAG_POINT = "/HashtagServlet";
 let coverImageBase64;
 let step;
 let stepImgBase64 = [];
@@ -86,7 +92,7 @@ $("#coverImageInput").on("change", function () {
 
 //新增一列食材
 $("#addIngredient").on("click", function () {
-    let addIngredient = `<div class="row align-items-center " style="margin: 5px">
+    let addIngredient = `<div class="row align-items-center ingredients" style="margin: 5px">
                              <div class="col-md-5 ">
                                  <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)"/>
                                  <div class="search-results"></div>
@@ -109,7 +115,7 @@ $("#listIngredient").on("click", ".delete-ingredient", function () {
 /*============================== 新增廚具 ==============================*/
 //廚具新增一列
 $("#addKitchenware").on("click", function () {
-    let addKitchenware = `<div class="row align-items-center" style="margin: 5px">
+    let addKitchenware = `<div class="row align-items-center kitchenwares" style="margin: 5px">
                             <div class="col-md-5">
                                 <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)"/>
                                 <div class="search-results"></div>
@@ -228,7 +234,7 @@ $("#listStep").on("change", ".step-img-input", function () {
 /*============================================================ ajax ============================================================*/
 /*============================== 載入標籤 ==============================*/
 $.ajax({
-    url: `http://localhost:8081/CookLab/HashtagServlet`,
+    url: END_POINT_URL + HASHTAG_POINT,
     type: "POST",
     data: { action: "getToRecipe" },
     dataType: "json",
@@ -260,7 +266,7 @@ function searchProduct(product) {
     const category = product.getAttribute("category");
     if (search.trim() != "") {
         $.ajax({
-            url: `http://localhost:8081/CookLab/Recipe${category}Servlet`,
+            url: END_POINT_URL`/Recipe${category}Servlet`,
             type: "POST",
             data: { search, action: "search", category },
             dataType: "json",
@@ -293,86 +299,96 @@ $(document).on("mousedown", function (event) {
 /*============================== 發布食譜 ==============================*/
 
 $("#publish").on("click", function () {
-    let ingredient = document.querySelectorAll(".ingredient"); //所有食材
-    let ingredientArray = []; //食材陣列
-    let ingredientQuantity = document.querySelectorAll(".ingredient-quantity"); //所有食材
-    let ingredientQuantitytArray = []; //食材份量陣列
-    let kitchenware = document.querySelectorAll(".kitchenware"); //所有廚具
-    let kitchenwareArray = []; //廚具陣列
-    let stepTime = document.querySelectorAll(".step-time"); //所有步驟時間
-    let stepTimeArray = []; //步驟時間陣列
-    let stepContent = document.querySelectorAll(".step-content"); //所有步驟內容
-    let stepContentArray = []; //步驟內容陣列
-    let recipeHashtagArray = []; //標籤內容陣列
+    // let ingredient = document.querySelectorAll(".ingredient"); //所有食材
+    // let ingredientArray = []; //食材陣列
+    // let ingredientQuantity = document.querySelectorAll(".ingredient-quantity"); //所有食材
+    // let ingredientQuantitytArray = []; //食材份量陣列
+    // let kitchenware = document.querySelectorAll(".kitchenware"); //所有廚具
+    // let kitchenwareArray = []; //廚具陣列
+    // let stepTime = document.querySelectorAll(".step-time"); //所有步驟時間
+    // let stepTimeArray = []; //步驟時間陣列
+    // let stepContent = document.querySelectorAll(".step-content"); //所有步驟內容
+    // let stepContentArray = []; //步驟內容陣列
+    // let recipeHashtagArray = []; //標籤內容陣列
+
+    let ingredient = [];
+    let kitchenware = [];
+    let step = [];
+    let recipeHashtag = [];
+    $("#listIngredient .ingredients").each(function (index, element) {
+        ingredient[index] = {
+            ingredient: $(element).find(".ingredient").val(),
+            ingredientQuantity: $(element).find(".ingredient-quantity").val(),
+        };
+    });
+    $("#listKitchenware .kitchenwares").each(function (index, element) {
+        kitchenware[index] = $(element).find(".kitchenware").val();
+    });
+    $("#listStep .step").each(function (index, element) {
+        step[index] = {
+            stepImage: stepImgBase64[index],
+            stepTime: $(element).find(".step-time").val(),
+            stepContent: $(element).find(".step-content").val(),
+        };
+    });
+    $("#selectTag button").each(function (index, element) {
+        recipeHashtag[index] = $(element).text();
+    });
 
     //把食材的值放入陣列
-    for (var i = 0; i < ingredient.length; i++) {
-        var ingredientValue = ingredient[i].value;
-        var quantityValue = ingredientQuantity[i].value;
-        ingredientArray.push(ingredientValue);
-        ingredientQuantitytArray.push(quantityValue);
-    }
-    //把廚具的值放入陣列
-    for (var i = 0; i < kitchenware.length; i++) {
-        var value = kitchenware[i].value;
-        kitchenwareArray.push(value);
-    }
-    //把步驟時間的值放入陣列
-    for (var i = 0; i < stepTime.length; i++) {
-        // var imgValue =
-        var timeValue = stepTime[i].value;
-        var contentValue = stepContent[i].value;
-        stepTimeArray.push(timeValue);
-        stepContentArray.push(contentValue);
-    }
+    // for (var i = 0; i < ingredient.length; i++) {
+    //     var ingredientValue = ingredient[i].value;
+    //     var quantityValue = ingredientQuantity[i].value;
+    //     ingredientArray.push(ingredientValue);
+    //     ingredientQuantitytArray.push(quantityValue);
+    // }
+    // //把廚具的值放入陣列
+    // for (var i = 0; i < kitchenware.length; i++) {
+    //     var value = kitchenware[i].value;
+    //     kitchenwareArray.push(value);
+    // }
+    // //把步驟時間的值放入陣列
+    // for (var i = 0; i < stepTime.length; i++) {
+    //     // var imgValue =
+    //     var timeValue = stepTime[i].value;
+    //     var contentValue = stepContent[i].value;
+    //     stepTimeArray.push(timeValue);
+    //     stepContentArray.push(contentValue);
+    // }
     //把標籤的值放入陣列
-    $("#selectTag button").each(function (index, element) {
-        recipeHashtagArray.push($(element).text());
-    });
+    // $("#selectTag button").each(function (index, element) {
+    //     recipeHashtagArray.push($(element).text());
+    // });
     //送出的資料
-    const createRecipe = {
-        //食譜table
+    let CreateRecipeDTO = {
         recipeName: $("#recipeName").val(),
         coverImage: coverImageBase64,
+        recipeQuantity: $("#recipeQuantity").val(),
         introduction: $("#introduction").val(),
         additionalExplanation: $("#additionalExplanation").val(),
-        // region: $("#region").val(),
-        region: "地區", //測試
-        recipeStatus: 1,
-        recipeQuantity: $("#recipeQuantity").val(),
-        //食材table
-        ingredient: JSON.stringify(ingredientArray),
-        ingredientQuantity: JSON.stringify(ingredientQuantitytArray),
-        //廚具table
-        kitchenware: JSON.stringify(kitchenwareArray),
-        //步驟table
-        stepImg: JSON.stringify(stepImgBase64),
-        stepTime: JSON.stringify(stepTimeArray),
-        stepContent: JSON.stringify(stepContentArray),
-        //食譜使用標籤table
-        recipeHashtag: JSON.stringify(recipeHashtagArray),
-
-        action: "insert",
+        region: $("#region").val(),
+        ingredient: ingredient,
+        kitchenware: kitchenware,
+        step: step,
+        recipeHashtag: recipeHashtag,
     };
+    console.log(CreateRecipeDTO);
+    console.log(JSON.stringify(CreateRecipeDTO));
+
     //ajax送新增請求
     $.ajax({
-        url: "http://localhost:8081/CookLab/RecipeServlet", // 資料請求的網址
+        url: END_POINT_URL + RECIPECREATE_POINT, // 資料請求的網址
         type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: createRecipe, // 將物件資料(不用雙引號) 傳送到指定的 url
+        data: JSON.stringify(CreateRecipeDTO), // 將物件資料(不用雙引號) 傳送到指定的 url
+        contentType: "application/json",
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-        beforeSend: function () {
-            // 在 request 發送之前執行
-        },
-        headers: {
-            // request 如果有表頭資料想要設定的話
-            // "X-CSRF-Token":"abcde"   // 參考寫法
-        },
         success: function (data) {
-            if (data.sucess !=null) {
-                window.location.href = "http://localhost:8081/CookLab/recipe/recipe_browse.html?recipeNo="+data.sucess;
-            } else {
-                alert(data);
-            }
+            // if (data.sucess != null) {
+            //     window.location.href = END_POINT_URL + "/recipe_browse.jsp?recipeNo=" + data.sucess;
+            // } else {
+            //     alert(data);
+            // }
+            console.log("data");
         },
         error: function (xhr) {
             // request 發生錯誤的話執行

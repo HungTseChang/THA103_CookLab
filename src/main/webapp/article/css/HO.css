@@ -293,7 +293,11 @@ a.page-link_pr {
   text-decoration: none; /* 取消下底線 */
 }
 
-
+.image-container {
+  position: relative;
+  display: inline-block; /* 讓內容可以變區塊方式呈現 */
+  cursor: pointer;
+}
 
 
 /*===============================以下是webchat==================================*/
@@ -304,7 +308,7 @@ a.page-link_pr {
 }
 
 .message-area {
-    height: 70%;
+    height: 50%;
     resize: none;
     box-sizing: border-box;
     overflow: auto;
@@ -343,7 +347,22 @@ a.page-link_pr {
 /*   font-family: Helvetica, Arial, sans-serif; */
 /* } */
 
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul li.talk{
+  display:inline-block;
+  clear: both;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 .friend{
+	
   background: #eee;
   float: left;
 }

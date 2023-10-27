@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cooklab.member_order.model.MemberOrderVO;
+import com.cooklab.order_detail.model.OrderDetailVO;
+import com.cooklab.product.model.ProductVO;
+import com.cooklab.recipe_step.model.RecipeStepVO;
 
 public class MemberOrderOverViewDTO {
 	private Integer orderNo;
@@ -24,7 +27,10 @@ public class MemberOrderOverViewDTO {
 		this.checkoutAmount = memberOrderVO.getCheckoutAmount();
 		this.shippingAddress = memberOrderVO.getShippingAddress();
 		this.createdTimestamp = memberOrderVO.getCreatedTimestamp();
-		
+
+		for(OrderDetailVO odVO: memberOrderVO.getOrderDetail()) {
+			odVO.getProduct().getProductName();
+		}
 	}
 
 	public Integer getOrderNo() {

@@ -59,93 +59,141 @@
 
 
 						<!-- ============================================================================================== -->
-						<li class="sidebar-item  "><a href="WCC_Homepage.html"
-							class='sidebar-link'> <i class="bi bi-grid-fill"></i> <span>後台首頁</span>
-						</a></li>
+			                    <li class="sidebar-item  ">
+                            <a href="<%=request.getContextPath()%>/dashboard/WCC_Homepage.jsp" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>後台首頁</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item ">
+                            <a href="<%=request.getContextPath()%>/dashboard/member/WCC_memeber.jsp" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>會員管理</span>
+                            </a>
+                        </li>
 
 
-						<li class="sidebar-item "><a href="WCC_memeber.html"
-							class='sidebar-link'> <i
-								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>會員管理</span>
-						</a></li>
+                        <li class="sidebar-item  has-sub ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>權限管理</span>
+                            </a>
+                            <ul class="submenu ">
+                          
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">管理管理者</a>
+                                </li>
+                             
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">創立權限規則</a>
+                                </li>
+                            
+                            </ul>
+                        </li>
 
+                        <li class="sidebar-item has-sub ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-collection-fill"></i>
+                                <span>食譜管理</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href=".\recipe_form.html">食譜表單</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href=".\hashtag_form.html">標籤管理</a>
+                                </li>
+                            </ul>
+                        </li>
 
-						<li class="sidebar-item  has-sub "><a href="#"
-							class='sidebar-link'> <i class="bi bi-stack"></i> <span>權限管理</span>
-						</a>
-							<ul class="submenu ">
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>商城管理</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href=".\shopview.html">商品設定</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="TYT_order_management.html">訂單管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href=".\GCpromo_info.html">新增優惠券</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href=".\GCpromo.html">優惠券管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href=".\GCadvertise.html" >廣告管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href=".\GCadvertise_info.html">新增廣告</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="TYT_purchase_order_allView.html">進貨表單</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>討論區管理</span>
+                            </a>
 
-								<li class="submenu-item "><a
-									href=".\WCC_permission_management.html">管理管理者</a></li>
-
-								<li class="submenu-item "><a
-									href=".\WCC_permission_createrule.html">創立權限規則</a></li>
-
-							</ul></li>
-
-						<li class="sidebar-item has-sub "><a href="#"
-							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>食譜管理</span>
-						</a>
-							<ul class="submenu">
-								<li class="submenu-item"><a href=".\recipe_form.html">食譜表單</a>
-								</li>
-								<li class="submenu-item "><a href=".\hashtag_form.html">標籤管理</a>
-								</li>
-							</ul></li>
-
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>商城管理</span>
-						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href=".\shopview.html">商品設定</a>
-								</li>
-								<li class="submenu-item "><a
-									href="TYT_order_management.html">訂單管理</a></li>
-								<li class="submenu-item"><a href=".\GCpromo_info.html">新增優惠券</a>
-								</li>
-								<li class="submenu-item  "><a href=".\GCpromo.html">優惠券管理</a>
-								</li>
-								<li class="submenu-item"><a href=".\GCadvertise.html">廣告管理</a>
-								</li>
-								<li class="submenu-item"><a href=".\GCadvertise_info.html">新增廣告</a>
-								</li>
-								<li class="submenu-item "><a
-									href="TYT_purchase_order_allView.html">進貨表單</a></li>
-							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>討論區管理</span>
-						</a>
-
-							<ul class="submenu ">
-								<li class="submenu-item "><a
-									href=".\HO_discussion_cate.html">看板分類</a></li>
-								<li class="submenu-item "><a
-									href=".\HO_discussion_info.html">文章管理</a></li>
-							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>數據分析</span>
-						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">會員數據</a></li>
-								<li class="submenu-item "><a href="#">食譜數據</a></li>
-								<li class="submenu-item "><a href="#">商城數據</a></li>
-								<li class="submenu-item "><a href="#">文章數據</a></li>
-							</ul></li>
-						<li class="sidebar-item  has-sub "><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>客服中心</span>
-						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="WCC_recipe_report.html">食譜檢舉</a>
-								</li>
-								<li class="submenu-item "><a
-									href="WCC_recipe_sub_report.html">食譜回文檢舉</a></li>
-								<li class="submenu-item "><a href="WCC_article_report.html">討論區檢舉</a>
-								</li>
-								<li class="submenu-item "><a
-									href="WCC_official_notify.html">系統通知</a></li>
-								<li class="submenu-item "><a
-									href="ding-support-tickets-table.html">問題表單</a></li>
-							</ul></li>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href=".\HO_discussion_cate.html">看板分類</a>
+                                  </li>
+                                  <li class="submenu-item ">
+                                    <a href=".\HO_discussion_info.html" >文章管理</a>
+                                  </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-pen-fill"></i>
+                                <span>數據分析</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="#">會員數據</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="#">食譜數據</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="#">商城數據</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="#">文章數據</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-pen-fill"></i>
+                                <span>客服中心</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_recipe_report.html">食譜檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="src=<%=request.getContextPath()%>/dashboard/WCC_recipe_sub_report.html">食譜回文檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_article_report.html">討論區檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_official_notify.html">系統通知</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="ding-support-tickets-table.html">問題表單</a>
+                                </li>
+                            </ul>
+                        </li>
 						<!-- ======================================================================================================== -->
 					</ul>
 				</div>
@@ -201,20 +249,17 @@ td button.wcc {
 									style="text-align: right; display: flex; flex-direction: column; justify-content: center;">
 									<select class="wcc" id="selectsearch"
 										style="background-color: white; padding-left: 20px; : border-color: white;">
-										<option value="articleReportNo">檢舉編號</option>
-										<option value="reporterId">檢舉者ID</option>
-										<option value="reporterAccount">檢舉者帳號</option>
-										<option value="reporterNikname">檢舉者暱稱</option>
-										<option value="articleNo">文章編號</option>
-										<option value="articleTitle">文章名稱</option>
-										<option value="reportingStatus">檢舉狀態</option>
-										<option value="createdTimestamp">時間</option>
+										<option value="memberid">會員編號</option>
+										<option value="nickname">會員暱稱</option>
+										<option value="account">會員帳號</option>
+										<option value="email">會員信箱</option>
+										<option value="status">會員狀態</option>
 										<option value="wcc" selected>所有欄位</option>
 									</select>
 								</div>
 								<div class="col-md-6">
 									<input type="text" id="searchbar" class="form-control"
-										placeholder="請輸入 編號、管理員、帳號、暱稱或時間"
+										placeholder="請輸入 編號、帳號、暱稱或信箱"
 										style="pading-color: rgb(208, 250, 255);">
 								</div>
 								<div class="datable dropdown" style="padding: 10px;">
@@ -395,11 +440,11 @@ td button.wcc {
 									}
 									let text = "";
 									text += "<tr>";
-									text += "<td class='wcc' name='memberid'>"+ aa.memberId + "</td>";
-									text += " <td class='wcc' name='nickname'>"+ aa.memberNickname + "</td>";
-									text += " <td class='wcc' name='account'>"+ aa.memberAccount + "</td>";
-									text += " <td name ='email'>"+ aa.memberMail + "</td>";
-									text += " <td>" + status[aa.memberStatus]+ "</td>";
+									text += "<td class='wcc memberid' name='memberid'>"+ aa.memberId + "</td>";
+									text += " <td class='wcc nickname' name='nickname'>"+ aa.memberNickname + "</td>";
+									text += " <td class='wcc account' name='account'>"+ aa.memberAccount + "</td>";
+									text += " <td class='wcc email' name ='email'>"+ aa.memberMail + "</td>";
+									text += " <td class='wcc status'  name='status'>" + status[aa.memberStatus]+ "</td>";
 									text += " <td>"+ '<a class="wcc">詳細資料</a><button class="wcc">重設密碼</button>'+ "</td>";
 									text += "</tr>";
 									textall += text;

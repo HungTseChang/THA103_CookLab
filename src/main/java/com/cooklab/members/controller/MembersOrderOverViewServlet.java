@@ -19,7 +19,7 @@ import com.cooklab.members.model.MembersService;
 import com.cooklab.recipe.model.RecipeVO;
 import com.google.gson.Gson;
 
-@WebServlet("/MemberOrderServlet")
+@WebServlet("/MemberOrderForServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
 maxFileSize = 1024 * 1024 * 10,      // 10MB
 maxRequestSize = 1024 * 1024 * 50)   // 50MB

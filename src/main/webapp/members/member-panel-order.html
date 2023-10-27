@@ -295,6 +295,7 @@ console.log(endPointURL);
 		success: function(data) {
 			$("#recipeList").html("");
 			$(data).each(function(index, element) {
+        console.log(element);
         var recipe = element;
         
 

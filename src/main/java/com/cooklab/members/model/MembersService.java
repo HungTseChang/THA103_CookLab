@@ -110,6 +110,8 @@ public class MembersService {
 	public List<MemberOrderVO> getOrder(Integer offset, Integer limit,Integer memberId)
 	{
 		return dao.getOrder(offset, limit, memberId);
-		
+	}
+	public MembersVO findByPrimaryKey(Integer memberId) {
+		return dao.findByPrimaryKey(memberId);
 	}
 }

@@ -19,18 +19,11 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-
-		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
 		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>2.9.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-pool2</artifactId>
-			<version>2.5.0</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20231013</version>
 		</dependency>
 
 
@@ -289,7 +282,7 @@
 			<!-- <version>2.9.0</version> -->
 		</dependency>
 
-<!-- HEAD-->
+		<!-- HEAD-->
 		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -303,13 +296,13 @@
 			<version>2.5.0</version>
 		</dependency>
 
-<!--=======-->
-<!--		<dependency>-->
-<!--			<groupId>com.tibame</groupId>-->
-<!--			<artifactId>h2instance</artifactId>-->
-<!--			<version>0.0.1-SNAPSHOT</version>-->
-<!--		</dependency>-->
-<!-->>>>>>> refs/remotes/origin/Tom-->
+		<!--=======-->
+		<!--		<dependency>-->
+		<!--			<groupId>com.tibame</groupId>-->
+		<!--			<artifactId>h2instance</artifactId>-->
+		<!--			<version>0.0.1-SNAPSHOT</version>-->
+		<!--		</dependency>-->
+		<!-->>>>>>> refs/remotes/origin/Tom-->
 	</dependencies>
 
 	<build>

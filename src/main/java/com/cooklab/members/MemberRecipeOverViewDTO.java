@@ -6,8 +6,6 @@ import java.util.Base64;
 import java.util.List;
 
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.recipe.BreowseRecipeDTO.IngredientDTO;
-import com.cooklab.recipe.BreowseRecipeDTO.StepDTO;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
@@ -29,7 +27,7 @@ public class MemberRecipeOverViewDTO {
 	public MemberRecipeOverViewDTO(RecipeVO recipeVO) {
 		super();
 		this.recipeNo = recipeVO.getRecipeNo();
-//		this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
+		this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
 		this.recipeName = recipeVO.getRecipeName();
 		this.introduction = recipeVO.getIntroduction();
 		this.recipeStatus = recipeVO.getRecipeStatus();
