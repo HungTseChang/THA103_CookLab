@@ -116,6 +116,13 @@ public class ArticleReactionVO  implements java.io.Serializable{
 		this.article = article;
 	}
 
+	@Override
+	public String toString() {
+		return "ArticleReactionVO [articleReactionNo=" + articleReactionNo + ", members=" + members + ", memberId="
+				+ memberId + ", article=" + article + ", articleNo=" + articleNo + ", statuts=" + statuts
+				+ ", createdTimestamp=" + createdTimestamp + "]";
+	}
+
 	
 	
 	

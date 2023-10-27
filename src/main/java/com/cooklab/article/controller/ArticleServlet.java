@@ -33,7 +33,7 @@ public class ArticleServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
+//		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
 		
 		if ("getOne_For_Display".equals(action)) { 
 
@@ -188,8 +188,8 @@ if ("getViewCount".equals(action)) {
 			ArticleService artSvc = new ArticleService();
 			artSvc.updateViewCount(articleNo, viewCount);
 			/*************************** 2-2開始查詢 ****************************************/
-//			ArticleService artSvc2 = new ArticleService();
-			ArticleVO artVO2 = artSvc.getOneArt(articleNo);
+			ArticleService artSvc2 = new ArticleService();
+			ArticleVO artVO2 = artSvc2.getOneArt(articleNo);
 			/*************************** 3.新增完成,準備轉交 ******************************/
 			req.setAttribute("artVO", artVO2); // 資料庫取出的empVO物件,存入req
 			String url ="/article/article_content.jsp";
@@ -208,17 +208,24 @@ if ("getStatusUpdate".equals(action)) {
 			Integer articleNo = Integer.valueOf(req.getParameter("articleNo"));
 			
 			Byte articleStatus =null;
-			String articleStatusStr = req.getParameter("articleStatus");
-			articleStatus=Byte.valueOf(articleStatusStr);
-			
-			
-			
+			try {
+				String articleStatusStr = req.getParameter("articleStatus");
+				articleStatus=Byte.valueOf(articleStatusStr);
+			}catch (NumberFormatException e) {
+				errorMsgs.add("選擇狀態.");
+			}
 			ArticleVO updatedArtVO = new ArticleVO();
 			updatedArtVO.setArticleNo(articleNo); 
 			updatedArtVO.setArticleStatus(articleStatus) ;
 //			ArticleVO updatedArtVO = new ArticleService().getOneArt(articleNo);
 //			updatedArtVO.setArticleStatus(articleStatus) ;
 //			new ArticleService().updateArt(updatedArtVO);
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("updatedArtVO", updatedArtVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
+			}
 			
 			/*************************** 2.開始修改資料 ****************************************/
 			ArticleService artSvc = new ArticleService();
@@ -463,7 +470,7 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 			// Send the use back to the form, if there were errors
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/article/article_edit.jsp");
 				failureView.forward(req, res);

@@ -99,4 +99,8 @@ public class MembersService {
 	public List<MembersVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public MembersVO findByPrimaryKey(Integer memberId) {
+		return dao.findByPrimaryKey(memberId);
+	}
 }

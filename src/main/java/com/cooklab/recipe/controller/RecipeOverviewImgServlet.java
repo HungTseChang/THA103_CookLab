@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cooklab.recipe.model.RecipeService;
+import com.cooklab.recipe.model.RecipeServiceIm;
 import com.cooklab.recipe.model.RecipeVO;
 
-@WebServlet("/RecipeServletImg")
-public class RecipeServletImg extends HttpServlet {
+@WebServlet("/RecipeOverviewImgServlet")
+public class RecipeOverviewImgServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -24,7 +24,7 @@ public class RecipeServletImg extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 
 		Integer recipeNo = Integer.valueOf(req.getParameter("recipeNo").trim());
-		RecipeService recipeSvc = new RecipeService();
+		RecipeServiceIm recipeSvc = new RecipeServiceIm();
 		RecipeVO recipeVO = recipeSvc.getOneRecipe(recipeNo);
 		byte[] coverImage= recipeVO.getCoverImage();
 		

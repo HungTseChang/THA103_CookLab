@@ -53,9 +53,11 @@ public class RecipeHDAOIm implements RecipeDAO {
 	}
 
 	@Override
-	public List<RecipeVO> getByPage(Integer offset, Integer limit) {
-		return getSession().createQuery("from RecipeVO where recipeStatus = 0", RecipeVO.class).setFirstResult(offset)
-				.setMaxResults(limit).list();
+	public List<RecipeVO> getByPage(String cloumn, boolean desc, Integer offset, Integer limit) {
+		return getSession()
+				.createQuery("from RecipeVO where recipeStatus = 0 order by " + cloumn + (desc ? " desc" : " asc"),
+						RecipeVO.class)
+				.setFirstResult(offset).setMaxResults(limit).list();
 	}
 
 	@Override

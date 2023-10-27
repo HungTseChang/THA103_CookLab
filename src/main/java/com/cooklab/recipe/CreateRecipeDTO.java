@@ -1,61 +1,29 @@
 package com.cooklab.recipe;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import com.cooklab.recipe.model.RecipeVO;
-import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
+
 import com.cooklab.recipe_ingredient.model.RecipeIngredientVO;
-import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
 
-public class BreowseRecipeDTO {
+public class CreateRecipeDTO {
 	private String recipeName;
 	private String coverImage;
 	private String introduction;
-	private String additionalExplanation;
 	private Byte recipeQuantity;
-	private Timestamp createdTimestamp;
+	private String additionalExplanation;
+	private String region;
 	List<IngredientDTO> ingredient = new ArrayList<>();
 	List<String> kitchenware = new ArrayList<>();
 	List<StepDTO> step = new ArrayList<>();
 	List<String> recipeHashtag = new ArrayList<>();
 
-	public BreowseRecipeDTO() {
-	}
-
-	public BreowseRecipeDTO(RecipeVO recipeVO) {
-
-		this.recipeName = recipeVO.getRecipeName();
-		this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
-		this.introduction = recipeVO.getIntroduction();
-		this.additionalExplanation = recipeVO.getAdditionalExplanation();
-		this.recipeQuantity = recipeVO.getRecipeQuantity();
-		this.createdTimestamp = recipeVO.getCreatedTimestamp();
-		for (RecipeIngredientVO recipeIngredient : recipeVO.getIngredient()) {
-			this.ingredient.add(new IngredientDTO(recipeIngredient));
-		}
-		for (RecipeKitchenwareVO recipeKitchenwareVO : recipeVO.getKitchenware()) {
-			this.kitchenware
-					.add(recipeKitchenwareVO.getProduct() != null ? recipeKitchenwareVO.getProduct().getProductName()
-							: recipeKitchenwareVO.getTextLabel());
-		}
-		for(RecipeStepVO recipeStepVO : recipeVO.getStep()) {
-			this.step.add(new StepDTO(recipeStepVO));
-		}
-		for(RecipeHashtagVO recipeHashtagVO: recipeVO.getHashtag()) {
-			this.recipeHashtag.add(recipeHashtagVO.getHashtag().getHashtagName());
-		}
-
+	public CreateRecipeDTO() {
 	}
 
 	public String getRecipeName() {
 		return recipeName;
-	}
-
-	public void setRecipeName(String recipeName) {
-		this.recipeName = recipeName;
 	}
 
 	public String getCoverImage() {
@@ -74,14 +42,6 @@ public class BreowseRecipeDTO {
 		this.introduction = introduction;
 	}
 
-	public String getAdditionalExplanation() {
-		return additionalExplanation;
-	}
-
-	public void setAdditionalExplanation(String additionalExplanation) {
-		this.additionalExplanation = additionalExplanation;
-	}
-
 	public Byte getRecipeQuantity() {
 		return recipeQuantity;
 	}
@@ -90,12 +50,20 @@ public class BreowseRecipeDTO {
 		this.recipeQuantity = recipeQuantity;
 	}
 
-	public Timestamp getCreatedTimestamp() {
-		return createdTimestamp;
+	public String getAdditionalExplanation() {
+		return additionalExplanation;
 	}
 
-	public void setCreatedTimestamp(Timestamp createdTimestamp) {
-		this.createdTimestamp = createdTimestamp;
+	public void setAdditionalExplanation(String additionalExplanation) {
+		this.additionalExplanation = additionalExplanation;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 	public List<IngredientDTO> getIngredient() {
@@ -118,7 +86,7 @@ public class BreowseRecipeDTO {
 		return step;
 	}
 
-	public void setStepDTO(List<StepDTO> step) {
+	public void setStep(List<StepDTO> step) {
 		this.step = step;
 	}
 
@@ -128,6 +96,10 @@ public class BreowseRecipeDTO {
 
 	public void setRecipeHashtag(List<String> recipeHashtag) {
 		this.recipeHashtag = recipeHashtag;
+	}
+
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
 	}
 
 	public class IngredientDTO {
@@ -165,16 +137,51 @@ public class BreowseRecipeDTO {
 		private String stepImg;
 		private Integer stepTime;
 		private String stepContent;
+
 		public StepDTO() {
 
 		}
+
 		public StepDTO(RecipeStepVO recipeStepVO) {
-			this.stepImg = recipeStepVO.getStepImg()!=null? Base64.getEncoder().encodeToString(recipeStepVO.getStepImg()):null;
+			this.stepImg = recipeStepVO.getStepImg() != null
+					? Base64.getEncoder().encodeToString(recipeStepVO.getStepImg())
+					: null;
 			this.stepTime = recipeStepVO.getStepTime();
-			this.stepContent = recipeStepVO.getStepContent();	
+			this.stepContent = recipeStepVO.getStepContent();
 		}
-		
-		
+
+		public String getStepImg() {
+			return stepImg;
+		}
+
+		public void setStepImg(String stepImg) {
+			this.stepImg = stepImg;
+		}
+
+		public Integer getStepTime() {
+			return stepTime;
+		}
+
+		public void setStepTime(Integer stepTime) {
+			this.stepTime = stepTime;
+		}
+
+		public String getStepContent() {
+			return stepContent;
+		}
+
+		public void setStepContent(String stepContent) {
+			this.stepContent = stepContent;
+		}
+
+	}
+
+	@Override
+	public String toString() {
+		return "CreateRecipeDTO [recipeName=" + recipeName + ", coverImage=" + coverImage + ", introduction="
+				+ introduction + ", additionalExplanation=" + additionalExplanation + ", recipeQuantity="
+				+ recipeQuantity + " , ingredient=" + ingredient + ", kitchenware=" + kitchenware + ", step=" + step
+				+ ", recipeHashtag=" + recipeHashtag + "]";
 	}
 
 }

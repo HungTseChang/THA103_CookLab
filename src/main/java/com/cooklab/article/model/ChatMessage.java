@@ -4,36 +4,36 @@ package com.cooklab.article.model;
 import java.sql.Timestamp;
 
 public class ChatMessage { //這邊是對應chat.jsp，addListener()的JSON物件
-	private String type;
-	private String sender;
+	private String room;
+	private String userName;
 	private String message;
 	private Timestamp  time;
 
-	public ChatMessage(String type, String sender, String message ) {
-		this.type = type;
-		this.sender = sender;
+	public ChatMessage(String room, String userName, String message ) {
+		this.room = room;
+		this.userName = userName;
 		this.message = message;
 //		this.time = time;
 		
 	}
 
 	
-	public String getType() {
-		return type;
+	public String getRoom() {
+		return room;
 	}
 
 
-	public void setType(String type) {
-		this.type = type;
+	public void setRoom(String room) {
+		this.room = room;
 	}
 
 
-	public String getSender() {
-		return sender;
+	public String getuserName() {
+		return userName;
 	}
 
-	public void setSender(String sender) {
-		this.sender = sender;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getMessage() {
