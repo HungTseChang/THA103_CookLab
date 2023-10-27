@@ -226,7 +226,7 @@ public class newsAjax extends HttpServlet {
 			jedis.close();
 		}
 
-		// 前端網頁批次取資料(每次10筆)-TODO
+		// 前端網頁批次取資料(每次10筆)
 		if ("getten".equals(action)) {
 			
 			// 連接Redis連線池取得連線資源，使用select切到指定的資料庫
@@ -234,34 +234,33 @@ public class newsAjax extends HttpServlet {
 			Jedis jedis = jedisPool.getResource();
 			jedis.select(10);
 			
-			int pageSize = 10;
-			int currentPage = 1;
-			int startIndex = (currentPage - 1) * pageSize;
-			int endIndex = startIndex + pageSize - 1;
-
-			// 获取指定范围内的key
-			List<String> pageKeys = new ArrayList<>();
-			int index = 0;
-			for (String key : keys) {
-			    if (index >= startIndex && index <= endIndex) {
-			        pageKeys.add(key);
-			    }
-			    index++;
-			}
-			
 			//取得當前頁數後續判斷需要取得第幾筆至第幾筆的資料
-			String currentpage = req.getParameter("currentpage").trim();
+			Integer currentPage = Integer.valueOf(req.getParameter("currentPage").trim());
+			
+			//設定每10筆一批資料，並計算需要取得的資料索引值區間
+			Integer pageSize = 10;
+			Integer startIndex = (currentPage - 1) * pageSize;
+			Integer endIndex = startIndex + pageSize - 1;
+			
+			//計算每10筆資料共幾頁，傳回前端方便顯示頁數
+			Long totalItems = jedis.llen("news");
+			Long totalPages = (totalItems + pageSize - 1) / pageSize;
 
 			// 宣告集合，將Redis資料取出
-			List<String> newsList = jedis.lrange("news", 0, -1);
+			List<String> newsList = jedis.lrange("news", startIndex, endIndex);
 
 			// 使用FOR EACH取值並放置於集合中，此處用DTO打包以便直接讓Gson轉換為json物件
-			List<NewsDTO> data = new ArrayList<NewsDTO>();
+			List<NewsDTO> redisdata = new ArrayList<NewsDTO>();
 			for (String newsData : newsList) {
 				NewsDTO news = gson.fromJson(newsData, NewsDTO.class);
-				data.add(news);
+				redisdata.add(news);
 			}
-
+			
+			//宣告Map物件，將處理好的資料與頁數資訊進行包裝
+			Map<String,Object> data = new HashMap<String, Object>(); 
+			data.put("totalPages", totalPages);
+			data.put("redisdata", redisdata);
+			
 			// 使用Gson轉換為Json格式
 			String Data = gson.toJson(data);
 

@@ -475,3 +475,24 @@
   background-color: #e9ecef;
   border-color: #dee2e6
 }
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #d15325;
+  border-color: #d9430d
+}
+
+.page-link:focus {
+  z-index: 3;
+  outline: 0;
+  background-color: #d9430d;
+  color: #fff;
+  box-shadow: 0 0 0 .2rem rgba(240, 91, 5, 0.25)
+}
+
+.page-link.active {
+    color: #fff;
+      background-color: #d15325;
+      border-color: #d9430d
+}
