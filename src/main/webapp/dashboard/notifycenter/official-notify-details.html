@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css" />
     <link rel="stylesheet" href="../assets/css/app.css" />
     <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon" />
+    <!-- flatpicker from https://flatpickr.js.org/ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
   </head>
 
   <body>
@@ -200,18 +202,18 @@
         </div>
 
         <!-- 表單主區域起始 -->
-        <section class="section">
-          <div class="card">
+        <section class="section row justify-content-center">
+          <div class="card col-6">
             <div class="card-body">
               <div class="row px-4">
                 <div class="form-group col-6">
                   <label for="notifyNo">通知編號</label>
-                  <input type="text" class="form-control-plaintext" id="notifyNo" value="等待資料取得" />
+                  <p class="form-control-static" id="notifyNo">等待資料取得</p>
                 </div>
 
                 <div class="form-group col-6">
                   <label for="memberId" id="id-check">會員編號</label>
-                  <input type="text" class="form-control-plaintext" id="memberId" value="等待資料取得" />
+                  <p class="form-control-static" id="memberId">等待資料取得</p>
                 </div>
 
                 <div class="form-group col-6">
@@ -230,13 +232,13 @@
                 </div>
 
                 <div class="form-group col-6">
-                  <label for="notifyRead" id="read-check">讀取狀態</label>
-                  <p class="form-control-static" id="notifyRead">等待資料取得</p>
+                  <label for="notifyTime" id="time-check">通知時間</label>
+                  <p class="form-control-static" id="notifyTime">等待資料取得</p>
                 </div>
 
                 <div class="form-group col-6">
-                  <label for="notifyTime" id="time-check">通知時間</label>
-                  <p class="form-control-static" id="notifyTime">等待資料取得</p>
+                  <label for="notifyRead" id="read-check">讀取狀態</label>
+                  <p class="form-control-static" class="nr badge" id="notifyRead">等待資料取得</p>
                 </div>
 
                 <div class="form-group col-6">
@@ -246,9 +248,12 @@
 
                 <div class="col-12">
                   <div class="form-group">
-                    <label for="notifyContent">通知內文</label>
+                    <label for="notifyContent" id="content-check">通知內文</label>
                     <p class="form-control-static" id="notifyContent">等待資料取得</p>
                   </div>
+                </div>
+                <div class="col-12 text-center">
+                  <div><button type="button" class="btn btn-primary" id="updatenotify">修改資料</button></div>
                 </div>
               </div>
             </div>
@@ -275,6 +280,8 @@
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets\js\menu_ative.js"></script>
+    <!-- flatpicker from https://flatpickr.js.org/ -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../assets\js/ding-notify-details.js"></script>
   </body>
 </html>

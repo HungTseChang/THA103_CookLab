@@ -1,6 +1,8 @@
-package com.cooklab.support_form.model;
+package com.cooklab.support_form.service;
 
 import java.util.List;
+
+import com.cooklab.support_form.model.SupportFormVO;
 
 public interface SupportFormServie {
 	public SupportFormVO addSupportForm(String realName, Integer supportFormCategoryId, String replyEmail,

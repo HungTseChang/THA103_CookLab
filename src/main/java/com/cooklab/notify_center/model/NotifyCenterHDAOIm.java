@@ -63,7 +63,7 @@ public class NotifyCenterHDAOIm implements NotifyCenterDAO {
 	@Override
 	public List<NotifyCenterVO> getAll() {
 		return getSession().createQuery(
-				"select distinct n from NotifyCenterVO n left join fetch n.members",
+				"select distinct n from NotifyCenterVO n left join fetch n.members order by n.createdTimestamp desc",
 				NotifyCenterVO.class).list();
 
 	}
