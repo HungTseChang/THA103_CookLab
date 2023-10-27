@@ -63,7 +63,7 @@ if(Permit.get(location)) {
 }else {
 	
     System.out.println("不具有此權限，跳轉到禁止頁面");
-	response.sendRedirect(request.getContextPath()+"/dashboard/WCC_forbidden.jsp");
+	response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_forbidden.jsp");
   return;
 }
 //if(Permit.get(location)) {
