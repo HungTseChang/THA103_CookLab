@@ -451,4 +451,12 @@ public class MembersJDBCDAO implements MembersDAO_interface {
 
 		return true;
 	}
+
+	@Override
+	public boolean updateMemberPassword(MembersVO membersVO) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }

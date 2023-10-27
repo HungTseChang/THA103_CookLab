@@ -1,9 +1,11 @@
 package com.cooklab.members.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-import com.cooklab.recipe.model.RecipeHDAOIm;
+import javax.persistence.EntityManager;
+import com.cooklab.recipe.model.RecipeVO;
+import com.cooklab.member_order.model.MemberOrderVO;
+import com.cooklab.members.MemberRecipeOverViewDTO;
 import com.cooklab.util.HibernateUtil;
 
 public class MembersService {
@@ -96,7 +98,18 @@ public class MembersService {
 		dao.updateMemberPassword(membersVO);
 		return membersVO;
 	}
+	
+
 	public List<MembersVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public List<RecipeVO> getByPage(Integer offset,Integer limit,Integer memberId) {
+		return dao.getByPage(offset, limit,memberId) ;
+	}
+	public List<MemberOrderVO> getOrder(Integer offset, Integer limit,Integer memberId)
+	{
+		return dao.getOrder(offset, limit, memberId);
+		
 	}
 }

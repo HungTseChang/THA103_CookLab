@@ -1,14 +1,25 @@
 package com.cooklab.members.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 
+import com.cooklab.member_order.model.MemberOrderVO;
+import com.cooklab.members.MemberRecipeOverViewDTO;
 import com.cooklab.purchase_order.model.PurchaseOrderVO;
 import com.cooklab.recipe.model.RecipeVO;
+import com.cooklab.recipe_collection.model.RecipeCollectionVO;
 import com.cooklab.util.HibernateUtil;
+import java.util.Set; // 在你的Java文件开头添加这个导入语句
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 public class MembersHDAOIm implements MembersDAO_interface{
 
 	private SessionFactory factory;
@@ -25,158 +36,106 @@ public class MembersHDAOIm implements MembersDAO_interface{
 	
 	@Override
 	public int insert(MembersVO membersVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			session.save(membersVO);
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return 0;
+		
+		return (Integer) getSession().save(membersVO);
 	}
 	@Override
 	public boolean update(MembersVO membersVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
 
-	        session.beginTransaction();
-
-	        //獲取現在的 MembersVO
-	        MembersVO existingMember = (MembersVO) session.get(MembersVO.class, membersVO.getMemberId());
+	        MembersVO existingMember = (MembersVO) getSession().get(MembersVO.class, membersVO.getMemberId());
 	        membersVO.setMemberPassword(existingMember.getMemberPassword());
-//	        existingMember.setMemberId(membersVO.getMemberId());
-//	        existingMember.setMemberStatus(membersVO.getMemberStatus());
-	        
-			session.merge(membersVO);
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return true;
+	        try {
+	        	getSession().merge(membersVO);
+	        	return true;
+	        }catch(Exception e)
+	        {
+	    		return false;
+	        }
 	}
 	@Override
 	public boolean delete(Integer memberId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			MembersVO vo = session.get(MembersVO.class, memberId);
+			MembersVO vo = getSession().get(MembersVO.class, memberId);
 			if(vo !=null) {
-				session.delete(vo);
+				getSession().delete(vo);
+				return true;
 			}
-			session.getTransaction().commit();
-			System.out.println("搜尋");
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return true;
+			else
+				return false;
+
+		
 	}
 	@Override
 	public MembersVO findByPrimaryKey(Integer memberId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			MembersVO memVO = session.createQuery("from MembersVO where member_id =" + memberId, MembersVO.class)
-					.uniqueResult();
 
-			session.getTransaction().commit();
-			return memVO;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return null;
+		return getSession().createQuery("from MembersVO where member_id =" + memberId, MembersVO.class).uniqueResult();
 	}
 	@Override
 	public MembersVO findByMembersAccout(String memberAccount) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-//			MembersVO memVO = new MembersVO();
-			session.beginTransaction();
-			MembersVO memVO = session.createQuery("from MembersVO where memberAccount ='" + memberAccount+"'", MembersVO.class)
-					.uniqueResult();
 
-			session.getTransaction().commit();
-			return memVO;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return null;
+			return getSession().createQuery("from MembersVO where memberAccount ='" + memberAccount+"'", MembersVO.class)
+					.uniqueResult();
 	}
 	@Override
 	public boolean updateMemberStatus(MembersVO membersVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-	        session.beginTransaction();
-
 	        //獲取現在的 MembersVO
-	        MembersVO existingMember = (MembersVO) session.get(MembersVO.class, membersVO.getMemberId());
+	        MembersVO existingMember = (MembersVO) getSession().get(MembersVO.class, membersVO.getMemberId());
 
 	        existingMember.setMemberId(membersVO.getMemberId());
 	        existingMember.setMemberStatus(membersVO.getMemberStatus());
 	        
-			session.merge(existingMember);
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
+			getSession().merge(existingMember);
+
 		return true;
 	}
 	@Override
 	public boolean updateMemberPassword(MembersVO membersVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-	        session.beginTransaction();
-
 	        //獲取現在的 MembersVO
-	        MembersVO existingMember = (MembersVO) session.get(MembersVO.class, membersVO.getMemberId());
+	        MembersVO existingMember = (MembersVO) getSession().get(MembersVO.class, membersVO.getMemberId());
 
 	        existingMember.setMemberId(membersVO.getMemberId());
 	        existingMember.setMemberPassword(membersVO.getMemberPassword());
 	        
-			session.merge(existingMember);
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
+			getSession().merge(existingMember);
 		return true;
 	}
 	@Override
 	public List<MembersVO> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			List<MembersVO> list = session.createQuery("from MembersVO ", MembersVO.class).list();
-			session.getTransaction().commit();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
-		return null;
+			
+			return getSession().createQuery("from MembersVO ", MembersVO.class).list();
 	}
 
+	@Override
+	public List<RecipeVO> MemberRecipeRead(Integer memberId) {
+			List<RecipeVO> list1 = getSession().createQuery("from RecipeVO where members.memberId=:memberIdE", RecipeVO.class).setParameter("memberIdE",memberId).list();	//members
+			 // 強迫不要LAZY
+		    for (RecipeVO recipe : list1) {
+		        recipe.getStep().size(); 
+		    }
+			return list1;
+    }
 
+	@Override
+	public List<RecipeVO> getByPage(Integer offset, Integer limit,Integer memberId) {
+			List<RecipeVO> list = getSession().createQuery("from RecipeVO where members.memberId=:memberId AND recipeStatus=1", RecipeVO.class)
+					.setParameter("memberId",memberId).setFirstResult(offset)
+					.setMaxResults(limit).list();
+			
+			 // 強迫不要LAZY
+		    for (RecipeVO recipe : list) {
+		        recipe.getStep().size(); 
+		    }
+			for (RecipeVO recipe1 : list) {
+			      recipe1.getHashtag().size();
+			}
+	    
+			return list;
+
+	}
+	@Override
+	public List<MemberOrderVO> getOrder(Integer offset, Integer limit, Integer memberId) {
+		List<MemberOrderVO> list = getSession().createQuery("from MemberOrderVO where members.memberId=:memberId", MemberOrderVO.class)
+				.setParameter("memberId",memberId).setFirstResult(offset)
+				.setMaxResults(limit).list();
+		return list;
+	}
 }

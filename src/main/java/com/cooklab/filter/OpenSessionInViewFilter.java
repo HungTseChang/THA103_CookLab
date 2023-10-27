@@ -12,8 +12,21 @@ import javax.servlet.annotation.WebFilter;
 import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
-
-@WebFilter("/RecipeServlet")
+@WebFilter(urlPatterns = { 
+		"/RecipeServlet",				
+		"/RecipeServletImg",
+		//TOM Start
+		"/MemberCenter",
+		"/EditPassword",
+		"/MembersImgServlet",
+		"/MemberRecipeServlet",
+		"/Register",
+		"/MembersServlet",
+		"/Sign",
+		"/Verification",
+		"/MemberOrderServlet"
+		//TOM END
+		})
 public class OpenSessionInViewFilter implements Filter {
 
 	@Override

@@ -172,71 +172,10 @@
             </div>
             <!-------------食譜管理區塊開始----------->
             <!-- 食譜模板開始 -->
-            <div class="row m-0 ml-2 my-3 ding-folrec-border">
-              <div class="col-3 align-self-center p-0 pb-2">
-                <img src="https://fakeimg.pl/200x150/" alt="食譜封面圖" class="rec-img-preview" />
-              </div>
-              <div class="col-6">
-                <div class="row h-100">
-                  <div class="col-12"><a href="#" class="text-dark ding-fol-title">食譜名稱</a></div>
-                  <div class="col-12 text-muted my-1">食材1、食材2、食材3</div>
-                  <div class="col-12 text-muted my-1">食譜簡介</div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="row text-right">
-                  <div class="col-12 mb-2">
-                    <button type="button" class="btn ding-btn-org w-50">修改</button>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <button type="button" class="btn ding-btn-org w-50">刪除</button>
-                  </div>
-                  <div class="dropdown col-12 mb-2">
-                    <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">公開</button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item active ding-dropdown-item" href="#">公開</a>
-                      <a class="dropdown-item ding-dropdown-item" href="#">公開</a>
-                    </div>
-                  </div>
-                  <div class="col-12 align-self-end text-right pb-2">
-                    <i class="bi bi-clock mr-1"></i>
-                    <span>??</span>
-                    分鐘
-                  </div>
-                </div>
-              </div>
+            <div id="recipeList">
+     
             </div>
-            <!-- 食譜模板結束 -->
-            <div class="row m-0 ml-2 my-3 ding-folrec-border">
-              <div class="col-3 align-self-center p-0 pb-2">
-                <img src="./ding-img/tomatosoupdemo1.jpg" alt="食譜封面圖" class="rec-img-preview" />
-              </div>
-              <div class="col-6">
-                <div class="row h-100">
-                  <div class="col-12"><a href="#" class="text-dark ding-fol-title">不朽番茄芙蓉海鮮羹</a></div>
-                  <div class="col-12 text-muted my-1">番茄1顆、牛番茄3顆、聖女小番茄7顆</div>
-                  <div class="col-12 text-muted my-1">不朽番茄芙蓉海鮮羹" 是一道令人垂涎欲滴的湯品，融合了新鮮的海鮮和熟練的廚藝。這道湯的特色在於它的濃郁番茄底湯，加入了各種鮮美的海鮮，如蝦仁、魷魚和螃蟹肉，讓每一口都充滿了海洋的風味。最後，以綿密的芙蓉蛋白搭配，為湯品增添了柔滑口感，讓您一試難忘。</div>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="row text-right">
-                  <div class="col-12 mb-2">
-                    <button type="button" class="btn ding-btn-org w-50">修改</button>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <button type="button" class="btn ding-btn-org w-50">刪除</button>
-                  </div>
-                  <div class="col-12 mb-2">
-                    <button class="btn ding-btn-org w-50" type="button" aria-expanded="false">未公開</button>
-                  </div>
-                  <div class="col-12 align-self-end text-right pb-2">
-                    <i class="bi bi-clock mr-1"></i>
-                    <span>120</span>
-                    分鐘
-                  </div>
-                </div>
-              </div>
-            </div>
+      
             <!--------------食譜管理區塊結束---------->
           </div>
         </div>
@@ -321,5 +260,108 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+      var queryString = window.location.search;
+      var params = new URLSearchParams(queryString);
+
+      var recipeBrowse = "/recipe/recipe_browse.jsp";
+      var coverImage = "/RecipeServletImg";
+      var host = window.location.host;
+      var path = window.location.pathname;
+      var webCtx = path.substring(0, path.indexOf('/', 1));
+      var endPointURL = "http://" + host + webCtx;
+      console.log(endPointURL);
+      /*============================================================ function ============================================================*/
+      // $(function() {
+      //   reipceLoad(0);
+      // })
+
+      function addListRecipe(recipe) {
+        let addrecipe = `<div id="recipeList">
+              <div class="row m-0 ml-2 my-3 ding-folrec-border">
+                <div class="col-3 align-self-center p-0 pb-2">
+                  <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="食譜封面圖" class="rec-img-preview" />
+                </div>
+                <div class="col-6">
+                  <div class="row h-100">
+                    <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">${recipe.recipeName}</a></div>
+                    <!-- <div class="col-12 text-muted my-1">食材1、食材2、食材3</div> -->
+                    <div class="col-12 text-muted my-1">${recipe.introduction}</div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="row text-right">
+                    <div class="col-12 mb-2">
+                      <button type="button" class="btn ding-btn-org w-50">修改</button>
+                    </div>
+                    <div class="col-12 mb-2">
+                      <button type="button" class="btn ding-btn-org w-50">刪除</button>
+                    </div>
+                    <div class="dropdown col-12 mb-2">
+                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">公開</button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item active ding-dropdown-item" href="#">公開</a>
+                        <a class="dropdown-item ding-dropdown-item" href="#">公開</a>
+                      </div>
+                    </div>
+                    <div class="col-12 align-self-end text-right pb-2">
+                      <i class="bi bi-clock mr-1"></i>
+                      <span>${recipe.toatalStepTime}</span>
+                      分鐘
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`
+        $("#recipeList").append(addrecipe);
+      }
+      /*============================================================ event ============================================================*/
+      $("#page").on("click", ".page", function() {
+        $(".page").removeClass("disabled")
+        $(this).addClass("disabled");
+        $("html, body").animate({ scrollTop: 450 }, "slow");
+      });
+
+
+      /*============================================================ ajax ============================================================*/
+
+      // function reipceLoad(page) {
+        $.ajax({
+          url: endPointURL + "/MemberRecipeServlet", // 資料請求的網址
+          type: "POST", // GET | POST | PUT | DELETE | PATCH
+          data:{action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+          dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+          success: function(data) {
+            
+            console.log("ajax請求成功");
+            console.log(data);
+            $("#recipeList").html("");
+            $(data).each(function(index, element) {
+              addListRecipe(element);
+            });
+          },
+          error: function(xhr) {
+            console.log("ajax失敗2");
+            console.log(xhr);
+          },
+        });
+      // }
+      // $.ajax({
+      //   url: endPointURL + "/RecipeServlet", // 資料請求的網址
+      //   type: "POST", // GET | POST | PUT | DELETE | PATCH
+      //   data: { action: "getPage" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+      //   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+      //   success: function(data) {
+      //     for (let i = 0; i < data; i++)
+      //       $("#page").append(`<a class="page" href="javascript:void(0);" onclick="reipceLoad(${i})">&nbsp;${i + 1}&nbsp;</a>`);
+      //     $(".page").eq(0).addClass("disabled");
+      //   },
+      //   error: function(xhr) {
+      //     console.log("ajax失敗");
+      //     console.log(xhr);
+      //   },
+      // });
+
+    </script>
   </body>
 </html>

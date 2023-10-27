@@ -14,10 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/members/member-panel-editting.jsp",
-		"/members/member-panel-news.html",
-		"/members/member-panel.jsp",
-		"/members/member-panel-password.html"
+@WebFilter(urlPatterns = { 
+		"/members/member-panel-editting.jsp",			//修改會員資料
+		"/members/member-panel-news.html",				//最新消息
+		"/members/member-panel.jsp",					//會員資料列表
+		"/members/member-panel-password.html",			//修改密碼
+		"/members/member-panel-order.html",				//查詢訂單
+		"/members/member-panel-recipe.html",			//查詢食譜
+		"/members/member-panel-post.html",				//查詢討論區文章
+		"/members/member-panel-follow.html",			//查詢關注
+		"/members/VerificationLetter.html"				//收取驗證信
 		})
 public class LoginFilter extends HttpFilter implements Filter{
 	
@@ -47,10 +53,8 @@ public class LoginFilter extends HttpFilter implements Filter{
 		
 		// 取得 session
 		HttpSession session = req.getSession();
-		
 		String account = (String) session.getAttribute("account");
-		System.out.println("濾器開始判斷有無Seesion中的account");
-		System.out.println("account為" + account);
+
 		if(account == null)
 		{
 			//使用者沒有登入過
