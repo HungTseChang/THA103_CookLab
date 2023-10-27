@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cooklab.news.model.NewsDTO;
+import com.cooklab.util.JedisPoolUtil;
 import com.google.gson.Gson;
 
 import redis.clients.jedis.Jedis;
@@ -39,9 +40,10 @@ public class newsAjax extends HttpServlet {
 			// 創建Map物件放入錯誤訊息
 			Map<String, String> errorMsgs = new HashMap<String, String>();
 
-			// 連接Redis連線池取得連線資源，因為資料會放在預設的0號資料庫故不使用select切換
-			JedisPool jedisPool = (JedisPool) getServletContext().getAttribute("jedisPool");
+			// 連接Redis連線池取得連線資源，使用select切到指定的資料庫
+			JedisPool jedisPool = JedisPoolUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
+			jedis.select(10);
 			System.out.println("已取得jedis資源");
 
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
@@ -96,13 +98,15 @@ public class newsAjax extends HttpServlet {
 		if ("getAll".equals(action)) {
 
 			// 連接Redis連線池取得連線資源，因為資料會放在預設的0號資料庫故不使用select切換
-			JedisPool jedisPool = (JedisPool) getServletContext().getAttribute("jedisPool");
+			JedisPool jedisPool = JedisPoolUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
+			jedis.select(10);
+			System.out.println("已取得jedis資源");
 
 			// 宣告集合，將Redis資料取出
 			List<String> newsList = jedis.lrange("news", 0, -1);
 
-			// 使用FOR EACH一一取值並放置於集合中
+			// 使用FOR EACH取值並放置於集合中，此處用DTO打包以便直接讓Gson轉換為json物件
 			List<NewsDTO> data = new ArrayList<NewsDTO>();
 			for (String newsData : newsList) {
 				NewsDTO news = gson.fromJson(newsData, NewsDTO.class);
@@ -124,8 +128,10 @@ public class newsAjax extends HttpServlet {
 		// 更新資料(TODO)
 		if ("update".equals(action)) {
 			// 連接Redis連線池取得連線資源，因為資料會放在預設的0號資料庫故不使用select切換
-			JedisPool jedisPool = (JedisPool) getServletContext().getAttribute("jedisPool");
+			JedisPool jedisPool = JedisPoolUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
+			jedis.select(10);
+			System.out.println("已取得jedis資源");
 			
 			// 關閉Redis連線釋放資源
 			jedis.close();

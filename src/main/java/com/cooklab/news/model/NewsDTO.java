@@ -42,8 +42,4 @@ public class NewsDTO {
 		this.newsTime = newsTime;
 	}
 
-
-
-
-
 }

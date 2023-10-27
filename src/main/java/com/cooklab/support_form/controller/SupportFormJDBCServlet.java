@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cooklab.support_form.model.SupportFormJDBCService;
 import com.cooklab.support_form.model.SupportFormVO;
+import com.cooklab.support_form.service.SupportFormJDBCService;
 
 @WebServlet("/SupportFormJDBCServlet")
 public class SupportFormJDBCServlet extends HttpServlet {

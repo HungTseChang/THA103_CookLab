@@ -1,3 +1,24 @@
+//定義通知狀態的數字對應狀態以及渲染到網頁的形式
+let statusrender = function () {
+  let NotifyReadStatus = $(".nr");
+
+  NotifyReadStatus.each(function () {
+    let status = $(this).text();
+
+    switch (status) {
+      case "未讀取":
+        $(this).addClass("bg-warning text-dark");
+        break;
+      case "已讀取":
+        $(this).addClass("bg-success");
+        break;
+      case "隱藏":
+        $(this).addClass("bg-secondary");
+        break;
+    }
+  });
+};
+
 //定義網頁載入時需發送請求至資料庫索取資料的方法
 let init = function () {
   $.ajax({
@@ -18,7 +39,7 @@ let init = function () {
                       <td>${notifycenter.memberId}</td>
                       <td>${notifycenter.memberNickname}</td>
                       <td>${notifycenter.notifyType}</td>
-                      <td>${notifycenter.notifyRead}</td>
+                      <td><span class="nr badge">${notifycenter.notifyRead}</span></td>
                       <td>${notifytime.toLocaleString()}</td>
                       <td>${notifycenter.notifyContent}</td>
                       <td>${createdTimestamp.toLocaleString()}</td>
@@ -28,6 +49,8 @@ let init = function () {
                     </tr>
                     `);
       });
+
+      statusrender();
 
       //使用Simple Datatable第三方函式提供分頁樣式及簡易搜尋
       let table1 = document.querySelector("#table1");

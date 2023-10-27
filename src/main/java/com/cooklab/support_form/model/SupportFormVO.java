@@ -181,6 +181,11 @@ public class SupportFormVO implements Serializable {
 				+ formContext + ", formStatus=" + formStatus + ", formSource=" + formSource + ", formSubmitter="
 				+ formSubmitter + ", createdTimestamp=" + createdTimestamp + "]";
 	}
+	
+	public String getOGData() {
+		return "原始資料 [" + " 客戶姓名=" + realName + ", 問題類別="
+				+ getFormCatIDName() + ", 回覆信箱=" + replyEmail  + "]";
+	}
 
 	public String getFormCatIDName() {
 	    SFCategory[] categories = SFCategory.values();

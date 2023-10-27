@@ -1,11 +1,14 @@
-package com.cooklab.support_form_record.model;
+package com.cooklab.support_form_record.service;
 
 import java.util.List;
 
 import com.cooklab.admins.model.AdminsService;
 import com.cooklab.admins.model.AdminsVO;
-import com.cooklab.support_form.model.SupportFormHService;
 import com.cooklab.support_form.model.SupportFormVO;
+import com.cooklab.support_form.service.SupportFormHService;
+import com.cooklab.support_form_record.model.SupportFormRecordDAO;
+import com.cooklab.support_form_record.model.SupportFormRecordHDAOIm;
+import com.cooklab.support_form_record.model.SupportFormRecordVO;
 import com.cooklab.util.HibernateUtil;
 
 public class SupportFormRecordHService implements SupportFormRecordServie{
