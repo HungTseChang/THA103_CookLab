@@ -1,3 +1,6 @@
+.none {
+  display: none;
+}
   .disabled-button {
     pointer-events: none; /* 禁用按钮的交互 */
     opacity: 0.6; /* 降低按钮的透明度 */

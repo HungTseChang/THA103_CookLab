@@ -1,6 +1,15 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/RecipeCollectionServlet";
+const RECIPE_POINT = "/RecipeOverviewServlet";
+const COMMENTS_POINT = "/RecipeCommentsServlet";
 var queryString = window.location.search;
 var params = new URLSearchParams(queryString);
+var recipeNo = params.get("recipeNo");
 let step = 0;
+let recipeCollectionNo;
 /*============================================================ function ============================================================*/
 //新增一列食材
 function addIngredient(ingredients) {
@@ -44,12 +53,22 @@ function addStep(index, step) {
  </div>`;
     $("#listStep").append(addStep);
 }
+//新增一列留言
+function addComments(comments) {
+    let addComments = `<div class="comment" style="padding: 20px; border: 1px solid black; border-radius: 0.25rem">
+    <span class="username">${comments.name}</span>
+    <p>${comments.content}</p>
+    <span class="timestamp">${comments.createdTime}</span>
+</div>`;
+    $("#comments").append(addComments);
+}
 
 /*============================================================ event ============================================================*/
 
 /*============================================================ ajax ============================================================*/
+//載入食譜資料
 $.ajax({
-    url: "http://localhost:8081/CookLab/RecipeServlet", // 資料請求的網址
+    url: END_POINT_URL + RECIPE_POINT, // 資料請求的網址
     type: "POST", // GET | POST | PUT | DELETE | PATCH
     data: { recipeNo: params.get("recipeNo"), action: "browse" }, // 將物件資料(不用雙引號) 傳送到指定的 url
     dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
@@ -73,9 +92,80 @@ $.ajax({
         $(data.recipeHashtag).each(function (index, element) {
             $("#useHashTag").append(`<button class="addTag badge badge-secondary">${data.recipeHashtag}</button>`);
         });
+        $(data.comments).each(function (index, element) {
+            addComments(element);
+        });
     },
     error: function (xhr) {
         console.log("ajax失敗");
         console.log(xhr);
     },
+});
+//載入收藏狀態
+$.ajax({
+    url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
+    type: "POST", // GET | POST | PUT | DELETE | PATCH
+    data: { recipeNo, action: "status" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+    dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+    success: function (data) {
+        data ? $("#addCollection").addClass("none") : $("#removeCollection").addClass("none");
+        recipeCollectionNo = data;
+    },
+    error: function (xhr) {
+        console.log("ajax失敗");
+        console.log(xhr);
+    },
+});
+//新增收藏
+$("#addCollection").on("click", function () {
+    $.ajax({
+        url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
+        type: "POST", // GET | POST | PUT | DELETE | PATCH
+        data: { recipeNo, action: "insert" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        success: function (data) {
+            recipeCollectionNo = data;
+            $("#addCollection").addClass("none");
+            $("#removeCollection").removeClass("none");
+        },
+        error: function (xhr) {
+            console.log("ajax失敗");
+            console.log(xhr);
+        },
+    });
+});
+//取消收藏
+$("#removeCollection").on("click", function () {
+    $.ajax({
+        url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
+        type: "POST", // GET | POST | PUT | DELETE | PATCH
+        data: { recipeCollectionNo, action: "delete" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        success: function (data) {
+            console.log(data);
+            $("#removeCollection").addClass("none");
+            $("#addCollection").removeClass("none");
+        },
+        error: function (xhr) {
+            console.log("ajax失敗");
+            console.log(xhr);
+        },
+    });
+});
+//新增留言
+$("#submitComment").on("click", function () {
+    $.ajax({
+        url: END_POINT_URL + COMMENTS_POINT, // 資料請求的網址
+        type: "POST", // GET | POST | PUT | DELETE | PATCH
+        data: { recipeNo, action: "insert", commentContent: $("#inputComment").val() }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        success: function (data) {
+            console.log(data);
+            addComments(data);
+        },
+        error: function (xhr) {
+            console.log("ajax失敗");
+            console.log(xhr);
+        },
+    });
 });
