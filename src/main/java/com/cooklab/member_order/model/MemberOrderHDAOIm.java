@@ -12,6 +12,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+
+import com.cooklab.product.model.ProductVO;
 import com.cooklab.util.HibernateUtil;
 
 public class MemberOrderHDAOIm implements MemberOrderDAO {
@@ -48,9 +50,21 @@ public class MemberOrderHDAOIm implements MemberOrderDAO {
 	}
 
 	@Override
-	public void update(MemberOrderVO memberOrderVO) {
-		// TODO Auto-generated method stub
-
+	public Integer update(MemberOrderVO memberOrderVO) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			session.update(memberOrderVO);
+			session.getTransaction().commit();
+			System.out.println("更新成功");
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+//			HibernateUtil.shutdown();
+		}
+		return 0;
 	}
 
 	@Override
@@ -61,7 +75,22 @@ public class MemberOrderHDAOIm implements MemberOrderDAO {
 
 	@Override
 	public MemberOrderVO findByPrimaryKey(Integer orderNo) {
-		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			MemberOrderVO memberOrderVO = session.createQuery(
+					"from MemberOrderVO mo left join fetch mo.promoCode promo left join fetch mo.members left join fetch mo.orderDetail od left join fetch od.product where mo.orderNo = :orderNo",
+					MemberOrderVO.class).setParameter("orderNo", orderNo).uniqueResult();
+			session.getTransaction().commit();
+			System.out.println("搜一筆");
+			return memberOrderVO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			// HibernateUtil.shutdown();
+		}
 		return null;
 	}
 

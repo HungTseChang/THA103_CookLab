@@ -1,384 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataTable - Mazer Admin Dashboard</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DataTable - Mazer Admin Dashboard</title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+	rel="stylesheet" />
+<link rel="stylesheet" href="../assets/css/bootstrap.css" />
 
-    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
+<link rel="stylesheet"
+	href="../assets/vendors/simple-datatables/style.css" />
 
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+<link rel="stylesheet"
+	href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet"
+	href="../assets/vendors/bootstrap-icons/bootstrap-icons.css" />
+<link rel="stylesheet" href="../assets/css/app.css" />
+<link rel="shortcut icon" href="../assets/images/favicon.svg"
+	type="image/x-icon" />
+<style>
+td a.wcc {
+	border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
+}
+
+td button.wcc {
+	border-radius: 20px;
+}
+
+.form-container {
+	width: 400px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 2px;
+}
+
+.form-label {
+	font-weight: bold;
+	width: 400px; 
+}
+
+.form-input {
+	border: none;
+	/* background-color: #f2f2f2; */
+	padding: 3px;
+	text-align: center;
+	width: 400px; 
+}
+
+.form-input:disabled {
+	/* background-color: #ddd; */
+	
+}
+.button-container {
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+}
+
+</style>
 </head>
 
 <body>
-    <div id="app">
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+	<div id="app">
+		<div id="sidebar" class="active">
+			<div class="sidebar-wrapper active">
+				<div class="sidebar-header">
+					<div class="d-flex justify-content-between">
+						<div class="logo">
+							<a href="index.html"><img src="assets/images/logo/logo.png"
+								alt="Logo" srcset="" /></a>
+						</div>
+						<div class="toggler">
+							<a href="#" class="sidebar-hide d-xl-none d-block"><i
+								class="bi bi-x bi-middle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="sidebar-menu">
+					<ul class="menu">
+						<li class="sidebar-title">Menu</li>
 
+						<!-- ============================================================================================== -->
+						<li class="sidebar-item"><a href="WCC_Homepage.html"
+							class="sidebar-link"> <i class="bi bi-grid-fill"></i> <span>後台首頁</span>
+						</a></li>
 
-                        <!-- ============================================================================================== -->
-                        <li class="sidebar-item  ">
-                            <a href="WCC_Homepage.html" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>後台首頁</span>
-                            </a>
-                        </li>
+						<li class="sidebar-item"><a href="WCC_memeber.html"
+							class="sidebar-link"> <i
+								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>會員管理</span>
+						</a></li>
 
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-stack"></i> <span>權限管理</span>
+						</a>
+							<ul class="submenu">
+								<li class="submenu-item"><a
+									href=".\WCC_permission_management.html">管理管理者</a></li>
 
-                        <li class="sidebar-item ">
-                            <a href="WCC_memeber.html" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>會員管理</span>
-                            </a>
-                        </li>
+								<li class="submenu-item"><a
+									href=".\WCC_permission_createrule.html">創立權限規則</a></li>
+							</ul></li>
 
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>食譜管理</span>
+						</a>
+							<ul class="submenu">
+								<li class="submenu-item"><a href=".\recipe_form.html">食譜表單</a></li>
+								<li class="submenu-item"><a href=".\hashtag_form.html">標籤管理</a></li>
+							</ul></li>
 
-                        <li class="sidebar-item  has-sub ">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>權限管理</span>
-                            </a>
-                            <ul class="submenu ">
-                          
-                                <li class="submenu-item ">
-                                    <a href=".\WCC_permission_management.html">管理管理者</a>
-                                </li>
-                             
-                                <li class="submenu-item ">
-                                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
-                                </li>
-                            
-                            </ul>
-                        </li>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-grid-1x2-fill"></i> <span>商城管理</span>
+						</a>
+							<ul class="submenu" style="display: block">
+								<li class="submenu-item"><a href=".\shopview.html">商品設定</a></li>
+								<li class="submenu-item active"><a
+									href="TYT_order_management.html">訂單管理</a></li>
+								<li class="submenu-item"><a href=".\GCpromo_info.html">新增優惠券</a></li>
+								<li class="submenu-item"><a href=".\GCpromo.html">優惠券管理</a></li>
+								<li class="submenu-item"><a href=".\GCadvertise.html">廣告管理</a></li>
+								<li class="submenu-item"><a href=".\GCadvertise_info.html">新增廣告</a></li>
+								<li class="submenu-item"><a
+									href="TYT_purchase_order_allView.html">進貨表單</a></li>
+							</ul></li>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-hexagon-fill"></i> <span>討論區管理</span>
+						</a>
 
-                        <li class="sidebar-item has-sub ">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-collection-fill"></i>
-                                <span>食譜管理</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href=".\recipe_form.html">食譜表單</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href=".\hashtag_form.html">標籤管理</a>
-                                </li>
-                            </ul>
-                        </li>
+							<ul class="submenu">
+								<li class="submenu-item"><a
+									href=".\HO_discussion_cate.html">看板分類</a></li>
+								<li class="submenu-item"><a
+									href=".\HO_discussion_info.html">文章管理</a></li>
+							</ul></li>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-pen-fill"></i> <span>數據分析</span>
+						</a>
+							<ul class="submenu">
+								<li class="submenu-item"><a href="#">會員數據</a></li>
+								<li class="submenu-item"><a href="#">食譜數據</a></li>
+								<li class="submenu-item"><a href="#">商城數據</a></li>
+								<li class="submenu-item"><a href="#">文章數據</a></li>
+							</ul></li>
+						<li class="sidebar-item has-sub"><a href="#"
+							class="sidebar-link"> <i class="bi bi-pen-fill"></i> <span>客服中心</span>
+						</a>
+							<ul class="submenu">
+								<li class="submenu-item"><a href="WCC_recipe_report.html">食譜檢舉</a></li>
+								<li class="submenu-item"><a
+									href="WCC_recipe_sub_report.html">食譜回文檢舉</a></li>
+								<li class="submenu-item"><a href="WCC_article_report.html">討論區檢舉</a></li>
+								<li class="submenu-item"><a href="WCC_official_notify.html">系統通知</a></li>
+								<li class="submenu-item"><a
+									href="ding-support-tickets-table.html">問題表單</a></li>
+							</ul></li>
+						<!-- ======================================================================================================== -->
+					</ul>
+				</div>
+				<button class="sidebar-toggler btn x">
+					<i data-feather="x"></i>
+				</button>
+			</div>
+		</div>
+		<div id="main">
+			<header class="mb-3">
+				<a href="#" class="burger-btn d-block d-xl-none"> <i
+					class="bi bi-justify fs-3"></i>
+				</a>
+			</header>
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>商城管理</span>
-                            </a>
-                            <ul class="submenu " style="display: block;">
-                                <li class="submenu-item ">
-                                    <a href=".\shopview.html">商品設定</a>
-                                </li>
-                                <li class="submenu-item active" >
-                                    <a href="TYT_order_management.html">訂單管理</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCpromo_info.html">新增優惠券</a>
-                                </li>
-                                <li class="submenu-item  ">
-                                    <a href=".\GCpromo.html">優惠券管理</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCadvertise.html" >廣告管理</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCadvertise_info.html">新增廣告</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="TYT_purchase_order_allView.html">進貨表單</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>討論區管理</span>
-                            </a>
-
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href=".\HO_discussion_cate.html">看板分類</a>
-                                  </li>
-                                  <li class="submenu-item ">
-                                    <a href=".\HO_discussion_info.html" >文章管理</a>
-                                  </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>數據分析</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">會員數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">食譜數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">商城數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">文章數據</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub ">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>客服中心</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="WCC_recipe_report.html">食譜檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="WCC_article_report.html">討論區檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="WCC_official_notify.html">系統通知</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ding-support-tickets-table.html">問題表單</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- ======================================================================================================== -->
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-            </div>
-        </div>
-        <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
-            <!--/////////////////////////////////////////////////////////////////////////////////////////  -->
-            <style>
-                td a.wcc {
-                    border: 1px solid rgb(151, 135, 249);
-                    background-color: rgb(195, 241, 253);
-                    padding: 4px;
-                    border-radius: 20px;
-                }
-
-                td button.wcc {
-                    border-radius: 20px;
-                }
-                .form-container {
-            width: 400px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 2px;
-        }
-
-        /* td {
-            padding: 5px;
-            text-align: center;
-        } */
-
-        .form-label {
-            font-weight: bold;
-            width: 400px; /* 调整输入框宽度 */
-        }
-        .form-input {
-            border: none;
-            /* background-color: #f2f2f2; */
-            padding: 3px;
-            text-align: center; /* 将输入框内的文本置中 */
-            width: 400px; /* 调整输入框宽度 */
-        }
-
-        .form-input:disabled {
-            /* background-color: #ddd; */
-        }
-            </style>
-            <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
-            
-            
-            <div class="page-heading">
-                <div class="page-title">
-                    <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>訂單明細</h3>
-                            <br>
-                        </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="TYT_order_management.html">訂單管理</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">訂單明細</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-                    <div class="form-container">
-
-    </div>
-                <section class="section">
-                
-                    <div class="card">
-                        <!-- <div class="card-header">
+			<div class="page-heading">
+				<div class="page-title">
+					<div class="row">
+						<div class="col-12 col-md-6 order-md-1 order-last">
+							<h3>訂單明細</h3>
+							<br />
+						</div>
+						<div class="col-12 col-md-6 order-md-2 order-first">
+							<nav aria-label="breadcrumb"
+								class="breadcrumb-header float-start float-lg-end">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a
+										href="TYT_order_management.html">訂單管理</a></li>
+									<li class="breadcrumb-item active" aria-current="page">訂單明細</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<div class="form-container"></div>
+				<section class="section">
+					<div class="card">
+						<!-- <div class="card-header">
                             
                         </div> -->
-                        <div class="card-body">
-                            <table>
-                                <tr>
-                                    <td class="form-label">會員編號:</td>
-                                    <td><input class="form-input" type="text" value="12345" disabled></td>
-                                    <td class="form-label">會員暱稱:</td>
-                                    <td><input class="form-input" type="text" value="JohnDoe" disabled></td>
-                                    <td class="form-label">收貨地址:</td>
-                                    <td><input class="form-input" type="text" value="123 Main St" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td class="form-label">Email:</td>
-                                    <td><input class="form-input" type="text" value="johndoe@example.com" disabled></td>
-                                    <td class="form-label">訂單編號:</td>
-                                    <td><input class="form-input" type="text" value="78901" disabled></td>
-                                    <td class="form-label">訂單總金額:</td>
-                                    <td><input class="form-input" type="text" value="$100.00" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td class="form-label">優惠碼:</td>
-                                    <td><input class="form-input" type="text" value="DISCOUNT10" disabled></td>
-                                    <td class="form-label">結帳金額:</td>
-                                    <td><input class="form-input" type="text" value="$90.00" disabled></td>
-                                    <td><span class="form-label">訂單狀態:</span></td>
-                                    <td>
-                                        <select class="form-select" >
-                                            <option value="待出貨">待出貨</option>
-                                            <option value="待收貨">待收貨</option>
-                                            <option value="已完成" selected>已完成</option>
-                                            <option value="退貨中">退貨中</option>
-                                            <option value="已貨退">已貨退</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="form-label">購買日期:</td>
-                                    <td><input class="form-input" type="text" value="2023-03-23 19:92:20" disabled></td>
-                                    <!-- <td class="form-label">XXXX:</td>
-                                    <td><input class="form-input" type="text" value="$90.00" disabled></td>
-                                    <td class="form-label">XXXX:</td>
-                                    <td><input class="form-input" type="text" value="已完成" disabled></td> -->
-                                </tr>
-                            </table>
-                            <!-- <a href="TYT_purchase_order_newList.html"><button class="btn btn-success">新增進貨表單</button></a> -->
-                            <table class="table table-striped" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>購買商品</th>
-                                        <th>商品數量</th>
-                                        <th>總金額</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- JavaScript將在這裡動態添加假資料 -->
-                                </tbody>
-                                <div class="text-end">
-                                    
-                                    <a href="TYT_order_management.html"><button type="button" class="btn btn-primary">返回訂單明細</button></a>
-                                    <a href="TYT_order_management.html"><button type="submit" class="btn btn-success">儲存</button></a>
-                                </div>
-                        </div>
-                    </div>
-                    
-                </section>
-            </div>
+						<div class="card-body">
+							<table id="table">
+								<tr>
+									<td class="form-label">會員編號:</td>
+									<td><input class="form-input" type="text" value="12345"
+										disabled /></td>
+									<td class="form-label">會員暱稱:</td>
+									<td><input class="form-input" type="text" value="JohnDoe"
+										disabled /></td>
+									<td class="form-label">收貨地址:</td>
+									<td><input class="form-input" type="text"
+										value="123 Main St" disabled /></td>
+								</tr>
+								<tr>
+									<td class="form-label">Email:</td>
+									<td><input class="form-input" type="text"
+										value="johndoe@example.com" disabled /></td>
+									<td class="form-label">訂單編號:</td>
+									<td><input class="form-input" type="text" value="78901"
+										disabled /></td>
+									<td class="form-label">訂單總金額:</td>
+									<td><input class="form-input" type="text" value="$100.00"
+										disabled /></td>
+								</tr>
+								<tr>
+									<td class="form-label">優惠碼:</td>
+									<td><input class="form-input" type="text"
+										value="DISCOUNT10" disabled /></td>
+									<td class="form-label">結帳金額:</td>
+									<td><input class="form-input" type="text" value="$90.00"
+										disabled /></td>
+									<td><span class="form-label">訂單狀態:</span></td>
+									<td><select class="form-select">
+											<option value="0">待出貨</option>
+											<option value="1">待收貨</option>
+											<option value="2">已完成</option>
+											<option value="3">退貨中</option>
+											<option value="4">已貨退</option>
+									</select></td>
+								</tr>
+								<tr>
+									<td class="form-label">購買日期:</td>
+									<td><input class="form-input" type="text"
+										value="2023-03-23 19:92:20" disabled /></td>
+								</tr>
+							</table>
+							<table class="table table-striped" id="table1">
+								<thead>
+									<tr>
+										<th>購買商品</th>
+										<th>商品數量</th>
+										<th>總金額</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- JavaScript將在這裡動態添加假資料 -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+			</div>
 
-            <footer>
-                
-            </footer>
-        </div>
-    </div>
-    <script>
-        // 假数据
-        var fakeData = [
-            { productName: "商品1", quantity: 3, totalAmount: 150 },
-            { productName: "商品2", quantity: 2, totalAmount: 100 },
-            { productName: "商品3", quantity: 5, totalAmount: 250 },
-            { productName: "商品4", quantity: 1, totalAmount: 50 },
-            { productName: "商品5", quantity: 4, totalAmount: 200 }
-        ];
-    
-        // 获取表格
-        var table = document.getElementById("table1");
-    
-        // 获取表格的tbody部分
-        var tbody = table.getElementsByTagName("tbody")[0];
-    
-        // 添加假数据到表格
-        for (var i = 0; i < fakeData.length; i++) {
-            var row = tbody.insertRow(i); // 插入新行
-    
-            // 创建单元格并填充数据
-            var cell1 = row.insertCell(0);
-            cell1.innerHTML = fakeData[i].productName;
-    
-            var cell2 = row.insertCell(1);
-            cell2.innerHTML = fakeData[i].quantity;
-    
-            var cell3 = row.insertCell(2);
-            cell3.innerHTML = "$" + fakeData[i].totalAmount.toFixed(2); // 以两位小数显示总金额
-        }
-    </script>
-    
+			<footer></footer>
 
-    <script src="assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
-    
-    <script src="assets/js/main.js"></script>
-    <script src="assets\js\menu_ative.js"></script>
+			<script src="..\assets\vendors\jquery-3.7.1.min.js"></script>
+			<script
+				src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+			<script src="../assets/js/bootstrap.bundle.min.js"></script>
+			<script src="../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+			<script
+				src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
+			<script>
+				// Simple Datatable
+				let table1 = document.querySelector("#table1");
+				let dataTable = new simpleDatatables.DataTable(table1);
+			</script>
 
+			<script src="../assets/js/main.js"></script>
+			<script src="../assets\js\menu_ative.js"></script>
+			<script src="../assets\js\memberOrderdetail.js"></script>
 </body>
-
 </html>

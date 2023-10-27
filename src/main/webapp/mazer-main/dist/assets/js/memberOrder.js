@@ -80,6 +80,18 @@ document.addEventListener("DOMContentLoaded", function() {
 			alert("请求数据失败");
 		},
 	});
+
 });
 
+//======================詳細資料跳轉==========================
+$(document).on("click", ".detail-button", function() {
+	console.log("跳轉");
+		// 获取订单编号
+		var orderNo = $(this).data("order-no");
 
+		// 构建跳转URL，并将订单编号作为查询参数传递
+		var url = "./TYT_order_detail.html?orderNo=" + orderNo;
+
+		// 跳转到TYT_order_detail.html
+		window.location.href = url;
+});
