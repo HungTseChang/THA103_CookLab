@@ -128,15 +128,6 @@ public class MemberOrderServlet extends HttpServlet {
 			String promoCodeInfo = req.getParameter("promoCodeInfo");
 			String cartData = req.getParameter("cartData");
 
-			System.out.println(memberName);
-			System.out.println(memberEmail);
-			System.out.println(memberPhone);
-			System.out.println(memberAddress);
-			System.out.println(orderTotal);
-			System.out.println(finalPrice);
-			System.out.println(promoCodeInfo);
-			System.out.println(cartData);
-
 			// 创建订单
 			JsonArray cartItems = new JsonParser().parse(cartData).getAsJsonArray();
 			MemberOrderVO memberOrder = new MemberOrderVO();
@@ -145,10 +136,10 @@ public class MemberOrderServlet extends HttpServlet {
 			memberOrder.setTotalOrderAmount(Integer.valueOf(orderTotal));
 			if (promoCodeInfo == null || promoCodeInfo.isEmpty()) {
 				memberOrder.setPromoCodeNo(null);
-			}else {
+			} else {
 				memberOrder.setPromoCodeNo(Integer.valueOf(promoCodeInfo));
 			}
-			
+
 			memberOrder.setCheckoutAmount(Integer.valueOf(finalPrice));
 			memberOrder.setShippingAddress(memberAddress);
 
@@ -196,6 +187,22 @@ public class MemberOrderServlet extends HttpServlet {
 						String productKey = "product:" + productNo;
 						// 从 Redis 中删除对应商品
 						jedis.hdel(cartKey, productKey);
+
+						// 同时更新数据库中的库存
+						ProductService productSvc = new ProductService();
+						ProductVO product = productSvc.getOneProduct(productNo);
+						if (product != null) {
+							// 减少库存
+							int currentStock = product.getStorageQty(); // 获取当前库存
+							int newStock = currentStock - quantity; // 减少库存后的值
+							if (newStock < 0) {
+								newStock = 0; // 避免库存为负数
+							}
+
+							// 更新库存
+							product.setStorageQty(newStock);
+							productSvc.update(product);
+						}
 					}
 
 					Map<String, String> itemMap = new HashMap<>();

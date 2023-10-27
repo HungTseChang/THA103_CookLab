@@ -1,7 +1,10 @@
+
+
 // 等待页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 	// 获取商品ID（从URL参数中获取）
 	const productId = getProductIdFromURL(); // 编写一个函数来获取URL参数中的商品ID
+	let stock = null;
 	console.log(productId);
 	// 创建一个包含商品ID的请求数据
 	const requestData = {
@@ -26,6 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			$("#product-price").text(`$${response.productPrice}`);
 			$("#product-introduction").text(response.productIntroduction);
 			$("#product-description").html(`<h6>商品詳情</h6><p>${response.productDescription}</p>`);
+			stock = response.storageQty;
+			$("#productqty span").text(`當前商品庫存: ${stock}`);
+			console.log(response.storageQty);
 		},
 		error: function(xhr) {
 			console.log("AJAX请求失败：" + xhr.status);
@@ -42,6 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		e.preventDefault();
 		const quantity = $('#userquantity').val();
 		console.log(quantity);
+		if (quantity > stock) {
+			alert('選擇的數量大於庫存數量！');
+			return; // 防止执行添加到购物车操作
+		}
 		const requestData = {
 			action: 'buttonadd2',
 			productNo: productId,
@@ -68,9 +78,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		console.log("加入購物車");
 		e.preventDefault();
 		const quantity = $('#userquantity').val();
-		 // 创建一个空数组来存储商品编号
-    	const selectedProducts = [];
+		// 创建一个空数组来存储商品编号
+		const selectedProducts = [];
 		console.log(quantity);
+		if (quantity > stock) {
+			alert('選擇的數量大於庫存數量！');
+			return; // 防止执行添加到购物车操作
+		}
 		const requestData = {
 			action: 'buttonadd2',
 			productNo: productId, // 获取成功添加到购物车的商品编号

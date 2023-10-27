@@ -42,6 +42,12 @@
       #preview img.preview_img {
         width: 100%;
       }
+      
+    .error-message {
+    color: #ff0000; /* 红色文本颜色 */
+    font-size: 12px; /* 字体大小 */
+    margin-top: 5px; /* 与上方元素的间距 */
+	}
     </style>
   </head>
 
@@ -172,32 +178,59 @@
                         <div class="form-body">
                           <div class="row">
                             <div class="col-12">
+                              <label for="productname-vertical">商品圖片</label>
+                              <span id="productImg-error" class="error-message"></span>
                               <input type="file" id="p_file" class="form-control" />
                               <div id="preview">
                                 <span class="text">預覽圖</span>
                               </div>
                             </div>
                             <div class="col-12" style="margin-top: 20px">
-                              <div class="form-group"><label for="productname-vertical">商品名稱</label> <input type="text" id="productname-vertical" class="form-control" name="productname" placeholder="商品名稱" /></div>
+                              <div class="form-group">
+                                <label for="productname-vertical">商品名稱</label>
+                                <span id="productname-error" class="error-message"></span>
+                                <input type="text" id="productname-vertical" class="form-control" name="productname" placeholder="商品名稱" />
+                              </div>
                             </div>
                             <div class="col-12">
-                              <div class="form-group"><label for="productprice-vertical">商品售價</label> <input type="number" id="productprice-vertical" class="form-control" name="productprice" placeholder="商品售價" /></div>
+                              <div class="form-group">
+                                <label for="productprice-vertical">商品售價</label>
+                                <span id="productprice-error" class="error-message"></span>
+                                <input type="number" id="productprice-vertical" class="form-control" name="productprice" placeholder="商品售價" />
+                              </div>
                             </div>
                             <div class="col-12">
-                              <div class="form-group"><label for="saleQty-vertical">商品數量</label> <input type="number" id="saleQty-vertical" class="form-control" name="saleQty" placeholder="商品數量" /></div>
+                              <div class="form-group">
+                                <label for="saleQty-vertical">商品數量</label>
+                                <span id="productSaleqty-error" class="error-message"></span>
+                                <input type="number" id="saleQty-vertical" class="form-control" name="saleQty" placeholder="商品數量" />
+                              </div>
                             </div>
                             <div class="col-12">
-                              <div class="form-group"><label for="storageQty-vertical">庫存數量</label> <input type="number" id="storageQty-vertical" class="form-control" name="storageQty" placeholder="庫存數量" /></div>
+                              <div class="form-group">
+                                <label for="storageQty-vertical">庫存數量</label>
+                                <span id="productQty-error" class="error-message"></span>
+                                <input type="number" id="storageQty-vertical" class="form-control" name="storageQty" placeholder="庫存數量" />
+                              </div>
                             </div>
                             <div class="col-12">
-                              <div class="form-group"><label for="uptime-vertical">上架時間</label> <input type="datetime-local" step="1" id="uptime-vertical" class="form-control" name="uptime" /></div>
+                              <div class="form-group">
+                                <label for="uptime-vertical">上架時間</label>
+                                <span id="productUptime-error" class="error-message"></span>
+                                <input type="datetime-local" step="1" id="uptime-vertical" class="form-control" name="uptime" />
+                              </div>
                             </div>
                             <div class="col-12">
-                              <div class="form-group"><label for="downtime-vertical">下架時間</label> <input type="datetime-local" step="1" id="downtime-vertical" class="form-control" name="downtime" /></div>
+                              <div class="form-group">
+                                <label for="downtime-vertical">下架時間</label>
+                                <span id="productDowntime-error" class="error-message"></span>
+                                <input type="datetime-local" step="1" id="downtime-vertical" class="form-control" name="downtime" />
+                              </div>
                             </div>
                             <div class="row">
                               <div class="col-md-6 mb-4">
                                 <h6>商品種類</h6>
+                                <span id="productCategory-error" class="error-message"></span>
                                 <div class="form-group">
                                   <select class="choices form-select" id="partSelect" name="selectedPart">
                                     <option value="none">無</option>
@@ -225,6 +258,7 @@
                             <div class="col-12">
                               <div class="card">
                                 <div class="card-header" style="color: rgba(35, 28, 99, 0.7); font-weight: 600; padding-left: 0">商品簡介</div>
+                                <span id="productDec-error" class="error-message"></span>
                                 <div class="card-body" style="padding-left: 0">
                                   <div class="form-floating">
                                     <textarea class="form-control" id="floatingTextarea"></textarea>
@@ -238,6 +272,7 @@
                                 <div class="card">
                                   <div class="card-header" style="padding-left: 0">
                                     <h4 class="card-title">商品詳情</h4>
+                                    <span id="productIntro-error" class="error-message"></span>
                                   </div>
                                   <div class="card-body" style="padding-left: 0">
                                     <div style="width: auto; height: auto">
