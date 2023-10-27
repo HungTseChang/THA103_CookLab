@@ -10,7 +10,7 @@ PromoCodeVO promoCodeVO = (PromoCodeVO) request.getAttribute("promoCodeVO");
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>Update</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" />
 
 <link
@@ -204,29 +204,14 @@ input.WCC_memeber_info {
 													ACTION="<%=request.getContextPath()%>/PromoCodeServlet">
 													<div class="form-body">
 														<div class="row">
-															<!--  				
-															<div class="col-md-4">
-																<label>優惠碼編號</label>
-															</div>
-															<div class="col-md-8 form-group">
-																<input type="text" class="GCpromo_info" id="promo_id"
-																	name="promo_info" value="000001">
-																	
-															</div>
-															<div class="col-md-4">
-																<label>優惠碼名稱</label>
-															</div>
-															<div class="col-md-8 form-group">
-																<input type="text" id="promo_name" class="GCpromo_info"
-																	name="promo_info" value="滿兩千免運費">
-															</div>
-															-->
+
 															<div class="col-md-4">
 																<label>優惠碼序號</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" id="" class="GCpromo_info"
-																	name="promo_code_serial_number" value="">
+																	name="promo_code_serial_number"
+																	value="${promoCodeVO.promoCodeSerialNumber}">
 															</div>
 															<div class="col-md-4">
 																<label>生效時間</label>
@@ -234,7 +219,7 @@ input.WCC_memeber_info {
 															<div class="col-md-8 form-group">
 																<input type="datetime-local" step="1"
 																	class="GCpromo_info" name="start_time" id=""
-																	value="">
+																	value="${promoCodeVO.startTime}">
 															</div>
 															<div class="col-md-4">
 																<label>失效時間</label>
@@ -242,43 +227,50 @@ input.WCC_memeber_info {
 															<div class="col-md-8 form-group">
 																<input type="datetime-local" step="1"
 																	class="GCpromo_info" name="end_time" id=""
-																	value="">
+																	value="${promoCodeVO.endTime}">
 															</div>
 															<div class="col-md-4">
 																<label>百分比折價金額</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" class="GCpromo_info"
-																	name="percentage_discount_amount" id="" value="">
+																	name="percentage_discount_amount" id=""
+																	value="${promoCodeVO.percentageDiscountAmount}">
 															</div>
 															<div class="col-md-4">
 																<label>固定折價金額</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" class="GCpromo_info"
-																	name="fixed_discount_amount" id="" value="">
+																	name="fixed_discount_amount" id=""
+																	value="${promoCodeVO.fixedDiscountAmount}">
 															</div>
 															<div class="col-md-4">
 																<label>可使用次數</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" class="GCpromo_info"
-																	name="usages_allowed" id="" value="">
+																	name="usages_allowed" id=""
+																	value="${promoCodeVO.usagesAllowed}">
 															</div>
 															<div class="col-md-4">
 																<label>最低消費門檻</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" class="GCpromo_info"
-																	name="minimum_consumption" id="" value="">
+																	name="minimum_consumption" id=""
+																	value="${promoCodeVO.minimumConsumption}">
 															</div>
 														</div>
 													</div>
+
 													<div class="col-md-6 ">
-														<input type="hidden" name="action" value="insert">
-														<input type="submit" value="送出新增">
+														
+															<input type="hidden" name="promoCodeNo" value="${promoCodeVO.promoCodeNo}"> 
+															<input type="hidden" name="action" value="update"> 
+															<input type="submit" value="送出">	
 													</div>
-												</form>
+													</FORM>
 											</div>
 										</div>
 									</div>

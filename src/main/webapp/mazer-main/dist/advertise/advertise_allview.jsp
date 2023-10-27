@@ -2,16 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.cooklab.promo_code.model.*"%>
+<%@ page import="com.cooklab.advertise.model.*"%>
 
 
 
 <%
-PromoCodeService pcSvc = new PromoCodeService();
-List<PromoCodeVO> list = pcSvc.getAll();
+AdvertiseService adSvc = new AdvertiseService();
+List<AdvertiseVO> list = adSvc.getAll();
 pageContext.setAttribute("list", list);
-
-
 %>
 <head>
 <meta charset="UTF-8">
@@ -100,8 +98,8 @@ pageContext.setAttribute("list", list);
 							<ul class="submenu" style="display: block">
 								<li class="submenu-item"><a href="#">商品設定</a></li>
 								<li class="submenu-item"><a href="#">訂單管理</a></li>
-								<li class="submenu-item active"><a href="#">優惠券設定</a></li>
-								<li class="submenu-item"><a href="#">廣告設定</a></li>
+								<li class="submenu-item"><a href="#">優惠券設定</a></li>
+								<li class="submenu-item active"><a href="#">廣告設定</a></li>
 								<li class="submenu-item"><a href="#">新增進貨表單</a></li>
 							</ul></li>
 						<li class="sidebar-item has-sub"><a href="#"
@@ -191,17 +189,17 @@ td.HO_article_title {
 				<div class="page-title">
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
-							<h3>優惠券管理</h3>
+							<h3>廣告管理</h3>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/mazer-main/dist/promo_code/promo_code_set.jsp">優惠券設定</a>
+										href="<%=request.getContextPath()%>/mazer-main/dist/advertise/advertise_set.jsp">廣告設定</a>
 									</li>
 									<li class="breadcrumb-item active" aria-currentx="page">
-										優惠券管理</li>
+										廣告管理</li>
 								</ol>
 							</nav>
 						</div>
@@ -220,48 +218,42 @@ td.HO_article_title {
 							<table class="table table-striped" id="table1">
 								<thead>
 									<tr>
-										<th class="first_col">優惠券編號</th>
-										<th class="sec_col">優惠券序號</th>
-										<th class="thrid_col">生效時間</th>
-										<th class="forth_col">失效時間</th>
-										<th class="fifth_col">百分比折價金額</th>
-										<th class="sixth_col">固定折價金額</th>
-										<th class="seventh_col">可使用次數</th>
-										<th class="eighth_col">最低消費門檻</th>
+										<th class="first_col">廣告編號</th>
+										<th class="sec_col">廣告名稱</th>
+										<th class="thrid_col">上架時間</th>
+										<th class="forth_col">下架時間</th>
+										<th class="fifth_col">廣告圖片</th>
+										<th class="eighth_col">廣告URL</th>
 										<th class="last_column">最後編輯時間</th>
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="pcVO" items="${list}">
+									<c:forEach var="adVO" items="${list}">
 
 										<tr>
-											<td>${pcVO.promoCodeNo}</td>
-											<td>${pcVO.promoCodeSerialNumber}</td>
-											<td>${pcVO.startTime}</td>
-											<td>${pcVO.endTime}</td>
-											<td>${pcVO.percentageDiscountAmount}</td>
-											<td>${pcVO.fixedDiscountAmount}</td>
-											<td>${pcVO.usagesAllowed}</td>
-											<td>${pcVO.minimumConsumption}</td>
-											<td>${pcVO.createdTimestamp}</td>
-
-
+											<td>${adVO.advertiseNo}</td>
+											<td>${adVO.advertiseName}</td>
+											<td>${adVO.advertiseShelfTime}</td>
+											<td>${adVO.advertiseOffsaleTime}</td>
+											<td>${adVO.advertiseImg}</td>
+											<td>${adVO.advertiseUrl}</td>
+											<td>${adVO.createdTimestamp}</td>
 											<td>
 												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/PromoCodeServlet"
+													ACTION="<%=request.getContextPath()%>/AdvertiseServlet"
 													style="margin-bottom: 0px;">
 													<input type="submit" value="修改"> <input type="hidden" 
-													name="promo_code_no" value="${pcVO.promoCodeNo}">
+													name="advertise_no" value="${adVO.advertiseNo}">
 													<input type="hidden"  name="action" value="getOne_For_Display">
 												</FORM>
 											</td>
 											<td>
 												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/PromoCodeServlet"
+													ACTION="<%=request.getContextPath()%>/AdvertiseServlet"
 													style="margin-bottom: 0px;">
 
-													<input type="hidden" name="promo_code_no"
-														value="${pcVO.getPromoCodeNo()}"> <input
+													<input type="hidden" name="advertise_no"
+														value="${adVO.getAdvertiseNo()}"> <input
 														type="hidden" name="action" value="delete"> <input
 														type="submit" value="刪除">
 												</FORM>
@@ -311,44 +303,6 @@ td.HO_article_title {
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
 
-
-	<script>
-<!--
-		let table1 = document.querySelector("#table1");
-		let dataTable = new simpleDatatables.DataTable(table1);
-		$(function() {
-			//jsp中使用read的話，會誤認為ajax要轉接網頁要改用ready
-			$(document).ready("change", ".btn.article_status", function() {
-				// console.log("you touch me");
-			});
-
-			$(document).ready(function() {
-				//取得數字
-				var $articleStatusBtn = $('.article_status');
-				// 把每個a標籤的數字轉為文字
-				$articleStatusBtn.each(function() {
-					var $this = $(this);
-					var status = parseInt($this.text());
-
-					switch (status) {
-					case 0:
-						$this.text('公開');
-						break;
-					case 1:
-						$this.text('非公開');
-						break;
-					case 2:
-						$this.text('草稿');
-						break;
-					case 3:
-						$this.text('刪除');
-						break;
-					}
-				});
-			});
-			 -->
-			
-	</script>
 </body>
 
 </html>

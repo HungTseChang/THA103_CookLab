@@ -3,7 +3,7 @@ package com.cooklab.promo_code.model;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.cooklab.advertise.model.AdvertiseVO;
+import com.cooklab.promo_code.model.*;
 
 public class PromoCodeService {
 	private PromoCodeHBDAO dao;

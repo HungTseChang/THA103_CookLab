@@ -67,7 +67,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 				session.beginTransaction();
-				PromoCodeVO promoCodeVo = session.createQuery("from AdvertiseVO where advertiseNo=" +
+				PromoCodeVO promoCodeVo = session.createQuery("from PromoCodeVO where promoCodeNo=" +
 				promoCodeNo,PromoCodeVO.class).uniqueResult();
 				
 				session.getTransaction().commit();
