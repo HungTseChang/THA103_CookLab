@@ -143,7 +143,12 @@ public class MemberOrderServlet extends HttpServlet {
 			memberOrder.setMemberId(1);
 			memberOrder.setOrderStatus((byte) 0);
 			memberOrder.setTotalOrderAmount(Integer.valueOf(orderTotal));
-			memberOrder.setPromoCodeNo(Integer.valueOf(promoCodeInfo));
+			if (promoCodeInfo == null || promoCodeInfo.isEmpty()) {
+				memberOrder.setPromoCodeNo(null);
+			}else {
+				memberOrder.setPromoCodeNo(Integer.valueOf(promoCodeInfo));
+			}
+			
 			memberOrder.setCheckoutAmount(Integer.valueOf(finalPrice));
 			memberOrder.setShippingAddress(memberAddress);
 

@@ -235,6 +235,55 @@ $(document).ready(function() {
 			window.history.pushState({}, "", newUrl);
 		}
 	});
+
+	$("#search-button").on("click", function() {
+		let keyword = $("#index-searchbar").val();
+		console.log("搜尋功能");
+		// 构建跳转URL并将关键字作为查询参数传递
+		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	});
+	
+	fetchDataAndRender2()
 });
+
+function fetchDataAndRender2() {
+	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
+	fetch('/CookLab/ProductServlet?action=getHotKeywords')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json(); // 解析 JSON 数据
+		})
+		.then(keywords => {
+			// 将商品名称填充到热门关键字部分
+			populateHotKeywords(keywords);
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+}
+
+
+function populateHotKeywords(keywords) {
+	const topSearchWordsMenu = document.querySelector('.topsearchwords-menu');
+
+	keywords.forEach(item => {
+		const li = document.createElement('li');
+		li.classList.add('topsearchwords-item');
+		const a = document.createElement('a');
+		a.href = '#';
+		a.textContent = item.keyword;
+
+		a.addEventListener('click', () => {
+
+			const clickedKeyword = item.keyword;
+			window.location.href = `./shop-grid.html?keyword=${clickedKeyword}`;
+		});
+		li.appendChild(a);
+		topSearchWordsMenu.appendChild(li);
+	});
+}
+
 
 

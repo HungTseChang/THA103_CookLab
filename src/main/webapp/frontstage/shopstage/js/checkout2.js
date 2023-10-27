@@ -6,6 +6,7 @@ let promoCodeUsed = false;
 let promoCodeNO = null; // 優惠碼信息
 let orderTotal = 0;      // 總金額
 let finalPrice = 0;		//最終金額
+let promoCodeInfo = null;
 // 将JSON字符串解析为JavaScript数组
 const selectedProducts = JSON.parse(selectedProductsJSON);
 const selectedProductsJSON2 = selectedProducts.join(','); // 转换为逗号分隔的字符串
@@ -187,6 +188,15 @@ $(document).ready(function() {
 			},
 		});
 	});
+	// 获取按钮元素
+	const returnButton = document.getElementById("returnButton");
+
+	// 添加点击事件处理程序
+	returnButton.addEventListener("click", function() {
+		// 在这里执行返回首页的操作，比如重定向到首页的URL
+		window.location.href = "shop.html"; // 将 "首頁的URL" 替换为你的首页URL
+	});
+
 });
 
 

@@ -39,22 +39,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	$('#addToCartButton').click(function(e) {
 		console.log("加入購物車")
-		e.preventDefault(); 
+		e.preventDefault();
 		const quantity = $('#userquantity').val();
 		console.log(quantity);
 		const requestData = {
-			action: 'buttonadd2', 
-			productNo: productId, 
-			quantity: quantity 
+			action: 'buttonadd2',
+			productNo: productId,
+			quantity: quantity
 		};
 		console.log(requestData);
 		$.ajax({
-			url: '/CookLab/CartServlet', 
-			type: 'GET', 
-			data: requestData, 
-			dataType: 'json', 
+			url: '/CookLab/CartServlet',
+			type: 'GET',
+			data: requestData,
+			dataType: 'json',
 			success: function(response) {
-				
+
 				console.log('商品已添加到购物车');
 				alert("商品添加到購物車囉");
 			},
@@ -64,6 +64,43 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	});
 
+	$("#buybutton").click(function(e) {
+		console.log("加入購物車");
+		e.preventDefault();
+		const quantity = $('#userquantity').val();
+		 // 创建一个空数组来存储商品编号
+    	const selectedProducts = [];
+		console.log(quantity);
+		const requestData = {
+			action: 'buttonadd2',
+			productNo: productId, // 获取成功添加到购物车的商品编号
+			quantity: quantity
+		};
+		console.log(requestData);
+
+		$.ajax({
+			url: '/CookLab/CartServlet',
+			type: 'GET',
+			data: requestData,
+			dataType: 'json',
+			success: function(response) {
+				console.log('商品已添加到购物车');
+				// 将成功添加到购物车的商品编号添加到数组
+				selectedProducts.push(productId);
+				// 创建一个包含商品编号的查询参数
+				const queryParameters = new URLSearchParams();
+				queryParameters.set('selectedProducts', JSON.stringify(selectedProducts));
+				// 构建要跳转到的checkout.html页面的URL，将查询参数添加到URL中
+				const targetURL = `checkout.html?${queryParameters.toString()}`;
+
+				// 执行页面跳转
+				window.location.href = targetURL;
+			},
+			error: function(xhr) {
+				console.log('AJAX请求失败：' + xhr.status);
+			}
+		});
+	});
 
 });
 
