@@ -3,6 +3,7 @@ package com.cooklab.admins.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -15,17 +16,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cooklab.admins.model.AdminsService;
 import com.cooklab.admins.model.AdminsVO;
 import com.cooklab.permission.model.*;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
+import com.mysql.cj.Session;
 
 @WebServlet("/AdminsServlet")
 public class AdminsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+  private List<AdminsVO>  Adminslist;
 	public AdminsServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -37,7 +40,10 @@ public class AdminsServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		if(this.Adminslist==null) {
+		AdminsService AdminsService = new AdminsService();
+		this.Adminslist = AdminsService.getAll();
+		}
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		String forwardPath = "";
@@ -60,6 +66,7 @@ public class AdminsServlet extends HttpServlet {
 			break;
 		case "delete":
 			forwardPath = delete(req, res);
+			break;
 		default:
 			forwardPath = "/dashboard/admin/WCC_admin_management.jsp";
 		}
@@ -68,6 +75,8 @@ public class AdminsServlet extends HttpServlet {
 		dispatcher.forward(req, res);
 
 	}
+
+	
 
 	private String insert(HttpServletRequest req, HttpServletResponse res) {
 		PermissionService PermissionService= new PermissionService();
@@ -88,6 +97,7 @@ public class AdminsServlet extends HttpServlet {
 		AdminsService AdminsService = new AdminsService();
 		Integer adminNo = Integer.valueOf(req.getParameter("adminNo"));
 		AdminsService.delete(adminNo);
+		this.Adminslist=null;
 		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 
@@ -99,14 +109,19 @@ public class AdminsServlet extends HttpServlet {
 		Integer permission = Integer.valueOf(req.getParameter("permission").trim());
 		Integer adminNo = Integer.valueOf(req.getParameter("adminNo").trim());
 
-		System.out.print(account + "||" + nickname + "||" + password + "||" + permission + "||" + adminNo);
 		AdminsService.update(nickname, permission, account, password, adminNo);
+		this.Adminslist=null;
 		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 
 	private String getAlladmins(HttpServletRequest req, HttpServletResponse res) {
+		List<AdminsVO> list;
+		if(this.Adminslist==null) {
 		AdminsService AdminsService = new AdminsService();
-		List<AdminsVO> list = AdminsService.getAll();
+		list = AdminsService.getAll();
+		}else {
+			list = this.Adminslist;
+					}
 		List<AdminsVOFake> list1 = new ArrayList<AdminsVOFake>();
 		AdminsVOFake a;
 		for(int i =0;i<list.size();i++) {
@@ -116,15 +131,13 @@ public class AdminsServlet extends HttpServlet {
 		}
 		
 		String json = new Gson().toJson(list1);
-//		System.out.println(json);
 		req.setAttribute("json", json);
 		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 
 	private String getOne_For_Update(HttpServletRequest req, HttpServletResponse res) {
-		AdminsService AdminsService = new AdminsService();
 		Integer adminNo = Integer.valueOf(req.getParameter("adminNo"));
-		AdminsVO AdmonVO = AdminsService.getOne(adminNo);
+		AdminsVO AdmonVO = this.Adminslist.stream().filter(e -> e.getAdminNo().equals(adminNo)).findFirst().get();
 		AdminsVOFake a = new AdminsVOFake(AdmonVO);
 		PermissionService PermissionService= new PermissionService();
 		List<PermissionVO> listpermission = PermissionService.getAll();
@@ -150,12 +163,13 @@ public class AdminsServlet extends HttpServlet {
 		Integer permission = Integer.valueOf(req.getParameter("permission").trim());
 		Timestamp a =new Timestamp(System.currentTimeMillis());
 		AdminsService.add(nickname, permission, account, password,a);
+		this.Adminslist=null;
 
 		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
 	
 	
-	private class AdminsVOFake{
+	 class AdminsVOFake{
 		private Integer adminNo;
 		private String adminNickname;
 		private Integer permissionNo;

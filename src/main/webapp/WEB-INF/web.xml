@@ -12,35 +12,56 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
 	<!-- 王群中_添加filter_給hibernate調控sessionfactory -->
+
+
 	<filter>
-        <filter-name>myFilter</filter-name>
-        <filter-class>com.cooklab.admins.filter.DashboardOpenSessionInViewFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>myFilter</filter-name>
-        <url-pattern>/AdminsServlet</url-pattern>
-        <url-pattern>/PermissionServlet</url-pattern>    
-        <url-pattern>/ArticleReportServlet</url-pattern>    
-        <url-pattern>/ArticleSubReportServlet</url-pattern>    
-        <url-pattern>//MemberdashboardServlet</url-pattern>    
-    </filter-mapping>
+		<filter-name>memberFilter</filter-name>
+		<filter-class>com.cooklab.admins.filter.DashboardAdminsAndPermissionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>memberFilter</filter-name>
+		<url-pattern>/AdminsServlet</url-pattern>
+		<url-pattern>/PermissionServlet</url-pattern>
+		<url-pattern>/ArticleReportServlet</url-pattern>
+		<url-pattern>/ArticleSubReportServlet</url-pattern>
+		<url-pattern>/MemberdashboardServlet</url-pattern>
+
+	</filter-mapping>
+
+	<filter>
+		<filter-name>myFilter</filter-name>
+		<filter-class>com.cooklab.admins.filter.DashboardOpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		<url-pattern>/AdminsServlet</url-pattern>
+		<url-pattern>/PermissionServlet</url-pattern>
+		<url-pattern>/ArticleReportServlet</url-pattern>
+		<url-pattern>/ArticleSubReportServlet</url-pattern>
+		<url-pattern>/MemberdashboardServlet</url-pattern>
+		<url-pattern>/LoginServlet</url-pattern>
+
+	</filter-mapping>
+
+
 
 	<!-- 王群中_添加filter -->
-	
+
 	<!-- 以下阿宅註冊filter -->
 	<filter>
-        <filter-name>ArticleFilter</filter-name>
-        <filter-class>com.cooklab.article.controller.OpenSessionInViewFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>ArticleFilter</filter-name>
-        <url-pattern>/ArticleServlet</url-pattern>
-        <url-pattern>/ArticleSubServlet</url-pattern>    
-        <url-pattern>/ArticleCategoryServlet</url-pattern>
-         <url-pattern>/ArticleReactionServlet</url-pattern>  
-        <url-pattern>/article/*</url-pattern>  
-		 <url-pattern>/mazer-main/dist/article/*</url-pattern>
-    </filter-mapping>
-    <!-- 所有需要用到hibernate(.getAll)語法的都要註冊，包括JSP頁面 -->
+		<filter-name>ArticleFilter</filter-name>
+		<filter-class>com.cooklab.article.controller.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ArticleFilter</filter-name>
+		<url-pattern>/ArticleServlet</url-pattern>
+		<url-pattern>/ArticleSubServlet</url-pattern>
+		<url-pattern>/ArticleCategoryServlet</url-pattern>
+		<url-pattern>/ArticleReactionServlet</url-pattern>
+		<url-pattern>/article/*</url-pattern>
+		<url-pattern>/mazer-main/dist/article/*</url-pattern>
+	</filter-mapping>
+	<!-- 所有需要用到hibernate(.getAll)語法的都要註冊，包括JSP頁面 -->
 </web-app>
