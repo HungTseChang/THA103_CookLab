@@ -109,7 +109,7 @@ $("#insert").click(function(e) {
 			console.log(response);
 			console.log(response.message);
 			if (response.message === "error") {
-				// 显示错误消息
+				alert("格式有錯");
 				if (response.errProductName) {
 					$("#productname-error").text(response.errProductName);
 				} else {
@@ -174,7 +174,7 @@ $("#insert").click(function(e) {
 				console.log("Data submitted successfully: " + response.message);
 				console.log("成功新增")
 				alert("成功新增");
-				//				window.location.href = "shopview.html";
+				window.location.href = "shopview.html";
 			}
 		},
 		error: function(xhr, status, error) {

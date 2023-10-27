@@ -470,11 +470,8 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			Part filePart = req.getPart("productImage");
-			System.out.println(filePart);
 			byte[] imageBytes = null;
-			System.out.println(filePart.getSize());
-			System.out.println(filePart.getHeader("Content-Disposition"));
-			if (filePart.getSize() == 0 || filePart.getSize()==9) {
+			if (filePart.getSize() == 0 || filePart.getSize() == 9) {
 				errorMsgs.put("errProductImage", "請選擇圖片");
 			} else {
 				String header = filePart.getHeader("Content-Disposition");
@@ -647,32 +644,83 @@ public class ProductServlet extends HttpServlet {
 
 		}
 		if ("updateProduct".equals(action)) {
+
+			// 利用MAP物件放入錯誤訊息
+			Map<String, String> errorMsgs = new HashMap<String, String>();
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 
 			String productName = req.getParameter("productname");
+			String productNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (productName == null || productName.trim().length() == 0) {
+				errorMsgs.put("errProductName", "商品請勿空白");
+			} else if (!productName.trim().matches(productNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("errProductName", "商品只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			}
 
-			Integer productPrice = Integer.valueOf(req.getParameter("productprice"));
-			Integer saleQty = Integer.valueOf(req.getParameter("saleQty"));
-			Integer storageQty = Integer.valueOf(req.getParameter("storageQty"));
+			String productPriceParam = req.getParameter("productprice");
+			Integer productPrice = null;
+			if (productPriceParam != null && !productPriceParam.isEmpty()) {
+				try {
+					productPrice = Integer.valueOf(productPriceParam);
+					if (productPrice <= 0) {
+						errorMsgs.put("errProductPrice", "商品售價必須為正數且不為零");
+					}
+				} catch (NumberFormatException e) {
+					errorMsgs.put("errProductPrice", "商品售價必須是有效的數字");
+				}
+			} else {
+				errorMsgs.put("errProductPrice", "商品售價不能為空");
+			}
+
+			String saleQtyParam = req.getParameter("saleQty");
+			Integer saleQty = null;
+			if (saleQtyParam != null && !saleQtyParam.isEmpty()) {
+				try {
+					saleQty = Integer.valueOf(saleQtyParam);
+					if (saleQty <= 0) {
+						errorMsgs.put("errSaleQty", "商品數量必須為正數且不為零");
+					}
+				} catch (NumberFormatException e) {
+					errorMsgs.put("errSaleQty", "商品數量必須是有效的數字");
+				}
+			} else {
+				errorMsgs.put("errSaleQty", "商品數量不能為空");
+			}
+
+			String storageQtyParam = req.getParameter("storageQty");
+			Integer storageQty = null;
+			if (storageQtyParam != null && !storageQtyParam.isEmpty()) {
+				try {
+					storageQty = Integer.valueOf(storageQtyParam);
+					if (storageQty <= 0) {
+						errorMsgs.put("errStorageQty", "庫存數量必須為正數且不為零");
+					}
+				} catch (NumberFormatException e) {
+					errorMsgs.put("errStorageQty", "庫存數量必須是有效的數字");
+				}
+			} else {
+				errorMsgs.put("errStorageQty", "庫存數量不能為空");
+			}
 
 			java.sql.Timestamp shelfTime = null;
 			String shelfTimeStr = req.getParameter("uptime");
-			if (shelfTimeStr != null) {
+			if (shelfTimeStr != null && shelfTimeStr != "") {
 				try {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 					LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
 					shelfTime = Timestamp.valueOf(localDateTime);
 				} catch (DateTimeParseException e) {
 					e.printStackTrace();
+					errorMsgs.put("errShelfTime", "上架時間請勿空白");
 					shelfTime = new java.sql.Timestamp(System.currentTimeMillis());
 				}
 			} else {
-				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
+				errorMsgs.put("errShelfTime", "上架時間請勿空白");
 			}
 
 			java.sql.Timestamp offsaleTime = null;
 			String offsaleTimeStr = req.getParameter("uptime");
-			if (offsaleTimeStr != null) {
+			if (offsaleTimeStr != null && offsaleTimeStr != "") {
 				try {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 					LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
@@ -680,16 +728,26 @@ public class ProductServlet extends HttpServlet {
 					offsaleTime = Timestamp.valueOf(localDateTime);
 				} catch (DateTimeParseException e) {
 					e.printStackTrace();
+					errorMsgs.put("erroffsaleTime", "下架時間請勿空白");
 					offsaleTime = new java.sql.Timestamp(System.currentTimeMillis());
 				}
 			} else {
-
+				errorMsgs.put("erroffsaleTime", "下架時間請勿空白");
 			}
 
 			String productIntroduction = req.getParameter("productIntroduction");
+			if (productIntroduction == null || productIntroduction.trim().length() == 0) {
+				errorMsgs.put("errIntro", "商品詳請請勿空白");
+			}
 			String productDec = req.getParameter("productDescription");
+			if (productDec == null || productDec.trim().length() == 0) {
+				errorMsgs.put("errProductDec", "商品簡介請勿空白");
+			}
 			System.out.println(productDec);
 			String category = req.getParameter("selectedPart");
+			if (category.equals("none")) {
+				errorMsgs.put("errCategory", "請選擇商品類別");
+			}
 
 			String selectedFoodType = req.getParameter("selectedFoodType");
 			String selectedKitchenType = req.getParameter("selectedKitchenType");
@@ -712,32 +770,55 @@ public class ProductServlet extends HttpServlet {
 
 			Part filePart = req.getPart("productImage");
 			String fileName = filePart.getSubmittedFileName();
-			System.out.println(fileName);
-			System.out.println(filePart);
 			byte[] imageBytes = null;
 
 			if (filePart != null) {
 				fileName = filePart.getSubmittedFileName();
 				if (fileName != null && !fileName.isEmpty()) {
-					System.out.println("New file uploaded");
 					// 处理新文件上传逻辑
-					InputStream fileContent = filePart.getInputStream();
-					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					byte[] buffer = new byte[4096];
-					int bytesRead;
-
-					while ((bytesRead = fileContent.read(buffer)) != -1) {
-						outputStream.write(buffer, 0, bytesRead);
+					System.out.println("New file uploaded");
+					String header = filePart.getHeader("Content-Disposition");
+					if (header != null) {
+						String[] tokens = header.split(";");
+						boolean validFile = false;
+						for (String token : tokens) {
+							if (token.trim().startsWith("filename")) {
+								String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+								if (fileExtension.equals("jpg") || fileExtension.equals("png")) {
+									validFile = true;
+									break;
+								}
+							}
+						}
+						if (!validFile) {
+							errorMsgs.put("errProductImage", "請選擇有效的JPG、PNG檔案");
+						} else {
+							InputStream fileContent = filePart.getInputStream();
+							ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+							byte[] buffer = new byte[4096];
+							int bytesRead;
+							while ((bytesRead = fileContent.read(buffer)) != -1) {
+								outputStream.write(buffer, 0, bytesRead);
+							}
+							imageBytes = outputStream.toByteArray();
+						}
 					}
-
-					imageBytes = outputStream.toByteArray();
 				} else {
 					System.out.println("No new file uploaded");
 					ProductService productSvc = new ProductService();
 					imageBytes = productSvc.getOneProduct(productNo).getProductPicture();
 					System.out.println("old picture");
-					// 处理未上传新文件的逻辑
 				}
+			}
+
+			if (!errorMsgs.isEmpty()) {
+				errorMsgs.put("message", "error");
+				Gson gson = new Gson();
+				String errjson = gson.toJson(errorMsgs);
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(errjson);
+				return;
 			}
 
 //			***************************
