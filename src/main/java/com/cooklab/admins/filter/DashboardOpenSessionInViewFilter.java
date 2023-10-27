@@ -21,7 +21,9 @@ public class DashboardOpenSessionInViewFilter  implements Filter {
 		try {
 
 			factory.getCurrentSession().beginTransaction();
+			System.out.println("開始連線前往下一頁");			
 			chain.doFilter(req, res);
+			System.out.println("從上一頁返回以結束交易");			
 			System.out.println("結束");
 
 			factory.getCurrentSession().getTransaction().commit();
