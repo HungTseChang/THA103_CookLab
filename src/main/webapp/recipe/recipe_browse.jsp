@@ -163,10 +163,13 @@ import="com.cooklab.purchase_order.model.*"%>
                         <div class="col-md-6">
                             <input type="text" id="recipeName" class="form-control recipe-name" readonly="readonly" />
                         </div>
-                        <i class="bi bi-bookmark col-md-4" style="font-size: 30px; padding-left: 250px"></i>
+                        <div id="collectionStatus">
+                            <i id="addCollection" class="bi bi-bookmark col-md-4" style="font-size: 30px; margin-left: 250px"></i>
+                            <i id="removeCollection" class="bi bi-bookmark-fill col-md-4" style="font-size: 30px; margin-left: 250px"></i>
+                        </div>
                     </div>
                     <p>使用標籤:</p>
-                    <div id="useHashTag" class="form-control d-flex align-items-center" style="boder: none"></div>
+                    <div id="useHashTag" class="form-control d-flex align-items-center" style="border: none"></div>
 
                     <div class="text-center" style="margin: 30px">
                         <div id="coverImageView">
@@ -214,17 +217,10 @@ import="com.cooklab.purchase_order.model.*"%>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 recipe-content mx-auto">
-                <div class="message">
-                    <span class="username">John Doe</span>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget urna vel urna laoreet aliquam.</p>
-                    <span class="timestamp">2023-10-22 14:30:00</span>
-                </div>
-
-                <div class="message">
-                    <span class="username">Jane Smith</span>
-                    <p>Sed ullamcorper augue in metus condimentum, nec vehicula metus condimentum.</p>
-                    <span class="timestamp">2023-10-22 15:00:00</span>
+            <div id="comments" class="col-md-8 recipe-content mx-auto">
+                <div class="input-group mb-3">
+                    <input id="inputComment" type="text" class="form-control" placeholder="留言" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                    <button id="submitComment" class="btn btn-outline-secondary" type="button" id="button-addon2">送出</button>
                 </div>
             </div>
         </section>

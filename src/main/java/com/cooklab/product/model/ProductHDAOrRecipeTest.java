@@ -27,11 +27,27 @@ public class ProductHDAOrRecipeTest implements ProductDAO {
 	}
 
 	@Override
-	public void insert(ProductVO productVO) {
+	public String insert(ProductVO product) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void update(ProductVO productVO) {
+	public String update(ProductVO product) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -51,14 +67,14 @@ public class ProductHDAOrRecipeTest implements ProductDAO {
 		return null;
 	}
 
-	@Override
-	public List<Map<String, Object>> findByKeyword(String keyword) {
-		return null;
-	}
+//	@Override
+//	public List<Map<String, Object>> findByKeyword(String keyword) {
+//		return null;
+//	}
 
 	@Override
-	public ProductVO findByProductName(String productName) {
-		return getSession().createQuery("from ProductVO where productName = :productName ", ProductVO.class)
+	public ProductVO findByProductName(String productName, String category) {
+		return getSession().createQuery("from ProductVO where productName = :productName and " + category + " is not null", ProductVO.class)
 				.setParameter("productName", productName).uniqueResult();
 	}
 
