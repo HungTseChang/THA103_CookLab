@@ -14,12 +14,11 @@ let init = function () {
 
         list.append(`
         <tr>
-            <td>${newsTime.toLocaleString()}</td>
             <td>${news.newsTitle}</td>
             <td>${news.newsContent}</td>
+            <td>${newsTime.toLocaleString()}</td>
             <td>
-                <a href="#" class="btn btn-primary newsupdate" data-newsIndex="${i}">修改</a>
-                <a href="#" class="btn btn-primary newsdelete" data-newsIndex="${i}">刪除</a>
+                <a href="#" class="btn btn-primary newsupdate" data-newsindex="${i}">修改</a>
             </td>
         </tr>
     `);
@@ -40,12 +39,7 @@ $(document).ready(function () {
 
   $(document).on("click", ".newsupdate", function (e) {
     e.preventDefault();
-    var newsIndex = $(this).data("newsIndex");
-    window.location.href = "newsupdate.html?newsIndex=" + newsIndex;
+    var newsindex = $(this).data("newsindex");
+    window.location.href = "newsupdate.html?newsindex=" + newsindex;
   });
-
-  //   $(document).on("click", ".newsdelete", function (e) {
-  //     e.preventDefault();
-  //     var newsIndex = $(this).data("newsIndex");
-  //   });
 });

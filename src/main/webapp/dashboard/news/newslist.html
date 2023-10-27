@@ -215,9 +215,9 @@
                   <thead>
                     <!-- 欄位名稱起始 -->
                     <tr>
-                      <th>發布時間</th>
                       <th>消息標題</th>
                       <th>消息內容</th>
+                      <th>發布時間</th>
                       <th>動作</th>
                     </tr>
                     <!-- 欄位名稱結束 -->
@@ -249,22 +249,8 @@
     </div>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
     <script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <!-- ===========================引入了JQuerry_start======================================== -->
     <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
-    <!-- ===========================引入了JQuerry_end================ -->
-    <!-- ==============================讓button有a標籤的功能_start==================================================== -->
-    <script>
-      $(document).on("click", "button.btn.btn-primary", function (e) {
-        if ($(e.target).val() != "") {
-          var a = $(e.target).val();
-          console.log(a);
-          location = a;
-        }
-      });
-    </script>
-    <!-- =========================讓button有a標籤的功能_end============================================ -->
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/ding-newslist.js"></script>
   </body>
