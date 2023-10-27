@@ -42,7 +42,7 @@ public class MemberOrderVO implements Serializable{
 	@OneToMany(mappedBy = "memberOrder", cascade = CascadeType.ALL)
 	private Set<OrderDetailVO> orderDetail;
 
-//	=============WCC================
+//	會員
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
@@ -195,13 +195,6 @@ public class MemberOrderVO implements Serializable{
 	}
 
 
-	@Override
-	public String toString() {
-		return "MemberOrderVO [orderNo=" + orderNo + ", memberId=" + memberId + ", orderStatus=" + orderStatus
-				+ ", totalOrderAmount=" + totalOrderAmount + ", checkoutAmount=" + checkoutAmount + ", promoCodeNo="
-				+ promoCodeNo + ", shippingAddress=" + shippingAddress + ", createdTimestamp=" + createdTimestamp
-				+ "]";
-	}
 
 
 	

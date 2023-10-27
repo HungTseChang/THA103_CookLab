@@ -24,4 +24,8 @@ public class MemberOrderService {
 		}
 		
 	}
+	
+	public List<MemberOrderVO> getAll() {
+		return dao.getAll();
+	}
 }

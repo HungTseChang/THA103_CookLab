@@ -12,7 +12,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
-
 import com.cooklab.util.HibernateUtil;
 
 public class MemberOrderHDAOIm implements MemberOrderDAO {
@@ -45,19 +44,19 @@ public class MemberOrderHDAOIm implements MemberOrderDAO {
 //			HibernateUtil.shutdown();
 		}
 		return 0;
-		
+
 	}
 
 	@Override
 	public void update(MemberOrderVO memberOrderVO) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(Integer orderNo) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -68,10 +67,20 @@ public class MemberOrderHDAOIm implements MemberOrderDAO {
 
 	@Override
 	public List<MemberOrderVO> getAll() {
-		// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			List<MemberOrderVO> list = session.createQuery("from MemberOrderVO ", MemberOrderVO.class).list();
+			session.getTransaction().commit();
+			System.out.println("搜尋");
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+//			HibernateUtil.shutdown();
+		}
 		return null;
 	}
-
-	
 
 }

@@ -2,8 +2,11 @@ package com.cooklab.member_order.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -231,6 +234,58 @@ public class MemberOrderServlet extends HttpServlet {
 				res.getWriter().write(jsonData);
 			}
 
+		}
+		if ("search".equals(action)) {
+			MemberOrderService memberOrderSvc = new MemberOrderService();
+			List<MemberOrderVO> memberOrderVO = memberOrderSvc.getAll();
+
+			// 创建一个列表来存储 HashMap
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+
+			for (MemberOrderVO item : memberOrderVO) {
+				// 创建一个 HashMap 来存储当前项的数据
+				Map<String, String> itemMap = new HashMap<>();
+				// 获取数据并放入 HashMap
+				String orderNo = item.getOrderNo().toString();
+				itemMap.put("orderNo", orderNo);
+
+				String members = item.getMembers().getMemberId().toString();
+				itemMap.put("members", members);
+
+				String orderStatus = item.getOrderStatus().toString();
+				itemMap.put("orderStatus", orderStatus);
+
+				String totalOrderAmount = item.getTotalOrderAmount().toString();
+				itemMap.put("totalOrderAmount", totalOrderAmount);
+
+				String checkoutAmount = item.getCheckoutAmount().toString();
+				itemMap.put("checkoutAmount", checkoutAmount);
+
+				String promoCode;
+				if (item.getPromoCode() != null) {
+				    promoCode = item.getPromoCode().getPromoCodeNo().toString();
+				} else {
+				    promoCode = "無使用";
+				}
+				itemMap.put("promoCode", promoCode);
+				
+				String shippingAddress = item.getShippingAddress();
+				itemMap.put("shippingAddress", shippingAddress);
+				
+				String createdTimestamp = item.getCreatedTimestamp().toString();
+				itemMap.put("createdTimestamp", createdTimestamp);		
+				// HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+			System.out.println(dataMapList);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
 		}
 
 	}

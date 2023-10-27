@@ -149,11 +149,7 @@ public class ProductHDAOIm implements ProductDAO {
 		return null;
 	}
 
-	@Override
-	public ProductVO findByProductName(String productName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<ProductVO> findByProductNames(String productName, String category) {
@@ -193,6 +189,12 @@ public class ProductHDAOIm implements ProductDAO {
 		} finally {
 			HibernateUtil.shutdown();
 		}
+		return null;
+	}
+
+	@Override
+	public ProductVO findByProductName(String productName, String category) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
