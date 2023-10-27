@@ -35,7 +35,10 @@ cartData.forEach(function(item) {
 
 	const row = `
           <tr>
-            <td>${item.productName}</td>
+         	<td>
+        		${item.productName}
+        		<img src="data:image/jpeg;base64,${item.productImage}" alt="${item.productName}Image" width="100" height="100"/>
+        	</td>
             <td>${item.productPrice}</td>
             <td>${item.quantity}</td>
             <td class="total-amount">${totalAmount}</td>
@@ -51,14 +54,19 @@ cartData.forEach(function(item) {
 	// 更新订单总计
 	orderTotal += parseFloat(totalAmount);
 
+	orderTotalElement.textContent = `$${orderTotal.toFixed(0)}`;
 
+	const finalPriceElement = document.getElementById("finalPriceInfo"); // 获取最終金額元素
+	finalPriceElement.textContent = `$${orderTotal.toFixed(0)}`;
+	
+	
+	
+	
+	
 });
 
 
-orderTotalElement.textContent = `$${orderTotal.toFixed(0)}`;
 
-const finalPriceElement = document.getElementById("finalPriceInfo"); // 获取最終金額元素
-finalPriceElement.textContent = `$${orderTotal.toFixed(0)}`;
 
 
 
@@ -230,7 +238,7 @@ $('#checkoutbutton').click(function() {
 				setTimeout(function() {
 					window.location.href = 'shop.html';
 				}, 10000);
-			}else{
+			} else {
 				alert("訂單產生失敗囉");
 			}
 		},

@@ -37,17 +37,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-	$('.addToCartButton').click(function(e) {
+	$('#addToCartButton').click(function(e) {
+		console.log("加入購物車")
 		e.preventDefault(); 
-
-		const quantity = $(this).closest('.product__details__quantity').find('.product-quantity').val(); // 获取所选数量
-
+		const quantity = $('#userquantity').val();
+		console.log(quantity);
 		const requestData = {
 			action: 'buttonadd2', 
 			productNo: productId, 
 			quantity: quantity 
 		};
-
+		console.log(requestData);
 		$.ajax({
 			url: '/CookLab/CartServlet', 
 			type: 'GET', 

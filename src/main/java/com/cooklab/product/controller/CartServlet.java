@@ -1,7 +1,10 @@
 package com.cooklab.product.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
 import com.cooklab.util.JedisUtil;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -234,6 +238,79 @@ public class CartServlet extends HttpServlet {
 				}
 			} finally {
 				jedis.close(); // 记得关闭Jedis连接，归还到连接池
+			}
+		}
+
+		if ("remove".equals(action)) {
+
+			int productNo = Integer.parseInt(req.getParameter("productId"));
+			String memberNo = "1"; // 假设需要设置会员编号
+
+			JedisPool jedisPool = JedisUtil.getJedisPool();
+			Jedis jedis = jedisPool.getResource();
+
+			Map<String, String> itemMap = new HashMap<>();
+			try {
+				jedis.select(1);
+
+				String cartKey = "cart:" + memberNo;
+				String productKey = "product:" + productNo;
+
+				Long deletedCount = jedis.hdel(cartKey, productKey);
+
+				if (deletedCount > 0) {
+					itemMap.put("message", "success");
+					System.out.println("刪除成功");
+				} else {
+					itemMap.put("message", "false");
+					System.out.println("刪除失敗");
+				}
+			} finally {
+				jedis.close();
+			}
+
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(itemMap);
+			System.out.println(jsonData);
+
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+		if ("cartsearch2".equals(action)) {
+			JedisPool jedisPool = JedisUtil.getJedisPool();
+			Jedis jedis = jedisPool.getResource();
+
+			try {
+				String memberNo = "1"; // 在这里设置你的会员编号
+				String cartKey = "cart:" + memberNo; // 使用会员编号构建购物车的 Redis 键
+
+				jedis.select(1);
+				String productKeysStr = req.getParameter("productNo"); // 获取传递的产品编号字符串
+
+				// 将逗号分隔的字符串拆分为整数数组
+				String[] productKeysStrArray = productKeysStr.split(",");
+				int[] productKeys = new int[productKeysStrArray.length];
+				for (int i = 0; i < productKeysStrArray.length; i++) {
+					productKeys[i] = Integer.parseInt(productKeysStrArray[i]);
+				}
+
+				JsonArray cartArray = new JsonArray();
+				for (int productKey : productKeys) {
+					String productJson = jedis.hget(cartKey, "product:" + productKey);
+
+					if (productJson != null) {
+						JsonObject productObject = new JsonParser().parse(productJson).getAsJsonObject();
+						cartArray.add(productObject);
+					}
+				}
+				System.out.println(cartArray);
+				// 将 JSON 数组写入响应
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(cartArray.toString());
+			} finally {
+				jedis.close(); // 记得关闭 Jedis 连接，归还到连接池
 			}
 		}
 
