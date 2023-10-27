@@ -30,19 +30,21 @@ public class MemberOrderHDAOIm implements MemberOrderDAO {
 	}
 
 	@Override
-	public void insert(MemberOrderVO memberOrderVO) {
+	public int insert(MemberOrderVO memberOrderVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 			session.save(memberOrderVO);
 			System.out.println("新增成功");
 			session.getTransaction().commit();
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
 //			HibernateUtil.shutdown();
 		}
+		return 0;
 		
 	}
 

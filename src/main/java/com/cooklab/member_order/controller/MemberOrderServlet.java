@@ -22,10 +22,14 @@ import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
 import com.cooklab.promo_code.model.PromoCodeService;
 import com.cooklab.promo_code.model.PromoCodeVO;
+import com.cooklab.util.JedisUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 @WebServlet("/MemberOrderServlet")
 public class MemberOrderServlet extends HttpServlet {
@@ -41,7 +45,7 @@ public class MemberOrderServlet extends HttpServlet {
 
 		if ("memberMessage".equals(action)) {
 
-			String memberId = "1"; 
+			String memberId = "1";
 
 			MembersService memberSvc = new MembersService();
 			MembersVO membersInfo = memberSvc.findByPrimaryKey(Integer.valueOf(memberId));
@@ -59,12 +63,10 @@ public class MemberOrderServlet extends HttpServlet {
 			itemMap.put("memberMail", membersInfo.getMemberMail());
 			itemMap.put("memberCellphone", membersInfo.getMemberCellphone());
 
-			
 			Gson gson = new Gson();
 			String jsonData = gson.toJson(itemMap);
 			System.out.println(jsonData);
 
-			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jsonData);
@@ -80,12 +82,11 @@ public class MemberOrderServlet extends HttpServlet {
 
 			if (promoCodeInfo == null) {
 				itemMap.put("message", "false");
-				
+
 				Gson gson = new Gson();
 				String jsonData = gson.toJson(itemMap);
 				System.out.println(jsonData);
 
-				
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				res.getWriter().write(jsonData);
@@ -104,12 +105,11 @@ public class MemberOrderServlet extends HttpServlet {
 				System.out.println(promoCodeInfo.getPercentageDiscountAmount().toString());
 				itemMap.put("promoCodeNo", promoCodeInfo.getPromoCodeNo().toString());
 				itemMap.put("minimumConsumption", promoCodeInfo.getMinimumConsumption().toString());
-				
+
 				Gson gson = new Gson();
 				String jsonData = gson.toJson(itemMap);
 				System.out.println(jsonData);
 
-				
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				res.getWriter().write(jsonData);
@@ -138,40 +138,86 @@ public class MemberOrderServlet extends HttpServlet {
 			System.out.println(cartData);
 
 			// 创建订单
-			MemberOrderVO memberOrder = new MemberOrderVO();
-			memberOrder.setMemberId(1); 
-			memberOrder.setOrderStatus((byte) 0); 
-			memberOrder.setTotalOrderAmount(Integer.valueOf(orderTotal));
-			memberOrder.setPromoCodeNo(Integer.valueOf(promoCodeInfo)); 
-			memberOrder.setCheckoutAmount(Integer.valueOf(finalPrice)); 
-			memberOrder.setShippingAddress(memberAddress); 
-
-			
 			JsonArray cartItems = new JsonParser().parse(cartData).getAsJsonArray();
+			MemberOrderVO memberOrder = new MemberOrderVO();
+			memberOrder.setMemberId(1);
+			memberOrder.setOrderStatus((byte) 0);
+			memberOrder.setTotalOrderAmount(Integer.valueOf(orderTotal));
+			memberOrder.setPromoCodeNo(Integer.valueOf(promoCodeInfo));
+			memberOrder.setCheckoutAmount(Integer.valueOf(finalPrice));
+			memberOrder.setShippingAddress(memberAddress);
 
 			Set<OrderDetailVO> details = new LinkedHashSet<>();
 			for (int i = 0; i < cartItems.size(); i++) {
 				JsonObject cartItem = cartItems.get(i).getAsJsonObject();
 				int productNo = cartItem.get("productNo").getAsInt();
 				int quantity = cartItem.get("quantity").getAsInt();
-				
+
 				ProductVO productvo = new ProductVO();
-				ProductService productSvc = new ProductService();
-				productvo = productSvc.getOneProduct(productNo);
-				
+//				ProductService productSvc = new ProductService();
+//				productvo = productSvc.getOneProduct(productNo);
+				productvo.setProductNo(productNo);
 				OrderDetailVO orderDetail = new OrderDetailVO();
-				orderDetail.setProduct(productvo); 
-				orderDetail.setOrderQty(quantity); 
+				orderDetail.setProduct(productvo);
+				orderDetail.setOrderQty(quantity);
 
 				// 訂單明細 訂單關聯
 				orderDetail.setMemberOrder(memberOrder);
-				
+
 				details.add(orderDetail);
 			}
 			memberOrder.setOrderDetail(details);
 			// 保存订单到数据库（使用 Hibernate 或 JPA）
 			MemberOrderService memberOrderSvc = new MemberOrderService();
-			memberOrderSvc.insert(memberOrder);
+			String message = memberOrderSvc.insert(memberOrder);
+
+			// 在成功创建订单后，删除购物车中的商品
+
+			if (message.equals("success")) {
+				JedisPool jedisPool = JedisUtil.getJedisPool();
+				Jedis jedis = jedisPool.getResource();
+				jedis.select(1);
+				try {
+					// 设置会员编号
+					String memberNo = "1";
+					// 构建购物车键
+					String cartKey = "cart:" + memberNo;
+					for (int i = 0; i < cartItems.size(); i++) {
+						JsonObject cartItem = cartItems.get(i).getAsJsonObject();
+						int productNo = cartItem.get("productNo").getAsInt();
+						int quantity = cartItem.get("quantity").getAsInt();
+
+						// 在这里使用 productNo 和 quantity 处理购物车中的商品信息
+						String productKey = "product:" + productNo;
+						// 从 Redis 中删除对应商品
+						jedis.hdel(cartKey, productKey);
+					}
+
+					Map<String, String> itemMap = new HashMap<>();
+					itemMap.put("message", "success");
+					// 向前端发送成功消息
+					Gson gson = new Gson();
+					String jsonData = gson.toJson(itemMap);
+					System.out.println(jsonData);
+
+					res.setContentType("application/json");
+					res.setCharacterEncoding("UTF-8");
+					res.getWriter().write(jsonData);
+				} finally {
+					jedis.close();
+				}
+			} else {
+				Map<String, String> itemMap = new HashMap<>();
+				itemMap.put("message", "false");
+				// 失敗
+				Gson gson = new Gson();
+				String jsonData = gson.toJson(itemMap);
+				System.out.println(jsonData);
+
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(jsonData);
+			}
 
 		}
 

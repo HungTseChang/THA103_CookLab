@@ -16,8 +16,12 @@ public class MemberOrderService {
 	}
 	
 	public String insert(MemberOrderVO memberOrderVO) {
-		dao.insert(memberOrderVO);
-		return "success";
+		int message = dao.insert(memberOrderVO);
+		if(message==1) {
+			return "success";
+		}else {
+			return "false";
+		}
 		
 	}
 }

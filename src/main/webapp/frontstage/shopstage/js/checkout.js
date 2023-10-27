@@ -213,17 +213,26 @@ $('#checkoutbutton').click(function() {
 		orderTotal: orderTotal,
 		finalPrice: finalPrice,
 		promoCodeInfo: promoCodeInfo,
-		action : "checkout"
+		action: "checkout"
 	};
 	console.log(orderData);
 	$.ajax({
-		url: '/CookLab/MemberOrderServlet', 
-		type: 'POST', 
+		url: '/CookLab/MemberOrderServlet',
+		type: 'POST',
 		data: orderData,
-		dataType: 'json', 
+		dataType: 'json',
 		success: function(response) {
-
-			console.log(response);
+			console.log("return");
+			if (response.message === 'success') {
+				console.log(response.message);
+				$('#lightbox').show();
+				$('body').css('overflow', 'hidden');
+				setTimeout(function() {
+					window.location.href = 'shop.html';
+				}, 10000);
+			}else{
+				alert("訂單產生失敗囉");
+			}
 		},
 		error: function(xhr) {
 
