@@ -44,8 +44,8 @@ public class PromoCodeHibernateTest {
 			}
 			
 			//查詢資料(多筆)
-//			List<PromoCodeVO> list = session.createQuery("from PromoCodeVO ",PromoCodeVO.class).list();
-//			System.out.println(list);
+			List<PromoCodeVO> list = session.createQuery("from PromoCodeVO ",PromoCodeVO.class).list();
+			System.out.println(list);
 			
 			//查詢資料(單筆)
 //			PromoCodeVO memberOrderVO = session.createQuery("from PromoCodeVO where promoCodeNo = 1", PromoCodeVO.class).uniqueResult();

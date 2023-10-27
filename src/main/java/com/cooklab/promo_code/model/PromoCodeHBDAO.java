@@ -64,13 +64,14 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 	public PromoCodeVO findByPrimaryKey(Integer promoCodeNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-			session.beginTransaction();
-			PromoCodeVO promoCodeVo = session
-					.createQuery("from AdvertiseVO where advertiseNo=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 
-			session.getTransaction().commit();
-			return promoCodeVo;
-		} catch (Exception e) {
+				session.beginTransaction();
+				PromoCodeVO promoCodeVo = session.createQuery("from PromoCodeVO where promoCodeNo=" +
+				promoCodeNo,PromoCodeVO.class).uniqueResult();
+				
+				session.getTransaction().commit();
+				return promoCodeVo;
+		}catch(Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
