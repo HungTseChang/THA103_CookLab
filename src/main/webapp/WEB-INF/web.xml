@@ -27,6 +27,7 @@
 		<url-pattern>/ArticleReportServlet</url-pattern>
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
+		<url-pattern>/LoginServlet</url-pattern>
 
 	</filter-mapping>
 

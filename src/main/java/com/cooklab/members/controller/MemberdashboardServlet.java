@@ -20,6 +20,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.article_reaction.model.ArticleReactionVO;
@@ -38,6 +42,7 @@ import com.cooklab.recipe_comments_report.model.RecipeCommentsReportVO;
 import com.cooklab.recipe_reaction.model.RecipeReactionVO;
 import com.cooklab.recipe_report.model.RecipeReportVO;
 import com.cooklab.shopping_cart.model.ShoppingCartVO;
+import com.cooklab.util.HibernateUtil;
 import com.google.gson.Gson;
 import com.cooklab.admins.*;
 
@@ -119,9 +124,6 @@ public class MemberdashboardServlet extends HttpServlet{
 		String email = req.getParameter("email");
 		Byte status = Byte.valueOf(req.getParameter("memberStatus").trim());
 		String passowrd1 = MembersService.getOneMember(NO).getMemberPassword();
-System.out.println("=============================");
-System.out.println("===新密碼為:"+passowrd+"就密碼為:"+passowrd1+"=========================");
-System.out.println("=============================");
 		if(!passowrd.equals(passowrd1)) {
 			EmailSender EmailSender = new EmailSender();
 			 String subtitlte ="廚藝實驗室: 您的密碼已重設";
@@ -154,8 +156,9 @@ System.out.println("=============================");
 	private String getAll(HttpServletRequest req, HttpServletResponse res) {
 		MembersService MembersService = new MembersService();
 		List<MembersVO> Members = MembersService.getAll();
+		int lenght =Members.size();
 		List<MembersVOFake> MembersFake = new ArrayList<MembersVOFake>();
-		for(int i = 0 ; i < Members.size();i++) {
+		for(int i = 0 ; i < lenght;i++) {
 			MembersFake.add(new MembersVOFake(Members.get(i)));
 		}
 		String json = new Gson().toJson(MembersFake);
@@ -168,9 +171,9 @@ System.out.println("=============================");
 	
 	private class MemberServletFake extends MembersService{
 	private MembersDAO_interface dao;
-
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	private MemberServletFake() {
-		dao = new MembersJDBCDAO();
+		dao = new MembersHDAOIm(session.getSessionFactory());
 	}
 		public MembersVO updateMember(Integer memberId,String memberPassword,Byte memberStatus) {
 			MembersService MembersService = new MembersService();

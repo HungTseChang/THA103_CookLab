@@ -22,27 +22,33 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 	private Map<String, Boolean>Permit=null;
 	
 	
+	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+		req.setCharacterEncoding("UTF-8");
 		HttpServletRequest  request =  (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)res;
 		HttpSession session = request.getSession();
-//		String location = request.getRequestURI();
 		String location = request.getServletPath();
-		
+		String action = req.getParameter("action");
 		System.out.println("location: "+location);
-	
+
 		if(AdminsAccount == null) {		
 		try {
-			AdminsAccount = (String)session.getAttribute("account");
+			AdminsAccount = (String)session.getAttribute("thisaccount");
 			Permit=(Map<String, Boolean>)session.getAttribute("permissionlist");
+		
 		}catch(Exception e){
-			System.out.println("並未檢測到登錄帳號E");
-
+			System.out.println("並未檢測到登錄帳號E"+e);
 			session.setAttribute("location",location);
 			response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
             return;
 		}
-
+		  if(action.equals("login")||action.equals("forgetpassword")){
+				System.out.println("第一次登錄");			  
+				chain.doFilter(req, res);
+				System.out.println("從第一次登錄離開");			  
+		  return;
+		  }
 		if(AdminsAccount == null) {		
 			System.out.println("並未檢測到登錄帳號P");
 			session.setAttribute("location",location);
@@ -53,6 +59,37 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 		System.out.println(AdminsAccount);
 
 		}
+		if(location.equals("/LoginServlet")){
+			chain.doFilter(req, res);
+			  if(session.getAttribute("logout") != null) {
+			        System.out.println("檢測到登出請求");
+			        
+//			  ============      
+			        Enumeration<String> attributeNames = session.getAttributeNames();
+			  while (attributeNames.hasMoreElements()) {
+			            String attributeName = attributeNames.nextElement();
+			           System.out.println(attributeName);
+			            session.removeAttribute(attributeName);
+			        }
+//			  ======
+			        session.removeAttribute("thisaccount");
+			        session.removeAttribute("location");
+			        session.removeAttribute("permissionlist");
+			        session.removeAttribute("logout");
+			        if(session.getAttribute("location") != null) {
+			        	System.out.println("清除失敗");
+			        	
+			        }
+			        Enumeration<String> attributeNames2 = session.getAttributeNames();
+			        System.out.println("是否還有殘留的數據"+ attributeNames2.hasMoreElements());
+			
+			        
+			        AdminsAccount=null;
+			        Permit=null;
+			  }      
+return;
+		}
+		
 		System.out.println("是否具有進入此頁面的權限:"+ Permit.get(location));
 if(Permit.get(location)) {
 
@@ -63,28 +100,7 @@ if(Permit.get(location)) {
 	        System.out.println("帳號檢測離開");
 	        
 //	=============================開始檢測是否為登出請求=========================================        
-	  if(session.getAttribute("logout") != null) {
-	        System.out.println("檢測到登出請求");
-	        
-//	  ============      
-	        Enumeration<String> attributeNames = session.getAttributeNames();
-	  while (attributeNames.hasMoreElements()) {
-	            String attributeName = attributeNames.nextElement();
-	           System.out.println(attributeName);
-//	            session.removeAttribute(attributeName);
-	        }
-//	  ======
-	        session.removeAttribute("account");
-	        session.removeAttribute("location");
-	        session.removeAttribute("permissionlist");
-	        session.removeAttribute("logout");
-	        if(session.getAttribute("location") != null) {
-	        	System.out.println("清除失敗");
-	        	
-	        }
-	        AdminsAccount=null;
-	        Permit=null;
-	  }      
+
 	        
 	        
 }else {

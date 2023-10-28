@@ -1,6 +1,7 @@
 package com.cooklab.admins.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +18,10 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.SessionFactory;
 
+import com.cooklab.admins.EmailSender;
 import com.cooklab.admins.model.AdminsService;
 import com.cooklab.admins.model.AdminsVO;
+import com.cooklab.members.model.MembersVO;
 import com.cooklab.permission.model.*;
 import com.cooklab.util.HibernateUtil;
 import com.google.gson.Gson;
@@ -44,6 +47,10 @@ private List<AdminsVO>Adminslist;
 		case "logout":
 			forwardPath = logout(req, res);
 			break;
+		case "forgetpassword":
+			forwardPath = forgetpassword(req, res);
+			return;
+//			break;
 		default:
 			forwardPath = "/dashboard/login/WCC_login.jsp";
 		}
@@ -54,6 +61,57 @@ private List<AdminsVO>Adminslist;
 		}
 	
 	
+	private String forgetpassword(HttpServletRequest req, HttpServletResponse res) {
+		String account = req.getParameter("account");
+		String email = req.getParameter("email");	
+		EmailSender EmailSender = new EmailSender();
+		String	rndpassword = EmailSender.randomPassword(12);
+		Optional <AdminsVO> result1;
+		result1 = this.Adminslist.stream().filter(e->e.getAdminAccount().equals(account)).findFirst();	
+		 String response = "fail";
+		if(result1==null) {
+			response="發送密碼失敗，查無此帳號";
+	
+			return"/dashboard/login/WCC_login.jsp";
+		}
+		AdminsVO AdminsVO =	result1.get();
+		if(!AdminsVO.getAdminAccount().equals(email)) {
+			response="發送密碼失敗，錯誤信箱";
+
+			return"/dashboard/login/WCC_login.jsp";
+		}
+		
+		System.out.println("確認帳號和信箱無誤");
+		AdminsVO.setAdminPassword(rndpassword);
+	   AdminsService AdminsService = new AdminsService();
+	AdminsVO result = AdminsService.update(AdminsVO);
+	System.out.println("更新完成");
+
+		 if(result != null) {
+			 
+			 String subtitlte ="廚藝實驗室: 您的密碼已重設";
+			 String context =account+"您好: 你的密碼已重設為: "+rndpassword+"請記得更新你的密碼";
+					 EmailSender.sendMail(email, subtitlte,context);
+					 response="success";
+		 }else {
+				System.out.println("更新失敗");
+			 response="更新失敗，請聯絡客服人員";
+		 }
+		 try {
+			 res.setContentType("text/plain");
+			 PrintWriter writer = res.getWriter();
+			 writer.write(response);
+			 writer.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 
+			return"/dashboard/login/WCC_login.jsp";
+			
+		}
+
+
 	private String logout(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession Session  =  req.getSession();
 		Session.setAttribute("logout", true);
@@ -81,6 +139,7 @@ private List<AdminsVO>Adminslist;
 			PermissionVO permission = PermissionService.getOne(result.get().getPermissionNo());
 			Map<String, Boolean>Map = new HashMap<>();
 	        Map.put("/AdminsServlet", ((int)permission.getSuperAdmin()==0));
+	        Map.put("/PermissionServlet", ((int)permission.getSuperAdmin()==0));
 	        Map.put("ArticleServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
@@ -91,7 +150,8 @@ private List<AdminsVO>Adminslist;
 	        Map.put("/ArticleSubReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
 	        System.out.println(Map.get("/AdminsServlet"));
-			Session.setAttribute("account", adminAccount);
+	        System.out.println("所取得的帳號為"+adminAccount);
+			Session.setAttribute("thisaccount", adminAccount);
 			Session.setAttribute("nickname", nickname);
 			Session.setAttribute("permissionlist", Map);
 			Session.setAttribute("adminID", adminID);
@@ -102,6 +162,7 @@ private List<AdminsVO>Adminslist;
 			return "/dashboard/login/WCC_welcome.jsp";
 			}
 		}
+		req.removeAttribute("error");
 		req.setAttribute("error", "帳號或密碼錯誤");
 		return  "/dashboard/login/WCC_login.jsp";
 	}

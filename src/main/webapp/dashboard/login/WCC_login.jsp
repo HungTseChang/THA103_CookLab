@@ -140,8 +140,8 @@
                                                 <div class="col-md-8">
                                                     <div class="form-group has-icon-left">
                                                         <div class="position-relative">
-                                                            <input type="text" class="form-control" placeholder="請輸入您的帳號"
-                                                                id="first-name-icon">
+                                                            <input type="text" class="form-control" placeholder="目前版本帳號即信箱"
+                                                                id="account2">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>
                                                             </div>
@@ -195,11 +195,14 @@
 
     </div>
     </div>
-    <script src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
+
+    		<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
+		<script	src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     <script>
 
     $(document).ready(function(){
@@ -241,10 +244,42 @@
  		
     	})
     	
-    	$("#Submit2").on("click",function(){
-    		
-    		
-    	})
+
+    	     	$("#Submit2").on("click",function(e){
+            	if(!confirm("確定要重設密碼?")){ return;}
+        		var account = $("input#account2").val();
+        		var email = $("input#email").val();
+            	  $.ajax({
+                      type: "POST",
+                      url:  "<%=request.getContextPath()%>/LoginServlet",
+                      data: {
+                          action:"forgetpassword",
+                          account:account,
+                          email:email
+                      },
+                      success: function(response) {
+                    	  console.log(response);
+                    	  if(response==="success"){
+                          Swal.fire({
+                              icon: "success",
+                              title: account +"已成功寄出隨機密碼的信件到指定信箱!"
+                              
+                          })}else{
+                              Swal.fire({
+                                  icon: "danger",
+                                  title: account+response
+                              })
+                          }
+                    	  
+                    	  
+                      }
+                  });
+            	          	
+
+            })
+    	
+    	
+    	
         
     });    
     
