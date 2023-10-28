@@ -17,15 +17,12 @@ import org.hibernate.query.Query;
 import com.cooklab.util.HibernateUtil;
 
 public class ProductHDAOIm implements ProductDAO {
-	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
 	private SessionFactory factory;
 
 	public ProductHDAOIm(SessionFactory factory) {
 		this.factory = factory;
 	}
-
-	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
-	// 以避免請求執行緒共用了同個 Session
+	
 	private Session getSession() {
 		return factory.getCurrentSession();
 	}
@@ -99,19 +96,18 @@ public class ProductHDAOIm implements ProductDAO {
 
 	@Override
 	public List<ProductVO> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();;
 		try {
-			session.beginTransaction();
+//			session.beginTransaction();
 			List<ProductVO> list = session.createQuery("from ProductVO ", ProductVO.class).list();
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			System.out.println("搜尋");
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-//			HibernateUtil.shutdown();
-		}
+//			session.getTransaction().rollback();
+		} 
 		return null;
 	}
 
