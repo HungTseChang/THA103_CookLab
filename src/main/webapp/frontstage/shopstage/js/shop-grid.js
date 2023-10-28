@@ -3,6 +3,9 @@ $(document).ready(function() {
 	const urlParams = new URLSearchParams(window.location.search);
 	let keyword = urlParams.get("keyword");
 
+
+	let currentAction = "searchkeyword"
+
 	// 首先定义全局变量
 	let currentPage = 1; // 当前页码
 	let pageSize = 6; // 每页显示的商品数量
@@ -14,13 +17,13 @@ $(document).ready(function() {
 	const nextPageButton = $("#next-page");
 
 	// 发起AJAX请求以获取搜索结果
-	function loadPage(currentPage) {
+	function loadPage(currentPage, action) {
 		$.ajax({
 			url: "/CookLab/ProductServlet", // 用于搜索的Servlet地址
 			type: "GET",
 			data: {
 				keywords: keyword,
-				action: "searchkeyword",
+				action: action,
 				page: currentPage, // 传递当前页码
 				pageSize: pageSize, // 传递每页显示数量
 			},
@@ -158,29 +161,24 @@ $(document).ready(function() {
 		const paginationContainer = $("#pagination-container");
 		const paginationList = paginationContainer.find(".pagination");
 		paginationList.empty(); // 清空分页按钮
-
 		if (totalPages <= 1) {
-			// 如果只有一页，不显示分页按钮
 			paginationContainer.hide();
 		} else {
 			paginationContainer.show();
-
-			// 添加Previous按钮
 			const previousButton = $("<li class='page-item' id='previous-page'><a class='page-link' href='#'>Previous</a></li>");
 			previousButton.click(function() {
 				if (currentPage > 1) {
 					currentPage--;
-					loadPage(currentPage);
+					loadPage(currentPage, currentAction);
 					updatePaginationButtons(); // 更新按钮状态
 				}
 			});
 			paginationList.append(previousButton);
-
 			// 添加数字页码按钮
 			for (let page = 1; page <= totalPages; page++) {
 				const pageButton = $(`<li class='page-item'><a class='page-link' href='#'>${page}</a></li>`);
 				pageButton.click(function() {
-					loadPage(page);
+					loadPage(page, currentAction);
 					currentPage = page; // 设置当前页码
 					updatePaginationButtons(); // 更新按钮状态
 				});
@@ -189,36 +187,32 @@ $(document).ready(function() {
 				}
 				paginationList.append(pageButton);
 			}
-
-			// 添加Next按钮
 			const nextButton = $("<li class='page-item' id='next-page'><a class='page-link' href='#'>Next</a></li>");
 			nextButton.click(function() {
 				if (currentPage < totalPages) {
 					currentPage++;
-					loadPage(currentPage);
+					loadPage(currentPage, currentAction);
 					updatePaginationButtons(); // 更新按钮状态
 				}
 			});
 			paginationList.append(nextButton);
 		}
 	}
-
-	// 分页按钮点击事件处理
 	previousPageButton.click(function() {
 		if (currentPage > 1) {
 			currentPage--;
-			loadPage(currentPage);
+			loadPage(currentPage, currentAction);
 		}
 	});
 
 	nextPageButton.click(function() {
 		if (currentPage < totalPages) {
 			currentPage++;
-			loadPage(currentPage);
+			loadPage(currentPage, currentAction);
 		}
 	});
 
-	loadPage(currentPage);
+	loadPage(currentPage, currentAction);
 
 	// 监听搜索按钮的点击事件和 Enter 键的按下事件
 	$("#search-button").on("click keypress", function(e) {
@@ -226,24 +220,79 @@ $(document).ready(function() {
 			// 如果是点击事件或者 Enter 键被按下
 			// 获取搜索关键字
 			const newKeyword = $("#index-searchbar").val();
+			currentAction = "searchkeyword"
 			keyword = newKeyword; // 更新关键字为新的关键字
 			// 执行搜索
 			currentPage = 1; // 重置页码为第一页
-			loadPage(currentPage);
+			loadPage(currentPage, currentAction);
 			// 更新URL参数以反映新的关键字
 			const newUrl = `shop-grid.html?keyword=${newKeyword}`;
 			window.history.pushState({}, "", newUrl);
 		}
 	});
 
-	$("#search-button").on("click", function() {
-		let keyword = $("#index-searchbar").val();
-		console.log("搜尋功能");
-		// 构建跳转URL并将关键字作为查询参数传递
-		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	//	$("#search-button").on("click", function() {
+	//		let keyword = $("#index-searchbar").val();
+	//		console.log("搜尋功能");
+	//		// 构建跳转URL并将关键字作为查询参数传递
+	//		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	//	});
+
+
+
+
+	$("#overview-button").on("click", function() {
+		console.log("總覽觸發");
+		keyword = "";
+		currentPage = 1;
+		currentAction = "searchkeyword"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
+	});
+
+	$("#ingredient-button").on("click", function() {
+		console.log("食材觸發");
+		keyword = "ingredient";
+		currentPage = 1;
+		currentAction = "catergorysearch"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
+	});
+
+	$("#kitchenware-button").on("click", function() {
+		console.log("廚具觸發");
+		keyword = "kitchenware";
+		currentPage = 1;
+		currentAction = "catergorysearch"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
 	});
 	
+	$("#mutilseletingredient").on("click", function() {
+		console.log("食材複合觸發");
+		currentPage = 1;
+		currentAction = "mutilseletingredient"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
+	});
+	
+		$("#mutilseletkitchenware").on("click", function() {
+		console.log("廚具複合觸發");
+		currentPage = 1;
+		currentAction = "mutilseletkitchenware"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
+	});
+	
+
+	//關鍵字渲染
 	fetchDataAndRender2()
+
 });
 
 function fetchDataAndRender2() {

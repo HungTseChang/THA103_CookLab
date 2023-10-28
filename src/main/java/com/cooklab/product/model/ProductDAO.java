@@ -16,4 +16,12 @@ public interface ProductDAO {
     public ProductVO findByProductName(String productName, String category);
     public List<ProductVO> findByProductNames(String productName, String category);
     public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize);
+    public List<ProductVO> findByCategoryKeywordWithPagination(int type,int page, int pageSize);
+    public List<ProductVO> getIngerdAll();
+    public List<ProductVO> getkitchAll();
+    public List<ProductVO> findByKeywordWithCategorywithingredientCategory(String keyword);
+    public List<ProductVO> findByKeywordWithCategorywithkitchCategory(String keyword);
+    
+    public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize);
+    public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize);
 }

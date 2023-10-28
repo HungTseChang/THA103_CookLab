@@ -82,9 +82,9 @@ public class ProductService {
 		return dao.findByKeyword(keyword);
 	}
 
-	public ProductVO findByProductName(String productName) {
-		return dao2.findByProductName(productName);
-	}
+//	public ProductVO findByProductName(String productName) {
+//		return dao2.findByProductName(productName);
+//	}
 
 	public List<ProductVO> findByProductNames(String productName, String category) {
 		return dao2.findByProductNames(productName, category);
@@ -100,4 +100,30 @@ public class ProductService {
 	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize){
 		return dao.findByKeywordWithPagination(keyword, page, pageSize);
 	}
+	
+	public List<ProductVO> getIngerdAll(){
+		return dao.getIngerdAll();
+	}
+	
+	public List<ProductVO> getkitchAll(){
+		return dao.getkitchAll();
+	}
+	
+	public List<ProductVO> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
+		return dao.findByCategoryKeywordWithPagination(type, page, pageSize);
+	}
+	
+    public List<ProductVO> findByKeywordWithCategorywithingredientCategory(String keyword){
+    	return dao.findByKeywordWithCategorywithingredientCategory(keyword);
+    }
+    public List<ProductVO> findByKeywordWithCategorywithkitchCategory(String keyword){
+    	return dao.findByKeywordWithCategorywithkitchCategory(keyword);
+    }
+    
+    public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize){
+    	return dao.findByKeywordWithCategorywithingredientCategoryPagination(keyword,page,pageSize);
+    }
+    public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize){
+    	return dao.findByKeywordWithCategorywithkitchCategoryPagination(keyword,page,pageSize);
+    }
 }

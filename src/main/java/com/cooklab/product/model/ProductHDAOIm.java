@@ -122,10 +122,8 @@ public class ProductHDAOIm implements ProductDAO {
 
 			Criteria criteria = session.createCriteria(ProductVO.class);
 
-			// 创建一个 Disjunction 来组合多个查询条件
 			Disjunction disjunction = Restrictions.disjunction();
 
-			// 添加多个模糊查询条件
 			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
 					Restrictions.like("productDec", "%" + keyword + "%"),
 					Restrictions.like("productIntroduction", "%" + keyword + "%")));
@@ -148,8 +146,6 @@ public class ProductHDAOIm implements ProductDAO {
 		}
 		return null;
 	}
-
-	
 
 	@Override
 	public List<ProductVO> findByProductNames(String productName, String category) {
@@ -180,7 +176,6 @@ public class ProductHDAOIm implements ProductDAO {
 
 			List<ProductVO> products = criteria.list();
 
-
 			session.getTransaction().commit();
 			return products;
 		} catch (Exception e) {
@@ -195,6 +190,219 @@ public class ProductHDAOIm implements ProductDAO {
 	@Override
 	public ProductVO findByProductName(String productName, String category) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Criteria criteria = session.createCriteria(ProductVO.class);
+			if (type == 1) {
+				criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
+			} else {
+				criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
+			}
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			int startIndex = (page - 1) * pageSize;
+			criteria.setFirstResult(startIndex);
+			criteria.setMaxResults(pageSize);
+			List<ProductVO> products = criteria.list();
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> getIngerdAll() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(ProductVO.class);
+			criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
+
+			List<ProductVO> products = criteria.list();
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> getkitchAll() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(ProductVO.class);
+			criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
+
+			List<ProductVO> products = criteria.list();
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeywordWithCategorywithingredientCategory(String keyword) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(ProductVO.class);
+
+			Disjunction disjunction = Restrictions.disjunction();
+
+			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
+					Restrictions.like("productDec", "%" + keyword + "%"),
+					Restrictions.like("productIntroduction", "%" + keyword + "%")));
+
+			criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
+
+			criteria.add(disjunction);
+
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			List<ProductVO> products = criteria.list();
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeywordWithCategorywithkitchCategory(String keyword) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(ProductVO.class);
+
+			Disjunction disjunction = Restrictions.disjunction();
+
+			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
+					Restrictions.like("productDec", "%" + keyword + "%"),
+					Restrictions.like("productIntroduction", "%" + keyword + "%")));
+
+			criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
+
+			criteria.add(disjunction);
+
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			List<ProductVO> products = criteria.list();
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page,
+			int pageSize) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(ProductVO.class);
+
+			Disjunction disjunction = Restrictions.disjunction();
+
+			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
+					Restrictions.like("productDec", "%" + keyword + "%"),
+					Restrictions.like("productIntroduction", "%" + keyword + "%")));
+
+			criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
+
+			criteria.add(disjunction);
+
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			
+			int startIndex = (page - 1) * pageSize;
+			criteria.setFirstResult(startIndex);
+			criteria.setMaxResults(pageSize);
+
+			List<ProductVO> products = criteria.list();
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page,
+			int pageSize) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(ProductVO.class);
+
+			Disjunction disjunction = Restrictions.disjunction();
+
+			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
+					Restrictions.like("productDec", "%" + keyword + "%"),
+					Restrictions.like("productIntroduction", "%" + keyword + "%")));
+
+			criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
+
+			criteria.add(disjunction);
+
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			
+			int startIndex = (page - 1) * pageSize;
+			criteria.setFirstResult(startIndex);
+			criteria.setMaxResults(pageSize);
+
+			List<ProductVO> products = criteria.list();
+
+			session.getTransaction().commit();
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
 		return null;
 	}
 

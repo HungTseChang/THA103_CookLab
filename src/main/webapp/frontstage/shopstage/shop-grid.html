@@ -30,25 +30,31 @@
 <link rel="stylesheet" href="./css/dingsearch.css" />
 
 <style>
-    .loading-animation {
-        display: none;
-        width: 50px;
-        height: 50px;
-        border: 5px solid #f3f3f3;
-        border-top: 5px solid #3498db;
-        border-radius: 50%;
-        margin: 100px auto;
-        animation: spin 2s linear infinite;
-    }
+.loading-animation {
+	display: none;
+	width: 50px;
+	height: 50px;
+	border: 5px solid #f3f3f3;
+	border-top: 5px solid #3498db;
+	border-radius: 50%;
+	margin: 100px auto;
+	animation: spin 2s linear infinite;
+}
 
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+@
+keyframes spin { 0% {
+	transform: rotate(0deg);
+}
+100
+%
+{
+transform
+:
+rotate(
+360deg
+);
+}
+}
 </style>
 
 </head>
@@ -128,7 +134,8 @@
 					class="form-control border-0 searchbar-input-shop"
 					id="index-searchbar" aria-describedby="searchbar"
 					placeholder="輸入想搜尋的商品" />
-				<button type="button" class="btn ding-btn-org searchbar-btn-shop" id="search-button">
+				<button type="button" class="btn ding-btn-org searchbar-btn-shop"
+					id="search-button">
 					<i class="bi bi-search"></i>
 				</button>
 			</form>
@@ -177,14 +184,21 @@
 				<div class="col-lg-3 col-md-5">
 					<div class="sidebar">
 						<div class="sidebar__item">
-							<h4>商品分類</h4>
-							<ul>
-								<li><a href="#">蔬菜</a></li>
-								<li><a href="#">肉類</a></li>
-								<li><a href="#">魚肉</a></li>
-								<li><a href="#">辛香料</a></li>
-								<li><a href="#">廚具</a></li>
-							</ul>
+							<h4>商品總覽</h4>
+							<!-- 大分类导航链接 -->
+							<div id="category-buttons">
+								<button class="category-button" data-category="all" id="overview-button">總覽</button>
+								<button class="category-button" data-category="ingredient" id="ingredient-button">食材</button>
+								<button class="category-button" data-category="kitchenware" id="kitchenware-button">廚具</button>
+							</div>
+						</div>
+						<div class="sidebar__item">
+							<h4>商品篩選</h4>
+							<!-- 大分类导航链接 -->
+							<div id="category-buttons">
+								<button class="category-button" data-category="ingredient"  id="mutilseletingredient">食材</button>
+								<button class="category-button" data-category="kitchenware" id="mutilseletkitchenware">廚具</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -198,6 +212,8 @@
 					</div>
 				</div>
 			</div>
+
+			<!--分頁按鈕 -->
 			<div id="pagination-container" class="container d-flex">
 				<nav aria-label="Page navigation example" class="mx-auto">
 					<ul class="pagination mx-auto">
