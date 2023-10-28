@@ -17,9 +17,7 @@ import com.cooklab.article_category.model.ArticleCategoryService;
 import com.cooklab.article_category.model.ArticleCategoryVO;
 import com.cooklab.article_sub.model.*;
 
-/**
- * Servlet implementation class ArticleSubServlet
- */
+
 @WebServlet("/ArticleSubServlet")
 public class ArticleSubServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -92,7 +90,44 @@ public class ArticleSubServlet extends HttpServlet {
 			successView.forward(req, res);
 		}	
 		
-		
+		if ("getStatusUpdate".equals(action)) { 
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*************************** 1.接收請求參數 ****************************************/
+			Integer articleSubNo = Integer.valueOf(req.getParameter("articleSubNo"));
+			
+			Byte articleSubStatus =null;
+			try {
+				String articleStatusStr = req.getParameter("articleSubStatus");
+				articleSubStatus=Byte.valueOf(articleStatusStr);
+			}catch (NumberFormatException e) {
+					errorMsgs.add("選擇狀態.");
+				}
+	
+			
+			ArticleSubVO updatedArtVO = new ArticleSubVO();
+			updatedArtVO.setArticleSubNo(articleSubNo);
+			updatedArtVO.setArticleSubStatus(articleSubStatus);
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("updatedArtVO", updatedArtVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			/*************************** 2.開始修改資料 ****************************************/
+			ArticleSubService artSvc = new ArticleSubService();
+			artSvc.updateArticleStatus(articleSubNo, articleSubStatus);
+
+			/*************************** 3.新增完成,準備轉交 ******************************/
+			req.setAttribute("updatedArtVO", updatedArtVO); // 資料庫取出的empVO物件,存入req
+			String url = "/mazer-main/dist/article/HO_discussion_allview.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
+			successView.forward(req, res);
+		}
 		
 		
 		
@@ -104,7 +139,7 @@ public class ArticleSubServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer articleNo = Integer.valueOf(req.getParameter("articleNo").trim());
+			Integer articleSubNo = Integer.valueOf(req.getParameter("articleSubNo").trim());
 			
 			Integer memberId = null;
 			try {
@@ -121,7 +156,7 @@ public class ArticleSubServlet extends HttpServlet {
 
 			
 			Byte articleSubStatus = null;
-			String articleStatusStr = req.getParameter("articleStatus");
+			String articleStatusStr = req.getParameter("articleSubStatus");
 			if (articleStatusStr != null && !articleStatusStr.trim().isEmpty()) {
 				try {
 					articleSubStatus = Byte.valueOf(articleStatusStr.trim());
@@ -132,7 +167,7 @@ public class ArticleSubServlet extends HttpServlet {
 			}
 			
 			ArticleSubVO artVO = new ArticleSubVO();
-			artVO.setArticleNo(articleNo);
+			artVO.setArticleNo(articleSubNo);
 			artVO.setMemberId(memberId);
 			artVO.setArticleSubStatus(articleSubStatus);
 			artVO.setArticleSubContent(articleSubContent);
@@ -181,9 +216,7 @@ public class ArticleSubServlet extends HttpServlet {
 			String articleSubContent = req.getParameter("articleSubContent");
 			if (articleSubContent == null || articleSubContent.trim().length() == 0) {
 				errorMsgs.add("內容請勿空白");
-			}
-
-			
+			}			
 			byte articleSubStatus = (byte)0;
 			
 			ArticleSubVO artVO = new ArticleSubVO();
@@ -210,7 +243,6 @@ public class ArticleSubServlet extends HttpServlet {
 			/*************************** 2-2.開始查詢資料 ***************************************/
 			ArticleService artSvc2 = new ArticleService();
 			ArticleVO artVO2 = artSvc2.getOneArt(articleNo);
-
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url ="/article/article_content.jsp";
 			req.setAttribute("artVO", artVO2); //取得查詢用參數，資料庫取出的empVO物件,存入req
@@ -321,7 +353,7 @@ public class ArticleSubServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO2", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/article/article_sub_edit.jsp";
+			String url = "/article/article_sub_edit2.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}

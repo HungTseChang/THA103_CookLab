@@ -40,9 +40,9 @@ public class RecipeCommentsVO implements java.io.Serializable{
 	private MembersVO members;			//會員編號(FK)
 	@Column(name = "comment_content")
 	private String commentContent;		//留言內文
-	@Column(name = "report_comments")
+	@Column(name = "report_comments" , insertable = false)
 	private Integer reportComments;		//檢舉次數
-	@Column(name = "last_edit_timestamp")
+	@Column(name = "last_edit_timestamp", insertable = false)
 	private Timestamp lastEditTimestamp;	//最後編輯時間
 	@Column(name = "created_timestamp", insertable = false ,updatable = false)
 	private Timestamp createdTimestamp;		//留言時間

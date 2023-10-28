@@ -5,7 +5,11 @@
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_sub.model.*"%>
 
+<!-- 1使用EL的IF語法，把數字改文字，2.在後端處理好轉換再傳送 -->
+
 <%
+// 	ArticleVO artVO2 = (ArticleVO) request.getAttribute("updatedArtVO");	
+
     ArticleService artSvc = new ArticleService();
     List<ArticleVO> list = artSvc.getAll();
     pageContext.setAttribute("list",list);
@@ -265,8 +269,18 @@
           </div>
         </div>
         <section class="section">
+        	<%-- 錯誤表列 --%>
+					<div style="margin-top :50px">
+					<c:if test="${not empty errorMsgs}">
+						<font style="color: red">請修正以下錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+					</div>
           <div class="card">
-
             <div class="card-body">
               <table class="table table-striped" id="table1">
                 <thead>
@@ -287,8 +301,18 @@
                     <td>${artVO.articleCategory.articleCategory}</td>
                     <td class="HO_article_title">${artVO.articleTitle}</td>
                     <td class="artice_status">
-                      <a href="#" class="btn btn-success rounded-pill btn article_status" >
-                      ${artVO.articleStatus}</a>
+                    <!-- EL語法不能有空白,ex:test=" ${artVO.articleStatus == 0}"這樣不會報錯誤也不會有值  -->
+                      <c:choose>
+                      	<c:when test="${artVO.articleStatus == 0}">
+                      		<a href="#" class="btn btn-success rounded-pill btn article_status" >公開</a>
+                      	</c:when>
+                      	<c:when test="${artVO.articleStatus == 1}">
+                      		<a href="#" class="btn btn-secondary rounded-pill btn article_status">非公開</a>
+                      	</c:when>
+                      	    <c:when test="${artVO.articleStatus == 2}">
+                      		<a href="#" class="btn btn-danger rounded-pill btn article_status" >刪除</a>
+                      	 </c:when>
+                      </c:choose>	
                       </td>
                     <td>${artVO.members.memberNickname}</td>
         			<td><fmt:formatDate value="${artVO.createdTimestamp}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -299,16 +323,15 @@
 					  <input type="hidden" name="articleNo" value="${artVO.articleNo}">
 					  <input type="hidden" name="action" value="getOne_For_Display">
 					  <input type="submit" class="wcc"  value="查看文章"> 
-					  </FORM>
+					</FORM>
 					 </td> 
 					 <td>
 					  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
                       <select class="ch_artice_status" name="articleStatus">
                         <option>選擇狀態</option>
                         <option id="artice_Option1" value= 0>公開</option>
-                        <option id="artice_Option2"	value= 1>非公開</option>
-                        <option id="artice_Option3"	value= 2>草稿</option>
-                        <option id="artice_Option4"	value= 3>刪除</option>
+                        <option id="artice_Option3"	value= 1>草稿</option>
+                        <option id="artice_Option4"	value= 2>刪除</option>
                       </select>
                       <input type="hidden" name="articleNo" value="${artVO.articleNo}">
                   	 <input type="hidden" name="action" value="getStatusUpdate">
@@ -323,10 +346,21 @@
                   <tr>
                     <td>${artVO2.articleSubNo}</td>
                     <td>${artVO2.article.articleNo}的回文</td>
-                    <td class="HO_article_title">RE# ${artVO2.article.articleTitle}</td>
+                    <td class="HO_article_title">RE#${artVO2.article.articleTitle}</td>
                     <td class="artice_status">
-                      <a href="#" class="btn btn-success rounded-pill btn article_status" >
-                      ${artVO2.articleSubStatus}</a>
+                      <c:choose>
+                      	<c:when test="${artVO2.articleSubStatus == 0}">
+                      		<a href="#" class="btn btn-success rounded-pill btn article_status" >公開</a>
+                      	</c:when>
+                      	<c:when test="${artVO2.articleSubStatus == 1}">
+                      		<a href="#" class="btn btn-primary rounded-pill btn article_status" >
+                      		非公開</a>
+                      	</c:when>
+                      	    <c:when test="${artVO2.articleSubStatus == 2}">
+                      		<a href="#" class="btn btn-danger rounded-pill btn article_status" >
+                      		 刪除</a>
+                      	 </c:when>
+                      </c:choose>
                     </td>
                     <td>${artVO2.members.memberNickname}</td>
         			<td><fmt:formatDate 
@@ -347,12 +381,11 @@
                       <select class="ch_artice_status" name="articleSubStatus">
                         <option>選擇狀態</option>
                         <option id="artice_Option1" value= 0>公開</option>
-                        <option id="artice_Option2"	value= 1>非公開</option>
-                        <option id="artice_Option3"	value= 2>草稿</option>
-                        <option id="artice_Option4"	value= 3>刪除</option>
+                        <option id="artice_Option3"	value= 1>草稿</option>
+                        <option id="artice_Option4"	value= 2>刪除</option>
                       </select>
-                      <input type="hidden" name="articleNo" value="${artVO2.articleSubNo}">
-                  	 <input type="hidden" name="action" value="update">
+                      <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
+                  	 <input type="hidden" name="action" value="getStatusUpdate">
 					  <input type="submit" >
                       </FORM>
                     </td>
@@ -399,35 +432,11 @@
   <script>
   	let table1 = document.querySelector("#table1");
   	let dataTable = new simpleDatatables.DataTable(table1);
+  	
     $(function () {
     	//jsp中使用read的話，會誤認為ajax要轉接網頁要改用ready
       $(document).ready("change", ".btn.article_status", function () { 
         // console.log("you touch me");
-      });
-    	
-      $(document).ready(function () {
-        //取得數字
-        var $articleStatusBtn = $('.article_status');
-        // 把每個a標籤的數字轉為文字
-        $articleStatusBtn.each(function () {
-          var $this = $(this);
-          var status = parseInt($this.text());
-
-          switch (status) {
-            case 0:
-              $this.text('公開');
-              break;
-            case 1:
-              $this.text('非公開');
-              break;
-            case 2:
-              $this.text('草稿');
-              break;
-            case 3:
-              $this.text('刪除');
-              break;
-          }
-        });
       });
 
       $(document).on("change", ".ch_artice_status", function () {

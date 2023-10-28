@@ -5,17 +5,17 @@ let statusrender = function () {
   formStatus.each(function () {
     let status = $(this).text();
 
-    $(this).removeClass("bg-warning text-dark bg-info bg-success");
+    $(this).removeClass("badge bg-warning text-dark bg-info bg-success");
 
     switch (status) {
       case "未處理":
-        $(this).addClass("bg-warning text-dark");
+        $(this).addClass("badge bg-warning text-dark");
         break;
       case "處理中":
-        $(this).addClass("bg-info text-dark");
+        $(this).addClass("badge bg-info text-dark");
         break;
       case "已結案":
-        $(this).addClass("bg-success");
+        $(this).addClass("badge bg-success");
         break;
     }
   });
@@ -27,6 +27,7 @@ let checkclose = function () {
     $("#res-change").prop("disabled", true);
     $("#preclose").prop("disabled", true);
     $("#addrecord").prop("disabled", true);
+    $("#updaterecord").prop("disabled", true);
   }
 };
 
@@ -45,13 +46,13 @@ let supportformload = function () {
     dataType: "json",
     success: function (data) {
       //將表單資料渲染到網頁上
-      $("#formNo").val(formNo);
-      $("#formSource").val(data.formSource);
+      $("#formNo").text(formNo);
+      $("#formSource").text(data.formSource);
       $("#supportFormCategoryId").text(data.supportFormCategoryId);
       $("#formSubmitter").text(data.formSubmitter);
       $("#formTitle").text(data.formTitle);
-      $("#realName").val(data.realName);
-      $("#replyEmail").val(data.replyEmail);
+      $("#realName").text(data.realName);
+      $("#replyEmail").text(data.replyEmail);
       $("#formContext").text(data.formContext);
       $("#formStatus").text(data.formStatus);
 
@@ -67,6 +68,91 @@ let supportformload = function () {
       statusrender();
       checkclose();
       recordload();
+    },
+    error: function (xhr) {
+      console.log(xhr);
+    },
+  });
+};
+
+//進入修改狀態
+let upadatemode = function () {
+  updatelock(); //呼叫鎖定功能讓其他按鈕不得運作
+  let realName = $("#realName").text();
+  let realName_element = $("#realName");
+  let replyEmail = $("#replyEmail").text();
+  let replyEmail_element = $("#replyEmail");
+  let sFCId_element = $("#supportFormCategoryId");
+  let updaterecord_element = $("#updaterecord");
+  updatelock();
+  replyEmail_element.replaceWith(`<input type="email" class="form-control w-50" value="${replyEmail}" id="replyEmail" />`);
+
+  sFCId_element.replaceWith(`
+                                <select class="form-select w-50" id="supportFormCategoryId">
+                                <option value="default" selected>請選擇問題類別</option>
+                                <option value="1">食譜相關</option>
+                                <option value="2">討論區相關</option>
+                                <option value="3">訂單相關</option>
+                                <option value="4">商品相關</option>
+                              </select>
+  `);
+
+  realName_element.replaceWith(`<input type="text" class="form-control w-50" value="${realName}" id="realName" />`);
+
+  updaterecord_element.replaceWith(`
+  <button class="btn btn-primary" id="updateconfirm">確認修改</button>
+  <button class="btn btn-secondary ms-2" id="updatecancel">取消</button>
+  `);
+};
+
+//清除錯誤提示
+let updatereset = function () {
+  $(".errCheck").remove();
+};
+
+//修改狀態時鎖定其他按鈕不得操作
+let updatelock = function () {
+  $("#res-change").prop("disabled", true);
+  $("#preclose").prop("disabled", true);
+  $("#addrecord").prop("disabled", true);
+};
+
+//修改資料功能
+let updatedata = function (realName, supportFormCategoryId, replyEmail) {
+  updatereset();
+  let formNo = $("#formNo").text();
+
+  let data = {
+    formNo: formNo,
+    realName: realName,
+    supportFormCategoryId: supportFormCategoryId,
+    replyEmail: replyEmail,
+    action: "update",
+  };
+
+  $.ajax({
+    type: "POST",
+    url: "/THA103_CookLab/SupportFormAjax",
+    data: data,
+    dataType: "json",
+    success: function (data) {
+      if (data.success) {
+        insertrecord(data.ogdata);
+        window.location.reload();
+      } else {
+        if (data.errNameBlank) {
+          $("#name-check").append(`<div class="text-danger errCheck">${data.errNameBlank}</div>`);
+        }
+        if (data.errNameReg) {
+          $("#name-check").append(`<div class="text-danger errCheck">${data.errNameReg}</div>`);
+        }
+        if (data.errEmail) {
+          $("#email-check").append(`<div class="text-danger errCheck">${data.errEmail}</div>`);
+        }
+        if (data.errCategory) {
+          $("#categoryid-check").append(`<div class="text-danger errCheck">${data.errCategory}</div>`);
+        }
+      }
     },
     error: function (xhr) {
       console.log(xhr);
@@ -98,10 +184,10 @@ let getAdmins = function () {
 //將變更後的管理員資料送進資料庫並更新畫面
 let changeAdmin = function () {
   let adminNo = $(".admins").val();
-  let formNo = $("#formNo").val();
+  let formNo = $("#formNo").text();
   let formStatus = $("#formStatus").text();
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: "/THA103_CookLab/SupportFormAjax",
     data: { action: "changeAdmin", adminNo: adminNo, formNo: formNo, formStatus: formStatus },
     dataType: "json",
@@ -130,10 +216,10 @@ let changeAdmin = function () {
 
 //案件狀態變更為已結案並跳轉到指定頁面
 let closecase = function () {
-  let formNo = $("#formNo").val();
+  let formNo = $("#formNo").text();
   let formStatus = $("formStatus").text();
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: "/THA103_CookLab/SupportFormAjax",
     data: { action: "closecase", formNo: formNo, formStatus: formStatus },
     dataType: "json",
@@ -157,7 +243,12 @@ let closecase = function () {
 
 //進入網頁載入處理紀錄
 let recordload = function (recordContext) {
-  let formNo = $("#formNo").val();
+  if (recordContext) {
+    insertrecord(recordContext);
+    return;
+  }
+
+  let formNo = $("#formNo").text();
   $.ajax({
     type: "GET",
     url: "/THA103_CookLab/SupportFormRecordAjax",
@@ -180,10 +271,6 @@ let recordload = function (recordContext) {
                       <td>${record.recordContext}</td>
                     </tr>`);
       });
-
-      if (recordContext) {
-        insertrecord(recordContext);
-      }
     },
     error: function (xhr) {
       console.log(xhr);
@@ -208,7 +295,7 @@ let recordarea = function () {
 //新增表單紀錄
 let insertrecord = function (recordContext) {
   let data = {
-    formNo: $("#formNo").val(),
+    formNo: $("#formNo").text(),
     recordContext: recordContext,
     action: "insert",
   };
@@ -264,5 +351,20 @@ $(document).ready(function () {
 
   $(document).on("click", "#addcancel", function () {
     $("#newrecord").remove();
+  });
+
+  $("#updaterecord").on("click", function () {
+    upadatemode();
+  });
+
+  $(document).on("click", "#updateconfirm", function () {
+    let realName = $("#realName").val();
+    let supportFormCategoryId = $("#supportFormCategoryId").val();
+    let replyEmail = $("#replyEmail").val();
+    updatedata(realName, supportFormCategoryId, replyEmail);
+  });
+
+  $(document).on("click", "#updatecancel", function () {
+    window.location.reload();
   });
 });

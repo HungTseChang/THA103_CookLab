@@ -106,6 +106,9 @@ public class MembersServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 //		
+
+		//==========================================================================================================================================================================
+
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to

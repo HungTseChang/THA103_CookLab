@@ -1,9 +1,9 @@
 package com.cooklab.support_form.model;
 
 public enum SFSource {
-	SUPPORTCENTER((byte) 1, "官網表單"),
-	GENERAL((byte) 2, "人工建單"),
-    MAILBOX((byte) 3, "客服信箱");
+	SUPPORTFORM((byte) 1, "官網表單"),
+	RESPONDER((byte) 2, "人工建單"),
+    TEXTCHAT((byte) 3, "文字客服");
 
     private final Byte value;
     private final String desc;

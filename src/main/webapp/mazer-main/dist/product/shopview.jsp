@@ -48,7 +48,7 @@ pageContext.setAttribute("list", list);
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
 						<div class="logo">
-							<a href="index.html"><img src="assets/images/logo/logo.png"
+							<a href="index.html"><img src="<%=request.getContextPath()%>/mazer-main/dist/assets/images/logo/logo.png"
 								alt="Logo" srcset=""></a>
 						</div>
 						<div class="toggler">
@@ -186,7 +186,8 @@ pageContext.setAttribute("list", list);
 						<div class="row">
 							<div class="col-12">
 								<div class="card-header">
-									<a class="btn btn-success rounded-pill" href="<%= request.getContextPath()%>/mazer-main/dist/product/shopset.jsp"
+									<a class="btn btn-success rounded-pill"
+										href="<%=request.getContextPath()%>/mazer-main/dist/product/shopset.jsp"
 										style="margin-left: 20px;">新增商品</a>
 								</div>
 							</div>
@@ -198,18 +199,12 @@ pageContext.setAttribute("list", list);
 										<th>商品編號</th>
 										<th>商品圖片</th>
 										<th>商品名稱</th>
-										<th>上架數量</th>
-										<th>商品描述</th>
-										<th>商品簡介</th>
 										<th>商品售價</th>
 										<th>下架時間</th>
 										<th>上架時間</th>
 										<th>庫存數量</th>
-										<th>食材種類編號</th>
-										<th>廚具種類編號</th>
-										<th>搜尋次數</th>
-										<th>修改</th>
-										<th>刪除</th>
+										<th>商品種類</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -219,16 +214,16 @@ pageContext.setAttribute("list", list);
 											<td><img style="max-width: 200px; max-height: 200px;"
 												src="<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}"></td>
 											<td>${productVO.productName}</td>
-											<td>${productVO.saleQty}</td>
-											<td>${productVO.productDec}</td>
-											<td>${productVO.productIntroduction}</td>
 											<td>${productVO.productPrice}</td>
 											<td>${productVO.offsaleTime}</td>
 											<td>${productVO.shelfTime}</td>
 											<td>${productVO.storageQty}</td>
-											<td>${productVO.ingredientCategoryNo}</td>	
-											<td>${productVO.kitchenwareCategoryNo}</td>
-											<td>${productVO.searchCount}</td>
+											<c:if test="${not empty productVO.ingredientCategoryNo}">
+												<td>${productVO.ingredientCategory.categoryName}</td>
+											</c:if>
+											<c:if test="${not empty productVO.kitchenwareCategoryNo}">
+												<td>${productVO.KitchenwareCategory.categoryName}</td>
+											</c:if>
 											<td>
 												<FORM METHOD="post"
 													ACTION="<%=request.getContextPath()%>/ProductServlet"

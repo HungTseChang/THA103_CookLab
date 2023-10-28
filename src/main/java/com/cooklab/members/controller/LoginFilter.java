@@ -16,7 +16,8 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = { "/members/member-panel-editting.jsp",
 		"/members/member-panel-news.html",
-		"/members/member-panel.jsp"
+		"/members/member-panel.jsp",
+		"/members/member-panel-password.html"
 		})
 public class LoginFilter extends HttpFilter implements Filter{
 	

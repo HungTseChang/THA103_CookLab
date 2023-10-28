@@ -2,17 +2,19 @@ package com.cooklab.ingredient_category.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.junit.jupiter.api.Test;
 
 import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
+import com.cooklab.product.model.ProductVO;
 import com.cooklab.util.HibernateUtil;
 
 public class IngredientHDAOIm implements IngredientCategoryDAO {
@@ -33,16 +35,16 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 	public void insert(IngredientCategoryVO ingredientCategory) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-	        session.beginTransaction();
+			session.beginTransaction();
 
-	        // 使用Hibernate的更新方法将对象保存到数据库
-	        session.save(ingredientCategory);
-	        System.out.println("新增成功");
-	        session.getTransaction().commit();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
+			// 使用Hibernate的更新方法将对象保存到数据库
+			session.save(ingredientCategory);
+			System.out.println("新增成功");
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
 	}
 
@@ -50,22 +52,33 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 	public void update(IngredientCategoryVO ingredientCategory) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
-	        session.beginTransaction();
+			session.beginTransaction();
 
-	        // 使用Hibernate的更新方法将对象保存到数据库
-	        session.update(ingredientCategory);
+			// 使用Hibernate的更新方法将对象保存到数据库
+			session.update(ingredientCategory);
 
-	        session.getTransaction().commit();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
 	}
 
 	@Override
-	public void delete(Integer ingredientCategoryNo) {
-		// TODO Auto-generated method stub
+	public void delete(IngredientCategoryVO ingredientCategory) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			// 使用Hibernate的更新方法将对象保存到数据库
+			session.delete(ingredientCategory);
+			System.out.println("刪除成功");
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
 	}
 
@@ -135,5 +148,52 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 		}
 		return null;
 	}
+
+	public boolean hasAssociatedProducts(Integer ingredientCategoryNo) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+
+		IngredientCategoryVO category = session.get(IngredientCategoryVO.class, ingredientCategoryNo);
+
+		if (category != null) {
+			Set<ProductVO> products = category.getProduct();
+			boolean hasAssociatedProducts = !products.isEmpty();
+			session.getTransaction().commit();
+			return hasAssociatedProducts;
+		} else {
+			session.getTransaction().commit();
+			return false;
+		}
+	}
+
+	@Override
+	public IngredientCategoryVO findByName(IngredientCategoryVO ingredientCategory) {
+		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		    try {
+		        session.beginTransaction();
+		        
+		        CriteriaBuilder builder = session.getCriteriaBuilder();
+		        CriteriaQuery<IngredientCategoryVO> criteria = builder.createQuery(IngredientCategoryVO.class);
+		        Root<IngredientCategoryVO> root = criteria.from(IngredientCategoryVO.class);
+		        
+		        // 构建查询条件
+		        Predicate namePredicate = builder.equal(root.get("categoryName"), ingredientCategory.getCategoryName());
+		        criteria.select(root).where(namePredicate);
+
+		        Query<IngredientCategoryVO> query = session.createQuery(criteria);
+		        
+		        IngredientCategoryVO result = query.uniqueResult();
+		        
+		        session.getTransaction().commit();
+		        
+		        return result;
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        session.getTransaction().rollback();
+		        return null;
+		    }
+	}
+	
+	
 
 }

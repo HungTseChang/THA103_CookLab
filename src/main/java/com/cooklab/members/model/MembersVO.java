@@ -37,7 +37,7 @@ import com.cooklab.shopping_cart.model.ShoppingCartVO;
 @Entity
 @Table(name = "members")
 
-public class MembersVO {
+public class MembersVO  implements java.io.Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name="member_id",insertable = false, updatable = false)
@@ -65,7 +65,6 @@ public class MembersVO {
 	@OrderBy("member_id asc")
 	private Set<RecipeCollectionVO> recipeCollectionS;
 	
-
 	//●食譜 recipe
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")

@@ -125,11 +125,6 @@ public class ProductServlet2 extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			
 
-			req.setAttribute("productList", list); // 資料庫取出的productVO物件 存入req
-			System.out.println(list);
-			String url = "/frontstage/shopstage/shop-grid.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
 
 		}
 

@@ -159,7 +159,7 @@
                     <a href="WCC_article_report.html">討論區檢舉</a>
                   </li>
                   <li class="submenu-item">
-                    <a href="WCC_official_notify.html">系統通知</a>
+                    <a href="/dashboard/notifycenter/official-notify.html">系統通知</a>
                   </li>
                   <li class="submenu-item active">
                     <a href="support-tickets-table.html">問題表單</a>
@@ -204,12 +204,12 @@
                 <div class="row px-4">
                   <div class="form-group col-6">
                     <label for="formNo">表單編號</label>
-                    <input type="text" class="form-control-plaintext" id="formNo" value="等待資料取得" />
+                    <p class="form-control-static" id="formNo">等待資料取得</p>
                   </div>
 
                   <div class="form-group col-6">
                     <label for="formSource" id="source-check">表單來源</label>
-                    <input type="text" class="form-control-plaintext" id="formSource" value="等待資料取得" />
+                    <p class="form-control-static" id="formSource">等待資料取得</p>
                   </div>
 
                   <div class="form-group col-6">
@@ -234,12 +234,12 @@
 
                   <div class="form-group col-6">
                     <label for="realName" id="name-check">客戶姓名</label>
-                    <input type="text" class="form-control-plaintext" id="realName" value="等待資料取得" />
+                    <p class="form-control-static" id="realName">等待資料取得</p>
                   </div>
 
                   <div class="form-group col-6">
                     <label for="replyEmail" id="email-check">回覆信箱</label>
-                    <input type="text" class="form-control-plaintext" id="replyEmail" value="等待資料取得" />
+                    <p class="form-control-static" id="replyEmail">等待資料取得</p>
                   </div>
 
                   <div class="col-12">
@@ -259,7 +259,7 @@
                           <thead class="text-center">
                             <tr>
                               <th scope="col" class="col-1">紀錄人員</th>
-                              <th scope="col" class="col-2">處理時間</th>
+                              <th scope="col" class="col-2">紀錄時間</th>
                               <th scope="col" class="col-9">處理紀錄</th>
                             </tr>
                           </thead>
@@ -273,9 +273,9 @@
                 <!-- 案件狀態起始 -->
                 <div class="row">
                   <div class="d-flex justify-content-around align-items-center">
-                    <div>案件狀態：<span class="badge fs" id="formStatus"></span></div>
+                    <div>案件狀態：<span class="fs" id="formStatus">等待資料取得</span></div>
                     <div class="d-flex align-items-center">
-                      負責人員：<span id="formResponder">Example</span>
+                      負責人員：<span id="formResponder">無</span>
                       <!-- 觸發交接視窗 -->
                       <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#res" id="res-change">交接</button>
                       <!-- Modal -->
@@ -297,6 +297,7 @@
                         </div>
                       </div>
                     </div>
+                    <div><button type="button" class="btn btn-primary" id="updaterecord">修改資料</button></div>
                     <div><button type="button" class="btn btn-primary" id="addrecord">新增處理紀錄</button></div>
                     <!-- 結案按鈕Begin -->
                     <div>

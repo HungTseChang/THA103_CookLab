@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 import com.cooklab.admins.model.AdminsService;
 import com.cooklab.admins.model.AdminsVO;
 import com.cooklab.support_form.model.SFStatus;
-import com.cooklab.support_form.model.SupportFormHService;
 import com.cooklab.support_form.model.SupportFormVO;
+import com.cooklab.support_form.service.SupportFormHService;
 import com.google.gson.Gson;
 
 @WebServlet("/SupportFormAjax")
@@ -29,36 +29,36 @@ public class SupportFormAjax extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
-		//為了取得管理員登入資訊，需從Session取值
+
+		// 為了取得管理員登入資訊，需從Session取值
 		HttpSession session = req.getSession();
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+
 		// 創建Gson物件以便將資料打包為json格式回傳給前端
 		Gson gson = new Gson();
-		
-		if("closecase".equals(action)) {
-			
+
+		if ("closecase".equals(action)) {
+
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 			// 屆時會改從session取得adminNo，因需測試方便故改用固定值
 //			Integer adminNo = (Integer) session.getAttribute("AdminNo");
 			Integer adminNo = 1;
-			
+
 			Byte formStatus = null;
 			String formStatusString = req.getParameter("formStatus");
-			
-			//利用MAP物件放入錯誤訊息
+
+			// 利用MAP物件放入錯誤訊息
 			Map<String, String> errorMsgs = new HashMap<String, String>();
-			
-			//避免重複結案問題產生，先行判斷狀態
-			if(!formStatusString.equals("已結案")) {
+
+			// 避免重複結案問題產生，先行判斷狀態
+			if (!formStatusString.equals("已結案")) {
 				formStatus = (byte) SFStatus.CASECLOSED.getValue();
-			}else {
+			} else {
 				errorMsgs.put("errCloseCase", "案件已結案");
 			}
-			
-			//如判定已結案則回傳錯誤訊息並終止程式
+
+			// 如判定已結案則回傳錯誤訊息並終止程式
 			if (!errorMsgs.isEmpty()) {
 				String errjson = gson.toJson(errorMsgs);
 				res.setContentType("application/json");
@@ -66,12 +66,12 @@ public class SupportFormAjax extends HttpServlet {
 				res.getWriter().write(errjson);
 				return;
 			}
-			
-			//更新表單的處理人員資訊
+
+			// 更新表單的處理人員資訊
 			SupportFormHService sfSvc = new SupportFormHService();
-			SupportFormVO closingCase = sfSvc.changeInfo(formNo, adminNo,formStatus);
-			
-			//用聯合映射取得管理員資訊設定MAP物件回傳資料以及成功後跳轉頁面
+			SupportFormVO closingCase = sfSvc.changeInfo(formNo, adminNo, formStatus);
+
+			// 用聯合映射取得管理員資訊設定MAP物件回傳資料以及成功後跳轉頁面
 			String url = "/THA103_CookLab/dashboard/supportform/support-tickets-table.html";
 			Map<String, Object> data = new HashMap<>();
 			data.put("adminNo", closingCase.getAdmins().getAdminNo());
@@ -79,7 +79,7 @@ public class SupportFormAjax extends HttpServlet {
 			data.put("formStatus", closingCase.getFormStatus());
 			data.put("success", "data transfer success");
 			data.put("url", url);
-			
+
 			// 使用Gson轉換為Json格式
 			String Data = gson.toJson(data);
 
@@ -88,20 +88,20 @@ public class SupportFormAjax extends HttpServlet {
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(Data);
 		}
-		
-		if("changeAdmin".equals(action)) {
+
+		if ("changeAdmin".equals(action)) {
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 			Integer adminNo = Integer.valueOf(req.getParameter("adminNo"));
-			
+
 			Byte formStatus = null;
 			String formStatusString = req.getParameter("formStatus");
 			System.out.println(formStatusString);
-			
-			//利用MAP物件放入錯誤訊息
+
+			// 利用MAP物件放入錯誤訊息
 			Map<String, String> errorMsgs = new HashMap<String, String>();
-			
-			//狀態判斷，未處理的會改成處理中、處理中的保持不變、已結案的回傳錯誤訊息
-			switch (formStatusString){
+
+			// 狀態判斷，未處理的會改成處理中、處理中的保持不變、已結案的回傳錯誤訊息
+			switch (formStatusString) {
 			case "未處理":
 				formStatus = (byte) SFStatus.ONPROCESS.getValue();
 				break;
@@ -114,9 +114,8 @@ public class SupportFormAjax extends HttpServlet {
 			default:
 				errorMsgs.put("errStatus", "不支援的狀態");
 			}
-		
-			
-			//如判定已結案則回傳錯誤訊息並終止程式
+
+			// 如判定已結案則回傳錯誤訊息並終止程式
 			if (!errorMsgs.isEmpty()) {
 				String errjson = gson.toJson(errorMsgs);
 				res.setContentType("application/json");
@@ -124,18 +123,18 @@ public class SupportFormAjax extends HttpServlet {
 				res.getWriter().write(errjson);
 				return;
 			}
-			
-			//更新表單的處理人員資訊
+
+			// 更新表單的處理人員資訊
 			SupportFormHService sfSvc = new SupportFormHService();
-			SupportFormVO caseinfo = sfSvc.changeInfo(formNo, adminNo,formStatus);
-			
-			//用聯合映射取得管理員資訊設定MAP物件回傳資料
+			SupportFormVO caseinfo = sfSvc.changeInfo(formNo, adminNo, formStatus);
+
+			// 用聯合映射取得管理員資訊設定MAP物件回傳資料
 			Map<String, Object> data = new HashMap<>();
 			data.put("adminNo", caseinfo.getAdmins().getAdminNo());
 			data.put("adminNickname", caseinfo.getAdmins().getAdminNickname());
 			data.put("formStatus", caseinfo.getFormStatusName());
 			data.put("success", "data transfer success");
-			
+
 			// 使用Gson轉換為Json格式
 			String Data = gson.toJson(data);
 
@@ -301,16 +300,6 @@ public class SupportFormAjax extends HttpServlet {
 
 			String formSubmitter = req.getParameter("formSubmitter").trim();
 
-			SupportFormVO sfVO = new SupportFormVO();
-			sfVO.setRealName(realName);
-			sfVO.setSupportFormCategoryId(supportFormCategoryId);
-			sfVO.setReplyEmail(replyEmail);
-			sfVO.setFormTitle(formTitle);
-			sfVO.setFormContext(formContext);
-			sfVO.setFormStatus(formStatus);
-			sfVO.setFormSource(formSource);
-			sfVO.setFormSubmitter(formSubmitter);
-
 			// 錯誤驗證的訊息收集及回傳
 			if (!errorMsgs.isEmpty()) {
 				String errjson = gson.toJson(errorMsgs);
@@ -322,8 +311,8 @@ public class SupportFormAjax extends HttpServlet {
 
 			/*************************** 2.開始新增資料 ***************************************/
 			SupportFormHService sfSvc = new SupportFormHService();
-			sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle, formContext, formSource,
-					formStatus, formSubmitter);
+			SupportFormVO sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle,
+					formContext, formSource, formStatus, formSubmitter);
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
 			if (sfVO != null) {
@@ -339,8 +328,6 @@ public class SupportFormAjax extends HttpServlet {
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				res.getWriter().write(successjson);
-			} else {
-				// 預計放入空頁面
 			}
 		}
 
@@ -392,18 +379,10 @@ public class SupportFormAjax extends HttpServlet {
 //			String fsNo = ((String) session.getAttribute("AdminNo")).trim();
 //			String fsName = ((String) session.getAttribute("adminNickname")).trim();
 //			String formSubmitter = fsName + "(" + fsNo + ")";
-			
-			String formSubmitter= "客服建單";
+
+			String formSubmitter = "TODO-更改為取得管理員資訊";
 
 			SupportFormVO sfVO = new SupportFormVO();
-			sfVO.setRealName(realName);
-			sfVO.setSupportFormCategoryId(supportFormCategoryId);
-			sfVO.setReplyEmail(replyEmail);
-			sfVO.setFormTitle(formTitle);
-			sfVO.setFormContext(formContext);
-			sfVO.setFormStatus(formStatus);
-			sfVO.setFormSource(formSource);
-			sfVO.setFormSubmitter(formSubmitter);
 
 			// 錯誤驗證的訊息收集及回傳
 			if (!errorMsgs.isEmpty()) {
@@ -433,9 +412,67 @@ public class SupportFormAjax extends HttpServlet {
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				res.getWriter().write(successjson);
-			} else {
-				// 預計放入空頁面
 			}
+		}
+
+		// 後台客服修改表單
+		if ("update".equals(action)) {
+			// 創建Map物件放入錯誤訊息
+			Map<String, String> errorMsgs = new HashMap<String, String>();
+
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+
+			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
+
+			String realName = req.getParameter("realName");
+			String realNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+			if (realName == null || realName.trim().length() == 0) {
+				errorMsgs.put("errNameBlank", "姓名請勿空白");
+			} else if (!realName.trim().matches(realNameReg)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("errNameReg", "姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			}
+
+			Integer supportFormCategoryId = null;
+			String sfcid = req.getParameter("supportFormCategoryId").trim();
+			if (sfcid.equals("default")||sfcid==null) {
+				errorMsgs.put("errCategory", "請選擇問題類別");
+			} else {
+				supportFormCategoryId = Integer.valueOf(sfcid);
+			}
+
+			String replyEmail = req.getParameter("replyEmail").trim();
+			if (replyEmail == null || replyEmail.trim().length() == 0) {
+				errorMsgs.put("errEmail", "回覆信箱請勿空白");
+			}
+
+			// 錯誤驗證的訊息收集及回傳
+			if (!errorMsgs.isEmpty()) {
+				String errjson = gson.toJson(errorMsgs);
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(errjson);
+				return;
+			}
+
+			/***************************
+			 * 2.開始修改資料，修改完畢後回傳成功訊息
+			 ***************************************/
+			// 創建Map物件放入成功與原始資料訊息
+			Map<String, String> successMsg = new HashMap<String, String>();
+			SupportFormHService sfSvc = new SupportFormHService();
+			SupportFormVO ogdata = sfSvc.getOneSupportForm(formNo);
+			// 此處先儲存原始資料於MAP後再進行更新避免原始資料遺失
+			successMsg.put("ogdata", ogdata.getOGData());
+			//開始進行資料修改
+			sfSvc.dashboardupdate(formNo, realName, supportFormCategoryId, replyEmail);
+
+			successMsg.put("success", "data transfer success");
+
+			String successjson = gson.toJson(successMsg);
+
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(successjson);
 		}
 	}
 }
