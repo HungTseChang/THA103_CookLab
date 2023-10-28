@@ -10,8 +10,10 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 
+import com.cooklab.article.model.ArticleVO;
 import com.cooklab.member_order.model.MemberOrderVO;
 import com.cooklab.members.MemberRecipeOverViewDTO;
+import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.purchase_order.model.PurchaseOrderVO;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.recipe_collection.model.RecipeCollectionVO;
@@ -134,6 +136,30 @@ public class MembersHDAOIm implements MembersDAO_interface{
 	@Override
 	public List<MemberOrderVO> getOrder(Integer offset, Integer limit, Integer memberId) {
 		List<MemberOrderVO> list = getSession().createQuery("from MemberOrderVO where members.memberId=:memberId", MemberOrderVO.class)
+				.setParameter("memberId",memberId).setFirstResult(offset)
+				.setMaxResults(limit).list();
+		return list;
+	}
+	@Override
+	public List<MembersVO> getFollow(Integer offset, Integer limit, Integer memberId) {
+		List<MembersVO> list = getSession().createQuery("FROM MembersVO m " +
+			    "LEFT JOIN FETCH m.recipeCollectionS rc " +
+			    "LEFT JOIN FETCH m.memberCollectionS mc " +
+			    "LEFT JOIN FETCH m.articleCollectionS ac " +
+			    "WHERE m.memberId = :memberId", MembersVO.class)
+				.setParameter("memberId",memberId).setFirstResult(offset)
+				.setMaxResults(limit).list();
+		return list;
+	}
+	@Override
+	public List<NotifyCenterVO> getNotify(Integer offset, Integer limit, Integer memberId) {
+		List<NotifyCenterVO> list = getSession().createQuery("from NotifyCenterVO where members.memberId=:memberId", NotifyCenterVO.class)
+				.setParameter("memberId",memberId).setFirstResult(offset)
+				.setMaxResults(limit).list();
+		return list;
+	}
+	public List<ArticleVO> getArticle(Integer offset, Integer limit,Integer memberId){
+		List<ArticleVO> list = getSession().createQuery("from ArticleVO where members.memberId=:memberId", ArticleVO.class)
 				.setParameter("memberId",memberId).setFirstResult(offset)
 				.setMaxResults(limit).list();
 		return list;

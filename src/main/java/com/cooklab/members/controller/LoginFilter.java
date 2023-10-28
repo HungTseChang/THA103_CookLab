@@ -58,10 +58,9 @@ public class LoginFilter extends HttpFilter implements Filter{
 		if(account == null)
 		{
 			//使用者沒有登入過
-			System.out.println("使用者沒有登入");
+			System.out.println("使用者沒有登入 網頁重導至 SignIn");
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/members/login.html");
-			System.out.println("網頁重導至 signIn");
 		}
 		else
 		{

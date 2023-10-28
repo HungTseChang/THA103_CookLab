@@ -109,7 +109,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="./member-panel.jsp">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">會員中心</span>
                   </a>
@@ -163,12 +163,12 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
           <aside class="col-3">
             <div>
               <ul class="list-group text-center">
-                <li class="list-group-item list-group-item-action mem-panel-asidebar active" aria-current="true">帳戶</li>
-                <li class="list-group-item list-group-item-action">訂單</li>
-                <li class="list-group-item list-group-item-action">關注</li>
-                <li class="list-group-item list-group-item-action">食譜</li>
-                <li class="list-group-item list-group-item-action">討論區文章</li>
-                <li class="list-group-item list-group-item-action">通知中心</li>
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
               </ul>
             </div>
           </aside>
@@ -356,6 +356,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
     <script src="./js/ding.js"></script>
+    <script src="js/TomJS.js"></script>
     <script>        
 	    document.getElementById('image-upload').addEventListener('change', function() {
 	        var fileInput = this;

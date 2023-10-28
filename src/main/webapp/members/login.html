@@ -242,19 +242,28 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/TomJS.js"></script>
     <script>
 
+            /*============================================================ 變數 ============================================================*/
+            var queryString = window.location.search;
+            var params = new URLSearchParams(queryString);
+
+            // var recipeBrowse = "/recipe/recipe_browse.jsp";
+            // var coverImage = "/RecipeServletImg";
+      var       recipeServlet = "/";
+      var host = window.location.host;
+      var path = window.location.pathname;
+      var webCtx = path.substring(0, path.indexOf('/', 1));
+      var endPointURL = "http://" + host + webCtx;
+//====================================================== 
     //========================= 這裡是判斷是否有登入過的 ajax ================================
     $.ajax({
 	    type: "GET", // 指定请求类型为GET
-	    url: "http://localhost:8081/CookLab/Sign", // 你的Servlet URL
+	    url: endPointURL+"/Sign", // 你的Servlet URL
 	    success: function(data) {
-	        // 请求成功后的处理
-	        console.log("成功获取数据: " + data);
 	    },
 	    error: function() {
-	        // 请求失败后的处理
-	        console.error("获取数据失败");
 	    }
 	  });
     
@@ -295,7 +304,7 @@
 	    // // 发送 AJAX POST 请求到后端Servlet
 	    $.ajax({
 	      type: "POST",
-	      url: "http://localhost:8081/CookLab/Sign", // 替换为你的Servlet的URL
+	      url: endPointURL+"/Sign", // 替换为你的Servlet的URL
 	      data: data,
 	      success: function (res) {
           console.log(res);
@@ -303,9 +312,17 @@
             {
               
               if(res.RedirectURL  === undefined)
-                location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";	
+              {
+                location.href = endPointURL+"/members/member-panel.jsp";	
+                  // 獲取 checkbox 元素
+                const checkbox = document.getElementById("accountcheck");
+                console.log(checkbox.checked);
+                // 檢查 checkbox 是否被選中
+                if (checkbox.checked) {
+                  localStorage.setItem("account", account);
+                }
+              }
               else
-                //重導至首頁
                 location.href  = res.RedirectURL;
             }
             else
@@ -323,16 +340,13 @@
                   alert("查無此帳號");
               }
             }
-	        
+        }
 	
-	        // 可以在这里执行其他操作，如重定向或显示消息
-	      },
-	      error: function () {
-	        // 在请求失败时执行的操作
-	        console.log("失敗");
-	      }
+
     });
   });
-    </script>
+</script>
+
+
   </body>
 </html>

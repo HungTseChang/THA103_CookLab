@@ -14,7 +14,7 @@ import org.hibernate.SessionFactory;
 import com.cooklab.util.HibernateUtil;
 @WebFilter(urlPatterns = { 
 		"/RecipeServlet",				
-		"/RecipeServletImg",
+		"/RecipeOverviewImgServlet",
 		//TOM Start
 		"/MemberCenter",
 		"/EditPassword",
@@ -24,7 +24,11 @@ import com.cooklab.util.HibernateUtil;
 		"/MembersServlet",
 		"/Sign",
 		"/Verification",
-		"/MemberOrderServlet"
+		"/MemberOrderForServlet",
+		"/FollowServlet",
+		"/MemberNotifyServlet",
+		"/MembersArticleServlet",
+		"/CheckLogin"
 		//TOM END
 		})
 public class OpenSessionInViewFilter implements Filter {

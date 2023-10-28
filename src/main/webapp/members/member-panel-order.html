@@ -96,7 +96,7 @@
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="./member-panel.jsp">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">會員中心</span>
                   </a>
@@ -150,12 +150,12 @@
           <aside class="col-3">
             <div>
               <ul class="list-group text-center">
-                <li class="list-group-item list-group-item-action">帳戶</li>
-                <li class="list-group-item list-group-item-action mem-panel-asidebar active" aria-current="true">訂單</li>
-                <li class="list-group-item list-group-item-action">關注</li>
-                <li class="list-group-item list-group-item-action">食譜</li>
-                <li class="list-group-item list-group-item-action">討論區文章</li>
-                <li class="list-group-item list-group-item-action">通知中心</li>
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
               </ul>
             </div>
           </aside>
@@ -272,6 +272,7 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/TomJS.js"></script>
     <script>
       /*============================================================ 變數 ============================================================*/
 var queryString = window.location.search;
@@ -285,23 +286,25 @@ var webCtx = path.substring(0, path.indexOf('/', 1));
 var endPointURL = "http://" + host + webCtx;
 console.log(endPointURL);
 /*============================================================ ajax ============================================================*/
-
-// function reipceLoad(page) {
-	$.ajax({
-		url: endPointURL + "/MemberOrderServlet", // 資料請求的網址
-		type: "POST", // GET | POST | PUT | DELETE | PATCH
-		data: { action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
-		dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-		success: function(data) {
-			$("#recipeList").html("");
-			$(data).each(function(index, element) {
-        console.log(element);
-        var recipe = element;
-        
+function SendScuess(recipe)
+{
+  if(recipe.product != undefined)
+        {
+          // 将对象的属性值串联成一个字符串
+          var concatenatedString = Object.values(recipe.product).map(obj => obj).join(",");
+          console.log(concatenatedString);
+          // 检查总字符数是否超过 20
+          if (concatenatedString.length > 18) {
+            // 截断字符串并添加 "..."
+            concatenatedString = concatenatedString.substring(0, 18) + "...";
+          }
+        }
+        else
+         truncatedProduct = "無";
 
 	
 
-          if(element.orderStatus == 0)
+          if(recipe.orderStatus == 0)
           {
             var addrecipe = `  <div class="row my-4 ml-1">
                   <div class="col-3">
@@ -310,8 +313,8 @@ console.log(endPointURL);
                   <div class="col-6">
                     <div class="row">
                       <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
                       <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
-                      <div class="col-12 ml-5 my-auto">收貨地址:${recipe.shippingAddress}</div>
                     </div>
                   </div>
                   <div class="col-3">
@@ -325,7 +328,7 @@ console.log(endPointURL);
                 </div>`;
             $("#pills-tobeshiped").append(addrecipe);
           }
-          else if(element.orderStatus == 1)
+          else if(recipe.orderStatus == 1)
           {
             var addrecipe = `  <div class="row my-4 ml-1">
                   <div class="col-3">
@@ -334,8 +337,8 @@ console.log(endPointURL);
                   <div class="col-6">
                     <div class="row">
                       <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
                       <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
-                      <div class="col-12 ml-5 my-auto">收貨地址:${recipe.shippingAddress}</div>
                     </div>
                   </div>
                   <div class="col-3">
@@ -346,7 +349,7 @@ console.log(endPointURL);
                 </div>`;
             $("#pills-toberec").append(addrecipe);
           }
-          else if(element.orderStatus == 2)
+          else if(recipe.orderStatus == 2)
           {
             var addrecipe = `  <div class="row my-4 ml-1">
                   <div class="col-3">
@@ -355,8 +358,8 @@ console.log(endPointURL);
                   <div class="col-6">
                     <div class="row">
                       <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
                       <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
-                      <div class="col-12 ml-5 my-auto">收貨地址:${recipe.shippingAddress}</div>
                     </div>
                   </div>
                   <div class="col-3">
@@ -367,6 +370,19 @@ console.log(endPointURL);
                 </div>`;
             $("#pills-com").append(addrecipe);
           }
+}
+// function reipceLoad(page) {
+	$.ajax({
+		url: endPointURL + "/MemberOrderForServlet", // 資料請求的網址
+		type: "POST", // GET | POST | PUT | DELETE | PATCH
+		data: { action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+		dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+		success: function(data) {
+			$("#recipeList").html("");
+			$(data).each(function(index, element) {
+        console.log(element);
+        SendScuess(element);
+
 			});
 		},
 		error: function(xhr) {
@@ -375,6 +391,7 @@ console.log(endPointURL);
 		},
 	});
 // }
+
 /*============================================================ function ============================================================*/
 
 //未出貨

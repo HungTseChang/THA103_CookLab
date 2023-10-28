@@ -17,9 +17,10 @@ public class MemberOrderOverViewDTO {
 	private String shippingAddress;
 	private Timestamp createdTimestamp;
 
-	List<String> orderDetail = new ArrayList<>();
+//	List<String> orderDetail = new ArrayList<>();
 	List<String> product= new ArrayList<>();
-	
+	public MemberOrderOverViewDTO()
+	{}
 	public MemberOrderOverViewDTO(MemberOrderVO memberOrderVO) {
 		this.orderNo = memberOrderVO.getOrderNo();
 		this.orderStatus = memberOrderVO.getOrderStatus();
@@ -29,7 +30,7 @@ public class MemberOrderOverViewDTO {
 		this.createdTimestamp = memberOrderVO.getCreatedTimestamp();
 
 		for(OrderDetailVO odVO: memberOrderVO.getOrderDetail()) {
-			odVO.getProduct().getProductName();
+			this.product.add(odVO.getProduct().getProductName());
 		}
 	}
 
@@ -73,13 +74,7 @@ public class MemberOrderOverViewDTO {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public List<String> getOrderDetail() {
-		return orderDetail;
-	}
 
-	public void setOrderDetail(List<String> orderDetail) {
-		this.orderDetail = orderDetail;
-	}
 
 	public List<String> getProduct() {
 		return product;
