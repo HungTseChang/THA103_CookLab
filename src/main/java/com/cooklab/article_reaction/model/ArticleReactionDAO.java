@@ -13,7 +13,7 @@ public interface ArticleReactionDAO {
     
     public ArticleReactionVO findByTwoCol(Integer memberId , Integer articleNo);
     
-    public Long   allCount (Integer articleNo , Byte statuts);
+    public Long allCount (Integer articleNo , Byte statuts);
     
     public List<ArticleReactionVO> getAll();
 }

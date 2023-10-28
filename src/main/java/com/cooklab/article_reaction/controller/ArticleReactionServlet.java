@@ -54,7 +54,7 @@ public class ArticleReactionServlet {
 			
 			String statutsStr = req.getParameter("statuts");
 			Byte statuts =null;
-			if (articleNoStr != null && !articleNoStr.isEmpty()) {
+			if (statutsStr != null && !statutsStr.isEmpty()) {
 				statuts = Byte.parseByte(statutsStr);
 			} else {
 				System.out.println("狀態號碼錯誤");
@@ -70,18 +70,26 @@ public class ArticleReactionServlet {
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleReactionService artSvc = new ArticleReactionService();
 			artSvc.create(memberId, articleNo, statuts);
+			System.out.println("按讚資料新增或修改完成");
 			
-			
-			ArticleService artSvc2 = new ArticleService();
-			ArticleVO artVO = artSvc2.getOneArt(articleNo);
-			
+			//我也忘了做搜尋要幹嘛.....哈哈哈
+//			ArticleService artSvc2 = new ArticleService();
+//			ArticleVO artVO = artSvc2.getOneArt(articleNo);
+//			System.out.println("單一搜尋完成");
 			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url ="/article/article_content.jsp";
+//			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			
-			RequestDispatcher successView = req.getRequestDispatcher(url); 
-			successView.forward(req, res);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			String success = "{\"message\": \"新增或修改完成\"}";
+			res.getWriter().write(success);
+			
+			//使用ajax 不能跳轉
+//			String url ="/article/article_content.jsp";
+//			
+//			RequestDispatcher successView = req.getRequestDispatcher(url); 
+//			successView.forward(req, res);
 		}
 		
 		if ("findtwo".equals(action)) { 
@@ -112,12 +120,12 @@ public class ArticleReactionServlet {
 			
 
 			
-//			ArticleReactionVO r1 = new ArticleReactionVO();
+//			ArticleSubReactionVO r1 = new ArticleSubReactionVO();
 //			r1.setArticleNo(articleNo);
 //			r1.setMemberId(memberId);
 				
 
-			/*************************** 2.開始修改資料 *****************************************/
+			/*************************** 2.開始查詢資料 *****************************************/
 			ArticleReactionService artSvc = new ArticleReactionService();
 			artSvc.findTwo(memberId, articleNo);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/

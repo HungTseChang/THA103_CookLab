@@ -223,13 +223,19 @@
              					<img class="clickable like" src="<%=request.getContextPath()%>/article/img/HO/like.png"
                            			 alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
                             		 data-gjStatus="0">
-                  
-                            <span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
-                            <img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
+                  				<span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
+                  				<li style="display: none;"> 
+                  					data-memberId = 5;
+		    						data-articleNo = "${artVO.articleNo}"</li>
+                  				
+                  				
+                            	<img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
                             		alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
                             		data-gjStatus="0">
                             		
-                            <span  class="dislikeValue" style="margin-right: 50px;">10</span>
+                           		<span  class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
+                            
+                            
 	                		
 	                		
 							<input type="submit" class="btn custom-btn" value="回覆" style= "float:right;"> 
@@ -431,29 +437,47 @@
 	$(document).ready(function () {
 		//下方ajax
 		  $(".like,.dislike").click(function () {
-		    const $image = $(this);
-		    // 取得數據?
-		    const memberId = /* 取得會員ID */;
-		    const articleNo = /* 取得文章號碼 */;
-		    const status = /* 取得文章狀態 */;
+			  //取得數據
+			  const $image = $(this);
+			  const memberId = $(this).data("memberId");
+			  const articleNo = $(this).data("articleNo");
+			  const status = $(this).data("gjStatus");
+			  
+			  let GJinfo = {
+					  memberID : memberId,
+					  articleNo : articleNo,
+					  status  : status,
+					  action : "saveOrUpdate" // 對應servlet的方法 
+			  }
 
 		    $.ajax({
+		      url: "/CookLab/ArticleReactionServlet", // 后端Servlet的URL
 		      type: "POST", // 可以根据需求使用GET或POST
-		      url: "YourServletURL", // 后端Servlet的URL
+		      dataType:"json",
 		      data: {
 		        action: "saveOrUpdate",
 		        memberId: memberId,
 		        articleNo: articleNo,
 		        status: status
 		      },
-		      success: function (response) {
+		      statusCode:{
+		    	  //狀態碼
+		    	  200: function(res){},
+		    	  404: function(res){},
+		    	  500: function(res){},
+		      },
+		      success: function (data) {
 		        // 處理成功回報
-		        alert("操作成功：" + response);
-		        
+		        console.log(data);
+		        console.log("回傳成功：" + response);
 		      },
 		      error: function (xhr, status, error) {
 		        // 處理失敗回報
-		        alert("操作失敗"： + error);
+		        console.log("請求失敗，的狀態碼" +xhr.status);
+		        console.log("會員編號"+ data.memberId);
+		        console.log("文章編號"+ data.articleNo);
+		        console.log("狀態"+ data.status);
+		        console.log(xhr);
 		      }
 		    });
 		  });

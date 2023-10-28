@@ -6,7 +6,7 @@
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
     ArticleService artSvc = new ArticleService();
-	Byte test = 0;
+	Byte test = 0;//不能強轉型只好設定一個Byte 變數
 	List<ArticleVO> list = artSvc.getStatus(test);
     pageContext.setAttribute("list", list);
 
