@@ -340,8 +340,8 @@ public class ArticleSubServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			ArticleSubService artSvc = new ArticleSubService();
-			ArticleSubVO artVO = artSvc.getOneSubArt(articleSubNo);
-			if (artVO == null) {
+			ArticleSubVO artVO2 = artSvc.getOneSubArt(articleSubNo);
+			if (artVO2 == null) {
 				errorMsgs.add("查無資料");
 			}
 			// Send the use back to the form, if there were errors
@@ -352,8 +352,8 @@ public class ArticleSubServlet extends HttpServlet {
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("artVO2", artVO); // 資料庫取出的empVO物件,存入req
-			String url = "/article/article_sub_edit2.jsp";
+			req.setAttribute("artVO2", artVO2); // 資料庫取出的empVO物件,存入req
+			String url = "/article/article_sub_edit.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}

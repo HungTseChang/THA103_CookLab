@@ -6,34 +6,25 @@
 <%@ page import="com.cooklab.article_reaction.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-ArticleReactionService reaSvc = new ArticleReactionService();
-	ArticleReactionVO  a1 = new ArticleReactionVO();
-	a1.setArticleNo(1);
-	a1.setMemberId(1);
-	
-	Byte test = 5;
-	a1.setStatuts(test);
-
-	reaSvc.update(a1);
-	//上面是新增
-	ArticleReactionService reaSvc2 = new ArticleReactionService();
-	ArticleReactionVO reaction=reaSvc2.findTwo(1, 1);
-	
-	//P204 、P337你沒有setAttribute用EL 就會抓不到值
-	pageContext.setAttribute("reaction",reaction);
-
-	
 //  這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
     ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
+
+
+	ArticleReactionService reaSvc = new ArticleReactionService();
+	ArticleReactionVO  a1 = new ArticleReactionVO();
+	Byte like = 1 ;
+	Byte dislike =2;
+	Long reaLike = reaSvc.allCount(artVO.getArticleNo(), like);
+	Long reaDislike =reaSvc.allCount(1, dislike);
+	//Servlet P204 、P337你沒有setAttribute用EL 就會抓不到值
+	pageContext.setAttribute("reaLike",reaLike);
+	pageContext.setAttribute("reaDislike",reaDislike);
 
 	ArticleSubService artSvc2 =new ArticleSubService();
 	List<ArticleSubVO> list2 = artSvc2.getAll();
 	pageContext.setAttribute("list2",list2);
 	
-	
-	
-	
-	
+
 			
 %>
 <!DOCTYPE html>
@@ -46,7 +37,9 @@ ArticleReactionService reaSvc = new ArticleReactionService();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>HO_article_content</title>
+<script>
 
+</script>
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
@@ -200,9 +193,7 @@ ArticleReactionService reaSvc = new ArticleReactionService();
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
-	<div>按讚資料: 按讚編號:${reaction.articleReactionNo}，按讚會員ID:${reaction.memberId} ,按讚文章:${reaction.articleNo}
-	按讚狀態:${reaction.statuts} 
-	 </div>
+	
 	<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 		
 		<div class="container" style="margin-top: 30px;">
@@ -227,21 +218,24 @@ ArticleReactionService reaSvc = new ArticleReactionService();
 						<p> ${artVO.articleContent}</p>
 
 						<br> <br>
- 						<div id="like-dislike"  class="button-group" style ="height: 60px;"> 
- 							<div class="image-container">
-	            				<img class="like  clickable" data-value="0" src="<%=request.getContextPath()%>/article/img/HO/like.png"  
-	            				alt="like" style="width: 30px; height: 30px; margin-right:5px;"> 		
-	            				<span class="likeValue" style="margin-right: 5px;">10</span> 
-	
-					            <img class="dislike clickable" data-value="0" src="<%=request.getContextPath()%>/article/img/HO/dislike.png" 
-					            	alt="dislike" style="width: 30px; height: 30px ; margin-right:5px;">
-					            <span class="dislikeValue" style="margin-right: 5px;">10</span>
-	                			
-								<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
-								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-								<input type="hidden" name="action" value="subSearch">
-							</div>
-             			</div> 
+ 						
+ 							<div id="like-dislike" > 
+             					<img class="clickable like" src="<%=request.getContextPath()%>/article/img/HO/like.png"
+                           			 alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
+                            		 data-gjStatus="0">
+                  
+                            <span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
+                            <img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
+                            		alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+                            		data-gjStatus="0">
+                            		
+                            <span  class="dislikeValue" style="margin-right: 50px;">10</span>
+	                		
+	                		
+							<input type="submit" class="btn custom-btn" value="回覆" style= "float:right;"> 
+							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+							<input type="hidden" name="action" value="subSearch">
+						
 						<hr  style="border: 1px solid #F29422; ">
 					</div>
 				</div>
@@ -274,20 +268,22 @@ ArticleReactionService reaSvc = new ArticleReactionService();
 						</p>
 						<p>${artVO2.articleSubContent}</p>
 						<br> <br>
-						 <div id="like-dislike"  class="button-group" style ="height: 60px;"> 
- 							<div class="image-container">
-	            				<img class="like  clickable" data-value="0" src="<%=request.getContextPath()%>/article/img/HO/like.png"  
-	            				alt="like" style="width: 30px; height: 30px; margin-right:5px;"> 		
-	            				<span class="likeValue" style="margin-right: 5px;">10</span> 
-	
-					            <img class="dislike clickable" data-value="0" src="<%=request.getContextPath()%>/article/img/HO/dislike.png" 
-					            	alt="dislike" style="width: 30px; height: 30px ; margin-right:5px;">
-					            <span class="dislikeValue" style="margin-right: 5px;">10</span>
+						<div id="like-dislike" > 
+ 							
+                            <img class="clickable like" src="<%=request.getContextPath()%>/article/img/HO/like.png"
+                            	 alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
+                           		 data-gjStatus="0">
+                            <span  class="likeValue" style="margin-right: 50px;">10</span>
+                            <img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
+                            	alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+                            	data-gjStatus="0">
+                            <span  class="dislikeValue" style="margin-right: 50px;">10</span>
+					        
 	                			
-								<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
-								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
-								<input type="hidden" name="action" value="subSearch">
-							</div>
+							<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
+							<input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
+							<input type="hidden" name="action" value="subSearch2">
+						
              			</div> 
 						<hr  style="border: 1px solid #F29422; ">
 					</div>
@@ -298,10 +294,7 @@ ArticleReactionService reaSvc = new ArticleReactionService();
 	</div>
 	</c:if>
 	</c:forEach>
-	
-	
-	<!--  下面是回文的部分需要再調整-->
-	<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 	<div class="container" style="margin-top: 10px;">
 		<div class="row">
 			<div id="c_user" class="col-md-3"
@@ -428,28 +421,43 @@ ArticleReactionService reaSvc = new ArticleReactionService();
 	
 	
 	<script>
-	$(document).ready(function(){
-		$(".button-group").each(function(){
-			const $group = $(this);
-			$group.find(".clickable").click(function (){
-				const $image = $(this);
-				const isEnlarged = $image.data("enlarged");
+	//強制回到article_main.jsp(沒有效)
+	window.onbeforeunload = function (event) {
+	    if (document.referrer !== 'http://localhost:8081/CookLab/article/article_main.jsp') {
+	        window.location.href = 'http://localhost:8081/CookLab/article/article_main.jsp';
+	    }
+	}
+	//=======================================
+	$(document).ready(function () {
+		//下方ajax
+		  $(".like,.dislike").click(function () {
+		    const $image = $(this);
+		    // 取得數據?
+		    const memberId = /* 取得會員ID */;
+		    const articleNo = /* 取得文章號碼 */;
+		    const status = /* 取得文章狀態 */;
 
-				$group.find(".clickable").css("transform","scale(1");
-				$(this).css("transform","scale(1.2)");
-
-				if (!isEnlarged){
-					$image.css("transform","scale(1)");
-					$image.data("enlared",false);
-				}else{
-					$group.find(".clickable").css("transform", "scale(1)"); 
-	                $image.css("transform", "scale(1.2)");
-	                $image.data("enlarged", true);
-				}
-			});
-
-		})
-	})
+		    $.ajax({
+		      type: "POST", // 可以根据需求使用GET或POST
+		      url: "YourServletURL", // 后端Servlet的URL
+		      data: {
+		        action: "saveOrUpdate",
+		        memberId: memberId,
+		        articleNo: articleNo,
+		        status: status
+		      },
+		      success: function (response) {
+		        // 處理成功回報
+		        alert("操作成功：" + response);
+		        
+		      },
+		      error: function (xhr, status, error) {
+		        // 處理失敗回報
+		        alert("操作失敗"： + error);
+		      }
+		    });
+		  });
+		});
 	</script>
 
 </body>

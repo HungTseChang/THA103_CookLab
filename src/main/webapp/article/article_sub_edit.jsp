@@ -3,14 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
-<%@ page import="com.cooklab.article_sub.model.*"%>
+<%@ page import="com.cooklab.article_sub.model.ArticleSubVO" %>
+
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
 
 ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
-ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
-// System.out.println(artSub);
+ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
+
 %>
 
 
@@ -23,7 +24,7 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Ogani | Template ${artSub.articleSubNo} ${artVO.articleNo}</title>
+<title>回文編號${artVO2.articleSubNo} ${artVO.articleNo}</title>
 
 <!-- Google Font -->
 <link
@@ -179,6 +180,7 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
+	
 	<section id="article_conten">
 		<div class="container" id="another">
 			<div class="row">
@@ -208,11 +210,11 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
 					<c:choose> 
        					<c:when test="${not empty artVO.articleContent}"> 
          						<input type="text" id="edit_title" name="articleTitle"  style="color:gray;"  								
-         						value="RE [${artVO.articleCategory.articleCategory}]${artVO.articleTitle}" readonly>
+         						value="RE[${artVO.articleCategory.articleCategory}]${artVO.articleTitle}" readonly>
             			</c:when> 
              					<c:otherwise> 
             						<input type="text" id="edit_title" name="articleTitle"  style="color:gray;" 
-									value="RE ${artSub.articleSubNo}" readonly>
+									value="RE${artVO2.article.articleTitle}" readonly>
            					</c:otherwise>
      				</c:choose>	 
 
@@ -225,7 +227,7 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
                 						<a style="color: gray;">※ 引述《${artVO.members.memberNickname}》之銘言${artVO.articleContent}</a>
             						</c:when> 
            							<c:otherwise> 
-										<a style="color: gray;">//※ 引述 ${artSub.articleSubContent}</a>             						
+										<a style="color: gray;">※ 引述《${artVO2.members.memberNickname}》之銘言:${artVO2.articleSubContent}</a>             						
 									</c:otherwise> 
        						  	</c:choose> 
 							</div>
@@ -238,7 +240,7 @@ ArticleSubVO artSub = (ArticleSubVO) request.getAttribute("artVO2");
                							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
              						</c:when> 
              						<c:otherwise> 
-										<input type="hidden" name="articleNo" value="${artSub.article}">
+										<input type="hidden" name="articleNo" value="${artVO2.articleNo}">
              						</c:otherwise>
         							 </c:choose>								 
 								<input type="hidden" name="action" value="insert">

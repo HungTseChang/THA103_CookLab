@@ -26,7 +26,7 @@ public class ArticleReactionServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("update".equals(action)) { 
+		if ("saveOrUpdate".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -69,11 +69,13 @@ public class ArticleReactionServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleReactionService artSvc = new ArticleReactionService();
-			artSvc.update(r1);
+			artSvc.create(memberId, articleNo, statuts);
 			
 			
 			ArticleService artSvc2 = new ArticleService();
 			ArticleVO artVO = artSvc2.getOneArt(articleNo);
+			
+			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
 			String url ="/article/article_content.jsp";

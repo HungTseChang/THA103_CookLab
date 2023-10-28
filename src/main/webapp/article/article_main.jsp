@@ -6,13 +6,15 @@
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
     ArticleService artSvc = new ArticleService();
-	Byte test =0;
+	Byte test = 0;
 	List<ArticleVO> list = artSvc.getStatus(test);
     pageContext.setAttribute("list", list);
 
 	ArticleCategoryService artSvc2 =new ArticleCategoryService();
 	List<ArticleCategoryVO> list2 = artSvc2.getAll();
 	pageContext.setAttribute("list2",list2);
+	
+
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -23,6 +25,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>Ogani main_cate</title>
+
 
 <!-- Google Font -->
 <link
