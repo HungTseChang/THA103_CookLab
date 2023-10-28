@@ -107,7 +107,7 @@
                                                         <div class="checkbox">
                                                             <input type="checkbox" id="checkbox2"
                                                                 class='form-check-input' checked>
-                                                            <label for="checkbox2">Remember Me</label>
+                                                            <label for="checkbox2">Remember Me</label><label style="color:red;">	&nbsp;	&nbsp;${error}</label>
                                                         </div>
                                                     </div>
                                                 </div>

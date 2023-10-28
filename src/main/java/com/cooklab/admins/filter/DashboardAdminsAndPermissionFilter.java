@@ -2,6 +2,7 @@ package com.cooklab.admins.filter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.Filter;
@@ -60,20 +61,39 @@ if(Permit.get(location)) {
         System.out.println("從帳號檢測前往下一頁");
 			chain.doFilter(req, res);
 	        System.out.println("帳號檢測離開");
+	        
+//	=============================開始檢測是否為登出請求=========================================        
+	  if(session.getAttribute("logout") != null) {
+	        System.out.println("檢測到登出請求");
+	        
+//	  ============      
+	        Enumeration<String> attributeNames = session.getAttributeNames();
+	  while (attributeNames.hasMoreElements()) {
+	            String attributeName = attributeNames.nextElement();
+	           System.out.println(attributeName);
+//	            session.removeAttribute(attributeName);
+	        }
+//	  ======
+	        session.removeAttribute("account");
+	        session.removeAttribute("location");
+	        session.removeAttribute("permissionlist");
+	        session.removeAttribute("logout");
+	        if(session.getAttribute("location") != null) {
+	        	System.out.println("清除失敗");
+	        	
+	        }
+	        AdminsAccount=null;
+	        Permit=null;
+	  }      
+	        
+	        
 }else {
 	
     System.out.println("不具有此權限，跳轉到禁止頁面");
 	response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_forbidden.jsp");
   return;
 }
-//if(Permit.get(location)) {
-//	System.out.println("YESYESYESYESYESYESYESYESYESYES");
-//	
-//}else {
-//	
-//	System.out.println("NONONONONONONONONONONONO");
-//
-//}
+
 
 		
 	}

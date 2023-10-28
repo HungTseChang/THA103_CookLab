@@ -40,7 +40,7 @@
 
                         <!-- ============================================================================================== -->
                           <li class="sidebar-item  ">
-                            <a href="<%=request.getContextPath()%>/dashboard/WCC_Homepage.jsp" class='sidebar-link'>
+                            <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
                             </a>
@@ -170,7 +170,7 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_official_notify.jspl">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="ding-support-tickets-table.html">問題表單</a>
@@ -192,7 +192,7 @@
                 
             </header>
             
- <h2>歡迎回來!，"${account}"</h2>
+ <h2>歡迎回來!，${nickname}</h2>
 
 
 

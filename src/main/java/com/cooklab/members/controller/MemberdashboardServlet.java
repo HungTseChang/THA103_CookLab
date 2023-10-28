@@ -119,13 +119,16 @@ public class MemberdashboardServlet extends HttpServlet{
 		String email = req.getParameter("email");
 		Byte status = Byte.valueOf(req.getParameter("memberStatus").trim());
 		String passowrd1 = MembersService.getOneMember(NO).getMemberPassword();
+System.out.println("=============================");
+System.out.println("===新密碼為:"+passowrd+"就密碼為:"+passowrd1+"=========================");
+System.out.println("=============================");
 		if(!passowrd.equals(passowrd1)) {
 			EmailSender EmailSender = new EmailSender();
 			 String subtitlte ="廚藝實驗室: 您的密碼已重設";
 			 String context =account+"您好: 你的密碼已重設為: "+passowrd+"請記得更新你的密碼";
 		     EmailSender.sendMail(email, subtitlte,context);						
 		}
-		
+		System.out.println("AAAA"+status);
 		MembersService.updateMember(NO, passowrd, status);
 		return  "/dashboard/member/WCC_member.jsp";
 	}
