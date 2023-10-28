@@ -214,7 +214,6 @@ public class CartServlet extends HttpServlet {
 				System.out.println(cartData);
 				System.out.println(cartData);
 				if (!cartData.isEmpty()) {
-					// 购物车不为空，将Map中的购物车数据转换为JSON数组
 					JsonArray cartArray = new JsonArray();
 
 					for (Map.Entry<String, String> entry : cartData.entrySet()) {

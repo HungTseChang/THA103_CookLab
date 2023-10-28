@@ -1,14 +1,13 @@
-
-
+const productId = getProductIdFromURL(); // 编写一个函数来获取URL参数中的商品ID
 // 等待页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 	// 获取商品ID（从URL参数中获取）
-	const productId = getProductIdFromURL(); // 编写一个函数来获取URL参数中的商品ID
+	
 	let stock = null;
 	console.log(productId);
 	// 创建一个包含商品ID的请求数据
 	const requestData = {
-		action: "getDetail", // 指定要调用的方法
+		action: "getDetail2", // 指定要调用的方法
 		productNo: productId, // 商品的ID，从URL参数中获取
 	};
 
@@ -19,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		data: requestData, // 发送的参数
 		dataType: "json", // 预期的响应数据类型
 		success: function(response) {
+			console.log("a");
 			console.log(response);
 			// 在成功回调中处理从服务器获取的商品详细信息
 			// 这里的response参数包含了您在Servlet中返回的JSON数据

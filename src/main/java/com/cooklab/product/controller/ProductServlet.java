@@ -83,9 +83,6 @@ public class ProductServlet extends HttpServlet {
 					itemMap.put("productImage", "");
 				}
 
-				String saleQty = item.getSaleQty().toString();
-				itemMap.put("saleQty", saleQty);
-
 				String productDec = item.getProductDec();
 				itemMap.put("productDec", productDec);
 
@@ -94,6 +91,13 @@ public class ProductServlet extends HttpServlet {
 
 				String productPrice = item.getProductPrice().toString();
 				itemMap.put("productPrice", productPrice);
+
+				String storageQty = item.getStorageQty().toString();
+				itemMap.put("storageQty", storageQty);
+
+				Integer searchCount = item.getStorageQty();
+				String searchCountString = (searchCount != null) ? searchCount.toString() : "0";
+				itemMap.put("searchCount", searchCountString);
 
 				if (item.getOffsaleTime() != null) {
 					String offsaleTime = item.getOffsaleTime().toString();
@@ -147,8 +151,15 @@ public class ProductServlet extends HttpServlet {
 			// 查询全部商品
 			ProductService productSvc = new ProductService();
 			List<ProductVO> totallistproduct = productSvc.findByKeyword(keywords);
+
 			// 遍历商品数据
 			for (ProductVO item : totallistproduct) {
+				try {
+					incrementProductSearchCount(item.getProductNo());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 				Timestamp shelfTimes = item.getShelfTime();
 				Timestamp offsaleTimes = item.getOffsaleTime();
 				if (shelfTimes == null || offsaleTimes == null
@@ -191,9 +202,6 @@ public class ProductServlet extends HttpServlet {
 						// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 						itemMap.put("productImage", "");
 					}
-
-					String saleQty = item.getSaleQty().toString();
-					itemMap.put("saleQty", saleQty);
 
 					String productDec = item.getProductDec();
 					itemMap.put("productDec", productDec);
@@ -283,9 +291,6 @@ public class ProductServlet extends HttpServlet {
 						itemMap.put("productImage", "");
 					}
 
-					String saleQty = item.getSaleQty().toString();
-					itemMap.put("saleQty", saleQty);
-
 					String productDec = item.getProductDec();
 					itemMap.put("productDec", productDec);
 
@@ -370,21 +375,6 @@ public class ProductServlet extends HttpServlet {
 				errorMsgs.put("errProductPrice", "商品售價不能為空");
 			}
 
-			String saleQtyParam = req.getParameter("saleQty");
-			Integer saleQty = null;
-			if (saleQtyParam != null && !saleQtyParam.isEmpty()) {
-				try {
-					saleQty = Integer.valueOf(saleQtyParam);
-					if (saleQty <= 0) {
-						errorMsgs.put("errSaleQty", "商品數量必須為正數且不為零");
-					}
-				} catch (NumberFormatException e) {
-					errorMsgs.put("errSaleQty", "商品數量必須是有效的數字");
-				}
-			} else {
-				errorMsgs.put("errSaleQty", "商品數量不能為空");
-			}
-
 			String storageQtyParam = req.getParameter("storageQty");
 			Integer storageQty = null;
 			if (storageQtyParam != null && !storageQtyParam.isEmpty()) {
@@ -417,7 +407,7 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			java.sql.Timestamp offsaleTime = null;
-			String offsaleTimeStr = req.getParameter("uptime");
+			String offsaleTimeStr = req.getParameter("downtime");
 			if (offsaleTimeStr != null && offsaleTimeStr != "") {
 				try {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -527,7 +517,6 @@ public class ProductServlet extends HttpServlet {
 			productVO.setProductDec(productDec);
 			productVO.setProductIntroduction(productIntroduction);
 			productVO.setProductPicture(imageBytes);
-			productVO.setSaleQty(saleQty);
 			productVO.setStorageQty(storageQty);
 			productVO.setOffsaleTime(offsaleTime);
 			productVO.setShelfTime(shelfTime);
@@ -608,12 +597,15 @@ public class ProductServlet extends HttpServlet {
 
 			productDetailMap.put("productName", productVO.getProductName());
 			productDetailMap.put("productPrice", productVO.getProductPrice());
-			productDetailMap.put("saleQty", productVO.getSaleQty());
 			productDetailMap.put("storageQty", productVO.getStorageQty());
 			productDetailMap.put("shelfTime", productVO.getShelfTime());
 			productDetailMap.put("offsaleTime", productVO.getOffsaleTime());
 			productDetailMap.put("productIntroduction", productVO.getProductIntroduction());
 			productDetailMap.put("productDescription", productVO.getProductDec());
+
+			Integer searchCount = productVO.getStorageQty();
+			String searchCountString = (searchCount != null) ? searchCount.toString() : "0";
+			productDetailMap.put("searchCount", searchCountString);
 
 			if (productVO.getIngredientCategory() != null) {
 				productDetailMap.put("selectedPart", "foodType");
@@ -633,6 +625,62 @@ public class ProductServlet extends HttpServlet {
 			}
 			productDetailMap.put("foodTypeOptions", dataMapList2);
 			productDetailMap.put("kitchenTypeOptions", dataMapList);
+			// 2. 使用Gson将Map对象转换为JSON字符串
+			Gson gson = new Gson();
+			String productDetailJson = gson.toJson(productDetailMap);
+
+			System.out.println(productDetailJson);
+			// 3. 设置响应的内容类型为JSON
+			res.setContentType("application/json; charset=UTF-8");
+
+			// 将JSON字符串作为响应写入输出流
+			res.getWriter().write(productDetailJson);
+
+		}
+		if ("getDetail2".equals(action)) {
+
+			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
+			System.out.println(productNo);
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+			ProductService productSvc = new ProductService();
+			ProductVO productVO = productSvc.getOneProduct(productNo);
+
+			try {
+				incrementProductSearchCount(productNo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			Map<String, Object> productDetailMap = new HashMap<>();
+
+			productDetailMap.put("productName", productVO.getProductName());
+			productDetailMap.put("productPrice", productVO.getProductPrice());
+			productDetailMap.put("storageQty", productVO.getStorageQty());
+			productDetailMap.put("shelfTime", productVO.getShelfTime());
+			productDetailMap.put("offsaleTime", productVO.getOffsaleTime());
+			productDetailMap.put("productIntroduction", productVO.getProductIntroduction());
+			productDetailMap.put("productDescription", productVO.getProductDec());
+			Integer searchCount = productVO.getStorageQty();
+			String searchCountString = (searchCount != null) ? searchCount.toString() : "0";
+			productDetailMap.put("searchCount", searchCountString);
+			if (productVO.getIngredientCategory() != null) {
+				productDetailMap.put("selectedPart", "foodType");
+				productDetailMap.put("selectedFoodType", productVO.getIngredientCategoryNo());
+			} else {
+				productDetailMap.put("selectedPart", "kitchenType");
+				productDetailMap.put("selectedKitchenType", productVO.getKitchenwareCategoryNo());
+			}
+			// 读取图像文件并编码为Base64字符串
+			byte[] productPicture = productVO.getProductPicture();
+			if (productPicture != null) {
+				String productImage = Base64.getEncoder().encodeToString(productPicture);
+				productDetailMap.put("productImage", productImage);
+			} else {
+				// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
+				productDetailMap.put("productImage", "");
+			}
 			// 2. 使用Gson将Map对象转换为JSON字符串
 			Gson gson = new Gson();
 			String productDetailJson = gson.toJson(productDetailMap);
@@ -674,21 +722,6 @@ public class ProductServlet extends HttpServlet {
 				errorMsgs.put("errProductPrice", "商品售價不能為空");
 			}
 
-			String saleQtyParam = req.getParameter("saleQty");
-			Integer saleQty = null;
-			if (saleQtyParam != null && !saleQtyParam.isEmpty()) {
-				try {
-					saleQty = Integer.valueOf(saleQtyParam);
-					if (saleQty <= 0) {
-						errorMsgs.put("errSaleQty", "商品數量必須為正數且不為零");
-					}
-				} catch (NumberFormatException e) {
-					errorMsgs.put("errSaleQty", "商品數量必須是有效的數字");
-				}
-			} else {
-				errorMsgs.put("errSaleQty", "商品數量不能為空");
-			}
-
 			String storageQtyParam = req.getParameter("storageQty");
 			Integer storageQty = null;
 			if (storageQtyParam != null && !storageQtyParam.isEmpty()) {
@@ -711,6 +744,7 @@ public class ProductServlet extends HttpServlet {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 					LocalDateTime localDateTime = LocalDateTime.parse(shelfTimeStr, formatter);
 					shelfTime = Timestamp.valueOf(localDateTime);
+					System.out.println(shelfTime);
 				} catch (DateTimeParseException e) {
 					e.printStackTrace();
 					errorMsgs.put("errShelfTime", "上架時間請勿空白");
@@ -721,13 +755,14 @@ public class ProductServlet extends HttpServlet {
 			}
 
 			java.sql.Timestamp offsaleTime = null;
-			String offsaleTimeStr = req.getParameter("uptime");
+			String offsaleTimeStr = req.getParameter("downtime");
 			if (offsaleTimeStr != null && offsaleTimeStr != "") {
 				try {
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 					LocalDateTime localDateTime = LocalDateTime.parse(offsaleTimeStr, formatter);
 					System.out.println(localDateTime);
 					offsaleTime = Timestamp.valueOf(localDateTime);
+					System.out.println(offsaleTime);
 				} catch (DateTimeParseException e) {
 					e.printStackTrace();
 					errorMsgs.put("erroffsaleTime", "下架時間請勿空白");
@@ -834,7 +869,6 @@ public class ProductServlet extends HttpServlet {
 			productVO.setProductDec(productDec);
 			productVO.setProductIntroduction(productIntroduction);
 			productVO.setProductPicture(imageBytes);
-			productVO.setSaleQty(saleQty);
 			productVO.setStorageQty(storageQty);
 			productVO.setOffsaleTime(offsaleTime);
 			productVO.setShelfTime(shelfTime);
@@ -967,9 +1001,6 @@ public class ProductServlet extends HttpServlet {
 						itemMap.put("productImage", "");
 					}
 
-					String saleQty = item.getSaleQty().toString();
-					itemMap.put("saleQty", saleQty);
-
 					String productDec = item.getProductDec();
 					itemMap.put("productDec", productDec);
 
@@ -1050,7 +1081,8 @@ public class ProductServlet extends HttpServlet {
 			System.out.println(totalProductCount);
 
 			// 查询当前页的商品数据
-			List<ProductVO> listproduct = productSvc.findByKeywordWithCategorywithingredientCategoryPagination(keywords, page, pageSize);
+			List<ProductVO> listproduct = productSvc.findByKeywordWithCategorywithingredientCategoryPagination(keywords,
+					page, pageSize);
 			// 创建一个列表来存储 HashMap
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 			for (ProductVO item : listproduct) {
@@ -1081,9 +1113,6 @@ public class ProductServlet extends HttpServlet {
 						// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 						itemMap.put("productImage", "");
 					}
-
-					String saleQty = item.getSaleQty().toString();
-					itemMap.put("saleQty", saleQty);
 
 					String productDec = item.getProductDec();
 					itemMap.put("productDec", productDec);
@@ -1152,7 +1181,7 @@ public class ProductServlet extends HttpServlet {
 			// 查询全部商品
 			ProductService productSvc = new ProductService();
 			List<ProductVO> totallistproduct = productSvc.findByKeywordWithCategorywithkitchCategory(keywords);
-			
+
 			// 遍历商品数据
 			for (ProductVO item : totallistproduct) {
 				Timestamp shelfTimes = item.getShelfTime();
@@ -1166,7 +1195,8 @@ public class ProductServlet extends HttpServlet {
 			System.out.println(totalProductCount);
 
 			// 查询当前页的商品数据
-			List<ProductVO> listproduct = productSvc.findByKeywordWithCategorywithkitchCategoryPagination(keywords, page, pageSize);
+			List<ProductVO> listproduct = productSvc.findByKeywordWithCategorywithkitchCategoryPagination(keywords,
+					page, pageSize);
 			// 创建一个列表来存储 HashMap
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 			for (ProductVO item : listproduct) {
@@ -1197,9 +1227,6 @@ public class ProductServlet extends HttpServlet {
 						// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 						itemMap.put("productImage", "");
 					}
-
-					String saleQty = item.getSaleQty().toString();
-					itemMap.put("saleQty", saleQty);
 
 					String productDec = item.getProductDec();
 					itemMap.put("productDec", productDec);
@@ -1252,6 +1279,21 @@ public class ProductServlet extends HttpServlet {
 			res.setContentType("application/json; charset :UTF-8");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jsonData);
+		}
+	}
+
+	private void incrementProductSearchCount(int productNo) {
+		JedisPool jedisPool = JedisUtil.getJedisPool();
+		Jedis jedis = jedisPool.getResource();
+		try {
+			jedis.select(2);
+			String productKey = "product:" + productNo;
+			jedis.hincrBy(productKey, "searchCount", 1);
+			System.out.println("success");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jedis.close();
 		}
 	}
 

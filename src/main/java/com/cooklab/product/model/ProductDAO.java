@@ -24,4 +24,6 @@ public interface ProductDAO {
     
     public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize);
     public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize);
+    public List<ProductVO> findTopSearchCountProduct();
+    
 }

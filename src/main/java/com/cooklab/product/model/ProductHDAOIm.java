@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
 import com.cooklab.util.HibernateUtil;
 
@@ -350,7 +351,7 @@ public class ProductHDAOIm implements ProductDAO {
 			criteria.add(disjunction);
 
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			
+
 			int startIndex = (page - 1) * pageSize;
 			criteria.setFirstResult(startIndex);
 			criteria.setMaxResults(pageSize);
@@ -388,7 +389,7 @@ public class ProductHDAOIm implements ProductDAO {
 			criteria.add(disjunction);
 
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-			
+
 			int startIndex = (page - 1) * pageSize;
 			criteria.setFirstResult(startIndex);
 			criteria.setMaxResults(pageSize);
@@ -402,6 +403,27 @@ public class ProductHDAOIm implements ProductDAO {
 			session.getTransaction().rollback();
 		} finally {
 			HibernateUtil.shutdown();
+		}
+		return null;
+	}
+
+	@Override
+	public List<ProductVO> findTopSearchCountProduct() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			// 编写 Hibernate 查询语句来查询搜索次数最高的商品
+			String hql = "SELECT p FROM ProductVO p ORDER BY p.searchCount DESC";
+			Query<ProductVO> query = session.createQuery(hql, ProductVO.class);
+			query.setMaxResults(10); // 限制返回的结果数为前10个商品
+			List<ProductVO> topProducts = query.getResultList();
+			session.getTransaction().commit();
+			return topProducts;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			// HibernateUtil.shutdown(); // 最好不要在这里关闭 Hibernate SessionFactory
 		}
 		return null;
 	}

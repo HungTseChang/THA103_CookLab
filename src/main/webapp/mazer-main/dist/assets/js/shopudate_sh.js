@@ -37,9 +37,9 @@ $(document).ready(function() {
 			// 使用返回的商品详细信息填充表单字段
 			$("#productname-vertical").val(data.productName);
 			$("#productprice-vertical").val(data.productPrice);
-			$("#saleQty-vertical").val(data.saleQty);
 			$("#storageQty-vertical").val(data.storageQty);
 			$("#selectedPart").val(data.selectedPart);
+			$("#searchCount-vertical").val(data.searchCount);
 			$("#preview img.preview_img").attr("src", "data:image/jpeg;base64," + data.productImage);
 
 			// 从服务器端接收的数据
@@ -143,7 +143,6 @@ $("#update").click(function(e) {
 	// 添加表单数据到 FormData 对象
 	formData.append("productname", $("#productname-vertical").val());
 	formData.append("productprice", $("#productprice-vertical").val());
-	formData.append("saleQty", $("#saleQty-vertical").val());
 	formData.append("storageQty", $("#storageQty-vertical").val());
 	formData.append("uptime", $("#uptime-vertical").val());
 	formData.append("downtime", $("#downtime-vertical").val());
@@ -186,13 +185,6 @@ $("#update").click(function(e) {
 				} else {
 					$("#productprice-error").text("");
 				}
-
-				if (response.errSaleQty) {
-					$("#productSaleqty-error").text(response.errSaleQty);
-				} else {
-					$("#productSaleqty-error").text("");
-				}
-
 				if (response.errStorageQty) {
 					$("#productQty-error").text(response.errStorageQty);
 				} else {

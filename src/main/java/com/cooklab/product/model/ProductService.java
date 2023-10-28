@@ -24,7 +24,6 @@ public class ProductService {
 		productVO.setProductDec(productDec);
 		productVO.setProductIntroduction(productIntroduction);
 		productVO.setProductPrice(productPrice);
-		productVO.setSaleQty(saleQty);
 		productVO.setOffsaleTime(offsaleTime);
 		productVO.setShelfTime(shelfTime);
 		productVO.setStorageQty(storageQty);
@@ -48,7 +47,6 @@ public class ProductService {
 		productVO.setProductDec(productDec);
 		productVO.setProductIntroduction(productIntroduction);
 		productVO.setProductPrice(productPrice);
-		productVO.setSaleQty(saleQty);
 		productVO.setOffsaleTime(offsaleTime);
 		productVO.setShelfTime(shelfTime);
 		productVO.setStorageQty(storageQty);
@@ -125,5 +123,9 @@ public class ProductService {
     }
     public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize){
     	return dao.findByKeywordWithCategorywithkitchCategoryPagination(keyword,page,pageSize);
+    }
+    
+    public List<ProductVO> findTopSearchCountProduct(){
+    	return dao.findTopSearchCountProduct();
     }
 }

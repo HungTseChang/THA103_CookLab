@@ -76,28 +76,7 @@ function renderData(data) {
 			event.preventDefault(); // 阻止默认的链接跳转行为
 
 			const productId = this.getAttribute('data-product-id'); // 获取商品ID
-			const requestData = {
-				action: 'getDetail', // 指定要调用的方法
-				productNo: productId // 商品的ID，根据您的需要设置
-			};
-			$.ajax({
-				url: '/CookLab/ProductServlet', // 服务器端URL
-				type: 'GET', // 使用GET请求
-				data: requestData, // 发送的参数
-				dataType: 'json', // 预期的响应数据类型
-				success: function(response) {
-					// 在成功回调中处理从服务器获取的商品详细信息
-					// 这里的response参数包含了您在Servlet中返回的JSON数据
-					// 您可以访问其中的字段，例如：response.productName, response.productPrice 等
-					console.log(response);
-
-					// 跳转到商品详情页面，传递商品ID作为查询参数
-					window.location.href = './shop-details.html?productNo=' + productId;
-				},
-				error: function(xhr) {
-					console.log('AJAX请求失败：' + xhr.status);
-				}
-			});
+			window.location.href = './shop-details.html?productNo=' + productId;
 		});
 		// 为每个购物车图标添加事件监听器
 		icon.addEventListener('click', function(event) {

@@ -76,7 +76,6 @@ $("#insert").click(function(e) {
 	// 添加表单数据到 FormData 对象
 	formData.append("productname", $("#productname-vertical").val());
 	formData.append("productprice", $("#productprice-vertical").val());
-	formData.append("saleQty", $("#saleQty-vertical").val());
 	formData.append("storageQty", $("#storageQty-vertical").val());
 	formData.append("uptime", $("#uptime-vertical").val());
 	formData.append("downtime", $("#downtime-vertical").val());
@@ -121,13 +120,6 @@ $("#insert").click(function(e) {
 				} else {
 					$("#productprice-error").text("");
 				}
-
-				if (response.errSaleQty) {
-					$("#productSaleqty-error").text(response.errSaleQty);
-				} else {
-					$("#productSaleqty-error").text("");
-				}
-
 				if (response.errStorageQty) {
 					$("#productQty-error").text(response.errStorageQty);
 				} else {

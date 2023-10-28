@@ -31,10 +31,7 @@ public class ProductVO implements java.io.Serializable {
 	
 	@Column(name = "product_picture" ,columnDefinition = "longblob")
 	private byte[]  productPicture;
-	
-	@Column(name = "sale_qty")
-	private Integer saleQty;
-	
+		
 	@Column(name = "product_dec",columnDefinition = "longtext")
 	private String productDec;
 	
@@ -137,7 +134,6 @@ public class ProductVO implements java.io.Serializable {
 		super();
 		this.productNo = productNo;
 		this.productName = productName;
-		this.saleQty = saleQty;
 		this.productDec = productDec;
 		this.productIntroduction = productIntroduction;
 		this.productPrice = productPrice;
@@ -166,13 +162,6 @@ public class ProductVO implements java.io.Serializable {
 		this.productName = productName;
 	}
 
-	public Integer getSaleQty() {
-		return saleQty;
-	}
-
-	public void setSaleQty(Integer saleQty) {
-		this.saleQty = saleQty;
-	}
 
 	public String getProductDec() {
 		return productDec;
@@ -254,14 +243,6 @@ public class ProductVO implements java.io.Serializable {
 		this.createdTimestamp = createdTimestamp;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductVO [productNo=" + productNo + ", productName=" + productName + ", saleQty=" + saleQty
-				+ ", productDec=" + productDec + ", productIntroduction=" + productIntroduction + ", productPrice="
-				+ productPrice + ", offsaleTime=" + offsaleTime + ", shelfTime=" + shelfTime + ", storageQty="
-				+ storageQty + ", ingredientCategoryNo=" + ingredientCategoryNo + ", kitchenwareCategoryNo="
-				+ kitchenwareCategoryNo + ", searchCount=" + searchCount + ", createdTimestamp=" + createdTimestamp
-				+ "]";
-	}
+
 
 }

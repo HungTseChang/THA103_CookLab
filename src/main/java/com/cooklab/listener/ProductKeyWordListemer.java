@@ -1,5 +1,6 @@
 package com.cooklab.listener;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -44,11 +45,11 @@ public class ProductKeyWordListemer implements ServletContextListener {
 //		scheduler.scheduleAtFixedRate(() -> {
 //			generateDailyRandomProductList();
 //		}, initialDelay, 24, TimeUnit.HOURS);
-		
+
 		scheduler.scheduleWithFixedDelay(() -> {
-		    // 在这里编写你的任务逻辑，每次任务完成后会等待10分钟再次触发
-		    // 例如，你可以在这里调用生成每日随机商品列表的方法
-		    generateDailyRandomProductList();
+			// 在这里编写你的任务逻辑，每次任务完成后会等待10分钟再次触发
+			// 例如，你可以在这里调用生成每日随机商品列表的方法
+			generateDailyRandomProductList();
 		}, 0, 10, TimeUnit.MINUTES);
 	}
 
@@ -68,7 +69,6 @@ public class ProductKeyWordListemer implements ServletContextListener {
 		targetTime.set(Calendar.SECOND, targetSecond);
 
 		if (now > targetTime.getTimeInMillis()) {
-			// 如果当前时间已经超过了目标时间，就将目标时间推迟到明天
 			targetTime.add(Calendar.DAY_OF_MONTH, 1);
 		}
 
@@ -78,33 +78,40 @@ public class ProductKeyWordListemer implements ServletContextListener {
 	// 编写生成每日随机商品列表的方法
 	private void generateDailyRandomProductList() {
 		System.out.println("監聽器 - 產生隨機商品熱搜關鍵字");
-		ProductService productSvc = new ProductService();
-		List<ProductVO> listproduct = productSvc.getAll();
-		List<String> allProductNames = listproduct.stream().map(ProductVO::getProductName).collect(Collectors.toList());
 
-		Random random = new Random();
-		List<String> randomProductNames = new ArrayList<>();
-
-		while (randomProductNames.size() < 6 && !allProductNames.isEmpty()) {
-			int randomIndex = random.nextInt(allProductNames.size());
-			String randomProductName = allProductNames.remove(randomIndex);
-			randomProductNames.add(randomProductName);
-		}
-
+		List<String> topSearchProductNames = getTopSearchProductNamesFromDatabase();
 		JedisPool jedisPool = JedisUtil.getJedisPool();
 		Jedis jedis = jedisPool.getResource();
 
 		try {
 			jedis.select(3);
-	        jedis.del("daily_random_product_names");
-	
-			for (String productName : randomProductNames) {
+			jedis.del("daily_random_product_names");
+
+			for (String productName : topSearchProductNames) {
 				jedis.sadd("daily_random_product_names", productName);
 			}
 			System.out.println("存储到Redis成功!");
 
 		} finally {
-			jedis.close(); // 记得关闭Jedis连接，归还到连接池
+			jedis.close();
 		}
+	}
+
+	private List<String> getTopSearchProductNamesFromDatabase() {
+		ProductService productSvc = new ProductService();
+		List<ProductVO> listproduct = productSvc.findTopSearchCountProduct();
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		List<String> topSearchProductNames = new ArrayList<>(); 
+		for (ProductVO item : listproduct) {
+			Timestamp shelfTimes = item.getShelfTime();
+			Timestamp offsaleTimes = item.getOffsaleTime();
+			if (shelfTimes == null || offsaleTimes == null
+					|| (shelfTimes.before(currentTime) && currentTime.before(offsaleTimes))) {
+				String Proudctname = item.getProductName();
+				topSearchProductNames.add(Proudctname);
+			}
+
+		}
+		return topSearchProductNames;
 	}
 }

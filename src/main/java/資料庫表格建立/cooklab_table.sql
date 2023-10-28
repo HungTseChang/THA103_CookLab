@@ -150,7 +150,6 @@ CREATE TABLE kitchenware_category (
 CREATE TABLE product (
 	product_no 				INT auto_increment PRIMARY KEY,
 	product_name 			VARCHAR(20) NOT NULL,
-	sale_qty 				INT UNSIGNED NOT NULL,
 	product_dec 			LONGTEXT,
 	product_introduction	LONGTEXT,
 	product_price 			INT UNSIGNED NOT NULL,
@@ -159,7 +158,7 @@ CREATE TABLE product (
 	storage_qty    			INT NOT NULL,
 	ingredient_category_no 	INT,
 	kitchenware_category_no	INT,
-	search_count 			INT,
+	search_count 			INT DEFAULT 0,
 	product_picture         LONGBLOB,
 	created_timestamp 		DATETIME DEFAULT now(),
 	CONSTRAINT product_fk1 FOREIGN KEY (ingredient_category_no) REFERENCES ingredient_category(ingredient_category_no),
