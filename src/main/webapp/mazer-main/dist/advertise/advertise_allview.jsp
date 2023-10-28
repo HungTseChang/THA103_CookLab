@@ -235,7 +235,8 @@ td.HO_article_title {
 											<td>${adVO.advertiseName}</td>
 											<td>${adVO.advertiseShelfTime}</td>
 											<td>${adVO.advertiseOffsaleTime}</td>
-											<td>${adVO.advertiseImg}</td>
+											<td><img style="max-width: 200px; max-height: 200px;"
+												src="<%= request.getContextPath() %>/AdvertisetImgServlet?advertiseNo=${adVO.advertiseNo}"></td>
 											<td>${adVO.advertiseUrl}</td>
 											<td>${adVO.createdTimestamp}</td>
 											<td>

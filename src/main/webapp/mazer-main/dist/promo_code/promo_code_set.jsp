@@ -3,9 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.promo_code.model.*"%>
+<%@ page import="java.util.Random"%>
+<%@ page import="java.security.SecureRandom"%>
+
 <%
 PromoCodeVO promoCodeVO = (PromoCodeVO) request.getAttribute("promoCodeVO");
+PromoCodeRandom PromoCodeRandom = new PromoCodeRandom();
+String a = PromoCodeRandom.generateRandomString(10);
+
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +64,8 @@ input.WCC_memeber_info {
 </style>
 </head>
 <body>
+
+
 	<div id="app">
 		<div id="sidebar" class="active">
 			<div class="sidebar-wrapper active">
@@ -200,49 +209,32 @@ input.WCC_memeber_info {
 										</div>
 										<div class="card-content">
 											<div class="card-body">
+												
 												<form class="form form-horizontal" METHOD="post"
 													ACTION="<%=request.getContextPath()%>/PromoCodeServlet">
 													<div class="form-body">
 														<div class="row">
-															<!--  				
-															<div class="col-md-4">
-																<label>優惠碼編號</label>
-															</div>
-															<div class="col-md-8 form-group">
-																<input type="text" class="GCpromo_info" id="promo_id"
-																	name="promo_info" value="000001">
-																	
-															</div>
-															<div class="col-md-4">
-																<label>優惠碼名稱</label>
-															</div>
-															<div class="col-md-8 form-group">
-																<input type="text" id="promo_name" class="GCpromo_info"
-																	name="promo_info" value="滿兩千免運費">
-															</div>
-															-->
+
 															<div class="col-md-4">
 																<label>優惠碼序號</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" id="" class="GCpromo_info"
-																	name="promo_code_serial_number" value="">
+																	name="promo_code_serial_number" value="<%=a%>" disabled >
 															</div>
 															<div class="col-md-4">
 																<label>生效時間</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="datetime-local" step="1"
-																	class="GCpromo_info" name="start_time" id=""
-																	value="">
+																	class="GCpromo_info" name="start_time" id="" value="">
 															</div>
 															<div class="col-md-4">
 																<label>失效時間</label>
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="datetime-local" step="1"
-																	class="GCpromo_info" name="end_time" id=""
-																	value="">
+																	class="GCpromo_info" name="end_time" id="" value="">
 															</div>
 															<div class="col-md-4">
 																<label>百分比折價金額</label>
@@ -338,11 +330,14 @@ input.WCC_memeber_info {
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
-
-
-
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
+
+	<script>
+		
+	</script>
+
+
 </body>
 
 

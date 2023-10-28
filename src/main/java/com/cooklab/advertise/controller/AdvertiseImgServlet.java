@@ -2,6 +2,7 @@ package com.cooklab.advertise.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,9 @@ import javax.servlet.http.*;
 import javax.sql.DataSource;
 
 @WebServlet("/AdvertisetImgServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+maxFileSize = 1024 * 1024 * 10,      // 10MB
+maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class AdvertiseImgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,9 +35,10 @@ public class AdvertiseImgServlet extends HttpServlet {
 		try {
 			Statement stmt = con.createStatement();
 			String advertiseNo = req.getParameter("advertiseNo").trim();
-			ResultSet rs = stmt.executeQuery("SELECT advertise_img FROM product WHERE advertise_no = " + advertiseNo);
+			System.out.println("XXX"+advertiseNo);
+			ResultSet rs = stmt.executeQuery("SELECT advertise_img FROM advertise WHERE advertise_no = " + advertiseNo);
 //			"SELECT IMAGE FROM PICTURES WHERE PID = " + req.getParameter("PID")
-
+			System.out.println(rs);
 			if (rs.next()) {
 				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("advertise_img"));
 				byte[] buf = new byte[4 * 1024]; // 4K buffer
@@ -67,7 +72,7 @@ public class AdvertiseImgServlet extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2"); // p.182 -->Server/context.xml-->line21
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CookLab"); // p.182 -->Server/context.xml-->line21
 																					// -->jdbc/TestDB2
 			con = ds.getConnection();
 		} catch (NamingException e) {

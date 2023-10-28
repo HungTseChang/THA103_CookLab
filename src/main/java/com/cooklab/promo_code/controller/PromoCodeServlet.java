@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cooklab.promo_code.model.PromoCodeService;
 import com.cooklab.promo_code.model.PromoCodeVO;
-
+import java.util.Random;
+import java.security.SecureRandom;
 
 
 
@@ -40,7 +41,6 @@ public class PromoCodeServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
 		
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
@@ -149,11 +149,11 @@ public class PromoCodeServlet extends HttpServlet {
 			} else {
 				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
-			String promoCodeSerialNumberReg = "^[(a-zA-Z0-9_)]{2,10}$";
+			String promoCodeSerialNumberReg = "^[(a-zA-Z0-9_)]{10}$";
 			if (promoCodeSerialNumber == null || promoCodeSerialNumber.trim().length() == 0) {
 				errorMsgs.add("優惠碼編號: 請勿空白");
 			} else if (!promoCodeSerialNumber.trim().matches(promoCodeSerialNumberReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("優惠碼編號: 只能是英數字 , 且長度必需在2到10之間");
+				errorMsgs.add("優惠碼編號: 只能是英數字 , 且長度必需為10個字元");
 			}
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
 //			byte[] coverImage = null;
