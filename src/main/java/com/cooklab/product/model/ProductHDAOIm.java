@@ -1,16 +1,16 @@
 package com.cooklab.product.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import javax.persistence.TypedQuery;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
@@ -155,36 +155,50 @@ public class ProductHDAOIm implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize) {
+	public Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(ProductVO.class);
-			Disjunction disjunction = Restrictions.disjunction();
-			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
-					Restrictions.like("productDec", "%" + keyword + "%"),
-					Restrictions.like("productIntroduction", "%" + keyword + "%")));
+			String hql = "FROM ProductVO p WHERE " + "p.productName LIKE :keyword OR "
+					+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword";
 
-			criteria.add(disjunction);
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			// 加入上下架时间的筛选
+			long currentTimestamp = System.currentTimeMillis();
+			hql += " AND p.shelfTime <= :currentTimestamp";
+			hql += " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
 
-			// 计算起始索引
-			int startIndex = (page - 1) * pageSize;
-			// 设置起始索引和最大结果数
-			criteria.setFirstResult(startIndex);
-			criteria.setMaxResults(pageSize);
+			// 按照编码排序
+			hql += " ORDER BY p.productNo";
 
-			List<ProductVO> products = criteria.list();
+			TypedQuery<ProductVO> query = session.createQuery(hql, ProductVO.class);
+			query.setParameter("keyword", "%" + keyword + "%");
+			query.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
+			query.setFirstResult((page - 1) * pageSize);
+			query.setMaxResults(pageSize);
+
+			List<ProductVO> products = query.getResultList();
+
+			// 构建独立的计数查询
+			String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "p.productName LIKE :keyword OR "
+					+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword"
+					+ " AND p.shelfTime <= :currentTimestamp"
+					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
+			TypedQuery<Long> countQuery = session.createQuery(countHql, Long.class);
+			countQuery.setParameter("keyword", "%" + keyword + "%");
+			countQuery.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
+			Long totalProductCount = countQuery.getSingleResult();
 
 			session.getTransaction().commit();
-			return products;
+			Pair<List<ProductVO>, Long> pair = new Pair<>(products, totalProductCount);
+			return pair;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
 			HibernateUtil.shutdown();
 		}
+
 		return null;
 	}
 
@@ -195,215 +209,148 @@ public class ProductHDAOIm implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductVO> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
+	public Pair<List<ProductVO>, Long> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Criteria criteria = session.createCriteria(ProductVO.class);
+
+			String hql = "SELECT p FROM ProductVO p WHERE ";
 			if (type == 1) {
-				criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
+				hql += "p.ingredientCategoryNo IS NOT NULL";
 			} else {
-				criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
+				hql += "p.kitchenwareCategoryNo IS NOT NULL";
 			}
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+			long currentTimestamp = System.currentTimeMillis();
+			hql += " AND p.shelfTime <= :currentTimestamp";
+			hql += " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
+
+			hql += " ORDER BY p.productNo";
+
+			TypedQuery<ProductVO> query = session.createQuery(hql, ProductVO.class);
+			query.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
+			query.setFirstResult((page - 1) * pageSize);
+			query.setMaxResults(pageSize);
+
+			List<ProductVO> products = query.getResultList();
+
+			// 获取符合条件的总数
+			String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE ";
+			if (type == 1) {
+				countHql += "p.ingredientCategoryNo IS NOT NULL";
+			} else {
+				countHql += "p.kitchenwareCategoryNo IS NOT NULL";
+			}
+			countHql += " AND p.shelfTime <= :currentTimestamp";
+			countHql += " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
+			TypedQuery<Long> countQuery = session.createQuery(countHql, Long.class);
+			countQuery.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
+			Long totalProductCount = countQuery.getSingleResult();
+
+			session.getTransaction().commit();
+			Pair<List<ProductVO>, Long> pair = new Pair<List<ProductVO>, Long>(products, totalProductCount);
+			return pair;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
+		}
+
+		return null;
+	}
+
+	@Override
+	public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithingredientCategoryPagination(String keyword,
+			int page, int pageSize) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+
+			String hql = "SELECT p FROM ProductVO p WHERE " + "(p.productName LIKE :keyword OR "
+					+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword) AND "
+					+ "p.kitchenwareCategoryNo IS NOT NULL AND " + "p.shelfTime <= :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp) " + "ORDER BY p.productNo ASC";
+
+			TypedQuery<ProductVO> query = session.createQuery(hql, ProductVO.class);
+			query.setParameter("keyword", "%" + keyword + "%");
+			query.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
+
 			int startIndex = (page - 1) * pageSize;
-			criteria.setFirstResult(startIndex);
-			criteria.setMaxResults(pageSize);
-			List<ProductVO> products = criteria.list();
+			query.setFirstResult(startIndex);
+			query.setMaxResults(pageSize);
+
+			List<ProductVO> products = query.getResultList();
+
+			// 获取符合条件的总数
+			String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "(p.productName LIKE :keyword OR "
+					+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword) AND "
+					+ "p.kitchenwareCategoryNo IS NOT NULL AND " + "p.shelfTime <= :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
+
+			TypedQuery<Long> countQuery = session.createQuery(countHql, Long.class);
+			countQuery.setParameter("keyword", "%" + keyword + "%");
+			countQuery.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
+			Long totalProductCount = countQuery.getSingleResult();
+
 			session.getTransaction().commit();
-			return products;
+			Pair<List<ProductVO>, Long> pair = new Pair<List<ProductVO>, Long>(products, totalProductCount);
+
+			return pair;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
 			HibernateUtil.shutdown();
 		}
+
 		return null;
 	}
 
 	@Override
-	public List<ProductVO> getIngerdAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(ProductVO.class);
-			criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
-
-			List<ProductVO> products = criteria.list();
-
-			session.getTransaction().commit();
-			return products;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
-	}
-
-	@Override
-	public List<ProductVO> getkitchAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(ProductVO.class);
-			criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
-
-			List<ProductVO> products = criteria.list();
-
-			session.getTransaction().commit();
-			return products;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
-	}
-
-	@Override
-	public List<ProductVO> findByKeywordWithCategorywithingredientCategory(String keyword) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(ProductVO.class);
-
-			Disjunction disjunction = Restrictions.disjunction();
-
-			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
-					Restrictions.like("productDec", "%" + keyword + "%"),
-					Restrictions.like("productIntroduction", "%" + keyword + "%")));
-
-			criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
-
-			criteria.add(disjunction);
-
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-			List<ProductVO> products = criteria.list();
-
-			session.getTransaction().commit();
-			return products;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
-	}
-
-	@Override
-	public List<ProductVO> findByKeywordWithCategorywithkitchCategory(String keyword) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(ProductVO.class);
-
-			Disjunction disjunction = Restrictions.disjunction();
-
-			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
-					Restrictions.like("productDec", "%" + keyword + "%"),
-					Restrictions.like("productIntroduction", "%" + keyword + "%")));
-
-			criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
-
-			criteria.add(disjunction);
-
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-			List<ProductVO> products = criteria.list();
-
-			session.getTransaction().commit();
-			return products;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
-		return null;
-	}
-
-	@Override
-	public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page,
+	public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page,
 			int pageSize) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(ProductVO.class);
+			String hql = "SELECT p FROM ProductVO p WHERE " + "(p.productName LIKE :keyword OR "
+					+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword) AND "
+					+ "p.kitchenwareCategoryNo IS NOT NULL AND " + "p.shelfTime <= :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp) " + "ORDER BY p.productNo ASC";
 
-			Disjunction disjunction = Restrictions.disjunction();
-
-			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
-					Restrictions.like("productDec", "%" + keyword + "%"),
-					Restrictions.like("productIntroduction", "%" + keyword + "%")));
-
-			criteria.add(Restrictions.isNotNull("ingredientCategoryNo"));
-
-			criteria.add(disjunction);
-
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			TypedQuery<ProductVO> query = session.createQuery(hql, ProductVO.class);
+			query.setParameter("keyword", "%" + keyword + "%");
+			query.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
 
 			int startIndex = (page - 1) * pageSize;
-			criteria.setFirstResult(startIndex);
-			criteria.setMaxResults(pageSize);
+			query.setFirstResult(startIndex);
+			query.setMaxResults(pageSize);
 
-			List<ProductVO> products = criteria.list();
+			List<ProductVO> products = query.getResultList();
+
+			// 获取符合条件的总数
+			String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "(p.productName LIKE :keyword OR "
+					+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword) AND "
+					+ "p.kitchenwareCategoryNo IS NOT NULL AND " + "p.shelfTime <= :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
+
+			TypedQuery<Long> countQuery = session.createQuery(countHql, Long.class);
+			countQuery.setParameter("keyword", "%" + keyword + "%");
+			countQuery.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
+			Long totalProductCount = countQuery.getSingleResult();
 
 			session.getTransaction().commit();
-			return products;
+			Pair<List<ProductVO>, Long> pair = new Pair<List<ProductVO>, Long>(products, totalProductCount);
+
+			return pair;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		} finally {
 			HibernateUtil.shutdown();
 		}
-		return null;
-	}
 
-	@Override
-	public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page,
-			int pageSize) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(ProductVO.class);
-
-			Disjunction disjunction = Restrictions.disjunction();
-
-			criteria.add(Restrictions.or(Restrictions.like("productName", "%" + keyword + "%"),
-					Restrictions.like("productDec", "%" + keyword + "%"),
-					Restrictions.like("productIntroduction", "%" + keyword + "%")));
-
-			criteria.add(Restrictions.isNotNull("kitchenwareCategoryNo"));
-
-			criteria.add(disjunction);
-
-			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-
-			int startIndex = (page - 1) * pageSize;
-			criteria.setFirstResult(startIndex);
-			criteria.setMaxResults(pageSize);
-
-			List<ProductVO> products = criteria.list();
-
-			session.getTransaction().commit();
-			return products;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			HibernateUtil.shutdown();
-		}
 		return null;
 	}
 
@@ -419,6 +366,43 @@ public class ProductHDAOIm implements ProductDAO {
 			List<ProductVO> topProducts = query.getResultList();
 			session.getTransaction().commit();
 			return topProducts;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			// HibernateUtil.shutdown(); // 最好不要在这里关闭 Hibernate SessionFactory
+		}
+		return null;
+	}
+
+	@Override
+	public Pair<List<ProductVO>, Long> findHotTopSearchCountProduct(int page, int pageSize) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			String hql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "p.searchCount > 0 AND "
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp)";
+
+			TypedQuery<Long> countQuery = session.createQuery(hql, Long.class);
+			countQuery.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
+			Long totalProductCount = countQuery.getSingleResult();
+
+			String hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount > 0 AND "
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " + "ORDER BY p.searchCount DESC";
+			TypedQuery<ProductVO> query = session.createQuery(hql2, ProductVO.class);
+			query.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
+			query.setFirstResult((page - 1) * pageSize);
+			query.setMaxResults(pageSize);
+
+			List<ProductVO> products = query.getResultList();
+
+			session.getTransaction().commit();
+
+			Pair<List<ProductVO>, Long> pair = new Pair<List<ProductVO>, Long>(products, totalProductCount);
+			return pair;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();

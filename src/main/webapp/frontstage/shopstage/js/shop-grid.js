@@ -1,31 +1,34 @@
 $(document).ready(function() {
-	// 获取URL中的查询关键字
+	
+	//url參數獲取
 	const urlParams = new URLSearchParams(window.location.search);
 	let keyword = urlParams.get("keyword");
 
+	//搜尋參數設定
+	let currentAction = "searchkeyword" //行為設定
+	let hotkey = "";	//熱門搜尋設定
+	
+	
+	let currentPage = 1; // 當前頁數
+	let pageSize = 6; // 每頁數量
+	let totalProductCount = 0; // 商品總數量
+	let totalPages = 0; // 總頁數
 
-	let currentAction = "searchkeyword"
-
-	// 首先定义全局变量
-	let currentPage = 1; // 当前页码
-	let pageSize = 6; // 每页显示的商品数量
-	let totalProductCount = 0; // 商品总数量
-	let totalPages = 0; // 总页数
-
-	// 获取分页按钮元素
+	//分頁按鈕
 	const previousPageButton = $("#previous-page");
 	const nextPageButton = $("#next-page");
 
-	// 发起AJAX请求以获取搜索结果
+	//搜尋功能
 	function loadPage(currentPage, action) {
 		$.ajax({
-			url: "/CookLab/ProductServlet", // 用于搜索的Servlet地址
+			url: "/CookLab/ProductServlet", 
 			type: "GET",
 			data: {
 				keywords: keyword,
 				action: action,
-				page: currentPage, // 传递当前页码
-				pageSize: pageSize, // 传递每页显示数量
+				page: currentPage, // 當前頁數
+				pageSize: pageSize, // 每頁數量
+				hotkey : hotkey, //熱門搜尋參數設定
 			},
 			dataType: "json",
 			success: function(data) {
@@ -72,63 +75,64 @@ $(document).ready(function() {
 
 					const h6 = document.createElement("h6");
 					const aTitle = document.createElement("a");
-					aTitle.href = '#'; // 添加商品链接
-					aTitle.textContent = result.productName; // 添加商品名称
-					aTitle.setAttribute('data-product-id', result.productNo); // 设置商品的ID
+					aTitle.href = '#'; 
+					aTitle.textContent = result.productName; 
+					aTitle.setAttribute('data-product-id', result.productNo); 
 					h6.appendChild(aTitle);
 					textDiv.appendChild(h6);
 
 					const h5 = document.createElement('h5');
-					h5.textContent = `$${result.productPrice}`; // 添加商品价格
+					h5.textContent = `$${result.productPrice}`; 
 					textDiv.appendChild(h5);
 
-					// 将新创建的商品元素添加到页面
+
 					const productDetailsContainer = document.getElementById('product-container');
 					productDetailsContainer.appendChild(productContainer);
-					// 为每个商品标题添加事件监听器
+
 					aTitle.addEventListener('click', function(event) {
-						event.preventDefault(); // 阻止默认的链接跳转行为
-						const productId = this.getAttribute('data-product-id'); // 获取商品ID
+						event.preventDefault(); 
+						const productId = this.getAttribute('data-product-id'); 
 						window.location.href = './shop-details.html?productNo=' + productId;
 					});
-					// 为每个购物车图标添加事件监听器
-					icon.addEventListener('click', function(event) {
-						event.preventDefault(); // 阻止默认的按钮点击行为
 
-						const productId = aTitle.getAttribute('data-product-id'); // 获取商品ID
+					icon.addEventListener('click', function(event) {
+						event.preventDefault(); 
+
+						const productId = aTitle.getAttribute('data-product-id'); 
 						const requestData = {
-							action: 'buttonadd1', // 指定要调用的方法，例如 'addToCart'
-							productNo: productId, // 商品的ID
+							action: 'buttonadd1', 
+							productNo: productId, 
 							quantity: 1
 						};
 						console.log(requestData);
 						console.log(productId);
 						$.ajax({
-							url: '/CookLab/CartServlet', // 服务器端URL
-							type: 'GET', // 使用GET请求
-							data: requestData, // 发送的参数
-							dataType: 'json', // 预期的响应数据类型
+							url: '/CookLab/CartServlet', 
+							type: 'GET', 
+							data: requestData, 
+							dataType: 'json', 
 							success: function(response) {
-								// 处理成功添加到购物车的响应
-								console.log('商品已添加到购物车');
+								
+								console.log('商品添加到購物車囉');
 								alert("商品添加到購物車囉");
 							},
 							error: function(xhr) {
-								console.log('AJAX请求失败：' + xhr.status);
+								console.log('AJAX：' + xhr.status);
 							}
 						});
 					});
 
 				});
-				// 更新总商品数量和页数
+				
+				// 更新商品總數 頁數
 				totalProductCount = data[0].totalProductCount;
 				totalPages = Math.ceil(totalProductCount / pageSize);
 				console.log(totalPages);
-				// 更新分页按钮状态
+				// 更新分頁按鈕狀態
 				updatePaginationButtons();
 			},
 			error: function(xhr) {
-				console.log("请求失败，状态码：" + xhr.status);
+				console.log("error：" + xhr.status);
 				console.log(xhr.responseText);
 				console.log(xhr);
 			},
@@ -138,7 +142,7 @@ $(document).ready(function() {
 	function updatePaginationButtons() {
 		const paginationContainer = $("#pagination-container");
 		const paginationList = paginationContainer.find(".pagination");
-		paginationList.empty(); // 清空分页按钮
+		paginationList.empty(); 
 		if (totalPages <= 1) {
 			paginationContainer.hide();
 		} else {
@@ -148,17 +152,17 @@ $(document).ready(function() {
 				if (currentPage > 1) {
 					currentPage--;
 					loadPage(currentPage, currentAction);
-					updatePaginationButtons(); // 更新按钮状态
+					updatePaginationButtons(); 
 				}
 			});
 			paginationList.append(previousButton);
-			// 添加数字页码按钮
+			
 			for (let page = 1; page <= totalPages; page++) {
 				const pageButton = $(`<li class='page-item'><a class='page-link' href='#'>${page}</a></li>`);
 				pageButton.click(function() {
 					loadPage(page, currentAction);
-					currentPage = page; // 设置当前页码
-					updatePaginationButtons(); // 更新按钮状态
+					currentPage = page; 
+					updatePaginationButtons(); 
 				});
 				if (page === currentPage) {
 					pageButton.addClass("active");
@@ -170,7 +174,7 @@ $(document).ready(function() {
 				if (currentPage < totalPages) {
 					currentPage++;
 					loadPage(currentPage, currentAction);
-					updatePaginationButtons(); // 更新按钮状态
+					updatePaginationButtons(); 
 				}
 			});
 			paginationList.append(nextButton);
@@ -192,32 +196,19 @@ $(document).ready(function() {
 
 	loadPage(currentPage, currentAction);
 
-	// 监听搜索按钮的点击事件和 Enter 键的按下事件
+
 	$("#search-button").on("click keypress", function(e) {
 		if (e.type === "click" || e.which === 13) {
-			// 如果是点击事件或者 Enter 键被按下
-			// 获取搜索关键字
+
 			const newKeyword = $("#index-searchbar").val();
 			currentAction = "searchkeyword"
-			keyword = newKeyword; // 更新关键字为新的关键字
-			// 执行搜索
-			currentPage = 1; // 重置页码为第一页
+			keyword = newKeyword; 
+			currentPage = 1;
 			loadPage(currentPage, currentAction);
-			// 更新URL参数以反映新的关键字
 			const newUrl = `shop-grid.html?keyword=${newKeyword}`;
 			window.history.pushState({}, "", newUrl);
 		}
 	});
-
-	//	$("#search-button").on("click", function() {
-	//		let keyword = $("#index-searchbar").val();
-	//		console.log("搜尋功能");
-	//		// 构建跳转URL并将关键字作为查询参数传递
-	//		window.location.href = "./shop-grid.html?keyword=" + keyword;
-	//	});
-
-
-
 
 	$("#overview-button").on("click", function() {
 		console.log("總覽觸發");
@@ -267,6 +258,16 @@ $(document).ready(function() {
 		window.history.pushState({}, "", newUrl);
 	});
 
+
+	$("#hot-button").on("click", function() {
+		console.log("熱門商品");
+		currentPage = 1;
+		currentAction = "hotProduct"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
+	});
+	
 
 	//關鍵字渲染
 	fetchDataAndRender2()

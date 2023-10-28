@@ -46,13 +46,53 @@ keyframes spin { 0% {
 	transform: rotate(0deg);
 }
 100
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
 :
-rotate(
+
+
+
+
+
+
+rotate
+
+
+
+
+(
+
+
+
+
+
+
 360deg
-);
+
+
+
+
+
+
+)
+
+
+
+
+;
 }
 }
 </style>
@@ -185,20 +225,37 @@ rotate(
 					<div class="sidebar">
 						<div class="sidebar__item">
 							<h4>商品總覽</h4>
-							<!-- 大分类导航链接 -->
 							<div id="category-buttons">
-								<button class="category-button" data-category="all" id="overview-button">總覽</button>
-								<button class="category-button" data-category="ingredient" id="ingredient-button">食材</button>
-								<button class="category-button" data-category="kitchenware" id="kitchenware-button">廚具</button>
+								<button class="category-button" data-category="all"
+									id="overview-button">總覽</button>
+								<button class="category-button" data-category="hot"
+									id="hot-button">熱門商品</button>
+								<button class="category-button" data-category="ingredient"
+									id="ingredient-button">食材</button>
+								<button class="category-button" data-category="kitchenware"
+									id="kitchenware-button">廚具</button>
 							</div>
 						</div>
 						<div class="sidebar__item">
 							<h4>商品篩選</h4>
 							<!-- 大分类导航链接 -->
 							<div id="category-buttons">
-								<button class="category-button" data-category="ingredient"  id="mutilseletingredient">食材</button>
-								<button class="category-button" data-category="kitchenware" id="mutilseletkitchenware">廚具</button>
+								<button class="category-button" data-category="ingredient"
+									id="mutilseletingredient">食材</button>
+								<button class="category-button" data-category="kitchenware"
+									id="mutilseletkitchenware">廚具</button>
 							</div>
+						</div>
+						<div class="sidebar__item">
+							<h4>商品排序</h4>
+							<button class="category-button" data-category="ingredient"
+								id="time-sort">
+								按時間 <span class="sort-indicator">▲</span>
+							</button>
+							<button class="category-button" data-category="kitchenware"
+								id="price-sort">
+								按價格 <span class="sort-indicator">▼</span>
+							</button>
 						</div>
 					</div>
 				</div>

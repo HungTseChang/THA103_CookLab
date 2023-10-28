@@ -95,37 +95,28 @@ public class ProductService {
 		return dao.update(productVO);
 	}
 	
-	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize){
+	public Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize){
 		return dao.findByKeywordWithPagination(keyword, page, pageSize);
 	}
 	
-	public List<ProductVO> getIngerdAll(){
-		return dao.getIngerdAll();
-	}
-	
-	public List<ProductVO> getkitchAll(){
-		return dao.getkitchAll();
-	}
-	
-	public List<ProductVO> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
+
+	public Pair<List<ProductVO>, Long> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
 		return dao.findByCategoryKeywordWithPagination(type, page, pageSize);
 	}
 	
-    public List<ProductVO> findByKeywordWithCategorywithingredientCategory(String keyword){
-    	return dao.findByKeywordWithCategorywithingredientCategory(keyword);
-    }
-    public List<ProductVO> findByKeywordWithCategorywithkitchCategory(String keyword){
-    	return dao.findByKeywordWithCategorywithkitchCategory(keyword);
-    }
     
-    public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize){
+    public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize){
     	return dao.findByKeywordWithCategorywithingredientCategoryPagination(keyword,page,pageSize);
     }
-    public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize){
+    public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize){
     	return dao.findByKeywordWithCategorywithkitchCategoryPagination(keyword,page,pageSize);
     }
     
     public List<ProductVO> findTopSearchCountProduct(){
     	return dao.findTopSearchCountProduct();
+    }
+    
+    public Pair<List<ProductVO>, Long> findHotTopSearchCountProduct(int page, int pageSize){
+    	return dao.findHotTopSearchCountProduct(page, pageSize);
     }
 }

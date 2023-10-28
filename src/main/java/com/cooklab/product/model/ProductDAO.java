@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.cooklab.product.model.Pair;
+
+
 
 
 public interface ProductDAO {
@@ -15,15 +18,13 @@ public interface ProductDAO {
     public List<ProductVO> findByKeyword(String keyword);
     public ProductVO findByProductName(String productName, String category);
     public List<ProductVO> findByProductNames(String productName, String category);
-    public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize);
-    public List<ProductVO> findByCategoryKeywordWithPagination(int type,int page, int pageSize);
-    public List<ProductVO> getIngerdAll();
-    public List<ProductVO> getkitchAll();
-    public List<ProductVO> findByKeywordWithCategorywithingredientCategory(String keyword);
-    public List<ProductVO> findByKeywordWithCategorywithkitchCategory(String keyword);
     
-    public List<ProductVO> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize);
-    public List<ProductVO> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize);
+    
+    Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize);
+    Pair<List<ProductVO>, Long> findByCategoryKeywordWithPagination(int type,int page, int pageSize);     
+    public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize);
+    public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize);
     public List<ProductVO> findTopSearchCountProduct();
+    public Pair<List<ProductVO>, Long> findHotTopSearchCountProduct(int page, int pageSize);
     
 }
