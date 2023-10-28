@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "/THA103_CookLab/SupportFormAjax",
+      url: "/THA103_CookLab/SupportFormServlet",
       data: data,
       dataType: "json",
       success: function (data) {

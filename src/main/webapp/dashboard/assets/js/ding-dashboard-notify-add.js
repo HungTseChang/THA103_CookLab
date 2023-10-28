@@ -20,7 +20,7 @@ let notifyadd = function () {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/NotifyCenterAjax",
+    url: "/THA103_CookLab/NotifyCenterServlet",
     data: data,
     dataType: "json",
     success: function (data) {

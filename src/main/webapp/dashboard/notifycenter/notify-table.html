@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CookLab控制台-問題表單</title>
+    <title>CookLab控制台-系統通知</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
@@ -31,20 +31,20 @@
               </div>
             </div>
           </div>
-          <!-- 側邊欄位起始 -->
           <div class="sidebar-menu">
             <ul class="menu">
               <li class="sidebar-title">Menu</li>
+
               <!-- ============================================================================================== -->
               <li class="sidebar-item">
-                <a href="WCC_Homepage.jsp" class="sidebar-link">
+                <a href="WCC_Homepage.html" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
                   <span>後台首頁</span>
                 </a>
               </li>
 
               <li class="sidebar-item">
-                <a href="WCC_memeber.jsp" class="sidebar-link">
+                <a href="WCC_memeber.html" class="sidebar-link">
                   <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                   <span>會員管理</span>
                 </a>
@@ -57,11 +57,11 @@
                 </a>
                 <ul class="submenu">
                   <li class="submenu-item">
-                    <a href="WCC_admin_management.jsp">管理管理者</a>
+                    <a href=".\WCC_permission_management.html">管理管理者</a>
                   </li>
 
                   <li class="submenu-item">
-                    <a href="WCC_permission.jsp">創立權限規則</a>
+                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
                   </li>
                 </ul>
               </li>
@@ -160,18 +160,17 @@
                   <li class="submenu-item">
                     <a href="WCC_article_report.html">討論區檢舉</a>
                   </li>
-                  <li class="submenu-item">
-                    <a href="WCC_official_notify.html">系統通知</a>
-                  </li>
                   <li class="submenu-item active">
-                    <a href="support-tickets-table.html">問題表單</a>
+                    <a href="../notifycenter/official-notify.html">系統通知</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="../supportform/support-tickets-table.html">問題表單</a>
                   </li>
                 </ul>
               </li>
               <!-- ======================================================================================================== -->
             </ul>
           </div>
-          <!-- 側邊欄位結束 -->
           <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
         </div>
       </div>
@@ -182,55 +181,55 @@
           </a>
         </header>
 
-        <!-- 問題表單清單起始 -->
+        <!-- 通知列表區塊起始 -->
         <div class="page-heading">
-          <!-- 問題表單Header -->
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>問題表單</h3>
+                <h3>系統通知</h3>
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="WCC_Homepage.jsp">控制台</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">問題表單</li>
+                    <li class="breadcrumb-item"><a href="../WCC_Homepage.jsp">控制台</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">系統通知</li>
                   </ol>
                 </nav>
               </div>
             </div>
           </div>
-          <!-- 問題表單Header -->
           <section class="section">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <span>表單列表</span>
-                <a href="support-ticket-add.html" class="btn btn-lg btn-primary">新增表單</a>
+                <span>通知列表</span>
+                <a href="../notifycenter/official-notify-add.html" class="btn btn-lg btn-primary rounded-pill">新增表單</a>
               </div>
               <div class="card-body">
                 <table class="table table-striped" id="table1">
                   <thead>
                     <!-- 欄位名稱起始 -->
                     <tr>
-                      <th>表單編號</th>
-                      <th>問題類別</th>
-                      <th>表單標題</th>
-                      <th>客戶姓名</th>
-                      <th>回覆信箱</th>
-                      <th>處理狀態</th>
-                      <th>處理客服</th>
-                      <th>進件時間</th>
-                      <th>動作</th>
+                      <th>通知編號</th>
+                      <th>會員編號</th>
+                      <th>會員暱稱</th>
+                      <th>通知類別</th>
+                      <th>讀取狀態</th>
+                      <th>通知時間</th>
+                      <th>通知內文</th>
+                      <th>建立時間</th>
+                      <th>操作</th>
                     </tr>
                     <!-- 欄位名稱結束 -->
                   </thead>
-                  <tbody class="ticket-list"></tbody>
+                  <!-- 資料主區塊Start -->
+                  <tbody class="notify-list"></tbody>
+                  <!-- 資料主區塊End -->
                 </table>
               </div>
             </div>
           </section>
         </div>
-        <!-- 問題表單清單結束 -->
+        <!-- 通知列表區塊結束 -->
 
         <footer>
           <div class="footer clearfix mb-0 text-muted">
@@ -239,35 +238,20 @@
             </div>
             <div class="float-end">
               <p>
-                Crafted with
-                <span class="text-danger"><i class="bi bi-heart"></i></span>
-                by
-                <a href="http://ahmadsaugi.com">A. Saugi</a>
+                Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>
               </p>
             </div>
           </div>
         </footer>
       </div>
     </div>
+    <script src="../assets/vendors/jquery-3.7.1.min.js"></script>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="../assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <!-- ===========================引入了JQuerry_start======================================== -->
-    <script src="../assets\vendors\jquery-3.7.1.min.js"></script>
-    <!-- ===========================引入了JQuerry_end================ -->
-    <!-- ==============================讓button有a標籤的功能_start==================================================== -->
-    <script>
-      $(document).on("click", "button.btn.btn-primary", function (e) {
-        if ($(e.target).val() != "") {
-          var a = $(e.target).val();
-          console.log(a);
-          location = a;
-        }
-      });
-    </script>
-    <!-- =========================讓button有a標籤的功能_end============================================ -->
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/ding-dashboard-tickets-table.js"></script>
+    <script src="../assets/js/menu_ative.js"></script>
+    <script src="../assets/js/ding-dashboard-notify-table.js"></script>
   </body>
 </html>

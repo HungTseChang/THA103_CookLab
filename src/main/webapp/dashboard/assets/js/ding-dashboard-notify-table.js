@@ -23,7 +23,7 @@ let statusrender = function () {
 let init = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/NotifyCenterAjax",
+    url: "/THA103_CookLab/NotifyCenterServlet",
     data: { action: "getAll" },
     dataType: "json",
     success: function (data) {

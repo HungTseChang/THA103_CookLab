@@ -41,7 +41,7 @@ let supportformload = function () {
 
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormServlet",
     data: { action: "getOne", formNo: formNo },
     dataType: "json",
     success: function (data) {
@@ -132,7 +132,7 @@ let updatedata = function (realName, supportFormCategoryId, replyEmail) {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormServlet",
     data: data,
     dataType: "json",
     success: function (data) {
@@ -164,7 +164,7 @@ let updatedata = function (realName, supportFormCategoryId, replyEmail) {
 let getAdmins = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormServlet",
     data: { action: "getAdmins" },
     dataType: "json",
     success: function (data) {
@@ -188,7 +188,7 @@ let changeAdmin = function () {
   let formStatus = $("#formStatus").text();
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormServlet",
     data: { action: "changeAdmin", adminNo: adminNo, formNo: formNo, formStatus: formStatus },
     dataType: "json",
     success: function (data) {
@@ -220,7 +220,7 @@ let closecase = function () {
   let formStatus = $("formStatus").text();
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormServlet",
     data: { action: "closecase", formNo: formNo, formStatus: formStatus },
     dataType: "json",
     success: function (data) {
@@ -251,7 +251,7 @@ let recordload = function (recordContext) {
   let formNo = $("#formNo").text();
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormRecordAjax",
+    url: "/THA103_CookLab/SupportFormRecordServlet",
     data: { action: "getAll", formNo: formNo },
     dataType: "json",
     success: function (data) {
@@ -302,7 +302,7 @@ let insertrecord = function (recordContext) {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormRecordAjax",
+    url: "/THA103_CookLab/SupportFormRecordServlet",
     data: data,
     dataType: "json",
     success: function (data) {

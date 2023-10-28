@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cooklab.support_form.model.SupportFormVO;
 import com.cooklab.support_form.service.SupportFormHService;
 import com.cooklab.support_form_record.model.SupportFormRecordVO;
 import com.cooklab.support_form_record.service.SupportFormRecordHService;
 import com.google.gson.Gson;
 
-@WebServlet("/SupportFormRecordAjax")
-public class SupportFormRecordAjax extends HttpServlet {
+@WebServlet("/SupportFormRecordServlet")
+public class SupportFormRecordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

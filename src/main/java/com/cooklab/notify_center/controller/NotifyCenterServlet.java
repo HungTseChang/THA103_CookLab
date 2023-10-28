@@ -19,8 +19,8 @@ import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.notify_center.service.NotifyCenterHService;
 import com.google.gson.Gson;
 
-@WebServlet("/NotifyCenterAjax")
-public class NotifyCenterAjax extends HttpServlet {
+@WebServlet("/NotifyCenterServlet")
+public class NotifyCenterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

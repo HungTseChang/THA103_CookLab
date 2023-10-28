@@ -29,7 +29,7 @@ let notifyload = function () {
 
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/NotifyCenterAjax",
+    url: "/THA103_CookLab/NotifyCenterServlet",
     data: { action: "getOne", notifyNo: notifyNo },
     dataType: "json",
     success: function (data) {
@@ -123,7 +123,7 @@ let updatedata = function (notifyType, memberId, notifyTime, notifyContent, noti
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/NotifyCenterAjax",
+    url: "/THA103_CookLab/NotifyCenterServlet",
     data: data,
     dataType: "json",
     success: function (data) {

@@ -161,11 +161,8 @@
                   <li class="submenu-item">
                     <a href="WCC_official_notify.html">系統通知</a>
                   </li>
-                  <li class="submenu-item">
-                    <a href="support-tickets-table.html">問題表單</a>
-                  </li>
                   <li class="submenu-item active">
-                    <a href="newslist.html">最新消息</a>
+                    <a href="support-tickets-table.html">問題表單</a>
                   </li>
                 </ul>
               </li>
@@ -184,49 +181,74 @@
         </header>
 
         <div class="page-heading">
-          <!-- 最新消息Header -->
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>新增消息</h3>
+                <h3>建立問題表單</h3>
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="WCC_Homepage.jsp">控制台</a></li>
-                    <li class="breadcrumb-item"><a href="newslist.html">最新消息</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">新增消息</li>
+                    <li class="breadcrumb-item"><a href="support-tickets-table.html">問題表單</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">建立問題表單</li>
                   </ol>
                 </nav>
               </div>
             </div>
           </div>
-          <!-- 最新消息Header -->
 
-          <!-- 消息區塊start -->
+          <!-- 表單區塊start -->
           <section id="multiple-column-form">
-            <div class="row justify-content-center">
-              <div class="col-6">
+            <div class="row match-height">
+              <div class="col-12">
                 <div class="card">
                   <div class="card-content">
                     <div class="card-body">
                       <form class="form">
                         <div class="row">
-                          <div class="col-12">
+                          <div class="col-md-6 col-12">
                             <div class="form-group">
-                              <label for="formTitle" id="title-check">消息標題</label>
-                              <input type="title" class="form-control" id="newsTitle" placeholder="請輸入消息標題" />
+                              <label for="supportFormCategoryId" id="categoryid-check">問題類別</label>
+                              <select class="form-select w-25" id="supportFormCategoryId">
+                                <option value="default">請選擇問題類別</option>
+                                <option value="1">食譜相關</option>
+                                <option value="2">討論區相關</option>
+                                <option value="3">訂單相關</option>
+                                <option value="4">商品相關</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-12">
+                            <div class="form-group">
+                              <label for="formTitle" id="title-check">表單標題</label>
+                              <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" />
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-12">
+                            <div class="form-group">
+                              <label for="realName" id="name-check">客戶姓名</label>
+                              <input type="text" class="form-control" placeholder="請輸入客戶姓名" id="realName" />
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-12">
+                            <div class="form-group">
+                              <label for="replyEmail" id="email-check">回覆信箱</label>
+                              <input type="email" class="form-control" placeholder="請輸入客戶Email" id="replyEmail" />
                             </div>
                           </div>
                           <div class="col-12">
                             <div class="form-group">
-                              <label for="formContext" id="context-check">消息內容</label>
-                              <textarea class="form-control" id="newsContent" rows="3" placeholder="請輸入消息問題"></textarea>
+                              <label for="formContext" id="context-check">客戶反應</label>
+                              <textarea class="form-control" id="formContext" rows="3" placeholder="請輸入客戶反應問題"></textarea>
                             </div>
                           </div>
+
                           <div class="col-12 text-center mt-3">
-                            <input type="hidden" id="action" value="insert" />
-                            <input type="submit" id="formsubmit" class="btn btn-lg btn-primary" value="發布消息" />
+                            <input type="hidden" class="form-control" id="formSource" value="2" />
+                            <input type="hidden" class="form-control" id="formStatus" value="0" />
+                            <input type="hidden" id="action" value="insert-dashboard" />
+                            <input type="submit" id="formsubmit" class="btn btn-lg btn-primary" value="送出表單" />
                           </div>
                         </div>
                       </form>
@@ -236,7 +258,7 @@
               </div>
             </div>
           </section>
-          <!-- 消息區塊 end -->
+          <!-- 表單區塊start end -->
         </div>
 
         <footer>
@@ -261,6 +283,6 @@
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/main.js"></script>
-    <script src="../assets/js/ding-newsadd.js"></script>
+    <script src="../assets/js/ding-dashboard-supportform-add.js"></script>
   </body>
 </html>

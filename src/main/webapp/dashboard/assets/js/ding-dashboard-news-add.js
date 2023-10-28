@@ -16,7 +16,7 @@ let newsadd = function () {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/newsAjax",
+    url: "/THA103_CookLab/NewsServlet",
     data: data,
     dataType: "json",
     success: function (data) {

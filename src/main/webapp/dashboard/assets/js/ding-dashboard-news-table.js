@@ -2,7 +2,7 @@
 let init = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/newsAjax",
+    url: "/THA103_CookLab/NewsServlet",
     data: { action: "getAll" },
     dataType: "json",
     success: function (data) {

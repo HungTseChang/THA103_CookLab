@@ -78,7 +78,7 @@ let cleardata = function () {
 let dataload = function (currentPage) {
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/newsAjax",
+    url: "/THA103_CookLab/NewsServlet",
     data: { action: "getten", currentPage: currentPage },
     dataType: "json",
     success: function (data) {
@@ -106,7 +106,7 @@ let dataload = function (currentPage) {
 $(document).ready(function () {
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/newsAjax",
+    url: "/THA103_CookLab/NewsServlet",
     data: { action: "getten", currentPage: 1 },
     dataType: "json",
     success: function (data) {

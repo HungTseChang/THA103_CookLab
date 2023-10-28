@@ -23,7 +23,7 @@ let statusrender = function () {
 let init = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormAjax",
+    url: "/THA103_CookLab/SupportFormServlet",
     data: { action: "getAll" },
     dataType: "json",
     success: function (data) {

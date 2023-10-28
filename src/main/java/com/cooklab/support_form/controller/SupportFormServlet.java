@@ -20,8 +20,8 @@ import com.cooklab.support_form.model.SupportFormVO;
 import com.cooklab.support_form.service.SupportFormHService;
 import com.google.gson.Gson;
 
-@WebServlet("/SupportFormAjax")
-public class SupportFormAjax extends HttpServlet {
+@WebServlet("/SupportFormServlet")
+public class SupportFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
