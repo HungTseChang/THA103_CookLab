@@ -29,9 +29,10 @@ public class ArticleSubReactionService {
 	public ArticleSubReactionVO findTwo (Integer memberId , Integer articleSubNo) {
 		return dao.findByTwoCol(memberId, articleSubNo);
 	}
-	public Long allCount (Integer articleSubNo ,Byte statuts) {
+	
+	public Long allCount (Integer articleSubNo ,Byte status) {
 		
-		return dao.allCount(articleSubNo, statuts);
+		return dao.allCount(articleSubNo, status);
 		
 	}
 	

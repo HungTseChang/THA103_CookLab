@@ -34,11 +34,11 @@ public class ArticleReactionService {
 		}
 	}
 	
-	//下面是一次用兩個欄位收尋
+	//下面是一次用兩個欄位收尋，判斷是否已經按過讚
 	public ArticleReactionVO findTwo (Integer memberId , Integer articleNo) {
 		return dao.findByTwoCol(memberId, articleNo);
 	}
-	
+	//計算按讚數量
 	public Long allCount (Integer articleNo ,Byte statuts) {
 		System.out.println("啟動方法");
 		return dao.allCount(articleNo, statuts);

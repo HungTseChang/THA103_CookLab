@@ -72,10 +72,10 @@ public class ArticleSubReactionHDAO implements ArticleSubReactionDAO  {
 	}
 
 	@Override//用來計算文章的按讚數
-	public Long allCount(Integer articleSubNo, Byte statuts) {
-		return (Long) getSession().createQuery("select count (*) from ArticleSubReactionVO where articleSubNo = :articleSubNo and statuts = :statuts")
+	public Long allCount(Integer articleSubNo, Byte status) {
+		return (Long) getSession().createQuery("select count (*) from ArticleSubReactionVO where articleSubNo = :articleSubNo and status = :status")
 				.setParameter("articleSubNo",articleSubNo)
-				.setParameter("statuts",statuts)
+				.setParameter("status",status)
 				.uniqueResult();
 	}
 
