@@ -4,14 +4,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	version="4.0">
 	<display-name>com.tha103.cooklab</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
 
 	<!-- 王群中_添加filter_給hibernate調控sessionfactory -->
 
@@ -27,6 +19,7 @@
 		<url-pattern>/ArticleReportServlet</url-pattern>
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
+		<url-pattern>/LoginServlet</url-pattern>
 
 	</filter-mapping>
 
@@ -48,20 +41,4 @@
 
 
 	<!-- 王群中_添加filter -->
-
-	<!-- 以下阿宅註冊filter -->
-	<filter>
-		<filter-name>ArticleFilter</filter-name>
-		<filter-class>com.cooklab.article.controller.OpenSessionInViewFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ArticleFilter</filter-name>
-		<url-pattern>/ArticleServlet</url-pattern>
-		<url-pattern>/ArticleSubServlet</url-pattern>
-		<url-pattern>/ArticleCategoryServlet</url-pattern>
-		<url-pattern>/ArticleReactionServlet</url-pattern>
-		<url-pattern>/article/*</url-pattern>
-		<url-pattern>/mazer-main/dist/article/*</url-pattern>
-	</filter-mapping>
-	<!-- 所有需要用到hibernate(.getAll)語法的都要註冊，包括JSP頁面 -->
 </web-app>

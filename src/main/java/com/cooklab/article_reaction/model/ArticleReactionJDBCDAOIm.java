@@ -296,14 +296,14 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO{
 			ArticleReactionJDBCDAOIm dao = new ArticleReactionJDBCDAOIm();
 
 			// 新增
-//			ArticleReactionVO ArticleReactionVO1 = new ArticleReactionVO();
+//			ArticleSubReactionVO ArticleReactionVO1 = new ArticleSubReactionVO();
 //			ArticleReactionVO1.setMemberId(Integer.valueOf(1));
 //			ArticleReactionVO1.setArticleNo(Integer.valueOf(1));
 //			ArticleReactionVO1.setStatuts(Byte.valueOf((byte)1));
 //			dao.insert(ArticleReactionVO1);
 
 //			// 修改
-//		    ArticleReactionVO ArticleReactionVO2 = new ArticleReactionVO();
+//		    ArticleSubReactionVO ArticleReactionVO2 = new ArticleSubReactionVO();
 //			ArticleReactionVO2.setArticleReactionNo(Integer.valueOf(4));
 //			ArticleReactionVO2.setMemberId(2);
 //			ArticleReactionVO2.setArticleNo(2);
@@ -315,7 +315,7 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO{
 //			dao.delete(3);
 //////
 //////			// 查詢
-//			ArticleReactionVO ArticleReactionVO3 = dao.findByPrimaryKey(1);
+//			ArticleSubReactionVO ArticleReactionVO3 = dao.findByPrimaryKey(1);
 //			System.out.print(ArticleReactionVO3.getArticleReactionNo() + ",");
 //			System.out.print(ArticleReactionVO3.getMemberId() + ",");
 //			System.out.print(ArticleReactionVO3.getArticleNo() + ",");
@@ -324,8 +324,8 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO{
 //			System.out.println("---------------------");
 //////
 //////			// 查詢
-//			List<ArticleReactionVO> list = dao.getAll();
-//			for (ArticleReactionVO aArticleReactionVO : list) {
+//			List<ArticleSubReactionVO> list = dao.getAll();
+//			for (ArticleSubReactionVO aArticleReactionVO : list) {
 //				System.out.print(aArticleReactionVO.getArticleReactionNo() + ",");
 //				System.out.print(aArticleReactionVO.getMemberId() + ",");
 //				System.out.print(aArticleReactionVO.getArticleNo() + ",");

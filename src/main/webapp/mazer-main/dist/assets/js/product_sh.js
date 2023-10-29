@@ -43,10 +43,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				// 根据当前时间判断上下架状态
 				if (currentTime >= shelfTime && currentTime <= offsaleTime) {
 					// 如果当前时间在上架和下架时间之间，显示上架图标
-					statusIcon = "<i class='fa fa-arrow-up' style='color:green'></i>";
+					statusIcon = "<i class='fas fa-check-circle' style='color:green'></i>";
 				} else {
 					// 否则，显示下架图标
-					statusIcon = "<i class='fa fa-arrow-down' style='color:red'></i>";
+					statusIcon = "<i class='fas fa-times-circle' style='color:red'></i>";
 				}
 				console.log(statusIcon);
 				// 填充表格列数据
@@ -54,10 +54,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				row.append("<td><img src='data:image/png;base64," + item.productImage + "' style='max-width: 200px; max-height: 200px;'></td>");
 				row.append("<td>" + item.productName + "</td>");
 				row.append("<td>" + item.productPrice + "</td>");
-				row.append("<td>" + item.offsaleTime + "</td>");
-				row.append("<td>" + item.shelfTime + "</td>");
 				row.append("<td>" + statusIcon + "</td>");
-				row.append("<td>" + item.saleQty + "</td>");
+				row.append("<td>" + item.searchCount + "</td>");
+				row.append("<td>" + item.storageQty + "</td>");
 				
 				// 这里需要根据数据结构填充商品种类的列
 				// 如果数据中有商品种类字段，你需要根据字段填充，否则可以使用默认值

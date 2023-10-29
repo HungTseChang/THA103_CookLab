@@ -97,7 +97,7 @@ public class MembersServlet extends HttpServlet {
 			/*************************** 2.開始查詢資料 ****************************************/
 			MembersService memSvc = new MembersService();
 			MembersVO memVO = memSvc.getOneMember(memberId);
-		
+			System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOooo");
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("memVO", memVO); // 資料庫取出的empVO物件,存入req

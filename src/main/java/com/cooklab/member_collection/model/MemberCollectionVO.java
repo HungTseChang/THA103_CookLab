@@ -29,9 +29,10 @@ public class MemberCollectionVO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name="member_collection_no",insertable = false, updatable = false)
 	private Integer memberCollectionNo;
-	
-	@Column(name = "member_id_collectioned")  
-	private Integer memberIdCollectioned;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id_collectioned", referencedColumnName = "member_id", insertable = false, updatable = false)
+	private MembersVO memberIdCollectioned;
 //	@Column(name = "member_id")  
 //	private Integer memberId;
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -49,13 +50,7 @@ public class MemberCollectionVO implements Serializable {
 		this.memberCollectionNo = memberCollectionNo;
 	}
 
-	public Integer getMemberIdCollectioned() {
-		return memberIdCollectioned;
-	}
 
-	public void setMemberIdCollectioned(Integer memberIdCollectioned) {
-		this.memberIdCollectioned = memberIdCollectioned;
-	}
 
 //	public Integer getMemberId() {
 //		return memberId;
@@ -65,12 +60,20 @@ public class MemberCollectionVO implements Serializable {
 //		this.memberId = memberId;
 //	}
 
+	public MembersVO getMemberIdCollectioned() {
+		return memberIdCollectioned;
+	}
+
 	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
+	}
+
+	public void setMemberIdCollectioned(MembersVO memberIdCollectioned) {
+		this.memberIdCollectioned = memberIdCollectioned;
 	}
 
 //	@Override

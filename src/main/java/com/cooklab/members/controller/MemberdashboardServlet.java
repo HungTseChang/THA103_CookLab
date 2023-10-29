@@ -20,6 +20,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.article_reaction.model.ArticleReactionVO;
@@ -38,6 +42,7 @@ import com.cooklab.recipe_comments_report.model.RecipeCommentsReportVO;
 import com.cooklab.recipe_reaction.model.RecipeReactionVO;
 import com.cooklab.recipe_report.model.RecipeReportVO;
 import com.cooklab.shopping_cart.model.ShoppingCartVO;
+import com.cooklab.util.HibernateUtil;
 import com.google.gson.Gson;
 import com.cooklab.admins.*;
 
@@ -125,7 +130,7 @@ public class MemberdashboardServlet extends HttpServlet{
 			 String context =account+"您好: 你的密碼已重設為: "+passowrd+"請記得更新你的密碼";
 		     EmailSender.sendMail(email, subtitlte,context);						
 		}
-		
+		System.out.println("AAAA"+status);
 		MembersService.updateMember(NO, passowrd, status);
 		return  "/dashboard/member/WCC_member.jsp";
 	}
@@ -151,8 +156,9 @@ public class MemberdashboardServlet extends HttpServlet{
 	private String getAll(HttpServletRequest req, HttpServletResponse res) {
 		MembersService MembersService = new MembersService();
 		List<MembersVO> Members = MembersService.getAll();
+		int lenght =Members.size();
 		List<MembersVOFake> MembersFake = new ArrayList<MembersVOFake>();
-		for(int i = 0 ; i < Members.size();i++) {
+		for(int i = 0 ; i < lenght;i++) {
 			MembersFake.add(new MembersVOFake(Members.get(i)));
 		}
 		String json = new Gson().toJson(MembersFake);
@@ -165,9 +171,9 @@ public class MemberdashboardServlet extends HttpServlet{
 	
 	private class MemberServletFake extends MembersService{
 	private MembersDAO_interface dao;
-
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 	private MemberServletFake() {
-		dao = new MembersJDBCDAO();
+		dao = new MembersHDAOIm(session.getSessionFactory());
 	}
 		public MembersVO updateMember(Integer memberId,String memberPassword,Byte memberStatus) {
 			MembersService MembersService = new MembersService();

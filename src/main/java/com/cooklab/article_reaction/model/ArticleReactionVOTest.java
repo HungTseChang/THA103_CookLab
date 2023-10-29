@@ -15,12 +15,12 @@ public class ArticleReactionVOTest {
 		try {
 			session.beginTransaction();
 			/////////新增
-//			ArticleReactionVO ArticleReactionVO = new ArticleReactionVO(1,1, (byte)1);
+//			ArticleSubReactionVO ArticleSubReactionVO = new ArticleSubReactionVO(1,1, (byte)1);
 //
-//           	session.save(ArticleReactionVO);
+//           	session.save(ArticleSubReactionVO);
  ////=========================== 修改====================================
 			 
-//           	ArticleReactionVO ArticleReactionVO1  = session.get(ArticleReactionVO.class, 1);
+//           	ArticleSubReactionVO ArticleReactionVO1  = session.get(ArticleSubReactionVO.class, 1);
 //           	if(ArticleReactionVO1 != null) {
 //           		ArticleReactionVO1.setMemberId(5);
 //           	}
@@ -35,7 +35,7 @@ public class ArticleReactionVOTest {
            	
 //           	=============================================		
 			////查詢
-	List<ArticleReactionVO> list1 = session.createQuery("from ArticleReactionVO").list();
+	List<ArticleReactionVO> list1 = session.createQuery("from ArticleSubReactionVO").list();
 for(int i=0; i<list1.size();i++) {
 	System.out.println(
 		"ArticleReactionNo :"+list1.get(i).getArticleReactionNo()+"\n  "

@@ -36,10 +36,10 @@ public class QuestionVO implements java.io.Serializable {
 	@Column(name = "question_content")
 	private String questionContent;
 
-	@Column(name = "question_good")
+	@Column(name = "question_good", insertable = false)
 	private Integer questionGood;
 
-	@Column(name = "question_bad")
+	@Column(name = "question_bad", insertable = false)
 	private Integer questionBad;
 
 	@Column(name = "created_timestamp", updatable = false, insertable = false)

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.recipe.CreateRecipeDTO;
+import com.cooklab.recipe.RecipeCreateDTO;
 
 public interface RecipeService {
 	public RecipeVO addRecipe(MembersVO memberVO, String recipeName, byte[] coverImage, String introduction,
@@ -18,11 +18,11 @@ public interface RecipeService {
 
 	public RecipeVO getOneRecipe(Integer recipeNo);
 	
-	public Integer createRecipe(MembersVO memberVO,CreateRecipeDTO createRecipeDTO);
+	public Integer createRecipe(MembersVO memberVO,RecipeCreateDTO createRecipeDTO);
 
 	public List<RecipeVO> getAll();
 
-	public List<RecipeVO> getByPage(String cloumn, boolean desc, Integer offset, Integer limit);
+	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit, String search);
 
-	public long getCount();
+	public long getCount(String search);
 }

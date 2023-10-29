@@ -107,7 +107,7 @@
                                                         <div class="checkbox">
                                                             <input type="checkbox" id="checkbox2"
                                                                 class='form-check-input' checked>
-                                                            <label for="checkbox2">Remember Me</label>
+                                                            <label for="checkbox2">Remember Me</label><label style="color:red;">	&nbsp;	&nbsp;${error}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -140,8 +140,8 @@
                                                 <div class="col-md-8">
                                                     <div class="form-group has-icon-left">
                                                         <div class="position-relative">
-                                                            <input type="text" class="form-control" placeholder="請輸入您的帳號"
-                                                                id="first-name-icon">
+                                                            <input type="text" class="form-control" placeholder="目前版本帳號即信箱"
+                                                                id="account2">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>
                                                             </div>
@@ -190,16 +190,39 @@
                </div></div>
             </section>
 </div>
-
+  <!-- ======================================== -->
+                <div class="wcc none" style="width: 100%; height:100%; position: fixed; 
+                top: 0;
+                left: 0;
+                background-color: rgb(174, 172, 172, 0.5);  " id="allblock">
+                   <div style="width: 30%; height: 30%; position: fixed; top: 50%; left:35%; 
+                   transform: translateX(-50%);
+                   transform: translateY(-50%); 
+                   background-color: white; opacity:1.0; display: block;">
+                   <div style="opacity:1.0; margin-top: 70px; margin-left: 40px;
+                   margin-right: 20px;
+                    color: blue; font-size: 16px; font-weight: bolder;">
+                         正在傳送忘記密碼的請求，請稍後....
+                    <div style="position: relative; top: 50px; left: 100px;"> 
+                    </div>
+                    </div>
+                    
+                   
+                </div>
+                 </div>
+            <!-- ============================= -->
 
 
     </div>
     </div>
-    <script src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
+
+    		<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
+		<script	src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     <script>
 
     $(document).ready(function(){
@@ -241,13 +264,60 @@
  		
     	})
     	
-    	$("#Submit2").on("click",function(){
-    		
-    		
-    	})
+    	
+
+
+    	     	$("#Submit2").on("click",function(e){
+            	if(!confirm("確定要重設密碼?")){ return;}
+        		var account = $("input#account2").val();
+        		var email = $("input#email").val();
+             	$("div#allblock").toggleClass("none");
+             	
+            	  $.ajax({
+                      type: "POST",
+                      url:  "<%=request.getContextPath()%>/LoginServlet",
+                      data: {
+                          action:"forgetpassword",
+                          account:account,
+                          email:email
+                      },
+                      success: function(response) {
+                    	  console.log(response);
+                  		$("div#allblock").toggleClass("none");
+                		$("div.AA").toggleClass('none');
+                    	  if(response==="success"){
+                          Swal.fire({
+                              icon: "success",
+                              title: account +"已成功寄出隨機密碼的信件到指定信箱!"
+                              
+                          })}else{
+               
+                              Swal.fire({
+                                  icon: "warning",
+                                  title: account+response
+                              })
+
+                          }
+                    	  
+                    	  
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                          // 这里处理请求失败的情况
+                          console.log("请求失败:", textStatus, errorThrown);
+                          Swal.fire({
+                              icon: "error",
+                              title: "请求失败",
+                              text: "无法连接到服务器或发生了错误"
+                          });
+                  }
+            	          	
+
+            })
+    	
+
         
     });    
-    
+    })  
     
     </script>
 </body>

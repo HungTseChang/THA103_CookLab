@@ -24,7 +24,6 @@ public class ProductService {
 		productVO.setProductDec(productDec);
 		productVO.setProductIntroduction(productIntroduction);
 		productVO.setProductPrice(productPrice);
-		productVO.setSaleQty(saleQty);
 		productVO.setOffsaleTime(offsaleTime);
 		productVO.setShelfTime(shelfTime);
 		productVO.setStorageQty(storageQty);
@@ -48,7 +47,6 @@ public class ProductService {
 		productVO.setProductDec(productDec);
 		productVO.setProductIntroduction(productIntroduction);
 		productVO.setProductPrice(productPrice);
-		productVO.setSaleQty(saleQty);
 		productVO.setOffsaleTime(offsaleTime);
 		productVO.setShelfTime(shelfTime);
 		productVO.setStorageQty(storageQty);
@@ -82,9 +80,9 @@ public class ProductService {
 		return dao.findByKeyword(keyword);
 	}
 
-	public ProductVO findByProductName(String productName) {
-		return dao2.findByProductName(productName);
-	}
+//	public ProductVO findByProductName(String productName) {
+//		return dao2.findByProductName(productName);
+//	}
 
 	public List<ProductVO> findByProductNames(String productName, String category) {
 		return dao2.findByProductNames(productName, category);
@@ -97,7 +95,28 @@ public class ProductService {
 		return dao.update(productVO);
 	}
 	
-	public List<ProductVO> findByKeywordWithPagination(String keyword, int page, int pageSize){
+	public Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize){
 		return dao.findByKeywordWithPagination(keyword, page, pageSize);
 	}
+	
+
+	public Pair<List<ProductVO>, Long> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
+		return dao.findByCategoryKeywordWithPagination(type, page, pageSize);
+	}
+	
+    
+    public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithingredientCategoryPagination(String keyword, int page, int pageSize){
+    	return dao.findByKeywordWithCategorywithingredientCategoryPagination(keyword,page,pageSize);
+    }
+    public Pair<List<ProductVO>, Long> findByKeywordWithCategorywithkitchCategoryPagination(String keyword, int page, int pageSize){
+    	return dao.findByKeywordWithCategorywithkitchCategoryPagination(keyword,page,pageSize);
+    }
+    
+    public List<ProductVO> findTopSearchCountProduct(){
+    	return dao.findTopSearchCountProduct();
+    }
+    
+    public Pair<List<ProductVO>, Long> findHotTopSearchCountProduct(int page, int pageSize){
+    	return dao.findHotTopSearchCountProduct(page, pageSize);
+    }
 }

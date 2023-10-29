@@ -52,6 +52,13 @@ public class AdminsService {
 
 		return AdminsVO;
 	}
+	public AdminsVO update(AdminsVO AdminsVO) {
+		
+		
+		dao.update(AdminsVO);
+		
+		return AdminsVO;
+	}
 
 	public void delete(Integer adminNo) {
 		dao.delete(adminNo);

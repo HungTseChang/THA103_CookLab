@@ -30,27 +30,6 @@ public class RecipeIngredientServlet extends HttpServlet{
 		
 		String action = req.getParameter("action");
 		Gson gson = new Gson();
-		
-		if ("insert".equals(action)) {
-			
-			RecipeVO recipeVO = (RecipeVO) req.getAttribute("recipe");		
-			String[] ingredient = gson.fromJson(req.getParameter("ingredient"), String[].class);
-			String[] textLabel= new String[ingredient.length];
-			String[] ingredientQuantity = gson.fromJson(req.getParameter("ingredientQuantity"), String[].class);
-
-			for (int i = 0; i < ingredientQuantity.length; i++) {
-				ProductVO productVO = new ProductService().findByProductName((ingredient[i]));
-				if(productVO==null) {
-					textLabel[i]=ingredient[i];
-				}
-				RecipeIngredientVO recipeIngredientVO = new RecipeIngredientService().addRecipeIngredient(recipeVO, productVO, textLabel[i],
-						ingredientQuantity[i]);
-			}
-
-			RequestDispatcher addRecipeKitchenware = req.getRequestDispatcher("/RecipeKitchenwareServlet");
-			addRecipeKitchenware.forward(req, res);	
-			return;
-		}
 		if ("search".equals(action)) {
 			
 			String ingredient = req.getParameter("search");

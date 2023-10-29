@@ -20,6 +20,14 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/dashboard/assets/css/app.css">
     <link rel="shortcut icon" href="<%=request.getContextPath() %>/dashboard/assets/images/favicon.svg" type="image/x-icon">
+    				<style>
+				a.wccA{
+					border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
+				}
+				</style>
 </head>
 
 <body>
@@ -28,9 +36,16 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="index.html"><img src="<%=request.getContextPath() %>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
-                        </div>
+  <!-- 						======================================== -->
+						<div class="logo">
+							<a href="index.html"><img
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset=""></a>
+								<div style="font-size:15px;" >會員：${thisaccount} ，你好 </div>
+								<div style="font-size:10px;">&nbsp;</div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a><a class="wccA"id="design" style="  margin-left: 10px;">個人資訊</a></div>
+						</div>
+<!-- 						======================================== -->
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                         </div>
@@ -42,16 +57,15 @@
 
 
                         <!-- ============================================================================================== -->
-                        <li class="sidebar-item  ">
-                            <a href="WCC_Homepage.html" class='sidebar-link'>
+                          <li class="sidebar-item  ">
+                            <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
                             </a>
                         </li>
 
-
                         <li class="sidebar-item ">
-                            <a href="WCC_memeber.html" class='sidebar-link'>
+                            <a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>會員管理</span>
                             </a>
@@ -63,14 +77,14 @@
                                 <i class="bi bi-stack"></i>
                                 <span>權限管理</span>
                             </a>
-                            <ul class="submenu " style="display: block;">
+                            <ul class="submenu ">
                           
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_admin_management.html">管理管理者</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">管理管理者</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_admin_createrule.html">創立權限規則</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">創立權限規則</a>
                                 </li>
                             
                             </ul>
@@ -162,16 +176,19 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_report.html">食譜檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
+                                    <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_article_report.html">討論區檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                </li>
+                                  <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_official_notify.html">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="ding-support-tickets-table.html">問題表單</a>
@@ -504,7 +521,29 @@ $("#total-pages").text("of " + totalPages);
      })
     </script>   
     
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+$("a#logout").on("click",function(e){
+    e.preventDefault;
+var formlogout = $("<form>", {
+action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
+    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+});
 
+formlogout.append($("<input>", {
+type: "hidden",
+name: "action",
+value: "logout"
+}));
+   formlogout.appendTo("body").hide();
+   formlogout.submit();
+   formlogout.remove();
+
+
+
+    
+})})
+</script>
 </body>
 
 </html>

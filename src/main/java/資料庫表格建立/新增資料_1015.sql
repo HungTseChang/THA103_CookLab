@@ -83,17 +83,18 @@ insert into kitchenware_category(category_name) values ("鍋鏟");
 insert into kitchenware_category(category_name) values ("撈麵網");
 
 -- product商品測試用資料
-INSERT INTO product (product_name, sale_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no, search_count)
+INSERT INTO product 
+(product_name, storage_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, ingredient_category_no, kitchenware_category_no, search_count)
 VALUES
-    ('番茄', 20, '番茄', '番茄', 200, NULL, NOW(), 40, 
+    ('番茄', 20, '番茄', '番茄', 200, NOW(), NOW() , 
     (select ingredient_category_no from ingredient_category where category_name = "番茄"), default, 0),
-    ('鑄鐵鍋', 15, '鑄鐵鍋', '鑄鐵鍋', 300, NULL, NOW(), 30, default,
+    ('鑄鐵鍋', 15, '鑄鐵鍋', '鑄鐵鍋', 300, NULL, NOW(), default,
     (select kitchenware_category_no from kitchenware_category where category_name = "鑄鐵鍋"), 0),
-    ('琺瑯鍋', 15, '琺瑯鍋', '琺瑯鍋', 300, NULL, NOW(), 30, default,
+    ('琺瑯鍋', 15, '琺瑯鍋', '琺瑯鍋', 300, NULL, NOW(), default,
     (select kitchenware_category_no from kitchenware_category where category_name = "琺瑯鍋"), 0),
-    ('不鏽鋼鍋', 15, '不鏽鋼鍋', '不鏽鋼鍋', 300, NULL, NOW(), 30, default,
+    ('不鏽鋼鍋', 15, '不鏽鋼鍋', '不鏽鋼鍋', 300, NULL, NOW(), default,
     (select kitchenware_category_no from kitchenware_category where category_name = "不鏽鋼鍋"), 0),
-    ('紅蘿蔔', 25, '紅蘿蔔', '紅蘿蔔', 50, NULL, NOW(), 60, 
+    ('紅蘿蔔', 25, '紅蘿蔔', '紅蘿蔔', 50, NULL, NOW(), 
     (select ingredient_category_no from ingredient_category where category_name = "紅蘿蔔"), default, 0);
 
 INSERT INTO recipe_ingredient (recipe_no ,product_no ,text_label,ingredient_quantity ) VALUES ( 1, 1, "純文字標籤", "食材份量");
@@ -203,11 +204,11 @@ VALUES("全部主題"),("綜合討論"),("食譜討論"),("食材討論"),("活�
 -- 增新討論區資料--
 
 INSERT INTO article (article_category,article_title,member_id,article_status,article_content,article_count,view_count) 
-                     VALUES ( 1, "昨天大家吃甚麼?", 1, 1, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 1, 7),
+                     VALUES ( 1, "昨天大家吃甚麼?", 1, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 1, 7),
                             ( 2, "今天大家吃甚麼?", 2, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 2, 7),
-							( 3, "明天大家吃甚麼?", 3, 1, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 3, 7),
+							( 3, "明天大家吃甚麼?", 3, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 3, 7),
                             ( 4, "後天大家吃甚麼?", 2, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 4, 7),
-                            ( 5, "大後天大家吃甚麼?", 1, 1, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 5, 7);
+                            ( 5, "大後天大家吃甚麼?", 1, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 5, 7);
  
  -- 討論區反應 資料
 INSERT INTO article_reaction(member_id,article_no,statuts) 
@@ -237,11 +238,11 @@ INSERT INTO article_picture (article_no,picture)
                                    
 -- 討論區回文文章 article_sub --
 Insert into article_sub (article_no, member_id, article_sub_status, article_sub_content , article_sub_count, last_edit_timestamp)
-value( 1 ,2 , 3, "這是回文" , 20 ,now()),
-( 2 ,3 , 3, "這是回文" , 20 ,now()),
-( 3 ,4 , 3, "這是回文" , 20 ,now()),
-( 4 ,1 , 2, "這是回文" , 20 ,now()),
-( 5 ,4 , 3, "這是回文" , 20 ,now());
+value( 1 ,2 , 0, "這是回文" , 20 ,now()),
+( 2 ,3 , 0, "這是回文" , 20 ,now()),
+( 3 ,4 , 0, "這是回文" , 20 ,now()),
+( 4 ,1 , 0, "這是回文" , 20 ,now()),
+( 5 ,4 , 0, "這是回文" , 20 ,now());
 
 -- 討論區回文圖片 article_sub_picture
 INSERT INTO article_sub_picture (article_sub_no,picture)
@@ -250,6 +251,14 @@ INSERT INTO article_sub_picture (article_sub_no,picture)
 								   (3, 1),
                                    (4, 1),
                                    (5, 1);
+                                   
+-- 討論區回文反應 article_sub_reaction
+INSERT INTO article_sub_reaction (member_id,article_sub_no, statuts) 
+		VALUES (1, 1,0),
+				(2, 2,1),
+				(3, 2,2),
+				(4, 2,1),
+				(5, 1,1);
 
 
 -- 討論區回文檢舉 article_sub_report --      
