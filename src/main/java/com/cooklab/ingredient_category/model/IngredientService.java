@@ -2,7 +2,6 @@ package com.cooklab.ingredient_category.model;
 
 import java.util.List;
 
-
 import com.cooklab.util.HibernateUtil;
 
 public class IngredientService {
@@ -35,18 +34,13 @@ public class IngredientService {
 	}
 
 	public String deleteCategory(IngredientCategoryVO ingredientCategory) {
-		if (dao.hasAssociatedProducts(ingredientCategory.getIngredientCategoryNo())) {
-			// 有关联的产品，返回错误消息
-			return "已有商品使用中，请勿删除";
-		} else {
-			// 没有关联的产品，执行删除操作
-			dao.delete(ingredientCategory);
-			return "删除成功";
-		}
+
+		return dao.delete(ingredientCategory);
+
 	}
 
-	public IngredientCategoryVO findByName(IngredientCategoryVO ingredientCategory){
+	public IngredientCategoryVO findByName(IngredientCategoryVO ingredientCategory) {
 		return dao.findByName(ingredientCategory);
 	}
-	
+
 }

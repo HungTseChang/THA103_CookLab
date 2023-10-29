@@ -68,20 +68,13 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 	}
 
 	@Override
-	public void delete(KitchenwareCategoryVO kitchenwareCategory) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
+	public String delete(KitchenwareCategoryVO kitchenwareCategory) {
 
-			// 使用Hibernate的更新方法将对象保存到数据库
+		Session session = getSession();
+
 			session.delete(kitchenwareCategory);
-//			System.out.println("刪除成功");
-//			session.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}		
+			return "true";
+	
 	}
 
 	@Override

@@ -1,18 +1,27 @@
-// 给选择框 partSelect 绑定 change 事件
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/IngredientServlet"
+const COLLECTION_POINT3 = "/KitchenwaretServlet"
+
+
+
 $("#partSelect").on("change", function() {
-	var selectedValue = $(this).val(); // 获取所选的值
+	var selectedValue = $(this).val(); 
 	console.log("Selected value: " + selectedValue);
-	// 先隐藏所有部分
+
 	$("#foodTypeOptions").hide();
 	$("#kitchenTypeOptions").hide();
 
-	// 根据所选值决定显示哪个部分
+
 	if (selectedValue === "foodType") {
 		$("#foodTypeOptions").show();
-		// 发送AJAX请求获取食材数据
+
 		$.ajax({
 			type: "GET",
-			url: "/CookLab/IngredientServlet",
+			url: END_POINT_URL+COLLECTION_POINT2,
 			data: { action: "searchFoodTags" },
 			dataType: "json",
 			success: function(data) {
@@ -20,14 +29,10 @@ $("#partSelect").on("change", function() {
 
 				var select = $("#foodTypeOptions select");
 				select.empty();
-				// 循环数据并创建 <option> 元素
+
 				$.each(data, function(index, item) {
-					// 创建一个包含数据的 <option> 元素
 					var option = $("<option></option>").attr("value", item.ingredientCategoryNo).text(item.categoryName);
-
-					// 将创建的 <option> 元素添加到选择框中
 					select.append(option);
-
 					console.log(option);
 				});
 			},
@@ -37,16 +42,14 @@ $("#partSelect").on("change", function() {
 		});
 	} else if (selectedValue === "kitchenType") {
 		$("#kitchenTypeOptions").show();
-		// 发送AJAX请求获取厨具数据
 		$.ajax({
 			type: "GET",
-			url: "/CookLab/KitchenwaretServlet",
+			url: END_POINT_URL+COLLECTION_POINT3,
 			data: { action: "searchKitchenwareTags" },
 			dataType: "json",
 			success: function(data) {
-				// 清空厨具部分的选择框
+
 				$("#kitchenTypeOptions select").empty();
-				// 循环数据并创建 <option> 元素
 				$.each(data, function(index, item) {
 					var option = $("<option></option>").attr("value", item.kitchenwareCategoryNo).text(item.categoryName);
 					$("#kitchenTypeOptions select").append(option);
@@ -98,12 +101,12 @@ $("#insert").click(function(e) {
 	console.log(formData);
 
 	$.ajax({
-		type: "POST", // 使用POST方法发送数据
-		url: "/CookLab/ProductServlet", // 这里的URL应该是Servlet的URL
+		type: "POST", 
+		url: END_POINT_URL+COLLECTION_POINT, 
 		data: formData,
-		processData: false, // 不要处理数据
-		contentType: false, // 不要设置内容类型
-		dataType: "json", // 响应数据类型为JSON
+		processData: false, 
+		contentType: false, 
+		dataType: "json", 
 		success: function(response) {
 			console.log(response);
 			console.log(response.message);
@@ -112,7 +115,7 @@ $("#insert").click(function(e) {
 				if (response.errProductName) {
 					$("#productname-error").text(response.errProductName);
 				} else {
-					$("#productname-error").text(""); // 清空错误消息
+					$("#productname-error").text(""); 
 				}
 
 				if (response.errProductPrice) {

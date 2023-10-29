@@ -7,7 +7,7 @@ import java.util.List;
 public interface IngredientCategoryDAO {
     public void insert(IngredientCategoryVO ingredientCategory);
     public void update(IngredientCategoryVO ingredientCategory);
-    public void delete(IngredientCategoryVO ingredientCategory);
+    public String delete(IngredientCategoryVO ingredientCategory);
     public IngredientCategoryVO findByPrimaryKey(Integer ingredientCategoryNo);
     public List<IngredientCategoryVO> getAll();
     public List<Object[]> getIngredientAndKitchenwareTags();

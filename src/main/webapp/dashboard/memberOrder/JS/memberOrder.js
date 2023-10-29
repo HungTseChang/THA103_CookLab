@@ -1,3 +1,8 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/MemberOrderServlet";
 
 //======================查詢=============================
 // Simple Datatable
@@ -11,31 +16,28 @@ document.addEventListener("DOMContentLoaded", function() {
 		action: "search", // 你要执行的操作
 	};
 	$.ajax({
-		url: "/CookLab/MemberOrderServlet",
+		url: END_POINT_URL+COLLECTION_POINT,
 		type: "GET",
 		data: requestData,
 		dataType: "json",
 		statusCode: {
-			// 状态码
 			200: function(res) { },
 			404: function(res) { },
 			500: function(res) { },
 		},
 		success: function(data) {
-			// 首先销毁当前的simpleDatatables实例
+
 			console.log(data);
 			if (dataTable) {
 				dataTable.destroy();
 			}
 
-			// 获取表格的 tbody 元素
 			var tbody = $("#table1 tbody");
-			tbody.empty(); // 清空表格内容
+			tbody.empty(); 
 
-			// 遍历数据并创建表格行
 			$.each(data, function(index, item) {
 				console.log(item.createdTimestamp);
-				var row = $("<tr></tr>"); // 创建行
+				var row = $("<tr></tr>"); 
 
 				var statusBadge;
 				switch (item.orderStatus) {
@@ -57,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					default:
 						statusBadge = '<span class="badge bg-secondary">註銷</span>';
 				}
-				// 填充表格列数据
+
 				row.append("<td>" + item.orderNo + "</td>");
 				row.append("<td>" + item.members + "</td>");
 				row.append("<td>" + item.checkoutAmount + "</td>");
@@ -65,9 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				row.append("<td class='d-flex justify-content-between align-items-center'>" + item.createdTimestamp + "</td>");
 				var detailButton = "<td><a class='btn btn-outline-secondary detail-button' data-order-no='" + item.orderNo + "'>修改/查看</a></td>";
 				row.append(detailButton);
-				//row.append(detailButton);
 
-				// 将行添加到表格的 tbody
 				tbody.append(row);
 				console.log(row);
 			});
@@ -86,12 +86,9 @@ document.addEventListener("DOMContentLoaded", function() {
 //======================詳細資料跳轉==========================
 $(document).on("click", ".detail-button", function() {
 	console.log("跳轉");
-		// 获取订单编号
 		var orderNo = $(this).data("order-no");
 
-		// 构建跳转URL，并将订单编号作为查询参数传递
 		var url = "./TYT_order_detail.html?orderNo=" + orderNo;
 
-		// 跳转到TYT_order_detail.html
 		window.location.href = url;
 });

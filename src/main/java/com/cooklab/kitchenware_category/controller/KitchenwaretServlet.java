@@ -91,33 +91,30 @@ public class KitchenwaretServlet extends HttpServlet {
 
 		}
 		if ("update".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/***************************
-			 * 1接收請求參數
-			 **********************/
-			// 从前端获取数据
+			
 
 			String updatedCategoryName = req.getParameter("categoryName");
 			Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
 
+			
+			Map<String, String> responseData = new HashMap<>();
+			
 			KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
 			KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
+			
 			kitchenwareCategory.setKitchenwareCategoryNo(categoryId);
 			kitchenwareCategory.setCategoryName(updatedCategoryName);
+			
 			kitchenwareSvc.update(kitchenwareCategory);
 
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			/// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
-			Map<String, String> responseData = new HashMap<>();
-			boolean success = true; // 在操作成功时设置为true，在失败时设置为false
+			
+			boolean success = true;
 			responseData.put("success", success ? "true" : "false");
 			responseData.put("message", success ? "更新成功" : "更新失败");
+			
 			String json = new Gson().toJson(responseData);
 			System.out.println(kitchenwareCategory);
+			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(json);
@@ -130,16 +127,20 @@ public class KitchenwaretServlet extends HttpServlet {
 
 			KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
 			KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
+			
+			Map<String, String> responseData = new HashMap<>();
+			
+			//先查詢
 			kitchenwareCategory.setCategoryName(categoryName);
-			kitchenwareSvc.insert(kitchenwareCategory);
-
+			boolean exist = kitchenwareSvc.findByName(kitchenwareCategory) !=null;
+			if(!exist) {
+				kitchenwareSvc.insert(kitchenwareCategory);
+				responseData.put("message", "true");
+			}else {responseData.put("message", "false");
+				
+			}
 			System.out.println(kitchenwareCategory);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			/// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
-			Map<String, String> responseData = new HashMap<>();
-			boolean success = true; // 在操作成功时设置为true，在失败时设置为false
-			responseData.put("success", success ? "true" : "false");
-			responseData.put("message", success ? "更新成功" : "更新失败");
 			String json = new Gson().toJson(responseData);
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -150,26 +151,23 @@ public class KitchenwaretServlet extends HttpServlet {
 		if ("delete".equals(action)) {
 		    Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
 		    
+		    Map<String, String> responseData = new HashMap<>();
+		    
 		    KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
 		    KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
+		    
 		    kitchenwareCategory.setKitchenwareCategoryNo(categoryId);
 		    
 		    String message = kitchenwareSvc.deleteCategory(kitchenwareCategory);
 
-		    if ("删除成功".equals(message)) {
-		        // 删除成功，返回成功消息
-		        System.out.println("删除成功");
+		    if ("true".equals(message)) {
+		    	 responseData.put("message", "true");
 		    } else {
-		        // 删除失败，返回错误消息
-		        System.out.println("删除失败：" + message);
+		    	responseData.put("message","false");
 		    }
 
-		    // 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
-		    Map<String, String> responseData = new HashMap<>();
-		    boolean success = "成功".equals(message); // 检查消息是否为成功
-		    responseData.put("success", success ? "true" : "false");
-		    responseData.put("message", message);
 		    String json = new Gson().toJson(responseData);
+		    
 		    res.setContentType("application/json");
 		    res.setCharacterEncoding("UTF-8");
 		    res.getWriter().write(json);

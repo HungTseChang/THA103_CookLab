@@ -26,14 +26,7 @@ public class KitchenwareCategoryService {
 	}
 
 	public String deleteCategory(KitchenwareCategoryVO kitchenwareCategory) {
-		if (dao.hasAssociatedProducts(kitchenwareCategory.getKitchenwareCategoryNo())) {
-			// 有关联的产品，返回错误消息
-			return "已有商品使用中，请勿删除";
-		} else {
-			// 没有关联的产品，执行删除操作
-			dao.delete(kitchenwareCategory);
-			return "删除成功";
-		}
+			return dao.delete(kitchenwareCategory);
 	}
 	
 	public KitchenwareCategoryVO findByName(KitchenwareCategoryVO kitchenwareCategory){

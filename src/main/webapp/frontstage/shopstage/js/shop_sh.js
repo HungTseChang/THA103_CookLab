@@ -1,7 +1,14 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+
 // 创建一个函数来处理 AJAX 请求和渲染数据
 function fetchDataAndRender() {
 	// 发起 Fetch 请求
-	fetch('/CookLab//ProductServlet?action=Indexget')
+	fetch(END_POINT_URL+ COLLECTION_POINT+'?action=Indexget')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -109,7 +116,7 @@ function renderData(data) {
 }
 function fetchDataAndRender2() {
 	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
-	fetch('/CookLab/ProductServlet?action=getHotKeywords')
+	fetch(END_POINT_URL+ COLLECTION_POINT+'?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');

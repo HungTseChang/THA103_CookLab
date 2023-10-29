@@ -1,3 +1,10 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+
 // 在页面加载后执行
 $(document).ready(function() {
 	var quill = new Quill("#full", {
@@ -14,7 +21,7 @@ $(document).ready(function() {
 
 	// 执行AJAX请求来获取商品详细信息
 	$.ajax({
-		url: "/CookLab/ProductServlet",
+		url: END_POINT_URL+COLLECTION_POINT,
 		type: "GET",
 		data: { action: "getDetail", productNo: productNo }, // 传递商品编号
 		dataType: "json",
@@ -163,7 +170,7 @@ $("#update").click(function(e) {
 	console.log(formData);
 	// 执行AJAX请求
 	$.ajax({
-		url: "/CookLab/ProductServlet",
+		url: END_POINT_URL+COLLECTION_POINT,
 		type: "POST",
 		data: formData,
 		dataType: "json",
