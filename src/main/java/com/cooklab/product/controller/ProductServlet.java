@@ -59,28 +59,24 @@ public class ProductServlet extends HttpServlet {
 			 *****************************************/
 			ProductService productSvc = new ProductService();
 			List<ProductVO> listproductVO = productSvc.getAll();
-			// 创建一个列表来存储 HashMap
+
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 
 			for (ProductVO item : listproductVO) {
 
-				// 创建一个 HashMap 来存储当前项的数据
 				Map<String, String> itemMap = new HashMap<>();
 
-				// 获取数据并放入 HashMap
 				String productNo = item.getProductNo().toString();
 				itemMap.put("productNo", productNo);
 
 				String productName = item.getProductName();
 				itemMap.put("productName", productName);
 
-				// 读取图像文件并编码为Base64字符串
 				byte[] productPicture = item.getProductPicture();
 				if (productPicture != null) {
 					String productImage = Base64.getEncoder().encodeToString(productPicture);
 					itemMap.put("productImage", productImage);
 				} else {
-					// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 					itemMap.put("productImage", "");
 				}
 
@@ -147,7 +143,6 @@ public class ProductServlet extends HttpServlet {
 			 * 2.開始查詢資料
 			 *****************************************/
 
-			// 查询全部商品
 			ProductService productSvc = new ProductService();
 			Pair<List<ProductVO>, Long> pair = productSvc.findByKeywordWithPagination(keywords,page,pageSize);
 			
@@ -161,7 +156,6 @@ public class ProductServlet extends HttpServlet {
 				}
 			}
 
-			// 创建一个列表来存储 HashMap
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 			for (ProductVO item : listproduct) {
 					Map<String, String> itemMap = new HashMap<>();
@@ -298,14 +292,12 @@ public class ProductServlet extends HttpServlet {
 					dataMapList.add(itemMap);
 				}
 			}
-			// 输出查询结果到控制台
 			System.out.println(dataMapList);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			Gson gson = new Gson();
 			String jsonData = gson.toJson(dataMapList);
 			System.out.println(jsonData);
 
-			// 将JSON数据写入响应
 			res.setContentType("application/json; charset:UTF-8");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jsonData);
@@ -500,7 +492,6 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
-			// 创建一个 Map 来存储消息和 productVO 数据
 			Map<String, Object> responseMap = new HashMap<>();
 			if(message!= null) {
 				responseMap.put("message", message);
@@ -509,12 +500,11 @@ public class ProductServlet extends HttpServlet {
 			}
 			responseMap.put("productInfo", productVO);
 
-			// 使用 Gson 将对象转换为 JSON 字符串
+
 			Gson gson = new Gson();
 			String productJson = gson.toJson(responseMap);
-			// 设置响应的内容类型为 JSON
-			res.setContentType("application/json");
-			// 将 JSON 字符串写入响应输出流
+
+			res.setContentType("application/json; charset=UTF-8");
 			res.getWriter().write(productJson);
 
 		}
@@ -541,7 +531,6 @@ public class ProductServlet extends HttpServlet {
 				itemMap.put("categoryName", categoryName);
 				itemMap.put("categoryTag", "廚具");
 
-				// 将 HashMap 放入列表
 				dataMapList.add(itemMap);
 			}
 
@@ -584,26 +573,24 @@ public class ProductServlet extends HttpServlet {
 				productDetailMap.put("selectedPart", "kitchenType");
 				productDetailMap.put("selectedKitchenType", productVO.getKitchenwareCategoryNo());
 			}
-			// 读取图像文件并编码为Base64字符串
+
 			byte[] productPicture = productVO.getProductPicture();
 			if (productPicture != null) {
 				String productImage = Base64.getEncoder().encodeToString(productPicture);
 				productDetailMap.put("productImage", productImage);
 			} else {
-				// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
+
 				productDetailMap.put("productImage", "");
 			}
 			productDetailMap.put("foodTypeOptions", dataMapList2);
 			productDetailMap.put("kitchenTypeOptions", dataMapList);
-			// 2. 使用Gson将Map对象转换为JSON字符串
+
 			Gson gson = new Gson();
 			String productDetailJson = gson.toJson(productDetailMap);
 
 			System.out.println(productDetailJson);
-			// 3. 设置响应的内容类型为JSON
-			res.setContentType("application/json; charset=UTF-8");
 
-			// 将JSON字符串作为响应写入输出流
+			res.setContentType("application/json; charset=UTF-8");
 			res.getWriter().write(productDetailJson);
 
 		}
@@ -642,16 +629,15 @@ public class ProductServlet extends HttpServlet {
 				productDetailMap.put("selectedPart", "kitchenType");
 				productDetailMap.put("selectedKitchenType", productVO.getKitchenwareCategoryNo());
 			}
-			// 读取图像文件并编码为Base64字符串
+
 			byte[] productPicture = productVO.getProductPicture();
 			if (productPicture != null) {
 				String productImage = Base64.getEncoder().encodeToString(productPicture);
 				productDetailMap.put("productImage", productImage);
 			} else {
-				// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 				productDetailMap.put("productImage", "");
 			}
-			// 2. 使用Gson将Map对象转换为JSON字符串
+
 			Gson gson = new Gson();
 			String productDetailJson = gson.toJson(productDetailMap);
 
@@ -855,7 +841,6 @@ public class ProductServlet extends HttpServlet {
 			String message = productSvc.update(productVO);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
-			// 创建一个 Map 来存储消息和 productVO 数据
 			Map<String, Object> responseMap = new HashMap<>();
 			if(message!=null) {
 				responseMap.put("message", message);
@@ -864,14 +849,11 @@ public class ProductServlet extends HttpServlet {
 			}
 			responseMap.put("productInfo", productVO);
 
-			// 使用 Gson 将对象转换为 JSON 字符串
+
 			Gson gson = new Gson();
 			String productJson = gson.toJson(responseMap);
 
-			// 设置响应的内容类型为 JSON
 			res.setContentType("application/json; charset=UTF-8");
-
-			// 将 JSON 字符串写入响应输出流
 			res.getWriter().write(productJson);
 		}
 
@@ -893,14 +875,12 @@ public class ProductServlet extends HttpServlet {
 				jedis.close();
 			}
 
-			// 使用 Gson 将对象转换为 JSON 字符串
+
 			Gson gson = new Gson();
 			String productJson = gson.toJson(hotKeywordsList);
 
-			// 设置响应的内容类型为 JSON
-			res.setContentType("application/json; charset=UTF-8");
 
-			// 将 JSON 字符串写入响应输出流
+			res.setContentType("application/json; charset=UTF-8");
 			res.getWriter().write(productJson);
 
 		}
@@ -917,7 +897,8 @@ public class ProductServlet extends HttpServlet {
 
 			ProductService productSvc = new ProductService();
 			List<ProductVO> totallistproduct;
-			// 查询全部商品
+			
+			// 判斷種類
 			if (keywords.equals("ingredient")) {
 				type = 1;
 			} else {
@@ -928,7 +909,7 @@ public class ProductServlet extends HttpServlet {
 			Long totalProductCount = pair.getSecond();
 			List<ProductVO> listproduct = pair.getFirst();
 
-			// 创建一个列表来存储 HashMap
+
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 			for (ProductVO item : listproduct) {
 
@@ -986,7 +967,7 @@ public class ProductServlet extends HttpServlet {
 					itemMap.put("Category", kitchenwareCategory);
 					itemMap.put("Categorytype", "kitchenwareCategory");
 				}
-				// 将 HashMap 放入列表
+
 				dataMapList.add(itemMap);
 			}
 
@@ -1012,7 +993,6 @@ public class ProductServlet extends HttpServlet {
 			 * 2.開始查詢資料
 			 *****************************************/
 
-			// 查询全部商品
 			ProductService productSvc = new ProductService();
 			Pair<List<ProductVO>, Long> pair = productSvc
 					.findByKeywordWithCategorywithingredientCategoryPagination(keywords, page, pageSize);
@@ -1020,7 +1000,6 @@ public class ProductServlet extends HttpServlet {
 			Long totalProductCount = pair.getSecond();
 			List<ProductVO> listproduct = pair.getFirst();
 
-			// 创建一个列表来存储 HashMap
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 			for (ProductVO item : listproduct) {
 

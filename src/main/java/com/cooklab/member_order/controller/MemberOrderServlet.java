@@ -157,8 +157,6 @@ public class MemberOrderServlet extends HttpServlet {
 				int quantity = cartItem.get("quantity").getAsInt();
 
 				ProductVO productvo = new ProductVO();
-//				ProductService productSvc = new ProductService();
-//				productvo = productSvc.getOneProduct(productNo);
 				productvo.setProductNo(productNo);
 				OrderDetailVO orderDetail = new OrderDetailVO();
 				orderDetail.setProduct(productvo);
@@ -170,20 +168,22 @@ public class MemberOrderServlet extends HttpServlet {
 				details.add(orderDetail);
 			}
 			memberOrder.setOrderDetail(details);
-			// 保存订单到数据库（使用 Hibernate 或 JPA）
+
+			
 			MemberOrderService memberOrderSvc = new MemberOrderService();
 			String message = memberOrderSvc.insert(memberOrder);
 
-			// 在成功创建订单后，删除购物车中的商品
-
+			
+			//成功 刪除購物車內容
 			if (message.equals("success")) {
 				JedisPool jedisPool = JedisUtil.getJedisPool();
 				Jedis jedis = jedisPool.getResource();
 				jedis.select(1);
 				try {
-					// 设置会员编号
+					//動態會員編號
 					String memberNo = "1";
-					// 构建购物车键
+					
+					// 購物車鍵
 					String cartKey = "cart:" + memberNo;
 					for (int i = 0; i < cartItems.size(); i++) {
 						JsonObject cartItem = cartItems.get(i).getAsJsonObject();
@@ -192,21 +192,21 @@ public class MemberOrderServlet extends HttpServlet {
 
 						// 在这里使用 productNo 和 quantity 处理购物车中的商品信息
 						String productKey = "product:" + productNo;
-						// 从 Redis 中删除对应商品
+						
+						//刪除
 						jedis.hdel(cartKey, productKey);
 
-						// 同时更新数据库中的库存
+						//MySql庫存
 						ProductService productSvc = new ProductService();
 						ProductVO product = productSvc.getOneProduct(productNo);
 						if (product != null) {
-							// 减少库存
-							int currentStock = product.getStorageQty(); // 获取当前库存
-							int newStock = currentStock - quantity; // 减少库存后的值
+
+							int currentStock = product.getStorageQty(); 
+							int newStock = currentStock - quantity; 
 							if (newStock < 0) {
-								newStock = 0; // 避免库存为负数
+								newStock = 0; 
 							}
 
-							// 更新库存
 							product.setStorageQty(newStock);
 							productSvc.update(product);
 						}
@@ -214,7 +214,7 @@ public class MemberOrderServlet extends HttpServlet {
 
 					Map<String, String> itemMap = new HashMap<>();
 					itemMap.put("message", "success");
-					// 向前端发送成功消息
+
 					Gson gson = new Gson();
 					String jsonData = gson.toJson(itemMap);
 					System.out.println(jsonData);
@@ -228,7 +228,7 @@ public class MemberOrderServlet extends HttpServlet {
 			} else {
 				Map<String, String> itemMap = new HashMap<>();
 				itemMap.put("message", "false");
-				// 失敗
+
 				Gson gson = new Gson();
 				String jsonData = gson.toJson(itemMap);
 				System.out.println(jsonData);
@@ -243,13 +243,12 @@ public class MemberOrderServlet extends HttpServlet {
 			MemberOrderService memberOrderSvc = new MemberOrderService();
 			List<MemberOrderVO> memberOrderVO = memberOrderSvc.getAll();
 
-			// 创建一个列表来存储 HashMap
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 
 			for (MemberOrderVO item : memberOrderVO) {
-				// 创建一个 HashMap 来存储当前项的数据
+
 				Map<String, String> itemMap = new HashMap<>();
-				// 获取数据并放入 HashMap
+
 				String orderNo = item.getOrderNo().toString();
 				itemMap.put("orderNo", orderNo);
 
@@ -278,7 +277,7 @@ public class MemberOrderServlet extends HttpServlet {
 
 				String createdTimestamp = item.getCreatedTimestamp().toString();
 				itemMap.put("createdTimestamp", createdTimestamp);
-				// HashMap 放入列表
+
 				dataMapList.add(itemMap);
 			}
 			System.out.println(dataMapList);
@@ -312,7 +311,8 @@ public class MemberOrderServlet extends HttpServlet {
 			memberOrderDetailMap.put("createdTimestamp", memberOrderVO.getCreatedTimestamp().toString());
 			memberOrderDetailMap.put("orderStatus", memberOrderVO.getOrderStatus().toString());
 
-			// 处理订单明细
+			
+			//訂單明細
 			Set<OrderDetailVO> orderDetails = memberOrderVO.getOrderDetail();
 			List<Map<String, Object>> orderDetailList = new ArrayList<>();
 
@@ -328,20 +328,16 @@ public class MemberOrderServlet extends HttpServlet {
 				System.out.println(orderDetail.getOrderQty().toString());
 				System.out.println(String.valueOf(totalcount));
 
-				// 将 orderDetailItem 添加到 orderDetailList
 				orderDetailList.add(orderDetailItem);
 			}
 
 			memberOrderDetailMap.put("orderDetail", orderDetailList);
-			// 2. 使用Gson将Map对象转换为JSON字符串
+
 			Gson gson = new Gson();
 			String productDetailJson = gson.toJson(memberOrderDetailMap);
 
-			System.out.println(productDetailJson);
-			// 3. 设置响应的内容类型为JSON
-			res.setContentType("application/json; charset=UTF-8");
 
-			// 将JSON字符串作为响应写入输出流
+			res.setContentType("application/json; charset=UTF-8");
 			res.getWriter().write(productDetailJson);
 		}
 
@@ -367,15 +363,13 @@ public class MemberOrderServlet extends HttpServlet {
 			}else {
 				memberOrderMap.put("message", "false");
 			}
-			// 2. 使用Gson将Map对象转换为JSON字符串
+
 			Gson gson = new Gson();
 			String productDetailJson = gson.toJson(memberOrderMap);
 
 			System.out.println(productDetailJson);
-			// 3. 设置响应的内容类型为JSON
-			res.setContentType("application/json; charset=UTF-8");
 
-			// 将JSON字符串作为响应写入输出流
+			res.setContentType("application/json; charset=UTF-8");
 			res.getWriter().write(productDetailJson);
 		}
 

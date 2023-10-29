@@ -54,9 +54,10 @@ public class ProductHDAOIm implements ProductDAO {
 
 //		try {
 //			session.beginTransaction();
-		ProductVO existingProduct = session.get(ProductVO.class, productVO.getProductNo()); // 获取现有对象
+		ProductVO existingProduct = session.get(ProductVO.class, productVO.getProductNo()); 
+		//session 快取中移除物件
 		if (existingProduct != null) {
-			session.evict(existingProduct); // 从会话中删除现有对象
+			session.evict(existingProduct); 
 		}	
 		session.update(productVO);
 //			session.getTransaction().commit();
@@ -154,11 +155,7 @@ public class ProductHDAOIm implements ProductDAO {
 //		return null;
 	}
 
-	@Override
-	public List<ProductVO> findByProductNames(String productName, String category) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize) {
@@ -170,14 +167,15 @@ public class ProductHDAOIm implements ProductDAO {
 		String hql = "FROM ProductVO p WHERE " + "p.productName LIKE :keyword OR " + "p.productDec LIKE :keyword OR "
 				+ "p.productIntroduction LIKE :keyword";
 
-		// 加入上下架时间的筛选
+		// 時間
 		long currentTimestamp = System.currentTimeMillis();
 		hql += " AND p.shelfTime <= :currentTimestamp";
 		hql += " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
 
-		// 按照编码排序
+		// 按照編號
 		hql += " ORDER BY p.productNo";
-
+		
+		//TypedQuery編譯時期能夠檢測到類型相關的錯誤
 		TypedQuery<ProductVO> query = session.createQuery(hql, ProductVO.class);
 		query.setParameter("keyword", "%" + keyword + "%");
 		query.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
@@ -186,7 +184,7 @@ public class ProductHDAOIm implements ProductDAO {
 
 		List<ProductVO> products = query.getResultList();
 
-		// 构建独立的计数查询
+		// 全部
 		String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "p.productName LIKE :keyword OR "
 				+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword"
 				+ " AND p.shelfTime <= :currentTimestamp"
@@ -211,10 +209,17 @@ public class ProductHDAOIm implements ProductDAO {
 
 	@Override
 	public ProductVO findByProductName(String productName, String category) {
-		// TODO Auto-generated method stub
-		return null;
+		return getSession().createQuery("from ProductVO where productName = :productName and " + category + " is not null", ProductVO.class)
+				.setParameter("productName", productName).uniqueResult();
 	}
 
+	@Override
+	public List<ProductVO> findByProductNames(String productName, String category) {
+		return getSession()
+				.createQuery("from ProductVO where productName like :productName and " + category + " is not null",
+						ProductVO.class)
+				.setParameter("productName", "%" + productName + "%").list();
+	}
 	@Override
 	public Pair<List<ProductVO>, Long> findByCategoryKeywordWithPagination(int type, int page, int pageSize) {
 //		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -242,7 +247,7 @@ public class ProductHDAOIm implements ProductDAO {
 
 		List<ProductVO> products = query.getResultList();
 
-		// 获取符合条件的总数
+
 		String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE ";
 		if (type == 1) {
 			countHql += "p.ingredientCategoryNo IS NOT NULL";
@@ -291,7 +296,7 @@ public class ProductHDAOIm implements ProductDAO {
 
 		List<ProductVO> products = query.getResultList();
 
-		// 获取符合条件的总数
+
 		String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "(p.productName LIKE :keyword OR "
 				+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword) AND "
 				+ "p.kitchenwareCategoryNo IS NOT NULL AND " + "p.shelfTime <= :currentTimestamp AND "
@@ -339,7 +344,7 @@ public class ProductHDAOIm implements ProductDAO {
 
 		List<ProductVO> products = query.getResultList();
 
-		// 获取符合条件的总数
+
 		String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "(p.productName LIKE :keyword OR "
 				+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword) AND "
 				+ "p.kitchenwareCategoryNo IS NOT NULL AND " + "p.shelfTime <= :currentTimestamp AND "
@@ -370,10 +375,10 @@ public class ProductHDAOIm implements ProductDAO {
 		Session session = getSession();
 //		try {
 //			session.beginTransaction();
-		// 编写 Hibernate 查询语句来查询搜索次数最高的商品
+
 		String hql = "SELECT p FROM ProductVO p ORDER BY p.searchCount DESC";
 		Query<ProductVO> query = session.createQuery(hql, ProductVO.class);
-		query.setMaxResults(10); // 限制返回的结果数为前10个商品
+		query.setMaxResults(10); 
 		List<ProductVO> topProducts = query.getResultList();
 //			session.getTransaction().commit();
 		return topProducts;
@@ -381,7 +386,7 @@ public class ProductHDAOIm implements ProductDAO {
 //			e.printStackTrace();
 //			session.getTransaction().rollback();
 //		} finally {
-		// HibernateUtil.shutdown(); // 最好不要在这里关闭 Hibernate SessionFactory
+		// HibernateUtil.shutdown(); 
 //		}
 //		return null;
 	}
@@ -403,6 +408,7 @@ public class ProductHDAOIm implements ProductDAO {
 		String hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount > 0 AND "
 				+ "p.shelfTime < :currentTimestamp AND "
 				+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " + "ORDER BY p.searchCount DESC";
+		
 		TypedQuery<ProductVO> query = session.createQuery(hql2, ProductVO.class);
 		query.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
 		query.setFirstResult((page - 1) * pageSize);
@@ -419,7 +425,7 @@ public class ProductHDAOIm implements ProductDAO {
 //			e.printStackTrace();
 //			session.getTransaction().rollback();
 //		} finally {
-		// HibernateUtil.shutdown(); // 最好不要在这里关闭 Hibernate SessionFactory
+		// HibernateUtil.shutdown(); // 
 //		}
 //		return null;
 	}
