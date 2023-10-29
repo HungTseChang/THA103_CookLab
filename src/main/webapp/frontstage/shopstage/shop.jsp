@@ -210,60 +210,52 @@ pageContext.setAttribute("list", list);
 	<section>
 		<div class="container" style="margin-top: 50px">
 			<div class="row">
-				<div class="col-12">
-					<div id="carouselExampleCaptions" class="carousel slide"
-						data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carouselExampleCaptions" data-slide-to="0"
-								class="active"></li>
-							<li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-							<li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-						</ol>
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="./img/cart/cart-1.jpg"
-									class="d-block w-100 carousel-image" alt="..." />
-								<div class="carousel-caption d-none d-md-block">
-									<h5>First slide label</h5>
-									<p>Some representative placeholder content for the first
-										slide.</p>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<img src="./img/cart/cart-2.jpg"
-									class="d-block w-100 carousel-image" alt="..." />
-								<div class="carousel-caption d-none d-md-block">
-									<h5>Second slide label</h5>
-									<p>Some representative placeholder content for the second
-										slide.</p>
-								</div>
-							</div>
-							<div class="carousel-item">
-								<img src="./img/cart/cart-3.jpg"
-									class="d-block w-100 carousel-image" alt="..." />
-								<div class="carousel-caption d-none d-md-block">
-									<h5>Third slide label</h5>
-									<p>Some representative placeholder content for the third
-										slide.</p>
-								</div>
-							</div>
+				<div class="categories__slider owl-carousel">
+					<div class="col-lg-12">
+						<div class="categories__item set-bg"
+							data-setbg="img/categories/cat-1.jpg">
+							<h5>
+								<a href="#">Fresh Fruit</a>
+							</h5>
 						</div>
-						<button class="carousel-control-prev" type="button"
-							data-target="#carouselExampleCaptions" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-target="#carouselExampleCaptions" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</button>
+					</div>
+					<div class="col-lg-12">
+						<div class="categories__item set-bg"
+							data-setbg="img/categories/cat-2.jpg">
+							<h5>
+								<a href="#">Dried Fruit</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="categories__item set-bg"
+							data-setbg="img/categories/cat-3.jpg">
+							<h5>
+								<a href="#">Vegetables</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="categories__item set-bg"
+							data-setbg="img/categories/cat-4.jpg">
+							<h5>
+								<a href="#">drink fruits</a>
+							</h5>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="categories__item set-bg"
+							data-setbg="img/categories/cat-5.jpg">
+							<h5>
+								<a href="#">drink fruits</a>
+							</h5>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	</section>
 	<!-- 商品輪播圖(廣告區) Section End -->
+
 
 	<!-- Featured Section Begin -->
 	<section class="featured spad">

@@ -33,54 +33,55 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 
 	@Override
 	public void insert(KitchenwareCategoryVO kitchenwareCategory) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-	        session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//	        session.beginTransaction();
 
 	        // 使用Hibernate的更新方法将对象保存到数据库
 	        session.save(kitchenwareCategory);
 	        System.out.println("新增成功");
-	        session.getTransaction().commit();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
+//	        session.getTransaction().commit();
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        session.getTransaction().rollback();
+//	    }
 		
 	}
 
 	@Override
 	public void update(KitchenwareCategoryVO kitchenwareCategory) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-	        session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//	        session.beginTransaction();
 
 	        // 使用Hibernate的更新方法将对象保存到数据库
 	        session.update(kitchenwareCategory);
 	        System.out.println("更新成功");
-	        session.getTransaction().commit();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	    }
+//	        session.getTransaction().commit();
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        session.getTransaction().rollback();
+//	    }
 		
 	}
 
 	@Override
 	public void delete(KitchenwareCategoryVO kitchenwareCategory) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 
 			// 使用Hibernate的更新方法将对象保存到数据库
 			session.delete(kitchenwareCategory);
-			System.out.println("刪除成功");
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-
-		
+//			System.out.println("刪除成功");
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}		
 	}
 
 	@Override
@@ -91,9 +92,10 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 
 	@Override
 	public List<KitchenwareCategoryVO> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 			List<Object[]> result = session
 					.createQuery("select k.kitchenwareCategoryNo, k.categoryName from KitchenwareCategoryVO k").list();
 
@@ -106,41 +108,43 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 				listKitchenwareCategoryVO.add(categoryVO);
 			}
 
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			System.out.println(listKitchenwareCategoryVO);
 			return listKitchenwareCategoryVO;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			// HibernateUtil.shutdown(); 不需要關閉 SessionFactory
-		}
-		return null;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		} finally {
+//			// HibernateUtil.shutdown(); 不需要關閉 SessionFactory
+//		}
+//		return null;
 	}
 
 	@Override
 	public boolean hasAssociatedProducts(Integer kitchenwareCategoryNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		session.beginTransaction();
 
 		KitchenwareCategoryVO category = session.get(KitchenwareCategoryVO.class, kitchenwareCategoryNo);
 
 		if (category != null) {
 			Set<ProductVO> products = category.getProduct();
 			boolean hasAssociatedProducts = !products.isEmpty();
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return hasAssociatedProducts;
 		} else {
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return false;
 		}
 	}
 
 	@Override
 	public KitchenwareCategoryVO findByName(KitchenwareCategoryVO kitchenwareCategory) {
-	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-	    try {
-	        session.beginTransaction();
+//	    Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	    Session session = getSession();
+//	    try {
+//	        session.beginTransaction();
 	        
 	        CriteriaBuilder builder = session.getCriteriaBuilder();
 	        CriteriaQuery<KitchenwareCategoryVO> criteria = builder.createQuery(KitchenwareCategoryVO.class);
@@ -154,17 +158,13 @@ public class KitchenwareCategoryHDAOIm implements KitchenwareCategoryDAO {
 	        
 	        KitchenwareCategoryVO result = query.uniqueResult();
 	        
-	        session.getTransaction().commit();
+//	        session.getTransaction().commit();
 	        
 	        return result;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        session.getTransaction().rollback();
-	        return null;
-	    }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	        session.getTransaction().rollback();
+//	        return null;
+//	    }
 	}
-
-
-	
-
 }

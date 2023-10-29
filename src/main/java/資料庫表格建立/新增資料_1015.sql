@@ -83,17 +83,18 @@ insert into kitchenware_category(category_name) values ("鍋鏟");
 insert into kitchenware_category(category_name) values ("撈麵網");
 
 -- product商品測試用資料
-INSERT INTO product (product_name, sale_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, storage_qty, ingredient_category_no, kitchenware_category_no, search_count)
+INSERT INTO product 
+(product_name, storage_qty, product_dec, product_introduction, product_price, offsale_time, shelf_time, ingredient_category_no, kitchenware_category_no, search_count)
 VALUES
-    ('番茄', 20, '番茄', '番茄', 200, NULL, NOW(), 40, 
+    ('番茄', 20, '番茄', '番茄', 200, NOW(), NOW() , 
     (select ingredient_category_no from ingredient_category where category_name = "番茄"), default, 0),
-    ('鑄鐵鍋', 15, '鑄鐵鍋', '鑄鐵鍋', 300, NULL, NOW(), 30, default,
+    ('鑄鐵鍋', 15, '鑄鐵鍋', '鑄鐵鍋', 300, NULL, NOW(), default,
     (select kitchenware_category_no from kitchenware_category where category_name = "鑄鐵鍋"), 0),
-    ('琺瑯鍋', 15, '琺瑯鍋', '琺瑯鍋', 300, NULL, NOW(), 30, default,
+    ('琺瑯鍋', 15, '琺瑯鍋', '琺瑯鍋', 300, NULL, NOW(), default,
     (select kitchenware_category_no from kitchenware_category where category_name = "琺瑯鍋"), 0),
-    ('不鏽鋼鍋', 15, '不鏽鋼鍋', '不鏽鋼鍋', 300, NULL, NOW(), 30, default,
+    ('不鏽鋼鍋', 15, '不鏽鋼鍋', '不鏽鋼鍋', 300, NULL, NOW(), default,
     (select kitchenware_category_no from kitchenware_category where category_name = "不鏽鋼鍋"), 0),
-    ('紅蘿蔔', 25, '紅蘿蔔', '紅蘿蔔', 50, NULL, NOW(), 60, 
+    ('紅蘿蔔', 25, '紅蘿蔔', '紅蘿蔔', 50, NULL, NOW(), 
     (select ingredient_category_no from ingredient_category where category_name = "紅蘿蔔"), default, 0);
 
 INSERT INTO recipe_ingredient (recipe_no ,product_no ,text_label,ingredient_quantity ) VALUES ( 1, 1, "純文字標籤", "食材份量");

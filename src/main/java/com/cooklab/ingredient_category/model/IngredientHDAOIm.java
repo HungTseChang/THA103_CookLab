@@ -33,52 +33,53 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 
 	@Override
 	public void insert(IngredientCategoryVO ingredientCategory) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 
-			// 使用Hibernate的更新方法将对象保存到数据库
-			session.save(ingredientCategory);
-			System.out.println("新增成功");
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-
+		// 使用Hibernate的更新方法将对象保存到数据库
+		session.save(ingredientCategory);
+		System.out.println("新增成功");
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}
 	}
 
 	@Override
 	public void update(IngredientCategoryVO ingredientCategory) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 
-			// 使用Hibernate的更新方法将对象保存到数据库
-			session.update(ingredientCategory);
+		// 使用Hibernate的更新方法将对象保存到数据库
+		session.update(ingredientCategory);
 
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}
 	}
 
 	@Override
 	public void delete(IngredientCategoryVO ingredientCategory) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 
-			// 使用Hibernate的更新方法将对象保存到数据库
-			session.delete(ingredientCategory);
-			System.out.println("刪除成功");
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
+		// 使用Hibernate的更新方法将对象保存到数据库
+		session.delete(ingredientCategory);
+//			System.out.println("刪除成功");
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}
 
 	}
 
@@ -90,110 +91,112 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 
 	@Override
 	public List<IngredientCategoryVO> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			List<Object[]> result = session
-					.createQuery("select i.ingredientCategoryNo, i.categoryName from IngredientCategoryVO i").list();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
+		List<Object[]> result = session
+				.createQuery("select i.ingredientCategoryNo, i.categoryName from IngredientCategoryVO i").list();
 
-			List<IngredientCategoryVO> listingredientCategoryVO = new ArrayList<>();
+		List<IngredientCategoryVO> listingredientCategoryVO = new ArrayList<>();
 
-			for (Object[] row : result) {
-				IngredientCategoryVO categoryVO = new IngredientCategoryVO();
-				categoryVO.setIngredientCategoryNo((Integer) row[0]);
-				categoryVO.setCategoryName((String) row[1]);
-				listingredientCategoryVO.add(categoryVO);
-			}
-
-			session.getTransaction().commit();
-			System.out.println(listingredientCategoryVO);
-			return listingredientCategoryVO;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			// HibernateUtil.shutdown(); 不需要關閉 SessionFactory
+		for (Object[] row : result) {
+			IngredientCategoryVO categoryVO = new IngredientCategoryVO();
+			categoryVO.setIngredientCategoryNo((Integer) row[0]);
+			categoryVO.setCategoryName((String) row[1]);
+			listingredientCategoryVO.add(categoryVO);
 		}
-		return null;
+
+//			session.getTransaction().commit();
+		System.out.println(listingredientCategoryVO);
+		return listingredientCategoryVO;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		} finally {
+		// HibernateUtil.shutdown(); 不需要關閉 SessionFactory
+//		}
+//		return null;
 	}
 
 	@Override
 	public List<Object[]> getIngredientAndKitchenwareTags() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 
-			String hqlIngredient = "SELECT '食材', ingredientCategoryNo, categoryName FROM IngredientCategoryVO";
-			String hqlKitchenware = "SELECT '廚具', kitchenwareCategoryNo, categoryName FROM KitchenwareCategoryVO";
+		String hqlIngredient = "SELECT '食材', ingredientCategoryNo, categoryName FROM IngredientCategoryVO";
+		String hqlKitchenware = "SELECT '廚具', kitchenwareCategoryNo, categoryName FROM KitchenwareCategoryVO";
 
-			Query<Object[]> queryIngredient = session.createQuery(hqlIngredient, Object[].class);
-			Query<Object[]> queryKitchenware = session.createQuery(hqlKitchenware, Object[].class);
+		Query<Object[]> queryIngredient = session.createQuery(hqlIngredient, Object[].class);
+		Query<Object[]> queryKitchenware = session.createQuery(hqlKitchenware, Object[].class);
 
-			List<Object[]> ingredientResults = queryIngredient.list();
-			List<Object[]> kitchenwareResults = queryKitchenware.list();
+		List<Object[]> ingredientResults = queryIngredient.list();
+		List<Object[]> kitchenwareResults = queryKitchenware.list();
 
-			List<Object[]> allTags = new ArrayList<>();
-			allTags.addAll(ingredientResults);
-			allTags.addAll(kitchenwareResults);
+		List<Object[]> allTags = new ArrayList<>();
+		allTags.addAll(ingredientResults);
+		allTags.addAll(kitchenwareResults);
 
-			System.out.println("成功");
-			session.getTransaction().commit();
+		System.out.println("成功");
+//			session.getTransaction().commit();
 
-			return allTags;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			// HibernateUtil.shutdown();
-		}
-		return null;
+		return allTags;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		} finally {
+		// HibernateUtil.shutdown();
+//		}
+//		return null;
 	}
 
 	public boolean hasAssociatedProducts(Integer ingredientCategoryNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		session.beginTransaction();
 
 		IngredientCategoryVO category = session.get(IngredientCategoryVO.class, ingredientCategoryNo);
 
 		if (category != null) {
 			Set<ProductVO> products = category.getProduct();
 			boolean hasAssociatedProducts = !products.isEmpty();
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return hasAssociatedProducts;
 		} else {
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return false;
 		}
 	}
 
 	@Override
 	public IngredientCategoryVO findByName(IngredientCategoryVO ingredientCategory) {
-		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		    try {
-		        session.beginTransaction();
-		        
-		        CriteriaBuilder builder = session.getCriteriaBuilder();
-		        CriteriaQuery<IngredientCategoryVO> criteria = builder.createQuery(IngredientCategoryVO.class);
-		        Root<IngredientCategoryVO> root = criteria.from(IngredientCategoryVO.class);
-		        
-		        // 构建查询条件
-		        Predicate namePredicate = builder.equal(root.get("categoryName"), ingredientCategory.getCategoryName());
-		        criteria.select(root).where(namePredicate);
+//		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		 try {
+//		        session.beginTransaction();
 
-		        Query<IngredientCategoryVO> query = session.createQuery(criteria);
-		        
-		        IngredientCategoryVO result = query.uniqueResult();
-		        
-		        session.getTransaction().commit();
-		        
-		        return result;
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		        session.getTransaction().rollback();
-		        return null;
-		    }
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<IngredientCategoryVO> criteria = builder.createQuery(IngredientCategoryVO.class);
+		Root<IngredientCategoryVO> root = criteria.from(IngredientCategoryVO.class);
+
+		// 构建查询条件
+		Predicate namePredicate = builder.equal(root.get("categoryName"), ingredientCategory.getCategoryName());
+		criteria.select(root).where(namePredicate);
+
+		Query<IngredientCategoryVO> query = session.createQuery(criteria);
+
+		IngredientCategoryVO result = query.uniqueResult();
+
+//		session.getTransaction().commit();
+
+		return result;
+//		    } catch (Exception e) {
+//		        e.printStackTrace();
+//		        session.getTransaction().rollback();
+//		        return null;
+//		    }
 	}
-	
-	
 
 }

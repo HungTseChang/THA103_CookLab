@@ -64,4 +64,18 @@
 		<url-pattern>/mazer-main/dist/article/*</url-pattern>
 	</filter-mapping>
 	<!-- 所有需要用到hibernate(.getAll)語法的都要註冊，包括JSP頁面 -->
+
+	<!--紀紘 測試 -->
+	<filter>
+		<filter-name>productFilter</filter-name>
+		<filter-class>com.cooklab.filter.OpenSessionInViewFilter2</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>productFilter</filter-name>
+		<url-pattern>/ProductServlet</url-pattern>
+		<url-pattern>/KitchenwaretServlet</url-pattern>
+		<url-pattern>/IngredientServlet</url-pattern>
+		<url-pattern>/frontstage/shopstage/*</url-pattern>
+		<url-pattern>/mazer-main/dist/product/*</url-pattern>
+	</filter-mapping>
 </web-app>

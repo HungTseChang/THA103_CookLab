@@ -2,8 +2,11 @@ package com.cooklab.member_order.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,6 +16,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cooklab.ingredient_category.model.IngredientCategoryVO;
+import com.cooklab.ingredient_category.model.IngredientService;
+import com.cooklab.kitchenware_category.model.KitchenwareCategoryService;
+import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
 import com.cooklab.member_order.model.MemberOrderService;
 import com.cooklab.member_order.model.MemberOrderVO;
 import com.cooklab.members.model.MembersService;
@@ -231,6 +238,145 @@ public class MemberOrderServlet extends HttpServlet {
 				res.getWriter().write(jsonData);
 			}
 
+		}
+		if ("search".equals(action)) {
+			MemberOrderService memberOrderSvc = new MemberOrderService();
+			List<MemberOrderVO> memberOrderVO = memberOrderSvc.getAll();
+
+			// 创建一个列表来存储 HashMap
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+
+			for (MemberOrderVO item : memberOrderVO) {
+				// 创建一个 HashMap 来存储当前项的数据
+				Map<String, String> itemMap = new HashMap<>();
+				// 获取数据并放入 HashMap
+				String orderNo = item.getOrderNo().toString();
+				itemMap.put("orderNo", orderNo);
+
+				String members = item.getMembers().getMemberId().toString();
+				itemMap.put("members", members);
+
+				String orderStatus = item.getOrderStatus().toString();
+				itemMap.put("orderStatus", orderStatus);
+
+				String totalOrderAmount = item.getTotalOrderAmount().toString();
+				itemMap.put("totalOrderAmount", totalOrderAmount);
+
+				String checkoutAmount = item.getCheckoutAmount().toString();
+				itemMap.put("checkoutAmount", checkoutAmount);
+
+				String promoCode;
+				if (item.getPromoCode() != null) {
+					promoCode = item.getPromoCode().getPromoCodeNo().toString();
+				} else {
+					promoCode = "無使用";
+				}
+				itemMap.put("promoCode", promoCode);
+
+				String shippingAddress = item.getShippingAddress();
+				itemMap.put("shippingAddress", shippingAddress);
+
+				String createdTimestamp = item.getCreatedTimestamp().toString();
+				itemMap.put("createdTimestamp", createdTimestamp);
+				// HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+			System.out.println(dataMapList);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+		if ("getDetail".equals(action)) {
+			Integer orderNo = Integer.valueOf(req.getParameter("orderNo").trim());
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+			MemberOrderService memberOrderSvc = new MemberOrderService();
+			MemberOrderVO memberOrderVO = memberOrderSvc.findByPrimaryKey(orderNo);
+
+			Map<String, Object> memberOrderDetailMap = new HashMap<>();
+
+			memberOrderDetailMap.put("memberId", memberOrderVO.getMembers().getMemberId().toString());
+			memberOrderDetailMap.put("shippingAddress", memberOrderVO.getShippingAddress());
+			memberOrderDetailMap.put("promoCode", memberOrderVO.getPromoCode().getPromoCodeSerialNumber());
+			memberOrderDetailMap.put("memberNickname", memberOrderVO.getMembers().getMemberNickname());
+			memberOrderDetailMap.put("orderNo", memberOrderVO.getOrderNo().toString());
+			memberOrderDetailMap.put("totalOrderAmount", memberOrderVO.getTotalOrderAmount().toString());
+			memberOrderDetailMap.put("checkoutAmount", memberOrderVO.getCheckoutAmount().toString());
+			memberOrderDetailMap.put("memberMail", memberOrderVO.getMembers().getMemberMail());
+			memberOrderDetailMap.put("createdTimestamp", memberOrderVO.getCreatedTimestamp().toString());
+			memberOrderDetailMap.put("orderStatus", memberOrderVO.getOrderStatus().toString());
+
+			// 处理订单明细
+			Set<OrderDetailVO> orderDetails = memberOrderVO.getOrderDetail();
+			List<Map<String, Object>> orderDetailList = new ArrayList<>();
+
+			for (OrderDetailVO orderDetail : orderDetails) {
+				Map<String, Object> orderDetailItem = new HashMap<>();
+				orderDetailItem.put("productId", orderDetail.getProduct().getProductName());
+
+				orderDetailItem.put("quantity", orderDetail.getOrderQty().toString());
+				int totalcount = orderDetail.getProduct().getProductPrice() * orderDetail.getOrderQty();
+				orderDetailItem.put("totalcount", String.valueOf(totalcount));
+
+				System.out.println(orderDetail.getProduct().getProductName());
+				System.out.println(orderDetail.getOrderQty().toString());
+				System.out.println(String.valueOf(totalcount));
+
+				// 将 orderDetailItem 添加到 orderDetailList
+				orderDetailList.add(orderDetailItem);
+			}
+
+			memberOrderDetailMap.put("orderDetail", orderDetailList);
+			// 2. 使用Gson将Map对象转换为JSON字符串
+			Gson gson = new Gson();
+			String productDetailJson = gson.toJson(memberOrderDetailMap);
+
+			System.out.println(productDetailJson);
+			// 3. 设置响应的内容类型为JSON
+			res.setContentType("application/json; charset=UTF-8");
+
+			// 将JSON字符串作为响应写入输出流
+			res.getWriter().write(productDetailJson);
+		}
+
+		if ("updateOrderStatus".equals(action)) {
+			Integer orderNo = Integer.valueOf(req.getParameter("orderNo").trim());
+			Integer newStatus = Integer.valueOf(req.getParameter("newStatus").trim());
+
+			MemberOrderService memberOrderSvc = new MemberOrderService();
+			MemberOrderVO memberOrderVO = new MemberOrderVO();
+
+			memberOrderVO.setOrderNo(orderNo);
+			if (newStatus >= Byte.MIN_VALUE && newStatus <= Byte.MAX_VALUE) {
+				byte statusByte = newStatus.byteValue();
+				memberOrderVO.setOrderStatus(statusByte);
+			}
+
+			memberOrderSvc.update(memberOrderVO);
+
+			Map<String, String> memberOrderMap = new HashMap<>();
+			
+			if(memberOrderSvc.update(memberOrderVO)==1) {
+				memberOrderMap.put("message", "success");
+			}else {
+				memberOrderMap.put("message", "false");
+			}
+			// 2. 使用Gson将Map对象转换为JSON字符串
+			Gson gson = new Gson();
+			String productDetailJson = gson.toJson(memberOrderMap);
+
+			System.out.println(productDetailJson);
+			// 3. 设置响应的内容类型为JSON
+			res.setContentType("application/json; charset=UTF-8");
+
+			// 将JSON字符串作为响应写入输出流
+			res.getWriter().write(productDetailJson);
 		}
 
 	}

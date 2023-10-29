@@ -40,19 +40,18 @@ public class CartServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
-		if ("buttonadd1".equals(action)) { // 来自select_page.jsp的请求
+		if ("buttonadd1".equals(action)) {
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 			String quantity = req.getParameter("quantity");
-			String memberNo = "1"; // 举例，你需要动态设置会员编号
+
+			String memberNo = "1"; // 動態設定
 
 			System.out.println(productNo);
 
-			// 在Redis中检查是否已经存在相同产品
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
 
 			try {
-				// 选择数据库
 				jedis.select(1);
 
 				String cartKey = "cart:" + memberNo;
@@ -64,35 +63,32 @@ public class CartServlet extends HttpServlet {
 					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
 					int existingQuantity = existingProductJson.get("quantity").getAsInt();
 
-					// 增加现有数量
 					int newQuantity = existingQuantity + 1;
 					existingProductJson.addProperty("quantity", newQuantity);
 
-					// 更新 Redis 中的产品
+					// 更新
 					jedis.hset(cartKey, productKey, existingProductJson.toString());
 
-					// 设置过期时间（如果需要）
-					jedis.expire(cartKey, 3600); // 设置为1小时过期
+					// 過期時間
+					jedis.expire(cartKey, 3600);
 
-					// 输出信息
 					System.out.println("存储到Redis成功!");
 				} else {
-					// 产品不存在，将其添加到 Redis
+					// 不存在
 					ProductService productSvc = new ProductService();
 					ProductVO productinfo = productSvc.getOneProduct(productNo);
 
 					String productName = productinfo.getProductName();
 					String productPrice = productinfo.getProductPrice().toString();
 					String productImage = "";
-					// 读取图像文件并编码为Base64字符串
+
 					byte[] productPicture = productinfo.getProductPicture();
 					if (productPicture != null) {
 						productImage = Base64.getEncoder().encodeToString(productPicture);
 					} else {
-						// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 						productImage = "";
 					}
-					// 构建一个 JSON 对象
+					// JSON
 					JsonObject jsonProduct = new JsonObject();
 					jsonProduct.addProperty("memberNo", memberNo);
 					jsonProduct.addProperty("productNo", productNo);
@@ -101,37 +97,35 @@ public class CartServlet extends HttpServlet {
 					jsonProduct.addProperty("productImage", productImage);
 					jsonProduct.addProperty("quantity", Integer.valueOf(quantity));
 
-					// 将 JSON 对象存储到 Redis
+					// JSON to Redis
 					jedis.hset(cartKey, productKey, jsonProduct.toString());
 
-					// 设置过期时间（如果需要）
-					jedis.expire(cartKey, 3600); // 设置为1小时过期
+					// 過期時間
+					jedis.expire(cartKey, 3600);
 
-					// 输出信息
 					System.out.println("存储到Redis成功!");
 				}
-				// 向前端发送成功消息
+
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				String successMessage = "{\"message\": \"成功加入购物车\"}";
 				res.getWriter().write(successMessage);
 			} finally {
-				jedis.close(); // 记得关闭Jedis连接，归还到连接池
+				jedis.close();
 			}
 		}
-		if ("buttonadd2".equals(action)) { // 来自select_page.jsp的请求
+		if ("buttonadd2".equals(action)) {
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 			Integer quantity = Integer.valueOf(req.getParameter("quantity"));
-			String memberNo = "1"; // 举例，你需要动态设置会员编号
+
+			String memberNo = "1";
 
 			System.out.println(productNo);
 
-			// 在Redis中检查是否已经存在相同产品
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
 
 			try {
-				// 选择数据库
 				jedis.select(1);
 
 				String cartKey = "cart:" + memberNo;
@@ -139,40 +133,35 @@ public class CartServlet extends HttpServlet {
 				String existingProduct = jedis.hget(cartKey, productKey);
 
 				if (existingProduct != null) {
-					System.out.println("重复商品累加");
+					System.out.println("重複商品累加");
 					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
 					int existingQuantity = existingProductJson.get("quantity").getAsInt();
 
-					// 增加现有数量
 					int newQuantity = existingQuantity + quantity;
 					existingProductJson.addProperty("quantity", newQuantity);
 
-					// 更新 Redis 中的产品
+					// 更新
 					jedis.hset(cartKey, productKey, existingProductJson.toString());
 
-					// 设置过期时间（如果需要）
-					jedis.expire(cartKey, 3600); // 设置为1小时过期
+					jedis.expire(cartKey, 3600);
 
-					// 输出信息
 					System.out.println("存储到Redis成功!");
 				} else {
-					// 产品不存在，将其添加到 Redis
+
 					ProductService productSvc = new ProductService();
 					ProductVO productinfo = productSvc.getOneProduct(productNo);
 
 					String productName = productinfo.getProductName();
 					String productPrice = productinfo.getProductPrice().toString();
 					String productImage = "";
-					// 读取图像文件并编码为Base64字符串
+
 					byte[] productPicture = productinfo.getProductPicture();
 					if (productPicture != null) {
 						productImage = Base64.getEncoder().encodeToString(productPicture);
 					} else {
-						// 处理 productPicture 为 null 的情况，例如给出一个默认值或者其他操作
 						productImage = "";
 					}
 
-					// 构建一个 JSON 对象
 					JsonObject jsonProduct = new JsonObject();
 					jsonProduct.addProperty("memberNo", memberNo);
 					jsonProduct.addProperty("productNo", productNo);
@@ -181,22 +170,18 @@ public class CartServlet extends HttpServlet {
 					jsonProduct.addProperty("productImage", productImage);
 					jsonProduct.addProperty("quantity", Integer.valueOf(quantity));
 
-					// 将 JSON 对象存储到 Redis
 					jedis.hset(cartKey, productKey, jsonProduct.toString());
 
-					// 设置过期时间（如果需要）
 					jedis.expire(cartKey, 3600); // 设置为1小时过期
 
-					// 输出信息
 					System.out.println("存储到Redis成功!");
 				}
-				// 向前端发送成功消息
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
 				String successMessage = "{\"message\": \"成功加入购物车\"}";
 				res.getWriter().write(successMessage);
 			} finally {
-				jedis.close(); // 记得关闭Jedis连接，归还到连接池
+				jedis.close();
 			}
 		}
 
@@ -214,7 +199,6 @@ public class CartServlet extends HttpServlet {
 				System.out.println(cartData);
 				System.out.println(cartData);
 				if (!cartData.isEmpty()) {
-					// 购物车不为空，将Map中的购物车数据转换为JSON数组
 					JsonArray cartArray = new JsonArray();
 
 					for (Map.Entry<String, String> entry : cartData.entrySet()) {
@@ -311,6 +295,57 @@ public class CartServlet extends HttpServlet {
 				res.getWriter().write(cartArray.toString());
 			} finally {
 				jedis.close(); // 记得关闭 Jedis 连接，归还到连接池
+			}
+		}
+
+		if ("updateQuantity".equals(action)) {
+			Integer productNo = Integer.valueOf(req.getParameter("productId").trim());
+			Integer newQuantity = Integer.valueOf(req.getParameter("newQuantity").trim());
+
+			String memberNo = "1"; // 動態
+
+			JedisPool jedisPool = JedisUtil.getJedisPool();
+			Jedis jedis = jedisPool.getResource();
+			try {
+				jedis.select(1);
+				String cartKey = "cart:" + memberNo;
+				String productKey = "product:" + productNo;
+				String existingProduct = jedis.hget(cartKey, productKey);
+				if (existingProduct != null) {
+					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+					existingProductJson.addProperty("quantity", newQuantity);
+
+					jedis.hset(cartKey, productKey, existingProductJson.toString());
+
+					jedis.expire(cartKey, 3600); // 设置为1小时过期
+
+					Map<String, String> cartData = jedis.hgetAll(cartKey);
+					System.out.println(cartKey);
+					System.out.println(cartData);
+					System.out.println(cartData);
+					if (!cartData.isEmpty()) {
+						JsonArray cartArray = new JsonArray();
+
+						for (Map.Entry<String, String> entry : cartData.entrySet()) {
+							String productKeys = entry.getKey();
+							String productJsons = entry.getValue();
+							// 构建 JSON 对象
+							JsonObject productObject = new JsonParser().parse(productJsons).getAsJsonObject();
+							cartArray.add(productObject);
+						}
+
+						// 将 JSON 数组写入响应
+						res.setContentType("application/json");
+						res.setCharacterEncoding("UTF-8");
+						res.getWriter().write(cartArray.toString());
+					} else {
+						res.setContentType("application/json");
+						res.setCharacterEncoding("UTF-8");
+						res.getWriter().write("[]"); 
+					}
+				}
+			} finally {
+				jedis.close();
 			}
 		}
 

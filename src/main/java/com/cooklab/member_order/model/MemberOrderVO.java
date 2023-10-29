@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.cooklab.members.model.MembersVO;
 import com.cooklab.order_detail.model.OrderDetailVO;
@@ -30,7 +31,8 @@ public class MemberOrderVO implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderNo ;
 	
-	@Column(name = "member_id")
+//	@Column(name = "member_id")
+	@Transient
 	private Integer memberId ;
 	
 //	優惠碼
@@ -42,7 +44,7 @@ public class MemberOrderVO implements Serializable{
 	@OneToMany(mappedBy = "memberOrder", cascade = CascadeType.ALL)
 	private Set<OrderDetailVO> orderDetail;
 
-//	=============WCC================
+//	會員
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
@@ -195,13 +197,6 @@ public class MemberOrderVO implements Serializable{
 	}
 
 
-	@Override
-	public String toString() {
-		return "MemberOrderVO [orderNo=" + orderNo + ", memberId=" + memberId + ", orderStatus=" + orderStatus
-				+ ", totalOrderAmount=" + totalOrderAmount + ", checkoutAmount=" + checkoutAmount + ", promoCodeNo="
-				+ promoCodeNo + ", shippingAddress=" + shippingAddress + ", createdTimestamp=" + createdTimestamp
-				+ "]";
-	}
 
 
 	
