@@ -3,7 +3,7 @@ package com.cooklab.article.model;
 import java.util.Collections;
 import java.util.List;
 
-import com.cooklab.util.JedisPoolUtil;
+import com.cooklab.util.JedisUtil;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -12,7 +12,7 @@ public class JedisHandleMessage { //Redis的DAO，對Redis的操作
 	// 此範例key的設計為(發送者名稱:接收者名稱)，實際應採用(發送者會員編號:接收者會員編號)
 	
 	//JedisPool老師另外寫了redius的連線池，檔名JedisPoolUtil.java，可以直接用?
-	private static JedisPool pool = JedisPoolUtil.getJedisPool();
+	private static JedisPool pool = JedisUtil.getJedisPool();
 	
 	//redius一筆資料，就是一筆聊天資料，使用list存放資料是因為有順序且可以重複
 	public static List<String> getHistoryMsg(String room) {

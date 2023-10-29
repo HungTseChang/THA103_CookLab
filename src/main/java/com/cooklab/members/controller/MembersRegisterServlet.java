@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.util.JedisPoolUtil;
+import com.cooklab.util.JedisUtil;
 import com.cooklab.members.controller.*;
 
 import redis.clients.jedis.JedisPool;
@@ -118,7 +118,7 @@ public class MembersRegisterServlet extends HttpServlet{
 		new Thread(()->mailService.sendMail(to, subject, messageText)).start();	
 		
 		//將驗證碼存入Redis
-		Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
+		Jedis jedis = JedisUtil.getJedisPool().getResource();
 		jedis.select(14);
 		jedis.set("Member:"+ memVO.getMemberId(), passRandom);
 		jedis.expire("Member:"+memVO.getMemberId(), 600);
