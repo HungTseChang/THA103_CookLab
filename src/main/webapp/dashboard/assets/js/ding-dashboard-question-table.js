@@ -17,6 +17,8 @@ let init = function () {
                       <td>${QuestionDTO.questionGroupName}</td>
                       <td>${QuestionDTO.questionTitle}</td>
                       <td>${QuestionDTO.questionContent}</td>
+                      <td>${QuestionDTO.questionGood}</td>
+                      <td>${QuestionDTO.questionBad}</td>
                       <td>${createdTimestamp.toLocaleString()}</td>
                       <td>
                         <a href="#" class="btn btn-primary question-update" data-questionno="${QuestionDTO.questionNo}">更新</a>

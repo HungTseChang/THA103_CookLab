@@ -97,5 +97,26 @@ public class QuestionHService implements QuestionServie {
 
 		return data;
 	}
+	
+	//TODO 待處理:轉換資料給REDIS存取
+	public List<QuestionDTO> getDTOByGroup(Integer questionGroupNo) {
+		// 宣告MAP物件的LIST集合，以便將VO取出的資料轉為MAP形式
+		List<QuestionVO> list = dao.getAll();
+
+		// 使用Stream API轉換資料
+		List<QuestionDTO> data = list.stream().map(qVO -> {
+			QuestionDTO qDTO = new QuestionDTO();
+			qDTO.setQuestionNo(qVO.getQuestionNo());
+			qDTO.setQuestionGroupName(qVO.getQuestionGroup().getQuestionName());
+			qDTO.setQuestionTitle(qVO.getQuestionTitle());
+			qDTO.setQuestionContent(qVO.getQuestionContent());
+			qDTO.setQuestionGood(qVO.getQuestionGood());
+			qDTO.setQuestionBad(qVO.getQuestionBad());
+			qDTO.setCreatedTimestamp(qVO.getCreatedTimestamp());
+			return qDTO;
+		}).collect(Collectors.toList());
+
+		return data;
+	}
 
 }
