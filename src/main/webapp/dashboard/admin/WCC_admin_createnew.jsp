@@ -109,22 +109,19 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\shopview.html">商品設定</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.jsp">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="TYT_order_management.html">訂單管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
                                 </li>
                                 <li class="submenu-item">
                                     <a href=".\GCpromo_info.html">新增優惠券</a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href=".\GCpromo.html">優惠券管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCadvertise.html" >廣告管理</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCadvertise_info.html">新增廣告</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >廣告管理</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="TYT_purchase_order_allView.html">進貨表單</a>
@@ -139,31 +136,11 @@
 
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\HO_discussion_cate.html">看板分類</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">看板分類</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href=".\HO_discussion_info.html" >文章管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >文章管理</a>
                                   </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>數據分析</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">會員數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">食譜數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">商城數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">文章數據</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub ">
@@ -188,8 +165,14 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">通知中心</a>
+                                </li>
+                                <li class="submenu-item ">
                                     <a href="ding-support-tickets-table.html">問題表單</a>
                                 </li>
+                                <li class="submenu-item active">
+                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
+                                 </li>
                             </ul>
                         </li>
                         <!-- ======================================================================================================== -->
@@ -518,7 +501,6 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	$("a#logout").on("click",function(e){
 	    e.preventDefault;
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL

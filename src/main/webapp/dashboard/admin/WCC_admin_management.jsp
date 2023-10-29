@@ -566,7 +566,6 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	$("a#logout").on("click",function(e){
 	    e.preventDefault;
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
