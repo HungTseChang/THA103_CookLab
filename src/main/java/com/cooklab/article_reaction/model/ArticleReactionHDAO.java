@@ -80,10 +80,10 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 	
 	//使用HQL的count做統計時，回傳的型別是Long，但是如果確定數字不超過Integer範圍的話，使用Integer也可以
 	@Override
-	public Long allCount(Integer articleNo, Byte statuts) {
-		return (Long) getSession().createQuery("select count (*) from ArticleReactionVO where articleNo = :articleNo and statuts = :statuts")
+	public Long allCount(Integer articleNo, Byte status) {
+		return (Long) getSession().createQuery("select count (*) from ArticleReactionVO where articleNo = :articleNo and status = :status")
 				.setParameter("articleNo",articleNo)
-				.setParameter("statuts",statuts)
+				.setParameter("status",status)
 				.uniqueResult();
 	}
 

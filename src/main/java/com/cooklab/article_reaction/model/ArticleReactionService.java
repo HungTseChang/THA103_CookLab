@@ -24,11 +24,11 @@ public class ArticleReactionService {
 			ArticleReactionVO newone = new ArticleReactionVO();
 			newone.setArticleNo(articleNo);
 			newone.setMemberId(memberId);
-			newone.setStatuts(status);
+			newone.setStatus(status);
 			
 			dao.saveOrUpdate(newone);
 		}else {
-			exist.setStatuts(status);
+			exist.setStatus(status);
 			
 			dao.saveOrUpdate(exist);
 		}

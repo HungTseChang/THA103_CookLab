@@ -34,34 +34,34 @@
 
 <!-- Css Styles -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/bootstrap.min.css"
+	href="../css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/font-awesome.min.css"
+	href="../css/font-awesome.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/elegant-icons.css"
+	href="../css/elegant-icons.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/nice-select.css"
+	href="../css/nice-select.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/jquery-ui.min.css"
+	href="../css/jquery-ui.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/owl.carousel.min.css"
+	href="../css/owl.carousel.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/slicknav.min.css"
+	href="../css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/style.css"
+	href="../css/style.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/HO.css"
+	href="../article/css/HO.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/ding.css"
+	href="../article/css/ding.css"
 	type="text/css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 	沒有上面的jquery-3.6.0.min.js，就不能直接在js使用EL語法 -->
@@ -77,7 +77,7 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="<%=request.getContextPath()%>/article/img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="../img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -156,7 +156,7 @@
 				<div class="col-lg-3">
 					<div class="header__logo">
 						<a href="./index.html"><img
-							style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+							style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="col-lg-9 d-flex align-items-center">
@@ -359,15 +359,15 @@
 	</footer>
 	<!-- Footer Section End -->
 	<!-- Js Plugins -->
-	<script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/jquery.nice-select.min.js"></script>
+	<script src="../js/jquery-ui.min.js"></script>
+	<script src="../js/jquery.slicknav.js"></script>
+	<script src="../js/mixitup.min.js"></script>
+	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../js/main.js"></script>
+	<script src="../article/js/HO.js"></script>
 	<script>
 	//=======WebChat===========
 

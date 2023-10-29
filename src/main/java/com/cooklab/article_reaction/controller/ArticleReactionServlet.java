@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +16,7 @@ import com.cooklab.article.model.*;
 
 
 @WebServlet("/ArticleReactionServlet")
-public class ArticleReactionServlet {
+public class ArticleReactionServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -52,10 +53,10 @@ public class ArticleReactionServlet {
 				System.out.println("文章號碼錯誤");
 			}
 			
-			String statutsStr = req.getParameter("statuts");
-			Byte statuts =null;
-			if (statutsStr != null && !statutsStr.isEmpty()) {
-				statuts = Byte.parseByte(statutsStr);
+			String statusStr = req.getParameter("status");
+			Byte status =null;
+			if (statusStr != null && !statusStr.isEmpty()) {
+				status = Byte.parseByte(statusStr);
 			} else {
 				System.out.println("狀態號碼錯誤");
 			}
@@ -63,13 +64,13 @@ public class ArticleReactionServlet {
 			ArticleReactionVO r1 = new ArticleReactionVO();
 			r1.setArticleNo(articleNo);
 			r1.setMemberId(memberId);
-			r1.setStatuts(statuts);
+			r1.setStatus(status);
 
 			// Send the use back to the form, if there were errors
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleReactionService artSvc = new ArticleReactionService();
-			artSvc.create(memberId, articleNo, statuts);
+			artSvc.create(memberId, articleNo, status);
 			System.out.println("按讚資料新增或修改完成");
 			
 			//我也忘了做搜尋要幹嘛.....哈哈哈
@@ -86,7 +87,7 @@ public class ArticleReactionServlet {
 			res.getWriter().write(success);
 			
 			//使用ajax 不能跳轉
-//			String url ="/article/article_content.jsp";
+//			String url ="frontstage/article/article_content.jsp";
 //			
 //			RequestDispatcher successView = req.getRequestDispatcher(url); 
 //			successView.forward(req, res);
@@ -116,10 +117,7 @@ public class ArticleReactionServlet {
 				articleNo = Integer.parseInt(articleNoStr);
 			} else {
 				System.out.println("文章號碼錯誤");
-			}
-			
-
-			
+			}			
 //			ArticleSubReactionVO r1 = new ArticleSubReactionVO();
 //			r1.setArticleNo(articleNo);
 //			r1.setMemberId(memberId);
@@ -130,7 +128,7 @@ public class ArticleReactionServlet {
 			artSvc.findTwo(memberId, articleNo);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 //			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url ="/article/article_content.jsp";
+			String url ="frontstage/article/article_content.jsp";
 			
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
