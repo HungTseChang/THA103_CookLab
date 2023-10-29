@@ -134,8 +134,8 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 								</li>
 								<li class="submenu-item"><a href=".\GCadvertise.html">廣告管理</a>
 								</li>
-								<li class="submenu-item active"><a href=".\GCadvertise_info.html">新增廣告</a>
-								</li>
+								<li class="submenu-item active"><a
+									href=".\GCadvertise_info.html">新增廣告</a></li>
 								<li class="submenu-item "><a
 									href="TYT_purchase_order_allView.html">進貨表單</a></li>
 							</ul></li>
@@ -200,7 +200,8 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp">廣告總覽</a></li>
+									<li class="breadcrumb-item"><a
+										href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp">廣告總覽</a></li>
 									<li class="breadcrumb-item active" aria-current="page">廣告設定</li>
 								</ol>
 							</nav>
@@ -223,7 +224,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 											enctype="multipart/form-data">
 											<div class="form-body">
 												<div class="row">
-												<div class="col-12" style="margin-top: 20px;">
+													<div class="col-12" style="margin-top: 20px;">
 														<div class="form-group">
 															<label for="advertiseNo-vertical">廣告編號</label> <input
 																type="hidden" id="advertiseNo-vertical"
@@ -251,35 +252,38 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 															<label for="advertiseShelfTime-vertical">上架時間</label> <input
 																type="datetime-local" id="advertiseShelfTime-vertical"
 																class="form-control" name="advertise_shelf_time"
-																value="${advertiseVO.advertiseShelfTime}" placeholder="上架時間">
+																value="${advertiseVO.advertiseShelfTime}"
+																placeholder="上架時間">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
 															<label for="advertiseOffsaleTime-vertical">下架時間</label> <input
-																type="datetime-local" id="padvertiseOffsaleTime-vertical"
-																class="form-control" name="advertise_offsale_time"
-																value="${advertiseVO.advertiseOffsaleTime}" placeholder="下架時間">
+																type="datetime-local"
+																id="padvertiseOffsaleTime-vertical" class="form-control"
+																name="advertise_offsale_time"
+																value="${advertiseVO.advertiseOffsaleTime}"
+																placeholder="下架時間">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
 															<label for="advertiseUrl-vertical">廣告URL</label> <input
 																type="text" step="1" id="advertiseUrl-vertical"
-																value="${advertiseVO.advertiseUrl}"
-																class="form-control" name="advertise_url">
+																value="${advertiseVO.advertiseUrl}" class="form-control"
+																name="advertise_url">
 														</div>
 													</div>
+												</div>
+												<div class="col-12">
+													<div class="col-12 d-flex justify-content-end">
+														<input type="hidden" name="action" value="update">
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+														<button type="reset"
+															class="btn btn-light-secondary me-1 mb-1">Reset</button>
 													</div>
-														<div class="col-12">
-															<div class="col-12 d-flex justify-content-end">
-																<input type="hidden" name="action" value="update">
-																<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-																<button type="reset"
-																	class="btn btn-light-secondary me-1 mb-1">Reset</button>
-															</div>
-														</div>
-													</div>
+												</div>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -365,6 +369,9 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
 	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+
 		$('#summernote').summernote({
 			tabsize : 2,
 			height : 120,

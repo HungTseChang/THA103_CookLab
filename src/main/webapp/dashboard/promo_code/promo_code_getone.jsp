@@ -265,12 +265,13 @@ input.WCC_memeber_info {
 													</div>
 
 													<div class="col-md-6 ">
-														
-															<input type="hidden" name="promoCodeNo" value="${promoCodeVO.promoCodeNo}"> 
-															<input type="hidden" name="action" value="update"> 
-															<input type="submit" value="送出">	
+
+														<input type="hidden" name="promoCodeNo"
+															value="${promoCodeVO.promoCodeNo}"> <input
+															type="hidden" name="action" value="update"> <input
+															type="submit" value="送出">
 													</div>
-													</FORM>
+												</FORM>
 											</div>
 										</div>
 									</div>
@@ -319,12 +320,10 @@ input.WCC_memeber_info {
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
 	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
+		let table1 = document.querySelector("#table1");
 		let dataTable = new simpleDatatables.DataTable(table1);
 	</script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/js/quill.js"></script>

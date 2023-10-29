@@ -243,9 +243,10 @@ td.HO_article_title {
 												<FORM METHOD="post"
 													ACTION="<%=request.getContextPath()%>/AdvertiseServlet"
 													style="margin-bottom: 0px;">
-													<input type="submit" value="н╫зя"> <input type="hidden" 
-													name="advertise_no" value="${adVO.advertiseNo}">
-													<input type="hidden"  name="action" value="getOne_For_Display">
+													<input type="submit" value="н╫зя"> <input
+														type="hidden" name="advertise_no"
+														value="${adVO.advertiseNo}"> <input type="hidden"
+														name="action" value="getOne_For_Display">
 												</FORM>
 											</td>
 											<td>
@@ -286,6 +287,8 @@ td.HO_article_title {
 		</div>
 	</div>
 	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
 		// 		Simple Datatable
 		// 		        let table1 = document.querySelector('#table1');
 		// 		        let dataTable = new simpleDatatables.DataTable(table1);
@@ -299,8 +302,7 @@ td.HO_article_title {
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
 

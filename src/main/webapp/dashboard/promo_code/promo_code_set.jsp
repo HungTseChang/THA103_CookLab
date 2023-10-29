@@ -10,7 +10,6 @@
 PromoCodeVO promoCodeVO = (PromoCodeVO) request.getAttribute("promoCodeVO");
 PromoCodeRandom PromoCodeRandom = new PromoCodeRandom();
 String a = PromoCodeRandom.generateRandomString(10);
-
 %>
 
 <!DOCTYPE html>
@@ -209,7 +208,7 @@ input.WCC_memeber_info {
 										</div>
 										<div class="card-content">
 											<div class="card-body">
-												
+
 												<form class="form form-horizontal" METHOD="post"
 													ACTION="<%=request.getContextPath()%>/PromoCodeServlet">
 													<div class="form-body">
@@ -220,7 +219,7 @@ input.WCC_memeber_info {
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" id="" class="GCpromo_info"
-																	name="promo_code_serial_number" value="<%=a%>" disabled >
+																	name="promo_code_serial_number" value="<%=a%>" disabled>
 															</div>
 															<div class="col-md-4">
 																<label>生效時間</label>
@@ -319,12 +318,10 @@ input.WCC_memeber_info {
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
 	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
+		let table1 = document.querySelector("#table1");
 		let dataTable = new simpleDatatables.DataTable(table1);
 	</script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/js/quill.js"></script>

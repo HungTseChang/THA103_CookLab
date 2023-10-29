@@ -10,8 +10,6 @@
 PromoCodeService pcSvc = new PromoCodeService();
 List<PromoCodeVO> list = pcSvc.getAll();
 pageContext.setAttribute("list", list);
-
-
 %>
 <head>
 <meta charset="UTF-8">
@@ -87,7 +85,7 @@ pageContext.setAttribute("list", list);
 
 						<li class="sidebar-item has-sub"><a href="#"
 							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>食譜管理</span>
-						</a> </li>
+						</a></li>
 
 						<li class="sidebar-item has-sub active"><a href="#"
 							class="sidebar-link"> <i class="bi bi-grid-1x2-fill"></i> <span>商城管理</span>
@@ -245,9 +243,10 @@ td.HO_article_title {
 												<FORM METHOD="post"
 													ACTION="<%=request.getContextPath()%>/PromoCodeServlet"
 													style="margin-bottom: 0px;">
-													<input type="submit" value="修改"> <input type="hidden" 
-													name="promo_code_no" value="${pcVO.promoCodeNo}">
-													<input type="hidden"  name="action" value="getOne_For_Display">
+													<input type="submit" value="修改"> <input
+														type="hidden" name="promo_code_no"
+														value="${pcVO.promoCodeNo}"> <input type="hidden"
+														name="action" value="getOne_For_Display">
 												</FORM>
 											</td>
 											<td>
@@ -301,15 +300,14 @@ td.HO_article_title {
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
 
 
 	<script>
-
-			
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
 	</script>
 </body>
 
