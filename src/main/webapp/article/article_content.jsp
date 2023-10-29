@@ -222,12 +222,10 @@
  							<div id="like-dislike" > 
              					<img class="clickable like" src="<%=request.getContextPath()%>/article/img/HO/like.png"
                            			 alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-                            		 data-gjStatus="0">
+                            		 data-gjStatus="0"  data-memberId = 5  data-articleNo ="${artVO.articleNo}" >
                   				<span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
-                  				<li style="display: none;"> 
-                  					data-memberId = 5;
-		    						data-articleNo = "${artVO.articleNo}"</li>
-                  				
+                  			
+                  				<input type="hidden" class="testMemberId" value="" style= "float:right;"> 
                   				
                             	<img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
                             		alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
@@ -427,61 +425,157 @@
 	
 	
 	<script>
-	//強制回到article_main.jsp(沒有效)
+	//強制回到article_main.jsp(目前沒有效)
 	window.onbeforeunload = function (event) {
 	    if (document.referrer !== 'http://localhost:8081/CookLab/article/article_main.jsp') {
 	        window.location.href = 'http://localhost:8081/CookLab/article/article_main.jsp';
 	    }
 	}
-	//=======================================
+	//===============按讚的JS========================
 	$(document).ready(function () {
-		//下方ajax
-		  $(".like,.dislike").click(function () {
-			  //取得數據
-			  const $image = $(this);
-			  const memberId = $(this).data("memberId");
-			  const articleNo = $(this).data("articleNo");
-			  const status = $(this).data("gjStatus");
-			  
-			  let GJinfo = {
-					  memberID : memberId,
-					  articleNo : articleNo,
-					  status  : status,
-					  action : "saveOrUpdate" // 對應servlet的方法 
-			  }
+	$(".like, .dislike").click(function () {
+		  const $image = $(this);
+		  const $container = $image.closest('.like-dislike');
+		 
+		  console.log($container);
+		  const isEnlarged = $image.data("enlarged"); 
+		  var value = parseInt($image.attr("data-gjStatus")); 
+		  var dislikeStatus = parseInt($(".dislike").attr("data-gjStatus"));
+		  var likeStatus = parseInt($(".like").attr("data-gjStatus"));
 
-		    $.ajax({
-		      url: "/CookLab/ArticleReactionServlet", // 后端Servlet的URL
-		      type: "POST", // 可以根据需求使用GET或POST
-		      dataType:"json",
-		      data: {
-		        action: "saveOrUpdate",
-		        memberId: memberId,
-		        articleNo: articleNo,
-		        status: status
-		      },
-		      statusCode:{
-		    	  //狀態碼
-		    	  200: function(res){},
-		    	  404: function(res){},
-		    	  500: function(res){},
-		      },
-		      success: function (data) {
-		        // 處理成功回報
-		        console.log(data);
-		        console.log("回傳成功：" + response);
-		      },
-		      error: function (xhr, status, error) {
-		        // 處理失敗回報
-		        console.log("請求失敗，的狀態碼" +xhr.status);
-		        console.log("會員編號"+ data.memberId);
-		        console.log("文章編號"+ data.articleNo);
-		        console.log("狀態"+ data.status);
-		        console.log(xhr);
-		      }
-		    });
-		  });
+		  let likeValue = parseInt($(this).next(".likeValue").text(), 10);
+		  let dislikeValue = parseInt($(this).next(".dislikeValue").text(), 10);
+	  
+		  if ($image.hasClass("like")) {
+			if (dislikeStatus === 2 &&  value === 0 ){
+				const $clickableDislike = $container.find('.clickable.dislike');
+				$clickableDislike.css("transform", "scale(1)");
+
+				$image.css("transform", "scale(2)");
+				$image.data("enlarged", true);
+				value = 1;
+				likeValue += 1;
+				dislikeValue = parseInt($container.find('.dislikeValue').text(),10);
+				dislikeValue -= 1;
+				console.log("dislike後:"+ dislikeValue);
+				$(this).next(".likeValue").text(likeValue);
+				$container.find(".dislikeValue").text(dislikeValue);
+
+				$clickableDislike.attr("data-gjStatus", 0);
+				console.log("啟用like+1 ,dislike-1");
+			}
+			else if (value === 0) {
+			  
+				
+			  $container.find(".clickable").css("transform", "scale(1)"); 
+			  $image.css("transform", "scale(2)");
+			  $image.data("enlarged", true);
+			  value = 1;
+			  likeValue += 1;
+			  console.log("After likeValue += 1:", likeValue);
+			  $(this).next(".likeValue").text(likeValue);
+			  $(this).next(".dislikeValue").text(dislikeValue);
+			  console.log("啟用likeValue + 1");
+
+			} else {
+			  $image.css("transform", "scale(1)")
+			  $image.data("enlarged", false);
+			  value = 0;
+			  likeValue -= 1;
+			  $(this).next(".likeValue").text(likeValue);
+			  $(this).next(".dislikeValue").text(dislikeValue);
+			  console.log("啟用likeValue-1")
+
+			}
+		  } else if ($image.hasClass("dislike")) {
+			if (likeStatus === 1 && value === 0 ){
+				const $clickablelike = $container.find('.clickable.like');
+				$clickablelike.css("transform", "scale(1)");
+
+				$image.css("transform", "scale(2)");
+				$image.data("enlarged", true);
+				
+				
+				value = 1;
+				dislikeValue += 1;
+				
+				likeValue = parseInt($container.find('.likeValue').text(),10);
+				likeValue -= 1;
+				
+				$(this).next(".dislikeValue").text(dislikeValue);
+				$container.find(".likeValue").text(likeValue);
+
+
+				$clickablelike.attr("data-gjStatus", 0);
+				console.log("dislike +1,like -1")
+			}
+			else if (value === 0) {
+			  
+			  $container.find(".clickable").css("transform", "scale(1)"); 
+			  $image.css("transform", "scale(2)");
+			  $image.data("enlarged", true);
+			  value = 2;
+			  dislikeValue += 1;
+			  $(this).next(".likeValue").text(likeValue);
+			  $(this).next(".dislikeValue").text(dislikeValue);
+
+
+			} else {
+			  
+			  $image.css("transform", "scale(1)");
+			  $image.data("enlarged", false);
+			  value = 0;
+			  dislikeValue -= 1;
+			  $(this).next(".likeValue").text(likeValue);
+			  $(this).next(".dislikeValue").text(dislikeValue);
+			}
+		  }
+
+		$image.attr("data-gjStatus", value); 
+		//取得數據//下方ajax
+		const memberId =$image.attr("data-memberId");
+		const articleNo = $image.attr("data-articleNo");
+		const status = $image.attr("data-gjStatus");
+		
+		  let GJinfo = {
+				  memberID : memberId,
+				  articleNo : articleNo,
+				  status  : status,
+				  action : "saveOrUpdate" // 對應servlet的方法 
+		  }
+
+		$.ajax({
+		  url: "/CookLab/ArticleReactionServlet", // 後端Servlet的URL
+		  type: "POST", // 可以根据需求使用GET或POST
+		  dataType:"json",
+		  data: {
+			action: "saveOrUpdate",
+			memberId: memberId,
+			articleNo: articleNo,
+			status: status
+		  },
+		  statusCode:{
+			  //狀態碼
+			  200: function(res){},
+			  404: function(res){},
+			  500: function(res){},
+		  },
+		  success: function (data) {
+			// 處理成功回報
+			console.log(data);
+			console.log("回傳成功：" + response);
+		  },
+		  error: function (xhr, status, error) {
+			// 處理失敗回報
+			console.log("請求失敗，的狀態碼" +xhr.status);
+			console.log("會員編號"+ memberId);
+			console.log("文章編號"+ articleNo);
+			console.log("狀態"+ status);
+			console.log(xhr);
+		  }
 		});
+	  });
+	});
 	</script>
 
 </body>
