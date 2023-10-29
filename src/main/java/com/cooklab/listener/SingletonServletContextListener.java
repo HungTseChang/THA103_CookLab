@@ -2,10 +2,11 @@ package com.cooklab.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import com.cooklab.util.HibernateUtil;
 import com.cooklab.util.JedisUtil;
-
+@WebListener
 public class SingletonServletContextListener implements ServletContextListener {
 
     @Override
@@ -18,7 +19,6 @@ public class SingletonServletContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent event) {
     	HibernateUtil.shutdown();
     	JedisUtil.shutdownJedisPool();
-
     }
 }
 
