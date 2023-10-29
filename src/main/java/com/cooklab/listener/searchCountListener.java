@@ -12,13 +12,13 @@ public class searchCountListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         task = new RedisSearchCountTask();
-        task.start(); // 启动定时任务
+        task.start(); //啟動排程
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         if (task != null) {
-            task.stop(); // 停止定时任务
+            task.stop(); // 關閉排程
         }
     }
 }

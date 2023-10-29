@@ -4,11 +4,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -27,29 +25,32 @@ public class ProductKeyWordListemer implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
+
+						//定時執行緒池中執行緒的數量
 		scheduler = Executors.newScheduledThreadPool(1);
 
-		// 设置每天定时执行的时间，这里设置为每天的凌晨2点
+		
+		long currentTime = System.currentTimeMillis();
+		long initialDelay;
 		int hour = 2;
 		int minute = 0;
 		int second = 0;
 
-		// 获取当前时间
-		long currentTime = System.currentTimeMillis();
-		long initialDelay;
-
-		// 计算距离下一个执行时间的延迟
+		//初始時間
 		initialDelay = computeInitialDelay(hour, minute, second);
 
-		// 定时执行任务
+		// 照固定的速率執行方法，按照指定的時間間隔執行方法。
+		// 任務的執行頻率不受執行時間的影響
+		// 
 //		scheduler.scheduleAtFixedRate(() -> {
 //			generateDailyRandomProductList();
+			//初始時間 間隔時間 單位
 //		}, initialDelay, 24, TimeUnit.HOURS);
 
+		// 按照固定的延遲時間執行方法，方法執行完成後等待一段時間再次執行
 		scheduler.scheduleWithFixedDelay(() -> {
-			// 在这里编写你的任务逻辑，每次任务完成后会等待10分钟再次触发
-			// 例如，你可以在这里调用生成每日随机商品列表的方法
-			generateDailyRandomProductList();
+			generateDailyHotProductList();
+			//延遲時間 間隔時間 單位
 		}, 0, 10, TimeUnit.MINUTES);
 	}
 
@@ -60,23 +61,28 @@ public class ProductKeyWordListemer implements ServletContextListener {
 		}
 	}
 
-	// 计算距离下一个执行时间的延迟
+	// 延遲間隔
 	private long computeInitialDelay(int targetHour, int targetMinute, int targetSecond) {
+		//當前系統時間
 		long now = System.currentTimeMillis();
+		
+		//建立目標時間
 		Calendar targetTime = Calendar.getInstance();
 		targetTime.set(Calendar.HOUR_OF_DAY, targetHour);
 		targetTime.set(Calendar.MINUTE, targetMinute);
 		targetTime.set(Calendar.SECOND, targetSecond);
 
+		//超過現在時間 日期+1
 		if (now > targetTime.getTimeInMillis()) {
 			targetTime.add(Calendar.DAY_OF_MONTH, 1);
 		}
 
+		//還差多少時間
 		return targetTime.getTimeInMillis() - now;
 	}
 
-	// 编写生成每日随机商品列表的方法
-	private void generateDailyRandomProductList() {
+	
+	private void generateDailyHotProductList() {
 		System.out.println("監聽器 - 產生隨機商品熱搜關鍵字");
 
 		List<String> topSearchProductNames = getTopSearchProductNamesFromDatabase();
@@ -101,7 +107,7 @@ public class ProductKeyWordListemer implements ServletContextListener {
 		ProductService productSvc = new ProductService();
 		List<ProductVO> listproduct = productSvc.findTopSearchCountProduct();
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-		List<String> topSearchProductNames = new ArrayList<>(); 
+		List<String> topSearchProductNames = new ArrayList<>();
 		for (ProductVO item : listproduct) {
 			Timestamp shelfTimes = item.getShelfTime();
 			Timestamp offsaleTimes = item.getOffsaleTime();

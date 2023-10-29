@@ -7,7 +7,8 @@ $(document).ready(function() {
 	//搜尋參數設定
 	let currentAction = "searchkeyword" //行為設定
 	let hotkey = "";	//熱門搜尋設定
-
+	let selectCType = ""; //篩選設定
+	let sort = "";	//排序設定
 
 	let currentPage = 1; // 當前頁數
 	let pageSize = 6; // 每頁數量
@@ -29,6 +30,8 @@ $(document).ready(function() {
 				page: currentPage, // 當前頁數
 				pageSize: pageSize, // 每頁數量
 				hotkey: hotkey, //熱門搜尋參數設定
+				selectCType: selectCType,//篩選設定
+				sort: sort, //排序
 			},
 			dataType: "json",
 			success: function(data) {
@@ -112,7 +115,6 @@ $(document).ready(function() {
 							data: requestData,
 							dataType: 'json',
 							success: function(response) {
-
 								console.log('商品添加到購物車囉');
 								alert("商品添加到購物車囉");
 							},
@@ -121,9 +123,7 @@ $(document).ready(function() {
 							}
 						});
 					});
-
 				});
-
 				// 更新商品總數 頁數
 				totalProductCount = data[0].totalProductCount;
 				totalPages = Math.ceil(totalProductCount / pageSize);
@@ -215,6 +215,9 @@ $(document).ready(function() {
 		keyword = "";
 		currentPage = 1;
 		currentAction = "searchkeyword"
+		hotkey = "";	//熱門搜尋設定
+		selectCType = ""; //篩選設定
+		sort = "";	//排序設定
 		loadPage(currentPage, currentAction);
 		const newUrl = `shop-grid.html`;
 		window.history.pushState({}, "", newUrl);
