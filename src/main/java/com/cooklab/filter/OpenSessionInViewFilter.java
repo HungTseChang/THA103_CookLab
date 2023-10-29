@@ -13,8 +13,9 @@ import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
 @WebFilter(urlPatterns = { 
-		"/RecipeServlet",				
 		"/RecipeOverviewImgServlet",
+		"/RecipeOverviewServlet",
+		"/RecipeCollectionServlet",
 		//TOM Start
 		"/MemberCenter",
 		"/EditPassword",

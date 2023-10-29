@@ -14,20 +14,21 @@ import="com.cooklab.purchase_order.model.*"%>
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
         <!-- Css Styles -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-        <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+        <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+        <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+        <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+        <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+        <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+        <link rel="stylesheet" href="../css/style.css" type="text/css" />
         <!-- bootstrap-icon -->
-        <link rel="stylesheet" href="./bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
+        <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
         <!-- 自增CSS -->
         <link rel="stylesheet" href="css/styleHungTse.css" type="text/css" />
+        <link rel="stylesheet" href="css/ding2.css" type="text/css" />
         <!-- header&footer-CSS -->
-        <link rel="stylesheet" href="css/ding.css" type="text/css" />
+        <link rel="stylesheet" href="../css/ding.css" type="text/css" />
     </head>
 
     <body>
@@ -40,7 +41,7 @@ import="com.cooklab.purchase_order.model.*"%>
         <div class="humberger__menu__overlay"></div>
         <div class="humberger__menu__wrapper">
             <div class="humberger__menu__logo">
-                <a href="#"><img src="img/logo.png" alt="" /></a>
+                <a href="#"><img src="../img/logo.png" alt="" /></a>
             </div>
             <div class="humberger__menu__cart">
                 <ul>
@@ -55,7 +56,7 @@ import="com.cooklab.purchase_order.model.*"%>
             </div>
             <div class="humberger__menu__widget">
                 <div class="header__top__right__language">
-                    <img src="img/language.png" alt="" />
+                    <img src="../img/language.png" alt="" />
                     <div>English</div>
                     <span class="arrow_carrot-down"></span>
                     <ul>
@@ -127,7 +128,7 @@ import="com.cooklab.purchase_order.model.*"%>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="header__logo">
-                            <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+                            <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-9 d-flex align-items-center">
@@ -156,48 +157,36 @@ import="com.cooklab.purchase_order.model.*"%>
             <div class="container">
                 <div class="row">
                     <div class="col-lg-2"></div>
-                    <div class="col-lg-2">
-                        <div class="hero__categories">
-                            <div class="hero__categories__all" id="rs_categories_all"><i class="fa fa-bars"></i> <span>排序</span></div>
-                            <ul>
-                                <li><a href="javascript:void(0);" onclick="sort(1)">由新到舊</a></li>
-                                <li><a href="javascript:void(0);" onclick="sort(2)">由舊到新</a></li>
-                                <li><a href="javascript:void(0);" onclick="sort(3)">最多觀看</a></li>
-                                <li><a href="javascript:void(0);" onclick="sort(4)">最少觀看</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="hero__search" id="rs_hero_search">
-                            <div class="hero__search__form" id="rs_search_form">
-                                <form id="search">
-                                    <input type="text" placeholder="搜尋食譜名稱 食材 鍋具" />
-                                    <button type="button" class="site-btn">搜尋</button>
-                                </form>
+                    <section class="container mb-3">
+                        <main class="searchbar-block border rounded d-flex">
+                            <!-- 排序選單起始-->
+                            <div class="dropdown searchbar-dd">
+                                <button class="btn ding-btn-org dropdown-toggle searchbar-ddbtn" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    排序
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                    <li class="dropdown-item"><a href="javascript:void(0);" onclick="sort(1)">由新到舊</a></li>
+                                    <li class="dropdown-item"><a href="javascript:void(0);" onclick="sort(2)">由舊到新</a></li>
+                                    <li class="dropdown-item"><a href="javascript:void(0);" onclick="sort(3)">最多觀看</a></li>
+                                    <li class="dropdown-item"><a href="javascript:void(0);" onclick="sort(4)">最少觀看</a></li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
+                            <!-- 排序選單結束-->
+
+                            <!-- 搜尋框起始 -->
+                            <form id="search" class="d-flex searchbar-form">
+                                <input type="text" class="form-control border-0 searchbar-input" id="index-searchbar" aria-describedby="searchbar" placeholder="查詢 食譜名稱 食材 廚具" />
+                                <button type="button" class="btn ding-btn-org searchbar-btn">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                            <!-- 搜尋框結束 -->
+                        </main>
+                    </section>
+                    <!-- 食譜首頁搜尋列區塊結束 -->
                 </div>
             </div>
         </section>
-        <!-- Hero Section End -->
-
-        <!-- Breadcrumb Section Begin-->
-        <!-- <section class="breadcrumb-section set-bg"
-		data-setbg="img/breadcrumb.jpg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="breadcrumb__text">
-						<h2>食譜總覽</h2>
-					</div>
-				</div>
-			</div>
-		</div>-->
-        <!-- </section> -->
-        <!-- Breadcrumb Section End -->
-
-        <!-- Blog Section Begin -->
         <section class="blog spad">
             <div class="container">
                 <div class="row">
@@ -274,15 +263,18 @@ import="com.cooklab.purchase_order.model.*"%>
         <!-- Footer Section End -->
 
         <!-- Js Plugins -->
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <script src="js/jquery.slicknav.js"></script>
-        <script src="js/mixitup.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="../js/jquery-3.3.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.nice-select.min.js"></script>
+        <script src="../js/jquery-ui.min.js"></script>
+        <script src="../js/jquery.slicknav.js"></script>
+        <script src="../js/mixitup.min.js"></script>
+        <script src="../js/owl.carousel.min.js"></script>
+        <script src="../js/main.js"></script>
+
         <!-- overview js -->
+        <script src="../js/TomJS.js"></script>
         <script src="js/recipe_overview.js"></script>
     </body>
 </html>
