@@ -46,6 +46,7 @@ function renderData(data) {
 		ul.appendChild(li);
 
 		const a = document.createElement('a');
+		a.href = '#';
 		li.appendChild(a);
 
 		const icon = document.createElement('i');
@@ -98,50 +99,77 @@ function renderData(data) {
 				}
 			});
 		});
+		// 为每个购物车图标添加事件监听器
+		icon.addEventListener('click', function(event) {
+			event.preventDefault(); // 阻止默认的按钮点击行为
+
+			const productId = aTitle.getAttribute('data-product-id'); // 获取商品ID
+			const requestData = {
+				action: 'buttonadd1', // 指定要调用的方法，例如 'addToCart'
+				productNo: productId, // 商品的ID
+				quantity: 1
+			};
+			console.log(requestData);
+			console.log(productId);
+			$.ajax({
+				url: '/CookLab/CartServlet', // 服务器端URL
+				type: 'GET', // 使用GET请求
+				data: requestData, // 发送的参数
+				dataType: 'json', // 预期的响应数据类型
+				success: function(response) {
+					// 处理成功添加到购物车的响应
+					console.log('商品已添加到购物车');
+					alert("商品添加到購物車囉");
+				},
+				error: function(xhr) {
+					console.log('AJAX请求失败：' + xhr.status);
+				}
+			});
+		});
 	});
 }
 function fetchDataAndRender2() {
-    // 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
-    fetch('/CookLab/ProductServlet?action=getHotKeywords')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // 解析 JSON 数据
-        })
-        .then(keywords => {
-            // 将商品名称填充到热门关键字部分
-            populateHotKeywords(keywords);
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
+	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
+	fetch('/CookLab/ProductServlet?action=getHotKeywords')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json(); // 解析 JSON 数据
+		})
+		.then(keywords => {
+			// 将商品名称填充到热门关键字部分
+			populateHotKeywords(keywords);
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
 }
 
 
 function populateHotKeywords(keywords) {
-    const topSearchWordsMenu = document.querySelector('.topsearchwords-menu');
+	const topSearchWordsMenu = document.querySelector('.topsearchwords-menu');
 
-    keywords.forEach(item => {
-        const li = document.createElement('li');
-        li.classList.add('topsearchwords-item');
-        const a = document.createElement('a');
-        a.href = '#';
-        a.textContent = item.keyword;
+	keywords.forEach(item => {
+		const li = document.createElement('li');
+		li.classList.add('topsearchwords-item');
+		const a = document.createElement('a');
+		a.href = '#';
+		a.textContent = item.keyword;
 
-        a.addEventListener('click', () => {
+		a.addEventListener('click', () => {
 
-            const clickedKeyword = item.keyword;
-            window.location.href = `./shop-grid.html?keyword=${clickedKeyword}`;
-        });
-        li.appendChild(a);
-        topSearchWordsMenu.appendChild(li);
-    });
+			const clickedKeyword = item.keyword;
+			window.location.href = `./shop-grid.html?keyword=${clickedKeyword}`;
+		});
+		li.appendChild(a);
+		topSearchWordsMenu.appendChild(li);
+	});
 }
 
 
-	fetchDataAndRender();
-	fetchDataAndRender2();
+fetchDataAndRender();
+fetchDataAndRender2();
 // 等待页面加载完成后执行
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -159,49 +187,5 @@ $(document).ready(function() {
 	});
 });
 
-/*============================== 購物車功能 ==============================*/
-//$("#fa fa-shopping-cart").on("click", function() {
-//		letproductInfo = {
-//        productNo: ${productVO.productNo},
-//        productName: "${productVO.productName}",
-//        productPrice: ${productVO.productPrice},
-//        productImage: "<%= request.getContextPath() %>/ProductImgServlet?productNo=${productVO.productNo}",
-//        quantity: 1 // 默认购买数量为1
-//    }
-//		console.log(keyword)
-//		$.ajax({
-//			url: "/CookLab/ProductServlet2", // 資料請求的網址
-//			type: "GET", // GET | POST | PUT | DELETE | PATCH
-//			data: keyword, // 將物件資料(不用雙引號) 傳送到指定的 url
-//			dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-//			beforeSend: function() {
-//				// 在 request 發送之前執行
-//			},
-//			headers: {
-//				// request 如果有表頭資料想要設定的話
-//				// "X-CSRF-Token":"abcde"   // 參考寫法
-//			},
-//			statusCode: {
-//				// 狀態碼
-//				200: function(res) { },
-//				404: function(res) { },
-//				500: function(res) { },
-//			},
-//			success: function(data) {
-//				// request 成功取得回應後執行
-//				window.location.href = "/frontstage/shopstage/shop-details.jsp"
-//				console.log(data);
-//				console.log("ajax成功");
-//			},
-//			error: function(xhr) {
-//				// request 發生錯誤的話執行
-//				console.log("請求失敗，狀態碼：" + xhr.status);
-//				console.log(xhr.responseText)
-//				console.log(xhr);
-//			},
-//			complete: function(xhr) {
-//				// request 完成之後執行(在 success / error 事件之後執行)
-//				console.log(xhr);
-//			},
-//		});
-//	});
+
+

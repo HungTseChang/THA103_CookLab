@@ -5,8 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.cooklab.hashtag.model.HashtagVO;
-
 public class RecipeHashtagHDAOIm implements RecipeHashtagDAO{
 	private SessionFactory factory;
 

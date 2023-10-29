@@ -49,16 +49,15 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
                         <!-- ============================================================================================== -->
-                        <li class="sidebar-item  ">
-                            <a href="WCC_Homepage.html" class='sidebar-link'>
+                                    <li class="sidebar-item  ">
+                            <a href="<%=request.getContextPath()%>/dashboard/WCC_Homepage.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
                             </a>
                         </li>
 
-
                         <li class="sidebar-item ">
-                            <a href="WCC_memeber.html" class='sidebar-link'>
+                            <a href="<%=request.getContextPath()%>/dashboard/member/WCC_memeber.jsp" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                                 <span>會員管理</span>
                             </a>
@@ -73,11 +72,11 @@
                             <ul class="submenu ">
                           
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_management.html">管理管理者</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">管理管理者</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href=".\WCC_permission_createrule.html">創立權限規則</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">創立權限規則</a>
                                 </li>
                             
                             </ul>
@@ -162,23 +161,26 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item  has-sub  ">
+                        <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
                                 <span>客服中心</span>
                             </a>
-                            <ul class="submenu " style="display: block;">
+                            <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_report.html">食譜檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_recipe_sub_report.html">食譜回文檢舉</a>
-                                </li>
-                                <li class="submenu-item active">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                    <a href="src=<%=request.getContextPath()%>/dashboard/WCC_recipe_sub_report.jsp">食譜回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="WCC_official_notify.html">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_article_report..jsp">討論區檢舉</a>
+                                </li>
+                                                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_article_sub_report.jsp">討論區回文檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/WCC_official_notify.jspl">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="ding-support-tickets-table.html">問題表單</a>

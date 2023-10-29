@@ -3,19 +3,30 @@ package com.cooklab.promo_code.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.cooklab.member_order.model.MemberOrderVO;
 
 
 @Entity
 @Table(name = "promo_code")
 public class PromoCodeVO implements Serializable{
 
+	
+	// 會員訂單關聯
+	@OneToMany(mappedBy = "promoCode", cascade = CascadeType.ALL)
+	private Set<MemberOrderVO> memberOrder;
+	
+	
 	@Id
 	@Column(name = "promo_code_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +55,17 @@ public class PromoCodeVO implements Serializable{
 	
 	@Column(name = "created_timestamp ", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
+
+	
+	
+	
+	public Set<MemberOrderVO> getMemberOrder() {
+		return memberOrder;
+	}
+
+	public void setMemberOrder(Set<MemberOrderVO> memberOrder) {
+		this.memberOrder = memberOrder;
+	}
 
 	public Integer getPromoCodeNo() {
 		return promoCodeNo;

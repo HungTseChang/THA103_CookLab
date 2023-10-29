@@ -2,7 +2,10 @@ package com.cooklab.member_order.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,9 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.cooklab.members.model.MembersVO;
+import com.cooklab.order_detail.model.OrderDetailVO;
+import com.cooklab.promo_code.model.PromoCodeVO;
 
 @Entity
 @Table(name = "member_order")
@@ -26,6 +32,16 @@ public class MemberOrderVO implements Serializable{
 	
 	@Column(name = "member_id")
 	private Integer memberId ;
+	
+//	優惠碼
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "promo_code_no", referencedColumnName = "promo_code_no", insertable = false, updatable = false)
+	private PromoCodeVO  promoCode;
+	
+	//訂單明細
+	@OneToMany(mappedBy = "memberOrder", cascade = CascadeType.ALL)
+	private Set<OrderDetailVO> orderDetail;
+
 //	=============WCC================
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
@@ -50,6 +66,48 @@ public class MemberOrderVO implements Serializable{
 	private Timestamp createdTimestamp;
 	
 	
+	
+	
+	
+	
+	public Set<OrderDetailVO> getOrderDetail() {
+		if (orderDetail == null) {
+            orderDetail = new HashSet<>(); // 懒加载，如果为null，初始化为一个新的HashSet
+        }
+        return orderDetail;
+	}
+
+
+	public void setOrderDetail(Set<OrderDetailVO> orderDetail) {
+		this.orderDetail = orderDetail;
+	}
+
+
+	public PromoCodeVO getPromoCode() {
+		return promoCode;
+	}
+
+
+	public void setPromoCode(PromoCodeVO promoCode) {
+		this.promoCode = promoCode;
+	}
+
+
+	public MembersVO getMembers() {
+		return members;
+	}
+
+
+	public void setMembers(MembersVO members) {
+		this.members = members;
+	}
+
+
+	public void setOrderStatus(byte orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+
 	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
