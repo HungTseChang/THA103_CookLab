@@ -1,4 +1,3 @@
-// 在页面加载后执行
 $(document).ready(function() {
 	console.log("Document is ready.");
 
@@ -12,15 +11,15 @@ $(document).ready(function() {
 		dataType: "json",
 		success: function(data) {
 			console.log(data);
-			$("#table input:eq(0)").val(data.memberId); // 會員編號
-			$("#table input:eq(1)").val(data.memberNickname); // 會員暱稱
-			$("#table input:eq(2)").val(data.shippingAddress); // 收貨地址
-			$("#table input:eq(3)").val(data.memberMail); // Email
-			$("#table input:eq(4)").val(data.orderNo); // 訂單編號
+			$("#table input:eq(0)").val(data.memberId); 		// 會員編號
+			$("#table input:eq(1)").val(data.memberNickname); 	// 會員暱稱
+			$("#table input:eq(2)").val(data.shippingAddress); 	// 收貨地址W
+			$("#table input:eq(3)").val(data.memberMail); 		// Email
+			$("#table input:eq(4)").val(data.orderNo); 			// 訂單編號
 			$("#table input:eq(5)").val(data.totalOrderAmount); // 訂單總金額
-			$("#table input:eq(6)").val(data.promoCode); // 優惠碼
-			$("#table input:eq(7)").val(data.checkoutAmount); // 結帳金額
-			$("#table select").val(data.orderStatus); // 訂單狀態
+			$("#table input:eq(6)").val(data.promoCode); 		// 優惠碼
+			$("#table input:eq(7)").val(data.checkoutAmount); 	// 結帳金額
+			$("#table select").val(data.orderStatus); 			// 訂單狀態
 			$("#table input:eq(8)").val(data.createdTimestamp); // 購買日期
 			var orderStatusSelect = $("#table select");
 			orderStatusSelect.val(data.orderStatus);
