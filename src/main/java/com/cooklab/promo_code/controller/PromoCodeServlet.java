@@ -90,7 +90,7 @@ public class PromoCodeServlet extends HttpServlet {
 			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("promoCodeVO", promoCodeVO); // 資料庫取出的empVO物件,存入req
-			String url = "/mazer-main/dist/promo_code/promo_code_getone.jsp";
+			String url = "/dashboard/promo_code/promo_code_getone.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -119,7 +119,7 @@ public class PromoCodeServlet extends HttpServlet {
 		
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			
-			String url = "/mazer-main/dist/promo_code/promo_code_allview.jsp";
+			String url = "/dashboard/promo_code/promo_code_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -195,7 +195,7 @@ public class PromoCodeServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("promoCodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/mazer-main/dist/promo_code/promo_code_allview.jsp");
+						.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -206,7 +206,7 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("promocodeVO", promoCodeVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/mazer-main/dist/promo_code/promo_code_allview.jsp";
+			String url = "/dashboard/promo_code/promo_code_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -309,7 +309,7 @@ public class PromoCodeServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("promocodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/promo_code/promo_code_allview.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -318,7 +318,7 @@ public class PromoCodeServlet extends HttpServlet {
 			PromoCodeService PcSvc = new PromoCodeService();
 			PcSvc.addPc(promoCodeVO);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/mazer-main/dist/promo_code/promo_code_allview.jsp";
+			String url = "/dashboard/promo_code/promo_code_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -341,7 +341,7 @@ public class PromoCodeServlet extends HttpServlet {
 			PcSvc.deletePc(promoCodeVO);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/mazer-main/dist/promo_code/promo_code_allview.jsp";
+			String url = "/dashboard/promo_code/promo_code_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}

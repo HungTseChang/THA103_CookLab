@@ -3,7 +3,7 @@
 <%@ page import="com.cooklab.advertise.model.*"%>
 
 <%
-//¨£com.emp.controller.EmpServlet.java²Ä238¦æ¦s¤JreqªºempVOª«¥ó (¦¹¬°¿é¤J®æ¦¡¦³¿ù»~®ÉªºempVOª«¥ó)
+//ï¿½ï¿½com.emp.controller.EmpServlet.javaï¿½ï¿½238ï¿½ï¿½sï¿½Jreqï¿½ï¿½empVOï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½æ¦¡ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½Éªï¿½empVOï¿½ï¿½ï¿½ï¿½)
 AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 %>
 <!DOCTYPE html>
@@ -19,25 +19,25 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/app.css">
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
+	href="<%=request.getContextPath()%>/dashboard/assets/images/favicon.svg"
 	type="image/x-icon">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.css" />
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.css">
 <link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 <link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
 <style>
@@ -87,91 +87,91 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 						<li class="sidebar-title">Menu</li>
 						<!-- ============================================================================================== -->
 						<li class="sidebar-item  "><a href="WCC_Homepage.html"
-							class='sidebar-link'> <i class="bi bi-grid-fill"></i> <span>«á¥x­º­¶</span>
+							class='sidebar-link'> <i class="bi bi-grid-fill"></i> <span>ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½</span>
 						</a></li>
 
 
 						<li class="sidebar-item "><a href="WCC_memeber.html"
 							class='sidebar-link'> <i
-								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>·|­ûºÞ²z</span>
+								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>ï¿½|ï¿½ï¿½ï¿½Þ²z</span>
 						</a></li>
 
 
 						<li class="sidebar-item  has-sub "><a href="#"
-							class='sidebar-link'> <i class="bi bi-stack"></i> <span>Åv­­ºÞ²z</span>
+							class='sidebar-link'> <i class="bi bi-stack"></i> <span>ï¿½vï¿½ï¿½ï¿½Þ²z</span>
 						</a>
 							<ul class="submenu ">
 
 								<li class="submenu-item "><a
-									href=".\WCC_permission_management.html">ºÞ²zºÞ²zªÌ</a></li>
+									href=".\WCC_permission_management.html">ï¿½Þ²zï¿½Þ²zï¿½ï¿½</a></li>
 
 								<li class="submenu-item "><a
-									href=".\WCC_permission_createrule.html">³Ð¥ßÅv­­³W«h</a></li>
+									href=".\WCC_permission_createrule.html">ï¿½Ð¥ï¿½ï¿½vï¿½ï¿½ï¿½Wï¿½h</a></li>
 
 							</ul></li>
 
 						<li class="sidebar-item has-sub "><a href="#"
-							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>­¹ÃÐºÞ²z</span>
+							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>ï¿½ï¿½ï¿½ÐºÞ²z</span>
 						</a>
 							<ul class="submenu">
-								<li class="submenu-item"><a href=".\recipe_form.html">­¹ÃÐªí³æ</a>
+								<li class="submenu-item"><a href=".\recipe_form.html">ï¿½ï¿½ï¿½Ðªï¿½ï¿½ï¿½</a>
 								</li>
-								<li class="submenu-item "><a href=".\hashtag_form.html">¼ÐÅÒºÞ²z</a>
+								<li class="submenu-item "><a href=".\hashtag_form.html">ï¿½ï¿½ï¿½ÒºÞ²z</a>
 								</li>
 							</ul></li>
 
 						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>°Ó«°ºÞ²z</span>
+							class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>ï¿½Ó«ï¿½ï¿½Þ²z</span>
 						</a>
 							<ul class="submenu " style="display: block;">
-								<li class="submenu-item"><a href=".\shopview.html">°Ó«~³]©w</a>
+								<li class="submenu-item"><a href=".\shopview.html">ï¿½Ó«~ï¿½]ï¿½w</a>
 								</li>
 								<li class="submenu-item "><a
-									href="TYT_order_management.html">­q³æºÞ²z</a></li>
-								<li class="submenu-item"><a href=".\GCpromo_info.html">·s¼WÀu´f¨é</a>
+									href="TYT_order_management.html">ï¿½qï¿½ï¿½Þ²z</a></li>
+								<li class="submenu-item"><a href=".\GCpromo_info.html">ï¿½sï¿½Wï¿½uï¿½fï¿½ï¿½</a>
 								</li>
-								<li class="submenu-item  "><a href=".\GCpromo.html">Àu´f¨éºÞ²z</a>
+								<li class="submenu-item  "><a href=".\GCpromo.html">ï¿½uï¿½fï¿½ï¿½Þ²z</a>
 								</li>
-								<li class="submenu-item"><a href=".\GCadvertise.html">¼s§iºÞ²z</a>
+								<li class="submenu-item"><a href=".\GCadvertise.html">ï¿½sï¿½iï¿½Þ²z</a>
 								</li>
 								<li class="submenu-item active"><a
-									href=".\GCadvertise_info.html">·s¼W¼s§i</a></li>
+									href=".\GCadvertise_info.html">ï¿½sï¿½Wï¿½sï¿½i</a></li>
 								<li class="submenu-item "><a
-									href="TYT_purchase_order_allView.html">¶i³fªí³æ</a></li>
+									href="TYT_purchase_order_allView.html">ï¿½iï¿½fï¿½ï¿½ï¿½ï¿½</a></li>
 							</ul></li>
 						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>°Q½×°ÏºÞ²z</span>
+							class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>ï¿½Qï¿½×°ÏºÞ²z</span>
 						</a>
 
 							<ul class="submenu ">
 								<li class="submenu-item "><a
-									href=".\HO_discussion_cate.html">¬ÝªO¤ÀÃþ</a></li>
+									href=".\HO_discussion_cate.html">ï¿½ÝªOï¿½ï¿½ï¿½ï¿½</a></li>
 								<li class="submenu-item "><a
-									href=".\HO_discussion_info.html">¤å³¹ºÞ²z</a></li>
+									href=".\HO_discussion_info.html">ï¿½å³¹ï¿½Þ²z</a></li>
 							</ul></li>
 						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>¼Æ¾Ú¤ÀªR</span>
+							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>ï¿½Æ¾Ú¤ï¿½ï¿½R</span>
 						</a>
 							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">·|­û¼Æ¾Ú</a></li>
-								<li class="submenu-item "><a href="#">­¹ÃÐ¼Æ¾Ú</a></li>
-								<li class="submenu-item "><a href="#">°Ó«°¼Æ¾Ú</a></li>
-								<li class="submenu-item "><a href="#">¤å³¹¼Æ¾Ú</a></li>
+								<li class="submenu-item "><a href="#">ï¿½|ï¿½ï¿½ï¿½Æ¾ï¿½</a></li>
+								<li class="submenu-item "><a href="#">ï¿½ï¿½ï¿½Ð¼Æ¾ï¿½</a></li>
+								<li class="submenu-item "><a href="#">ï¿½Ó«ï¿½ï¿½Æ¾ï¿½</a></li>
+								<li class="submenu-item "><a href="#">ï¿½å³¹ï¿½Æ¾ï¿½</a></li>
 							</ul></li>
 						<li class="sidebar-item  has-sub "><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>«ÈªA¤¤¤ß</span>
+							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>ï¿½ÈªAï¿½ï¿½ï¿½ï¿½</span>
 						</a>
 							<ul class="submenu ">
-								<li class="submenu-item "><a href="WCC_recipe_report.html">­¹ÃÐÀËÁ|</a>
+								<li class="submenu-item "><a href="WCC_recipe_report.html">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|</a>
 								</li>
 								<li class="submenu-item "><a
-									href="WCC_recipe_sub_report.html">­¹ÃÐ¦^¤åÀËÁ|</a></li>
-								<li class="submenu-item "><a href="WCC_article_report.html">°Q½×°ÏÀËÁ|</a>
+									href="WCC_recipe_sub_report.html">ï¿½ï¿½ï¿½Ð¦^ï¿½ï¿½ï¿½ï¿½ï¿½|</a></li>
+								<li class="submenu-item "><a href="WCC_article_report.html">ï¿½Qï¿½×°ï¿½ï¿½ï¿½ï¿½|</a>
 								</li>
 								<li class="submenu-item "><a
-									href="WCC_official_notify.html">¨t²Î³qª¾</a></li>
+									href="WCC_official_notify.html">ï¿½tï¿½Î³qï¿½ï¿½</a></li>
 								<li class="submenu-item "><a
-									href="ding-support-tickets-table.html">°ÝÃDªí³æ</a></li>
+									href="ding-support-tickets-table.html">ï¿½ï¿½ï¿½Dï¿½ï¿½ï¿½ï¿½</a></li>
 							</ul></li>
 						<!-- ======================================================================================================== -->
 					</ul>
@@ -192,7 +192,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 				<div class="page-title">
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
-							<h3>¼s§i³]©w</h3>
+							<h3>ï¿½sï¿½iï¿½]ï¿½w</h3>
 							<p class="text-subtitle text-muted">Multiple form layout you
 								can use</p>
 						</div>
@@ -201,8 +201,8 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/mazer-main/dist/advertise/advertise_allview.jsp">¼s§iÁ`Äý</a></li>
-									<li class="breadcrumb-item active" aria-current="page">¼s§i³]©w</li>
+										href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp">ï¿½sï¿½iï¿½`ï¿½ï¿½</a></li>
+									<li class="breadcrumb-item active" aria-current="page">ï¿½sï¿½iï¿½]ï¿½w</li>
 								</ol>
 							</nav>
 						</div>
@@ -215,7 +215,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 						<div class="col-md-12 col-12">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">¼s§i³]©w</h4>
+									<h4 class="card-title">ï¿½sï¿½iï¿½]ï¿½w</h4>
 								</div>
 								<div class="card-content">
 									<div class="card-body">
@@ -228,39 +228,39 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 														<input type="file" id="p_file" class="form-control"
 															name="advertise_img">
 														<div id="preview">
-															<span class="text">¹wÄý¹Ï</span>
+															<span class="text">ï¿½wï¿½ï¿½ï¿½ï¿½</span>
 														</div>
 													</div>
 													<div class="col-12" style="margin-top: 20px;">
 														<div class="form-group">
-															<label for="advertiseName-vertical">¼s§i¦WºÙ</label> <input
+															<label for="advertiseName-vertical">ï¿½sï¿½iï¿½Wï¿½ï¿½</label> <input
 																type="text" id="advertiseName-vertical"
 																class="form-control" name="advertise_name"
-																value="${advertiseVO.advertiseName}" placeholder="¼s§i¦WºÙ">
+																value="${advertiseVO.advertiseName}" placeholder="ï¿½sï¿½iï¿½Wï¿½ï¿½">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
-															<label for="advertiseShelfTime-vertical">¤W¬[®É¶¡</label> <input
+															<label for="advertiseShelfTime-vertical">ï¿½Wï¿½[ï¿½É¶ï¿½</label> <input
 																type="datetime-local" id="advertiseShelfTime-vertical"
 																class="form-control" name="advertise_shelf_time"
 																value="${advertiseVO.advertiseShelfTime}"
-																placeholder="¤W¬[®É¶¡">
+																placeholder="ï¿½Wï¿½[ï¿½É¶ï¿½">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
-															<label for="advertiseOffsaleTime-vertical">¤U¬[®É¶¡</label> <input
+															<label for="advertiseOffsaleTime-vertical">ï¿½Uï¿½[ï¿½É¶ï¿½</label> <input
 																type="datetime-local"
 																id="padvertiseOffsaleTime-vertical" class="form-control"
 																name="advertise_offsale_time"
 																value="${advertiseVO.advertiseOffsaleTime}"
-																placeholder="¤U¬[®É¶¡">
+																placeholder="ï¿½Uï¿½[ï¿½É¶ï¿½">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
-															<label for="advertiseUrl-vertical">¼s§iURL</label> <input
+															<label for="advertiseUrl-vertical">ï¿½sï¿½iURL</label> <input
 																type="text" step="1" id="advertiseUrl-vertical"
 																value="${advertiseVO.advertiseUrl}" class="form-control"
 																name="advertise_url">
@@ -306,16 +306,16 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 		</div>
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
 	<script>
@@ -323,8 +323,8 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 		var p_file_el = document.getElementById("p_file");
 		var preview_img = function(file) {
 
-			var reader = new FileReader(); // ¥Î¨ÓÅª¨úÀÉ®×
-			reader.readAsDataURL(file); // Åª¨úÀÉ®×
+			var reader = new FileReader(); // ï¿½Î¨ï¿½Åªï¿½ï¿½ï¿½É®ï¿½
+			reader.readAsDataURL(file); // Åªï¿½ï¿½ï¿½É®ï¿½
 			reader
 					.addEventListener(
 							"load",
@@ -347,19 +347,19 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 			if (this.files.length > 0) {
 				preview_img(this.files[0]);
 			} else {
-				preview_el.innerHTML = '<span class="text">¹wÄý¹Ï</span>';
+				preview_el.innerHTML = '<span class="text">ï¿½wï¿½ï¿½ï¿½ï¿½</span>';
 			}
 		});
 	</script>
 
 	<!-- Include Choices JavaScript -->
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/dist/assets/vendors/choices.js/choices.min.js"></script>
 
 
 
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.js"></script>
 	<script>
 		$('#summernote').summernote({
 			tabsize : 2,
@@ -381,10 +381,11 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 		});
 	</script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/quill.js"></script>
+		
 
 
 </body>

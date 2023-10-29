@@ -19,25 +19,25 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/app.css">
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
+	href="<%=request.getContextPath()%>/dashboard/assets/images/favicon.svg"
 	type="image/x-icon">
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.css" />
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.css">
 <link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 <link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
 <style>
@@ -200,7 +200,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/mazer-main/dist/advertise/advertise_allview.jsp">廣告總覽</a></li>
+									<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp">廣告總覽</a></li>
 									<li class="breadcrumb-item active" aria-current="page">廣告設定</li>
 								</ol>
 							</nav>
@@ -225,7 +225,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 												<div class="row">
 													<div class="col-12">
 														<input type="file" id="p_file" class="form-control"
-															name="advertiseImg">
+															name="advertise_img">
 														<div id="preview">
 															<span class="text">預覽圖</span>
 														</div>
@@ -265,7 +265,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 													</div>
 														<div class="col-12">
 															<div class="col-12 d-flex justify-content-end">
-																<input type="hidden" name="action" value="insert">
+																<input type="hidden" name="action" value="update">
 																<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 																<button type="reset"
 																	class="btn btn-light-secondary me-1 mb-1">Reset</button>
@@ -302,16 +302,16 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 		</div>
 	</div>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
 	<script>
@@ -350,12 +350,12 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 
 	<!-- Include Choices JavaScript -->
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.js"></script>
 
 
 
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.js"></script>
 	<script>
 		$('#summernote').summernote({
 			tabsize : 2,
@@ -376,11 +376,10 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 			}
 		});
 	</script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/quill.js"></script>
 
 
 </body>
