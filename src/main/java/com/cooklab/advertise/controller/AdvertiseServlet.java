@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,6 +119,12 @@ public class AdvertiseServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Enumeration<String> aa = req.getParameterNames();
+			while(aa.hasMoreElements()) {
+				String name = aa.nextElement();
+				System.out.println(name);
+			}
+			System.out.println("編號為:"+req.getParameter("advertise_no"));
 			Integer advertiseno = Integer.valueOf(req.getParameter("advertise_no").trim());
 
 			String advertisename = req.getParameter("advertise_name");

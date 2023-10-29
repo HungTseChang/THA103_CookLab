@@ -223,9 +223,17 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 											enctype="multipart/form-data">
 											<div class="form-body">
 												<div class="row">
+												<div class="col-12" style="margin-top: 20px;">
+														<div class="form-group">
+															<label for="advertiseNo-vertical">廣告編號</label> <input
+																type="hidden" id="advertiseNo-vertical"
+																class="form-control" name="advertise_no"
+																value="${advertiseVO.advertiseNo}" placeholder="廣告編號">
+														</div>
+													</div>
 													<div class="col-12">
 														<input type="file" id="p_file" class="form-control"
-															name="advertiseImg">
+															name="advertise_img">
 														<div id="preview">
 															<span class="text">預覽圖</span>
 														</div>
@@ -265,7 +273,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 													</div>
 														<div class="col-12">
 															<div class="col-12 d-flex justify-content-end">
-																<input type="hidden" name="action" value="insert">
+																<input type="hidden" name="action" value="update">
 																<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 																<button type="reset"
 																	class="btn btn-light-secondary me-1 mb-1">Reset</button>
