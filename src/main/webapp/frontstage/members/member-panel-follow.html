@@ -22,6 +22,18 @@
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
     <link rel="stylesheet" href="./css/ding.css" type="text/css" />
     <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
+    <style>
+      .Tom {
+          background-color: #f7e3d1; /* 深灰色背景颜色 */
+      }
+      .Tom_NCID {
+        display: none;
+      }
+      .Tom_ReadStatus{
+        display: none;
+      }
+
+  </style>
   </head>
 
   <body>
@@ -294,7 +306,7 @@ console.log(endPointURL);
 /*============================================================ ajax ============================================================*/
 function articleAppend(a){
   let stringAppend=`
-            <div class="row m-0 ml-2 my-3 ding-folrec-border">
+            <div class="row m-0 ml-2 my-3 ding-folrec-border ArticleName${a.articleCollectionNo}">
                   <div class="col-7 d-flex align-items-center">
                     <a href="#" class="text-dark ding-post-title">
                       [
@@ -308,7 +320,7 @@ function articleAppend(a){
                   </div>
                   <div class="col-2 mb-2">
                     <div>
-                      <button type="button" class="btn ding-btn-outline-org">取消關注</button>
+                      <button type="button" class="btn ding-btn-outline-org Article-cancelBtn" onclick="articleUnFollow(${a.articleCollectionNo})">取消關注</button>
                     </div>
                   </div>
                 </div>`;
@@ -317,7 +329,8 @@ function articleAppend(a){
 
 function MemberAppend(m){
   let stringAppend = `
-                <div class="row m-0 ml-2 ding-folrec-border">
+              
+                <div class="row m-0 ml-2 ding-folrec-border MemberName${m.memberId}">
                   <div class="col-3 align-self-center text-center p-0 py-2">
                     <img src="data:image/png;base64,${m.memberPicture}" alt="關注會員頭像" class="img-thumbnail ding-folmem-preview" />
                   </div>
@@ -333,7 +346,7 @@ function MemberAppend(m){
                   </div>
                   <div class="col-2 align-self-center">
                     <div>
-                      <button type="button" class="btn ding-btn-outline-org">取消關注</button>
+                      <button type="button" class="btn ding-btn-outline-org Member-cancelBtn" onclick="memberUnFollow(${m.memberId})">取消關注</button>
                     </div>
                   </div>
                 </div>`;
@@ -342,8 +355,7 @@ function MemberAppend(m){
 
 function RecipeAppend(r){
   let stringAppend = `              
-              <div class="tab-pane fade show active" id="pills-folrec" role="tabpanel" aria-labelledby="pills-folrec-tab">
-                <div class="row m-0 ml-2 ding-folrec-border">
+                <div class="row m-0 ml-2 ding-folrec-border RecipeName${r.recipeCollectionNo}">
                   <div class="col-3 align-self-center p-0 pb-2">
                     <img src="data:image/png;base64,${r.coverImage}" alt="食譜封面圖" class="folrec-img-preview" />
                   </div>
@@ -357,7 +369,7 @@ function RecipeAppend(r){
                     <div class="row h-100">
                       <div class="col-12 mb-2 align-self-end">
                         <div>
-                          <button type="button" class="btn ding-btn-outline-org" onclick="return confirm('確定取消?)">取消關注</button>
+                          <button type="button" class="btn ding-btn-outline-org Recipe-cancelBtn" onclick="recipeUnFollow(${r.recipeCollectionNo})">取消關注</button>
                         </div>
                       </div>
                       <div class="col align-self-end pb-2">
@@ -367,10 +379,10 @@ function RecipeAppend(r){
                       </div>
                     </div>
                   </div>
-                </div>`;
+                `;
             $("#pills-folrec").append(stringAppend);
 }
-
+var recipeCollectionNo;//食譜收藏編號
 
 // function reipceLoad(page) {
 	$.ajax({
@@ -394,10 +406,95 @@ function RecipeAppend(r){
             RecipeAppend(power);
         })
 			});
+      // var MN = MemberName;
 		},
 		error: function(xhr) {
 		},
 	});
+  //取消關注會員AJAX
+  function memberUnFollow(e){
+    var result = confirm("確定取消關注?");
+    //使用者按下確認後
+    if (result) {
+      $.ajax({
+        url: endPointURL + "/FollowServlet", // 資料請求的網址
+        type: "POST", // GET | POST | PUT | DELETE | PATCH
+        data: { action: "delMemberCO",CollectionID:e }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        success: function(data) {
+          
+          $(`.MemberName${e}`).remove();
+          console.log("網頁重新整理");
+          // window.location.reload();
+        },
+        error: function(xhr) {
+        },
+      });
+    } 
+  }
+  //食譜
+  function recipeUnFollow(e){
+    var result = confirm("確定取消關注?");
+    //使用者按下確認後
+    if (result) {
+      $.ajax({
+        url: endPointURL + "/RecipeCollectionServlet", // 資料請求的網址
+        type: "POST", // GET | POST | PUT | DELETE | PATCH
+        data: { action: "delete",recipeCollectionNo:e }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        success: function(data) {
+          
+          $(`.RecipeName${e}`).remove();
+          console.log("網頁重新整理");
+          // window.location.reload();
+        },
+        error: function(xhr) {
+        },
+      });
+    } 
+  }
+  //文章
+  function articleUnFollow(e){
+    var result = confirm("確定取消關注?");
+    //使用者按下確認後
+    if (result) {
+      $.ajax({
+        url: endPointURL + "/FollowServlet", // 資料請求的網址
+        type: "POST", // GET | POST | PUT | DELETE | PATCH
+        data: { action: "delArticleCO",CollectionID:e }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        success: function(data) {
+          
+          $(`.ArticleName${e}`).remove();
+          console.log("網頁重新整理");
+          // window.location.reload();
+        },
+        error: function(xhr) {
+        },
+      });
+    } 
+  }
+  // $(".Recipe-cancelBtn").on("click",function(e){
+
+  // });
+  
+        // // 获取所有具有 class="Tom" 的链接
+        // const tomLinks = document.querySelectorAll(".Tom");
+
+        // // 找每個連結並裝置監聽
+        // tomLinks.forEach(link => {
+        //   link.addEventListener("mouseenter", () => {
+        //     // 當滑鼠滑過時 .Tom_NCID 的值
+        //     const spanValue = link.querySelector(".Tom_NCID").textContent;
+        //     const ReadStatus = link.querySelector(".Tom_ReadStatus").textContent;
+        //     link.classList.remove("Tom");
+        //     //如果是未讀取就觸發GET方法送請求去資料庫
+        //     console.log("Tom_NCID 值: " + ReadStatus);
+        //     if(ReadStatus == 0)
+        //       UnReadToRead(spanValue);
+        //     console.log("Tom_NCID 值: " + spanValue);
+        //   });
+        // });
     </script>
   </body>
 </html>

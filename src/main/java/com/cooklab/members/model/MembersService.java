@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import com.cooklab.recipe.model.RecipeVO;
+import com.cooklab.recipe_collection.model.RecipeCollectionVO;
 import com.cooklab.article.model.ArticleVO;
+import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.member_order.model.MemberOrderVO;
 import com.cooklab.members.MemberRecipeOverViewDTO;
 import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.util.HibernateUtil;
-
+import com.cooklab.member_collection.model.*;
 public class MembersService {
 
 	
@@ -77,7 +79,6 @@ public class MembersService {
 	public MembersVO getOneMember(Integer memberId) {
 		return dao.findByPrimaryKey(memberId);
 	}
-	
 
 	public MembersVO getOneMemberAccount(String memberAccount) {
 		return dao.findByMembersAccout(memberAccount);
@@ -125,5 +126,39 @@ public class MembersService {
 	}
 	public List<ArticleVO> getArticle(Integer offset, Integer limit,Integer memberId){
 		return dao.getArticle(offset, limit, memberId);
+	}
+//	修改會員關注狀態 ==================================================================================
+	public void addMembersColloection(Integer memberIdCollectioned,Integer memberId)
+	{
+		MembersVO mCollection = new MembersVO();
+		mCollection = getOneMember(memberIdCollectioned);
+		
+		MembersVO mMembersId = new MembersVO();
+		mMembersId = getOneMember(memberId);
+		
+		dao.addMembersColloection(mCollection, mMembersId);
+	}
+
+	public void deleteMemberColloection(Integer memberIdCollectioned,Integer memberId) {
+		MembersVO mCollection = new MembersVO();
+		mCollection = getOneMember(memberIdCollectioned);
+		
+		MembersVO mMembersId = new MembersVO();
+		mMembersId = getOneMember(memberId);
+		
+		Integer MemberCollectionNo = dao.findMemberCollectionPK(mCollection,mMembersId);
+		
+		
+		dao.deleteMemberColloection(mCollection, mMembersId,MemberCollectionNo);
+	}
+
+//	修改文章關注狀態 ==================================================================================
+
+	public ArticleCollectionVO findByMemberAndArtcle(ArticleVO articleVO, MembersVO membersVO) {
+
+		return dao.findByMemberAndArticle(articleVO, membersVO);
+	}
+	public void DeleteArticleCollection(Integer articCollectionNo) {
+		dao.DeleteArticleCollection(articCollectionNo);
 	}
 }
