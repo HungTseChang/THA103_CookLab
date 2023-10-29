@@ -190,7 +190,27 @@
                </div></div>
             </section>
 </div>
-
+  <!-- ======================================== -->
+                <div class="wcc none" style="width: 100%; height:100%; position: fixed; 
+                top: 0;
+                left: 0;
+                background-color: rgb(174, 172, 172, 0.5);  " id="allblock">
+                   <div style="width: 30%; height: 30%; position: fixed; top: 50%; left:35%; 
+                   transform: translateX(-50%);
+                   transform: translateY(-50%); 
+                   background-color: white; opacity:1.0; display: block;">
+                   <div style="opacity:1.0; margin-top: 70px; margin-left: 40px;
+                   margin-right: 20px;
+                    color: blue; font-size: 16px; font-weight: bolder;">
+                         正在傳送忘記密碼的請求，請稍後....
+                    <div style="position: relative; top: 50px; left: 100px;"> 
+                    </div>
+                    </div>
+                    
+                   
+                </div>
+                 </div>
+            <!-- ============================= -->
 
 
     </div>
@@ -244,11 +264,15 @@
  		
     	})
     	
+    	
+
 
     	     	$("#Submit2").on("click",function(e){
             	if(!confirm("確定要重設密碼?")){ return;}
         		var account = $("input#account2").val();
         		var email = $("input#email").val();
+             	$("div#allblock").toggleClass("none");
+             	
             	  $.ajax({
                       type: "POST",
                       url:  "<%=request.getContextPath()%>/LoginServlet",
@@ -259,30 +283,41 @@
                       },
                       success: function(response) {
                     	  console.log(response);
+                  		$("div#allblock").toggleClass("none");
+                		$("div.AA").toggleClass('none');
                     	  if(response==="success"){
                           Swal.fire({
                               icon: "success",
                               title: account +"已成功寄出隨機密碼的信件到指定信箱!"
                               
                           })}else{
+               
                               Swal.fire({
-                                  icon: "danger",
+                                  icon: "warning",
                                   title: account+response
                               })
+
                           }
                     	  
                     	  
-                      }
-                  });
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                          // 这里处理请求失败的情况
+                          console.log("请求失败:", textStatus, errorThrown);
+                          Swal.fire({
+                              icon: "error",
+                              title: "请求失败",
+                              text: "无法连接到服务器或发生了错误"
+                          });
+                  }
             	          	
 
             })
     	
-    	
-    	
+
         
     });    
-    
+    })  
     
     </script>
 </body>

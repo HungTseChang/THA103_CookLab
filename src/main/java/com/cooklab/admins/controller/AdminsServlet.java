@@ -64,8 +64,14 @@ public class AdminsServlet extends HttpServlet {
 		case "updateAdmins":
 			forwardPath = updateAdmins(req, res);
 			break;
+		case "updatePersionalAdmins":
+			forwardPath = updatePersionalAdmins(req, res);
+			break;
 		case "delete":
 			forwardPath = delete(req, res);
+			break;
+		case "design":
+			forwardPath = design(req, res);
 			break;
 		default:
 			forwardPath = "/dashboard/admin/WCC_admin_management.jsp";
@@ -75,8 +81,39 @@ public class AdminsServlet extends HttpServlet {
 		dispatcher.forward(req, res);
 
 	}
+	private String updatePersionalAdmins(HttpServletRequest req, HttpServletResponse res) {
+		AdminsService AdminsService = new AdminsService();
+		String account = req.getParameter("account");
+		String nickname = req.getParameter("nickname");
+		String password = req.getParameter("password");
+		Integer permission = Integer.valueOf(req.getParameter("permission").trim());
+		Integer adminNo = Integer.valueOf(req.getParameter("adminNo").trim());
 
+		AdminsService.update(nickname, permission, account, password, adminNo);
+		this.Adminslist=null;
+		return "/dashboard/login/WCC_welcome.jsp";
+	}
 	
+
+	private String design(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession Session  =  req.getSession();
+		String thisaccount= (String) Session.getAttribute("thisaccount");
+		AdminsVO AdminsVO = Adminslist.stream().filter(e->e.getAdminAccount().equals(thisaccount)).findFirst().get();
+   		AdminsVOFake a = new AdminsVOFake(AdminsVO);
+   		PermissionService PermissionService= new PermissionService();
+   		List<PermissionVO> listpermission = PermissionService.getAll();
+   		List<PermissionVOFake> listpermissionFake = new ArrayList<PermissionVOFake>();
+   	  for(int i = 0 ; i <listpermission.size();i++) {
+   		  listpermissionFake.add(new PermissionVOFake(listpermission.get(i)) );	  
+   	  }
+   		
+   		String json_permission = new Gson().toJson(listpermissionFake);
+   		String json_AdminsVOFake = new Gson().toJson(a);
+   		req.setAttribute("AdminsVO", AdminsVO);
+   		req.setAttribute("json_permission", json_permission);
+   		req.setAttribute("json_AdminsVOFake", json_AdminsVOFake);
+		return "/dashboard/admin/WCC_admin_update_for_personal.jsp";
+	}
 
 	private String insert(HttpServletRequest req, HttpServletResponse res) {
 		PermissionService PermissionService= new PermissionService();

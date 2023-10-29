@@ -43,8 +43,8 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 			response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
             return;
 		}
-		  if(action.equals("login")||action.equals("forgetpassword")){
-				System.out.println("第一次登錄");			  
+		  if(action.equals("login")||action.equals("forgetpassword")||action.equals("design")){
+				System.out.println("第一次登錄or 修改個人資訊");			  
 				chain.doFilter(req, res);
 				System.out.println("從第一次登錄離開");			  
 		  return;
@@ -103,7 +103,7 @@ if(Permit.get(location)) {
 
 	        
 	        
-}else {
+}else{
 	
     System.out.println("不具有此權限，跳轉到禁止頁面");
 	response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_forbidden.jsp");

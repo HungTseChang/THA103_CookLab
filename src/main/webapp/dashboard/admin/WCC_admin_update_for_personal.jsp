@@ -229,14 +229,14 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>管理管理者權限</h3>
+                            <h3>修改個人資料</h3>
                             <p class="text-subtitle text-muted">For user to check they list</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                                    <li class="breadcrumb-item"><a href="index.html">管理員管理</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">修改個人資訊</li>
                                 </ol>
                             </nav>
                         </div>
@@ -255,6 +255,20 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                             <form class="form form-horizontal">
                                                 <div class="form-body">
                                                     <div class="row">
+                                                      <div class="col-md-4">
+                                                            <label>管理員編號</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="form-group has-icon-left">
+                                                                <div class="position-relative">
+                                                                    <input type="text"  name="adminNo" class="form-control" placeholder="帳號"
+                                                                        id="first-name-icon" value="${AdminsVO.adminNo}" disabled>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-person"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-md-4">
                                                             <label>管理員帳號</label>
                                                         </div>
@@ -262,7 +276,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="text"  name="account" class="form-control" placeholder="帳號"
-                                                                        id="first-name-icon" value="${AdminsVO.adminNo}">
+                                                                        id="first-name-icon" value="${AdminsVO.adminAccount}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -276,7 +290,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="text"  name="nickname" class="form-control" placeholder="暱稱"
-                                                                        id="first-name-icon" value="${AdminsVO.adminNickname}">
+                                                                        id="first-name-icon" value="${AdminsVO.adminNickname}" >
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-heart"> </i>
                                                                     </div>
@@ -290,10 +304,10 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="password"  name="password"  class="form-control" placeholder="密碼"
-                                                                        id="first-name-icon" value="${AdminsVO.adminPassword}">
+                                                                        id="first-name-icon" value="${AdminsVO.adminPassword}" >
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
-                                                                            <use xlink:href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
+                                                                            <use xlink:href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
                                                                         </svg>                                                                   
                                                                      </div>
                                                                 </div>
@@ -306,10 +320,10 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="password"  name="passwordcheck"  class="form-control" placeholder="密碼"
-                                                                        id="first-name-icon">
+                                                                        id="first-name-icon" value="${AdminsVO.adminPassword}" >
                                                                     <div class="form-control-icon">
                                                                         <svg class="bi" width="1em" height="1em" fill="currentColor">
-                                                                            <use xlink:href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
+                                                                            <use xlink:href="<%=request.getContextPath() %>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.svg#lock"></use>
                                                                         </svg>                                                                   
                                                                      </div>
                                                                 </div>
@@ -328,68 +342,21 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                 <div class="card">
                                     <div class="card-header" style="background-color: rgb(208, 250, 255);">
                                         <span>權限規則</span>
+                           <div class="datable dropdown">
+                        <select class="wcc" id="select1">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        </select>
+                        <label>每頁展示筆數</label>
+                        </div>
                                     </div>
                                     <div class="table-datatable"
                                         style="width: 100%; max-height: 300px; overflow-y: scroll; ">
-                                        <table class="table-container" style="width: 100%;">
+                                        <table class="table-container" id="table2"style="width: 100%;">
                                             <tbody>
-                                                <tr>
-                                                    <th>
-                                                        <input class="form-check-input" type="radio" name="permission"
-                                                            id="permission1" value="1"   <%= AdminsVO.getPermissionNo() ==1? "checked":"" %>>
-                                                        <label class="form-check-label" for="permission1">
-                                                            總管理員
-                                                        </label>
-                                                    </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission2"  value="2" <%= AdminsVO.getPermissionNo() ==2? "checked":"" %>>
-                                                <label class="form-check-label" for="permission2">
-                                                    食譜管理員
-                                                </label>
-                                                </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission3"  value="3" <%= AdminsVO.getPermissionNo() ==3? "checked":"" %>>
-                                                <label class="form-check-label" for="permission3">
-                                                    會員管理員
-                                                </label>
-                                            </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission4" value="4" <%= AdminsVO.getPermissionNo() ==4? "checked":"" %>>
-                                                <label class="form-check-label" for="permission4" >
-                                                    廣告投放人員
-                                                </label>
-                                            </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission5" value="4">
-                                                <label class="form-check-label" for="permission5" >
-                                                    客服人員
-                                                </label>
-                                            </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission6" value="3">
-                                                <label class="form-check-label" for="permission6" >
-                                                    工讀生 
-                                                </label>
-                                            </th>
-                                                </tr>
-                                                <tr><th>
-                                                    <input class="form-check-input" type="radio" name="permission"
-                                                    id="permission7" value="2">
-                                                <label class="form-check-label" for="permission7" >
-                                                    討論區管理員 
-                                                </label>
-                                            </th>
-                                                </tr>
+                                               
                                         
                                             </tbody>
                                         </table>
@@ -398,9 +365,13 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-7">
+        <span class="page-item wcc" id="prev-page">上一頁</span>
+        <span class="page-item wcc" id="next-page">下一頁</span>
+        <span id="current-page">1</span>
+        <span id="total-pages">of 1</span>
+                                    </div>
+                                    <div class="col-md-5">
                                         <a href="#" id="insert"class="btn btn-info rounded-pill">確認新增</a>
                                     </div>
                                 </div>
@@ -426,63 +397,131 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
         </footer>
     </div>
     </div>
-    <script src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
-    <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
      <script>
      
      document.addEventListener("DOMContentLoaded",function () {    
-    $("a#insert").on("click",function(){
-  	  var account= $("input[name='account']").val()+"";
-	  var nickname= $("input[name='nickname']").val()+"";
-	  var password= $("input[name='password']").val()+"";
-	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
-	  var permission =$('input[name="permission"]:checked').val()
-	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission);
-	  if(password != passwordcheck){
-		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
-		  return;
-	  }
-  	  var form = $("<form>", {
-            action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
-            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
-        });
-	    
-	       form.append($("<input>", {
-               type: "text",
-               name: "action",
-               value: "inserAdmins"
-           }));
-	       form.append($("<input>", {
-             type: "text",
-             name: "account",
-             value: account
-         }));
-	       form.append($("<input>", {
-             type: "text",
-             name: "nickname",
-             value: nickname
-         }));
-	       form.append($("<input>", {
-             type: "text",
-             name: "password",
-             value: password
-         }));
-	       form.append($("<input>", {
-	             type: "text",
-	             name: "permission",
-	             value: permission
-	         }));
-	       form.appendTo("body").hide();
-	       form.submit();
-// 	       console.log(form);
-	       form.remove();
-  	  
-    })
+    	    $("a#insert").on("click",function(){
+    	    	  var account= $("input[name='account']").val()+"";
+    	  	  var nickname= $("input[name='nickname']").val()+"";
+    	  	  var password= $("input[name='password']").val()+"";
+    	  	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
+    	  	  var permission =$('input[name="permission"]:checked').val()
+    	  	  var adminNo=$('input[name="adminNo"]').val()
+    	  	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
+    	  	  if(password != passwordcheck){
+    	  		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
+    	  		  return;
+    	  	  }
+    	    	  var form = $("<form>", {
+    	              action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
+    	              method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+    	          });
+    	  	    
+    	  	       form.append($("<input>", {
+    	                 type: "text",
+    	                 name: "action",
+    	                 value: "updatePersionalAdmins"
+    	             }));
+    	  	       form.append($("<input>", {
+    	               type: "text",
+    	               name: "account",
+    	               value: account
+    	           }));
+    	  	       form.append($("<input>", {
+    	               type: "text",
+    	               name: "nickname",
+    	               value: nickname
+    	           }));
+    	  	       form.append($("<input>", {
+    	               type: "text",
+    	               name: "password",
+    	               value: password
+    	           }));
+    	  	       form.append($("<input>", {
+    	  	             type: "text",
+    	  	             name: "permission",
+    	  	             value: permission
+    	  	         }));
+    	  	       form.append($("<input>", {
+    	  	             type: "text",
+    	  	             name: "adminNo",
+    	  	             value: adminNo
+    	  	         }));
+    	  	       form.appendTo("body").hide();
+    	  	       form.submit();
+    	  	       console.log(form);
+    	  	       form.remove();
+    	    	  
+    	      })
+//    	       ======================================================
+    	  	
+    	  	var	 permissionList=JSON.parse('${json_permission}');
+    	  	var	 adminFake=JSON.parse('${json_AdminsVOFake}');
+    	  	 var number =permissionList.length;
+    	  	console.log(adminFake);
+
+//    	   	=====================================
+    	   var rowsPerPage = 10;
+    	   var currentPage = 1;
+    	   
+    	      function updateTable() {    
+    	      	var startIndex = (currentPage - 1) * rowsPerPage;
+    	      	var endIndex = startIndex + rowsPerPage;
+    	      	var tableBody = $("table#table2").children("tbody");
+    	      	tableBody.empty();
+    	  	for(let i = startIndex ; i<endIndex ;i++){
+    	      	        	  
+    	    if (i <number){
+    	    	   let ifcheck = adminFake.permissionNo;
+    	    	   console.log(adminFake);
+    	    	   console.log(ifcheck);
+    	    	   var aftercheck;
+
+    	  	  let aa = permissionList[i];
+    	   	   if(ifcheck == aa.permissionNo){ aftercheck='checked'; }else{aftercheck = ' ';}
+
+    	    	  let text = "";
+    	  	  text += " <tr><th>";
+    	  	  text += ' <input class="form-check-input" type="radio" name="permission"  id="permission'+aa.permissionNo;
+    	  	  text +=' " value=" '+aa.permissionNo+' " '+aftercheck+' disabled>';
+    	  	  text +='<label class="form-check-label" for="permission'+aa.permissionNo+' " > ';
+    	  	  text += aa.permissionTitle;
+    	  	  text +='</label></th></tr>';
+
+    	  	  tableBody.append(text);
+    	       	   }
+    	  	}
+    	  $("#current-page").text(currentPage);
+    	  var totalPages = Math.ceil(number/ rowsPerPage);
+    	  $("#total-pages").text("of " + totalPages);
+    	  	}
+    	      $("#select1").change(function() {
+    	   	   rowsPerPage = $(this).val();
+    	   	   currentPage = 1;
+    	   	   updateTable();
+    	    });
+    	      $("#prev-page").click(function() {
+    	          if (currentPage > 1) {
+    	              currentPage--;
+    	              updateTable();
+    	          }          
+    	      });	
+    	      $("#next-page").click(function() {
+    	          var totalPages = Math.ceil(number / rowsPerPage);
+    	          if (currentPage < totalPages) {
+    	              currentPage++;
+    	              updateTable();
+    	          }
+    	      });
+    	      updateTable();
     
      })
     </script>   
@@ -507,7 +546,33 @@ value: "logout"
 
 
     
-})})
+})
+
+
+$("a#design").on("click",function(e){
+	$("a#logout").on("click",function(e){
+	    e.preventDefault;
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+
+})
 </script>
 
 </body>

@@ -368,7 +368,7 @@ td button.wcc {
                               
                           })}else{
                               Swal.fire({
-                                  icon: "danger",
+                                  icon: "warning",
                                   title: account+"重設密碼失敗!"
                               })
                           }

@@ -69,17 +69,20 @@ private List<AdminsVO>Adminslist;
 		Optional <AdminsVO> result1;
 		result1 = this.Adminslist.stream().filter(e->e.getAdminAccount().equals(account)).findFirst();	
 		 String response = "fail";
-		if(result1==null) {
+		 
+		 
+//================================		 
+		if(result1.isEmpty()) {
 			response="發送密碼失敗，查無此帳號";
-	
-			return"/dashboard/login/WCC_login.jsp";
-		}
+			System.out.println("發送密碼失敗，查無此帳號");
+		}else {
+			
+		
 		AdminsVO AdminsVO =	result1.get();
 		if(!AdminsVO.getAdminAccount().equals(email)) {
 			response="發送密碼失敗，錯誤信箱";
-
-			return"/dashboard/login/WCC_login.jsp";
-		}
+			System.out.println("發送密碼失敗，錯誤信箱");
+		}else {
 		
 		System.out.println("確認帳號和信箱無誤");
 		AdminsVO.setAdminPassword(rndpassword);
@@ -97,16 +100,23 @@ private List<AdminsVO>Adminslist;
 				System.out.println("更新失敗");
 			 response="更新失敗，請聯絡客服人員";
 		 }
+		 
+		 
+		}      //判定帳號與信箱是否相符合
+		}		 //判定是否有該帳號
+//	===========================	 
 		 try {
+			 res.setCharacterEncoding("UTF-8");
 			 res.setContentType("text/plain");
 			 PrintWriter writer = res.getWriter();
+			 System.out.println("傳送訊息給前端:"+response);
 			 writer.write(response);
 			 writer.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 
+		 this.Adminslist=null;
 			return"/dashboard/login/WCC_login.jsp";
 			
 		}
