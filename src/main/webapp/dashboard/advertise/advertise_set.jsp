@@ -201,7 +201,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/mazer-main/dist/advertise/advertise_allview.jsp">廣告總覽</a></li>
+										href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp">廣告總覽</a></li>
 									<li class="breadcrumb-item active" aria-current="page">廣告設定</li>
 								</ol>
 							</nav>
@@ -361,6 +361,8 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
 	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
 		$('#summernote').summernote({
 			tabsize : 2,
 			height : 120,
