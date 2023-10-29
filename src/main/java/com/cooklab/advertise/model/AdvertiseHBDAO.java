@@ -65,7 +65,7 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 				session.beginTransaction();
-				AdvertiseVO advertiseVo = session.createQuery("from AdvertiseVO where advertiseNo=" +
+				AdvertiseVO advertiseVo = session.createQuery("from AdvertiseVO where advertise_no =" +
 				advertiseNo,AdvertiseVO.class).uniqueResult();
 				
 				session.getTransaction().commit();

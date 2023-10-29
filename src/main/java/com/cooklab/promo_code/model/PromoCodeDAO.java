@@ -2,7 +2,7 @@ package com.cooklab.promo_code.model;
 
 import java.util.List;
 
-import com.cooklab.advertise.model.AdvertiseVO;
+import com.cooklab.promo_code.model.*;
 
 
 
