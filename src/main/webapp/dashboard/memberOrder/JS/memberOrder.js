@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						statusBadge = '<span class="badge bg-dark">已退貨</span>';
 						break;
 					default:
-						statusBadge = '<span class="badge bg-secondary">未知狀態</span>';
+						statusBadge = '<span class="badge bg-secondary">註銷</span>';
 				}
 				// 填充表格列数据
 				row.append("<td>" + item.orderNo + "</td>");
