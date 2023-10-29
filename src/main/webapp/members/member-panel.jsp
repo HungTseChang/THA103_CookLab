@@ -108,7 +108,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="./member-panel.jsp">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">會員中心</span>
                   </a>
@@ -162,12 +162,12 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
           <aside class="col-3">
             <div>
               <ul class="list-group text-center">
-                <li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">帳戶</li>
-                <li class="list-group-item list-group-item-action">訂單</li>
-                <li class="list-group-item list-group-item-action">關注</li>
-                <li class="list-group-item list-group-item-action">食譜</li>
-                <li class="list-group-item list-group-item-action">討論區文章</li>
-                <li class="list-group-item list-group-item-action">通知中心</li>
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
               </ul>
             </div>
           </aside>
@@ -239,7 +239,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
 					                  
                   <div class="ding-mem-btn">
                     <button type="button" class="btn ding-btn-org" id="editMemberInfoBtn" onclick="redirectToEdit()">編輯資料</button>
-                    <button type="button" class="btn ding-btn-org" id="revisePasswordBtn">修改密碼</button>
+                    <button type="button" class="btn ding-btn-org" id="revisePasswordBtn" onclick="EditPassWordFunction()">修改密碼</button>
                   </div>
                 </form>
                 <!-- -----------會員資料表單(僅檢視)結束--------- -->
@@ -334,9 +334,14 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/TomJS.js"></script>
+    <script src="js/TomJS.js"></script>
     <script>
     	function redirectToEdit(){
     		window.location.href = "member-panel-editting.jsp";
+    	}
+    	function EditPassWordFunction(){
+    		window.location.href = "member-panel-password.html";
     	}
 	    //置換會員狀態的顯示
 	    

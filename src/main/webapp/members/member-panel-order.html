@@ -96,7 +96,7 @@
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="./member-panel.jsp">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">會員中心</span>
                   </a>
@@ -150,12 +150,12 @@
           <aside class="col-3">
             <div>
               <ul class="list-group text-center">
-                <li class="list-group-item list-group-item-action">帳戶</li>
-                <li class="list-group-item list-group-item-action mem-panel-asidebar active" aria-current="true">訂單</li>
-                <li class="list-group-item list-group-item-action">關注</li>
-                <li class="list-group-item list-group-item-action">食譜</li>
-                <li class="list-group-item list-group-item-action">討論區文章</li>
-                <li class="list-group-item list-group-item-action">通知中心</li>
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
               </ul>
             </div>
           </aside>
@@ -175,105 +175,17 @@
             <div class="tab-content ml-5" id="pills-tabContent">
               <!-- 訂單分頁-待出貨開始 -->
               <div class="tab-pane fade show active" id="pills-tobeshiped" role="tabpanel" aria-labelledby="pills-tobeshiped-tab">
-                <div class="row my-4 ml-1">
-                  <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
-                  </div>
-                  <div class="col-6">
-                    <div class="row">
-                      <div class="col-12 ml-5 my-auto">番茄、南瓜、木瓜</div>
-                      <div class="col-12 ml-5 my-auto">2023-09-07-12:50</div>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row">
-                      <div class="col-12 mb-2 ml-4">$999</div>
-                      <div class="col-12 my-auto">
-                        <button type="button" class="btn ding-btn-outline-org">取消訂單</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row my-4 ml-1">
-                  <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
-                  </div>
-                  <div class="col-6">
-                    <div class="row">
-                      <div class="col-12 ml-5 my-auto">番茄、南瓜、木瓜</div>
-                      <div class="col-12 ml-5 my-auto">2023-09-07-12:50</div>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row">
-                      <div class="col-12 my-auto ml-4">$999</div>
-                      <div class="col-12 my-auto">
-                        <button type="button" class="btn ding-btn-outline-org">取消訂單</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row my-4 ml-1">
-                  <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
-                  </div>
-                  <div class="col-6">
-                    <div class="row">
-                      <div class="col-12 ml-5 my-auto">番茄、南瓜、木瓜</div>
-                      <div class="col-12 ml-5 my-auto">2023-09-07-12:50</div>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row">
-                      <div class="col-12 my-auto ml-4">$999</div>
-                      <div class="col-12 my-auto">
-                        <button type="button" class="btn ding-btn-outline-org">取消訂單</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        
               </div>
               <!-- 訂單分頁-待出貨結束 -->
               <!-- 訂單分頁-待收貨開始 -->
               <div class="tab-pane fade" id="pills-toberec" role="tabpanel" aria-labelledby="pills-toberec-tab">
-                <div class="row my-4 ml-1">
-                  <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
-                  </div>
-                  <div class="col-6">
-                    <div class="row">
-                      <div class="col-12 ml-5 my-auto">松阪豬(小)、板腱牛(大)、秋葵</div>
-                      <div class="col-12 ml-5 my-auto">2023-09-07-12:50</div>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row">
-                      <div class="col-12 my-2 ml-4">$999</div>
-                    </div>
-                  </div>
-                </div>
+
               </div>
               <!-- 訂單分頁-待收貨結束 -->
               <!-- 訂單分頁-已完成結束 -->
               <div class="tab-pane fade" id="pills-com" role="tabpanel" aria-labelledby="pills-com-tab">
-                <div class="row my-4 ml-1">
-                  <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
-                  </div>
-                  <div class="col-6">
-                    <div class="row">
-                      <div class="col-12 ml-5 my-auto">水蓮、香菜、茼蒿</div>
-                      <div class="col-12 ml-5 my-auto">2023-09-07-12:50</div>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="row">
-                      <div class="col-12 mb-2 ml-4">$999</div>
-                      <div class="col-12 my-auto">
-                        <button type="button" class="btn ding-btn-outline-org">退貨/退款</button>
-                      </div>
-                    </div>
-                  </div>
+                
                 </div>
               </div>
             </div>
@@ -360,5 +272,130 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/TomJS.js"></script>
+    <script>
+      /*============================================================ 變數 ============================================================*/
+var queryString = window.location.search;
+var params = new URLSearchParams(queryString);
+
+var recipeBrowse = "/recipe/recipe_browse.jsp";
+var coverImage = "/RecipeServletImg";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "http://" + host + webCtx;
+console.log(endPointURL);
+/*============================================================ ajax ============================================================*/
+function SendScuess(recipe)
+{
+  if(recipe.product != undefined)
+        {
+          // 将对象的属性值串联成一个字符串
+          var concatenatedString = Object.values(recipe.product).map(obj => obj).join(",");
+          console.log(concatenatedString);
+          // 检查总字符数是否超过 20
+          if (concatenatedString.length > 18) {
+            // 截断字符串并添加 "..."
+            concatenatedString = concatenatedString.substring(0, 18) + "...";
+          }
+        }
+        else
+         truncatedProduct = "無";
+
+	
+
+          if(recipe.orderStatus == 0)
+          {
+            var addrecipe = `  <div class="row my-4 ml-1">
+                  <div class="col-3">
+                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
+                      <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-12 mb-2 ml-4">$${recipe.checkoutAmount}</div>
+                      <div class="col-12 my-auto">
+                        <button type="button" class="btn ding-btn-outline-org">取消訂單</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+            $("#pills-tobeshiped").append(addrecipe);
+          }
+          else if(recipe.orderStatus == 1)
+          {
+            var addrecipe = `  <div class="row my-4 ml-1">
+                  <div class="col-3">
+                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
+                      <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-12 mb-2 ml-4">$${recipe.checkoutAmount}</div>
+                    </div>
+                  </div>
+                </div>`;
+            $("#pills-toberec").append(addrecipe);
+          }
+          else if(recipe.orderStatus == 2)
+          {
+            var addrecipe = `  <div class="row my-4 ml-1">
+                  <div class="col-3">
+                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
+                      <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-12 mb-2 ml-4">$${recipe.checkoutAmount}</div>
+                    </div>
+                  </div>
+                </div>`;
+            $("#pills-com").append(addrecipe);
+          }
+}
+// function reipceLoad(page) {
+	$.ajax({
+		url: endPointURL + "/MemberOrderForServlet", // 資料請求的網址
+		type: "POST", // GET | POST | PUT | DELETE | PATCH
+		data: { action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+		dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+		success: function(data) {
+			$("#recipeList").html("");
+			$(data).each(function(index, element) {
+        console.log(element);
+        SendScuess(element);
+
+			});
+		},
+		error: function(xhr) {
+			console.log("ajax失敗");
+			console.log(xhr);
+		},
+	});
+// }
+
+/*============================================================ function ============================================================*/
+
+//未出貨
+
+    </script>
   </body>
 </html>

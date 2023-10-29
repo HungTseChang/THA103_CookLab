@@ -1,6 +1,12 @@
 package com.cooklab.members.model;
 import java.util.List;
 
+import com.cooklab.article.model.ArticleVO;
+import com.cooklab.member_order.model.MemberOrderVO;
+import com.cooklab.members.MemberRecipeOverViewDTO;
+import com.cooklab.notify_center.model.NotifyCenterVO;
+import com.cooklab.recipe.model.RecipeVO;
+
 
 
 public interface MembersDAO_interface {
@@ -12,8 +18,14 @@ public interface MembersDAO_interface {
     public boolean updateMemberStatus(MembersVO membersVO);
     public List<MembersVO> getAll();
 	boolean updateMemberPassword(MembersVO membersVO);
-
-//  public List<MembersVO> getAll(Map<String, String[]> map); 
+	public List<RecipeVO> MemberRecipeRead(Integer memberId);
+	//
+	public List<RecipeVO> getByPage(Integer offset, Integer limit,Integer memberId);
+	public List<MemberOrderVO> getOrder(Integer offset, Integer limit,Integer memberId);
+	public List<MembersVO> getFollow(Integer offset, Integer limit,Integer memberId);
+	public List<NotifyCenterVO> getNotify(Integer offset, Integer limit,Integer memberId);
+	public List<ArticleVO> getArticle(Integer offset, Integer limit,Integer memberId);
+	
 }
 
 

@@ -43,6 +43,7 @@ public class MembersVO  implements java.io.Serializable{
 	@Column (name="member_id",insertable = false, updatable = false)
 	private Integer memberId;
 	
+//	private MembersVO members;		//會員編號(FK)
 	//●●● 請組員參考這部分去處理 ManyToOne ●●● =====================
 	
 //	//●食譜反應 recipe_reaction
@@ -64,7 +65,6 @@ public class MembersVO  implements java.io.Serializable{
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")
 	private Set<RecipeCollectionVO> recipeCollectionS;
-	
 	//●食譜 recipe
 	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
 	@OrderBy("member_id asc")

@@ -21,6 +21,18 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/ding.css" type="text/css" />
+    <style>
+      .Tom {
+          background-color: #f7e3d1; /* 深灰色背景颜色 */
+      }
+      .Tom_NCID {
+        display: none;
+      }
+      .Tom_ReadStatus{
+        display: none;
+      }
+
+  </style>
   </head>
 
   <body>
@@ -96,7 +108,7 @@
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="./member-panel.jsp">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">會員中心</span>
                   </a>
@@ -150,42 +162,37 @@
           <aside class="col-3">
             <div>
               <ul class="list-group text-center">
-                <li class="list-group-item list-group-item-action">帳戶</li>
-                <li class="list-group-item list-group-item-action">訂單</li>
-                <li class="list-group-item list-group-item-action">關注</li>
-                <li class="list-group-item list-group-item-action">食譜</li>
-                <li class="list-group-item list-group-item-action">討論區文章</li>
-                <li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">通知中心</li>
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">通知中心</li></a>
               </ul>
             </div>
           </aside>
           <div class="col-9">
             <!-------------通知中心區塊開始----------->
-            <div class="list-group list-group-flush">
-              <a href="#" class="list-group-item list-group-item-action d-flex">
-                <div class="my-auto mr-3"><i class="fa fa-tag fa-2x"></i></div>
-                <div>
-                  <h5 class="mb-1">新鮮番茄季滿279顆免運費!!</h5>
-                  <p class="mb-1">現在購買牛番茄系列商品可享最優惠價格，快前往商城選購!</p>
-                  <small>2023-08-13 23:10</small>
-                </div>
-              </a>
-              <a href="#" class="list-group-item list-group-item-action d-flex">
+            <div class="list-group list-group-flush" id="notifySection">
+
+              <!-- <a href="#" class="list-group-item list-group-item-action d-flex Tom">
                 <div class="my-auto mr-3"><i class="fa fa-bullhorn fa-2x"></i></div>
                 <div>
                   <h5 class="mb-1">新鮮番茄季滿279顆免運費!!</h5>
-                  <p class="mb-1">現在購買牛番茄系列商品可享最優惠價格，快前往商城選購!</p>
+                  <p class="mb-1">現在購買牛番茄系列商品可享最優惠價格，快前往商城選購!</p>>
+                  <span class="Tom_NCID">2</span>
                   <small>2023-08-13 23:10</small>
                 </div>
               </a>
-              <a href="#" class="list-group-item list-group-item-action d-flex">
+              <a href="#" class="list-group-item list-group-item-action d-flex Tom">
                 <div class="my-auto mr-3"><i class="fa fa-tag fa-2x"></i></div>
                 <div>
                   <h5 class="mb-1">新鮮番茄季滿279顆免運費!!</h5>
-                  <p class="mb-1">現在購買牛番茄系列商品可享最優惠價格，快前往商城選購!</p>
+                  <p class="mb-1">現在購買牛番茄系列商品可享最優惠價格，快前往商城選購!</p>>
+                  <span class="Tom_NCID">3</span>
                   <small>2023-08-13 23:10</small>
                 </div>
-              </a>
+              </a> -->
             </div>
             <!--------------通知中心區塊結束---------->
           </div>
@@ -270,5 +277,120 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/TomJS.js"></script>
+    <script>
+            /*============================================================ 變數 ============================================================*/
+            var queryString = window.location.search;
+            var params = new URLSearchParams(queryString);
+
+            var recipeBrowse = "/recipe/recipe_browse.jsp";
+            // var coverImage = "/RecipeServletImg";
+            var recipeServlet = "/";
+            var host = window.location.host;
+            var path = window.location.pathname;
+            var webCtx = path.substring(0, path.indexOf('/', 1));
+            var endPointURL = "http://" + host + webCtx;
+            console.log(endPointURL);
+//====================================================== 
+            $.ajax({
+              url: endPointURL + "/MemberNotifyServlet", // 資料請求的網址
+              type: "POST", // GET | POST | PUT | DELETE | PATCH
+              data: { action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+              dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+              success: function(data) {
+                $(data).each(function(index, element) {
+                  console.log(element);
+                  if(element.notifyRead != 2)
+                  {
+                  console.log("1");
+                    SuccesSend(element);
+                  }
+                  console.log("2");
+                });
+              },
+              error: function(xhr) {
+                console.log("ajax失敗");
+                console.log(xhr);
+              },
+            });
+            function SuccesSend(n){
+              // StringAppend = `              
+              //     <a href="#" class="list-group-item list-group-item-action d-flex Tom">
+              //       <div class="my-auto mr-3"><i class="fa fa-tag fa-2x"></i></div>
+              //       <div>
+              //         <h5 class="mb-1">${n.notifyType}</h5>
+              //         <p class="mb-1">${n.notifyContent}</p>
+              //         <span class="Tom_NCID">${n.notifyNo}</span>
+              //         <span class="Tom_ReadStatus">${n.notifyRead}</span>
+              //         <small>${n.createdTime}</small>
+              //       </div>
+              //     </a>`;
+              //   $("#notifySection").append(StringAppend);
+              if(n.notifyRead == 0)
+              {
+                StringAppend = `              
+                  <a href="#" class="list-group-item list-group-item-action d-flex Tom">
+                    <div class="my-auto mr-3"><i class="fa fa-bullhorn fa-2x"></i></div>
+                    <div>
+                      <h5 class="mb-1">${n.notifyType}</h5>
+                      <p class="mb-1">${n.notifyContent}</p>
+                      <span class="Tom_NCID">${n.notifyNo}</span>
+                      <span class="Tom_ReadStatus">${n.notifyRead}</span>
+                      <small>${n.createdTime}</small>
+                    </div>
+                  </a>`;
+                }
+                else{
+                  StringAppend = `              
+                  <a href="#" class="list-group-item list-group-item-action d-flex">
+                    <div class="my-auto mr-3"><i class="fa fa-bullhorn fa-2x"></i></div>
+                    <div>
+                      <h5 class="mb-1">${n.notifyType}</h5>
+                      <p class="mb-1">${n.notifyContent}</p>
+                      <span class="Tom_NCID">${n.notifyNo}</span>
+                      <span class="Tom_ReadStatus">${n.notifyRead}</span>
+                      <small>${n.createdTime}</small>
+                    </div>
+                  </a>`;
+                }
+                $("#notifySection").append(StringAppend);
+                    //==============================================
+        // 获取所有具有 class="Tom" 的链接
+        const tomLinks = document.querySelectorAll(".Tom");
+
+        // 找每個連結並裝置監聽
+        tomLinks.forEach(link => {
+          link.addEventListener("mouseenter", () => {
+            // 當滑鼠滑過時 .Tom_NCID 的值
+            const spanValue = link.querySelector(".Tom_NCID").textContent;
+            const ReadStatus = link.querySelector(".Tom_ReadStatus").textContent;
+            link.classList.remove("Tom");
+            //如果是未讀取就觸發GET方法送請求去資料庫
+            console.log("Tom_NCID 值: " + ReadStatus);
+            if(ReadStatus == 0)
+              UnReadToRead(spanValue);
+            console.log("Tom_NCID 值: " + spanValue);
+          });
+        });
+
+        function UnReadToRead(r){
+            $.ajax({
+              url: endPointURL + "/MemberNotifyServlet", // 資料請求的網址
+              type: "GET", // 使用 GET 方法
+              data: { notifyNo: r }, // 將物件資料(不用雙引號) 傳送到指定的 url
+              dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+              success: function(data) {
+                console.log("get方法成功");
+              },
+              error: function(xhr) {
+                  console.log("ajax失敗");
+                  console.log(xhr);
+              },
+          });
+        }
+        }
+
+
+    </script>
   </body>
 </html>
