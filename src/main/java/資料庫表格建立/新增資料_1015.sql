@@ -203,11 +203,11 @@ VALUES("全部主題"),("綜合討論"),("食譜討論"),("食材討論"),("活�
 -- 增新討論區資料--
 
 INSERT INTO article (article_category,article_title,member_id,article_status,article_content,article_count,view_count) 
-                     VALUES ( 1, "昨天大家吃甚麼?", 1, 1, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 1, 7),
+                     VALUES ( 1, "昨天大家吃甚麼?", 1, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 1, 7),
                             ( 2, "今天大家吃甚麼?", 2, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 2, 7),
-							( 3, "明天大家吃甚麼?", 3, 1, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 3, 7),
+							( 3, "明天大家吃甚麼?", 3, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 3, 7),
                             ( 4, "後天大家吃甚麼?", 2, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 4, 7),
-                            ( 5, "大後天大家吃甚麼?", 1, 1, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 5, 7);
+                            ( 5, "大後天大家吃甚麼?", 1, 0, "今年好霉氣全無財錦進門養豬各各大老鼠各各瘟做酒缸缸好做醋滴滴酸", 5, 7);
  
  -- 討論區反應 資料
 INSERT INTO article_reaction(member_id,article_no,statuts) 
@@ -237,11 +237,11 @@ INSERT INTO article_picture (article_no,picture)
                                    
 -- 討論區回文文章 article_sub --
 Insert into article_sub (article_no, member_id, article_sub_status, article_sub_content , article_sub_count, last_edit_timestamp)
-value( 1 ,2 , 3, "這是回文" , 20 ,now()),
-( 2 ,3 , 3, "這是回文" , 20 ,now()),
-( 3 ,4 , 3, "這是回文" , 20 ,now()),
-( 4 ,1 , 2, "這是回文" , 20 ,now()),
-( 5 ,4 , 3, "這是回文" , 20 ,now());
+value( 1 ,2 , 0, "這是回文" , 20 ,now()),
+( 2 ,3 , 0, "這是回文" , 20 ,now()),
+( 3 ,4 , 0, "這是回文" , 20 ,now()),
+( 4 ,1 , 0, "這是回文" , 20 ,now()),
+( 5 ,4 , 0, "這是回文" , 20 ,now());
 
 -- 討論區回文圖片 article_sub_picture
 INSERT INTO article_sub_picture (article_sub_no,picture)
@@ -250,6 +250,14 @@ INSERT INTO article_sub_picture (article_sub_no,picture)
 								   (3, 1),
                                    (4, 1),
                                    (5, 1);
+                                   
+-- 討論區回文反應 article_sub_reaction
+INSERT INTO article_sub_reaction (member_id,article_sub_no, statuts) 
+		VALUES (1, 1,0),
+				(2, 2,1),
+				(3, 2,2),
+				(4, 2,1),
+				(5, 1,1);
 
 
 -- 討論區回文檢舉 article_sub_report --      

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
+public class ArticleReactionJSubJDBCDAOIm implements ArticleSubReactionDAO {
 
 	private static final String INSERT_STMT = "INSERT INTO article_sub_reaction(member_id,article_sub_no,statuts,created_timestamp) VALUES (?, ?, ?,now())";
 	private static final String GET_ALL_STMT = "SELECT article_sub_reaction_no,member_id,article_sub_no,statuts,created_timestamp FROM article_sub_reaction order by article_sub_reaction_no";
@@ -18,7 +18,7 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 	private static final String UPDATE = "UPDATE article_sub_reaction set member_id=?, article_sub_no=?, statuts=?, created_timestamp=now() where article_sub_reaction_no = ? ";
 
 	@Override
-	public void insert(ArticleReactionVO ArticleReactionVO) {
+	public void insert(ArticleSubReactionVO ArticleReactionVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -62,7 +62,7 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 
 //============================insert完結=======================================
 	@Override
-	public void update(ArticleReactionVO ArticleReactionVO) {
+	public void update(ArticleSubReactionVO ArticleReactionVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -151,9 +151,9 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 
 //===============================delete結束======================================
 	@Override
-	public ArticleReactionVO findByPrimaryKey(Integer article_sub_reaction_no) {
+	public ArticleSubReactionVO findByPrimaryKey(Integer article_sub_reaction_no) {
 
-		ArticleReactionVO ArticleReactionVO = null;
+		ArticleSubReactionVO ArticleReactionVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -170,7 +170,7 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 
 			while (rs.next()) {
 				// empArticleReactionVO 也稱為 Domain objects
-				ArticleReactionVO = new ArticleReactionVO();
+				ArticleReactionVO = new ArticleSubReactionVO();
 				ArticleReactionVO.setMemberId(rs.getInt("member_id"));
 				ArticleReactionVO.setArticleSubNo(rs.getInt("article_sub_no"));
 				ArticleReactionVO.setStatuts(rs.getByte("statuts"));
@@ -213,9 +213,9 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 
 //===========================findByPrimaryKey結束==============================================
 	@Override
-	public List<ArticleReactionVO> getAll() {
-		List<ArticleReactionVO> list = new ArrayList<ArticleReactionVO>();
-		ArticleReactionVO ArticleReactionVO = null;
+	public List<ArticleSubReactionVO> getAll() {
+		List<ArticleSubReactionVO> list = new ArrayList<ArticleSubReactionVO>();
+		ArticleSubReactionVO ArticleReactionVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -230,7 +230,7 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 
 			while (rs.next()) {
 				// empArticleReactionVO 也稱為 Domain objects
-				ArticleReactionVO = new ArticleReactionVO();
+				ArticleReactionVO = new ArticleSubReactionVO();
 				ArticleReactionVO.setArticleSubReactionNo(rs.getInt("article_sub_reaction_no"));
 				ArticleReactionVO.setMemberId(rs.getInt("member_id"));
 				ArticleReactionVO.setArticleSubNo(rs.getInt("article_sub_no"));
@@ -276,17 +276,17 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 //===================================getAll結束========================================
 	public static void main(String[] args) {
 
-		ArticleReactionJDBCDAOIm dao = new ArticleReactionJDBCDAOIm();
+		ArticleReactionJSubJDBCDAOIm dao = new ArticleReactionJSubJDBCDAOIm();
 
 		// 新增
-//			ArticleReactionVO ArticleReactionVO1 = new ArticleReactionVO();
+//			ArticleSubReactionVO ArticleReactionVO1 = new ArticleSubReactionVO();
 //			ArticleReactionVO1.setMemberId(Integer.valueOf(1));
 //			ArticleReactionVO1.setArticleSubNo(Integer.valueOf(1));
 //			ArticleReactionVO1.setStatuts(Byte.valueOf((byte)1));
 //			dao.insert(ArticleReactionVO1);
 
 //			// 修改
-		ArticleReactionVO ArticleReactionVO2 = new ArticleReactionVO();
+		ArticleSubReactionVO ArticleReactionVO2 = new ArticleSubReactionVO();
 		ArticleReactionVO2.setArticleSubReactionNo(Integer.valueOf(2));
 		ArticleReactionVO2.setMemberId(2);
 		ArticleReactionVO2.setArticleSubNo(1);
@@ -298,7 +298,7 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 //			dao.delete(3);
 //////
 //////			// 查詢
-//			ArticleReactionVO ArticleReactionVO3 = dao.findByPrimaryKey(1);
+//			ArticleSubReactionVO ArticleReactionVO3 = dao.findByPrimaryKey(1);
 //			System.out.print(ArticleReactionVO3.getArticleSubReactionNo() + ",");
 //			System.out.print(ArticleReactionVO3.getMemberId() + ",");
 //			System.out.print(ArticleReactionVO3.getArticleSubNo() + ",");
@@ -307,8 +307,8 @@ public class ArticleReactionJDBCDAOIm implements ArticleReactionDAO {
 //			System.out.println("---------------------");
 //////
 //////			// 查詢
-		List<ArticleReactionVO> list = dao.getAll();
-		for (ArticleReactionVO aArticleReactionVO : list) {
+		List<ArticleSubReactionVO> list = dao.getAll();
+		for (ArticleSubReactionVO aArticleReactionVO : list) {
 			System.out.print(aArticleReactionVO.getArticleSubReactionNo() + ",");
 			System.out.print(aArticleReactionVO.getMemberId() + ",");
 			System.out.print(aArticleReactionVO.getArticleSubNo() + ",");

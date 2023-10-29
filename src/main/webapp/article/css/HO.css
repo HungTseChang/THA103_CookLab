@@ -293,12 +293,22 @@ a.page-link_pr {
   text-decoration: none; /* 取消下底線 */
 }
 
-.image-container {
-  position: relative;
-  display: inline-block; /* 讓內容可以變區塊方式呈現 */
-  cursor: pointer;
+.hidden-input {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  opacity: 0;
 }
-
+.hidden-input input {
+  width: auto;
+  opacity: 1;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 16px; /* 根据需要调整字体大小 */
+}
 
 /*===============================以下是webchat==================================*/
 .panel {

@@ -27,11 +27,13 @@ $(document).ready(function() {
 
 //===============article_content==========================================
 //
-//$(function(){
-//  $("a#creator").on("click", function(e){ 
-//    e.preventDefault();
-//  });
-//});
+$(function(){
+  $("a#creator").on("click", function(e){ 
+    e.preventDefault();
+  });
+});
+
+
 //
 //$(document).ready(function(){
 //	
@@ -44,83 +46,134 @@ $(document).ready(function() {
 //	});
 //});
 
+
+
+   
+//    $(document).ready(function(){
+//        $(".button-group").each(function(){
+//            const $group = $(this);
+//            $group.find(".clickable").click(function (){
+//                const $image = $(this);
+//                const isEnlarged = $image.data("enlarged");
+//
+//                $group.find(".clickable").css("transform","scale(1");
+//                $(this).css("transform","scale(1.2)");
+//
+//                if (!isEnlarged){
+//                    $image.css("transform","scale(1)");
+//                    $image.data("enlared",false);
+//                }else{
+//                    $group.find(".clickable").css("transform", "scale(1)"); 
+//                    $image.css("transform", "scale(1.2)");
+//                    $image.data("enlarged", true);
+//                }
+//            });
+//
+//        })
+//    })
+   
+
 //==========content like and dislike===
-$(document).ready(function () {
-  $(".like,.dislike").click(function () {
-    const $image = $(this);
-	//這邊指向html的圖片，使用JS操作圖片放大及復原的狀態
-    const isEnlarged = $image.data("enlarged"); 
-    let value = parseInt($image.data("value")); //這邊指向data-value
-	let value2 = parseInt($image.attr("data-value"));
-
-	let likeValue = parseInt($(".likeValue").text(),10);//把文字轉為數字，設定為10進位
-	let dislikeValue = parseInt($(".dislikeValue").text(), 10);
-
-    if ($image.hasClass("like")) {
-      if ($(".dislike").attr("data-value") === "2" && value2 === 0 ) {
-        //當dislike圖片已經放大，跳來點like圖片時的操作
-        $(".clickable").css("transform", "scale(1)"); // 還原所有圖像大小
-        $image.css("transform", "scale(2)");//把like class的圖片放兩倍大
-        $image.data("enlarged", true);
-		value  = 1;
-		value2 = 1
-		likeValue +=1;
-		dislikeValue -=1;
-		$(".dislike").attr("data-value", "0");//把dislike的data-value值轉為0
-	  	}else if(value2 === 0 ) {
-			// 點擊未放大的圖片，執行放大操作
-			$(".clickable").css("transform", "scale(1)"); // 還原所有圖像大小
-			$image.css("transform", "scale(2)");//把like class的圖片放兩倍大
-			$image.data("enlarged", true);
-			value  = 1;
-			value2 = 1
-			likeValue +=1;
-        } else  {//like 圖片已經放大，還原大小
-			$image.css("transform", "scale(1)");//把like class的圖片放兩倍大
-			$image.data("enlarged", false);
-			value = 0;
-			value2 = 0;
-			likeValue -=1;
-		
-		}
-    } else if ($image.hasClass("dislike")){
-		if ($(".like").attr("data-value") === "1" && value2 === 0 ) {
-			//當like圖片已經放大，跳來點dislike圖片時的操作
-			$(".clickable").css("transform", "scale(1)"); // 還原所有圖像大小
-			$image.css("transform", "scale(2)");
-			$image.data("enlarged", true);
-			value = 2;
-			value2 = 2;
-			dislikeValue+=1;
-			likeValue -=1;
-			$(".like").attr("data-value", "0");//把like的data-value值轉為0
-		}else if (value2 === 0) {
-			// dislike 圖片未放大，執行放大操作
-			$(".clickable").css("transform", "scale(1)"); // 還原所有圖像大小
-			$image.css("transform", "scale(2)");
-			$image.data("enlarged", true);
-			value = 2;
-			value2 = 2;
-			dislikeValue+=1;
-		} else {
-			// dislike 圖片已經放大，還原大小
-			$image.css("transform", "scale(1)");
-			$image.data("enlarged", false);
-			value = 0;
-			value2 = 0;
-			dislikeValue-=1;
-		}
-	}
-	// 更新 HTML 中喜歡與不喜歡的數字
-	$(".likeValue").text(likeValue);
-	$(".dislikeValue").text(dislikeValue);
-	
-
-	$image.data("value", value);//這行把圖片的data-value 顯示在HTML
-	$image.attr("data-value", value);
-	// $image.data("value", value);//這行把圖片的data-value 轉為資料
-    // 在這裡，可以把value發送到後端
-    alert("value:" + value);
-	
-  });
-});
+//$(document).ready(function () {
+//	$(".like, .dislike").click(function () {
+//	  const $image = $(this);
+//	  const $container =$image.closest('.like-dislike');//尋找最近的該元素
+//	  // 这里指向HTML的图像，使用JS操作图像放大及复原的状态
+//	  console.log($container);
+//	  const isEnlarged = $image.data("enlarged"); 
+//	  let value = parseInt($image.attr("data-gjStatus")); // 这里指向data-gjStatus
+//	  var dislikeStatus = parseInt($(".dislike").attr("data-gjStatus"));
+//	  var likeStatus = parseInt($(".like").attr("data-gjStatus"));
+//
+//	  let likeValue = parseInt($(this).next(".likeValue").text(), 10);//追加.next可以抓到likeValue的值
+//	  let dislikeValue = parseInt($(this).next(".dislikeValue").text(), 10);
+//  
+//	  if ($image.hasClass("like")) {
+//		if (dislikeStatus === 2 &&  value === 0 ){
+//			const $clickableDislike = $container.find('.clickable.dislike');
+//			$clickableDislike.css("transform", "scale(1)");
+//
+//			$image.css("transform", "scale(2)");//把like class的图像放两倍大
+//			$image.data("enlarged", true);
+//			value = 1;
+//			likeValue += 1;
+//			dislikeValue = parseInt($container.find('.dislikeValue').text(),10);
+//			dislikeValue -= 1;
+//			console.log("dislike後:"+ dislikeValue);
+//			$(this).next(".likeValue").text(likeValue);
+//			$container.find(".dislikeValue").text(dislikeValue);
+//
+//			$clickableDislike.attr("data-gjStatus", 0);
+//			console.log("啟用like+1 ,dislike-1");
+//		}
+//		else if (value === 0) {
+//		  // 点击未放大的图像，执行放大操作
+//			
+//		  $container.find(".clickable").css("transform", "scale(1)"); // 还原所有图像大小
+//		  $image.css("transform", "scale(2)");//把like class的图像放两倍大
+//		  $image.data("enlarged", true);
+//		  value = 1;
+//		  likeValue += 1;
+//		  console.log("After likeValue += 1:", likeValue);
+//		  $(this).next(".likeValue").text(likeValue);
+//		  $(this).next(".dislikeValue").text(dislikeValue);
+//		  console.log("啟用likeValue + 1");
+//
+//		} else { // like图片已经放大，还原大小
+//		  $image.css("transform", "scale(1)");//把like class的图像放两倍大
+//		  $image.data("enlarged", false);
+//		  value = 0;
+//		  likeValue -= 1;
+//		  $(this).next(".likeValue").text(likeValue);
+//		  $(this).next(".dislikeValue").text(dislikeValue);
+//		  console.log("啟用likeValue-1")
+//
+//		}
+//	  } else if ($image.hasClass("dislike")) {
+//		if (likeStatus === 1 && value === 0 ){
+//			const $clickablelike = $container.find('.clickable.like');
+//			$clickablelike.css("transform", "scale(1)");
+//
+//			$image.css("transform", "scale(2)");//把like class的图像放两倍大
+//			$image.data("enlarged", true);
+//			
+//			
+//			value = 1;
+//			dislikeValue += 1;
+//			
+//			likeValue = parseInt($container.find('.likeValue').text(),10);
+//			likeValue -= 1;
+//			
+//			$(this).next(".dislikeValue").text(dislikeValue);
+//			$container.find(".likeValue").text(likeValue);
+//
+//
+//			$clickablelike.attr("data-gjStatus", 0);
+//			console.log("dislike +1,like -1")
+//		}
+//		else if (value === 0) {
+//		  // dislike图片未放大，执行放大操作
+//		  $container.find(".clickable").css("transform", "scale(1)"); // 还原所有图像大小
+//		  $image.css("transform", "scale(2)");
+//		  $image.data("enlarged", true);
+//		  value = 2;
+//		  dislikeValue += 1;
+//		  $(this).next(".likeValue").text(likeValue);
+//		  $(this).next(".dislikeValue").text(dislikeValue);
+//
+//
+//		} else {
+//		  // dislike圖片以放大還原大小
+//		  $image.css("transform", "scale(1)");
+//		  $image.data("enlarged", false);
+//		  value = 0;
+//		  dislikeValue -= 1;
+//		  $(this).next(".likeValue").text(likeValue);
+//		  $(this).next(".dislikeValue").text(dislikeValue);
+//		}
+//	  }
+//
+//	  $image.attr("data-gjStatus", value); //這行用於更改data-gjStatus屬性的值
+//	});
+//  });
+  

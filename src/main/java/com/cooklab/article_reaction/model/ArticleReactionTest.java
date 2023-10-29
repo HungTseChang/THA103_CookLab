@@ -12,9 +12,9 @@ public class ArticleReactionTest {
 
         if (result != null) {
             // 打印结果或执行其他操作
-            System.out.println("Found ArticleReactionVO: " + result);
+            System.out.println("Found ArticleSubReactionVO: " + result);
         } else {
-            System.out.println("ArticleReactionVO not found");
+            System.out.println("ArticleSubReactionVO not found");
         }
 		
 	}	

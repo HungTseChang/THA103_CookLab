@@ -1,7 +1,7 @@
 package com.cooklab.article_sub_reaction.model;
 import java.sql.Date;
 
-public class ArticleReactionVO  implements java.io.Serializable{
+public class ArticleSubReactionVO  implements java.io.Serializable{
 	private Integer articleSubReactionNo;
 	private Integer memberId;
 	private Integer articleSubNo;
