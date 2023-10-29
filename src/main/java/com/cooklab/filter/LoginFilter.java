@@ -1,4 +1,4 @@
-package com.cooklab.members.controller;
+package com.cooklab.filter;
 
 import java.io.IOException;
 
@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = { 
-		"/members/member-panel-editting.jsp",			//修改會員資料
-		"/members/member-panel-news.html",				//最新消息
-		"/members/member-panel.jsp",					//會員資料列表
-		"/members/member-panel-password.html",			//修改密碼
-		"/members/member-panel-order.html",				//查詢訂單
-		"/members/member-panel-recipe.html",			//查詢食譜
-		"/members/member-panel-post.html",				//查詢討論區文章
-		"/members/member-panel-follow.html",			//查詢關注
-		"/members/VerificationLetter.html"				//收取驗證信
+		"/frontstage/members/member-panel-editting.jsp",			//修改會員資料
+		"/frontstage/members/member-panel-news.html",				//最新消息
+		"/frontstage/members/member-panel.jsp",					//會員資料列表
+		"/frontstage/members/member-panel-password.html",			//修改密碼
+		"/frontstage/members/member-panel-order.html",				//查詢訂單
+		"/frontstage/members/member-panel-recipe.html",			//查詢食譜
+		"/frontstage/members/member-panel-post.html",				//查詢討論區文章
+		"/frontstage/members/member-panel-follow.html",			//查詢關注
+		"/frontstage/members/VerificationLetter.html"				//收取驗證信
 		})
 public class LoginFilter extends HttpFilter implements Filter{
 	
@@ -60,7 +60,7 @@ public class LoginFilter extends HttpFilter implements Filter{
 			//使用者沒有登入過
 			System.out.println("使用者沒有登入 網頁重導至 SignIn");
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/members/login.html");
+			res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");
 		}
 		else
 		{

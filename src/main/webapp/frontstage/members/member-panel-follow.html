@@ -12,16 +12,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/ding.css" type="text/css" />
-    <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../ss/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="./css/ding.css" type="text/css" />
+    <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
   </head>
 
   <body>
@@ -34,7 +34,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
       </div>
       <section class="container">
         <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -120,7 +120,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
             </div>
           </div>
           <div class="col-lg-9 d-flex align-items-center">
@@ -269,15 +269,15 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/TomJS.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/TomJS.js"></script>
     <script>
             /*============================================================ 變數 ============================================================*/
 var queryString = window.location.search;
@@ -345,11 +345,11 @@ function RecipeAppend(r){
               <div class="tab-pane fade show active" id="pills-folrec" role="tabpanel" aria-labelledby="pills-folrec-tab">
                 <div class="row m-0 ml-2 ding-folrec-border">
                   <div class="col-3 align-self-center p-0 pb-2">
-                    <img src="data:image/png;base64,${r.coverImage}" alt="食譜封面圖" onclick="return confirm('確定取消?) class="folrec-img-preview" />
+                    <img src="data:image/png;base64,${r.coverImage}" alt="食譜封面圖" class="folrec-img-preview" />
                   </div>
                   <div class="col-7">
                     <div class="row h-100">
-                      <div class="col-12"><a href="#" class="text-dark ding-fol-title" onclick="return confirm('確定取消?)>${r.recipeName}</a></div>
+                      <div class="col-12"><a href="#" class="text-dark ding-fol-title">${r.recipeName}</a></div>
                       <p class="col-12 text-muted my-1">${r.introduction}</p>
                     </div>
                   </div>

@@ -20,6 +20,6 @@ public void doGet(HttpServletRequest req, HttpServletResponse res) throws Servle
 	HttpSession session = req.getSession();
 	session.invalidate();
 	
-	res.sendRedirect(req.getContextPath() + "/members/member-panel.jsp");
+	res.sendRedirect(req.getContextPath() + "/frontstage/members/member-panel.jsp");
 	}
 }
