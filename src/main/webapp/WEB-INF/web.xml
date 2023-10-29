@@ -35,8 +35,18 @@
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
 		<url-pattern>/LoginServlet</url-pattern>
-
 	</filter-mapping>
+
+<!-- 	<filter> -->
+<!-- 		<filter-name>ArticleFilter</filter-name> -->
+<!-- 		<filter-class>com.cooklab.filter.OpenSessionInViewFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>ArticleFilter</filter-name> -->
+<!-- 		<url-pattern>/CookLab/frontstage/article/article_main.jsp</url-pattern> -->
+<!-- 		<url-pattern></url-pattern> -->
+<!-- 	</filter-mapping> -->
+
 
 
 

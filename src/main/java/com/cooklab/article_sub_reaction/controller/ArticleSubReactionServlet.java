@@ -87,7 +87,7 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			res.getWriter().write(success);
 			
 			//使用ajax 不能跳轉
-//			String url ="/article/article_content.jsp";
+//			String url ="frontstage/article/article_content.jsp";
 //			
 //			RequestDispatcher successView = req.getRequestDispatcher(url); 
 //			successView.forward(req, res);
@@ -123,7 +123,7 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			artSvc.findTwo(memberId, articleSubNo);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 //			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url ="/article/article_content.jsp";
+			String url ="frontstage/article/article_content.jsp";
 			
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);

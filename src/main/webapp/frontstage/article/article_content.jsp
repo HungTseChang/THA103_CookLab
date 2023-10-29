@@ -47,35 +47,33 @@
 
 <!-- Css Styles -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/bootstrap.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/font-awesome.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/font-awesome.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/elegant-icons.css"
+	href="<%=request.getContextPath()%>/frontstage/css/elegant-icons.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/nice-select.css"
+	href="<%=request.getContextPath()%>/frontstage/css/nice-select.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/jquery-ui.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/jquery-ui.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/owl.carousel.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/owl.carousel.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/slicknav.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/slicknav.min.css"
 	type="text/css">
-
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/style.css"
+	href="<%=request.getContextPath()%>/frontstage/css/style.css"
 	type="text/css">
-
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/HO.css" type="text/css">
+	href="<%=request.getContextPath()%>/frontstage/article/css/HO.css" type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/ding.css"
+	href="<%=request.getContextPath()%>/frontstage/article/css/ding.css"
 	type="text/css">
 
 </head>
@@ -90,13 +88,14 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
+			<a href=""><img src="../img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
 				class="humberger__menu__widget row d-flex justify-content-between align-items-center">
 				<div class="">
-					<a href="#"> <i class="bi bi-cart3 fa-3x"></i>
+					<a href="#"> 
+					<i class="bi bi-cart3 fa-3x"></i>
 					</a>
 				</div>
 
@@ -169,7 +168,7 @@
 				<div class="col-lg-3">
 					<div class="header__logo">
 						<a href="./index.html"><img style="height: 150px"
-							src="img/indexlogo.png" alt="" /></a>
+							src="../img/indexlogo.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="col-lg-9 d-flex align-items-center">
@@ -220,23 +219,25 @@
 						<br> <br>
  						
  							<div id="like-dislike" > 
-             					<img class="clickable like" src="<%=request.getContextPath()%>/article/img/HO/like.png"
+             					<img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
                            			 alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
                             		 data-gjStatus="0"  data-memberId = 5  data-articleNo ="${artVO.articleNo}" >
                   				<span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
                   			
                   				<input type="hidden" class="testMemberId" value="" style= "float:right;"> 
                   				
-                            	<img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
+                            	<img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
                             		alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
                             		data-gjStatus="0">
                             		
                            		<span  class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
                             
-                            
+                            <input type="submit" class="btn custom-btn" value="檢舉" > 
+							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+							<input type="hidden" name="action" value="subSearch">
 	                		
 	                		
-							<input type="submit" class="btn custom-btn" value="回覆" style= "float:right;"> 
+							<input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
 							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
 							<input type="hidden" name="action" value="subSearch">
 						
@@ -251,10 +252,10 @@
 	
 	<c:forEach var="artVO2" items="${list2}">
 	<c:if test="${artVO2.articleNo == artVO.articleNo}">
-<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
-	<div class="container" style="margin-top: 30px;">
-		<div class="row">
-			<div id="c_user" class="col-md-3"
+	<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+		<div class="container" style="margin-top: 30px;">
+			<div class="row">
+				<div id="c_user" class="col-md-3"
 				style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
 				<a>${artVO2.members.memberPicture}</a>
 				
@@ -274,17 +275,20 @@
 						<br> <br>
 						<div id="like-dislike" > 
  							
-                            <img class="clickable like" src="<%=request.getContextPath()%>/article/img/HO/like.png"
+                            <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
                             	 alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
                            		 data-gjStatus="0">
                             <span  class="likeValue" style="margin-right: 50px;">10</span>
-                            <img class="clickable dislike" src="<%=request.getContextPath()%>/article/img/HO/dislike.png"
+                            <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
                             	alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
                             	data-gjStatus="0">
                             <span  class="dislikeValue" style="margin-right: 50px;">10</span>
 					        
+					        <input type="submit" class="btn custom-btn" value="檢舉" > 
+							<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+							<input type="hidden" name="action" value="subSearch2">
 	                			
-							<input type="submit" class="btn custom-btn" value="回覆" style="float:right;"> 
+							<input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
 							<input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
 							<input type="hidden" name="action" value="subSearch2">
 						
@@ -408,20 +412,15 @@
 
 
 	<!-- Js Plugins -->
-	<script
-		src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/GJ.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/article/js/HO.js"></script>
 	
 	
 	<script>
@@ -536,6 +535,9 @@
 		const memberId =$image.attr("data-memberId");
 		const articleNo = $image.attr("data-articleNo");
 		const status = $image.attr("data-gjStatus");
+		console.log("會員編號"+ memberId);
+		console.log("文章編號"+ articleNo);
+		console.log("狀態"+ status);
 		
 		  let GJinfo = {
 				  memberID : memberId,

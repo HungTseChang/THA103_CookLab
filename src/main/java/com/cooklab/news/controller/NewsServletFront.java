@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cooklab.news.model.NewsDTO;
-import com.cooklab.util.JedisPoolUtil;
+import com.cooklab.util.JedisUtil;
 import com.google.gson.Gson;
 
 import redis.clients.jedis.Jedis;
@@ -43,7 +43,7 @@ public class NewsServletFront extends HttpServlet {
 		if ("getten".equals(action)) {
 
 			// 連接Redis連線池取得連線資源，使用select切到指定的資料庫
-			JedisPool jedisPool = JedisPoolUtil.getJedisPool();
+			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
 			jedis.select(10);
 
