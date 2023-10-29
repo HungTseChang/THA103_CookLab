@@ -53,7 +53,7 @@ public class MembersArticleOverViewServlet extends HttpServlet{
 		ncVO.setArticleStatus(articleStatus);
 		session.merge(ncVO);
 //		res.sendRedirect(req.getRequestURI());
-		res.sendRedirect(req.getContextPath() + "/members/member-panel-post.html");
+		res.sendRedirect(req.getContextPath() + "/frontstage/members/member-panel-post.html");
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
