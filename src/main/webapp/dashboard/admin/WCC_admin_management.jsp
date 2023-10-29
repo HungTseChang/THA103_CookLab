@@ -541,7 +541,7 @@ if(isSorted){
     })
 
 </script>
-<script>
+  <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
     e.preventDefault;
@@ -558,8 +558,37 @@ value: "logout"
    formlogout.appendTo("body").hide();
    formlogout.submit();
    formlogout.remove();
+
+
+
     
-})})
+})
+
+
+$("a#design").on("click",function(e){
+	$("a#logout").on("click",function(e){
+	    e.preventDefault;
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+
+})
 </script>
 </body>
 
