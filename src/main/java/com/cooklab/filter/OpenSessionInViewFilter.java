@@ -13,7 +13,7 @@ import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
 
-@WebFilter("/RecipeServlet")
+@WebFilter("/*")
 public class OpenSessionInViewFilter implements Filter {
 
 	@Override

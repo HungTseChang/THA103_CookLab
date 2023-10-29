@@ -4,6 +4,7 @@ var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
 const RECIPECREATE_POINT = "/RecipeCreateServlet";
 const HASHTAG_POINT = "/HashtagServlet";
+const BROWSE_POINT = "/recipe/recipe_browse.jsp";
 let coverImageBase64;
 let step;
 let stepImgBase64 = [];
@@ -30,6 +31,10 @@ function checkDeleteButtonStatus(listDelete) {
 }
 
 /*============================================================ event ============================================================*/
+$("#cancel").on("click", function () {
+    window.history.back();
+});
+
 $("#btnTag").on("click", function () {
     $("#tagBox").removeClass("none");
 });
@@ -144,7 +149,7 @@ $("#addStep").on("click", function () {
                     </div>
                     <div class="col-md-8">
                         <div class="row">
-                            <span class="recipe_content col-md-2">步驟${step}:</span>
+                            <span class="recipe_content col-md-2 step-count">步驟${step}:</span>
                             <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                         </div>
                         <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
@@ -158,6 +163,9 @@ $("#addStep").on("click", function () {
 //刪除一列步驟
 $("#listStep").on("click", ".delete-step", function () {
     $(this).parent().remove();
+    $(".step-count").each(function (index, element) {
+        $(element).html(`步驟${index + 1}`);
+    });
     checkDeleteButtonStatus($(".delete-step"));
 });
 //讓成品圖可以觸發選圖
@@ -174,7 +182,6 @@ $("#listStep").on("change", ".step-img-input", function () {
             let img_str = `<img src = "${e.target.result}" class = "step-img" >`;
             stepImgView.find("img").remove();
             stepImgView.append(img_str);
-
             step = parseInt($(fileInput).parents(".step").attr("step"));
             stepImgBase64[step - 1] = removeDataUrlHeader(e.target.result);
         };
@@ -266,7 +273,7 @@ function searchProduct(product) {
     const category = product.getAttribute("category");
     if (search.trim() != "") {
         $.ajax({
-            url: END_POINT_URL`/Recipe${category}Servlet`,
+            url: END_POINT_URL + `/Recipe${category}Servlet`,
             type: "POST",
             data: { search, action: "search", category },
             dataType: "json",
@@ -299,18 +306,6 @@ $(document).on("mousedown", function (event) {
 /*============================== 發布食譜 ==============================*/
 
 $("#publish").on("click", function () {
-    // let ingredient = document.querySelectorAll(".ingredient"); //所有食材
-    // let ingredientArray = []; //食材陣列
-    // let ingredientQuantity = document.querySelectorAll(".ingredient-quantity"); //所有食材
-    // let ingredientQuantitytArray = []; //食材份量陣列
-    // let kitchenware = document.querySelectorAll(".kitchenware"); //所有廚具
-    // let kitchenwareArray = []; //廚具陣列
-    // let stepTime = document.querySelectorAll(".step-time"); //所有步驟時間
-    // let stepTimeArray = []; //步驟時間陣列
-    // let stepContent = document.querySelectorAll(".step-content"); //所有步驟內容
-    // let stepContentArray = []; //步驟內容陣列
-    // let recipeHashtagArray = []; //標籤內容陣列
-
     let ingredient = [];
     let kitchenware = [];
     let step = [];
@@ -326,7 +321,7 @@ $("#publish").on("click", function () {
     });
     $("#listStep .step").each(function (index, element) {
         step[index] = {
-            stepImage: stepImgBase64[index],
+            stepImg: stepImgBase64[index],
             stepTime: $(element).find(".step-time").val(),
             stepContent: $(element).find(".step-content").val(),
         };
@@ -334,33 +329,9 @@ $("#publish").on("click", function () {
     $("#selectTag button").each(function (index, element) {
         recipeHashtag[index] = $(element).text();
     });
-
-    //把食材的值放入陣列
-    // for (var i = 0; i < ingredient.length; i++) {
-    //     var ingredientValue = ingredient[i].value;
-    //     var quantityValue = ingredientQuantity[i].value;
-    //     ingredientArray.push(ingredientValue);
-    //     ingredientQuantitytArray.push(quantityValue);
-    // }
-    // //把廚具的值放入陣列
-    // for (var i = 0; i < kitchenware.length; i++) {
-    //     var value = kitchenware[i].value;
-    //     kitchenwareArray.push(value);
-    // }
-    // //把步驟時間的值放入陣列
-    // for (var i = 0; i < stepTime.length; i++) {
-    //     // var imgValue =
-    //     var timeValue = stepTime[i].value;
-    //     var contentValue = stepContent[i].value;
-    //     stepTimeArray.push(timeValue);
-    //     stepContentArray.push(contentValue);
-    // }
-    //把標籤的值放入陣列
-    // $("#selectTag button").each(function (index, element) {
-    //     recipeHashtagArray.push($(element).text());
-    // });
     //送出的資料
-    let CreateRecipeDTO = {
+    console.log(step[0].stepImg);
+    let RecipeCreateDTO = {
         recipeName: $("#recipeName").val(),
         coverImage: coverImageBase64,
         recipeQuantity: $("#recipeQuantity").val(),
@@ -372,31 +343,19 @@ $("#publish").on("click", function () {
         step: step,
         recipeHashtag: recipeHashtag,
     };
-    console.log(CreateRecipeDTO);
-    console.log(JSON.stringify(CreateRecipeDTO));
-
     //ajax送新增請求
     $.ajax({
         url: END_POINT_URL + RECIPECREATE_POINT, // 資料請求的網址
         type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: JSON.stringify(CreateRecipeDTO), // 將物件資料(不用雙引號) 傳送到指定的 url
+        data: JSON.stringify(RecipeCreateDTO), // 將物件資料(不用雙引號) 傳送到指定的 url
         contentType: "application/json",
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
         success: function (data) {
-            // if (data.sucess != null) {
-            //     window.location.href = END_POINT_URL + "/recipe_browse.jsp?recipeNo=" + data.sucess;
-            // } else {
-            //     alert(data);
-            // }
-            console.log("data");
+            alert("發布食譜成功囉");
+            window.location.href = END_POINT_URL + BROWSE_POINT + "?recipeNo=" + data;
         },
         error: function (xhr) {
-            // request 發生錯誤的話執行
             console.log("ajax失敗");
-            console.log(xhr);
-        },
-        complete: function (xhr) {
-            // request 完成之後執行(在 success / error 事件之後執行)
             console.log(xhr);
         },
     });

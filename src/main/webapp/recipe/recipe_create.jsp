@@ -303,7 +303,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2">步驟1:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                        <span class="recipe_content col-md-2 step-count">步驟1:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
                                     <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
@@ -316,7 +316,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2">步驟2:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                        <span class="recipe_content col-md-2 step-count">步驟2:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
                                     <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
@@ -329,7 +329,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="row">
-                                        <span class="recipe_content col-md-2">步驟3:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                        <span class="recipe_content col-md-2 step-count">步驟3:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
                                     </div>
                                     <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
                                 </div>
@@ -347,9 +347,9 @@ import="com.cooklab.purchase_order.model.*"%>
 
                 <div class="col-md-2">
                     <div class="sticky-sidebar">
-                        <button class="right-column">儲存</button>
-                        <button class="right-column">取消</button>
-                        <button class="right-column">清除</button>
+                        <!-- <button class="right-column">儲存</button> -->
+                        <button id="cancel" class="right-column">取消</button>
+                        <!-- <button class="right-column">清除</button> -->
                         <button id="publish" class="right-column">發布</button>
                     </div>
                 </div>

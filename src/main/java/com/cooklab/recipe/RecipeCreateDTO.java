@@ -7,7 +7,7 @@ import java.util.List;
 import com.cooklab.recipe_ingredient.model.RecipeIngredientVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
 
-public class CreateRecipeDTO {
+public class RecipeCreateDTO {
 	private String recipeName;
 	private String coverImage;
 	private String introduction;
@@ -19,7 +19,7 @@ public class CreateRecipeDTO {
 	List<StepDTO> step = new ArrayList<>();
 	List<String> recipeHashtag = new ArrayList<>();
 
-	public CreateRecipeDTO() {
+	public RecipeCreateDTO() {
 	}
 
 	public String getRecipeName() {

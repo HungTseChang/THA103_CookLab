@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.recipe.CreateRecipeDTO;
+import com.cooklab.recipe.RecipeCreateDTO;
 import com.cooklab.recipe.model.RecipeServiceIm;
 import com.cooklab.util.HibernateUtil;
 import com.google.gson.Gson;
@@ -32,17 +32,15 @@ public class RecipeCreateServlet extends HttpServlet {
 //		MembersVO members = (MembersVO) session.getAttribute("members");
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		MembersVO memberVO = session.get(MembersVO.class, 1);
-		
 		BufferedReader reader = req.getReader();
 		StringBuilder jsonBuilder = new StringBuilder();
 		String line;
 		while ((line = reader.readLine()) != null) {
 			jsonBuilder.append(line);
 		}
-		CreateRecipeDTO createRecipeDTO = gson.fromJson(jsonBuilder.toString(), CreateRecipeDTO.class);
-		//新增食譜
-		Integer recipeNo = new RecipeServiceIm().createRecipe(memberVO, createRecipeDTO);
+		RecipeCreateDTO recipeCreateDTO = gson.fromJson(jsonBuilder.toString(), RecipeCreateDTO.class);
 		
+		Integer recipeNo = new RecipeServiceIm().createRecipe(memberVO, recipeCreateDTO);
 		String jsonString = gson.toJson(recipeNo);
 		res.getWriter().write(jsonString);
 		return;

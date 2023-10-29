@@ -11,24 +11,24 @@ var recipeNo = params.get("recipeNo");
 let step = 0;
 let recipeCollectionNo;
 /*============================================================ function ============================================================*/
-//新增一列食材
+//新增一列食材  // <input type="text" class="form-control ingredient" readonly="readonly" value="${ingredients.ingredient}"/>
 function addIngredient(ingredients) {
     let addIngredient = `<div class="row align-items-center " style="margin: 5px">
-    <div class="col-md-5 ">
-        <input type="text" class="form-control ingredient" readonly="readonly" value="${ingredients.ingredient}"/>
-        <div class="search-results"></div>
-    </div>
-    <div class="col-md-4">
-        <input type="text" class="form-control ingredient-quantity" readonly="readonly" value="${ingredients.ingredientQuantity}"/>
-    </div>
-</div>`;
+                            <div class="col-md-5 ">
+                                <span class="form-control ingredient" product=${ingredients.productNo}>${ingredients.ingredient}</span>
+                                <div class="search-results"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control ingredient-quantity" readonly="readonly" value="${ingredients.ingredientQuantity}"/>
+                            </div>
+                        </div>`;
     $("#listIngredient").append(addIngredient);
 }
 //新增一列廚具
 function addKitchenware(kitchenware) {
     let addKitchenware = `<div class="row align-items-center" style="margin: 5px">
                             <div class="col-md-5">
-                                <input type="text" class="form-control kitchenware" readonly="readonly" value="${kitchenware}" />
+                                <span class="form-control kitchenware" product=${kitchenware.productNo}>${kitchenware.kitchenware}</span>
                                 <div class="search-results"></div>
                             </div>
                           </div>`;
@@ -95,6 +95,7 @@ $.ajax({
         $(data.comments).each(function (index, element) {
             addComments(element);
         });
+        $("#author").html(data.memberName);
     },
     error: function (xhr) {
         console.log("ajax失敗");

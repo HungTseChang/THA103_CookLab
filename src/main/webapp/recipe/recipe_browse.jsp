@@ -215,6 +215,17 @@ import="com.cooklab.purchase_order.model.*"%>
                             <i class="bi bi-heartbreak mx-auto" style="font-size: 20px"></i>
                         </div>
                     </div>
+                    <div class="member-profile">
+                        <div class="avatar-container">
+                            <img src="avatar.jpg" alt="Member Avatar" class="avatar" />
+                        </div>
+                        <div class="info-container">
+                            <h4 id="author"></h4>
+                        </div>
+                        <div class="follow-button">
+                            <button type="button" class="btn btn-outline-danger">關注</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="comments" class="col-md-8 recipe-content mx-auto">
