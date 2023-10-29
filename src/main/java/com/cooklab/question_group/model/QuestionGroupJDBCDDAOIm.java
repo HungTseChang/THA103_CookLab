@@ -17,7 +17,7 @@ public class QuestionGroupJDBCDDAOIm implements QuestionGroupDAO {
 	private static final String GET_ONE_STMT = "select question_group_no,  question_name, created_timestamp FROM question_group where question_group_no = ?";
 	private static final String GET_ALL_STMT = "select question_group_no, question_name, created_timestamp FROM question_group order by question_group_no";
 
-	public void insert(QuestionGroupVO questionGroup) {
+	public Integer insert(QuestionGroupVO questionGroup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -54,10 +54,11 @@ public class QuestionGroupJDBCDDAOIm implements QuestionGroupDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 
-	public void update(QuestionGroupVO questionGroup) {
+	public Integer update(QuestionGroupVO questionGroup) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -95,10 +96,11 @@ public class QuestionGroupJDBCDDAOIm implements QuestionGroupDAO {
 				}
 			}
 		}
+		return null;
 
 	}
 
-	public void delete(Integer questionGroupNo) {
+	public Integer delete(Integer questionGroupNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -137,6 +139,7 @@ public class QuestionGroupJDBCDDAOIm implements QuestionGroupDAO {
 				}
 			}
 		}
+		return questionGroupNo;
 
 	}
 

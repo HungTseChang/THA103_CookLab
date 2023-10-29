@@ -1,9 +1,13 @@
 package com.cooklab.members.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-import com.cooklab.recipe.model.RecipeHDAOIm;
+import javax.persistence.EntityManager;
+import com.cooklab.recipe.model.RecipeVO;
+import com.cooklab.article.model.ArticleVO;
+import com.cooklab.member_order.model.MemberOrderVO;
+import com.cooklab.members.MemberRecipeOverViewDTO;
+import com.cooklab.notify_center.model.NotifyCenterVO;
 import com.cooklab.util.HibernateUtil;
 
 public class MembersService {
@@ -96,11 +100,30 @@ public class MembersService {
 		dao.updateMemberPassword(membersVO);
 		return membersVO;
 	}
+	
+
 	public List<MembersVO> getAll() {
 		return dao.getAll();
 	}
 	
+	public List<RecipeVO> getByPage(Integer offset,Integer limit,Integer memberId) {
+		return dao.getByPage(offset, limit,memberId) ;
+	}
+	public List<MemberOrderVO> getOrder(Integer offset, Integer limit,Integer memberId)
+	{
+		return dao.getOrder(offset, limit,memberId) ;
+	}
+	public List<MembersVO> getFollow(Integer offset, Integer limit,Integer memberId)
+	{
+		return dao.getFollow(offset, limit, memberId);
+	}
 	public MembersVO findByPrimaryKey(Integer memberId) {
 		return dao.findByPrimaryKey(memberId);
+	}
+	public List<NotifyCenterVO> getNotify(Integer offset, Integer limit, Integer memberId) {
+		return dao.getNotify(offset, limit, memberId);
+	}
+	public List<ArticleVO> getArticle(Integer offset, Integer limit,Integer memberId){
+		return dao.getArticle(offset, limit, memberId);
 	}
 }

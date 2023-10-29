@@ -47,6 +47,7 @@ $(document).ready(function() {
 	});
 
 
+
 });
 
 
@@ -81,7 +82,9 @@ function renderCart(cartdata) {
         <img src="data:image/jpeg;base64,${item.productImage}" alt="${item.productName}Image" width="100" height="100"/>
         </td>
         <td>${item.productPrice}</td>
-        <td>${item.quantity}</td>
+        <td>
+        <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="100">
+        </td>
         <td class="total-amount">${totalAmount}</td>
         <td>
         <button type="button" class="btn btn-danger" id="deletebutton" data-product-id="${item.productNo}">删除</button>
@@ -104,7 +107,6 @@ function renderCart(cartdata) {
 	updateTotalAmount();
 	grandTotalElement.html(`總計 <span>$${grandTotal.toFixed(0)}</span>`);
 }
-
 
 function checkout() {
 	// 将购物车数据转换为 JSON 字符串
@@ -161,5 +163,111 @@ $('#checkout-button').click(function() {
 
 
 
+function renderCart2(cartdata) {
+	const cartTable = $('#cart-table');
+	const tbody = cartTable.find('tbody');
+	const grandTotalElement = $('#grand-total');
+	console.log(cartTable);
+	console.log(tbody);
+
+	tbody.empty();
+
+	let grandTotal = 0;
+
+	cartdata.forEach(function(item) {
+		console.log("迴圈執行");
+
+		const productPrice = parseFloat(item.productPrice);
+		const quantity = parseInt(item.quantity);
+		const totalAmount = (productPrice * quantity);
+
+		grandTotal += totalAmount;
+
+		const row = `
+      <tr>
+      	<td>
+  			<input type="checkbox" class="product-checkbox" data-product-id="${item.productNo}">
+		</td>
+        <td>
+        ${item.productName}
+        <img src="data:image/jpeg;base64,${item.productImage}" alt="${item.productName}Image" width="100" height="100"/>
+        </td>
+        <td>${item.productPrice}</td>
+        <td>
+        <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="100">
+        </td>
+        <td class="total-amount">${totalAmount}</td>
+        <td>
+        <button type="button" class="btn btn-danger" id="deletebutton" data-product-id="${item.productNo}">删除</button>
+    	</td>
+      </tr>
+    `;
+		tbody.append(row);
+		selectedProducts.push(item.productNo);
+	});
+	// 在AJAX请求成功后，注册复选框更改事件监听器
+	$('.product-checkbox').change(function() {
+		updateTotalAmount();
+		console.log("a");
+	});
+	// 初始化时，勾选所有商品复选框
+	$('.product-checkbox').prop('checked', true);
+	updateTotalAmount();
+	grandTotalElement.html(`總計 <span>$${grandTotal.toFixed(0)}</span>`);
+
+}
 
 
+$(document).on("change", ".quantity-input", function() {
+	const sproductId = $(this).closest('tr').find('.product-checkbox').data('product-id');
+	const snewQuantity = parseInt($(this).val());
+
+	console.log(sproductId);
+	console.log(snewQuantity);
+	$.ajax({
+		url: '/CookLab/CartServlet',
+		type: 'POST',
+		data: {
+			action: 'updateQuantity',
+			productId: sproductId,
+			newQuantity: snewQuantity
+		},
+		dataType: 'json',
+		success: function(response) {
+			cartData = response;
+			renderCart(cartData);
+			alert("s");
+		},
+		error: function(xhr) {
+			console.log('AJAX请求失败：' + xhr.status);
+		}
+	});
+});
+
+
+
+$('.quantity-input').change(function() {
+	const sproductId = $(this).closest('tr').find('.product-checkbox').data('product-id');
+	const snewQuantity = parseInt($(this).val());
+
+	console.log(sproductId);
+	console.log(snewQuantity);
+	// 发送 AJAX 请求以更新购物车中的商品数量
+//	$.ajax({
+//		url: '/CookLab/CartServlet',
+//		type: 'POST',
+//		data: {
+//			action: 'updateQuantity',
+//			productId: sproductId,
+//			newQuantity: snewQuantity
+//		},
+//		dataType: 'json',
+//		success: function(response) {
+//			cartData = response;
+//
+//		},
+//		error: function(xhr) {
+//			console.log('AJAX请求失败：' + xhr.status);
+//		}
+//	});
+});

@@ -1,5 +1,6 @@
 package com.cooklab.members.controller;
-
+import java.util.Enumeration;
+import java.util.Vector; 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +30,7 @@ public class MembersSignServlet extends HttpServlet{
 		if(session.getAttribute("account")!= null)
 		{
 			System.out.println(session.getAttribute("account"));
-			res.sendRedirect("http://localhost:8081/CookLab/members/member-panel.jsp");
+			res.sendRedirect(req.getContextPath()+"/members/member-panel.jsp");
 			
 		}
 	}

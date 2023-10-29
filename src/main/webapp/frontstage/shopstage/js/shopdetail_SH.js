@@ -1,14 +1,13 @@
-
-
+const productId = getProductIdFromURL(); // 编写一个函数来获取URL参数中的商品ID
 // 等待页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 	// 获取商品ID（从URL参数中获取）
-	const productId = getProductIdFromURL(); // 编写一个函数来获取URL参数中的商品ID
+	
 	let stock = null;
 	console.log(productId);
 	// 创建一个包含商品ID的请求数据
 	const requestData = {
-		action: "getDetail", // 指定要调用的方法
+		action: "getDetail2", // 指定要调用的方法
 		productNo: productId, // 商品的ID，从URL参数中获取
 	};
 
@@ -19,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		data: requestData, // 发送的参数
 		dataType: "json", // 预期的响应数据类型
 		success: function(response) {
+			console.log("a");
 			console.log(response);
 			// 在成功回调中处理从服务器获取的商品详细信息
 			// 这里的response参数包含了您在Servlet中返回的JSON数据
@@ -115,6 +115,15 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	});
+	//搜尋
+	$("#search-button").on("click", function() {
+		let keyword = $("#index-searchbar").val();
+
+		
+		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	});
+	
+	fetchDataAndRender2();
 
 });
 
@@ -123,4 +132,41 @@ function getProductIdFromURL() {
 	// 从URL中获取productNo参数的值
 	const urlParams = new URLSearchParams(window.location.search);
 	return urlParams.get("productNo");
+}
+function populateHotKeywords(keywords) {
+	const topSearchWordsMenu = document.querySelector('.topsearchwords-menu');
+
+	keywords.forEach(item => {
+		const li = document.createElement('li');
+		li.classList.add('topsearchwords-item');
+		const a = document.createElement('a');
+		a.href = '#';
+		a.textContent = item.keyword;
+
+		a.addEventListener('click', () => {
+
+			const clickedKeyword = item.keyword;
+			window.location.href = `./shop-grid.html?keyword=${clickedKeyword}`;
+		});
+		li.appendChild(a);
+		topSearchWordsMenu.appendChild(li);
+	});
+}
+
+function fetchDataAndRender2() {
+	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
+	fetch('/CookLab/ProductServlet?action=getHotKeywords')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json(); // 解析 JSON 数据
+		})
+		.then(keywords => {
+			// 将商品名称填充到热门关键字部分
+			populateHotKeywords(keywords);
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
 }

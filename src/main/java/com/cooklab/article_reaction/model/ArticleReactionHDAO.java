@@ -43,10 +43,9 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 	}
 
 	@Override
-	public void update(ArticleReactionVO ArticleReactionVO) {
+	public void saveOrUpdate(ArticleReactionVO ArticleReactionVO) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-//			
+		try {		
 				session.saveOrUpdate(ArticleReactionVO);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -70,7 +69,7 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 //				.uniqueResult();
 //		
 //	}
-	
+	//下方使用兩個欄位來查詢資料
 	@Override
 	public ArticleReactionVO findByTwoCol(Integer memberId, Integer articleNo) {
 	    return getSession().createQuery("from ArticleReactionVO where memberId = :memberId and articleNo = :articleNo", ArticleReactionVO.class)
@@ -78,7 +77,15 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 	            .setParameter("articleNo", articleNo)
 	            .uniqueResult();
 	}
-
+	
+	//使用HQL的count做統計時，回傳的型別是Long，但是如果確定數字不超過Integer範圍的話，使用Integer也可以
+	@Override
+	public Long allCount(Integer articleNo, Byte statuts) {
+		return (Long) getSession().createQuery("select count (*) from ArticleReactionVO where articleNo = :articleNo and statuts = :statuts")
+				.setParameter("articleNo",articleNo)
+				.setParameter("statuts",statuts)
+				.uniqueResult();
+	}
 
 	@Override
 	public List<ArticleReactionVO> getAll() {
@@ -93,6 +100,10 @@ public class ArticleReactionHDAO implements ArticleReactionDAO {
 		
 	}
 	
+	
+
+
+
 	public static void main(String[] args) {
 				
 	}

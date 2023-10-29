@@ -13,7 +13,7 @@ public interface RecipeDAO {
 
 	public List<RecipeVO> getAll();
 
-	public List<RecipeVO> getByPage(String cloumn, boolean desc, Integer offset, Integer limit);
+	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit,String search);
 
-	public long getCount();
+	public long getCount(String search);
 }

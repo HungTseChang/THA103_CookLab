@@ -21,10 +21,12 @@ import com.cooklab.recipe.RecipeOverviewDTO;
 import com.cooklab.recipe.model.RecipeServiceIm;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.util.HibernateUtil;
+import com.cooklab.util.JedisUtil;
 import com.google.gson.Gson;
 
+import redis.clients.jedis.Jedis;
+
 @WebServlet("/RecipeOverviewServlet")
-//@MultipartConfig
 public class RecipeOverviewServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -40,9 +42,32 @@ public class RecipeOverviewServlet extends HttpServlet {
 		String action = req.getParameter("action");
 
 		if ("browse".equals(action)) {
-			RecipeVO recipeVO = new RecipeServiceIm().getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
-			RecipeBreowseDTO breowseRecipeDTO = new RecipeBreowseDTO(recipeVO);
-			String jsonString = gson.toJson(breowseRecipeDTO);
+			String recipeNo = req.getParameter("recipeNo").trim();
+//			String ipAddress = req.getHeader("X-Forwarded-For");
+//			if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+//			    ipAddress = req.getHeader("X-Real-IP");
+//			}
+//
+//			if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+//			    ipAddress = req.getRemoteAddr();
+//			}
+			String ipAddress = req.getRemoteAddr();
+			System.out.println(ipAddress);
+			Jedis jedis = JedisUtil.getJedisPool().getResource();
+			jedis.select(9);
+
+			if (!jedis.lrange("recipeViewIP:" + recipeNo, 0, -1).contains(ipAddress)) {
+				List<String> ipAddresses = new ArrayList<>();
+				ipAddresses.add(ipAddress);
+				jedis.rpush("recipeViewIP:" + recipeNo, ipAddresses.toArray(new String[0]));
+				jedis.expire("recipeViewIP:" + recipeNo, 300);
+				jedis.incrBy("recipeViewCount:" + recipeNo, 1);
+			}
+			jedis.close();
+
+			RecipeVO recipeVO = new RecipeServiceIm().getOneRecipe(Integer.valueOf(recipeNo));
+			RecipeBreowseDTO recipeBreowseDTO = new RecipeBreowseDTO(recipeVO);
+			String jsonString = gson.toJson(recipeBreowseDTO);
 			res.getWriter().write(jsonString);
 			return;
 		}
@@ -51,10 +76,10 @@ public class RecipeOverviewServlet extends HttpServlet {
 			String cloumn = req.getParameter("cloumn");
 			boolean desc = Boolean.valueOf(req.getParameter("desc"));
 			Integer page = Integer.valueOf(req.getParameter("page"));
-			List<RecipeVO> listReipceVO = new RecipeServiceIm().getByPage(cloumn, desc, (page) * 10, 9);
+			String search = req.getParameter("search");
+			List<RecipeVO> listReipceVO = new RecipeServiceIm().getBySearch(cloumn, desc, (page) * 10, 9, search);
 			List<RecipeOverviewDTO> listRecipeOverviewDTO = new ArrayList<>();
 			for (RecipeVO recipeVO : listReipceVO) {
-				System.out.println(recipeVO);
 				listRecipeOverviewDTO.add(new RecipeOverviewDTO(recipeVO));
 			}
 			String jsonString = gson.toJson(listRecipeOverviewDTO);
@@ -62,7 +87,8 @@ public class RecipeOverviewServlet extends HttpServlet {
 		}
 
 		if ("getPage".equals(action)) {
-			long count = new RecipeServiceIm().getCount();
+			String search = req.getParameter("search");
+			long count = new RecipeServiceIm().getCount(search);
 			long page = count / 9 + (count % 9 == 0 ? 0 : 1);
 			String jsonString = gson.toJson(page);
 			res.getWriter().write(jsonString);

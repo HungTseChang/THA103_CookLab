@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.cooklab.members.model.MembersVO;
+import com.cooklab.notify_center.model.NCType;
 @Entity
 @Table(name="article") 
 public class ArticleVO implements java.io.Serializable {
@@ -221,5 +222,13 @@ public class ArticleVO implements java.io.Serializable {
 				+ ", articleCategoryNo=" + articleCategoryNo + "]";
 	}
 
-	
+	public String getArticleStatusEnum() {
+		ASEnum[] type = ASEnum.values();
+	    for (ASEnum atype: type) {
+	        if (atype.getValue() == this.articleStatus) {
+	            return atype.getDesc();
+	        }
+	    }
+	    return "無此項目";
+	}
 }

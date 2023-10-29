@@ -30,25 +30,6 @@ public class RecipeKitchenwareServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		Gson gson = new Gson();
 
-		if ("insert".equals(action)) {
-
-			RecipeVO recipeVO = (RecipeVO) req.getAttribute("recipe");
-			String[] kitchenware = gson.fromJson(req.getParameter("kitchenware"), String[].class);
-			String[] textLabel = new String[kitchenware.length];
-
-			for (int i = 0; i < kitchenware.length; i++) {
-				ProductVO productVO = new ProductService().findByProductName((kitchenware[i]));
-				if (productVO == null) {
-					textLabel[i] = kitchenware[i];
-				}
-				RecipeKitchenwareVO recipeKitchenwareVO = new RecipeKitchenwareService().addRecipeKitchenware(recipeVO,
-						productVO, textLabel[i]);
-			}
-
-			RequestDispatcher addRecipeStep = req.getRequestDispatcher("/RecipeStepServlet");
-			addRecipeStep.forward(req, res);	
-			return;
-		}
 		if ("search".equals(action)) {
 
 			String kitchenware = req.getParameter("search");

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import com.cooklab.product.model.ProductVO;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.recipe_comments.RecipeCommentsDTO;
 import com.cooklab.recipe_comments.model.RecipeCommentsVO;
@@ -15,24 +16,26 @@ import com.cooklab.recipe_step.model.RecipeStepVO;
 
 public class RecipeBreowseDTO {
 	private String recipeName;
+	private Integer memberId;
+	private String memberName;
 	private String coverImage;
 	private String introduction;
 	private String additionalExplanation;
 	private Byte recipeQuantity;
 	private Timestamp createdTime;
 	List<IngredientDTO> ingredient = new ArrayList<>();
-	List<String> kitchenware = new ArrayList<>();
+	List<KitchenwareDTO> kitchenware = new ArrayList<>();
 	List<StepDTO> step = new ArrayList<>();
 	List<String> recipeHashtag = new ArrayList<>();
 	List<RecipeCommentsDTO> comments = new ArrayList<>();
-	
 
 	public RecipeBreowseDTO() {
 	}
 
 	public RecipeBreowseDTO(RecipeVO recipeVO) {
-
 		this.recipeName = recipeVO.getRecipeName();
+		this.memberId = recipeVO.getMembers().getMemberId();
+		this.memberName = recipeVO.getMembers().getMemberNickname();
 		this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
 		this.introduction = recipeVO.getIntroduction();
 		this.additionalExplanation = recipeVO.getAdditionalExplanation();
@@ -42,17 +45,15 @@ public class RecipeBreowseDTO {
 			this.ingredient.add(new IngredientDTO(recipeIngredient));
 		}
 		for (RecipeKitchenwareVO recipeKitchenwareVO : recipeVO.getKitchenware()) {
-			this.kitchenware
-					.add(recipeKitchenwareVO.getProduct() != null ? recipeKitchenwareVO.getProduct().getProductName()
-							: recipeKitchenwareVO.getTextLabel());
+			this.kitchenware.add(new KitchenwareDTO(recipeKitchenwareVO));
 		}
-		for(RecipeStepVO recipeStepVO : recipeVO.getStep()) {
+		for (RecipeStepVO recipeStepVO : recipeVO.getStep()) {
 			this.step.add(new StepDTO(recipeStepVO));
 		}
-		for(RecipeHashtagVO recipeHashtagVO: recipeVO.getHashtag()) {
+		for (RecipeHashtagVO recipeHashtagVO : recipeVO.getHashtag()) {
 			this.recipeHashtag.add(recipeHashtagVO.getHashtag().getHashtagName());
 		}
-		for(RecipeCommentsVO recipeCommentsVO: recipeVO.getComments()) {
+		for (RecipeCommentsVO recipeCommentsVO : recipeVO.getComments()) {
 			this.comments.add(new RecipeCommentsDTO(recipeCommentsVO));
 		}
 
@@ -64,6 +65,22 @@ public class RecipeBreowseDTO {
 
 	public void setRecipeName(String recipeName) {
 		this.recipeName = recipeName;
+	}
+
+	public Integer getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public String getCoverImage() {
@@ -114,11 +131,11 @@ public class RecipeBreowseDTO {
 		this.ingredient = ingredient;
 	}
 
-	public List<String> getKitchenware() {
+	public List<KitchenwareDTO> getKitchenware() {
 		return kitchenware;
 	}
 
-	public void setKitchenware(List<String> kitchenware) {
+	public void setKitchenware(List<KitchenwareDTO> kitchenware) {
 		this.kitchenware = kitchenware;
 	}
 
@@ -126,7 +143,7 @@ public class RecipeBreowseDTO {
 		return step;
 	}
 
-	public void setStepDTO(List<StepDTO> step) {
+	public void setStep(List<StepDTO> step) {
 		this.step = step;
 	}
 
@@ -138,7 +155,16 @@ public class RecipeBreowseDTO {
 		this.recipeHashtag = recipeHashtag;
 	}
 
+	public List<RecipeCommentsDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<RecipeCommentsDTO> comments) {
+		this.comments = comments;
+	}
+
 	public class IngredientDTO {
+		private Integer productNo;
 		private String ingredient;
 		private String ingredientQuantity;
 
@@ -146,9 +172,19 @@ public class RecipeBreowseDTO {
 		}
 
 		public IngredientDTO(RecipeIngredientVO recipeIngredientVO) {
-			this.ingredient = recipeIngredientVO.getProduct() != null ? recipeIngredientVO.getProduct().getProductName()
-					: recipeIngredientVO.getTextLabel();
+			ProductVO productVO = recipeIngredientVO.getProduct();
+			this.productNo = productVO != null ? productVO.getProductNo() : null;
+			this.ingredient = recipeIngredientVO.getTextLabel();
 			this.ingredientQuantity = recipeIngredientVO.getIngredientQuantity();
+			System.out.println(productVO);
+		}
+
+		public Integer getProductNo() {
+			return productNo;
+		}
+
+		public void setProductNo(Integer productNo) {
+			this.productNo = productNo;
 		}
 
 		public String getIngredient() {
@@ -169,37 +205,77 @@ public class RecipeBreowseDTO {
 
 	}
 
+	public class KitchenwareDTO {
+		private Integer productNo;
+		private String kitchenware;
+
+		public KitchenwareDTO() {
+		}
+
+		public KitchenwareDTO(RecipeKitchenwareVO recipeKitchenwareVO) {
+			ProductVO productVO = recipeKitchenwareVO.getProduct();
+			this.productNo = productVO != null ? productVO.getProductNo() : null;
+			this.kitchenware = recipeKitchenwareVO.getTextLabel();
+		}
+
+		public Integer getProductNo() {
+			return productNo;
+		}
+
+		public void setProductNo(Integer productNo) {
+			this.productNo = productNo;
+		}
+
+		public String getKitchenware() {
+			return kitchenware;
+		}
+
+		public void setKitchenware(String kitchenware) {
+			this.kitchenware = kitchenware;
+		}
+	}
+
 	public class StepDTO {
 		private String stepImg;
 		private Integer stepTime;
 		private String stepContent;
+
 		public StepDTO() {
 
 		}
+
 		public StepDTO(RecipeStepVO recipeStepVO) {
-			this.stepImg = recipeStepVO.getStepImg()!=null? Base64.getEncoder().encodeToString(recipeStepVO.getStepImg()):null;
+			this.stepImg = recipeStepVO.getStepImg() != null
+					? Base64.getEncoder().encodeToString(recipeStepVO.getStepImg())
+					: null;
 			this.stepTime = recipeStepVO.getStepTime();
-			this.stepContent = recipeStepVO.getStepContent();	
+			this.stepContent = recipeStepVO.getStepContent();
 		}
+
 		public String getStepImg() {
 			return stepImg;
 		}
+
 		public void setStepImg(String stepImg) {
 			this.stepImg = stepImg;
 		}
+
 		public Integer getStepTime() {
 			return stepTime;
 		}
+
 		public void setStepTime(Integer stepTime) {
 			this.stepTime = stepTime;
 		}
+
 		public String getStepContent() {
 			return stepContent;
 		}
+
 		public void setStepContent(String stepContent) {
 			this.stepContent = stepContent;
 		}
-		
+
 	}
 
 }

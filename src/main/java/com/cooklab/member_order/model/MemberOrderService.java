@@ -24,4 +24,16 @@ public class MemberOrderService {
 		}
 		
 	}
+	
+	public List<MemberOrderVO> getAll() {
+		return dao.getAll();
+	}
+	
+	public MemberOrderVO findByPrimaryKey(Integer orderNo) {
+		return dao.findByPrimaryKey(orderNo);
+	}
+	
+	public Integer update(MemberOrderVO memberOrderVO) {
+		return dao.update(memberOrderVO);
+	}
 }

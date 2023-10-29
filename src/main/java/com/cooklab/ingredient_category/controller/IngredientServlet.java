@@ -51,10 +51,6 @@ public class IngredientServlet extends HttpServlet {
 			 * 2.開始查詢資料
 			 *****************************************/
 			IngredientService IngredientSvc = new IngredientService();
-//			List listingredientCategoryVO = IngredientSvc.getAll();
-//			if (listingredientCategoryVO == null) {
-//				errorMsgs.add("查無資料");
-//			}
 
 			List<Object[]> listalltags = IngredientSvc.getIngredientAndKitchenwareTags();
 			if (listalltags == null) {
