@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "/THA103_CookLab/SupportFormServlet",
+      url: "/THA103_CookLab/SFSFront",
       data: data,
       dataType: "json",
       success: function (data) {

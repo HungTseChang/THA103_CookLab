@@ -254,83 +254,6 @@ public class SupportFormServlet extends HttpServlet {
 			res.getWriter().write(Data);
 		}
 
-		// 前台客戶自行填單
-		if ("insert".equals(action)) {
-			// 創建Map物件放入錯誤訊息
-			Map<String, String> errorMsgs = new HashMap<String, String>();
-
-			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-
-			String realName = req.getParameter("realName");
-			String realNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-			if (realName == null || realName.trim().length() == 0) {
-				errorMsgs.put("errNameBlank", "姓名請勿空白");
-			} else if (!realName.trim().matches(realNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.put("errNameReg", "姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-			}
-
-			Integer supportFormCategoryId = null;
-			String sfcid = req.getParameter("supportFormCategoryId").trim();
-			if (sfcid.equals("default")) {
-				errorMsgs.put("errCategory", "請選擇問題類別");
-			} else {
-				supportFormCategoryId = Integer.valueOf(sfcid);
-			}
-
-			String replyEmail = req.getParameter("replyEmail").trim();
-			if (replyEmail == null || replyEmail.trim().length() == 0) {
-				errorMsgs.put("errEmail", "回覆信箱請勿空白");
-			}
-
-			String formTitle = req.getParameter("formTitle").trim();
-			if (formTitle == null || formTitle.trim().length() == 0) {
-				errorMsgs.put("errTitle", "標題請勿空白");
-			}
-
-			String formContext = req.getParameter("formContext").trim();
-			if (formContext == null || formContext.trim().length() == 0) {
-				errorMsgs.put("errContext", "內容請勿空白");
-			}
-
-			Byte formSource = null;
-			formSource = Byte.valueOf(req.getParameter("formSource"));
-
-			Byte formStatus = null;
-			formStatus = Byte.valueOf(req.getParameter("formStatus"));
-
-			String formSubmitter = req.getParameter("formSubmitter").trim();
-
-			// 錯誤驗證的訊息收集及回傳
-			if (!errorMsgs.isEmpty()) {
-				String errjson = gson.toJson(errorMsgs);
-				res.setContentType("application/json");
-				res.setCharacterEncoding("UTF-8");
-				res.getWriter().write(errjson);
-				return;
-			}
-
-			/*************************** 2.開始新增資料 ***************************************/
-			SupportFormHService sfSvc = new SupportFormHService();
-			SupportFormVO sfVO = sfSvc.addSupportForm(realName, supportFormCategoryId, replyEmail, formTitle,
-					formContext, formSource, formStatus, formSubmitter);
-
-			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
-			if (sfVO != null) {
-				String url = "/THA103_CookLab/supportform/supportcenter-formresult.html";
-
-				// 創建Map物件放入成功訊息
-				Map<String, String> successMsg = new HashMap<String, String>();
-				successMsg.put("success", "data transfer success");
-				successMsg.put("url", url);
-
-				String successjson = gson.toJson(successMsg);
-
-				res.setContentType("application/json");
-				res.setCharacterEncoding("UTF-8");
-				res.getWriter().write(successjson);
-			}
-		}
-
 		// 後台客服人工建立表單
 		if ("insert-dashboard".equals(action)) {
 			// 創建Map物件放入錯誤訊息
@@ -434,7 +357,7 @@ public class SupportFormServlet extends HttpServlet {
 
 			Integer supportFormCategoryId = null;
 			String sfcid = req.getParameter("supportFormCategoryId").trim();
-			if (sfcid.equals("default")||sfcid==null) {
+			if (sfcid.equals("default") || sfcid == null) {
 				errorMsgs.put("errCategory", "請選擇問題類別");
 			} else {
 				supportFormCategoryId = Integer.valueOf(sfcid);
@@ -463,7 +386,7 @@ public class SupportFormServlet extends HttpServlet {
 			SupportFormVO ogdata = sfSvc.getOneSupportForm(formNo);
 			// 此處先儲存原始資料於MAP後再進行更新避免原始資料遺失
 			successMsg.put("ogdata", ogdata.getOGData());
-			//開始進行資料修改
+			// 開始進行資料修改
 			sfSvc.dashboardupdate(formNo, realName, supportFormCategoryId, replyEmail);
 
 			successMsg.put("success", "data transfer success");

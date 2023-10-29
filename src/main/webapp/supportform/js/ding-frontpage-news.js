@@ -1,171 +1,126 @@
-let totalPages = 10; // 例如，假设有10页数据
-let maxVisiblePages = 5; // 指定要显示的最大分页链接数量
+let totalPages = 10;
+let maxVisiblePages = 5;
 
-let renderPagination = function (totalPages, currentPage) {
-  let paginationList = $(".pagination");
-  paginationList.empty();
+let renderPagination = function(totalPages, currentPage) {
+	let paginationList = $(".pagination");
+	paginationList.empty();
 
-  // // Add Previous Button
-  // paginationList.append(
-  //   `<li class="page-item" id="previousPage">
-  //     <a class="page-link" href="#" aria-label="Previous">
-  //       <span aria-hidden="true">&laquo;</span>
-  //     </a>
-  //   </li>`
-  // );
+	// Calculate the range of visible pages
+	let startPage = currentPage - Math.floor(maxVisiblePages / 2);
+	let endPage = currentPage + Math.floor(maxVisiblePages / 2);
 
-  // Calculate the range of visible pages
-  let startPage = currentPage - Math.floor(maxVisiblePages / 2);
-  let endPage = currentPage + Math.floor(maxVisiblePages / 2);
+	// Ensure that the range stays within bounds
+	if (startPage < 1) {
+		startPage = 1;
+		endPage = Math.min(totalPages, maxVisiblePages);
+	}
 
-  // Ensure that the range stays within bounds
-  if (startPage < 1) {
-    startPage = 1;
-    endPage = Math.min(totalPages, maxVisiblePages);
-  }
+	if (endPage > totalPages) {
+		endPage = totalPages;
+		startPage = Math.max(1, totalPages - maxVisiblePages + 1);
+	}
 
-  if (endPage > totalPages) {
-    endPage = totalPages;
-    startPage = Math.max(1, totalPages - maxVisiblePages + 1);
-  }
-
-  // Render page numbers with ellipsis
-  if (startPage > 1) {
-    paginationList.append(
-      `<li class="page-item">
+	// Render page numbers with ellipsis
+	if (startPage > 1) {
+		paginationList.append(
+			`<li class="page-item">
         <a class="page-link" href="#">1</a>
       </li>`
-    );
-    if (startPage > 2) {
-      paginationList.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
-    }
-  }
+		);
+		if (startPage > 2) {
+			paginationList.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
+		}
+	}
 
-  for (let i = startPage; i <= endPage; i++) {
-    paginationList.append(`<li class="page-item pages"><a class="page-link" href="#">${i}</a></li>`);
-  }
+	for (let i = startPage; i <= endPage; i++) {
+		paginationList.append(`<li class="page-item pages"><a class="page-link" href="#">${i}</a></li>`);
+	}
 
-  if (endPage < totalPages) {
-    if (endPage < totalPages - 1) {
-      paginationList.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
-    }
-    paginationList.append(
-      `<li class="page-item">
+	if (endPage < totalPages) {
+		if (endPage < totalPages - 1) {
+			paginationList.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
+		}
+		paginationList.append(
+			`<li class="page-item">
         <a class="page-link" href="#">${totalPages}</a>
       </li>`
-    );
-  }
+		);
+	}
 
-  // // Add Next Button
-  // paginationList.append(
-  //   `<li class="page-item" id="nextPage">
-  //     <a class="page-link" href="#" aria-label="Next">
-  //       <span aria-hidden="true">&raquo;</span>
-  //     </a>
-  //   </li>`
-  // );
 
-  // Add active class to the current page
-  $(`.pages a:contains(${currentPage})`).addClass("active");
+
+	// Add active class to the current page
+	$(`.pages a:contains(${currentPage})`).addClass("active");
 };
 
 //清除資料
-let cleardata = function () {
-  $(".news-data").remove();
+let cleardata = function() {
+	$(".news-data").remove();
 };
 
 // 網頁點擊分頁後取得不同分頁的資料
-let dataload = function (currentPage) {
-  $.ajax({
-    type: "POST",
-    url: "/THA103_CookLab/NewsServlet",
-    data: { action: "getten", currentPage: currentPage },
-    dataType: "json",
-    success: function (data) {
-      cleardata();
-      let list = $(".news-list");
-      $.each(data.redisdata, function (i, news) {
-        const newsTime = new Date(news.newsTime);
+let dataload = function(currentPage) {
+	$.ajax({
+		type: "POST",
+		url: "/THA103_CookLab/NSFront",
+		data: { action: "getten", currentPage: currentPage },
+		dataType: "json",
+		success: function(data) {
+			cleardata();
+			let list = $(".news-list");
+			$.each(data.redisdata, function(i, news) {
+				const newsTime = new Date(news.newsTime);
 
-        list.append(`
+				list.append(`
           <li class="list-group-item news-data">
             <div class="ding-newstime text-secondary">${newsTime.toLocaleString()}</div>
             <div class="ding-newstitle">${news.newsTitle}</div>
             <div class="ding-newscontent">${news.newsContent}</div>
           </li>
         `);
-      });
-      renderPagination(data.totalPages, currentPage);
-    },
-    error: function (xhr) {
-      console.log(xhr);
-    },
-  });
+			});
+			renderPagination(data.totalPages, currentPage);
+		},
+		error: function(xhr) {
+			console.log(xhr);
+		},
+	});
 };
 
-$(document).ready(function () {
-  $.ajax({
-    type: "POST",
-    url: "/THA103_CookLab/NewsServlet",
-    data: { action: "getten", currentPage: 1 },
-    dataType: "json",
-    success: function (data) {
-      let list = $(".news-list");
-      //使用juqery的$.each()方法，收到responese發來的data物件後，迭代取出資料
-      $.each(data.redisdata, function (i, news) {
-        const newsTime = new Date(news.newsTime);
+$(document).ready(function() {
+	$.ajax({
+		type: "POST",
+		url: "/THA103_CookLab/NSFront",
+		data: { action: "getten", currentPage: 1 },
+		dataType: "json",
+		success: function(data) {
+			let list = $(".news-list");
+			//使用juqery的$.each()方法，收到responese發來的data物件後，迭代取出資料
+			$.each(data.redisdata, function(i, news) {
+				const newsTime = new Date(news.newsTime);
 
-        list.append(`
+				list.append(`
             <li class="list-group-item news-data">
                 <div class="ding-newstime text-secondary">${newsTime.toLocaleString()}</div>
                 <div class="ding-newstitle">${news.newsTitle}</div>
                 <div class="ding-newscontent">${news.newsContent}</div>
             </li>
     `);
-      });
-      renderPagination(data.totalPages, 1);
-    },
-    error: function (xhr) {
-      console.log(xhr);
-    },
-  });
+			});
+			renderPagination(data.totalPages, 1);
+		},
+		error: function(xhr) {
+			console.log(xhr);
+		},
+	});
 
-  $(document).on("click", ".page-link", function () {
-    if ($(this).text() !== "Previous" && $(this).text() !== "Next") {
-      cleardata();
-      dataload($(this).text());
-      $(".page-item").removeClass("active"); // 移除之前的所有 active 类
-      $(this).parent().addClass("active"); // 将 active 类添加到包含点击链接的 <li> 元素
-    }
-  });
+	$(document).on("click", ".page-link", function() {
+		if ($(this).text() !== "Previous" && $(this).text() !== "Next") {
+			cleardata();
+			dataload($(this).text());
+			$(".page-item").removeClass("active");
+			$(this).parent().addClass("active");
+		}
+	});
 
-  // $(document).on("click", "#previousPage", function () {
-  //   if (!$(this).hasClass("disabled")) {
-  //     let activePage = parseInt($(".page-link.active").text());
-  //     if (activePage > 1) {
-  //       cleardata();
-  //       activePage--; // 减少页码
-  //       dataload(activePage);
-  //       $(".page-item.active").removeClass("active").prev().addClass("active");
-  //     }
-  //   }
-  // });
-
-  // $(document).on("click", "#nextPage", function () {
-  //   if (!$(this).hasClass("disabled")) {
-  //     let activePage = parseInt($(".page-link.active").text());
-  //     let totalPages = parseInt($(".pages").length);
-  //     if (activePage < totalPages) {
-  //       cleardata();
-  //       activePage++; // 增加页码
-  //       dataload(activePage);
-  //       $(".page-item.active").removeClass("active").next().addClass("active");
-
-  //       if (activePage === totalPages) {
-  //         $(this).addClass("disabled");
-  //       }
-  //       $("#previousPage").removeClass("disabled");
-  //     }
-  //   }
-  // });
 });
