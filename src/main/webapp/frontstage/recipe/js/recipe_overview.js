@@ -4,7 +4,7 @@ const HOST = window.location.host;
 var path = window.location.pathname;
 var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
-const RECIPEBROWSE_POINT = "/recipe/recipe_browse.jsp";
+const RECIPEBROWSE_POINT = "/frontstage/recipe/recipe_browse.jsp";
 const COVERIMAGE_POINT = "/RecipeOverviewImgServlet";
 const RECIPEOVERVIEW_POINT = "/RecipeOverviewServlet";
 let cloumn = "recipeNo"; //初始欄位排序
@@ -73,16 +73,16 @@ function addListRecipe(recipe) {
 function sort(sort) {
     switch (sort) {
         case 1:
-            recipeOverview(0, "recipeNo", $("#search input").val(), true);
+            recipeOverview(0, "recipeNo", search, true);
             break;
         case 2:
-            recipeOverview(0, "recipeNo", $("#search input").val(), false);
+            recipeOverview(0, "recipeNo", search, false);
             break;
         case 3:
-            recipeOverview(0, "viewCount", $("#search input").val(), true);
+            recipeOverview(0, "viewCount", search, true);
             break;
         case 4:
-            recipeOverview(0, "viewCount", $("#search input").val(), false);
+            recipeOverview(0, "viewCount", search, false);
             break;
     }
 }
@@ -96,10 +96,17 @@ $(function () {
         $(this).addClass("disabled");
         $("html, body").animate({ scrollTop: 450 }, "slow");
     });
-
+    //按下搜尋按紐
     $("#search button").on("click", function () {
-        recipeOverview(0, "recipeNo", $("#search input").val(), true);
-        console.log($("#search input"));
-        $;
+        search = $("#search input").val();
+        recipeOverview(0, "recipeNo", search, true);
+    });
+    //按下enter搜尋
+    $("#search input").on("keydown", function (e) {
+        console.log("sadasadsa");
+        if (e.key === "Enter") {
+            e.preventDefault();
+            $("#search button").click();
+        }
     });
 });
