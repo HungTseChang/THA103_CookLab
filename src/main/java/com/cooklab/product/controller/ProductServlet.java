@@ -502,7 +502,11 @@ public class ProductServlet extends HttpServlet {
 
 			// 创建一个 Map 来存储消息和 productVO 数据
 			Map<String, Object> responseMap = new HashMap<>();
-			responseMap.put("message", message);
+			if(message!= null) {
+				responseMap.put("message", message);
+			}else{
+				responseMap.put("message", "false");
+			}
 			responseMap.put("productInfo", productVO);
 
 			// 使用 Gson 将对象转换为 JSON 字符串
@@ -853,7 +857,11 @@ public class ProductServlet extends HttpServlet {
 
 			// 创建一个 Map 来存储消息和 productVO 数据
 			Map<String, Object> responseMap = new HashMap<>();
-			responseMap.put("message", message);
+			if(message!=null) {
+				responseMap.put("message", message);
+			}else {
+				responseMap.put("message", "false");
+			}
 			responseMap.put("productInfo", productVO);
 
 			// 使用 Gson 将对象转换为 JSON 字符串

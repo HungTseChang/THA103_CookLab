@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 	//url參數獲取
 	const urlParams = new URLSearchParams(window.location.search);
 	let keyword = urlParams.get("keyword");
@@ -7,8 +7,8 @@ $(document).ready(function() {
 	//搜尋參數設定
 	let currentAction = "searchkeyword" //行為設定
 	let hotkey = "";	//熱門搜尋設定
-	
-	
+
+
 	let currentPage = 1; // 當前頁數
 	let pageSize = 6; // 每頁數量
 	let totalProductCount = 0; // 商品總數量
@@ -21,14 +21,14 @@ $(document).ready(function() {
 	//搜尋功能
 	function loadPage(currentPage, action) {
 		$.ajax({
-			url: "/CookLab/ProductServlet", 
+			url: "/CookLab/ProductServlet",
 			type: "GET",
 			data: {
 				keywords: keyword,
 				action: action,
 				page: currentPage, // 當前頁數
 				pageSize: pageSize, // 每頁數量
-				hotkey : hotkey, //熱門搜尋參數設定
+				hotkey: hotkey, //熱門搜尋參數設定
 			},
 			dataType: "json",
 			success: function(data) {
@@ -75,14 +75,14 @@ $(document).ready(function() {
 
 					const h6 = document.createElement("h6");
 					const aTitle = document.createElement("a");
-					aTitle.href = '#'; 
-					aTitle.textContent = result.productName; 
-					aTitle.setAttribute('data-product-id', result.productNo); 
+					aTitle.href = '#';
+					aTitle.textContent = result.productName;
+					aTitle.setAttribute('data-product-id', result.productNo);
 					h6.appendChild(aTitle);
 					textDiv.appendChild(h6);
 
 					const h5 = document.createElement('h5');
-					h5.textContent = `$${result.productPrice}`; 
+					h5.textContent = `$${result.productPrice}`;
 					textDiv.appendChild(h5);
 
 
@@ -90,29 +90,29 @@ $(document).ready(function() {
 					productDetailsContainer.appendChild(productContainer);
 
 					aTitle.addEventListener('click', function(event) {
-						event.preventDefault(); 
-						const productId = this.getAttribute('data-product-id'); 
+						event.preventDefault();
+						const productId = this.getAttribute('data-product-id');
 						window.location.href = './shop-details.html?productNo=' + productId;
 					});
 
 					icon.addEventListener('click', function(event) {
-						event.preventDefault(); 
+						event.preventDefault();
 
-						const productId = aTitle.getAttribute('data-product-id'); 
+						const productId = aTitle.getAttribute('data-product-id');
 						const requestData = {
-							action: 'buttonadd1', 
-							productNo: productId, 
+							action: 'buttonadd1',
+							productNo: productId,
 							quantity: 1
 						};
 						console.log(requestData);
 						console.log(productId);
 						$.ajax({
-							url: '/CookLab/CartServlet', 
-							type: 'GET', 
-							data: requestData, 
-							dataType: 'json', 
+							url: '/CookLab/CartServlet',
+							type: 'GET',
+							data: requestData,
+							dataType: 'json',
 							success: function(response) {
-								
+
 								console.log('商品添加到購物車囉');
 								alert("商品添加到購物車囉");
 							},
@@ -123,7 +123,7 @@ $(document).ready(function() {
 					});
 
 				});
-				
+
 				// 更新商品總數 頁數
 				totalProductCount = data[0].totalProductCount;
 				totalPages = Math.ceil(totalProductCount / pageSize);
@@ -142,7 +142,7 @@ $(document).ready(function() {
 	function updatePaginationButtons() {
 		const paginationContainer = $("#pagination-container");
 		const paginationList = paginationContainer.find(".pagination");
-		paginationList.empty(); 
+		paginationList.empty();
 		if (totalPages <= 1) {
 			paginationContainer.hide();
 		} else {
@@ -152,17 +152,17 @@ $(document).ready(function() {
 				if (currentPage > 1) {
 					currentPage--;
 					loadPage(currentPage, currentAction);
-					updatePaginationButtons(); 
+					updatePaginationButtons();
 				}
 			});
 			paginationList.append(previousButton);
-			
+
 			for (let page = 1; page <= totalPages; page++) {
 				const pageButton = $(`<li class='page-item'><a class='page-link' href='#'>${page}</a></li>`);
 				pageButton.click(function() {
 					loadPage(page, currentAction);
-					currentPage = page; 
-					updatePaginationButtons(); 
+					currentPage = page;
+					updatePaginationButtons();
 				});
 				if (page === currentPage) {
 					pageButton.addClass("active");
@@ -174,7 +174,7 @@ $(document).ready(function() {
 				if (currentPage < totalPages) {
 					currentPage++;
 					loadPage(currentPage, currentAction);
-					updatePaginationButtons(); 
+					updatePaginationButtons();
 				}
 			});
 			paginationList.append(nextButton);
@@ -202,7 +202,7 @@ $(document).ready(function() {
 
 			const newKeyword = $("#index-searchbar").val();
 			currentAction = "searchkeyword"
-			keyword = newKeyword; 
+			keyword = newKeyword;
 			currentPage = 1;
 			loadPage(currentPage, currentAction);
 			const newUrl = `shop-grid.html?keyword=${newKeyword}`;
@@ -240,6 +240,16 @@ $(document).ready(function() {
 		window.history.pushState({}, "", newUrl);
 	});
 
+	$("#hot-button").on("click", function() {
+		console.log("熱門商品");
+		currentPage = 1;
+		currentAction = "hotProduct"
+		loadPage(currentPage, currentAction);
+		const newUrl = `shop-grid.html`;
+		window.history.pushState({}, "", newUrl);
+	});
+
+	//篩選
 	$("#mutilseletingredient").on("click", function() {
 		console.log("食材複合觸發");
 		currentPage = 1;
@@ -259,15 +269,10 @@ $(document).ready(function() {
 	});
 
 
-	$("#hot-button").on("click", function() {
-		console.log("熱門商品");
-		currentPage = 1;
-		currentAction = "hotProduct"
-		loadPage(currentPage, currentAction);
-		const newUrl = `shop-grid.html`;
-		window.history.pushState({}, "", newUrl);
-	});
-	
+
+
+	//排序
+
 
 	//關鍵字渲染
 	fetchDataAndRender2()
