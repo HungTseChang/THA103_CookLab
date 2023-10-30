@@ -2,11 +2,11 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="CookLab Register" />
-    <meta name="keywords" content="Recipe" />
+    <meta name="description" content="cooking recipe" />
+    <meta name="keywords" content="cooking, recipe, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>會員註冊</title>
+    <title>廚藝實驗室</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -20,8 +20,7 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <!-- bootstrap icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="./css/ding.css" type="text/css" />
   </head>
 
@@ -145,39 +144,72 @@
     </header>
     <!-- Header Section End -->
 
-    <!-- 註冊區塊開始 -->
+    <!-- 會員中心區塊開始 -->
     <section>
       <div class="container">
         <div class="row ding-panel">
-          <div class="col-12 p-2 bg-light border">
-            <div class="row mb-2">
-              <div class="h2 mx-auto ding-panel-title">忘記密碼</div>
+          <aside class="col-3">
+            <div>
+              <ul class="list-group text-center">
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
+              </ul>
             </div>
-            <div class="row">
-              <div class="col-12 d-flex justify-content-center">
-                <!-- -----------註冊表單開始----------->
-                <form id="ForgetPassword">
-                  <div class="form-group form-row">
-                    <!-- <label for="verificationCode" class="col-form-label" >驗證碼：</label> -->
-                    <div>
-                      <input type="text" class="form-control" id="account" placeholder="請輸入帳號" required title="欄位不得為空，請輸入"/>
-                      <input type="text" class="form-control" id="email" placeholder="請輸入email" required title="欄位不得為空，請輸入"/>
-                    </div>
-     
-                  </div>
-                  
-                  <div class="text-center">
-                    <button type="submit" class="btn ding-btn-org w-100">確認</button>
-                  </div>
-                </form>
-                <!-- -----------註冊表單結束--------- -->
+          </aside>
+          <div class="col-9 p-1 bg-light">
+            <div class="row w-100">
+              <div class="h2 mx-auto mt-2" id="memberNickName">會員暱稱</div>
+              <div class="mt-2">
+                <button type="button" class="btn btn-lg ding-btn-org">
+                  關注
+                  <i class="bi bi-plus-square ml-1"></i>
+                </button>
               </div>
             </div>
+            <!-------------食譜管理區塊開始----------->
+            <!-- 食譜模板開始 -->
+
+              <div id="recipeList">
+                <div class="row m-0 ml-2 my-3 ding-folrec-border">
+                  <div class="col-3 align-self-center p-0 pb-2">
+                    <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="會員大頭照" class="rec-img-preview" />
+                  </div>
+                  <div class="col-6">
+                    <div class="row h-100">
+                      <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">會員帳號</a></div>
+                      <div class="col-12 text-muted my-1">${recipe.introduction}</div>
+                      <div class="col-12 text-muted my-1">${recipe.recipeHashtag}</div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row text-right">
+       
+                      <div class="dropdown col-12 mb-2">
+                    
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">公開</a>
+                          <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
+                        </div>
+                      </div>
+                      <div class="col-12 align-self-end text-right pb-2">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+      
+            <!--------------食譜管理區塊結束---------->
           </div>
         </div>
       </div>
     </section>
-    <!-- 註冊區塊結束 -->
+    <!-- 會員中心區塊結束 -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -245,9 +277,11 @@
       </div>
     </footer>
     <!-- Footer Section End -->
- 
+
     <!-- Js Plugins -->
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.nice-select.min.js"></script>
     <script src="../js/jquery-ui.min.js"></script>
@@ -256,95 +290,85 @@
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/TomJS.js"></script>
-    
     <script>
+      var queryString = window.location.search;
+      var params = new URLSearchParams(queryString);
 
-var host = window.location.host;
+      var recipeBrowse = "/frontstage/recipe/recipe_browse.jsp";
+      var coverImage = "/RecipeOverviewImgServlet";
+      var host = window.location.host;
       var path = window.location.pathname;
       var webCtx = path.substring(0, path.indexOf('/', 1));
       var endPointURL = "http://" + host + webCtx;
-      //========================= 這裡是判斷是否有登入過的 ajax ================================
-    $.ajax({
-	    type: "GET", // 指定请求类型为GET
-	    url: endPointURL + "/Register", // 你的Servlet URL
-	    success: function(data) {
-	        // 请求成功后的处理
-	        console.log("成功获取数据: " + data);
-	    },
-	    error: function() {
-	        // 请求失败后的处理
-	        console.error("获取数据失败");
-	    }
-	  });
-    //==================================================================================
-    
-    
-    $("#ForgetPassword").submit(function (event) {
-	    event.preventDefault();
-      var account = $("#account").val();
-      var email = $("#email").val();
-      
-	    var data = {
-	      "account": account,
-        "email":email
-	    };
-	    $.ajax({
-	      type: "POST",
-	      url: endPointURL + "/ForgetPassowrd", // 替换为你的Servlet的URL
-	      data: data,
-	      success: function (res) {
-          if(res.res == "success") //驗證成功
-          {
-            alert("已將新密碼傳送至您的Mail，收到後建議您更換您的密碼");
-            window.location.href = "login.html";	
-          }
-          else
-           alert("查無資料，請再確認");	
-            // if(res.wrongType === undefined)
-            // {
-              
-            //   if(res.RedirectURL  === undefined)
-            // 	  {
-            //       location.href = "member-panel.jsp";	
-            //   }
-                
-            //   else
-            //   {
-            	  
-            //   }
-            //     //重導至首頁
-            //     //location.href  = res.RedirectURL;
-            // }
-            // else
-            // {
-            //   if(res.wrongType == 1)
-            //   {
-            //       alert("密碼不正確");
-            //   }
-            //   else if(res.wrongType == 2)
-            //   {
-            //       alert("請輸入密碼");
-            //   }
-            //   else if(res.wrongType == 3)
-            //   {
-            //       alert("查無此帳號");
-            //   }
-            // }
-	        
-	
-	        // 可以在这里执行其他操作，如重定向或显示消息
-	      },
-	      error: function () {
-	        // 在请求失败时执行的操作
-	        console.log("失敗");
-	      }
-    });
-  });
-  $('#reSend').click(function() {
-        var $button = $(this);
-        startCountdown();
-    });
+      console.log(endPointURL);
+      /*============================================================ function ============================================================*/
+      // $(function() {
+      //   reipceLoad(0);
+      // })
+        
+      // <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="食譜封面圖" class="rec-img-preview" />
+      function addListRecipe(recipe) {
+        var recipeStatusString ="";
 
+        if(recipe.recipeStatus == 0)
+          recipeStatusString ="草稿"
+        else if(recipe.recipeStatus == 1)
+          recipeStatusString ="公開"
+        else if(recipe.recipeStatus == 2)
+          recipeStatusString ="未公開"
+
+        if(recipe.recipeStatus != 3)
+        {
+        let addrecipe = ``
+        $("#recipeList").append(addrecipe);
+      }
+    }
+      /*============================================================ event ============================================================*/
+      $("#page").on("click", ".page", function() {
+        $(".page").removeClass("disabled")
+        $(this).addClass("disabled");
+        $("html, body").animate({ scrollTop: 450 }, "slow");
+      });
+
+
+      /*============================================================ ajax ============================================================*/
+
+      // function reipceLoad(page) {
+        $.ajax({
+          url: endPointURL + "/MemberRecipeServlet", // 資料請求的網址
+          type: "POST", // GET | POST | PUT | DELETE | PATCH
+          data:{action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+          dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+          success: function(data) {
+            
+            console.log("ajax請求成功");
+            console.log(data);
+            $("#recipeList").html("");
+            $(data).each(function(index, element) {
+              addListRecipe(element);
+            });
+          },
+          error: function(xhr) {
+            console.log("ajax失敗2");
+            console.log(xhr);
+          },
+        });
+      // }
+      // $.ajax({
+      //   url: endPointURL + "/RecipeServlet", // 資料請求的網址
+      //   type: "POST", // GET | POST | PUT | DELETE | PATCH
+      //   data: { action: "getPage" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+      //   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+      //   success: function(data) {
+      //     for (let i = 0; i < data; i++)
+      //       $("#page").append(`<a class="page" href="javascript:void(0);" onclick="reipceLoad(${i})">&nbsp;${i + 1}&nbsp;</a>`);
+      //     $(".page").eq(0).addClass("disabled");
+      //   },
+      //   error: function(xhr) {
+      //     console.log("ajax失敗");
+      //     console.log(xhr);
+      //   },
+      // });
 
     </script>
   </body>

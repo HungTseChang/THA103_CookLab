@@ -308,7 +308,7 @@ function articleAppend(a){
   let stringAppend=`
             <div class="row m-0 ml-2 my-3 ding-folrec-border ArticleName${a.articleCollectionNo}">
                   <div class="col-7 d-flex align-items-center">
-                    <a href="#" class="text-dark ding-post-title">
+                    <a href="${endPointURL}/ArticleServlet?action=getOne_For_Display&articleNo=${a.articleNo}" class="text-dark ding-post-title">
                       [
                       <span>${a.articleCategory}</span>
                       ]
@@ -316,7 +316,7 @@ function articleAppend(a){
                     </a>
                   </div>
                   <div class="col-3 d-flex align-items-center">
-                    <a href="#" class="text-dark ding-post-title">${a.memberNickname}</a>
+                    <a href="${endPointURL}/ArticleServlet?action=getOne_For_Display&articleNo=${a.articleNo}" class="text-dark ding-post-title">${a.memberNickname}</a>
                   </div>
                   <div class="col-2 mb-2">
                     <div>
@@ -336,7 +336,7 @@ function MemberAppend(m){
                   </div>
                   <div class="col-7">
                     <div class="row h-100">
-                      <div class="col-12"><a href="#" class="text-dark ding-fol-title">${m.memberNickName}</a></div>
+                      <div class="col-12"><a href="${endPointURL}/FollowServlet?action=member&no=${m.memberId}" class="text-dark ding-fol-title">${m.memberNickName}</a></div>
                       <div class="col-12 text-muted my-1">${m.memberIntorduce}</div>
                       <div class="col-12 text-muted my-1">
                         <span>近期食譜：</span>
@@ -361,7 +361,7 @@ function RecipeAppend(r){
                   </div>
                   <div class="col-7">
                     <div class="row h-100">
-                      <div class="col-12"><a href="#" class="text-dark ding-fol-title">${r.recipeName}</a></div>
+                      <div class="col-12"><a href="${endPointURL}/frontstage/recipe/recipe_browse.jsp?recipe=${r.recipeNo}" class="text-dark ding-fol-title">${r.recipeName}</a></div>
                       <p class="col-12 text-muted my-1">${r.introduction}</p>
                     </div>
                   </div>

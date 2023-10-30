@@ -28,6 +28,7 @@ public class RecipeCollectionServlet extends HttpServlet {
 
 		Gson gson = new Gson();
 		String action = req.getParameter("action");
+
 		HttpSession session = req.getSession();
 		MembersVO memberVO = (MembersVO) session.getAttribute("membersVO");
 

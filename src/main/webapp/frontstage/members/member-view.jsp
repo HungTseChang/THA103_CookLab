@@ -1,12 +1,22 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.cooklab.members.model.*"%>
+
+<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+
+<%
+//获取名为 某位使用者"username" 的属性值
+MembersVO memVO = (MembersVO) session.getAttribute("ViewMembersVO"); 
+
+%>
+
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="CookLab Register" />
-    <meta name="keywords" content="Recipe" />
+    <meta name="description" content="cooking recipe" />
+    <meta name="keywords" content="cooking, recipe, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>會員註冊</title>
+    <title>廚藝實驗室</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -22,7 +32,7 @@
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="./css/ding.css" type="text/css" />
+    <link rel="stylesheet" href="css/ding.css" type="text/css" />
   </head>
 
   <body>
@@ -35,7 +45,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
+        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
       </div>
       <section class="container">
         <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -64,6 +74,8 @@
           <li><a href="./shop-grid.html">商城</a></li>
           <li><a href="./blog.html">食譜總覽</a></li>
           <li><a href="./contact.html">常見問題</a></li>
+          <li><a href="./contact.html">討論區</a></li>
+          <li><a href="./contact.html">最新消息</a></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -132,7 +144,7 @@
                 <li><a href="#">關注食譜</a></li>
                 <li><a href="./shop-grid.html">商城</a></li>
                 <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
+                <li><a href="#">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -145,39 +157,108 @@
     </header>
     <!-- Header Section End -->
 
-    <!-- 註冊區塊開始 -->
+    <!-- 會員中心區塊開始 -->
     <section>
       <div class="container">
         <div class="row ding-panel">
-          <div class="col-12 p-2 bg-light border">
-            <div class="row mb-2">
-              <div class="h2 mx-auto ding-panel-title">忘記密碼</div>
+          <aside class="col-3">
+            <div>
+              <ul class="list-group text-center">
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">帳戶</li></a>
+                <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action">訂單</li></a>
+                <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
+                <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
+                <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
+              </ul>
             </div>
+          </aside>
+          <div class="col-9 p-2 bg-light border">
             <div class="row">
-              <div class="col-12 d-flex justify-content-center">
-                <!-- -----------註冊表單開始----------->
-                <form id="ForgetPassword">
-                  <div class="form-group form-row">
-                    <!-- <label for="verificationCode" class="col-form-label" >驗證碼：</label> -->
-                    <div>
-                      <input type="text" class="form-control" id="account" placeholder="請輸入帳號" required title="欄位不得為空，請輸入"/>
-                      <input type="text" class="form-control" id="email" placeholder="請輸入email" required title="欄位不得為空，請輸入"/>
+              <div class="col-8">
+                <!-- -----------會員資料表單(僅檢視)開始----------->
+                <form class="pl-5">
+                   <div class="form-group form-row">
+                    <label for="memberstatus" class="col-sm-2 col-form-label ding-data-short">狀態：</label>
+                    <div class="col-sm-10 SendcomfrimClass">
+                      <input type="text" readonly   class="form-control-plaintext" id="memberStatus" name="member_status" value="<%=memVO.getMemberStatus()%>" />
                     </div>
-     
                   </div>
-                  
-                  <div class="text-center">
-                    <button type="submit" class="btn ding-btn-org w-100">確認</button>
+                  <div class="form-group form-row">
+                    <label for="account" class="col-sm-2 col-form-label ding-data-short">帳號：</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="account" value="<%=memVO.getMemberAccount()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="gender" class="col-sm-2 col-form-label ding-data-short">性別：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="gender" value="<%= memVO.getMemberGender() == 0 ? "男" : "女" %>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="nickname" class="col-sm-2 col-form-label ding-data-short">暱稱：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="nickname" value="<%=memVO.getMemberNickname()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="birthdate" class="col-sm-2 col-form-label ding-data-short">生日：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="birthdate" value="<%=memVO.getMemberDate()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="address" class="col-sm-2 col-form-label ding-data-short">地址：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="address" value="<%=memVO.getMemberAddress()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="location" class="col-sm-3 col-form-label ding-data-long">國別：</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control-plaintext" id="location" value="<%=memVO.getMemberCountry()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="phonenumber" class="col-sm-3 col-form-label ding-data-long">聯絡電話：</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control-plaintext" id="phonenumber" value="<%=memVO.getMemberCellphone()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label ding-data-long">電子信箱：</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control-plaintext" id="email" value="<%=memVO.getMemberMail()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+					  <label for="introduction" class="col-sm-3 col-form-label ding-data-long">簡介：</label>
+					  <div class="col-sm-9">
+					    <textarea class="form-control" readonly  name="member_introduce" id="introduction" rows="5"><%= memVO.getMemberIntroduce()%></textarea>
+					  </div>
+					</div>
+					                  
+                  <div class="ding-mem-btn">
+                    <button type="button" class="btn ding-btn-org" id="editMemberInfoBtn" onclick="redirectToEdit()">編輯資料</button>
+                    <button type="button" class="btn ding-btn-org" id="revisePasswordBtn" onclick="EditPassWordFunction()">修改密碼</button>
                   </div>
                 </form>
-                <!-- -----------註冊表單結束--------- -->
+                <!-- -----------會員資料表單(僅檢視)結束--------- -->
               </div>
+              <!-- -------------會員頭像開始------------ -->
+              <div class="col-3 ding-mem-img">
+              	<img style="max-width: 200px; max-height: 200px;" 
+			 alt="會員頭像" src="/CookLab/MembersImgServlet?memberId=<%=memVO.getMemberId()%>" class="rounded-circle mt-4">
+
+              </div>
+              <!-- -------------會員頭像結束------------ -->
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- 註冊區塊結束 -->
+    <!-- 會員中心區塊結束 -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -245,7 +326,7 @@
       </div>
     </footer>
     <!-- Footer Section End -->
- 
+
     <!-- Js Plugins -->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
@@ -256,96 +337,34 @@
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/TomJS.js"></script>
-    
     <script>
-
-var host = window.location.host;
+      var       recipeServlet = "/";
+      var host = window.location.host;
       var path = window.location.pathname;
       var webCtx = path.substring(0, path.indexOf('/', 1));
       var endPointURL = "http://" + host + webCtx;
-      //========================= 這裡是判斷是否有登入過的 ajax ================================
-    $.ajax({
-	    type: "GET", // 指定请求类型为GET
-	    url: endPointURL + "/Register", // 你的Servlet URL
-	    success: function(data) {
-	        // 请求成功后的处理
-	        console.log("成功获取数据: " + data);
-	    },
-	    error: function() {
-	        // 请求失败后的处理
-	        console.error("获取数据失败");
+      //================================================
+    	function redirectToEdit(){
+    		window.location.href = "member-panel-editting.jsp";
+    	}
+    	function EditPassWordFunction(){
+    		window.location.href = "member-panel-password.html";
+    	}
+	    //置換會員狀態的顯示
+	    
+	    var statusValue = document.getElementById("memberStatus");
+
+    	
+	    if (statusValue.getAttribute('value') == "0") {
+	    	statusValue.setAttribute('value','已啟用');
+	    } else if (statusValue.getAttribute('value') == "1") {
+	    	statusValue.setAttribute('value','未驗證');
+        $(".SendcomfrimClass").append(`<a href="VerificationLetter.html" <button type="button" class="btn Tom ding-btn-org" id="Sendcomfrim">驗證</button></a>`);
+	    } else if (statusValue.getAttribute('value') == "2") {
+	    	statusValue.setAttribute('value','已註銷');
+	    } else {
+	    	statusValue.setAttribute('value','未知');;
 	    }
-	  });
-    //==================================================================================
-    
-    
-    $("#ForgetPassword").submit(function (event) {
-	    event.preventDefault();
-      var account = $("#account").val();
-      var email = $("#email").val();
-      
-	    var data = {
-	      "account": account,
-        "email":email
-	    };
-	    $.ajax({
-	      type: "POST",
-	      url: endPointURL + "/ForgetPassowrd", // 替换为你的Servlet的URL
-	      data: data,
-	      success: function (res) {
-          if(res.res == "success") //驗證成功
-          {
-            alert("已將新密碼傳送至您的Mail，收到後建議您更換您的密碼");
-            window.location.href = "login.html";	
-          }
-          else
-           alert("查無資料，請再確認");	
-            // if(res.wrongType === undefined)
-            // {
-              
-            //   if(res.RedirectURL  === undefined)
-            // 	  {
-            //       location.href = "member-panel.jsp";	
-            //   }
-                
-            //   else
-            //   {
-            	  
-            //   }
-            //     //重導至首頁
-            //     //location.href  = res.RedirectURL;
-            // }
-            // else
-            // {
-            //   if(res.wrongType == 1)
-            //   {
-            //       alert("密碼不正確");
-            //   }
-            //   else if(res.wrongType == 2)
-            //   {
-            //       alert("請輸入密碼");
-            //   }
-            //   else if(res.wrongType == 3)
-            //   {
-            //       alert("查無此帳號");
-            //   }
-            // }
-	        
-	
-	        // 可以在这里执行其他操作，如重定向或显示消息
-	      },
-	      error: function () {
-	        // 在请求失败时执行的操作
-	        console.log("失敗");
-	      }
-    });
-  });
-  $('#reSend').click(function() {
-        var $button = $(this);
-        startCountdown();
-    });
-
-
     </script>
   </body>
 </html>

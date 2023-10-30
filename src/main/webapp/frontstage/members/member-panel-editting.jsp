@@ -45,52 +45,49 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
-      <div class="humberger__menu__logo">
-        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
-      </div>
-      <section class="container">
-        <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
-          <div class="">
-            <a href="#">
-              <i class="bi bi-cart3 fa-3x"></i>
-            </a>
-          </div>
-
-          <div class="">
-            <a href="#">
-              <i class="fa fa-user fa-3x"></i>
-            </a>
-          </div>
-
-          <div class="">
-            <a href="#">
-              <i class="bi bi-bell fa-3x"></i>
-            </a>
-          </div>
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="img/indexlogo.png" alt="" /></a>
         </div>
-      </section>
-      <nav class="humberger__menu__nav mobile-menu">
-        <ul>
-          <li class="active"><a href="./index.html">首頁</a></li>
-          <li><a href="./shop-grid.html">商城</a></li>
-          <li><a href="./blog.html">食譜總覽</a></li>
-          <li><a href="./contact.html">常見問題</a></li>
-        </ul>
-      </nav>
-      <div id="mobile-menu-wrap"></div>
-      <div class="header__top__right__social">
-        <a href="#"><i class="fa fa-2x fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-2x fa-instagram"></i></a>
-        <a href="#"><i class="fa fa-2x fa-twitter"></i></a>
-      </div>
-      <div class="humberger__menu__contact">
-        <ul>
-          <li>
-            <i class="fa fa-envelope"></i>
-            tomato@cooklab.com
-          </li>
-        </ul>
-      </div>
+        <section class="container">
+            <div
+                class="humberger__menu__widget row d-flex justify-content-between align-items-center">
+                <div class="">
+                    <a href="#"> <i class="bi bi-cart3 fa-3x"></i>
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="#"> <i class="fa fa-user fa-3x"></i>
+                    </a>
+                </div>
+
+                <div class="">
+                    <a href="#"> <i class="bi bi-bell fa-3x"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="../recipe/recipe_overview.jsp">首頁</a></li>
+                <li><a href="../shop.html">商城</a></li>
+                <li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
+                <li><a href="./contact.html">常見問題</a></li>
+                <li><a href="../article/article_main.jsp">討論區</a></li>
+                <li><a href="../news/news.html">最新消息</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-2x fa-facebook"></i></a> <a href="#"><i
+                class="fa fa-2x fa-instagram"></i></a> <a href="#"><i
+                class="fa fa-2x fa-twitter"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> tomato@cooklab.com</li>
+            </ul>
+        </div>
     </div>
     <!-- Humberger End -->
 
@@ -103,13 +100,13 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
             <div class="col-lg-6">
               <div class="header__top__right">
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="../shoping-cart.html">
                     <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">購物車</span>
                   </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="./member-panel.jsp">
+                  <a href="./members/member-panel.jsp">
                     <i class="fa fa-user m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">會員中心</span>
                   </a>
@@ -118,7 +115,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                   <a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#">
+                  <a href="./members/member-panel-news.html">
                     <i class="bi bi-bell m-0 ml-2 fa-lg"></i>
                     <span class="ding-nav-text">通知中心</span>
                   </a>
@@ -138,12 +135,12 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
           <div class="col-lg-9 d-flex align-items-center">
             <nav class="header__menu">
               <ul>
-                <li class="active"><a href="./index.html">食譜總覽</a></li>
-                <li><a href="#">新增食譜</a></li>
-                <li><a href="#">關注食譜</a></li>
-                <li><a href="./shop-grid.html">商城</a></li>
-                <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
+                <li class=""><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
+                <li><a href="../recipe/recipe_create.jsp">新增食譜</a></li>
+                <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
+                <li><a href="../shop.html">商城</a></li>
+                <li><a href="../article_main.jsp">討論區</a></li>
+                <li><a href="../news/news.html ">客服中心</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>

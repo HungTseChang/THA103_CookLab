@@ -108,6 +108,18 @@ public class MembersRegisterServlet extends HttpServlet{
 			res.getWriter().write(jsonString);	
 			return;
 		}
+		//檢查EMAIL是否重複
+		MembersVO emailNull = memSrv.getOneMemberMail(email);
+		
+		if(emailNull != null)	//有重複MAIL
+		{
+			System.out.println("有重複MAIL");
+			hmap.put("res", "EmailFail");
+			String jsonString = gson.toJson(hmap);
+			res.getWriter().write(jsonString);	
+			return;
+		}
+		
 		memVO = memSrv.addMembers(account,password,introduce,
 				phonenumber,email, sqlDate,address,location,(byte) 1,nickname,genderByte,pic);
 		//再查一次
@@ -129,7 +141,7 @@ public class MembersRegisterServlet extends HttpServlet{
 		String messageText =  ch_name +" 您好!\n\n["+ passRandom +"]\n\n為您在廚藝實驗室(CookLab)的驗證碼，請於10分鐘內輸入" +"\n" ;
 
 		MailService mailService = new MailService();
-		new Thread(()->mailService.sendMail(to, subject, messageText)).start();	
+		new Thread(()->mailService.sendMail(to, subject, messageText)).start();
 		
 		//將驗證碼存入Redis
 		Jedis jedis = JedisUtil.getJedisPool().getResource();
