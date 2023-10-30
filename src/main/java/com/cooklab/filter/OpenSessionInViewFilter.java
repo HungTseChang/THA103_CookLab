@@ -50,7 +50,14 @@ import com.cooklab.util.HibernateUtil;
 		"/MemberdashboardServlet",
 		"/LoginServlet",
 		"/ReVerification",
-		"/ForgetPassowrd"
+		"/ForgetPassowrd",
+		"/ProductServlet", //商品
+		"/MemberOrderServlet", //會員訂單
+		"/PromoCodeServlet",	//優惠碼
+		"/IngredientServlet",
+		"/KitchenwaretServlet",
+		"/CartServlet"
+	
 		})
 public class OpenSessionInViewFilter implements Filter {
 

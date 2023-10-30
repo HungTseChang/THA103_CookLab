@@ -6,10 +6,11 @@ const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/ProductServlet";
 const COLLECTION_POINT2 = "/CartServlet"
 
+var jqxhr;
 // 等待页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 	// 获取商品ID（从URL参数中获取）
-	
+
 	let stock = null;
 	console.log(productId);
 	// 创建一个包含商品ID的请求数据
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// 发起AJAX请求，获取商品详细信息
 	$.ajax({
-		url: END_POINT_URL +COLLECTION_POINT, // 服务器端URL
+		url: END_POINT_URL + COLLECTION_POINT, // 服务器端URL
 		type: "GET", // 使用GET请求
 		data: requestData, // 发送的参数
 		dataType: "json", // 预期的响应数据类型
@@ -66,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 		console.log(requestData);
 		$.ajax({
-			url: END_POINT_URL +COLLECTION_POINT2,
+			url: END_POINT_URL + COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
@@ -76,6 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
 				alert("商品添加到購物車囉");
 			},
 			error: function(xhr) {
+				if (xhr.status == 200) {
+					alert("請先登入會員");
+					window.location.href = `../members/login.html`;
+				}
 				console.log('AJAX请求失败：' + xhr.status);
 			}
 		});
@@ -100,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		console.log(requestData);
 
 		$.ajax({
-			url: END_POINT_URL +COLLECTION_POINT2,
+			url: END_POINT_URL + COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
@@ -118,6 +123,10 @@ document.addEventListener("DOMContentLoaded", () => {
 				window.location.href = targetURL;
 			},
 			error: function(xhr) {
+				if (xhr == 200) {
+					alert("請先登入會員");
+					window.location.href = `../members/login.html`;
+				}
 				console.log('AJAX请求失败：' + xhr.status);
 			}
 		});
@@ -126,10 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	$("#search-button").on("click", function() {
 		let keyword = $("#index-searchbar").val();
 
-		
+
 		window.location.href = "./shop-grid.html?keyword=" + keyword;
 	});
-	
+
 	fetchDataAndRender2();
 
 });
@@ -162,7 +171,7 @@ function populateHotKeywords(keywords) {
 
 function fetchDataAndRender2() {
 	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
-	fetch(END_POINT_URL +COLLECTION_POINT +'?action=getHotKeywords')
+	fetch(END_POINT_URL + COLLECTION_POINT + '?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');

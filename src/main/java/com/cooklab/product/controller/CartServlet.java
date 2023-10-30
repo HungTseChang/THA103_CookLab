@@ -1,10 +1,8 @@
 package com.cooklab.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
@@ -39,13 +38,17 @@ public class CartServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		
+		HttpSession session = req.getSession();
+		String userId = session.getAttribute("userId").toString();
+		
+		
 		if ("buttonadd1".equals(action)) {
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 			String quantity = req.getParameter("quantity");
 
 			//動態會員編號
-			String memberNo = "1"; 
+			String memberNo = userId; 
 
 			System.out.println(productNo);
 
@@ -122,7 +125,7 @@ public class CartServlet extends HttpServlet {
 			Integer quantity = Integer.valueOf(req.getParameter("quantity"));
 
 			//動態會員
-			String memberNo = "1";
+			String memberNo = userId;
 
 			System.out.println(productNo);
 
@@ -195,7 +198,7 @@ public class CartServlet extends HttpServlet {
 
 			try {
 				//動態會員
-				String memberNo = "1"; // 
+				String memberNo = userId; // 
 				//Key
 				String cartKey = "cart:" + memberNo; 
 
@@ -236,7 +239,7 @@ public class CartServlet extends HttpServlet {
 
 			int productNo = Integer.parseInt(req.getParameter("productId"));
 			//動態會員
-			String memberNo = "1"; 
+			String memberNo = userId; 
 
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
@@ -275,7 +278,7 @@ public class CartServlet extends HttpServlet {
 
 			try {
 				//動態會員
-				String memberNo = "1"; 
+				String memberNo = userId; 
 				String cartKey = "cart:" + memberNo; 
 
 				jedis.select(1);
@@ -313,7 +316,7 @@ public class CartServlet extends HttpServlet {
 			Integer productNo = Integer.valueOf(req.getParameter("productId").trim());
 			Integer newQuantity = Integer.valueOf(req.getParameter("newQuantity").trim());
 
-			String memberNo = "1"; 
+			String memberNo = userId; 
 
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
