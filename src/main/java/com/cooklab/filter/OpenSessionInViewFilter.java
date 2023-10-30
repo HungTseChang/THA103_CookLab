@@ -34,7 +34,8 @@ import com.cooklab.util.HibernateUtil;
 		"/ArticleCategoryServlet",
 		"/ArticleReactionServlet",
 		"/ArticleSubReactionServlet",
-		"/frontstage/article/*"
+		"/frontstage/article/*",
+		"/dashboard/article/*"
 		})
 public class OpenSessionInViewFilter implements Filter {
 

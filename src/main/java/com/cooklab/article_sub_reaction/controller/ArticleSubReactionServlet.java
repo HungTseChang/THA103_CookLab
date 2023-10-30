@@ -83,7 +83,7 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
-			String success = "{\"message\": \"新增或修改完成\"}";
+			String success = "{\"message\": \"回文按讚新增或修改完成\"}";
 			res.getWriter().write(success);
 			
 			//使用ajax 不能跳轉
