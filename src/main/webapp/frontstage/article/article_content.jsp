@@ -13,14 +13,15 @@
 	//下面是用於主文reaction的查詢
 	ArticleReactionService reaSvc = new ArticleReactionService();
 
-	Byte like = 1 ;
+	Byte like = 1;
 	Byte dislike =2;
 	Long reaLike = reaSvc.allCount(artVO.getArticleNo(), like);
 	Long reaDislike =reaSvc.allCount(artVO.getArticleNo(), dislike);
 	//Servlet P204 、P337你沒有setAttribute用EL 就會抓不到值
 	pageContext.setAttribute("reaLike",reaLike);
 	pageContext.setAttribute("reaDislike",reaDislike);
-	
+	pageContext.setAttribute("like", like);
+	pageContext.setAttribute("dislike", dislike);
 	//下面用來判斷是否有按過讚，如果查無資料也不會導致網頁崩壞
 	ArticleReactionService reaSvc2 = new ArticleReactionService();
 	ArticleReactionVO  reaVO2 =reaSvc2.findTwo(1, artVO.getArticleNo());
@@ -97,7 +98,7 @@
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-	<!-- Humberger Begin -->
+		<!-- Humberger Begin -->
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
@@ -155,20 +156,20 @@
 					<div class="col-lg-6">
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/shopstage/shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">購物車</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">會員中心</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">通知中心</span>
 								</a>
 							</div>
@@ -182,19 +183,19 @@
 				<div class="col-lg-3">
 					<div class="header__logo">
 						<a href="./index.html"><img style="height: 150px"
-							src="../img/indexlogo.png" alt="" /></a>
+							src="img/indexlogo.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="./index.html">食譜總覽</a></li>
-							<li><a href="#">新增食譜</a></li>
-							<li><a href="#">關注食譜</a></li>
-							<li><a href="./shop-grid.html">商城</a></li>
-							<li class="active"><a href="#">討論區</a></li>
-							<li><a href="#">客服中心</a></li>
-							<li><a href="./contact.html">關於我們</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">關注食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">商城</a></li>
+							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">關於我們</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -260,7 +261,7 @@
                                 
                                 <input type="submit" class="btn custom-btn" value="檢舉"  style="color:red;"> 
                                 <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-                                <input type="hidden" name="action" value="subSearch">
+                                <input type="hidden" name="action" value="reportSearch">
                                 
                                 
                                 <input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
@@ -276,22 +277,20 @@
     
     
     <% 
-    ArticleSubReactionService  reaSubSvc = new ArticleSubReactionService();
-    ArticleSubReactionVO  reaSubVO = new ArticleSubReactionVO();
+	    ArticleSubReactionService  reaSubSvc = new ArticleSubReactionService();
+	    ArticleSubReactionVO  reaSubVO = new ArticleSubReactionVO();
+	    pageContext.setAttribute("reaSubSvc", reaSubSvc);
     %>
         
     <c:forEach var="artVO2" items="${list2}">
 	    <c:set var="articleSubNo" value="${artVO2.articleSubNo}" />
 	    <!-- 下面遞迴會員有沒有對回文文章按讚的status -->
-	    <c:set var="reaSubVO" value="${reaSubSvc.findTwo(1, artVO2.articleSubNo)}" />
+	    <c:set var="reaSubVO" value="${reaSubSvc.findTwo(1, articleSubNo)}" />
 	    <!-- 下面遞迴回文文章的按讚數量 -->
-	 	<c:set var ="subLike" value="${reaSubSvc.allCount(artVO2.articleSubNo,'like' )}"/>
-    	<c:set var ="subDisLike" value="${reaSubSvc.allCount(artVO2.articleSubNo,'dislike')}"/>
-    	<c:if test="${subLike != 0}">
-    	<p>like沒抓到</p>
-    	</c:if>
-    	
-    	
+	 	<c:set var="subLike" value="${reaSubSvc.allCount(artVO2.articleSubNo, like)}"/>
+    	<c:set var="subDisLike" value="${reaSubSvc.allCount(artVO2.articleSubNo,dislike)}"/>
+		
+
         <c:if test="${artVO2.articleNo == artVO.articleNo}">
             <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
                 <div class="container" style="margin-top: 30px;">
@@ -329,7 +328,7 @@
 			                            <span  class="likeValue" style="margin-right: 50px;">${subLike}</span>
 		                                
 		      							<c:choose>
-			                                <c:when test="${reaSubVO.status  == 2}">
+			                                <c:when test="${reaSubVO.status == 2}">
 			                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
 			                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
 			                                    data-gjStatus="2"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
@@ -341,14 +340,11 @@
 			                                </c:otherwise>
 		                                </c:choose>
 		                                <span  class="dislikeValue" style="margin-right: 50px;">${subDisLike}</span>
-                                        
-                                        <p>討厭的回文數${subDisLike}</p>
-                                        
-                                        
+                                     
+                                                                                
                                         <input type="submit" class="btn custom-btn" value="檢舉" style="border-color: red;" > 
-                                        
 	                                    <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-	                                    <input type="hidden" name="action" value="subSearch2">
+	                                    <input type="hidden" name="action" value="reportSearch">
 	                                        
 	                                    <input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
 	                                    <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
@@ -601,7 +597,8 @@
 				$(this).next(".likeValue").text(likeValue);
 				$(this).next(".dislikeValue").text(dislikeValue);
 			}
-		}		
+		}
+		
         $image.attr("data-gjStatus", value);
         //取得數據//下方ajax
         const memberId = $image.attr("data-memberId");

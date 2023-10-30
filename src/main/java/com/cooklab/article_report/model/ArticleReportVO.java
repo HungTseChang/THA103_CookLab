@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.cooklab.article.model.ArticleJDBCDAOIm;
+
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.members.model.MembersJDBCDAO;
 import com.cooklab.members.model.MembersVO;

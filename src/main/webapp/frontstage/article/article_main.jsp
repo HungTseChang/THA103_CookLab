@@ -34,34 +34,34 @@
 
 <!-- Css Styles -->
 <link rel="stylesheet"
-	href="../css/bootstrap.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/font-awesome.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/font-awesome.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/elegant-icons.css"
+	href="<%=request.getContextPath()%>/frontstage/css/elegant-icons.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/nice-select.css"
+	href="<%=request.getContextPath()%>/frontstage/css/nice-select.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/jquery-ui.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/jquery-ui.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/owl.carousel.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/owl.carousel.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/slicknav.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../css/style.css"
+	href="<%=request.getContextPath()%>/frontstage/css/style.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../article/css/HO.css"
+	href="<%=request.getContextPath()%>/frontstage/article/css/HO.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="../article/css/ding.css"
+	href="<%=request.getContextPath()%>/frontstage/article/css/ding.css"
 	type="text/css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- 	沒有上面的jquery-3.6.0.min.js，就不能直接在js使用EL語法 -->
@@ -100,11 +100,11 @@
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
 				<li><a href="./index.html">首頁</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">商城todo</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽todo</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">常見問題todo</a></li>
-				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區todo</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">商城</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">常見問題</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -228,9 +228,7 @@
 							
 							<%@ include file="page1.file"%>
 							<c:forEach var="artVO" items="${list}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;">
-<%-- 								<c:if test="${artVO.articleStatus < 1 }"> --%>
- 								
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;"> 								
 									<tr class="title_colum ${artVO.articleNo % 2 == 0 ? 'even' : 'odd'}">
 										<td id="title_colum_td">
 											<a href="" id="cat_view">[${artVO.articleCategory.articleCategory}]</a>
@@ -261,7 +259,7 @@
 				<!-- 以下群聊視窗範圍 -->
 				<div class="col-lg-3">
 					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"
-						href="<%=request.getContextPath()%>/article/article_edit.jsp">發文</a>
+						href="<%=request.getContextPath()%>/frontstage/article/article_edit.jsp">發文</a>
 
 					<div class="statusOutput" id="statusOutput">CookTalk</div>
 					<div id="messagesArea" class="panel message-area" ></div>
@@ -360,16 +358,16 @@
 	</footer>
 	<!-- Footer Section End -->
 	<!-- Js Plugins -->
-	<script src="../js/jquery-3.3.1.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/jquery.nice-select.min.js"></script>
-	<script src="../js/jquery-ui.min.js"></script>
-	<script src="../js/jquery.slicknav.js"></script>
-	<script src="../js/mixitup.min.js"></script>
-	<script src="../js/owl.carousel.min.js"></script>
-	<script src="../js/main.js"></script>
-	<script src="../article/js/HO.js"></script>
-	<script src="../js/TomJS.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js//jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/article/js/HO.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/TomJS.js"></script>
 	<script>
 	//=======WebChat===========
 
