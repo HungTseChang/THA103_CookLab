@@ -6,10 +6,11 @@ const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/ProductServlet";
 const COLLECTION_POINT2 = "/CartServlet"
 
+var jqxhr;
 // 等待页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 	// 获取商品ID（从URL参数中获取）
-	
+
 	let stock = null;
 	console.log(productId);
 	// 创建一个包含商品ID的请求数据
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// 发起AJAX请求，获取商品详细信息
 	$.ajax({
-		url: END_POINT_URL +COLLECTION_POINT, // 服务器端URL
+		url: END_POINT_URL + COLLECTION_POINT, // 服务器端URL
 		type: "GET", // 使用GET请求
 		data: requestData, // 发送的参数
 		dataType: "json", // 预期的响应数据类型
@@ -66,16 +67,22 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 		console.log(requestData);
 		$.ajax({
-			url: END_POINT_URL +COLLECTION_POINT2,
+			url: END_POINT_URL + COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
+			headers: {
+				orginUrl: window.location.href
+			},
 			success: function(response) {
 
 				console.log('商品已添加到购物车');
 				alert("商品添加到購物車囉");
 			},
 			error: function(xhr) {
+				alert("請先登入會員");
+				window.location.href = `../members/login.html`;
+
 				console.log('AJAX请求失败：' + xhr.status);
 			}
 		});
@@ -96,29 +103,35 @@ document.addEventListener("DOMContentLoaded", () => {
 			action: 'buttonadd2',
 			productNo: productId, // 获取成功添加到购物车的商品编号
 			quantity: quantity
+
 		};
 		console.log(requestData);
 
 		$.ajax({
-			url: END_POINT_URL +COLLECTION_POINT2,
+			url: END_POINT_URL + COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
+			headers: {
+				orginUrl: window.location.href
+			},
 			success: function(response) {
 				console.log('商品已添加到购物车');
-				// 将成功添加到购物车的商品编号添加到数组
+
 				selectedProducts.push(productId);
-				// 创建一个包含商品编号的查询参数
+
 				const queryParameters = new URLSearchParams();
 				queryParameters.set('selectedProducts', JSON.stringify(selectedProducts));
-				// 构建要跳转到的checkout.html页面的URL，将查询参数添加到URL中
+
 				const targetURL = `checkout.html?${queryParameters.toString()}`;
 
 				// 执行页面跳转
 				window.location.href = targetURL;
 			},
 			error: function(xhr) {
-				console.log('AJAX请求失败：' + xhr.status);
+				console.log('AJAX：' + xhr.status);
+				alert("請先登入會員");
+				window.location.href = `../members/login.html`;
 			}
 		});
 	});
@@ -126,17 +139,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	$("#search-button").on("click", function() {
 		let keyword = $("#index-searchbar").val();
 
-		
+
 		window.location.href = "./shop-grid.html?keyword=" + keyword;
 	});
-	
+
 	fetchDataAndRender2();
 
 });
 
-// 编写一个函数来从URL参数中获取商品ID
+
 function getProductIdFromURL() {
-	// 从URL中获取productNo参数的值
+
 	const urlParams = new URLSearchParams(window.location.search);
 	return urlParams.get("productNo");
 }
@@ -161,16 +174,15 @@ function populateHotKeywords(keywords) {
 }
 
 function fetchDataAndRender2() {
-	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
-	fetch(END_POINT_URL +COLLECTION_POINT +'?action=getHotKeywords')
+
+	fetch(END_POINT_URL + COLLECTION_POINT + '?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
-			return response.json(); // 解析 JSON 数据
+			return response.json();
 		})
 		.then(keywords => {
-			// 将商品名称填充到热门关键字部分
 			populateHotKeywords(keywords);
 		})
 		.catch(error => {
