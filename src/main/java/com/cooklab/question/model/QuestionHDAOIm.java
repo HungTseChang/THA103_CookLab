@@ -64,5 +64,10 @@ public class QuestionHDAOIm implements QuestionDAO {
 	public List<QuestionVO> getAll() {
 		return getSession().createQuery("select distinct q from QuestionVO q left join fetch q.questionGroup ", QuestionVO.class).list();
 	}
+	
+	//根據問題群組編號取得不同的資料群
+	public List<QuestionVO> getAllbyGroup(Integer questionGroupNo) {
+		return getSession().createQuery("select q from QuestionVO q where q.questionGroup.questionGroupNo  ="+questionGroupNo, QuestionVO.class).list();
+	}
 
 }

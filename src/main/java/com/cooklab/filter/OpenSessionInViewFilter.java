@@ -19,6 +19,7 @@ import com.cooklab.util.HibernateUtil;
 		"/RecipeIngredientServlet",
 		"/RecipeKitchenwareServlet",
 		"/HashtagServlet",
+		//TOM Start
 		"/MemberCenter",
 		"/EditPassword",
 		"/MembersImgServlet",
@@ -32,10 +33,6 @@ import com.cooklab.util.HibernateUtil;
 		"/MemberNotifyServlet",
 		"/MembersArticleServlet",
 		"/CheckLogin",
-		"/SupportFormAjax", 
-		"/SupportFormRecordAjax", 
-		"/NotifyCenterAjax",
-		"/QuestionServlet",
 		"/ArticleServlet",
 		"/ArticleSubServlet",
 		"/ArticleCategoryServlet",
@@ -50,7 +47,12 @@ import com.cooklab.util.HibernateUtil;
 		"/MemberdashboardServlet",
 		"/LoginServlet",
 		"/ReVerification",
-		"/ForgetPassowrd"
+		"/ForgetPassowrd",
+		"/SupportFormServlet", 
+		"/SupportFormRecordServlet", 
+		"/NotifyCenterServlet",
+		"/QuestionServlet",
+		"/SFSFront"
 		})
 public class OpenSessionInViewFilter implements Filter {
 
