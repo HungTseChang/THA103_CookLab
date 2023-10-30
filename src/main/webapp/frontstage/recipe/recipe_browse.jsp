@@ -40,59 +40,40 @@ import="com.cooklab.purchase_order.model.*"%>
         <div class="humberger__menu__overlay"></div>
         <div class="humberger__menu__wrapper">
             <div class="humberger__menu__logo">
-                <a href="#"><img src="img/logo.png" alt="" /></a>
+                <a href="#"><img src="img/indexlogo.png" alt="" /></a>
             </div>
-            <div class="humberger__menu__cart">
-                <ul>
-                    <li>
-                        <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
-                    </li>
-                </ul>
-                <div class="header__cart__price">item: <span>$150.00</span></div>
-            </div>
-            <div class="humberger__menu__widget">
-                <div class="header__top__right__language">
-                    <img src="img/language.png" alt="" />
-                    <div>English</div>
-                    <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li><a href="#">Spanis</a></li>
-                        <li><a href="#">English</a></li>
-                    </ul>
+            <section class="container">
+                <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
+                    <div class="">
+                        <a href="#"> <i class="bi bi-cart3 fa-3x"></i> </a>
+                    </div>
+
+                    <div class="">
+                        <a href="#"> <i class="fa fa-user fa-3x"></i> </a>
+                    </div>
+
+                    <div class="">
+                        <a href="#"> <i class="bi bi-bell fa-3x"></i> </a>
+                    </div>
                 </div>
-                <div class="header__top__right__auth">
-                    <a href="#"><i class="fa fa-user"></i> Login</a>
-                </div>
-            </div>
+            </section>
             <nav class="humberger__menu__nav mobile-menu">
                 <ul>
-                    <li class="active"><a href="./index.html">Home</a></li>
-                    <li><a href="./shop-grid.html">Shop</a></li>
-                    <li>
-                        <a href="#">Pages</a>
-                        <ul class="header__menu__dropdown">
-                            <li><a href="./shop-details.html">Shop Details</a></li>
-                            <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                            <li><a href="./checkout.html">Check Out</a></li>
-                            <li><a href="./blog-details.html">Blog Details</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="./blog.html">Blog</a></li>
-                    <li><a href="./contact.html">Contact</a></li>
+                    <li class="active"><a href="./index.html">首頁</a></li>
+                    <li><a href="./shop-grid.html">商城todo</a></li>
+                    <li><a href="../recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+                    <li><a href="./contact.html">常見問題todo</a></li>
+                    <li><a href="../article/article_main.jsp">討論區todo</a></li>
+                    <li><a href="../news/news.html">最新消息todo</a></li>
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>
             <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                <a href="#"><i class="fa fa-2x fa-facebook"></i></a> <a href="#"><i class="fa fa-2x fa-instagram"></i></a> <a href="#"><i class="fa fa-2x fa-twitter"></i></a>
             </div>
             <div class="humberger__menu__contact">
                 <ul>
-                    <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                    <li>Free Shipping for all Order of $99</li>
+                    <li><i class="fa fa-envelope"></i> tomato@cooklab.com</li>
                 </ul>
             </div>
         </div>
@@ -107,16 +88,16 @@ import="com.cooklab.purchase_order.model.*"%>
                         <div class="col-lg-6">
                             <div class="header__top__right">
                                 <div class="header__top__right__auth">
-                                    <a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">購物車</span> </a>
+                                    <a href="../shopstage/"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">購物車</span> </a>
                                 </div>
                                 <div class="header__top__right__auth">
-                                    <a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">會員中心</span> </a>
+                                    <a href="../members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">會員中心</span> </a>
                                 </div>
                                 <div class="header__top__right__auth">
-                                    <a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+                                    <a href="../members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
                                 </div>
                                 <div class="header__top__right__auth">
-                                    <a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">通知中心</span> </a>
+                                    <a href="../members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">通知中心</span> </a>
                                 </div>
                             </div>
                         </div>
@@ -133,13 +114,13 @@ import="com.cooklab.purchase_order.model.*"%>
                     <div class="col-lg-9 d-flex align-items-center">
                         <nav class="header__menu">
                             <ul>
-                                <li><a href="./index.html">食譜總覽</a></li>
-                                <li class="active"><a href="#">新增食譜</a></li>
-                                <li><a href="#">關注食譜</a></li>
-                                <li><a href="./shop-grid.html">商城</a></li>
-                                <li><a href="#">討論區</a></li>
-                                <li><a href="#">客服中心</a></li>
-                                <li><a href="./contact.html">關於我們</a></li>
+                                <li class="active"><a href="./recipe_overview.jsp">食譜總覽</a></li>
+                                <li><a href="./recipe_create.jsp">新增食譜</a></li>
+                                <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
+                                <li><a href="../shopstage/">商城</a></li>
+                                <li><a href="../article/article_main.jsp">討論區</a></li>
+                                <li><a href="../news/news.html">最新消息</a></li>
+                                <li><a href="./news/news.html">關於我們</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -161,11 +142,11 @@ import="com.cooklab.purchase_order.model.*"%>
                             <span id="recipeeName" class="recipe_content">食譜名稱:</span>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="recipeName" class="form-control recipe-name" readonly="readonly" />
+                            <span id="recipeName" class="form-control recipe-name"></span>
                         </div>
                         <div id="collectionStatus">
-                            <i id="addCollection" class="bi bi-bookmark col-md-4" style="font-size: 30px; margin-left: 250px"></i>
-                            <i id="removeCollection" class="bi bi-bookmark-fill col-md-4" style="font-size: 30px; margin-left: 250px"></i>
+                            <i id="addCollection" class="bi bi-bookmark col-md-4 none" style="font-size: 30px; margin-left: 250px"></i>
+                            <i id="removeCollection" class="bi bi-bookmark-fill col-md-4 none" style="font-size: 30px; margin-left: 250px"></i>
                         </div>
                     </div>
                     <p>使用標籤:</p>
@@ -185,7 +166,7 @@ import="com.cooklab.purchase_order.model.*"%>
                         <div class="col-lg-2">
                             <span class="recipe_content">份量(人數):</span>
                         </div>
-                        <input type="text" id="recipeQuantity" class="col-md-2 form-control text-center" readonly="readonly" />
+                        <span id="recipeQuantity" class="col-md-2 form-control text-center"></span>
                     </div>
 
                     <div>
@@ -207,17 +188,17 @@ import="com.cooklab.purchase_order.model.*"%>
                         <span class="recipe_content mx-auto">補充:</span>
                         <textarea id="additionalExplanation" class="form-control martin-textarea" aria-label="With textarea" placeholder="內容" readonly="readonly"></textarea>
                     </div>
-                    <div id="reaction" class="row text-center">
+                    <!-- <div id="reaction" class="row text-center">
                         <div class="col-md-8">
                             <i class="bi bi-heart mx-auto" style="font-size: 20px"></i>
                         </div>
                         <div class="col-md-4">
                             <i class="bi bi-heartbreak mx-auto" style="font-size: 20px"></i>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="member-profile">
                         <div class="avatar-container">
-                            <img src="avatar.jpg" alt="Member Avatar" class="avatar" />
+                            <img src="../avatar.jpg" alt="Member Avatar" class="avatar" />
                         </div>
                         <div class="info-container">
                             <h4 id="author"></h4>

@@ -12,14 +12,20 @@ import javax.servlet.annotation.WebFilter;
 import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
-@WebFilter(urlPatterns = {
+@WebFilter(urlPatterns = { 
+		/*Martin*/
+		"/RecipeCreateServlet",
+		"/RecipeUpdateServlet",
 		"/RecipeOverviewImgServlet",
 		"/RecipeOverviewServlet",
 		"/RecipeCollectionServlet",
+		"/RecipeCollectionStatusServlet",
 		"/RecipeIngredientServlet",
 		"/RecipeKitchenwareServlet",
+		"/RecipeCommentsServlet",
 		"/HashtagServlet",
 		//TOM Start
+		/*Martin*/
 		"/MemberCenter",
 		"/EditPassword",
 		"/MembersImgServlet",
@@ -43,7 +49,7 @@ import com.cooklab.util.HibernateUtil;
 		"/AdminsServlet",
 		"/PermissionServlet",
 		"/ArticleReportServlet",
-	"/ArticleSubReportServlet",
+		"/ArticleSubReportServlet",
 		"/MemberdashboardServlet",
 		"/LoginServlet",
 		"/ReVerification",

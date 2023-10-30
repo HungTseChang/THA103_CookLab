@@ -23,7 +23,12 @@ import javax.servlet.http.HttpSession;
 		"/frontstage/members/member-panel-recipe.html",			//查詢食譜
 		"/frontstage/members/member-panel-post.html",				//查詢討論區文章
 		"/frontstage/members/member-panel-follow.html",			//查詢關注
-		"/frontstage/members/VerificationLetter.html",				//收取驗證信		
+		"/frontstage/members/VerificationLetter.html",				//收取驗證信
+		"/frontstage/members/VerificationLetter.html",
+		"/frontstage/recipe/recipe_create.jsp",//食譜新增
+		"/frontstage/recipe/recipe_update.jsp",//食譜更新
+		"/RecipeCollectionServlet",//食譜收藏
+		"/RecipeCollectionServlet",//食譜留言
 		"/frontstage/article/article_edit.jsp",
 		"/frontstage/article/article_sub_edit.jsp",
 		"/frontstage/article/article_report.jsp"
@@ -63,7 +68,14 @@ public class LoginFilter extends HttpFilter implements Filter{
 		{
 			//使用者沒有登入過
 			System.out.println("使用者沒有登入 網頁重導至 SignIn");
-			session.setAttribute("location", req.getRequestURI());
+			
+			if(req.getHeader("orginURL")!=null) {
+				session.setAttribute("location", req.getHeader("orginURL"));
+				System.out.println(req.getHeader("orginURL"));
+			}else {
+				session.setAttribute("location", req.getRequestURI());
+				System.out.println(req.getHeader(req.getRequestURI()));
+			}			
 			res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");
 		}
 		else

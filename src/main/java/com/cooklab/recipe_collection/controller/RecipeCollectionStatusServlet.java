@@ -9,43 +9,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-
 import com.cooklab.members.model.MembersVO;
 import com.cooklab.recipe.model.RecipeServiceIm;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.recipe_collection.model.RecipeCollectionServiceIm;
 import com.cooklab.recipe_collection.model.RecipeCollectionVO;
-import com.cooklab.util.HibernateUtil;
 import com.google.gson.Gson;
 
-@WebServlet("/RecipeCollectionServlet")
-public class RecipeCollectionServlet extends HttpServlet {
-		
+@WebServlet("/RecipeCollectionStatusServlet")
+public class RecipeCollectionStatusServlet extends HttpServlet {
+
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
-
 		Gson gson = new Gson();
-		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-		MembersVO memberVO = (MembersVO) session.getAttribute("membersVO");
+		MembersVO memberVO = (MembersVO) session.getAttribute("memberVO");
 
-
-		if ("insert".equals(action)) {
-			RecipeVO recipeVO = new RecipeServiceIm().getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
-			Integer recipeCollectionNo = new RecipeCollectionServiceIm().addRecipeCollection(recipeVO, memberVO);
-			String jsonString = gson.toJson(recipeCollectionNo);
+		if (memberVO != null) {
+			RecipeVO recipeVO = new RecipeServiceIm()
+					.getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
+			RecipeCollectionVO recipeCollectionVO = new RecipeCollectionServiceIm().findByMemberAndRecipe(recipeVO,
+					memberVO);
+			String jsonString = gson.toJson(recipeCollectionVO != null ? recipeCollectionVO.getCollectionNo() : null);
 			res.getWriter().write(jsonString);
 			return;
 		}
-		if ("delete".equals(action)) {
-			new RecipeCollectionServiceIm()
-					.deleteRecipeCollection(Integer.valueOf(req.getParameter("recipeCollectionNo").trim()));
-			String jsonString = gson.toJson("收藏取消成功");
-			res.getWriter().write(jsonString);
-			return;
-		}
-	
+		String jsonString = gson.toJson(null);
+		res.getWriter().write(jsonString);
+		return;
 	}
 }
