@@ -64,18 +64,16 @@ pageContext.setAttribute("list", list);
 	rel="stylesheet" />
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 </head>
-
 <body>
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-
 	<!-- Humberger Begin -->
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="../img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -98,10 +96,12 @@ pageContext.setAttribute("list", list);
 		</section>
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
-				<li class="active"><a href="./index.html">首頁</a></li>
-				<li><a href="./shop-grid.html">商城</a></li>
-				<li><a href="./blog.html">食譜總覽</a></li>
-				<li><a href="./contact.html">常見問題</a></li>
+				<li><a href="./index.html">首頁</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">商城todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">常見問題todo</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息todo</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -127,20 +127,20 @@ pageContext.setAttribute("list", list);
 					<div class="col-lg-6">
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/shopstage/shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">購物車</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">會員中心</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">通知中心</span>
 								</a>
 							</div>
@@ -160,13 +160,13 @@ pageContext.setAttribute("list", list);
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="./index.html">食譜總覽</a></li>
-							<li><a href="#">新增食譜</a></li>
-							<li><a href="#">關注食譜</a></li>
-							<li><a href="./shop-grid.html">商城</a></li>
-							<li class="active"><a href="#">討論區</a></li>
-							<li><a href="#">客服中心</a></li>
-							<li><a href="./contact.html">關於我們</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">關注食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">商城</a></li>
+							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">關於我們</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -245,14 +245,6 @@ pageContext.setAttribute("list", list);
 
 		</div>
 	</section>
-
-
-
-
-
-
-
-
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
 		<div class="container">
@@ -326,11 +318,12 @@ pageContext.setAttribute("list", list);
 	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.nice-select.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-ui.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.slicknav.js"></script>
-	<script src="<%=request.getContextPath()%>/frontstage/mixitup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/frontstage/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/article/js/quill.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/article/js/HO.js"></script>
+	<script src="../js/TomJS.js"></script>
 
 </body>
 
