@@ -66,20 +66,11 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 	}
 
 	@Override
-	public void delete(IngredientCategoryVO ingredientCategory) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
+	public String delete(IngredientCategoryVO ingredientCategory) {
 
-		// 使用Hibernate的更新方法将对象保存到数据库
+		Session session = getSession();
 		session.delete(ingredientCategory);
-//			System.out.println("刪除成功");
-//			session.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
+		 return "true";
 
 	}
 
@@ -153,50 +144,30 @@ public class IngredientHDAOIm implements IngredientCategoryDAO {
 	}
 
 	public boolean hasAssociatedProducts(Integer ingredientCategoryNo) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		session.beginTransaction();
 
+		Session session = getSession();
 		IngredientCategoryVO category = session.get(IngredientCategoryVO.class, ingredientCategoryNo);
 
 		if (category != null) {
 			Set<ProductVO> products = category.getProduct();
 			boolean hasAssociatedProducts = !products.isEmpty();
-//			session.getTransaction().commit();
+
 			return hasAssociatedProducts;
 		} else {
-//			session.getTransaction().commit();
 			return false;
 		}
 	}
 
 	@Override
 	public IngredientCategoryVO findByName(IngredientCategoryVO ingredientCategory) {
-//		 Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		String hql = "FROM IngredientCategoryVO WHERE categoryName = :categoryName";
+
 		Session session = getSession();
-//		 try {
-//		        session.beginTransaction();
+		Query<IngredientCategoryVO> query = session.createQuery(hql, IngredientCategoryVO.class);
+		query.setParameter("categoryName", ingredientCategory.getCategoryName());
+		System.out.print(query.uniqueResult());
+		return query.uniqueResult();
 
-		CriteriaBuilder builder = session.getCriteriaBuilder();
-		CriteriaQuery<IngredientCategoryVO> criteria = builder.createQuery(IngredientCategoryVO.class);
-		Root<IngredientCategoryVO> root = criteria.from(IngredientCategoryVO.class);
-
-		// 构建查询条件
-		Predicate namePredicate = builder.equal(root.get("categoryName"), ingredientCategory.getCategoryName());
-		criteria.select(root).where(namePredicate);
-
-		Query<IngredientCategoryVO> query = session.createQuery(criteria);
-
-		IngredientCategoryVO result = query.uniqueResult();
-
-//		session.getTransaction().commit();
-
-		return result;
-//		    } catch (Exception e) {
-//		        e.printStackTrace();
-//		        session.getTransaction().rollback();
-//		        return null;
-//		    }
 	}
 
 }

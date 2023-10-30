@@ -1,5 +1,6 @@
 package com.cooklab.members.model;
 
+import com.cooklab.member_collection.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 
 import com.cooklab.article.model.ArticleVO;
+import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.member_order.model.MemberOrderVO;
 import com.cooklab.members.MemberRecipeOverViewDTO;
 import com.cooklab.notify_center.model.NotifyCenterVO;
@@ -36,6 +38,7 @@ public class MembersHDAOIm implements MembersDAO_interface{
 		return factory.getCurrentSession();
 	}
 	
+
 	@Override
 	public int insert(MembersVO membersVO) {
 		
@@ -118,7 +121,7 @@ public class MembersHDAOIm implements MembersDAO_interface{
 
 	@Override
 	public List<RecipeVO> getByPage(Integer offset, Integer limit,Integer memberId) {
-			List<RecipeVO> list = getSession().createQuery("from RecipeVO where members.memberId=:memberId AND recipeStatus=1", RecipeVO.class)
+			List<RecipeVO> list = getSession().createQuery("from RecipeVO where members.memberId=:memberId", RecipeVO.class)
 					.setParameter("memberId",memberId).setFirstResult(offset)
 					.setMaxResults(limit).list();
 			
@@ -158,10 +161,66 @@ public class MembersHDAOIm implements MembersDAO_interface{
 				.setMaxResults(limit).list();
 		return list;
 	}
+	@Override
 	public List<ArticleVO> getArticle(Integer offset, Integer limit,Integer memberId){
 		List<ArticleVO> list = getSession().createQuery("from ArticleVO where members.memberId=:memberId", ArticleVO.class)
 				.setParameter("memberId",memberId).setFirstResult(offset)
 				.setMaxResults(limit).list();
 		return list;
 	}
+	@Override
+	public void addMembersColloection(MembersVO Collectioned,MembersVO memberId) {
+		MemberCollectionVO mcVO = new MemberCollectionVO();
+		mcVO.setMemberIdCollectioned(Collectioned);
+		mcVO.setMembers(memberId);
+		getSession().save(mcVO);
+		
+		
+		
+//		getSession()
+//		getSession().save(membersVO);
+//		System.out.println(getSession().createQuery("from MemberCollectionVO where memberIdCollectioned=:memberIdCollectioned AND memberId=:memberId ", MemberCollectionVO.class)
+//				.setParameter("memberIdCollectioned",memberIdCollectioned).setParameter("memberId",memberId).toString());
+//		getSession().save(memberId);
+	}
+	@Override
+	public void deleteMemberColloection(MembersVO Collectioned,MembersVO memberId,Integer MemberCollectionNo) {
+		MemberCollectionVO mcVO = new MemberCollectionVO();
+		mcVO.setMemberIdCollectioned(Collectioned);
+		mcVO.setMembers(memberId);
+		mcVO.setMemberCollectionNo(MemberCollectionNo);
+		getSession().clear();
+		getSession().delete(mcVO);
+		
+	}
+
+	//	修改會員關注狀態 ==================================================================================
+	public Integer findMemberCollectionPK(MembersVO Collectioned,MembersVO memberId)
+	{
+		MemberCollectionVO mcVO = new MemberCollectionVO();
+		mcVO = getSession().createQuery("from MemberCollectionVO where memberIdCollectioned=:Collectioned AND members=:memberId", MemberCollectionVO.class)
+		.setParameter("Collectioned",Collectioned).setParameter("memberId",memberId).uniqueResult();
+		return mcVO.getMemberCollectionNo();
+	}
+
+	@Override
+	public ArticleCollectionVO findByMemberAndArticle(ArticleVO articleVO, MembersVO membersVO) {
+		return getSession().createQuery("from ArticleCollectionVO where members = :members and article = :article",
+				ArticleCollectionVO.class).setParameter("members", membersVO).setParameter("article", articleVO).uniqueResult();
+	}
+	@Override
+	public boolean DeleteArticleCollection(Integer articCollectionNo) {
+
+		ArticleCollectionVO artVO = getSession().get(ArticleCollectionVO.class, articCollectionNo);
+		if(artVO !=null) {
+			getSession().delete(artVO);
+			return true;
+		}
+		else
+			return false;
+		
+	}
+	
+
+	//	修改食譜關注狀態 ==================================================================================
 }

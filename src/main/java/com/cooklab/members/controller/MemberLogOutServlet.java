@@ -16,10 +16,11 @@ import javax.servlet.http.HttpSession;
 maxFileSize = 1024 * 1024 * 10,      // 10MB
 maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class MemberLogOutServlet  extends HttpServlet{
-public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-	HttpSession session = req.getSession();
-	session.invalidate();
 	
-	res.sendRedirect(req.getContextPath() + "/members/member-panel.jsp");
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		session.invalidate();
+		res.sendRedirect(req.getContextPath() + "/frontstage/members/member-panel.jsp");
 	}
 }

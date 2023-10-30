@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zh-tw">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="CookLab" />
@@ -12,15 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/ding.css" type="text/css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="stylesheet" href="./css/ding.css" type="text/css" />
   </head>
 
   <body>
@@ -33,7 +33,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
       </div>
       <section class="container">
         <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -119,7 +119,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
             </div>
           </div>
           <div class="col-lg-9 d-flex align-items-center">
@@ -156,12 +156,12 @@
           </div>
           <div class="custom-control custom-switch text-right mb-3">
             <input type="checkbox" class="custom-control-input ding-control-input" id="accountcheck" />
-            <label class="custom-control-label ding-control-label" for="accountcheck">記住帳號</label>
+            <label class="custom-control-label ding-control-label" for="accountcheck">記住我</label>
           </div>
           <button type="submit" class="btn ding-btn-org btn-lg w-100">登入</button>
         </form>
         <div class="text-center"><button type="button" class="btn ding-btn-link mt-3">忘記密碼?</button></div>
-        <div class="text-center mt-2"><span class="h-100">新朋友?</span><button type="button" class="btn ding-btn-link ml-1 mb-1">註冊</button></div>
+        <div class="text-center mt-2"><span class="h-100">新朋友?</span><a href="register.html"><button type="button" class="btn ding-btn-link ml-1 mb-1" >註冊</button></a></div>
       </div>
     </main>
     <!-- 登入區塊結束 -->
@@ -234,15 +234,17 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/TomJS.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script src="../js/TomJS.js"></script>
+
     <script>
 
             /*============================================================ 變數 ============================================================*/
@@ -313,17 +315,21 @@
               
               if(res.RedirectURL  === undefined)
               {
-                location.href = endPointURL+"/members/member-panel.jsp";	
-                  // 獲取 checkbox 元素
+                 // 獲取 checkbox 元素
                 const checkbox = document.getElementById("accountcheck");
                 console.log(checkbox.checked);
                 // 檢查 checkbox 是否被選中
                 if (checkbox.checked) {
                   localStorage.setItem("account", account);
                 }
+                 window.location.href = endPointURL+"/frontstage/members/member-panel.jsp";	
+                 
               }
               else
-                location.href  = res.RedirectURL;
+            	  {
+            	  window.location.href  = res.RedirectURL;
+            	  }
+                 
             }
             else
             {

@@ -31,6 +31,8 @@ PromoCodeVO promoCodeVO = (PromoCodeVO) request.getAttribute("promoCodeVO");
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
 	type="image/x-icon">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.css" />
@@ -177,7 +179,7 @@ input.WCC_memeber_info {
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/mazer-main/dist/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
+										href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
 									<li class="breadcrumb-item active" aria-current="page">優惠券設定</li>
 								</ol>
 							</nav>
@@ -204,6 +206,13 @@ input.WCC_memeber_info {
 													ACTION="<%=request.getContextPath()%>/PromoCodeServlet">
 													<div class="form-body">
 														<div class="row">
+															<div class="col-md-4">
+																<label>優惠碼編號</label>
+															</div>
+															<div class="col-md-8 form-group">
+																<input type="text" id="" class="GCpromo_info"
+																	name="promoCodeNo" value="${promoCodeVO.promoCodeNo}">
+															</div>
 
 															<div class="col-md-4">
 																<label>優惠碼序號</label>
@@ -265,12 +274,11 @@ input.WCC_memeber_info {
 													</div>
 
 													<div class="col-md-6 ">
-														
-															<input type="hidden" name="promoCodeNo" value="${promoCodeVO.promoCodeNo}"> 
-															<input type="hidden" name="action" value="update"> 
-															<input type="submit" value="送出">	
+
+														<input type="hidden" name="action" value="update">
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 													</div>
-													</FORM>
+												</FORM>
 											</div>
 										</div>
 									</div>
@@ -318,23 +326,26 @@ input.WCC_memeber_info {
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
-	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
-		let dataTable = new simpleDatatables.DataTable(table1);
-	</script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
+
 
 
 
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
+
+	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+	</script>
 </body>
 
 

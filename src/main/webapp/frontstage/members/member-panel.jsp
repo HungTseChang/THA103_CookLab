@@ -22,14 +22,14 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="css/ding.css" type="text/css" />
@@ -74,6 +74,8 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
           <li><a href="./shop-grid.html">商城</a></li>
           <li><a href="./blog.html">食譜總覽</a></li>
           <li><a href="./contact.html">常見問題</a></li>
+          <li><a href="./contact.html">討論區</a></li>
+          <li><a href="./contact.html">最新消息</a></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -131,7 +133,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
             </div>
           </div>
           <div class="col-lg-9 d-flex align-items-center">
@@ -142,7 +144,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                 <li><a href="#">關注食譜</a></li>
                 <li><a href="./shop-grid.html">商城</a></li>
                 <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
+                <li><a href="#">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -178,7 +180,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                 <form class="pl-5">
                    <div class="form-group form-row">
                     <label for="memberstatus" class="col-sm-2 col-form-label ding-data-short">狀態：</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 SendcomfrimClass">
                       <input type="text" readonly   class="form-control-plaintext" id="memberStatus" name="member_status" value="<%=memVO.getMemberStatus()%>" />
                     </div>
                   </div>
@@ -326,17 +328,22 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/TomJS.js"></script>
-    <script src="js/TomJS.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/TomJS.js"></script>
     <script>
+      var       recipeServlet = "/";
+      var host = window.location.host;
+      var path = window.location.pathname;
+      var webCtx = path.substring(0, path.indexOf('/', 1));
+      var endPointURL = "http://" + host + webCtx;
+      //================================================
     	function redirectToEdit(){
     		window.location.href = "member-panel-editting.jsp";
     	}
@@ -352,6 +359,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
 	    	statusValue.setAttribute('value','已啟用');
 	    } else if (statusValue.getAttribute('value') == "1") {
 	    	statusValue.setAttribute('value','未驗證');
+        $(".SendcomfrimClass").append(`<a href="VerificationLetter.html" <button type="button" class="btn Tom ding-btn-org" id="Sendcomfrim">驗證</button></a>`);
 	    } else if (statusValue.getAttribute('value') == "2") {
 	    	statusValue.setAttribute('value','已註銷');
 	    } else {

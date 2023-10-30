@@ -30,7 +30,7 @@ public class MembersSignServlet extends HttpServlet{
 		if(session.getAttribute("account")!= null)
 		{
 			System.out.println(session.getAttribute("account"));
-			res.sendRedirect(req.getContextPath()+"/members/member-panel.jsp");
+			res.sendRedirect(req.getContextPath()+"/frontstage/members/member-panel.jsp");
 			
 		}
 	}

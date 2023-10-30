@@ -114,3 +114,4 @@ if(Permit.get(location)) {
 		
 	}
 }
+		  if(action.equals("login")||action.equals("forgetpassword")||action.equals("design")){

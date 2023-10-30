@@ -36,6 +36,7 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 		try {
 				session.beginTransaction();
 				session.update(advertise);
+				System.out.println("嘗試更新資料庫");
 				session.getTransaction().commit();
 				session.close();
 		}catch(Exception e) {

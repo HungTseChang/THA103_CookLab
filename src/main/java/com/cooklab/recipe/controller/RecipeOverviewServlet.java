@@ -2,25 +2,18 @@ package com.cooklab.recipe.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-
-import com.cooklab.members.model.MembersService;
-import com.cooklab.members.model.MembersVO;
 import com.cooklab.recipe.RecipeBreowseDTO;
 import com.cooklab.recipe.RecipeOverviewDTO;
 import com.cooklab.recipe.model.RecipeServiceIm;
 import com.cooklab.recipe.model.RecipeVO;
-import com.cooklab.util.HibernateUtil;
 import com.cooklab.util.JedisUtil;
 import com.google.gson.Gson;
 
@@ -52,16 +45,12 @@ public class RecipeOverviewServlet extends HttpServlet {
 //			    ipAddress = req.getRemoteAddr();
 //			}
 			String ipAddress = req.getRemoteAddr();
-			System.out.println(ipAddress);
 			Jedis jedis = JedisUtil.getJedisPool().getResource();
 			jedis.select(9);
-
-			if (!jedis.lrange("recipeViewIP:" + recipeNo, 0, -1).contains(ipAddress)) {
-				List<String> ipAddresses = new ArrayList<>();
-				ipAddresses.add(ipAddress);
-				jedis.rpush("recipeViewIP:" + recipeNo, ipAddresses.toArray(new String[0]));
-				jedis.expire("recipeViewIP:" + recipeNo, 300);
-				jedis.incrBy("recipeViewCount:" + recipeNo, 1);
+			if (!jedis.hexists("recipeViewIP:"+recipeNo, ipAddress)) {
+				jedis.hset("recipeViewIP:"+recipeNo, ipAddress, "view");
+				jedis.expire("recipeViewIP:" + recipeNo, 15);
+				jedis.hincrBy("recipeViewCount", recipeNo, 1);
 			}
 			jedis.close();
 
