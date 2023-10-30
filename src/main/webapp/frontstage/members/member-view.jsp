@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.cooklab.members.model.*"%>
+
+<%-- 此頁暫練習採用 Script 的寫法取值 --%>
+
+<%
+//获取名为 某位使用者"username" 的属性值
+MembersVO memVO = (MembersVO) session.getAttribute("ViewMembersVO"); 
+
+%>
+
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
@@ -20,8 +30,9 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="../bootstrap-icons-1.10.5/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="./css/ding.css" type="text/css" />
+    <!-- bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/ding.css" type="text/css" />
   </head>
 
   <body>
@@ -34,7 +45,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
+        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
       </div>
       <section class="container">
         <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -63,6 +74,8 @@
           <li><a href="./shop-grid.html">商城</a></li>
           <li><a href="./blog.html">食譜總覽</a></li>
           <li><a href="./contact.html">常見問題</a></li>
+          <li><a href="./contact.html">討論區</a></li>
+          <li><a href="./contact.html">最新消息</a></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -131,7 +144,7 @@
                 <li><a href="#">關注食譜</a></li>
                 <li><a href="./shop-grid.html">商城</a></li>
                 <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
+                <li><a href="#">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -151,32 +164,96 @@
           <aside class="col-3">
             <div>
               <ul class="list-group text-center">
-                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action">帳戶</li></a>
+                <a href="./member-panel.jsp"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">帳戶</li></a>
                 <a href="./member-panel-order.html"><li class="list-group-item list-group-item-action">訂單</li></a>
                 <a href="./member-panel-follow.html"><li class="list-group-item list-group-item-action ">關注</li></a>
-                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action active mem-panel-asidebar" aria-current="true">食譜</li></a>
+                <a href="./member-panel-recipe.html"><li class="list-group-item list-group-item-action">食譜</li></a>
                 <a href="./member-panel-post.html"><li class="list-group-item list-group-item-action">討論區文章</li></a>
                 <a href="./member-panel-news.html"><li class="list-group-item list-group-item-action">通知中心</li></a>
               </ul>
             </div>
           </aside>
-          <div class="col-9 p-1 bg-light">
-            <div class="row w-100">
-              <div class="h2 mx-auto mt-2">食譜清單</div>
-              <div class="mt-2">
-                <button type="button" class="btn btn-lg ding-btn-org">
-                  寫食譜
-                  <i class="bi bi-plus-square ml-1"></i>
-                </button>
+          <div class="col-9 p-2 bg-light border">
+            <div class="row">
+              <div class="col-8">
+                <!-- -----------會員資料表單(僅檢視)開始----------->
+                <form class="pl-5">
+                   <div class="form-group form-row">
+                    <label for="memberstatus" class="col-sm-2 col-form-label ding-data-short">狀態：</label>
+                    <div class="col-sm-10 SendcomfrimClass">
+                      <input type="text" readonly   class="form-control-plaintext" id="memberStatus" name="member_status" value="<%=memVO.getMemberStatus()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="account" class="col-sm-2 col-form-label ding-data-short">帳號：</label>
+                    <div class="col-sm-10">
+                      <input type="text" readonly class="form-control-plaintext" id="account" value="<%=memVO.getMemberAccount()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="gender" class="col-sm-2 col-form-label ding-data-short">性別：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="gender" value="<%= memVO.getMemberGender() == 0 ? "男" : "女" %>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="nickname" class="col-sm-2 col-form-label ding-data-short">暱稱：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="nickname" value="<%=memVO.getMemberNickname()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="birthdate" class="col-sm-2 col-form-label ding-data-short">生日：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="birthdate" value="<%=memVO.getMemberDate()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="address" class="col-sm-2 col-form-label ding-data-short">地址：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control-plaintext" id="address" value="<%=memVO.getMemberAddress()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="location" class="col-sm-3 col-form-label ding-data-long">國別：</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control-plaintext" id="location" value="<%=memVO.getMemberCountry()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group form-row">
+                    <label for="phonenumber" class="col-sm-3 col-form-label ding-data-long">聯絡電話：</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control-plaintext" id="phonenumber" value="<%=memVO.getMemberCellphone()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label ding-data-long">電子信箱：</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control-plaintext" id="email" value="<%=memVO.getMemberMail()%>" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+					  <label for="introduction" class="col-sm-3 col-form-label ding-data-long">簡介：</label>
+					  <div class="col-sm-9">
+					    <textarea class="form-control" readonly  name="member_introduce" id="introduction" rows="5"><%= memVO.getMemberIntroduce()%></textarea>
+					  </div>
+					</div>
+					                  
+                  <div class="ding-mem-btn">
+                    <button type="button" class="btn ding-btn-org" id="editMemberInfoBtn" onclick="redirectToEdit()">編輯資料</button>
+                    <button type="button" class="btn ding-btn-org" id="revisePasswordBtn" onclick="EditPassWordFunction()">修改密碼</button>
+                  </div>
+                </form>
+                <!-- -----------會員資料表單(僅檢視)結束--------- -->
               </div>
+              <!-- -------------會員頭像開始------------ -->
+              <div class="col-3 ding-mem-img">
+              	<img style="max-width: 200px; max-height: 200px;" 
+			 alt="會員頭像" src="/CookLab/MembersImgServlet?memberId=<%=memVO.getMemberId()%>" class="rounded-circle mt-4">
+
+              </div>
+              <!-- -------------會員頭像結束------------ -->
             </div>
-            <!-------------食譜管理區塊開始----------->
-            <!-- 食譜模板開始 -->
-            <div id="recipeList">
-     
-            </div>
-      
-            <!--------------食譜管理區塊結束---------->
           </div>
         </div>
       </div>
@@ -252,8 +329,6 @@
 
     <!-- Js Plugins -->
     <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/jquery.nice-select.min.js"></script>
     <script src="../js/jquery-ui.min.js"></script>
@@ -263,120 +338,33 @@
     <script src="../js/main.js"></script>
     <script src="../js/TomJS.js"></script>
     <script>
-      var queryString = window.location.search;
-      var params = new URLSearchParams(queryString);
-
-      var recipeBrowse = "/frontstage/recipe/recipe_browse.jsp";
-      var coverImage = "/RecipeOverviewImgServlet";
+      var       recipeServlet = "/";
       var host = window.location.host;
       var path = window.location.pathname;
       var webCtx = path.substring(0, path.indexOf('/', 1));
       var endPointURL = "http://" + host + webCtx;
-      console.log(endPointURL);
-      /*============================================================ function ============================================================*/
-      // $(function() {
-      //   reipceLoad(0);
-      // })
-        
-      // <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="食譜封面圖" class="rec-img-preview" />
-      function addListRecipe(recipe) {
-        var recipeStatusString ="";
+      //================================================
+    	function redirectToEdit(){
+    		window.location.href = "member-panel-editting.jsp";
+    	}
+    	function EditPassWordFunction(){
+    		window.location.href = "member-panel-password.html";
+    	}
+	    //置換會員狀態的顯示
+	    
+	    var statusValue = document.getElementById("memberStatus");
 
-        if(recipe.recipeStatus == 0)
-          recipeStatusString ="草稿"
-        else if(recipe.recipeStatus == 1)
-          recipeStatusString ="公開"
-        else if(recipe.recipeStatus == 2)
-          recipeStatusString ="未公開"
-
-        if(recipe.recipeStatus != 3)
-        {
-        let addrecipe = `<div id="recipeList">
-              <div class="row m-0 ml-2 my-3 ding-folrec-border">
-                <div class="col-3 align-self-center p-0 pb-2">
-                  <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="食譜封面圖" class="rec-img-preview" />
-                </div>
-                <div class="col-6">
-                  <div class="row h-100">
-                    <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">${recipe.recipeName}</a></div>
-                    <div class="col-12 text-muted my-1">${recipe.introduction}</div>
-                    <div class="col-12 text-muted my-1">${recipe.recipeHashtag}</div>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <div class="row text-right">
-                    <div class="col-12 mb-2">
-                      <button type="button" class="btn ding-btn-org w-50">修改</button>
-                    </div>
-                    <div class="col-12 mb-2">
-                      <a href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=3"onclick="return confirm('確定刪除?')"><button type="button" class="btn ding-btn-org w-50">刪除</button></a>
-                    </div>
-                    <div class="dropdown col-12 mb-2">
-                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">${recipeStatusString}</button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">公開</a>
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
-                      </div>
-                    </div>
-                    <div class="col-12 align-self-end text-right pb-2">
-                      <i class="bi bi-clock mr-1"></i>
-                      <span>${recipe.toatalStepTime}</span>
-                      分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>`
-        $("#recipeList").append(addrecipe);
-      }
-    }
-      /*============================================================ event ============================================================*/
-      $("#page").on("click", ".page", function() {
-        $(".page").removeClass("disabled")
-        $(this).addClass("disabled");
-        $("html, body").animate({ scrollTop: 450 }, "slow");
-      });
-
-
-      /*============================================================ ajax ============================================================*/
-
-      // function reipceLoad(page) {
-        $.ajax({
-          url: endPointURL + "/MemberRecipeServlet", // 資料請求的網址
-          type: "POST", // GET | POST | PUT | DELETE | PATCH
-          data:{action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
-          dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-          success: function(data) {
-            
-            console.log("ajax請求成功");
-            console.log(data);
-            $("#recipeList").html("");
-            $(data).each(function(index, element) {
-              addListRecipe(element);
-            });
-          },
-          error: function(xhr) {
-            console.log("ajax失敗2");
-            console.log(xhr);
-          },
-        });
-      // }
-      // $.ajax({
-      //   url: endPointURL + "/RecipeServlet", // 資料請求的網址
-      //   type: "POST", // GET | POST | PUT | DELETE | PATCH
-      //   data: { action: "getPage" }, // 將物件資料(不用雙引號) 傳送到指定的 url
-      //   dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-      //   success: function(data) {
-      //     for (let i = 0; i < data; i++)
-      //       $("#page").append(`<a class="page" href="javascript:void(0);" onclick="reipceLoad(${i})">&nbsp;${i + 1}&nbsp;</a>`);
-      //     $(".page").eq(0).addClass("disabled");
-      //   },
-      //   error: function(xhr) {
-      //     console.log("ajax失敗");
-      //     console.log(xhr);
-      //   },
-      // });
-
+    	
+	    if (statusValue.getAttribute('value') == "0") {
+	    	statusValue.setAttribute('value','已啟用');
+	    } else if (statusValue.getAttribute('value') == "1") {
+	    	statusValue.setAttribute('value','未驗證');
+        $(".SendcomfrimClass").append(`<a href="VerificationLetter.html" <button type="button" class="btn Tom ding-btn-org" id="Sendcomfrim">驗證</button></a>`);
+	    } else if (statusValue.getAttribute('value') == "2") {
+	    	statusValue.setAttribute('value','已註銷');
+	    } else {
+	    	statusValue.setAttribute('value','未知');;
+	    }
     </script>
   </body>
 </html>

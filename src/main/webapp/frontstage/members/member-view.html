@@ -162,19 +162,47 @@
           </aside>
           <div class="col-9 p-1 bg-light">
             <div class="row w-100">
-              <div class="h2 mx-auto mt-2">食譜清單</div>
+              <div class="h2 mx-auto mt-2" id="memberNickName">會員暱稱</div>
               <div class="mt-2">
                 <button type="button" class="btn btn-lg ding-btn-org">
-                  寫食譜
+                  關注
                   <i class="bi bi-plus-square ml-1"></i>
                 </button>
               </div>
             </div>
             <!-------------食譜管理區塊開始----------->
             <!-- 食譜模板開始 -->
-            <div id="recipeList">
-     
-            </div>
+
+              <div id="recipeList">
+                <div class="row m-0 ml-2 my-3 ding-folrec-border">
+                  <div class="col-3 align-self-center p-0 pb-2">
+                    <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="會員大頭照" class="rec-img-preview" />
+                  </div>
+                  <div class="col-6">
+                    <div class="row h-100">
+                      <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">會員帳號</a></div>
+                      <div class="col-12 text-muted my-1">${recipe.introduction}</div>
+                      <div class="col-12 text-muted my-1">${recipe.recipeHashtag}</div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row text-right">
+       
+                      <div class="dropdown col-12 mb-2">
+                    
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">公開</a>
+                          <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
+                        </div>
+                      </div>
+                      <div class="col-12 align-self-end text-right pb-2">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
       
             <!--------------食譜管理區塊結束---------->
           </div>
@@ -291,42 +319,7 @@
 
         if(recipe.recipeStatus != 3)
         {
-        let addrecipe = `<div id="recipeList">
-              <div class="row m-0 ml-2 my-3 ding-folrec-border">
-                <div class="col-3 align-self-center p-0 pb-2">
-                  <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="食譜封面圖" class="rec-img-preview" />
-                </div>
-                <div class="col-6">
-                  <div class="row h-100">
-                    <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">${recipe.recipeName}</a></div>
-                    <div class="col-12 text-muted my-1">${recipe.introduction}</div>
-                    <div class="col-12 text-muted my-1">${recipe.recipeHashtag}</div>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <div class="row text-right">
-                    <div class="col-12 mb-2">
-                      <button type="button" class="btn ding-btn-org w-50">修改</button>
-                    </div>
-                    <div class="col-12 mb-2">
-                      <a href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=3"onclick="return confirm('確定刪除?')"><button type="button" class="btn ding-btn-org w-50">刪除</button></a>
-                    </div>
-                    <div class="dropdown col-12 mb-2">
-                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">${recipeStatusString}</button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">公開</a>
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
-                      </div>
-                    </div>
-                    <div class="col-12 align-self-end text-right pb-2">
-                      <i class="bi bi-clock mr-1"></i>
-                      <span>${recipe.toatalStepTime}</span>
-                      分鐘
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>`
+        let addrecipe = ``
         $("#recipeList").append(addrecipe);
       }
     }

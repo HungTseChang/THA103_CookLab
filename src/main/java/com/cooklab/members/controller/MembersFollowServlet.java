@@ -25,11 +25,36 @@ maxFileSize = 1024 * 1024 * 10,      // 10MB
 maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class MembersFollowServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req,res);
+
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html;charset=UTF-8");
+		Gson gson = new Gson();
+		
+		HttpSession session = req.getSession();
+		Integer userId = (Integer)session.getAttribute("userId");
+		
+		//從請求拿值 看要做甚麼動作
+        String action = req.getParameter("action");
+        String no = req.getParameter("no");
+        
+        if(action.equals("article"))
+        {
+
+			res.sendRedirect(req.getContextPath()+"/frontstage/members/member-panel.jsp");
+        }
+        else if(action.equals("member"))
+        {
+        	
+        }
+        else if(action.equals("recipe"))
+        {
+        	
+        }
+		
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+ 
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		Gson gson = new Gson();

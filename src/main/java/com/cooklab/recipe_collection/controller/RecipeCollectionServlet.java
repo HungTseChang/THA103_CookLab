@@ -30,7 +30,7 @@ public class RecipeCollectionServlet extends HttpServlet {
 //		HttpSession session = req.getSession();
 //		MembersVO members = (MembersVO) session.getAttribute("members");
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		MembersVO memberVO = session.get(MembersVO.class, 1);
+		MembersVO memberVO = session.get(MembersVO.class, 2);
 
 		if ("insert".equals(action)) {
 			RecipeVO recipeVO = new RecipeServiceIm().getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
