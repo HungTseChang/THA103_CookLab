@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.advertise.model.*"%>
 
 <%
@@ -13,32 +15,25 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DataTable - Mazer Admin Dashboard</title>
-<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/app.css" />
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
-	type="image/x-icon">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.css">
-<link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-<link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
+	href="<%=request.getContextPath()%>/dashboard/assets/images/favicon.svg"
+	type="image/x-icon" />
 <style>
 td a.wcc {
 	border: 1px solid rgb(151, 135, 249);
@@ -297,86 +292,25 @@ input.WCC_memeber_info {
 			</footer>
 		</div>
 	</div>
-<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
-	<script>
-		var preview_el = document.getElementById("preview");
-		var p_file_el = document.getElementById("p_file");
-		var preview_img = function(file) {
-
-			var reader = new FileReader(); // 用來讀取檔案
-			reader.readAsDataURL(file); // 讀取檔案
-			reader
-					.addEventListener(
-							"load",
-							function() {
-								//console.log(reader.result);
-								/*
-								let img_node = document.createElement("img"); // <img>
-								img_node.setAttribute("src", reader.result); // <img src="base64">
-								img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
-								preview_el.innerHTML = '';
-								preview_el.append(img_node);
-								 */
-
-								let img_str = '<img src="' + reader.result + '" class="preview_img">';
-								preview_el.innerHTML = img_str;
-							});
-		};
-
-		p_file_el.addEventListener("change", function(e) {
-			if (this.files.length > 0) {
-				preview_img(this.files[0]);
-			} else {
-				preview_el.innerHTML = '<span class="text">預覽圖</span>';
-			}
-		});
-	</script>
-
-	<!-- Include Choices JavaScript -->
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
-
-
-
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
-	<script>
-		$('#summernote').summernote({
-			tabsize : 2,
-			height : 120,
-		})
-		$("#hint").summernote({
-			height : 100,
-			toolbar : false,
-			placeholder : 'type with apple, orange, watermelon and lemon',
-			hint : {
-				words : [ 'apple', 'orange', 'watermelon', 'lemon' ],
-				match : /\b(\w{1,})$/,
-				search : function(keyword, callback) {
-					callback($.grep(this.words, function(item) {
-						return item.indexOf(keyword) === 0;
-					}));
-				}
-			}
-		});
+<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+		// 		Simple Datatable
+		// 		        let table1 = document.querySelector('#table1');
+		// 		        let dataTable = new simpleDatatables.DataTable(table1);
 	</script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
 </body>
 
 </html>
