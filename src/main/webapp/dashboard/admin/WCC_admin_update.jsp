@@ -565,7 +565,8 @@ $("a#design").on("click",function(e){
 })
 
 
-
+	let table1 = document.querySelector("#table1");
+	let dataTable = new simpleDatatables.DataTable(table1);
 
 })
 </script>

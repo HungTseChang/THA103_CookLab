@@ -114,8 +114,8 @@
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
                                 </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCpromo_info.html">新增優惠券</a>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">訂單管理</a>
                                 </li>
                                 <li class="submenu-item  ">
                                     <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a>
@@ -124,7 +124,7 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >廣告管理</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="TYT_purchase_order_allView.html">進貨表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/purchase_order/TYT_purchase_order_allView.jsp">進貨表單</a>
                                 </li>
                             </ul>
                         </li>
@@ -168,7 +168,7 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">通知中心</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="ding-support-tickets-table.html">問題表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard//supportform-table.html">問題表單</a>
                                 </li>
                                 <li class="submenu-item active">
                                 <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
@@ -520,7 +520,8 @@ $("a#design").on("click",function(e){
 })
 
 
-
+	let table1 = document.querySelector("#table1");
+	let dataTable = new simpleDatatables.DataTable(table1);
 
 })
 </script>
