@@ -1,6 +1,7 @@
 package com.cooklab.recipe.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,7 @@ import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
 import com.cooklab.recipe_reaction.model.RecipeReactionVO;
 import com.cooklab.recipe_report.model.RecipeReportVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
+import com.cooklab.util.HibernateUtil;
 import com.cooklab.article.model.*;
 
 
@@ -69,6 +71,12 @@ private List<RecipeVO> thislist;
 		case "changeData":
 			forwardPath = getOneForUpdate(req, res);
 			break;
+		case "update":
+			forwardPath = update(req, res);
+			return;
+			
+			
+			
 		default:
 			forwardPath =  "/dashboard/recipe/WCC_recipe.jsp";
 	}
@@ -76,6 +84,38 @@ private List<RecipeVO> thislist;
 		dispatcher.forward(req, res);
 
 		}
+
+	private String update(HttpServletRequest req, HttpServletResponse res) {
+		 String response = "fail";
+			Integer recipeNo =Integer.valueOf( req.getParameter("recipeNo"));
+			Byte statusvalue = Byte.valueOf(req.getParameter("statusvalue"));	
+			RecipeVO RecipeVO 	= this.thislist.stream().filter(e->e.getRecipeNo().equals(recipeNo)).findFirst().get();
+			RecipeVO.setRecipeStatus(statusvalue);
+			RecipeHDAOIm RSIdao = new RecipeHDAOIm(HibernateUtil.getSessionFactory());
+			boolean answer=	RSIdao.update(RecipeVO);
+			
+			if(answer) {
+				System.out.println("更新完成");
+				 response="success";
+			}else {
+				System.out.println("更新失敗");
+				 response="fails";
+
+			}
+			
+			 try {
+				 res.setCharacterEncoding("UTF-8");
+				 res.setContentType("text/plain");
+				 PrintWriter writer = res.getWriter();
+				 System.out.println("傳送訊息給前端:"+response);
+				 writer.write(response);
+				 writer.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return null;
+	}
 
 	private String geAllRecipe(HttpServletRequest req, HttpServletResponse res) {
 		RecipeServiceIm RSIdao = new RecipeServiceIm();

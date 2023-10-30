@@ -63,7 +63,7 @@
                 select.none{
                     display:none;
                 }
-                p.none{
+                a.none{
                     display:none;
                 }
                 span.none{
@@ -72,7 +72,7 @@
                 span.wcc{
                     border: 1px solid rgb(151, 135, 249);
                     background-color: rgb(195, 241, 253); 
-                                    border-radius: 20px;
+                 border-radius: 20px;
                 }
       </style>
 </head>
@@ -259,14 +259,14 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>討論區回文檢舉</h3>
+                            <h3>食譜管理</h3>
                             <p class="text-subtitle text-muted"></p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html"></a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">討論區檢舉</li>
+                                    <li class="breadcrumb-item"><a href="index.html">食譜管理</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">食譜管理</li>
                                 </ol>
                             </nav>
                         </div>
@@ -283,15 +283,14 @@
                         
                          <div class="col-md-2"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;">
                         <select class="wcc" id="selectsearch" style="background-color:white; padding-left: 20px;: border-color:white;">
-                        <option value="articleSubReportNo">檢舉編號</option>
-                        <option value="reporterId">檢舉者ID</option>              
-                       <option value="reporterAccount">檢舉者帳號</option>                                 
-                        <option value="reporterNickname">檢舉者暱稱</option>
-                         <option value="articleNo">文章編號</option>
-                        <option value="articleTitle">文章名稱</option>   
-                        <option value="articleSubNo">回文編號</option>                           
-                        <option value="reportingStatus">檢舉狀態</option>                                           
-                          <option value="createdTimestamp">時間</option>                       
+                        <option value="recipeNo">食譜編號</option>
+                        <option value="recipeName">食譜暱稱</option>              
+                       <option value="memberID">作者ID</option>                                 
+                        <option value="memberNickname">作者暱稱</option>
+                         <option value="viewCount">遊覽人數</option>
+                        <option value="recipeReaction">點讚人數</option>   
+                          <option value="lastEditTimestamp">最後編輯時間</option>                       
+                          <option value="createdTimestamp">建立時間</option>                       
                         <option value="wcc" selected>所有欄位</option>
                         </select>                          </div>    
                                <div class="col-md-6"  >                     
@@ -320,7 +319,7 @@
                                         <th class="resizable recipeStatus"name="recipeStatus">食譜狀態</th>
                                         <th class="resizable lastEditTimestamp"name=" lastEditTimestamp">最後編輯時間</th>
                                          <th class="resizable createdTimestamp"name=" createdTimestamp">建立時間</th>                        
-                                        <th class="resizable">操作</th>
+                                        <th class="resizable" style=" white-space: nowrap; overflow: hidden;">&nbsp;操作AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -367,7 +366,6 @@
        var currentPage = 1;
 	if('${json}'){
 	 myList=JSON.parse('${json}');
-	 console.log(myList);
 	}else{ 
 		console.log("reload");
 		var form = $("<form>", {
@@ -385,8 +383,11 @@
 	       form.remove();
 			console.log("reload");
 	}
-	
-	
+const status ={
+ 			  0:" <span class='badge bg-success wcc' value='0'>公開</span>",
+ 			  1:" <span class='badge bg-warning wcc' value='1'>非公開</span>",
+ 			  2:" <span class='badge bg-danger wcc' value='2'>刪除</span>",
+ 	  }		   	 
 	
 	
 	var textall = "";
@@ -397,11 +398,7 @@
 		let text = "";
  	   for (let i=0;i <  myList.length;i++){
      	  let aa = myList[i];
-     	  let status ={
-     			  0:" <span class='badge bg-success wcc' value='0'>公開</span>",
-     			  1:" <span class='badge bg-warning wcc' value='1'>非公開</span>",
-     			  2:" <span class='badge bg-danger wcc' value='2'>刪除</span>",
-     	  }		   	  
+ 
      	  let text = "";
 		  text += "<tr>";
 		  text += "<td class='wcc recipeNo'>"+aa.recipeNo+"</td>";
@@ -412,13 +409,23 @@
 		  text +=" <td class='wcc recipeReaction'>"+aa.recipeReaction+"</td>";
 		  text +=" <td class='wcc reportCount'>"+aa.reportCount+"</td>";
 		  text +=" <td class='wcc recipeStatus'>"+status[aa.recipeStatus];
+		  text += 
+			  `
+			            <select class="wcc none" name="status">
+                        <option value="0">公開</option>
+                        <option value="1">非公開</option>
+                        <option value="2">刪除</option>
+                        </select>
+                        `;
+		  
 		  text +="</td>";
 		  text +=" <td class='wcc lastEditTimestamp'>"+aa.lastEditTimestamp+"</td>";
 		  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
-		  text += "<td>";
-		  text +="<p class='wcc'><a >修改狀態</a></p>";
-    	  text += "<p class='wcc none'><a >更新資料</a></p><p class='wcc cancel none'><a >修改狀態</a></p>";
-    	  text +=" </td>";
+		  
+		  text += "<td style=' white-space: nowrap; overflow: hidden;'><div>";
+		  text +="<a class='wcc status'>修改狀態</a><a class='wcc'>食譜連結</a>";
+    	  text += "<a class=' wcc update none'>更新資料</a><a  class='wcc cancel none'>取消修改</a>";
+    	  text +=" </div></td>";
 		  text += "</tr>";	
 		  textall+=text;
 }
@@ -428,22 +435,76 @@
 	
 // 	================================
 	
-	$(document).on("click","p.wcc",function(e){
-		let value =""+$(e.target).closest("tr").find("span.wcc").attr("value");
-        $(e.target).closest("tr").find("select.wcc").val(value);
-        $(e.target).closest("tr").find("select.wcc").toggleClass("none");		
-        $(e.target).closest("tr").find("span.wcc").toggleClass("none");		
-        $(e.target).closest("tr").find("p.wcc").toggleClass("none");		
+	var toggle = function(e){
+		let stau =""+$(e.target).closest("tr").find("span.wcc").attr("value");
+        $(e.target).closest("tr").find("select.wcc[name='status']").val(stau); //選單的值為開關的值
+        $(e.target).closest("tr").find("select.wcc").toggleClass("none");	//選單開關	
+        $(e.target).closest("tr").find("span.wcc").toggleClass("none");		// 狀態蘭開關
+        $(e.target).closest("tr").find("a.wcc").toggleClass("none");		//按鈕切換
+
+}
+	$(document).on("click","td a.status",function(e){
+		toggle(e);
+	})
+	
+		$(document).on("click","td a.cancel",function(e){
+			toggle(e);
+	})
+			$(document).on("click","td a.update",function(e){
+		let statusvalue =""+$(e.target).closest("tr").find("select.wcc[name='status']").val();
+		let recipeNo = $(e.target).closest("tr").find("td.recipeNo").text();
+		
+  	  $.ajax({
+          type: "POST",
+          url:  "<%=request.getContextPath()%>/DashboardRecipeServlet",
+          data: {
+              action:"update",
+              recipeNo:recipeNo,
+              statusvalue:statusvalue,
+          },
+          success: function(response) {
+        	  console.log(response);
+        	  if(response==="success"){
+              Swal.fire({
+                  icon: "success",
+                  title: "食譜編號: "+recipeNo +"已更改狀態"
+                  
+              })
+              console.log(response);
+        $(e.target).closest("tr").find("span.wcc").remove(); //選單的值為開關的值
+        $(e.target).closest("tr").find("td.recipeStatus").append(status[statusvalue]); //選單的值為開關的值
+
+        	  }else{
+                  Swal.fire({
+                      icon: "warning",
+                      title:"食譜編號: "+ "更改狀態失敗"
+                  })
+      			toggle(e);
+        	  
+        	  }
+        	  
+        	  
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+              // 这里处理请求失败的情况
+              console.log("请求失败:", textStatus, errorThrown);
+              Swal.fire({
+                  icon: "error",
+                  title: "请求失败",
+                  text: "无法连接到服务器或发生了错误"
+              });
+      }
+      });
+		
+		
+        $(e.target).closest("tr").find("span.wcc").remove(); //選單的值為開關的值
+        $(e.target).closest("tr").find("td.recipeStatus").append(status[statusvalue]); //選單的值為開關的值
+        $(e.target).closest("tr").find("select.wcc").toggleClass("none");	//選單開關	
+        $(e.target).closest("tr").find("span.wcc").toggleClass("none");		// 狀態蘭開關
+        $(e.target).closest("tr").find("a.wcc").toggleClass("none");		//按鈕切換
 
 	})
-// 		$(document).on("click","p.wcc",function(e){
-// 		let value =""+$(e.target).closest("tr").find("span.wcc").attr("value");
-//         $(e.target).closest("tr").find("select.wcc").val(value);
-//         $(e.target).closest("tr").find("select.wcc").toggleClass("none");		
-//         $(e.target).closest("tr").find("span.wcc").toggleClass("none");		
-//         $(e.target).closest("tr").find("p.wcc").toggleClass("none");		
 
-// 	})
 	//         =====================================
 
         	
