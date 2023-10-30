@@ -236,7 +236,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>討論區回文檢舉</h3>
+                            <h3>食譜狀態</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -266,34 +266,34 @@
                                                     <div class="form-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>回文檢舉編號</label>
+                                                                <label>食譜編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleSubReportVO.getArticleSubReportNo()} " disabled>
+                                                                <input type="text" value="${RecipeVOFake.getRecipeNo()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>回文檢舉時間</label>
+                                                                <label>食譜名稱</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleSubReportVO.getCreatedTimestamp()}" disabled>
+                                                                <input type="text" value="${RecipeVOFake.getRecipeName()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員編號(檢舉者)</label>
+                                                                <label>會員編號(作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleSubReportVO.getReporterId()}" disabled>
+                                                                <input type="text" value="${RecipeVOFake.MemberID()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員帳號(檢舉者)</label>
+                                                                <label>會員帳號(作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleSubReportVO.getMembers().getMemberAccount()}"disabled>
+                                                                <input type="text" value="${RecipeVOFake.getMemberAccount()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員暱稱(檢舉者)</label>
+                                                                <label>會員暱稱(作者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleSubReportVO.getMembers().getMemberNickname()}"
+                                                                <input type="text" value="${RecipeVOFake.getMemberNickname()}"
                                                                     disabled>
                                                             </div>
 
@@ -316,42 +316,19 @@
                                                     <div class="form-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>文章編號</label>
+                                                                <label>食譜封面</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${Article.getArticleNo()}" disabled>
+                                                                <input type="text" value="${RecipeVOFake.getCcoverImage()}" disabled>
                                                             </div>
 
                                                             <div class="col-md-6">
-                                                                <label>文章名稱</label>
+                                                                <label>點讚人數</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${Article.getArticleTitle()}" disabled>
+                                                                <input type="text" value="${RecipeVOFake.getRecipeReaction()}" disabled>
                                                             </div>
-                                                                    <div class="col-md-6">
-                                                                <label>回文編號</label>
-                                                            </div>
-                                                            <div class="col-md-6 form-group">
-                                                                <input type="text" value="${ArticleSubReportVO.getArticleSubNo()}" disabled>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>會員編號(留言者)</label>
-                                                            </div>
-                                                            <div class="col-md-6 form-group">
-                                                                <input type="text" value="${MembersVO.getMemberId()}" disabled>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>會員帳號(留言者)</label>
-                                                            </div>
-                                                            <div class="col-md-6 form-group">
-                                                                <input type="text" value="${MembersVO.getMemberAccount()}" disabled>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label>會員暱稱(留言者)</label>
-                                                            </div>
-                                                            <div class="col-md-6 form-group">
-                                                                <input type="text" value="${MembersVO.getMemberNickname()}" disabled>
-                                                            </div>
+                                                             
                                                         </div>
                                                     </div>
                                                 </form>
@@ -365,12 +342,24 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div>
-                                <label>檢舉理由:</label>
+                                <label>簡介</label>
                                 </div>
                                 <div style="width: 100%; min-height: 100px; padding-left:80PX">
                                     <textarea id="context" style="width: 70%; 
                                     resize: none; overflow: hidden;  padding:10PX; min-height:70px;" 
-                                     disabled> ${ArticleSubReportVO.getReportingReason()}</textarea>
+                                     disabled> ${RecipeVOFake.getIntroduction()}</textarea>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div>
+                                <label>補充說明</label>
+                                </div>
+                                <div style="width: 100%; min-height: 100px; padding-left:80PX">
+                                    <textarea id="context" style="width: 70%; 
+                                    resize: none; overflow: hidden;  padding:10PX; min-height:70px;" 
+                                     disabled> ${RecipeVOFake.getAdditionalExplanation()}</textarea>
 
                                 </div>
                             </div>

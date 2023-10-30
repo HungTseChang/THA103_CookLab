@@ -24,7 +24,6 @@ import com.cooklab.util.HibernateUtil;
 		"/RecipeKitchenwareServlet",
 		"/RecipeCommentsServlet",
 		"/HashtagServlet",
-		//TOM Start
 		/*Martin*/
 		"/MemberCenter",
 		"/EditPassword",
@@ -65,8 +64,8 @@ import com.cooklab.util.HibernateUtil;
 		"/PromoCodeServlet",	//優惠碼
 		"/IngredientServlet",
 		"/KitchenwaretServlet",
-		"/CartServlet"
-	
+		"/CartServlet",
+		"/DashboardRecipeServlet"
 		})
 public class OpenSessionInViewFilter implements Filter {
 
