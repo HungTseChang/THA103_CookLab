@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
@@ -26,10 +27,8 @@ public class RecipeCreateServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		Gson gson = new Gson();
-//		HttpSession session = req.getSession();
-//		MembersVO members = (MembersVO) session.getAttribute("members");
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		MembersVO memberVO = session.get(MembersVO.class, 1);
+		HttpSession session = req.getSession();
+		MembersVO membersVO = (MembersVO) session.getAttribute("membersVO");
 
 		BufferedReader reader = req.getReader();
 		StringBuilder jsonBuilder = new StringBuilder();
@@ -39,7 +38,7 @@ public class RecipeCreateServlet extends HttpServlet {
 		}
 		RecipeCreateDTO recipeCreateDTO = gson.fromJson(jsonBuilder.toString(), RecipeCreateDTO.class);
 
-		Integer recipeNo = new RecipeServiceIm().createRecipe(memberVO, recipeCreateDTO);
+		Integer recipeNo = new RecipeServiceIm().createRecipe(membersVO, recipeCreateDTO);
 		String jsonString = gson.toJson(recipeNo);
 		res.getWriter().write(jsonString);
 		return;

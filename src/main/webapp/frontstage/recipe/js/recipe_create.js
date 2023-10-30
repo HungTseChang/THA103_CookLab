@@ -105,7 +105,7 @@ $(function () {
     $("#tagBox article").on("click", function (e) {
         e.stopPropagation();
     });
-
+    //新增標籤
     $("#tagBox div").on("click", ".addTag", function () {
         let that = this;
         let tagText = $(that).text();
@@ -192,7 +192,6 @@ $(function () {
     $("#addStep").on("click", function () {
         step = parseInt($("#listStep .step:last").attr("step")) + 1;
         if (!step) step = 1;
-        console.log($("#listStep .row:last"));
         let addStep = `<div class="row step" step="${step}">
                     <div class="col-md-3 text-center">
                         <div class="step-img-view">

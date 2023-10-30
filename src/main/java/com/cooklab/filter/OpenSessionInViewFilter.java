@@ -13,12 +13,18 @@ import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
 @WebFilter(urlPatterns = { 
+		/*Martin*/
+		"/RecipeCreateServlet",
+		"/RecipeUpdateServlet",
 		"/RecipeOverviewImgServlet",
 		"/RecipeOverviewServlet",
 		"/RecipeCollectionServlet",
+		"/RecipeCollectionStatusServlet",
 		"/RecipeIngredientServlet",
 		"/RecipeKitchenwareServlet",
+		"/RecipeCommentsServlet",
 		"/HashtagServlet",
+		/*Martin*/
 		"/MemberCenter",
 		"/EditPassword",
 		"/MembersImgServlet",

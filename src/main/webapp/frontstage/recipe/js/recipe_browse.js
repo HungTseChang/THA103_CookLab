@@ -3,6 +3,7 @@ var path = window.location.pathname;
 var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/RecipeCollectionServlet";
+const COLLECTIONSTATUS_POINT = "/RecipeCollectionStatusServlet";
 const RECIPE_POINT = "/RecipeOverviewServlet";
 const COMMENTS_POINT = "/RecipeCommentsServlet";
 var queryString = window.location.search;
@@ -11,7 +12,7 @@ var recipeNo = params.get("recipeNo");
 let step = 0;
 let recipeCollectionNo;
 /*============================================================ function ============================================================*/
-//新增一列食材  // <input type="text" class="form-control ingredient" readonly="readonly" value="${ingredients.ingredient}"/>
+//新增一列食材
 function addIngredient(ingredients) {
     let addIngredient = `<div class="row align-items-center " style="margin: 5px">
                             <div class="col-md-5 ">
@@ -19,7 +20,7 @@ function addIngredient(ingredients) {
                                 <div class="search-results"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control ingredient-quantity" readonly="readonly" value="${ingredients.ingredientQuantity}"/>
+                                <span type="text" class="form-control ingredient-quantity"  value="${ingredients.ingredientQuantity}"/>
                             </div>
                         </div>`;
     $("#listIngredient").append(addIngredient);
@@ -40,13 +41,13 @@ function addStep(index, step) {
     <div class="col-md-3 text-center">
         <div class="step-img-view">
             <span class="text">無上傳圖片</span>
-            <img id="stepImg" src="data:image/*;base64,${step.stepImg}" alt="" onerror="this.style.display='none';"/>
+            ${step.stepImg != null ? '<img id="stepImg" src=data:image/*;base64,' + step.stepImg + ' alt="" onerror="this.style.display="none"/>' : ""}
         </div>
     </div>
     <div class="col-md-8">
         <div class="row">
             <span class="recipe_content col-md-2">步驟${index + 1}:</span>
-            <input type="text" class="form-control col-md-3 step-time" readonly="readonly" value="${step.stepTime}分鐘" />
+            <span type="text" class="form-control col-md-3 step-time" value="${step.stepTime}分鐘" />
         </div>
         <textarea class="form-control martin-textarea step-content" aria-label="With textarea" readonly="readonly" value="${step.stepContent}"></textarea>
     </div>
@@ -73,12 +74,12 @@ $.ajax({
     data: { recipeNo: params.get("recipeNo"), action: "browse" }, // 將物件資料(不用雙引號) 傳送到指定的 url
     dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
     success: function (data) {
-        $("#recipeName").val(data.recipeName);
+        $("#recipeName").text(data.recipeName);
         $("#coverImage").attr("src", "data:image/*;base64," + data.coverImage);
         $("#introduction").val(data.introduction);
         $("#additionalExplanation").val(data.additionalExplanation);
         //		$("#recipeQuantity").val(data.recipeQuantity);
-        $("#recipeQuantity").val(data.recipeQuantity + "人份");
+        $("#recipeQuantity").text(data.recipeQuantity + "人份");
         // $("#createdTimestamp")
         $(data.ingredient).each(function (index, element) {
             addIngredient(element);
@@ -104,12 +105,12 @@ $.ajax({
 });
 //載入收藏狀態
 $.ajax({
-    url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
+    url: END_POINT_URL + COLLECTIONSTATUS_POINT, // 資料請求的網址
     type: "POST", // GET | POST | PUT | DELETE | PATCH
-    data: { recipeNo, action: "status" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+    data: { recipeNo }, // 將物件資料(不用雙引號) 傳送到指定的 url
     dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
     success: function (data) {
-        data ? $("#addCollection").addClass("none") : $("#removeCollection").addClass("none");
+        data ? $("#removeCollection").removeClass("none") : $("#addCollection").removeClass("none");
         recipeCollectionNo = data;
     },
     error: function (xhr) {
@@ -160,6 +161,9 @@ $("#submitComment").on("click", function () {
         type: "POST", // GET | POST | PUT | DELETE | PATCH
         data: { recipeNo, action: "insert", commentContent: $("#inputComment").val() }, // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        headers: {
+            orginURL: window.location.href,
+        },
         success: function (data) {
             console.log(data);
             addComments(data);
@@ -167,6 +171,7 @@ $("#submitComment").on("click", function () {
         error: function (xhr) {
             console.log("ajax失敗");
             console.log(xhr);
+            window.location.href = "../members/login.html";
         },
     });
 });
