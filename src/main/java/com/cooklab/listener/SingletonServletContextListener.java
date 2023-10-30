@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebListener;
 
 import com.cooklab.util.HibernateUtil;
 import com.cooklab.util.JedisUtil;
-@WebListener
+
 public class SingletonServletContextListener implements ServletContextListener {
 
     @Override
