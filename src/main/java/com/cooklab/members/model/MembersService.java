@@ -24,7 +24,7 @@ public class MembersService {
 
 	public MembersVO addMembers(String memberAccount, String memberPassword,String memberIntroduce,
 			String memberCellphone,String memberMail, java.sql.Date memberDate,String memberAddress,String memberCountry
-			,Byte memberStatus, String memberNickname,Byte memberGender
+			,Byte memberStatus, String memberNickname,Byte memberGender,byte[] img
 			) {
 
 		MembersVO membersVO = new MembersVO();
@@ -40,7 +40,7 @@ public class MembersService {
 		membersVO.setMemberStatus(memberStatus);
 		membersVO.setMemberNickname(memberNickname);
 		membersVO.setMemberGender(memberGender);
-//		membersVO.setMemberPicture(memberPicture);
+		membersVO.setMemberPicture(img);
 		
 		dao.insert(membersVO);
 

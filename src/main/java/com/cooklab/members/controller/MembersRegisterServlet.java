@@ -1,5 +1,6 @@
 package com.cooklab.members.controller;
 
+import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,20 +47,26 @@ public class MembersRegisterServlet extends HttpServlet{
 		res.setContentType("text/html;charset=UTF-8");
         // 獲取 PrintWriter 用來輸出到前端  =========================================
         PrintWriter out = res.getWriter();
-		
+        HashMap<String, Object> hmap = new HashMap<>();
+		Gson gson = new Gson();
 		//取得Ajax傳來的新增資訊 ====================================================
-		String account = req.getParameter("account");
-		String password = req.getParameter("password");
+		String account = req.getParameter("account").trim();
+		String password = req.getParameter("password").trim();
 		String gender = req.getParameter("gender");
-		String nickname = req.getParameter("nickname");
+		String nickname = req.getParameter("nickname").trim();
 		String birthdate = req.getParameter("birthdate");
-		String address = req.getParameter("address");
+		String address = req.getParameter("address").trim();
 		String location = req.getParameter("location");
-		String phonenumber = req.getParameter("phonenumber");
-		String email = req.getParameter("email");
-		String introduce = req.getParameter("introduction");
+		String phonenumber = req.getParameter("phonenumber").trim();
+		String email = req.getParameter("email").trim();
+		String introduce = req.getParameter("introduction").trim();
 		
-		//加密 ==================================================================
+		//加入預設圖片 ==================================================================
+		
+		String imagePath = getServletContext().getRealPath("/frontstage/img/defaultMember.png");
+		System.out.println(imagePath);
+		byte[] pic =  getPictureByteArray(imagePath);
+		System.out.println(pic.toString());
 		
 		//驗證 ==================================================================
 		MembersService memSer = new MembersService();
@@ -88,15 +95,23 @@ public class MembersRegisterServlet extends HttpServlet{
 		memVO.setMemberCountry(location);
 		memVO.setMemberCellphone(phonenumber);
 		memVO.setMemberMail(email);
-
-		System.out.println("第0節點======================================");
+		
 		//寫入資料庫
 		MembersService memSrv = new MembersService();
-		System.out.println("第一節點======================================");
+		//先檢查是否有重複帳號
+		MembersVO accountNull = memSrv.getOneMemberAccount(account);
+		
+		if(accountNull != null)	//有重複帳號
+		{
+			System.out.println("有重複帳號");
+			hmap.put("res", "AccountFail");
+			String jsonString = gson.toJson(hmap);
+			res.getWriter().write(jsonString);	
+			return;
+		}
 		memVO = memSrv.addMembers(account,password,introduce,
-				phonenumber,email, sqlDate,address,location,(byte) 1,nickname,genderByte);
+				phonenumber,email, sqlDate,address,location,(byte) 1,nickname,genderByte,pic);
 		//再查一次
-		System.out.println("第二節點======================================");
 		MembersService memSrv2 = new MembersService();
 		memVO = memSrv2.getOneMemberAccount(account);
 		
@@ -124,9 +139,7 @@ public class MembersRegisterServlet extends HttpServlet{
 		jedis.expire("Member:"+memVO.getMemberId(), 600);
 		jedis.close();
 		//跳轉頁面
-		Gson gson = new Gson();
-		HashMap<String, Object> hmap = new HashMap<>();
-		hmap.put("RedirectURL","1");
+		hmap.put("res","success");
 		String jsonData = gson.toJson(hmap);
 		res.setContentType("application/json");// 设置响应的Content Type为JSON
 		res.setCharacterEncoding("UTF-8");
@@ -206,5 +219,12 @@ public class MembersRegisterServlet extends HttpServlet{
 //			res.getWriter().write(jsonData);
 //		}
 
+	}
+	// 使用byte[]方式
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		FileInputStream fis = new FileInputStream(path);
+		byte[] buffer = fis.readAllBytes();
+		fis.close();
+		return buffer;
 	}
 }
