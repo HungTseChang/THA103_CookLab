@@ -74,11 +74,9 @@ public class ArticleService {
 
 	public void updateViewCount(Integer articleNo, Integer viewCount) {
 		ArticleVO existingArticle = dao.findByPrimaryKey(articleNo);
-
-		// 设置新的 articleStatus 值
 		existingArticle.setArticleNo(articleNo);
 		existingArticle.setViewCount(viewCount);
-		// 调用 DAO 更新 articleStatus
+	
 		dao.update(existingArticle);
 	}
 
