@@ -227,7 +227,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 													<div class="col-12" style="margin-top: 20px;">
 														<div class="form-group">
 															<label for="advertiseNo-vertical">廣告編號</label> <input
-																type="hidden" id="advertiseNo-vertical"
+																type="text" id="advertiseNo-vertical"
 																class="form-control" name="advertise_no"
 																value="${advertiseVO.advertiseNo}" placeholder="廣告編號">
 														</div>

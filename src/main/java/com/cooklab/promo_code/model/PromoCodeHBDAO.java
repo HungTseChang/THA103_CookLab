@@ -48,6 +48,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 		try {
 			session.beginTransaction();
 			session.update(promoCode);
+			System.out.println("開始更新");
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
