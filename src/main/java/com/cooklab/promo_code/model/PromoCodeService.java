@@ -12,7 +12,7 @@ public class PromoCodeService {
 
 	public PromoCodeService() {
 //		dao = new PromoCodeJDBCDAOIm();
-		dao = new PromoCodeHBDAO(HibernateUtil.getSessionFactory());
+		dao = new PromoCodeHBDAO();
 	}
 
 //	public PromoCodeVO addPromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,
@@ -73,8 +73,5 @@ public class PromoCodeService {
 		return dao.getAll();
 	}
 
-	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
-		return dao.findByPromoCodeSerialNumber(promoCodeSerialNumber);
-	}
 
 }
