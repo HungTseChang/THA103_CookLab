@@ -13,7 +13,6 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DataTable - Mazer Admin Dashboard</title>
-
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
@@ -41,34 +40,27 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 <link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
 <link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
 <style>
-#preview {
-	border: 1px solid lightgray;
-	display: inline-block;
-	width: 100px;
-	min-height: 100px;
-	position: relative;
+td a.wcc {
+	border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
 }
 
-#preview span.text {
-	position: absolute;
-	display: inline-block;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	z-index: -1;
-	color: lightgray;
+td button.wcc {
+	border-radius: 20px;
 }
 
-#preview img.preview_img {
-	width: 100%;
+input.WCC_memeber_info {
+	width: 60%;
 }
 </style>
 
 </head>
 
 <body>
-	<div id="app">
-		<div id="sidebar" class="active">
+	<div  id="app">
+		<div  id="sidebar" style="display:inline; width:50px;" class="active">
 			<div class="sidebar-wrapper active">
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
@@ -181,7 +173,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 				</button>
 			</div>
 		</div>
-		<div id="main">
+		<div class"col-md-6" id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
 					class="bi bi-justify fs-3"></i>
@@ -305,7 +297,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 			</footer>
 		</div>
 	</div>
-	<script
+<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
@@ -361,8 +353,6 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
 	<script>
-		let table1 = document.querySelector("#table1");
-		let dataTable = new simpleDatatables.DataTable(table1);
 		$('#summernote').summernote({
 			tabsize : 2,
 			height : 120,
@@ -387,8 +377,6 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
-
-
 </body>
 
 </html>
