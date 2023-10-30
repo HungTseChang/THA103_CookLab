@@ -27,7 +27,7 @@ import javax.servlet.http.Part;
 
 import com.cooklab.advertise.model.AdvertiseService;
 import com.cooklab.advertise.model.AdvertiseVO;
-import com.cooklab.product.model.ProductService;
+
 import com.google.gson.Gson;
 
 /**

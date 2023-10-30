@@ -63,9 +63,9 @@ public class PromoCodeServlet extends HttpServlet {
 				return;// 程式中斷
 			}
 
-			Integer promoCodeNo = null;
+			Integer promocodeno = null;
 			try {
-				promoCodeNo = Integer.valueOf(str);
+				promocodeno = Integer.valueOf(str);
 			} catch (Exception e) {
 				errorMsgs.add("優惠碼編號格式不正確");
 			}
@@ -78,13 +78,14 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			PromoCodeService promoCodeSvc = new PromoCodeService();
-			PromoCodeVO promoCodeVO = promoCodeSvc.getOnePc(promoCodeNo);
+			PromoCodeVO promoCodeVO = promoCodeSvc.getOnePc(promocodeno);
 			if (promoCodeVO == null) {
 				errorMsgs.add("查無資料");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/promocode/select_page.jsp");
+				System.out.println(promocodeno);
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
