@@ -277,8 +277,20 @@
       // $(function() {
       //   reipceLoad(0);
       // })
-
+        
+      // <img src="${endPointURL + coverImage + "?recipeNo=" + recipe.recipeNo}" alt="食譜封面圖" class="rec-img-preview" />
       function addListRecipe(recipe) {
+        var recipeStatusString ="";
+
+        if(recipe.recipeStatus == 0)
+          recipeStatusString ="草稿"
+        else if(recipe.recipeStatus == 1)
+          recipeStatusString ="公開"
+        else if(recipe.recipeStatus == 2)
+          recipeStatusString ="未公開"
+
+        if(recipe.recipeStatus != 3)
+        {
         let addrecipe = `<div id="recipeList">
               <div class="row m-0 ml-2 my-3 ding-folrec-border">
                 <div class="col-3 align-self-center p-0 pb-2">
@@ -287,8 +299,8 @@
                 <div class="col-6">
                   <div class="row h-100">
                     <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">${recipe.recipeName}</a></div>
-                    <!-- <div class="col-12 text-muted my-1">食材1、食材2、食材3</div> -->
                     <div class="col-12 text-muted my-1">${recipe.introduction}</div>
+                    <div class="col-12 text-muted my-1">${recipe.recipeHashtag}</div>
                   </div>
                 </div>
                 <div class="col-3">
@@ -297,13 +309,13 @@
                       <button type="button" class="btn ding-btn-org w-50">修改</button>
                     </div>
                     <div class="col-12 mb-2">
-                      <button type="button" class="btn ding-btn-org w-50">刪除</button>
+                      <a href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=3"onclick="return confirm('確定刪除?')"><button type="button" class="btn ding-btn-org w-50">刪除</button></a>
                     </div>
                     <div class="dropdown col-12 mb-2">
-                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">公開</button>
+                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">${recipeStatusString}</button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item ding-dropdown-item" href="#">公開</a>
-                        <a class="dropdown-item ding-dropdown-item" href="#">未公開</a>
+                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">公開</a>
+                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
                       </div>
                     </div>
                     <div class="col-12 align-self-end text-right pb-2">
@@ -317,6 +329,7 @@
             </div>`
         $("#recipeList").append(addrecipe);
       }
+    }
       /*============================================================ event ============================================================*/
       $("#page").on("click", ".page", function() {
         $(".page").removeClass("disabled")

@@ -2,6 +2,7 @@ package com.cooklab.members.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -36,12 +37,64 @@ public class MembersFollowServlet extends HttpServlet{
 		HttpSession session = req.getSession();
 		Integer userId = (Integer)session.getAttribute("userId");
 		
-		List<MembersVO> listMembersVO = new MembersService().getFollow(Integer.valueOf(0)*10, 90,userId);
-		List<MemberFollowOverViewDTO> listMemberFollowOverViewDTO = new ArrayList<>();
-		for(MembersVO membersVO :listMembersVO) {
-			listMemberFollowOverViewDTO.add(new MemberFollowOverViewDTO(membersVO));
+		//從請求拿值 看要做甚麼動作
+        String action = req.getParameter("action");
+        
+        //先拿好 Session
+		if(action.equals("overview"))
+		{
+			List<MembersVO> listMembersVO = new MembersService().getFollow(Integer.valueOf(0)*10, 90,userId);
+			List<MemberFollowOverViewDTO> listMemberFollowOverViewDTO = new ArrayList<>();
+			for(MembersVO membersVO :listMembersVO) {
+				listMemberFollowOverViewDTO.add(new MemberFollowOverViewDTO(membersVO));
+			}
+			String jsonString = gson.toJson(listMemberFollowOverViewDTO);
+			res.getWriter().write(jsonString);	
 		}
-		String jsonString = gson.toJson(listMemberFollowOverViewDTO);
-		res.getWriter().write(jsonString);	
+		else if(action.equals("newMemberCO"))
+		{
+			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
+			
+			MembersService mc = new MembersService();
+			mc.addMembersColloection(CoId,userId);
+			
+			HashMap<String, Object> hmap = new HashMap<>();
+			hmap.put("res", "CollectionOK");
+			
+			String jsonString = gson.toJson(hmap);
+			res.getWriter().write(jsonString);	
+			System.out.println("新增關注會員成功");
+		}
+		else if(action.equals("delMemberCO"))
+		{
+			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
+//			System.out.println(CoId);
+			MembersService mc = new MembersService();
+			mc.deleteMemberColloection(CoId,userId);
+			
+			HashMap<String, Object> hmap = new HashMap<>();
+			hmap.put("res", "DelCollectionOK");
+			
+			String jsonString = gson.toJson(hmap);
+			res.getWriter().write(jsonString);	
+			
+			System.out.println("刪除關注會員成功");
+		}
+		//刪除討論區文章收藏
+		else if(action.equals("delArticleCO"))
+		{
+			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
+//			System.out.println(CoId);
+			MembersService mc = new MembersService();
+			mc.DeleteArticleCollection(CoId);
+			
+			HashMap<String, Object> hmap = new HashMap<>();
+			hmap.put("res", "DelCollectionOK");
+			
+			String jsonString = gson.toJson(hmap);
+			res.getWriter().write(jsonString);	
+			
+			System.out.println("刪除關注討論區文章成功");
+		}
 	}
 }

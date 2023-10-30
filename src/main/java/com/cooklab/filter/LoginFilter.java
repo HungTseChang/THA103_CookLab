@@ -23,7 +23,11 @@ import javax.servlet.http.HttpSession;
 		"/frontstage/members/member-panel-recipe.html",			//查詢食譜
 		"/frontstage/members/member-panel-post.html",				//查詢討論區文章
 		"/frontstage/members/member-panel-follow.html",			//查詢關注
-		"/frontstage/members/VerificationLetter.html"				//收取驗證信
+		"/frontstage/members/VerificationLetter.html",				//收取驗證信		
+		"/frontstage/article/article_edit.jsp",
+		"/frontstage/article/article_sub_edit.jsp",
+		"/frontstage/article/article_report.jsp"
+
 		})
 public class LoginFilter extends HttpFilter implements Filter{
 	
