@@ -71,16 +71,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
+			headers: {
+				orginUrl: window.location.href
+			},
 			success: function(response) {
 
 				console.log('商品已添加到购物车');
 				alert("商品添加到購物車囉");
 			},
 			error: function(xhr) {
-				if (xhr.status == 200) {
-					alert("請先登入會員");
-					window.location.href = `../members/login.html`;
-				}
+				alert("請先登入會員");
+				window.location.href = `../members/login.html`;
+
 				console.log('AJAX请求失败：' + xhr.status);
 			}
 		});
@@ -101,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			action: 'buttonadd2',
 			productNo: productId, // 获取成功添加到购物车的商品编号
 			quantity: quantity
+
 		};
 		console.log(requestData);
 
@@ -109,25 +112,26 @@ document.addEventListener("DOMContentLoaded", () => {
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
+			headers: {
+				orginUrl: window.location.href
+			},
 			success: function(response) {
 				console.log('商品已添加到购物车');
-				// 将成功添加到购物车的商品编号添加到数组
+
 				selectedProducts.push(productId);
-				// 创建一个包含商品编号的查询参数
+
 				const queryParameters = new URLSearchParams();
 				queryParameters.set('selectedProducts', JSON.stringify(selectedProducts));
-				// 构建要跳转到的checkout.html页面的URL，将查询参数添加到URL中
+
 				const targetURL = `checkout.html?${queryParameters.toString()}`;
 
 				// 执行页面跳转
 				window.location.href = targetURL;
 			},
 			error: function(xhr) {
-				if (xhr == 200) {
-					alert("請先登入會員");
-					window.location.href = `../members/login.html`;
-				}
-				console.log('AJAX请求失败：' + xhr.status);
+				console.log('AJAX：' + xhr.status);
+				alert("請先登入會員");
+				window.location.href = `../members/login.html`;
 			}
 		});
 	});
@@ -143,9 +147,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// 编写一个函数来从URL参数中获取商品ID
+
 function getProductIdFromURL() {
-	// 从URL中获取productNo参数的值
+
 	const urlParams = new URLSearchParams(window.location.search);
 	return urlParams.get("productNo");
 }
@@ -170,16 +174,15 @@ function populateHotKeywords(keywords) {
 }
 
 function fetchDataAndRender2() {
-	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
+
 	fetch(END_POINT_URL + COLLECTION_POINT + '?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
-			return response.json(); // 解析 JSON 数据
+			return response.json();
 		})
 		.then(keywords => {
-			// 将商品名称填充到热门关键字部分
 			populateHotKeywords(keywords);
 		})
 		.catch(error => {
