@@ -69,7 +69,6 @@ public class MembersRegisterServlet extends HttpServlet{
 		System.out.println(pic.toString());
 		
 		//驗證 ==================================================================
-		MembersService memSer = new MembersService();
 		MembersVO memVO = new MembersVO();
 		
 		memVO.setMemberAccount(account);

@@ -46,7 +46,8 @@ import com.cooklab.util.HibernateUtil;
 	"/ArticleSubReportServlet",
 		"/MemberdashboardServlet",
 		"/LoginServlet",
-		"/ReVerification"
+		"/ReVerification",
+		"/ForgetPassowrd"
 		})
 public class OpenSessionInViewFilter implements Filter {
 
