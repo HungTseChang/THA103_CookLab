@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
-@WebFilter(urlPatterns = { 
+@WebFilter(urlPatterns = {
 		"/RecipeOverviewImgServlet",
 		"/RecipeOverviewServlet",
 		"/RecipeCollectionServlet",

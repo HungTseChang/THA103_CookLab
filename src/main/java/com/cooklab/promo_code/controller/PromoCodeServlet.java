@@ -107,7 +107,7 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			/*************************** 1.接收請求參數 ****************************************/
-			Integer promoCodeNo = Integer.valueOf(req.getParameter("promoCodeNo"));
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no"));
 			
 			PromoCodeVO promoCodeVO = new PromoCodeVO();
 		
@@ -138,8 +138,8 @@ public class PromoCodeServlet extends HttpServlet {
 				String name = aa.nextElement();
 				System.out.println(name);
 			}
-			System.out.println("編號為:"+req.getParameter("promoCodeNo"));
-			Integer promoCodeNo = Integer.valueOf(req.getParameter("promoCodeNo").trim());
+			System.out.println("編號為:"+req.getParameter("promo_code_no"));
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promo_code_no").trim());
 			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
 			java.sql.Timestamp startTime = null;
 			String startTimeStr = req.getParameter("start_time");

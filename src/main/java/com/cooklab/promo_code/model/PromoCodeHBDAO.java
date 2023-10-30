@@ -81,7 +81,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //
 //			session.beginTransaction();
 			PromoCodeVO promoCodeVo = session
-					.createQuery("from PromoCodeVO where promoCodeNo=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
+					.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 
 //			session.getTransaction().commit();
 			return promoCodeVo;
