@@ -151,7 +151,7 @@
         <div class="row ding-panel">
           <div class="col-12 p-2 bg-light border">
             <div class="row mb-2">
-              <div class="h2 mx-auto ding-panel-title">驗證信已發出，請收取Mail後輸入驗證碼成為正式會員</div>
+              <div class="h2 mx-auto ding-panel-title">驗證會員</div>
             </div>
             <div class="row">
               <div class="col-12 d-flex justify-content-center">
@@ -164,7 +164,8 @@
                     </div>
                     
                     <div>
-                      <button type="button" class="btn ding-btn-org ml-2">再次寄出驗證信</button>
+                      <button type="button" class="btn ding-btn-org ml-2" id="reSend">寄出驗證信
+                        <span id="countdown"></span></button>
                     </div>
                   </div>
                   
@@ -261,10 +262,14 @@
     
     <script>
 
+var host = window.location.host;
+      var path = window.location.pathname;
+      var webCtx = path.substring(0, path.indexOf('/', 1));
+      var endPointURL = "http://" + host + webCtx;
       //========================= 這裡是判斷是否有登入過的 ajax ================================
     $.ajax({
 	    type: "GET", // 指定请求类型为GET
-	    url: "http://localhost:8081/CookLab/Register", // 你的Servlet URL
+	    url: endPointURL + "/Register", // 你的Servlet URL
 	    success: function(data) {
 	        // 请求成功后的处理
 	        console.log("成功获取数据: " + data);
@@ -286,11 +291,11 @@
 	    };
 	    $.ajax({
 	      type: "POST",
-	      url: "http://localhost:8081/CookLab/Verification", // 替换为你的Servlet的URL
+	      url: endPointURL + "/Verification", // 替换为你的Servlet的URL
 	      data: data,
 	      success: function (res) {
           if(res.Sres == "success") //驗證成功
-            window.location.href = "http://localhost:8081/CookLab/members/member-panel.jsp";
+            window.location.href = endPointURL + "/frontstage/members/member-panel.jsp";
           else
            alert("驗證碼輸入錯誤，請重試");	
             // if(res.wrongType === undefined)
@@ -333,6 +338,56 @@
 	      }
     });
   });
+  $('#reSend').click(function() {
+        var $button = $(this);
+        startCountdown();
+        // $button.prop('disabled', true);
+        
+        // // 30秒
+        // setTimeout(function() {
+        //     $button.prop('disabled', false);
+        // }, 30000); // 30秒 = 30000毫秒
+    });
+
+
+    var $countdown = $('#countdown');
+    var countdownValue = 30; // 倒计时秒数
+    var $button = $('#reSend');
+    function startCountdown() {
+        // 禁用按钮
+        $button.prop('disabled', true);
+        sendMail();
+        // 更新倒计时文本
+        $countdown.text(countdownValue);
+        // 启动倒计时
+        var countdownInterval = setInterval(function() {
+            countdownValue--;
+            $countdown.text(countdownValue);
+            
+            if (countdownValue <= 0) {
+                clearInterval(countdownInterval);
+                // 計時結束後
+                $button.prop('disabled', false);
+                countdownValue = 30;
+                $countdown.text('');
+            }
+        }, 1000); // 每秒更新一次倒计时
+    }
+    function sendMail(){
+    $.ajax({
+		url: endPointURL + "/ReVerification", // 資料請求的網址
+		type: "POST", // GET | POST | PUT | DELETE | PATCH
+		data: { action: "overview" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+		dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+		success: function(data) {
+			console.log("成功發送驗證碼");
+		},
+		error: function(xhr) {
+			console.log("ajax失敗");
+			console.log(xhr);
+		},
+	});
+}
     </script>
   </body>
 </html>

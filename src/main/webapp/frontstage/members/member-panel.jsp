@@ -180,7 +180,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                 <form class="pl-5">
                    <div class="form-group form-row">
                     <label for="memberstatus" class="col-sm-2 col-form-label ding-data-short">狀態：</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 SendcomfrimClass">
                       <input type="text" readonly   class="form-control-plaintext" id="memberStatus" name="member_status" value="<%=memVO.getMemberStatus()%>" />
                     </div>
                   </div>
@@ -338,6 +338,12 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <script src="../js/main.js"></script>
     <script src="../js/TomJS.js"></script>
     <script>
+      var       recipeServlet = "/";
+      var host = window.location.host;
+      var path = window.location.pathname;
+      var webCtx = path.substring(0, path.indexOf('/', 1));
+      var endPointURL = "http://" + host + webCtx;
+      //================================================
     	function redirectToEdit(){
     		window.location.href = "member-panel-editting.jsp";
     	}
@@ -353,6 +359,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
 	    	statusValue.setAttribute('value','已啟用');
 	    } else if (statusValue.getAttribute('value') == "1") {
 	    	statusValue.setAttribute('value','未驗證');
+        $(".SendcomfrimClass").append(`<a href="VerificationLetter.html" <button type="button" class="btn Tom ding-btn-org" id="Sendcomfrim">驗證</button></a>`);
 	    } else if (statusValue.getAttribute('value') == "2") {
 	    	statusValue.setAttribute('value','已註銷');
 	    } else {

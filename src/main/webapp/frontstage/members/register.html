@@ -354,7 +354,11 @@
       if (femaleRadioButton.checked) {
         gender = 1;
       }
-    });
+    });      
+    var host = window.location.host;
+      var path = window.location.pathname;
+      var webCtx = path.substring(0, path.indexOf('/', 1));
+      var endPointURL = "http://" + host + webCtx;
     //========================= 用 AJAX 傳送欄位驗證  ================================
         // 为表单提交按钮添加点击事件处理程序
     $("#register_form").submit(function (event) {
@@ -430,11 +434,11 @@
 	    // // 发送 AJAX POST 请求到后端Servlet
 	    $.ajax({
 	      type: "POST",
-	      url: "http://localhost:8081/CookLab/Register", // 替换为你的Servlet的URL
+	      url: endPointURL+"/Register", // 替换为你的Servlet的URL
 	      data: data,
 	      success: function (res) {
           console.log("收到嚕");
-          window.location.href = "http://localhost:8081/CookLab/members/VerificationLetter.html";	
+          window.location.href = "VerificationLetter.html";	
             // if(res.wrongType === undefined)
             // {
               
