@@ -13,7 +13,7 @@ public interface ArticleSubReactionDAO {
     
     
     public ArticleSubReactionVO findByTwoCol(Integer memberId , Integer articleSubNo);
-    public Long allCount (Integer articleSubNo , Byte statuts);
+    public Long allCount (Integer articleSubNo , Byte status);
     public void saveOrUpdate(ArticleSubReactionVO articleSubReactionVO);
     
 }
