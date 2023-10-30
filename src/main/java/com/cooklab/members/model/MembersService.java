@@ -83,6 +83,9 @@ public class MembersService {
 	public MembersVO getOneMemberAccount(String memberAccount) {
 		return dao.findByMembersAccout(memberAccount);
 	}
+	public MembersVO getOneMemberMail(String email) {
+		return dao.findByMembersMail(email);
+	}
 	//修改使用者狀態
 	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus)
 	{

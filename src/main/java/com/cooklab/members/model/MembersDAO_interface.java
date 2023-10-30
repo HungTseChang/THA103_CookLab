@@ -17,6 +17,7 @@ public interface MembersDAO_interface {
     public boolean delete(Integer memberId);
     public MembersVO findByPrimaryKey(Integer memberId);
     public MembersVO findByMembersAccout(String memberAccount);
+    public MembersVO findByMembersMail(String email);
     public boolean updateMemberStatus(MembersVO membersVO);
     public List<MembersVO> getAll();
 	boolean updateMemberPassword(MembersVO membersVO);
