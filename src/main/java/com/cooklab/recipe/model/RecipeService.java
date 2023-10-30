@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cooklab.members.model.MembersVO;
 import com.cooklab.recipe.RecipeCreateDTO;
+import com.cooklab.recipe.RecipeUpdateDTO;
 
 public interface RecipeService {
 	public RecipeVO addRecipe(MembersVO memberVO, String recipeName, byte[] coverImage, String introduction,
@@ -19,10 +20,14 @@ public interface RecipeService {
 	public RecipeVO getOneRecipe(Integer recipeNo);
 	
 	public Integer createRecipe(MembersVO memberVO,RecipeCreateDTO createRecipeDTO);
+	
+	public Integer updateRecipe(MembersVO memberVO,RecipeUpdateDTO recipeUpdateDTO);
 
 	public List<RecipeVO> getAll();
 
 	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit, String search);
 
 	public long getCount(String search);
+	
+	public boolean  updateViewCount(String recipeNo,String viewCount);
 }

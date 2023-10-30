@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 
@@ -13,9 +14,20 @@ import com.cooklab.promo_code.model.*;
 import com.cooklab.util.HibernateUtil;
 
 public class PromoCodeHBDAO implements PromoCodeDAO {
+	private SessionFactory factory;
+
+	public PromoCodeHBDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+
 	@Override
 	public void insert(PromoCodeVO promoCode) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 		try {
 			session.beginTransaction();
 			session.save(promoCode);
@@ -63,26 +75,28 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 
 	@Override
 	public PromoCodeVO findByPrimaryKey(Integer promoCodeNo) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//
+//			session.beginTransaction();
+			PromoCodeVO promoCodeVo = session
+					.createQuery("from PromoCodeVO where promoCodeNo=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 
-				session.beginTransaction();
-				PromoCodeVO promoCodeVo = session.createQuery("from PromoCodeVO where promoCodeNo=" +
-				promoCodeNo,PromoCodeVO.class).uniqueResult();
-				
-				session.getTransaction().commit();
-				return promoCodeVo;
-		}catch(Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-
-		return null;
+//			session.getTransaction().commit();
+			return promoCodeVo;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}
+//
+//		return null;
 	}
 
 	@Override
 	public List<PromoCodeVO> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
 		try {
 			session.beginTransaction();
 			List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
@@ -99,22 +113,23 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 
 	@Override
 	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+//		try {
+//			session.beginTransaction();
 			String hql = "FROM PromoCodeVO p WHERE p.promoCodeSerialNumber = :serialNumber";
 			Query<PromoCodeVO> query = session.createQuery(hql, PromoCodeVO.class);
 			query.setParameter("serialNumber", promoCodeSerialNumber);
 			PromoCodeVO promoCode = query.uniqueResult();
 
-			session.getTransaction().commit();
+//			session.getTransaction().commit();
 			return promoCode;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			session.getTransaction().rollback();
+//		}
+//		return null;
 	}
 
 }

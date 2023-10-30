@@ -5,7 +5,7 @@ public class ArticleSubReactionVO  implements java.io.Serializable{
 	private Integer articleSubReactionNo;
 	private Integer memberId;
 	private Integer articleSubNo;
-	private Byte statuts;
+	private Byte status;
 	private Date createdTimestamp;
 	public Integer getArticleSubReactionNo() {
 		return articleSubReactionNo;
@@ -25,11 +25,11 @@ public class ArticleSubReactionVO  implements java.io.Serializable{
 	public void setArticleSubNo(Integer articleSubNo) {
 		this.articleSubNo = articleSubNo;
 	}
-	public Byte getStatuts() {
-		return statuts;
+	public Byte getStatus() {
+		return status;
 	}
-	public void setStatuts(Byte statuts) {
-		this.statuts = statuts;
+	public void setStatuts(Byte status) {
+		this.status = status;
 	}
 	public Date getCreatedTimestamp() {
 		return createdTimestamp;

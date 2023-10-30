@@ -30,7 +30,7 @@ public class MemberRecipeOverViewDTO {
 		if(recipeVO.getCoverImage() != null)
 			this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
 //		else
-//			this.coverImage = "iVBORw0KGg==";
+//			this.coverImage = "";
 		this.recipeName = recipeVO.getRecipeName();
 		this.introduction = recipeVO.getIntroduction();
 		this.recipeStatus = recipeVO.getRecipeStatus();

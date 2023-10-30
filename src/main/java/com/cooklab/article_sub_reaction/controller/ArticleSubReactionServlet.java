@@ -58,10 +58,10 @@ public class ArticleSubReactionServlet extends HttpServlet {
 				System.out.println("文章號碼錯誤");
 			}
 			
-			String statutsStr = req.getParameter("statuts");
-			Byte statuts =null;
-			if (statutsStr != null && !statutsStr.isEmpty()) {
-				statuts = Byte.parseByte(statutsStr);
+			String statusStr = req.getParameter("statuts");
+			Byte status =null;
+			if (statusStr != null && !statusStr.isEmpty()) {
+				status = Byte.parseByte(statusStr);
 			} else {
 				System.out.println("狀態號碼錯誤");
 			}
@@ -69,13 +69,13 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			ArticleSubReactionVO r1 = new ArticleSubReactionVO();
 			r1.setArticleSubNo(articleSubNo);
 			r1.setMemberId(memberId);
-			r1.setStatuts(statuts);
+			r1.setStatuts(status);
 
 			// Send the use back to the form, if there were errors
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleSubReactionService artSvc = new ArticleSubReactionService();
-			artSvc.create(memberId, articleSubNo, statuts);
+			artSvc.create(memberId, articleSubNo, status);
 			System.out.println("按讚資料新增或修改完成");
 			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -87,7 +87,7 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			res.getWriter().write(success);
 			
 			//使用ajax 不能跳轉
-//			String url ="/article/article_content.jsp";
+//			String url ="frontstage/article/article_content.jsp";
 //			
 //			RequestDispatcher successView = req.getRequestDispatcher(url); 
 //			successView.forward(req, res);
@@ -123,7 +123,7 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			artSvc.findTwo(memberId, articleSubNo);
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 //			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url ="/article/article_content.jsp";
+			String url ="frontstage/article/article_content.jsp";
 			
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);

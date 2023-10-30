@@ -20,18 +20,17 @@ import com.google.gson.Gson;
 @WebServlet("/RecipeCreateServlet")
 public class RecipeCreateServlet extends HttpServlet {
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		doPost(req, res);
-	}
-
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
 		res.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
+
 		Gson gson = new Gson();
 //		HttpSession session = req.getSession();
 //		MembersVO members = (MembersVO) session.getAttribute("members");
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		MembersVO memberVO = session.get(MembersVO.class, 1);
+
 		BufferedReader reader = req.getReader();
 		StringBuilder jsonBuilder = new StringBuilder();
 		String line;
@@ -39,7 +38,7 @@ public class RecipeCreateServlet extends HttpServlet {
 			jsonBuilder.append(line);
 		}
 		RecipeCreateDTO recipeCreateDTO = gson.fromJson(jsonBuilder.toString(), RecipeCreateDTO.class);
-		
+
 		Integer recipeNo = new RecipeServiceIm().createRecipe(memberVO, recipeCreateDTO);
 		String jsonString = gson.toJson(recipeNo);
 		res.getWriter().write(jsonString);

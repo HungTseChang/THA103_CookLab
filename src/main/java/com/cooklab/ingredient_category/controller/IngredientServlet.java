@@ -159,50 +159,30 @@ public class IngredientServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			/***************************
-			 * 1接收請求參數
-			 **********************/
-			// 从前端获取数据
+			 
 			String updatedCategoryTag = req.getParameter("categoryTag");
 			String updatedCategoryName = req.getParameter("categoryName");
 			Integer categoryId = Integer.parseInt(req.getParameter("categoryId"));
 			System.out.println(updatedCategoryTag);
-			if ("食材".equals(updatedCategoryTag)) {
-				/***************************
-				 * 2.開始查詢資料
-				 *****************************************/
-				IngredientService ingredientSvc = new IngredientService();
-				IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
-				ingredientCategory.setIngredientCategoryNo(categoryId);
-				ingredientCategory.setCategoryName(updatedCategoryName);
-				ingredientSvc.update(ingredientCategory);
 
-			}
+			Map<String, String> responseData = new HashMap<>();
 
-			if ("廚具".equals(updatedCategoryTag)) {
-				/***************************
-				 * 2.開始查詢資料
-				 *****************************************/
-				KitchenwareCategoryService kitchenwareSvc = new KitchenwareCategoryService();
-				KitchenwareCategoryVO kitchenwareCategory = new KitchenwareCategoryVO();
-				kitchenwareCategory.setKitchenwareCategoryNo(categoryId);
-				kitchenwareCategory.setCategoryName(updatedCategoryName);
-				kitchenwareSvc.update(kitchenwareCategory);
-				System.out.println(kitchenwareCategory);
-			}
+			IngredientService ingredientSvc = new IngredientService();
+			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
+			
+			ingredientCategory.setIngredientCategoryNo(categoryId);
+			ingredientCategory.setCategoryName(updatedCategoryName);
+			ingredientSvc.update(ingredientCategory);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			/// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
-			Map<String, String> responseData = new HashMap<>();
-			boolean success = true; // 在操作成功时设置为true，在失败时设置为false
+
+			boolean success = true; 
 			responseData.put("success", success ? "true" : "false");
 			responseData.put("message", success ? "更新成功" : "更新失败");
+			
 			String json = new Gson().toJson(responseData);
+			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(json);
@@ -212,18 +192,24 @@ public class IngredientServlet extends HttpServlet {
 		if ("insert".equals(action)) {
 
 			String categoryName = req.getParameter("categoryName");
+
 			IngredientService ingredientSvc = new IngredientService();
 			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
-			ingredientCategory.setCategoryName(categoryName);
-			ingredientSvc.insert(ingredientCategory);
 
+			Map<String, String> responseData = new HashMap<>();
+
+			// 先查詢
+			ingredientCategory.setCategoryName(categoryName);
+			boolean exist = (ingredientSvc.findByName(ingredientCategory)) != null;
+			if (!exist) {
+				ingredientSvc.insert(ingredientCategory);
+				responseData.put("message", "true");
+			} else {
+				responseData.put("message", "false");
+			}
 			System.out.println(ingredientCategory);
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			/// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
-			Map<String, String> responseData = new HashMap<>();
-			boolean success = true; // 在操作成功时设置为true，在失败时设置为false
-			responseData.put("success", success ? "true" : "false");
-			responseData.put("message", success ? "更新成功" : "更新失败");
 			String json = new Gson().toJson(responseData);
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -237,21 +223,16 @@ public class IngredientServlet extends HttpServlet {
 			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
 			ingredientCategory.setIngredientCategoryNo(categoryId);
 
+			
+			Map<String, String> responseData = new HashMap<>();
+			
 			String message = ingredientSvc.deleteCategory(ingredientCategory);
 
-			if ("删除成功".equals(message)) {
-				// 删除成功，返回成功消息
-				System.out.println("删除成功");
+			if ("true".equals(message)) {
+				responseData.put("message", "true");
 			} else {
-				// 删除失败，返回错误消息
-				System.out.println("删除失败：" + message);
+				responseData.put("message", "false");
 			}
-
-			// 创建响应数据，可以返回JSON响应以通知前端操作成功或失败
-			Map<String, String> responseData = new HashMap<>();
-			boolean success = "成功".equals(message); // 检查消息是否为成功
-			responseData.put("success", success ? "true" : "false");
-			responseData.put("message", message);
 			String json = new Gson().toJson(responseData);
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
@@ -259,22 +240,24 @@ public class IngredientServlet extends HttpServlet {
 		}
 		if ("checkName".equals(action)) {
 			String categoryName = req.getParameter("categoryName");
+
 			IngredientService ingredientSvc = new IngredientService();
 			IngredientCategoryVO ingredientCategory = new IngredientCategoryVO();
-			ingredientCategory.setCategoryName(categoryName);
-			
-			boolean nameExists = ingredientSvc.findByName(ingredientCategory) != null;
-			  
 
-		    // 创建响应数据，根据 `nameExists` 决定操作是否成功
-		    Map<String, String> responseData = new HashMap<>();
-		    responseData.put("success", nameExists ? "false" : "true");
-		    responseData.put("message", nameExists ? "已有相同名稱" : "名稱可用");
-		    
-		    String json = new Gson().toJson(responseData);
-		    res.setContentType("application/json");
-		    res.setCharacterEncoding("UTF-8");
-		    res.getWriter().write(json);
+			ingredientCategory.setCategoryName(categoryName);
+
+			boolean nameExists = (ingredientSvc.findByName(ingredientCategory) != null);
+
+			System.out.println(nameExists);
+
+			Map<String, String> responseData = new HashMap<>();
+			responseData.put("success", nameExists ? "false" : "true");
+			responseData.put("message", nameExists ? "已有相同名稱" : "名稱可用");
+
+			String json = new Gson().toJson(responseData);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(json);
 		}
 	}
 

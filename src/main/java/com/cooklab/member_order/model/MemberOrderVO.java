@@ -31,8 +31,8 @@ public class MemberOrderVO implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer orderNo ;
 	
-//	@Column(name = "member_id")
-	@Transient
+	@Column(name = "member_id")
+//	@Transient
 	private Integer memberId ;
 	
 //	優惠碼
@@ -48,10 +48,12 @@ public class MemberOrderVO implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
+	
 //	=============WCC================	
 	@Column(name = "order_status", columnDefinition = "int")
 	private byte orderStatus;  
-//	==============WCC=============================
+	
+
 	@Column(name = "total_order_amount")
 	private Integer totalOrderAmount;
 	

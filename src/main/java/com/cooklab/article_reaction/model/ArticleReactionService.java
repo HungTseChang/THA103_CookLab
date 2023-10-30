@@ -24,23 +24,29 @@ public class ArticleReactionService {
 			ArticleReactionVO newone = new ArticleReactionVO();
 			newone.setArticleNo(articleNo);
 			newone.setMemberId(memberId);
-			newone.setStatuts(status);
+			newone.setStatus(status);
 			
 			dao.saveOrUpdate(newone);
 		}else {
-			exist.setStatuts(status);
+			exist.setStatus(status);
 			
 			dao.saveOrUpdate(exist);
 		}
 	}
 	
-	//下面是一次用兩個欄位收尋
+	//下面是一次用兩個欄位收尋，判斷是否已經按過讚
 	public ArticleReactionVO findTwo (Integer memberId , Integer articleNo) {
+		
+		try {
+			
+			
+		}catch (Except e)
+		System.out.println("啟動findTwo方法");
 		return dao.findByTwoCol(memberId, articleNo);
 	}
-	
+	//計算按讚數量
 	public Long allCount (Integer articleNo ,Byte statuts) {
-		System.out.println("啟動方法");
+		
 		return dao.allCount(articleNo, statuts);
 		
 	}

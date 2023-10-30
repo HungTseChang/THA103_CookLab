@@ -297,7 +297,7 @@
                         </select>
                         <label>每頁展示筆數</label>
                         </div>
-                            <table class="table table-striped" id="table1" style="scrollCollapse: true">
+                            <table class="table table-striped" id="table2" style="scrollCollapse: true">
                                 <thead>
                                     <tr>
                                         <th class="resizable number articleReportNo" name="articleReportNo">文章檢舉編號</th>
@@ -387,7 +387,7 @@
 	var tbodyall;
 
 	var onload = function(){
-		let tableBodya = $("table#table1").children("tbody");
+		let tableBodya = $("table#table2").children("tbody");
 		let text = "";
  	   for (let i=0;i <  myList.length;i++){
      	  let aa = myList[i];
@@ -432,7 +432,7 @@
 function updateTable() {    
 var startIndex = (currentPage - 1) * rowsPerPage;
 var endIndex = startIndex + rowsPerPage;
-var tableBody = $("table#table1").children("tbody");
+var tableBody = $("table#table2").children("tbody");
 tableBody.empty();
 
           for(let i = startIndex ; i<endIndex ;i++){
@@ -440,7 +440,7 @@ tableBody.empty();
         	   if (i <  tbodyall.length){
         	  let aa = tbodyall[i];
 
-           $("table#table1").children("tbody").append(aa);
+           $("table#table2").children("tbody").append(aa);
         	   }
           }
           $("#current-page").text(currentPage);
@@ -513,7 +513,7 @@ if(isSorted){
     <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
     <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
-<script>
+  <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
     e.preventDefault;
@@ -534,7 +534,34 @@ value: "logout"
 
 
     
-})})
+})
+
+
+$("a#design").on("click",function(e){
+	$("a#logout").on("click",function(e){
+	    e.preventDefault;
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+let table1 = document.querySelector("#table1");
+	let dataTable = new simpleDatatables.DataTable(table1);
+})
 </script>
 </body>
 

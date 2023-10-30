@@ -24,15 +24,15 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="./bootstrap-icons-1.10.5/font/bootstrap-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
     <link rel="stylesheet" href="css/ding.css" type="text/css" />
   </head>
 
@@ -46,7 +46,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
       </div>
       <section class="container">
         <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -132,7 +132,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
             </div>
           </div>
           <div class="col-lg-9 d-flex align-items-center">
@@ -347,16 +347,15 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="./js/ding.js"></script>
-    <script src="js/TomJS.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/TomJS.js"></script>
     <script>        
 	    document.getElementById('image-upload').addEventListener('change', function() {
 	        var fileInput = this;

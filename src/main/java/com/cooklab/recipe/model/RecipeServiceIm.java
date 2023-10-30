@@ -13,6 +13,7 @@ import com.cooklab.product.model.ProductVO;
 import com.cooklab.recipe.RecipeCreateDTO;
 import com.cooklab.recipe.RecipeCreateDTO.IngredientDTO;
 import com.cooklab.recipe.RecipeCreateDTO.StepDTO;
+import com.cooklab.recipe.RecipeUpdateDTO;
 import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
 import com.cooklab.recipe_ingredient.model.RecipeIngredientVO;
 import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
@@ -102,7 +103,7 @@ public class RecipeServiceIm implements RecipeService {
 		recipeVO.setIntroduction(recipeCreateDTO.getIntroduction());
 		recipeVO.setAdditionalExplanation(recipeCreateDTO.getAdditionalExplanation());
 		recipeVO.setRegion(recipeCreateDTO.getRegion());
-		recipeVO.setRecipeStatus((byte) 1);
+		recipeVO.setRecipeStatus((byte) 0);
 		recipeVO.setRecipeQuantity(recipeCreateDTO.getRecipeQuantity());
 
 		Set<RecipeIngredientVO> ingredientSet = new LinkedHashSet<>();
@@ -158,7 +159,74 @@ public class RecipeServiceIm implements RecipeService {
 	}
 
 	@Override
-	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit,String search) {
+	public Integer updateRecipe(MembersVO memberVO, RecipeUpdateDTO recipeUpdateDTO) {
+		RecipeVO recipeVO = dao.findByPrimaryKey(recipeUpdateDTO.getRecipeNo());
+		// 驗證是不是本人
+		if (!recipeVO.getMembers().getMemberId().equals(memberVO.getMemberId())) {
+			return null;
+		}
+		ProductHDAOrRecipeTest productHDAOIm = new ProductHDAOrRecipeTest(HibernateUtil.getSessionFactory());
+		HashtagHDAOIm HashtagHDAOIm = new HashtagHDAOIm(HibernateUtil.getSessionFactory());
+		recipeVO.setRecipeName(recipeUpdateDTO.getRecipeName());
+		recipeVO.setCoverImage(Base64.getDecoder().decode(recipeUpdateDTO.getCoverImage()));
+		recipeVO.setIntroduction(recipeUpdateDTO.getIntroduction());
+		recipeVO.setAdditionalExplanation(recipeUpdateDTO.getAdditionalExplanation());
+		recipeVO.setRegion(recipeUpdateDTO.getRegion());
+		recipeVO.setRecipeQuantity(recipeUpdateDTO.getRecipeQuantity());
+		Set<RecipeIngredientVO> ingredientSet = new LinkedHashSet<>();
+		for (RecipeUpdateDTO.IngredientDTO ingredientDTO : recipeUpdateDTO.getIngredient()) {
+			RecipeIngredientVO recipeIngredientVO = new RecipeIngredientVO();
+			recipeIngredientVO.setRecipe(recipeVO);
+			ProductVO productVO = productHDAOIm.findByProductName(ingredientDTO.getIngredient(),
+					"ingredientCategoryNo");
+			if (productVO != null)
+				recipeIngredientVO.setProduct(productVO);
+			recipeIngredientVO.setTextLabel(ingredientDTO.getIngredient());
+			recipeIngredientVO.setIngredientQuantity(ingredientDTO.getIngredientQuantity());
+			ingredientSet.add(recipeIngredientVO);
+		}
+		recipeVO.setIngredient(ingredientSet);
+
+		Set<RecipeKitchenwareVO> kitchenwareSet = new LinkedHashSet<>();
+		for (String recipeKitchenware : recipeUpdateDTO.getKitchenware()) {
+			RecipeKitchenwareVO recipeKitchenwareVO = new RecipeKitchenwareVO();
+			recipeKitchenwareVO.setRecipe(recipeVO);
+			ProductVO productVO = productHDAOIm.findByProductName(recipeKitchenware, "kitchenwareCategoryNo");
+			if (productVO != null)
+				recipeKitchenwareVO.setProduct(productVO);
+			recipeKitchenwareVO.setTextLabel(recipeKitchenware);
+			kitchenwareSet.add(recipeKitchenwareVO);
+		}
+		recipeVO.setKitchenware(kitchenwareSet);
+
+		Set<RecipeStepVO> stepSet = new LinkedHashSet<>();
+		Integer stepCount = 1;
+		for (RecipeUpdateDTO.StepDTO stepDTO : recipeUpdateDTO.getStep()) {
+			RecipeStepVO recipeStepVO = new RecipeStepVO();
+			recipeStepVO.setRecipe(recipeVO);
+			recipeStepVO.setStep(++stepCount);
+			recipeStepVO
+					.setStepImg(stepDTO.getStepImg() != null ? Base64.getDecoder().decode(stepDTO.getStepImg()) : null);
+			recipeStepVO.setStepTime(stepDTO.getStepTime());
+			recipeStepVO.setStepContent(stepDTO.getStepContent());
+			stepSet.add(recipeStepVO);
+		}
+		recipeVO.setStep(stepSet);
+
+		Set<RecipeHashtagVO> HashtagSet = new LinkedHashSet<>();
+		for (String recipeHashtag : recipeUpdateDTO.getRecipeHashtag()) {
+			RecipeHashtagVO recipeHashtagVO = new RecipeHashtagVO();
+			recipeHashtagVO.setRecipe(recipeVO);
+			recipeHashtagVO.setHashtag(HashtagHDAOIm.findByHashtagName(recipeHashtag));
+			HashtagSet.add(recipeHashtagVO);
+		}
+		recipeVO.setHashtag(HashtagSet);
+		dao.update(recipeVO);
+		return recipeVO.getRecipeNo();
+	}
+
+	@Override
+	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit, String search) {
 		return dao.getBySearch(cloumn, desc, offset, limit, search);
 	}
 
@@ -166,4 +234,12 @@ public class RecipeServiceIm implements RecipeService {
 	public long getCount(String search) {
 		return dao.getCount(search);
 	}
+
+	@Override
+	public boolean updateViewCount(String recipeNo, String viewCount) {
+		RecipeVO recipeVO = dao.findByPrimaryKey(Integer.valueOf(recipeNo));
+		recipeVO.setViewCount(recipeVO.getViewCount() + Integer.valueOf(viewCount));
+		return dao.update(recipeVO);
+	}
+
 }
