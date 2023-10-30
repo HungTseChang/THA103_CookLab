@@ -5,7 +5,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 //@WebListener
-public class searchCountListener implements ServletContextListener {
+public class SearchCountListener implements ServletContextListener {
 
     private RedisSearchCountTask task;
 

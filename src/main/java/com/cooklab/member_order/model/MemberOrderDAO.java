@@ -7,6 +7,7 @@ public interface MemberOrderDAO {
 
     public int insert(MemberOrderVO memberOrderVO);
     public Integer update(MemberOrderVO memberOrderVO);
+    public Integer updateStatus(MemberOrderVO memberOrderVO);
     public void delete(Integer orderNo);
     public MemberOrderVO findByPrimaryKey(Integer orderNo);
     public List<MemberOrderVO> getAll();

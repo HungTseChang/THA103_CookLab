@@ -51,7 +51,7 @@ public class ProductKeyWordListemer implements ServletContextListener {
 		scheduler.scheduleWithFixedDelay(() -> {
 			generateDailyHotProductList();
 			//延遲時間 間隔時間 單位
-		}, 0, 10, TimeUnit.MINUTES);
+		}, 0, 1, TimeUnit.MINUTES);
 	}
 
 	@Override

@@ -5,7 +5,7 @@ import java.util.List;
 public interface KitchenwareCategoryDAO {
     public void insert(KitchenwareCategoryVO kitchenwareCategory);
     public void update(KitchenwareCategoryVO kitchenwareCategory);
-    public void delete(KitchenwareCategoryVO kitchenwareCategory);
+    public String delete(KitchenwareCategoryVO kitchenwareCategory);
     public KitchenwareCategoryVO findByPrimaryKey(Integer kitchenwareCategoryNo);
     public List<KitchenwareCategoryVO> getAll();
     public boolean hasAssociatedProducts(Integer kitchenwareCategoryNo);

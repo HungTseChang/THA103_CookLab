@@ -15,7 +15,7 @@ public class RedisSearchCountTask {
 
 	public void start() {
 		//(執行方法,首次執行延遲的時間,方法間隔時間)
-		timer.schedule(new SyncTask(), 0, 300);
+		timer.schedule(new SyncTask(), 0, 10);
 	}
 
 	public void stop() {

@@ -1,3 +1,10 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/MemberOrderServlet";
+
+
 $(document).ready(function() {
 	console.log("Document is ready.");
 
@@ -5,7 +12,7 @@ $(document).ready(function() {
 	const orderNo = urlParams.get("orderNo");
 
 	$.ajax({
-		url: "/CookLab/MemberOrderServlet",
+		url: END_POINT_URL+COLLECTION_POINT,
 		type: "GET",
 		data: { action: "getDetail", orderNo: orderNo }, 
 		dataType: "json",
@@ -53,7 +60,7 @@ $(document).ready(function() {
 				var newOrderStatus = $("#table select").val();
 				console.log(newOrderStatus);
 					$.ajax({
-						url: "/CookLab/MemberOrderServlet", 
+						url: END_POINT_URL+COLLECTION_POINT, 
 						type: "POST", 
 						data: { action: "updateOrderStatus", orderNo: orderNo, newStatus: newOrderStatus },
 						dataType: "json",

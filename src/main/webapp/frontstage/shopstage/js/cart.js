@@ -1,3 +1,11 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+const COLLECTION_POINT3= "/MemberOrderServlet"
+
 let cartData = [];
 const selectedProducts = [];
 
@@ -5,7 +13,7 @@ const selectedProducts = [];
 $(document).ready(function() {
 	// 发起AJAX请求
 	$.ajax({
-		url: '/CookLab/CartServlet',
+		url: END_POINT_URL+COLLECTION_POINT2,
 		type: 'GET',
 		data: { action: "cartsearch" },
 		dataType: 'json',
@@ -26,7 +34,7 @@ $(document).ready(function() {
 		const productId = $(this).data('product-id'); // 获取要删除的商品ID
 		console.log(productId);
 		$.ajax({
-			url: '/CookLab/CartServlet',
+			url: END_POINT_URL+COLLECTION_POINT2,
 			type: 'POST',
 			data: { action: 'remove', productId: productId },
 			dataType: 'json',
@@ -225,7 +233,7 @@ $(document).on("change", ".quantity-input", function() {
 	console.log(sproductId);
 	console.log(snewQuantity);
 	$.ajax({
-		url: '/CookLab/CartServlet',
+		url: END_POINT_URL+COLLECTION_POINT2,
 		type: 'POST',
 		data: {
 			action: 'updateQuantity',
@@ -246,28 +254,3 @@ $(document).on("change", ".quantity-input", function() {
 
 
 
-$('.quantity-input').change(function() {
-	const sproductId = $(this).closest('tr').find('.product-checkbox').data('product-id');
-	const snewQuantity = parseInt($(this).val());
-
-	console.log(sproductId);
-	console.log(snewQuantity);
-	// 发送 AJAX 请求以更新购物车中的商品数量
-//	$.ajax({
-//		url: '/CookLab/CartServlet',
-//		type: 'POST',
-//		data: {
-//			action: 'updateQuantity',
-//			productId: sproductId,
-//			newQuantity: snewQuantity
-//		},
-//		dataType: 'json',
-//		success: function(response) {
-//			cartData = response;
-//
-//		},
-//		error: function(xhr) {
-//			console.log('AJAX请求失败：' + xhr.status);
-//		}
-//	});
-});

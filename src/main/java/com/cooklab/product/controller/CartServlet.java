@@ -274,19 +274,21 @@ public class CartServlet extends HttpServlet {
 			Jedis jedis = jedisPool.getResource();
 
 			try {
-				String memberNo = "1"; // 在这里设置你的会员编号
-				String cartKey = "cart:" + memberNo; // 使用会员编号构建购物车的 Redis 键
+				//動態會員
+				String memberNo = "1"; 
+				String cartKey = "cart:" + memberNo; 
 
 				jedis.select(1);
-				String productKeysStr = req.getParameter("productNo"); // 获取传递的产品编号字符串
+				String productKeysStr = req.getParameter("productNo"); 
 
-				// 将逗号分隔的字符串拆分为整数数组
+				//商品編號陣列
 				String[] productKeysStrArray = productKeysStr.split(",");
 				int[] productKeys = new int[productKeysStrArray.length];
 				for (int i = 0; i < productKeysStrArray.length; i++) {
 					productKeys[i] = Integer.parseInt(productKeysStrArray[i]);
 				}
 
+				
 				JsonArray cartArray = new JsonArray();
 				for (int productKey : productKeys) {
 					String productJson = jedis.hget(cartKey, "product:" + productKey);
@@ -297,12 +299,13 @@ public class CartServlet extends HttpServlet {
 					}
 				}
 				System.out.println(cartArray);
-				// 将 JSON 数组写入响应
+
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
+				//轉換為 JSON 字符串
 				res.getWriter().write(cartArray.toString());
 			} finally {
-				jedis.close(); // 记得关闭 Jedis 连接，归还到连接池
+				jedis.close(); 
 			}
 		}
 
@@ -310,7 +313,7 @@ public class CartServlet extends HttpServlet {
 			Integer productNo = Integer.valueOf(req.getParameter("productId").trim());
 			Integer newQuantity = Integer.valueOf(req.getParameter("newQuantity").trim());
 
-			String memberNo = "1"; // 動態
+			String memberNo = "1"; 
 
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();

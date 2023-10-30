@@ -92,7 +92,7 @@ public class ProductServlet extends HttpServlet {
 				String storageQty = item.getStorageQty().toString();
 				itemMap.put("storageQty", storageQty);
 
-				Integer searchCount = item.getStorageQty();
+				Integer searchCount = item.getSearchCount();
 				String searchCountString = (searchCount != null) ? searchCount.toString() : "0";
 				itemMap.put("searchCount", searchCountString);
 
@@ -129,101 +129,6 @@ public class ProductServlet extends HttpServlet {
 			String jsonData = gson.toJson(dataMapList);
 			System.out.println(jsonData);
 			res.setContentType("application/json");
-			res.setCharacterEncoding("UTF-8");
-			res.getWriter().write(jsonData);
-		}
-
-		if ("searchkeyword".equals(action)) {
-
-			String keywords = req.getParameter("keywords");
-
-			int page = Integer.parseInt(req.getParameter("page"));
-			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-			/***************************
-			 * 2.開始查詢資料
-			 *****************************************/
-
-			ProductService productSvc = new ProductService();
-			Pair<List<ProductVO>, Long> pair = productSvc.findByKeywordWithPagination(keywords,page,pageSize);
-			
-			Long totalProductCount = pair.getSecond();
-			List<ProductVO> listproduct = pair.getFirst();
-			for (ProductVO item : listproduct) {
-				try {
-					incrementProductSearchCount(item.getProductNo());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			List<Map<String, String>> dataMapList = new ArrayList<>();
-			for (ProductVO item : listproduct) {
-					Map<String, String> itemMap = new HashMap<>();
-					itemMap.put("totalProductCount", String.valueOf(totalProductCount));
-					itemMap.put("currentPage", String.valueOf(page));
-					itemMap.put("pageSize", String.valueOf(pageSize));
-					itemMap.put("products", String.valueOf(listproduct));
-
-					String productNo = item.getProductNo().toString();
-					itemMap.put("productNo", productNo);
-
-					String productName = item.getProductName();
-					itemMap.put("productName", productName);
-
-					byte[] productPicture = item.getProductPicture();
-					if (productPicture != null) {
-						String productImage = Base64.getEncoder().encodeToString(productPicture);
-						itemMap.put("productImage", productImage);
-					} else {
-						itemMap.put("productImage", "");
-					}
-
-					String productDec = item.getProductDec();
-					itemMap.put("productDec", productDec);
-
-					String productIntroduction = item.getProductIntroduction();
-					itemMap.put("productIntroduction", productIntroduction);
-
-					String productPrice = item.getProductPrice().toString();
-					itemMap.put("productPrice", productPrice);
-
-					if (item.getOffsaleTime() != null) {
-						String offsaleTime = item.getOffsaleTime().toString();
-						itemMap.put("offsaleTime", offsaleTime);
-					} else {
-						itemMap.put("offsaleTime", "無設定");
-					}
-
-					if (item.getShelfTime() != null) {
-						String shelfTime = item.getShelfTime().toString();
-						itemMap.put("shelfTime", shelfTime);
-					} else {
-						itemMap.put("shelfTime", "無設定");
-					}
-
-					if (item.getIngredientCategory() != null) {
-						String ingredientCategory = item.getIngredientCategory().getCategoryName();
-						itemMap.put("Category", ingredientCategory);
-						itemMap.put("Categorytype", "ingredientCategory");
-					}
-
-					if (item.getKitchenwareCategory() != null) {
-						String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
-						itemMap.put("Category", kitchenwareCategory);
-						itemMap.put("Categorytype", "kitchenwareCategory");
-					}
-
-					dataMapList.add(itemMap);
-			}
-			System.out.println(dataMapList);
-			System.out.println(totalProductCount);
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(dataMapList);
-			System.out.println(jsonData);
-
-			res.setContentType("application/json; charset :UTF-8");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jsonData);
 		}
@@ -493,13 +398,12 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
 			Map<String, Object> responseMap = new HashMap<>();
-			if(message!= null) {
+			if (message != null) {
 				responseMap.put("message", message);
-			}else{
+			} else {
 				responseMap.put("message", "false");
 			}
 			responseMap.put("productInfo", productVO);
-
 
 			Gson gson = new Gson();
 			String productJson = gson.toJson(responseMap);
@@ -842,13 +746,12 @@ public class ProductServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
 			Map<String, Object> responseMap = new HashMap<>();
-			if(message!=null) {
+			if (message != null) {
 				responseMap.put("message", message);
-			}else {
+			} else {
 				responseMap.put("message", "false");
 			}
 			responseMap.put("productInfo", productVO);
-
 
 			Gson gson = new Gson();
 			String productJson = gson.toJson(responseMap);
@@ -875,368 +778,288 @@ public class ProductServlet extends HttpServlet {
 				jedis.close();
 			}
 
-
 			Gson gson = new Gson();
 			String productJson = gson.toJson(hotKeywordsList);
-
 
 			res.setContentType("application/json; charset=UTF-8");
 			res.getWriter().write(productJson);
 
 		}
 
-		if ("catergorysearch".equals(action)) {
-			String keywords = req.getParameter("keywords");
-			System.out.println(keywords);
-			int page = Integer.parseInt(req.getParameter("page"));
-			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-			int type = 0;
-			/***************************
-			 * 2.開始查詢資料
-			 *****************************************/
-
-			ProductService productSvc = new ProductService();
-			List<ProductVO> totallistproduct;
-			
-			// 判斷種類
-			if (keywords.equals("ingredient")) {
-				type = 1;
-			} else {
-				type = 0;
-			}
-
-			Pair<List<ProductVO>, Long> pair = productSvc.findByCategoryKeywordWithPagination(type, page, pageSize);
-			Long totalProductCount = pair.getSecond();
-			List<ProductVO> listproduct = pair.getFirst();
-
-
-			List<Map<String, String>> dataMapList = new ArrayList<>();
-			for (ProductVO item : listproduct) {
-
-				Map<String, String> itemMap = new HashMap<>();
-				itemMap.put("totalProductCount", String.valueOf(totalProductCount));
-				itemMap.put("currentPage", String.valueOf(page));
-				itemMap.put("pageSize", String.valueOf(pageSize));
-				itemMap.put("products", String.valueOf(listproduct));
-
-				String productNo = item.getProductNo().toString();
-				itemMap.put("productNo", productNo);
-
-				String productName = item.getProductName();
-				itemMap.put("productName", productName);
-
-				byte[] productPicture = item.getProductPicture();
-				if (productPicture != null) {
-					String productImage = Base64.getEncoder().encodeToString(productPicture);
-					itemMap.put("productImage", productImage);
-				} else {
-					itemMap.put("productImage", "");
-				}
-
-				String productDec = item.getProductDec();
-				itemMap.put("productDec", productDec);
-
-				String productIntroduction = item.getProductIntroduction();
-				itemMap.put("productIntroduction", productIntroduction);
-
-				String productPrice = item.getProductPrice().toString();
-				itemMap.put("productPrice", productPrice);
-
-				if (item.getOffsaleTime() != null) {
-					String offsaleTime = item.getOffsaleTime().toString();
-					itemMap.put("offsaleTime", offsaleTime);
-				} else {
-					itemMap.put("offsaleTime", "無設定");
-				}
-
-				if (item.getShelfTime() != null) {
-					String shelfTime = item.getShelfTime().toString();
-					itemMap.put("shelfTime", shelfTime);
-				} else {
-					itemMap.put("shelfTime", "無設定");
-				}
-
-				if (item.getIngredientCategory() != null) {
-					String ingredientCategory = item.getIngredientCategory().getCategoryName();
-					itemMap.put("Category", ingredientCategory);
-					itemMap.put("Categorytype", "ingredientCategory");
-				}
-
-				if (item.getKitchenwareCategory() != null) {
-					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
-					itemMap.put("Category", kitchenwareCategory);
-					itemMap.put("Categorytype", "kitchenwareCategory");
-				}
-
-				dataMapList.add(itemMap);
-			}
-
-			System.out.println(dataMapList);
-			System.out.println(totalProductCount);
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(dataMapList);
-			System.out.println(jsonData);
-
-			res.setContentType("application/json; charset :UTF-8");
-			res.setCharacterEncoding("UTF-8");
-			res.getWriter().write(jsonData);
-		}
-
-		if ("mutilseletingredient".equals(action)) {
-			String keywords = req.getParameter("keywords");
-
-			int page = Integer.parseInt(req.getParameter("page"));
-			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-			/***************************
-			 * 2.開始查詢資料
-			 *****************************************/
-
-			ProductService productSvc = new ProductService();
-			Pair<List<ProductVO>, Long> pair = productSvc
-					.findByKeywordWithCategorywithingredientCategoryPagination(keywords, page, pageSize);
-
-			Long totalProductCount = pair.getSecond();
-			List<ProductVO> listproduct = pair.getFirst();
-
-			List<Map<String, String>> dataMapList = new ArrayList<>();
-			for (ProductVO item : listproduct) {
-
-				Map<String, String> itemMap = new HashMap<>();
-				itemMap.put("totalProductCount", String.valueOf(totalProductCount));
-				itemMap.put("currentPage", String.valueOf(page));
-				itemMap.put("pageSize", String.valueOf(pageSize));
-				itemMap.put("products", String.valueOf(listproduct));
-
-				String productNo = item.getProductNo().toString();
-				itemMap.put("productNo", productNo);
-
-				String productName = item.getProductName();
-				itemMap.put("productName", productName);
-
-				byte[] productPicture = item.getProductPicture();
-				if (productPicture != null) {
-					String productImage = Base64.getEncoder().encodeToString(productPicture);
-					itemMap.put("productImage", productImage);
-				} else {
-					itemMap.put("productImage", "");
-				}
-
-				String productDec = item.getProductDec();
-				itemMap.put("productDec", productDec);
-
-				String productIntroduction = item.getProductIntroduction();
-				itemMap.put("productIntroduction", productIntroduction);
-
-				String productPrice = item.getProductPrice().toString();
-				itemMap.put("productPrice", productPrice);
-
-				if (item.getOffsaleTime() != null) {
-					String offsaleTime = item.getOffsaleTime().toString();
-					itemMap.put("offsaleTime", offsaleTime);
-				} else {
-					itemMap.put("offsaleTime", "無設定");
-				}
-
-				if (item.getShelfTime() != null) {
-					String shelfTime = item.getShelfTime().toString();
-					itemMap.put("shelfTime", shelfTime);
-				} else {
-					itemMap.put("shelfTime", "無設定");
-				}
-
-				if (item.getIngredientCategory() != null) {
-					String ingredientCategory = item.getIngredientCategory().getCategoryName();
-					itemMap.put("Category", ingredientCategory);
-					itemMap.put("Categorytype", "ingredientCategory");
-				}
-
-				if (item.getKitchenwareCategory() != null) {
-					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
-					itemMap.put("Category", kitchenwareCategory);
-					itemMap.put("Categorytype", "kitchenwareCategory");
-				}
-				dataMapList.add(itemMap);
-			}
-
-			System.out.println(dataMapList);
-			System.out.println(totalProductCount);
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(dataMapList);
-			System.out.println(jsonData);
-
-			res.setContentType("application/json; charset :UTF-8");
-			res.setCharacterEncoding("UTF-8");
-			res.getWriter().write(jsonData);
-		}
-
-		if ("mutilseletkitchenware".equals(action)) {
-			String keywords = req.getParameter("keywords");
-
-			int page = Integer.parseInt(req.getParameter("page"));
-			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-			/***************************
-			 * 2.開始查詢資料
-			 *****************************************/
-			ProductService productSvc = new ProductService();
-			Pair<List<ProductVO>, Long> pair = productSvc.findByKeywordWithCategorywithkitchCategoryPagination(keywords,
-					page, pageSize);
-
-			Long totalProductCount = pair.getSecond();
-			List<ProductVO> listproduct = pair.getFirst();
-
-			System.out.println(totalProductCount);
-
-			List<Map<String, String>> dataMapList = new ArrayList<>();
-			for (ProductVO item : listproduct) {
-
-				Map<String, String> itemMap = new HashMap<>();
-				itemMap.put("totalProductCount", String.valueOf(totalProductCount));
-				itemMap.put("currentPage", String.valueOf(page));
-				itemMap.put("pageSize", String.valueOf(pageSize));
-				itemMap.put("products", String.valueOf(listproduct));
-
-				String productNo = item.getProductNo().toString();
-				itemMap.put("productNo", productNo);
-
-				String productName = item.getProductName();
-				itemMap.put("productName", productName);
-
-				byte[] productPicture = item.getProductPicture();
-				if (productPicture != null) {
-					String productImage = Base64.getEncoder().encodeToString(productPicture);
-					itemMap.put("productImage", productImage);
-				} else {
-
-					itemMap.put("productImage", "");
-				}
-
-				String productDec = item.getProductDec();
-				itemMap.put("productDec", productDec);
-
-				String productIntroduction = item.getProductIntroduction();
-				itemMap.put("productIntroduction", productIntroduction);
-
-				String productPrice = item.getProductPrice().toString();
-				itemMap.put("productPrice", productPrice);
-
-				if (item.getOffsaleTime() != null) {
-					String offsaleTime = item.getOffsaleTime().toString();
-					itemMap.put("offsaleTime", offsaleTime);
-				} else {
-					itemMap.put("offsaleTime", "無設定");
-				}
-
-				if (item.getShelfTime() != null) {
-					String shelfTime = item.getShelfTime().toString();
-					itemMap.put("shelfTime", shelfTime);
-				} else {
-					itemMap.put("shelfTime", "無設定");
-				}
-
-				if (item.getIngredientCategory() != null) {
-					String ingredientCategory = item.getIngredientCategory().getCategoryName();
-					itemMap.put("Category", ingredientCategory);
-					itemMap.put("Categorytype", "ingredientCategory");
-				}
-
-				if (item.getKitchenwareCategory() != null) {
-					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
-					itemMap.put("Category", kitchenwareCategory);
-					itemMap.put("Categorytype", "kitchenwareCategory");
-				}
-				dataMapList.add(itemMap);
-			}
-			System.out.println(dataMapList);
-			System.out.println(totalProductCount);
-			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(dataMapList);
-			System.out.println(jsonData);
-
-			res.setContentType("application/json; charset :UTF-8");
-			res.setCharacterEncoding("UTF-8");
-			res.getWriter().write(jsonData);
-		}
-
+		// 熱門商品
 		if ("hotProduct".equals(action)) {
+
+			String selectCType = req.getParameter("selectCType");
+			String sort = req.getParameter("sort");
+
+			int type = 0; // 0 1 2 無 食材 廚具
+			int sorts = 0;// 0 1 2 無 時間 金錢
+			// 熱門ALL
+			if (selectCType.equals("none") && sort.equals("none")) {
+				type = 0;
+				sorts = 0;
+			}
+			if (selectCType.equals("none") && sort.equals("stime")) {
+				type = 0;
+				sorts = 1;
+			}
+			if (selectCType.equals("none") && sort.equals("sprice")) {
+				type = 0;
+				sorts = 2;
+			}
+			if (selectCType.equals("singredient") && sort.equals("none")) {
+				type = 1;
+				sorts = 0;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("none")) {
+				type = 2;
+				sorts = 0;
+			}
+			if (selectCType.equals("singredient") && sort.equals("stime")) {
+				type = 1;
+				sorts = 1;
+			}
+			if (selectCType.equals("singredient") && sort.equals("sprice")) {
+				type = 1;
+				sorts = 2;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("stime")) {
+				type = 2;
+				sorts = 1;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("sprice")) {
+				type = 2;
+				sorts = 2;
+			}
+
+			System.out.println(type);
+			System.out.println(sorts);
 			int page = Integer.parseInt(req.getParameter("page"));
 			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 
 			ProductService productSvc = new ProductService();
-			Pair pair = productSvc.findHotTopSearchCountProduct(page, pageSize);
+			List<Map<String, String>> dataMapList = productSvc.findHotTopSearchCountProduct(page, pageSize, type,
+					sorts);
 
-			List<ProductVO> listproduct = (List<ProductVO>) pair.getFirst();
-			Long totalProductCount = (Long) pair.getSecond();
-			System.out.println(totalProductCount);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
 
-			List<Map<String, String>> dataMapList = new ArrayList<>();
-			for (ProductVO item : listproduct) {
+			res.setContentType("application/json; charset :UTF-8");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
 
-				Map<String, String> itemMap = new HashMap<>();
-				itemMap.put("totalProductCount", String.valueOf(totalProductCount));
-				itemMap.put("currentPage", String.valueOf(page));
-				itemMap.put("pageSize", String.valueOf(pageSize));
-				itemMap.put("products", String.valueOf(listproduct));
+		}
 
-				String productNo = item.getProductNo().toString();
-				itemMap.put("productNo", productNo);
+		// 食材
+		if ("catergorysearchI".equals(action)) {
+			String selectCType = req.getParameter("selectCType");
+			String sort = req.getParameter("sort");
 
-				String productName = item.getProductName();
-				itemMap.put("productName", productName);
+			int type = 1; // 0 1 2 無 食材 廚具
+			int sorts = 0;// 0 1 2 無 時間 金錢
 
-				byte[] productPicture = item.getProductPicture();
-				if (productPicture != null) {
-					String productImage = Base64.getEncoder().encodeToString(productPicture);
-					itemMap.put("productImage", productImage);
-				} else {
-					itemMap.put("productImage", "");
-				}
+			// 沒有資料時 回傳MAP物件(無商品)
 
-				String productDec = item.getProductDec();
-				itemMap.put("productDec", productDec);
-
-				String productIntroduction = item.getProductIntroduction();
-				itemMap.put("productIntroduction", productIntroduction);
-
-				String productPrice = item.getProductPrice().toString();
-				itemMap.put("productPrice", productPrice);
-
-				if (item.getOffsaleTime() != null) {
-					String offsaleTime = item.getOffsaleTime().toString();
-					itemMap.put("offsaleTime", offsaleTime);
-				} else {
-					itemMap.put("offsaleTime", "無設定");
-				}
-
-				if (item.getShelfTime() != null) {
-					String shelfTime = item.getShelfTime().toString();
-					itemMap.put("shelfTime", shelfTime);
-				} else {
-					itemMap.put("shelfTime", "無設定");
-				}
-
-				if (item.getIngredientCategory() != null) {
-					String ingredientCategory = item.getIngredientCategory().getCategoryName();
-					itemMap.put("Category", ingredientCategory);
-					itemMap.put("Categorytype", "ingredientCategory");
-				}
-
-				if (item.getKitchenwareCategory() != null) {
-					String kitchenwareCategory = item.getKitchenwareCategory().getCategoryName();
-					itemMap.put("Category", kitchenwareCategory);
-					itemMap.put("Categorytype", "kitchenwareCategory");
-				}
-
-				dataMapList.add(itemMap);
+			if (selectCType.equals("singredient") && sort.equals("none")) {
+				sorts = 0;
 			}
 
-			System.out.println(dataMapList);
-			System.out.println(totalProductCount);
+			if (selectCType.equals("singredient") && sort.equals("stime")) {
+				sorts = 1;
+			}
+
+			if (selectCType.equals("singredient") && sort.equals("sprice")) {
+				sorts = 2;
+			}
+			if ((selectCType.equals("skitchenware") && sort.equals("none"))
+			        || (selectCType.equals("skitchenware") && sort.equals("stime"))
+			        || (selectCType.equals("skitchenware") && sort.equals("sprice"))) {
+			    type =2;
+			}
+
+
+			System.out.println(type);
+			System.out.println(sorts);
+			int page = Integer.parseInt(req.getParameter("page"));
+			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+
+			ProductService productSvc = new ProductService();
+			List<Map<String, String>> dataMapList = productSvc.findIngrdinetProduct(page, pageSize, type, sorts);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+
+			res.setContentType("application/json; charset :UTF-8");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+
+		// 廚具
+		if ("catergorysearchK".equals(action)) {
+			String selectCType = req.getParameter("selectCType");
+			String sort = req.getParameter("sort");
+
+			int type = 2; // 0 1 2 無 食材 廚具
+			int sorts = 0;// 0 1 2 無 時間 金錢
+
+			if (selectCType.equals("skitchenware") && sort.equals("none")) {
+				sorts = 0;
+			}
+
+			if (selectCType.equals("skitchenware") && sort.equals("stime")) {
+				sorts = 1;
+			}
+
+			if (selectCType.equals("skitchenware") && sort.equals("sprice")) {
+				sorts = 2;
+			}
+			if ((selectCType.equals("singredient") && sort.equals("none"))
+					|| (selectCType.equals("singredient") && sort.equals("stime"))
+					|| (selectCType.equals("singredient") && sort.equals("sprice"))) {		
+				type = 1;
+			}
+
+			System.out.println(type);
+			System.out.println(sorts);
+			int page = Integer.parseInt(req.getParameter("page"));
+			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+
+			ProductService productSvc = new ProductService();
+			List<Map<String, String>> dataMapList = productSvc.findKitchwareProduct(page, pageSize, type, sorts);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+
+			res.setContentType("application/json; charset :UTF-8");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+
+		// 總覽
+		if ("searchall".equals(action)) {
+
+			String selectCType = req.getParameter("selectCType");
+			String sort = req.getParameter("sort");
+
+			int type = 0; // 0 1 2 無 食材 廚具
+			int sorts = 0;// 0 1 2 無 時間 金錢
+			// 熱門ALL
+			if (selectCType.equals("none") && sort.equals("none")) {
+				type = 0;
+				sorts = 0;
+			}
+			if (selectCType.equals("none") && sort.equals("stime")) {
+				type = 0;
+				sorts = 1;
+			}
+			if (selectCType.equals("none") && sort.equals("sprice")) {
+				type = 0;
+				sorts = 2;
+			}
+			if (selectCType.equals("singredient") && sort.equals("none")) {
+				type = 1;
+				sorts = 0;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("none")) {
+				type = 2;
+				sorts = 0;
+			}
+			if (selectCType.equals("singredient") && sort.equals("stime")) {
+				type = 1;
+				sorts = 1;
+			}
+			if (selectCType.equals("singredient") && sort.equals("sprice")) {
+				type = 1;
+				sorts = 2;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("stime")) {
+				type = 2;
+				sorts = 1;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("sprice")) {
+				type = 2;
+				sorts = 2;
+			}
+
+			System.out.println(type);
+			System.out.println(sorts);
+			int page = Integer.parseInt(req.getParameter("page"));
+			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+
+			ProductService productSvc = new ProductService();
+			List<Map<String, String>> dataMapList = productSvc.findAllProduct(page, pageSize, type, sorts);
+
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+
+			res.setContentType("application/json; charset :UTF-8");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+
+		}
+
+		if ("searchkeyword".equals(action)) {
+
+			String keywords = req.getParameter("keywords");
+			String selectCType = req.getParameter("selectCType");
+			String sort = req.getParameter("sort");
+			int page = Integer.parseInt(req.getParameter("page"));
+			int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+
+			int type = 0; // 0 1 2 無 食材 廚具
+			int sorts = 0;// 0 1 2 無 時間 金錢
+			// 熱門ALL
+			if (selectCType.equals("none") && sort.equals("none")) {
+				type = 0;
+				sorts = 0;
+			}
+			if (selectCType.equals("none") && sort.equals("stime")) {
+				type = 0;
+				sorts = 1;
+			}
+			if (selectCType.equals("none") && sort.equals("sprice")) {
+				type = 0;
+				sorts = 2;
+			}
+			if (selectCType.equals("singredient") && sort.equals("none")) {
+				type = 1;
+				sorts = 0;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("none")) {
+				type = 2;
+				sorts = 0;
+			}
+			if (selectCType.equals("singredient") && sort.equals("stime")) {
+				type = 1;
+				sorts = 1;
+			}
+			if (selectCType.equals("singredient") && sort.equals("sprice")) {
+				type = 1;
+				sorts = 2;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("stime")) {
+				type = 2;
+				sorts = 1;
+			}
+			if (selectCType.equals("skitchenware") && sort.equals("sprice")) {
+				type = 2;
+				sorts = 2;
+			}
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+
+			ProductService productSvc = new ProductService();
+			List<Map<String, String>> dataMapList = productSvc.findByKeyword(keywords, page, pageSize, type, sorts);
+
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 
 			Gson gson = new Gson();
@@ -1246,7 +1069,6 @@ public class ProductServlet extends HttpServlet {
 			res.setContentType("application/json; charset :UTF-8");
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jsonData);
-
 		}
 
 	}

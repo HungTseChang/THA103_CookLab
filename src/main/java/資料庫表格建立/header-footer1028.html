@@ -2,25 +2,24 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Ogani Template" />
-    <meta name="keywords" content="Ogani, unica, creative, html" />
+    <meta name="description" content="CookLab" />
+    <meta name="keywords" content="CookLab, recipe, food, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Ogani | Template</title>
+    <title>CookLab</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="./css/my.css" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="css/ding.css" type="text/css" />
@@ -32,6 +31,60 @@
       <div class="loader"></div>
     </div>
 
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+      <div class="humberger__menu__logo">
+        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+      </div>
+      <section class="container">
+        <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
+          <div class="">
+            <a href="#">
+              <i class="bi bi-cart3 fa-3x"></i>
+            </a>
+          </div>
+
+          <div class="">
+            <a href="#">
+              <i class="fa fa-user fa-3x"></i>
+            </a>
+          </div>
+
+          <div class="">
+            <a href="#">
+              <i class="bi bi-bell fa-3x"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+      <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+          <li class="active"><a href="./index.html">首頁</a></li>
+          <li><a href="./shop-grid.html">商城todo</a></li>
+          <li><a href="./blog.html">食譜總覽todo</a></li>
+          <li><a href="./contact.html">常見問題todo</a></li>
+          <li><a href="./contact.html">討論區todo</a></li>
+          <li><a href="./contact.html">最新消息todo</a></li>
+        </ul>
+      </nav>
+      <div id="mobile-menu-wrap"></div>
+      <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-2x fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-2x fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-2x fa-twitter"></i></a>
+      </div>
+      <div class="humberger__menu__contact">
+        <ul>
+          <li>
+            <i class="fa fa-envelope"></i>
+            tomato@cooklab.com
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Humberger End -->
+
     <!-- Header Section Begin -->
     <header class="header">
       <div class="header__top">
@@ -41,16 +94,25 @@
             <div class="col-lg-6">
               <div class="header__top__right">
                 <div class="header__top__right__auth">
-                  <a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">購物車</span> </a>
+                  <a href="#">
+                    <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i>
+                    <span class="ding-nav-text">購物車</span>
+                  </a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">會員中心</span> </a>
+                  <a href="#">
+                    <i class="fa fa-user m-0 ml-2 fa-lg"></i>
+                    <span class="ding-nav-text">會員中心</span>
+                  </a>
                 </div>
                 <div class="header__top__right__auth">
                   <a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
                 </div>
                 <div class="header__top__right__auth">
-                  <a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">通知中心</span> </a>
+                  <a href="#">
+                    <i class="bi bi-bell m-0 ml-2 fa-lg"></i>
+                    <span class="ding-nav-text">通知中心</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -61,18 +123,18 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
+              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
             </div>
           </div>
           <div class="col-lg-9 d-flex align-items-center">
             <nav class="header__menu">
               <ul>
-                <li class="active"><a href="./index.html">食譜總覽</a></li>
+                <li><a href="./index.html">食譜總覽</a></li>
                 <li><a href="#">新增食譜</a></li>
                 <li><a href="#">關注食譜</a></li>
                 <li><a href="./shop-grid.html">商城</a></li>
                 <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
+                <li class="active"><a href="#">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -84,64 +146,6 @@
       </div>
     </header>
     <!-- Header Section End -->
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="../img/breadcrumb.jpg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="breadcrumb__text">
-              <h2>購物車</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Shoping Cart Section Begin -->
-    <section class="shoping-cart spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="shoping__cart__table">
-              <table id="cart-table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>商品名稱</th>
-                    <th>商品價格</th>
-                    <th>商品數量</th>
-                    <th>金額總計</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <!-- 可以添加更多商品行 -->
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="shoping__cart__btns">
-              <a href="./shop.html" class="primary-btn cart-btn cart-btn-right">繼續購物</a>
-            </div>
-          </div>
-          <div class="col-lg-6"></div>
-          <div class="col-lg-6">
-            <div class="shoping__checkout">
-              <h5>購物車 金額</h5>
-              <ul>
-                <li id="grand-total">總計 <span></span></li>
-              </ul>
-              <a href="#" class="primary-btn" id="checkout-button">結帳</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Shoping Cart Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -179,7 +183,9 @@
                 <button type="submit" class="btn ding-btn-org">訂閱</button>
               </form>
               <div class="footer__widget__social">
-                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-instagram"></i></a> <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
               </div>
             </div>
           </div>
@@ -194,7 +200,10 @@
                   <script>
                     document.write(new Date().getFullYear());
                   </script>
-                  All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                  All rights reserved | This template is made with
+                  <i class="fa fa-heart" aria-hidden="true"></i>
+                  by
+                  <a href="https://colorlib.com" target="_blank">Colorlib</a>
                   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
               </div>
@@ -206,14 +215,13 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.nice-select.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/mixitup.min.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="./js/cart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

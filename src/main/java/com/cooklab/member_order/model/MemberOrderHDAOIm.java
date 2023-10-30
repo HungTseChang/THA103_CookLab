@@ -116,4 +116,10 @@ public class MemberOrderHDAOIm implements MemberOrderDAO {
 //		return null;
 	}
 
+	@Override
+	public Integer updateStatus(MemberOrderVO memberOrderVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

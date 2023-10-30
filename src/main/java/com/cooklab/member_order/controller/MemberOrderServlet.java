@@ -126,19 +126,29 @@ public class MemberOrderServlet extends HttpServlet {
 		}
 
 		if ("checkout".equals(action)) {
-			String memberName = req.getParameter("memberName");
-			String memberEmail = req.getParameter("memberEmail");
-			String memberPhone = req.getParameter("memberPhone");
+			
+			String memberId = "1";
+					
 			String memberAddress = req.getParameter("memberAddress");
 			String orderTotal = req.getParameter("orderTotal");
 			String finalPrice = req.getParameter("finalPrice");
 			String promoCodeInfo = req.getParameter("promoCodeInfo");
 			String cartData = req.getParameter("cartData");
-
-			// 创建订单
+			System.out.println(memberAddress);
+			System.out.println(orderTotal);
+			System.out.println(finalPrice);
+			System.out.println(promoCodeInfo);
+			System.out.println(cartData);
+			
 			JsonArray cartItems = new JsonParser().parse(cartData).getAsJsonArray();
 			MemberOrderVO memberOrder = new MemberOrderVO();
+			
+			MembersService membersService = new MembersService();
+			MembersVO membersVO = membersService.findByPrimaryKey(1);
+			
+			System.out.println(membersVO.getMemberId());
 			memberOrder.setMemberId(1);
+			
 			memberOrder.setOrderStatus((byte) 0);
 			memberOrder.setTotalOrderAmount(Integer.valueOf(orderTotal));
 			if (promoCodeInfo == null || promoCodeInfo.isEmpty()) {
@@ -161,8 +171,6 @@ public class MemberOrderServlet extends HttpServlet {
 				OrderDetailVO orderDetail = new OrderDetailVO();
 				orderDetail.setProduct(productvo);
 				orderDetail.setOrderQty(quantity);
-
-				// 訂單明細 訂單關聯
 				orderDetail.setMemberOrder(memberOrder);
 
 				details.add(orderDetail);
@@ -302,7 +310,14 @@ public class MemberOrderServlet extends HttpServlet {
 
 			memberOrderDetailMap.put("memberId", memberOrderVO.getMembers().getMemberId().toString());
 			memberOrderDetailMap.put("shippingAddress", memberOrderVO.getShippingAddress());
-			memberOrderDetailMap.put("promoCode", memberOrderVO.getPromoCode().getPromoCodeSerialNumber());
+			
+			String promoCode = "";
+			PromoCodeVO promoCodeVO = memberOrderVO.getPromoCode();
+			if (promoCodeVO != null) {
+			    promoCode = promoCodeVO.getPromoCodeSerialNumber();
+			}
+
+			memberOrderDetailMap.put("promoCode", promoCode);
 			memberOrderDetailMap.put("memberNickname", memberOrderVO.getMembers().getMemberNickname());
 			memberOrderDetailMap.put("orderNo", memberOrderVO.getOrderNo().toString());
 			memberOrderDetailMap.put("totalOrderAmount", memberOrderVO.getTotalOrderAmount().toString());
@@ -348,7 +363,7 @@ public class MemberOrderServlet extends HttpServlet {
 			MemberOrderService memberOrderSvc = new MemberOrderService();
 			MemberOrderVO memberOrderVO = new MemberOrderVO();
 
-			memberOrderVO.setOrderNo(orderNo);
+			memberOrderVO =memberOrderSvc.findByPrimaryKey(orderNo);
 			if (newStatus >= Byte.MIN_VALUE && newStatus <= Byte.MAX_VALUE) {
 				byte statusByte = newStatus.byteValue();
 				memberOrderVO.setOrderStatus(statusByte);

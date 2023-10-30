@@ -1,4 +1,11 @@
 const productId = getProductIdFromURL(); // 编写一个函数来获取URL参数中的商品ID
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+
 // 等待页面加载完成后执行
 document.addEventListener("DOMContentLoaded", () => {
 	// 获取商品ID（从URL参数中获取）
@@ -13,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// 发起AJAX请求，获取商品详细信息
 	$.ajax({
-		url: "/CookLab/ProductServlet", // 服务器端URL
+		url: END_POINT_URL +COLLECTION_POINT, // 服务器端URL
 		type: "GET", // 使用GET请求
 		data: requestData, // 发送的参数
 		dataType: "json", // 预期的响应数据类型
@@ -59,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 		console.log(requestData);
 		$.ajax({
-			url: '/CookLab/CartServlet',
+			url: END_POINT_URL +COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
@@ -93,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		console.log(requestData);
 
 		$.ajax({
-			url: '/CookLab/CartServlet',
+			url: END_POINT_URL +COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
@@ -155,7 +162,7 @@ function populateHotKeywords(keywords) {
 
 function fetchDataAndRender2() {
 	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
-	fetch('/CookLab/ProductServlet?action=getHotKeywords')
+	fetch(END_POINT_URL +COLLECTION_POINT +'?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
