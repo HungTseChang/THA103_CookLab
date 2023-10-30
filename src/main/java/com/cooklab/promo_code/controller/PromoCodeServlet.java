@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -132,7 +133,13 @@ public class PromoCodeServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer promoCodeNo = Integer.valueOf(req.getParameter("promoCodeNo"));
+			Enumeration<String> aa = req.getParameterNames();
+			while(aa.hasMoreElements()) {
+				String name = aa.nextElement();
+				System.out.println(name);
+			}
+			System.out.println("編號為:"+req.getParameter("promoCodeNo"));
+			Integer promoCodeNo = Integer.valueOf(req.getParameter("promoCodeNo").trim());
 			String promoCodeSerialNumber = (req.getParameter("promo_code_serial_number"));
 			java.sql.Timestamp startTime = null;
 			String startTimeStr = req.getParameter("start_time");
@@ -194,6 +201,7 @@ public class PromoCodeServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("promoCodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				System.out.println(errorMsgs);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
@@ -202,6 +210,7 @@ public class PromoCodeServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			PromoCodeService PcSvc = new PromoCodeService();
+			System.out.println("開始更新");
 			PcSvc.updatePc(promoCodeVO);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
@@ -308,7 +317,8 @@ public class PromoCodeServlet extends HttpServlet {
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("promocodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("promocodeVO", promoCodeVO); 
+				System.out.println(errorMsgs);// 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
 				return;

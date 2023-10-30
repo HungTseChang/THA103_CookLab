@@ -37,6 +37,8 @@ String a = PromoCodeRandom.generateRandomString(10);
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/dashboard/assets/images/favicon.svg"
 	type="image/x-icon">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.css" />
@@ -177,15 +179,13 @@ input.WCC_memeber_info {
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
 							<h3>優惠券設定</h3>
-							<p class="text-subtitle text-muted">For user to check they
-								list</p>
+							<p class="text-subtitle text-muted">For user to check theylist</p>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
+									<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
 									<li class="breadcrumb-item active" aria-current="page">優惠券設定</li>
 								</ol>
 							</nav>
@@ -219,7 +219,7 @@ input.WCC_memeber_info {
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" id="" class="GCpromo_info"
-																	name="promo_code_serial_number" value="<%=a%>" disabled>
+																	name="promo_code_serial_number" value="<%=a%>">
 															</div>
 															<div class="col-md-4">
 																<label>生效時間</label>
@@ -267,7 +267,7 @@ input.WCC_memeber_info {
 													</div>
 													<div class="col-md-6 ">
 														<input type="hidden" name="action" value="insert">
-														<input type="submit" value="送出新增">
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 													</div>
 												</form>
 											</div>
@@ -296,8 +296,7 @@ input.WCC_memeber_info {
 					<div class="float-end">
 						<p>
 							Crafted with <span class="text-danger"><i
-								class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
-								Saugi</a>
+								class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.Saugi</a>
 						</p>
 					</div>
 				</div>
@@ -317,10 +316,7 @@ input.WCC_memeber_info {
 		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
-	<script>
-		let table1 = document.querySelector("#table1");
-		let dataTable = new simpleDatatables.DataTable(table1);
-	</script>
+
 	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 	<script
@@ -329,7 +325,13 @@ input.WCC_memeber_info {
 		src="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.js"></script>
-
+		
+	<script
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
+	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+	</script>
 	<script>
 		
 	</script>
