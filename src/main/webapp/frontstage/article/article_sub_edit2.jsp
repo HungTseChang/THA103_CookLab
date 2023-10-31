@@ -6,7 +6,7 @@
 <%@ page import="com.cooklab.article_sub.model.ArticleSubVO"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
-
+session.getAttribute("membersVO");
 Object mem = session.getAttribute("userId" ); 
 Integer userId= Integer.valueOf(mem.toString());
 
