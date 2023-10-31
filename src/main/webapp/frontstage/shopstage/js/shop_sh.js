@@ -4,7 +4,7 @@ var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/ProductServlet";
 const COLLECTION_POINT2 = "/CartServlet"
-
+const COLLECTION_POINT3 = "/AdvertiseServlet2"
 
 
 //Fetch練習
@@ -167,17 +167,65 @@ function populateHotKeywords(keywords) {
 }
 
 
+//廣告渲染
+function fetchDataAndRender3() {
+	fetch(END_POINT_URL + COLLECTION_POINT3 + '?action=getjson')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+		.then(data => {
+			renderData2(data);
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+}
+
+
+function renderData2(data) {
+	const Adcontainer = document.getElementById('adhighlight');
+	Adcontainer.innerHTML = '';
+
+	data.forEach(item => {
+		const card = document.createElement('div');
+		card.classList.add('col-lg-12');
+
+		const imageDiv = document.createElement('div');
+		imageDiv.classList.add('categories__item', 'set-bg');
+		imageDiv.style.backgroundImage = `url(data:image/jpeg;base64,${item.advertise_img})`; // 修正這行
+
+		const h5 = document.createElement('h5'); 
+		const aTitle = document.createElement('a');
+		aTitle.href = item.advertise_url;
+		aTitle.textContent = item.advertise_name;
+		h5.appendChild(aTitle);
+
+		imageDiv.appendChild(h5); 
+		card.appendChild(imageDiv); 
+
+		Adcontainer.appendChild(card); // 將卡片添加到廣告容器中
+	});
+}
+
+
+
+
+
+
 /*============================== 搜尋功能 ==============================*/
 $(document).ready(function() {
 	$("#search-button").on("click", function() {
 		let keyword = $("#index-searchbar").val();
 
-		// 构建跳转URL并将关键字作为查询参数传递
 		window.location.href = "./shop-grid.html?keyword=" + keyword;
 	});
 
 	fetchDataAndRender();
 	fetchDataAndRender2();
+	fetchDataAndRender3();
 });
 
 

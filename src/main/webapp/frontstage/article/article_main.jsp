@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
+
 <%
     ArticleService artSvc = new ArticleService();
 	Byte test = 0;//不能強轉型只好設定一個Byte 變數
@@ -14,7 +15,10 @@
 	List<ArticleCategoryVO> list2 = artSvc2.getAll();
 	pageContext.setAttribute("list2",list2);
 	
-
+                       
+    session.getAttribute("account");                    
+    session.getAttribute("userId" );                     
+    session.getAttribute("membersVO");
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -207,8 +211,9 @@
     </div>
 <!--   </FORM> -->
 	
+	<p>會員ID${membersVO.memberId}</p>
 	
-
+	<p>會員暱稱${membersVO.memberNickname}</p>
 
 	<section id="article_conten">
 		<div class="container">
@@ -371,7 +376,7 @@
 	<script>
 	//=======WebChat===========
 
-	var self = "Daddy";
+	var self = "${membersVO.memberNickname}"
 	var MyPoint = "/TogetherWS";
 	var host = window.location.host;
 	var path = window.location.pathname; //動態取得專案路徑
@@ -441,7 +446,7 @@
 	// inputUserName.focus(); 這段出現錯誤暫時封住
 
 	function sendMessage() {
-		var userName = "Daddy";
+		var userName = "${membersVO.memberNickname}"
 		var inputMessage = document.getElementById("message");
 		var message = inputMessage.value.trim();
 		

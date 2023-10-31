@@ -4,10 +4,11 @@ import java.util.Timer;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import com.cooklab.util.HibernateUtil;
 import com.cooklab.util.JedisUtil;
-
+@WebListener
 public class SingletonServletContextListener implements ServletContextListener {
 	
 	private Timer timer;
@@ -17,7 +18,7 @@ public class SingletonServletContextListener implements ServletContextListener {
     	HibernateUtil.getSessionFactory();
     	JedisUtil.getJedisPool();
     	timer = new Timer();
-		timer.schedule(new RecipeViewCounTask(), 0, 60*60*1000);
+		timer.schedule(new RecipeViewCounTask(), 0, 3*60*1000);
     }
 
     @Override

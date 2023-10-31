@@ -56,7 +56,7 @@ public class RecipeHDAOIm implements RecipeDAO {
 	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit, String search) {
 		return getSession()
 				.createQuery("from RecipeVO r " + "left join fetch r.ingredient ri "
-						+ "left join fetch r.kitchenware rk " + "where (r.recipeStatus = 1) "
+						+ "left join fetch r.kitchenware rk " + "where (r.recipeStatus = 0) "
 						+ "and (r.recipeName like :search " + "or ri.textLabel like :search "
 						+ "or rk.textLabel like :search) order by r." + cloumn + (desc ? " desc" : " asc"),
 						RecipeVO.class)
@@ -66,7 +66,7 @@ public class RecipeHDAOIm implements RecipeDAO {
 	@Override
 	public long getCount(String search) {
 		return (long) getSession().createQuery("select count(distinct r) from RecipeVO r " + "join r.ingredient ri "
-				+ "join r.kitchenware rk " + "where (r.recipeStatus = 1) "
+				+ "join r.kitchenware rk " + "where (r.recipeStatus = 0) "
 				+ "and (r.recipeName like :search " + "or ri.textLabel like :search "
 				+ "or rk.textLabel like :search )").setParameter("search", "%" + search + "%").uniqueResult();
 	}

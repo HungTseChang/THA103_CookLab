@@ -5,8 +5,17 @@
 <%@ page import="com.cooklab.article_sub.model.*"%>
 <%@ page import="com.cooklab.article_reaction.model.*"%>
 <%@ page import="com.cooklab.article_sub_reaction.model.*"%>
+<%@ page import="com.cooklab.members.model.*"%>
 <%@ page import="java.util.*"%>
 <%
+	//以下接收會員資訊
+	
+	session.getAttribute("account");                    
+	session.getAttribute("userId" );                        
+	session.getAttribute("membersVO");
+	Object mem = session.getAttribute("userId" ); 
+	Integer userId= Integer.valueOf(mem.toString());
+// 	System.out.print("我是新的" +userId);
 //  這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
     ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
@@ -22,9 +31,10 @@
 	pageContext.setAttribute("reaDislike",reaDislike);
 	pageContext.setAttribute("like", like);
 	pageContext.setAttribute("dislike", dislike);
+	
 	//下面用來判斷是否有按過讚，如果查無資料也不會導致網頁崩壞
 	ArticleReactionService reaSvc2 = new ArticleReactionService();
-	ArticleReactionVO  reaVO2 =reaSvc2.findTwo(1, artVO.getArticleNo());
+	ArticleReactionVO  reaVO2 =reaSvc2.findTwo(userId, artVO.getArticleNo());
 	
 	if(reaVO2!= null ){
 		System.out.println("按讚狀態"+reaVO2.getStatus());
@@ -234,26 +244,26 @@
 	                             	<c:when test="${reaVO2.status == 1}">
 		                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
 		                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-		                                    data-gjStatus="1"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+		                                    data-gjStatus="1"  data-memberId ="${membersVO.memberId}"   data-articleNo ="${artVO.articleNo}" >
 	                                </c:when>
 	                                <c:otherwise>
 		                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
 		                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-		                                    data-gjStatus="0"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+		                                    data-gjStatus="0"  data-memberId ="${membersVO.memberId}"   data-articleNo ="${artVO.articleNo}" >
 	                                </c:otherwise>
                                 </c:choose>
 	                            <span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
                                 
       							<c:choose>
-	                                <c:when test="${reaVO.status == 2}">
+	                                <c:when test="${reaVO2.status == 2}">
 	                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
 	                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-	                                    data-gjStatus="2"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+	                                    data-gjStatus="2"  data-memberId ="${membersVO.memberId}"  data-articleNo ="${artVO.articleNo}" >
 	                                </c:when>
 	                                <c:otherwise>
 		                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
 		                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-		                                    data-gjStatus="0"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+		                                    data-gjStatus="0"  data-memberId ="${membersVO.memberId}"   data-articleNo ="${artVO.articleNo}" >
 	                                </c:otherwise>
                                 </c:choose>
                                 <span  class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
@@ -280,12 +290,14 @@
 	    ArticleSubReactionService  reaSubSvc = new ArticleSubReactionService();
 	    ArticleSubReactionVO  reaSubVO = new ArticleSubReactionVO();
 	    pageContext.setAttribute("reaSubSvc", reaSubSvc);
+	    
     %>
         
     <c:forEach var="artVO2" items="${list2}">
 	    <c:set var="articleSubNo" value="${artVO2.articleSubNo}" />
+	     
 	    <!-- 下面遞迴會員有沒有對回文文章按讚的status -->
-	    <c:set var="reaSubVO" value="${reaSubSvc.findTwo(1, articleSubNo)}" />
+	    <c:set var="reaSubVO" value="${reaSubSvc.findTwo(userId, articleSubNo)}" />
 	    <!-- 下面遞迴回文文章的按讚數量 -->
 	 	<c:set var="subLike" value="${reaSubSvc.allCount(artVO2.articleSubNo, like)}"/>
     	<c:set var="subDisLike" value="${reaSubSvc.allCount(artVO2.articleSubNo,dislike)}"/>
@@ -317,12 +329,12 @@
 			                             	<c:when test="${reaSubVO.status == 1}">
 				                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
 				                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-				                                    data-gjStatus="1"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+				                                    data-gjStatus="1"  data-memberId ="${membersVO.memberId}"   data-articleSubNo ="${artVO2.articleSubNo}" >
 			                                </c:when>
 			                                <c:otherwise>
 				                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
 				                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-				                                    data-gjStatus="0"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+				                                    data-gjStatus="0"  data-memberId ="${membersVO.memberId}"  data-articleSubNo ="${artVO2.articleSubNo}" >
 			                                </c:otherwise>
 		                                </c:choose>
 			                            <span  class="likeValue" style="margin-right: 50px;">${subLike}</span>
@@ -331,12 +343,12 @@
 			                                <c:when test="${reaSubVO.status == 2}">
 			                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
 			                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-			                                    data-gjStatus="2"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+			                                    data-gjStatus="2"  data-memberId ="${membersVO.memberId}"   data-articleSubNo ="${artVO2.articleSubNo}" >
 			                                </c:when>
 			                                <c:otherwise>
 				                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
 				                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-				                                    data-gjStatus="0"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+				                                    data-gjStatus="0"   data-memberId ="${membersVO.memberId}"   data-articleSubNo ="${artVO2.articleSubNo}" >
 			                                </c:otherwise>
 		                                </c:choose>
 		                                <span  class="dislikeValue" style="margin-right: 50px;">${subDisLike}</span>

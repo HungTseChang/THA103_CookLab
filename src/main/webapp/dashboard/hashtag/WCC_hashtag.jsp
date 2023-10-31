@@ -53,7 +53,7 @@
 
 
                         <!-- ============================================================================================== -->
-                             <li class="sidebar-item  ">
+                            <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
@@ -248,15 +248,19 @@
 									style="text-align: right; display: flex; flex-direction: column; justify-content: center;">
 									<select class="wcc" id="selectsearch"
 										style="background-color: white; padding-left: 20px; : border-color: white;">
-										<option value="permissionNo">權限編號</option>
-										<option value="permissionTitle">權限名稱</option>
+										<option value="hashtagNO">標籤編號</option>
+										<option value="hashtagName">標籤名稱</option>
+										<option value="categoryTags">標籤種類</option>
+										<option value="searchCount">搜尋次數</option>
+										<option value="useCount">使用次數</option>
+										<option value="officialTags">官方標籤</option>
 										<option value="createdTimestamp">時間</option>
 										<option value="wcc" selected>上述所有欄位</option>
 									</select>
 								</div>
 								<div class="col-md-6">
 									<input type="text" id="searchbar" class="form-control"
-										placeholder="請輸入 編號、權限名稱、時間"
+										placeholder="請輸入 編號、名稱、次數或時間"
 										style="pading-color: rgb(208, 250, 255);">
 								</div>
                     <div class="card">
@@ -270,19 +274,18 @@
                         <label>每頁展示筆數</label>
                         </div>
                         <div class="table-datatable" style="max-height: 400px; overflow-y: scroll;">
+                        <lable id="error"> </lable>
+                        
                             <table class="table-container" id="table1"
                                 style="width: 100%;white-space: nowrap; overflow: auto; border-collapse: collapse; border: 1px solid #000;">
                                 <thead style="position: sticky;top: 0; background-color: white;">
                                     <tr class="title">
-                                        <th class="number" name="permissionNo">職稱編號</th>
-                                        <th class="permit permissionTitle" name="permissionTitle">職稱名稱</th>
-                                        <th class="permit" name="superAdmin">總管理權限</th>
-                                        <th class="permit" name="cancelAllPermission">停止所有權限</th>
-                                        <th class="permit" name="membershipManagement">會員管理權限</th>
-                                        <th class="permit" name="advertisingManagement">廣告投放權限</th>
-                                        <th class="permit" name="reportingManagement">檢舉管理權限</th>
-                                        <th class="permit" name="articleManagement">討論區權限</th>
-                                        <th class="permit" name="recipeManagement">食譜管理權限</th>
+                                        <th class="number" name="hashtagNO">標籤編號</th>
+                                        <th class="permit" name="hashtagName">標籤名稱</th>
+                                        <th class="permit" name="categoryTags">標籤種類</th>
+                                        <th class="number" name="searchCount">搜尋次數</th>
+                                        <th class="number" name="useCount">使用次數</th>
+                                        <th class="permit" name="officialTags">官方標籤</th>
                                          <th class="wcc createdTimestamp ">創建時間</th>
                                     </tr>
                                 </thead>
@@ -302,7 +305,7 @@
         <span id="total-pages">of 1</span>
    								 </div>
                     <div  class="col-md-8  style="position: relative; left: 70%;">
-                                <a class="rounded-pill btn btn-primary wcc" id="enter0" style="position: relative;">新增職稱</a>
+                                <a class="rounded-pill btn btn-primary wcc" id="enter0" style="position: relative;">新增標籤</a>
                     </div>
                     </div>
                 </div>
@@ -334,53 +337,37 @@
         	 var rowsPerPage = 5;
         	 var currentPage = 1;
         	 var myList;
-
         	 if('${json}'){
         		 myList=JSON.parse('${json}');
+
+        		 
+        		 
         		}else{ 
         			console.log("reload");
         			var form = $("<form>", {
-        	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
+        	            action: "<%=request.getContextPath() %>/DisboardHastagServlet", // 表单提交的URL
         	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
         	        });
         		    
         		       form.append($("<input>", {
         	               type: "text",
         	               name: "action",
-        	               value: "getPermission"
+        	               value: "getHastag"
         	           }));
         		       form.appendTo("body").hide();
         		       form.submit();
         		       form.remove();
         				console.log("reload");
         		}
-       
-// ====================搜尋欄==============================================    
-	
-   $("#searchbar").on("keyup", function() {
-    var value1 = $(this).val().toLowerCase();
-    var detail = "td"+"."+$("#selectsearch").val();
-  $("table#table1").children("tbody").empty();
-  $("table#table1").children("tbody").append(textall);
-    
-    let line =  $("#tbody tr").filter(function() {
- return $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
-    });
-	   });	
-	
-// ========================放入資料========================================	
+  // ==================================    
+
 var textall = "";
 var tbodyall;
 var number =myList.length;	
-        const permission = { 
-    	        0: `
-     	           <a class="btn btn-primary rounded-pill" value="0">O</a>
-    	    		   `,
-    	    	1: `
-    	           <a class="btn btn-danger rounded-pill " value="1">X</a> 		   
-
-    	    	`	   
-    	       } 
+const status ={
+		  0:" <span class='badge bg-success' value='0'>官方</span>",
+		  1:" <span class='badge bg-secondary' value='1'>非官方</span>",
+ }		
    
         
 		var onload = function() {
@@ -391,25 +378,22 @@ var number =myList.length;
 
 	    	    let text = "";
 	    	  text += "<tr>";
-	   		  text += "<td class='wcc permissionNo'  name='permissionNo' value="+aa.permissionNo+">"+aa.permissionNo+"</td>";
-	   		  text +=" <td class='wcc permissionTitle'  name='permissionTitle'>"+aa.permissionTitle+"</td>";
-	   		  text +=" <td class='wcc ' name='superAdmin'>"+permission[aa.superAdmin]+"</td>";
-	   		  text +=" <td class='wcc ' name='cancelAllPermission'>"+permission[aa.cancelAllPermission]+"</td>";
-	   		  text +=" <td class='wcc ' name='membershipManagement'>"+permission[aa.membershipManagement]+"</td>"; 
-	   		  text +=" <td class='wcc ' name='advertisingManagement'>"+permission[aa.advertisingManagement]+"</td>"; 
-	   		  text +=" <td class='wcc ' name='reportingManagement'>"+permission[aa.reportingManagement]+"</td>"; 
-	   		  text +=" <td class='wcc ' name='articleManagement'>"+permission[aa.articleManagement]+"</td>"; 
-    		  text +=" <td  class='wcc ' name='recipeManagement'>"+permission[aa.recipeManagement]+"</td>"; 
+	   		  text += "<td class='wcc hashtagNO'  name='hashtagNO' value="+aa.hashtagNO+">"+aa.hashtagNO+"</td>";
+	   		  text +=" <td class='wcc hashtagName'  name='hashtagName'>"+aa.hashtagName+"</td>";
+	   		  text +=" <td class='wcc categoryTags'  name='categoryTags'>"+aa.categoryTags+"</td>";
+	   		  text +=" <td class='wcc searchCount'  name='searchCount'>"+aa.searchCount+"</td>";
+	   		  text +=" <td class='wcc useCount'  name='useCount'>"+aa.useCount+"</td>";
+    		  text +=" <td  class='wcc ' name='officialTags'>"+status[aa.officialTags]+"</td>"; 
 	   		  text +=" <td class='wcc  ' createdTimestamp'  name='createdTimestamp'>"+aa.createdTimestamp+"</td>"; 
 	   		  text +=`
 	   			<td>
 	                  <a  class="modify wcc" style="margin-bottom: 0px;">修改</a>
 	   			</td>
 	    		<td>
-   			  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/PermissionServlet" style="margin-bottom: 0px;">
+   			  <FORM METHOD="post" ACTION="<%=request.getContextPath() %>/DisboardHastagServlet" style="margin-bottom: 0px;">
 	  			     <input type="submit" value="刪除">
-	    		     <input type="hidden" name="permissionNo"  value=`;
-	    		  text +=aa.permissionNo;
+	    		     <input type="hidden" name="hashtagNO"  value=`;
+	    		  text +=aa.hashtagNO;
 	    		  text +=`>
 	    			     <input type="hidden" name="action" value="delete"></FORM>
 	    			</td>
@@ -425,12 +409,13 @@ var number =myList.length;
         
         
 //    ====================================================== 	       
-    	       
+ 
+// ========================放入資料========================================	   	       
         
        let  updateTable  = function(){
-    	    	var startIndex = (currentPage - 1) * rowsPerPage;
-    	    	var endIndex = startIndex + rowsPerPage;
-    	    	var tableBody = $("table#table1").children("tbody");
+    	    	let startIndex = (currentPage - 1) * rowsPerPage;
+    	    	let endIndex = startIndex + rowsPerPage;
+    	    	let tableBody = $("table#table1").children("tbody");
     	    	tableBody.empty();
 
     		for(let i = startIndex ; i<endIndex ;i++){
@@ -447,63 +432,46 @@ var number =myList.length;
 
 //         =============================================
        let saveupdate = function(e){
-        let	permissionNo= $(e.target).closest("tr").find("td[name='permissionNo']").text();
-        let	 permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
-        let	superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-        let	 cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
-        let	 membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
-        let	 advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
-        let	 reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
-        let	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
-        let	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
+        let	hashtagNO= $(e.target).closest("tr").find("td[name='hashtagNO']").text();
+        let	 hashtagName= $(e.target).closest("tr").find("td[name='hashtagName']").find("input").val();
+        let	categoryTags= $(e.target).closest("tr").find("td[name='categoryTags']").find("select").val();
+        let	 searchCount= $(e.target).closest("tr").find("td[name='searchCount']").text();
+        let	 useCount= $(e.target).closest("tr").find("td[name='useCount']").text();
+        let	 officialTags= $(e.target).closest("tr").find("td[name='officialTags']").find("select").val();
+
         	var save = $("<form>", {
-	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
+	            action: "<%=request.getContextPath() %>/DisboardHastagServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	        });
         	save.append($("<input>", {
 	               type: "text",
-	               name: "permissionNo",
-	               value: permissionNo
+	               name: "hashtagNO",
+	               value: hashtagNO
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "permissionTitle",
-	               value:permissionTitle
+	               name: "hashtagName",
+	               value:hashtagName
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "superAdmin",
-	               value: superAdmin
+	               name: "categoryTags",
+	               value: categoryTags
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "cancelAllPermission",
-	               value:cancelAllPermission
+	               name: "searchCount",
+	               value:searchCount
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "membershipManagement",
-	               value: membershipManagement
+	               name: "useCount",
+	               value: useCount
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "advertisingManagement",
-	               value: advertisingManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "reportingManagement",
-	               value: reportingManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "articleManagement",
-	               value: articleManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "recipeManagement",
-	               value: recipeManagement
+	               name: "officialTags",
+	               value: officialTags
 	           }));
         	save.append($("<input>", {
 	               type: "text",
@@ -521,27 +489,28 @@ var number =myList.length;
            $(e.target).closest("tr").addClass("hightlight");  
        }}
 //        ===============================================
-       let modify = function (e) {
-           e.preventDefault();
-            let value =  $(e.target).attr("value")
-           if ($(e.target).closest("tr").hasClass("hightlight")){
-        	 if(value==0){
-        		 $(e.target).closest("td").html(permission[1]);
-        	 }else{ $(e.target).closest("td").html(permission[0]); }  
-           }      
-       }
+       var hashtagName_old;
+       var categoryTags_old;
+       var searchCount_old;
+       var useCount_old;
+       var officialTags_old;
        
-       $(document).on("click", "a.btn", function(e){
-    	   modify(e);
-       });
-        var permissionNo_old;
-       var permissionTitle_old;
-       var superAdmin_old;
-       var cancelAllPermission_old;
-       var membershipManagement_old;
-       var reportingManagement_old;
-       var articleManagement_old;
-       var recipeManagement_old;   
+       
+       const categoryTagsList= `
+           <select class="wcc" id="select2">
+           <option value="烹飪方式">烹飪方式</option>
+           <option value="餐點類型">餐點類型</option>
+           <option value="特殊飲食需求">特殊飲食需求</option>
+           <option value="節日">節日</option>
+           </select>
+       `;
+       const officialTagsList= `
+           <select class="wcc" id="select3">
+           <option value="0">官方</option>
+           <option value="1">非官方</option>
+           </select>
+       `;
+      const hashtagNamestring = ' <input type="text" id="hashtagNamestring" class="wcc" placeholder="標籤名稱"> ';
 //        ===========================================
 	
        $(document).on("click", "a.modify", function(e){
@@ -549,15 +518,21 @@ var number =myList.length;
     	   light(e);
     	   $(e.target).text("儲存修改");
            $(e.target).closest("td").append( '<a  class="cancelmodify wcc" style="margin-bottom: 0px;" >取消修改</a> ');
-       	permissionNo_old= $(e.target).closest("tr").find("td[name='permissionNo']").text();
-   	    permissionTitle_old= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
-   	   superAdmin_old= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-    	cancelAllPermission_old= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
-   	 membershipManagement_old= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
-   	 advertisingManagement_old= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
-   	 reportingManagement_old= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
-   	 articleManagement_old= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
-   	 recipeManagement_old= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");        
+           hashtagName_old= $(e.target).closest("tr").find("td[name='hashtagName']").text();
+           categoryTags_old= $(e.target).closest("tr").find("td[name='categoryTags']").text();
+           officialTags_old= $(e.target).closest("tr").find("td[name='officialTags']").find("span").attr("value");     
+           
+           
+
+        	   
+
+      $(e.target).closest("tr").find("td[name='hashtagName']").html(hashtagNamestring);
+      $(e.target).closest("tr").find("td[name='hashtagName']").find("#hashtagNamestring").val(hashtagName_old);
+      $(e.target).closest("tr").find("td[name='categoryTags']").html(categoryTagsList);
+     $(e.target).closest("tr").find("td[name='officialTags']").html(officialTagsList);
+
+
+
     	   }else if(
     			   $(e.target).closest("tr").hasClass("hightlight")
     	   ){
@@ -572,20 +547,13 @@ var number =myList.length;
        });
 //  ===================取消修改========================================      
         $(document).on("click", "a.cancelmodify", function(e){
-           $(e.target).closest("tr").find("td[name='permissionNo']").text(permissionNo_old);
-       	    $(e.target).closest("tr").find("td[name='permissionTitle']").text(permissionTitle_old);
-       	   superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").html(permission[superAdmin_old]);
-        	cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").html(permission[cancelAllPermission_old]);
-       	 membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").html(permission[membershipManagement_old]);
-       	 advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").html(permission[advertisingManagement_old]);
-       	 reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").html(permission[reportingManagement_old]);
-       	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").html(permission[articleManagement_old]);
-       	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").html(permission[recipeManagement_old]); 
+           $(e.target).closest("tr").find("td[name='hashtagName']").text(hashtagName_old);
+       	    $(e.target).closest("tr").find("td[name='categoryTags']").text(categoryTags_old);
+       	    $(e.target).closest("tr").find("td[name='officialTags']").html(status[officialTags_old]);
 		   $("tr.hightlight").removeClass("hightlight");
 		   $(e.target).closest("tr").find('a.modify').text("修改");
 		   $(e.target).closest("td").find('a.cancelmodify').remove();
         });
-       
        
        
        
@@ -615,7 +583,7 @@ var number =myList.length;
         });
         
 //         ===========新增============================================================
-        
+     //   =====================
         let addnew = function(){
         	 if (! $("tr.hightlight").length == 0){return;}
             var currentTime = new Date();
@@ -626,21 +594,16 @@ var number =myList.length;
                 + currentTime.getMinutes() + ":"
                 + currentTime.getSeconds();
         	
-
-        		let selection = ' <a class="btn btn-danger rounded-pill " value="1">X</a> 	';
         		
         		
         	let newone = ""
         		newone += "<tr class='hightlight'>";
-        		newone += "<td name='permissionNo'>"+"新的權限"+"</td>";
-        		newone +=" <td name='permissionTitle'>"+"<input id='newtitle' type='text' placeholder='請輸入權限名稱'>"+"</td>";
-        		newone +=" <td name='superAdmin'>"+selection+"</td>";
-        		newone +=" <td  name='cancelAllPermission'>"+selection+"</td>";
-        		newone +=" <td name='membershipManagement'>"+selection+"</td>"; 
-        		newone +=" <td name='advertisingManagement'>"+selection+"</td>"; 
-        		newone +=" <td name='reportingManagement'>"+selection+"</td>"; 
-        		newone +=" <td name='articleManagement'>"+selection+"</td>"; 
-        		newone +=" <td name='recipeManagement'>"+selection+"</td>"; 
+        		newone += "<td name='hashtagNO'>"+"新的權限"+"</td>";
+        		newone +=" <td name='hashtagName'>"+hashtagNamestring+"</td>";
+        		newone +=" <td name='categoryTags'>"+categoryTagsList+"</td>";
+        		newone +=" <td  name='searchCount'>"+0+"</td>";
+        		newone +=" <td name='useCount'>"+0+"</td>"; 
+        		newone +=" <td name='officialTags'>"+officialTagsList+"</td>"; 
         		newone +=" <td name='createdTimestamp'>"+formattedTime+"</td>"; 
         		newone +=`
       				<td>
@@ -660,11 +623,13 @@ var number =myList.length;
         	addnew();
         })
         
+        
+        
          $(document).on("click", "a.insert", function(e){
-        	let permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").find("input").val();
-        	if(permissionTitle==null || permissionTitle.trim()==""){
-        		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").attr("placeholder","title不可為空");
-        		$(e.target).closest("tr").find("td[name='permissionTitle']").find("input").addClass("red-placeholder");
+        	let hashtagName_new= $(e.target).closest("tr").find("td[name='hashtagName']").find("input").val();
+        	if(hashtagName_new==null || hashtagName_new.trim()==""){
+        		$(e.target).closest("tr").find("td[name='hashtagName']").find("input").attr("placeholder","title不可為空");
+        		$(e.target).closest("tr").find("td[name='hashtagName']").find("input").addClass("red-placeholder");
         		$("div.table-datatable").scrollLeft(0);
         		$("div.table-datatable").scrollTop($("div.table-datatable")[0].scrollHeight);
 
@@ -673,58 +638,29 @@ var number =myList.length;
         	}
           	 console.log("結果非空值");
 
-        	let superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-        	let cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
-        	let membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
-        	let advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
-        	let reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
-        	let articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
-        	let recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
+        	let categoryTags_new= $(e.target).closest("tr").find("td[name='categoryTags']").find("select").val();
+        	let officialTags_new= $(e.target).closest("tr").find("td[name='officialTags']").find("select").val();
         	
         	var save = $("<form>", {
-	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
+	            action: "<%=request.getContextPath() %>/DisboardHastagServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	        });
         	save.append($("<input>", {
 	               type: "text",
-	               name: "permissionTitle",
-	               value:permissionTitle
+	               name: "hashtagName",
+	               value:hashtagName_new
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "superAdmin",
-	               value: superAdmin
+	               name: "categoryTags",
+	               value: categoryTags_new
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "cancelAllPermission",
-	               value:cancelAllPermission
+	               name: "officialTags",
+	               value: officialTags_new
 	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "membershipManagement",
-	               value: membershipManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "advertisingManagement",
-	               value: advertisingManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "reportingManagement",
-	               value: reportingManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "articleManagement",
-	               value: articleManagement
-	           }));
-        	save.append($("<input>", {
-	               type: "text",
-	               name: "recipeManagement",
-	               value: recipeManagement
-	           }));
+       
         	save.append($("<input>", {
 	               type: "text",
 	               name: "action",
@@ -742,6 +678,7 @@ var number =myList.length;
                   })
          
 //  ======================大小排序======================================        
+		var toggele = true;
 	 $(document).on("click","tr th.number",function(e){
 			var column ="td."+$(e.target).attr("name");
 			var textArray = [];
@@ -751,39 +688,10 @@ var number =myList.length;
 
 			var sortedArray = textArray.slice().sort();
 			var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
-		if(isSorted){
-			tbodyall.sort(function(a,b){
-				var dateA = $(a).find(column).text(); 
-		        var dateB = $(b).find(column).text();
-		        return dateB - dateA;
-			})
-			
-		}else{
-			tbodyall.sort(function(a,b){
-				var dateA = $(a).find(column).text(); 
-		        var dateB = $(b).find(column).text();
-		        return dateA - dateB;
-			})
-		}
-		    updateTable();
-			 
-			})    
-//          ===============權限部分大小順序牌=================================
-	var toggele = true;
-	 $(document).on("click","tr th.permit",function(e){
-		 
-			let column ="td[name='"+$(e.target).attr("name")+"']";
-			let textArray = [];
-			let permit = $(column).find("a");
-			permit.each(function() {
-			    textArray.push($(this).attr("value"));
-			});
-			let sortedArray = textArray.slice().sort();
-			let isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
 		if(isSorted && toggele){
 			tbodyall.sort(function(a,b){
-				let dateA = $(a).find(column).find("a").attr("value"); 
-		        let dateB = $(b).find(column).find("a").attr("value");
+				var dateA = $(a).find(column).text(); 
+		        var dateB = $(b).find(column).text();
 		        toggele = false;
 
 		        return dateB - dateA;
@@ -791,18 +699,49 @@ var number =myList.length;
 			
 		}else{
 			tbodyall.sort(function(a,b){
-				let dateA = $(a).find(column).find("a").attr("value"); 
-		        let dateB = $(b).find(column).find("a").attr("value");
+				var dateA = $(a).find(column).text(); 
+		        var dateB = $(b).find(column).text();
 		        toggele = true;
+
 		        return dateA - dateB;
 			})
 		}
 		    updateTable();
-
 			 
 			})    
+	// ====================搜尋欄==============================================    
 	
+	   $("#searchbar").on("keyup", function() {
+    var value1 = $(this).val().toLowerCase();
+    var detail = "td"+"."+$("#selectsearch").val();
+  $("table#table1").children("tbody").empty();
+  $("table#table1").children("tbody").append(textall);
+    
+    let line =  $("#tbody tr").filter(function() {
+ return $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
+    });
+	   });	
+//     let tablebodyfilter = line.toArray();
+//     console.log(tablebodyfilter);
+
+// 	let startIndex = (currentPage - 1) * rowsPerPage;
+// 	let endIndex = startIndex + rowsPerPage;
+// 	let tableBody = $("table#table1").children("tbody");
+// 	tableBody.empty();
+// 	for(let i = startIndex ; i<endIndex ;i++){
+  	  
+//   	  if (i <number){
+//   		  tableBody.append(tablebodyfilter[i]);
+//   	     	   }
+//   		}   	
+//   		$("#current-page").text(currentPage);
+//   		var totalPages = Math.ceil(number/ rowsPerPage);
+//   		$("#total-pages").text("of " + totalPages);
+    
+    
+    
 	
+	//================================================================
 	
 	
 // 	======================================

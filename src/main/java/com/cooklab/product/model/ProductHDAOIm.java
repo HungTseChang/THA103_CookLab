@@ -155,55 +155,6 @@ public class ProductHDAOIm implements ProductDAO {
 //		return null;
 	}
 
-	@Override
-	public Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
-
-		String hql = "FROM ProductVO p WHERE " + "p.productName LIKE :keyword OR " + "p.productDec LIKE :keyword OR "
-				+ "p.productIntroduction LIKE :keyword";
-
-		// 時間
-		long currentTimestamp = System.currentTimeMillis();
-		hql += " AND p.shelfTime <= :currentTimestamp";
-		hql += " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
-
-		// 按照編號
-		hql += " ORDER BY p.productNo";
-
-		// TypedQuery編譯時期能夠檢測到類型相關的錯誤
-		TypedQuery<ProductVO> query = session.createQuery(hql, ProductVO.class);
-		query.setParameter("keyword", "%" + keyword + "%");
-		query.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
-		query.setFirstResult((page - 1) * pageSize);
-		query.setMaxResults(pageSize);
-
-		List<ProductVO> products = query.getResultList();
-
-		// 全部
-		String countHql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "p.productName LIKE :keyword OR "
-				+ "p.productDec LIKE :keyword OR " + "p.productIntroduction LIKE :keyword"
-				+ " AND p.shelfTime <= :currentTimestamp"
-				+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
-		TypedQuery<Long> countQuery = session.createQuery(countHql, Long.class);
-		countQuery.setParameter("keyword", "%" + keyword + "%");
-		countQuery.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
-		Long totalProductCount = countQuery.getSingleResult();
-
-//			session.getTransaction().commit();
-		Pair<List<ProductVO>, Long> pair = new Pair<>(products, totalProductCount);
-		return pair;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		} finally {
-//			HibernateUtil.shutdown();
-//		}
-
-//		return null;
-	}
 
 	@Override
 	public ProductVO findByProductName(String productName, String category) {
@@ -249,9 +200,10 @@ public class ProductHDAOIm implements ProductDAO {
 
 		Session session = getSession();
 
-		String hql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
-				+ "p.shelfTime < :currentTimestamp AND "
-				+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp)";
+		String hql = "SELECT COUNT(p) FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp)";
 
 		if (type == 1) {
 			hql += " AND p.ingredientCategoryNo IS NOT NULL ";
@@ -264,20 +216,24 @@ public class ProductHDAOIm implements ProductDAO {
 		countQuery.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
 		Long totalProductCount = countQuery.getSingleResult();
 
-		String hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
-				+ "p.shelfTime < :currentTimestamp AND "
-				+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " + "ORDER BY p.searchCount DESC";
+		String hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " 
+					+ "ORDER BY p.searchCount DESC";
 
 		// 商品 金錢排序
 		if (type == 0 && sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
 					+ "ORDER BY p.productPrice DESC, p.searchCount DESC";
 		}
 		// 商品 時間排序
 		if (type == 0 && sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
 					+ "ORDER BY p.shelfTime DESC, p.searchCount DESC";
@@ -285,46 +241,58 @@ public class ProductHDAOIm implements ProductDAO {
 
 		// 食材 無排序
 		if (type == 1 && sorts == 0) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) AND"
-					+ " p.ingredientCategoryNo IS NOT NULL " + "ORDER BY p.searchCount DESC";
+					+ " p.ingredientCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.searchCount DESC";
 		}
 		// 廚具 無排序
 		if (type == 2 && sorts == 0) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) AND"
-					+ " p.kitchenwareCategoryNo IS NOT NULL " + "ORDER BY p.searchCount DESC";
+					+ " p.kitchenwareCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.searchCount DESC";
 		}
 		// 食材 時間排序
 		if (type == 1 && sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.ingredientCategoryNo IS NOT NULL " + "ORDER BY p.shelfTime DESC ";
+					+ "AND p.ingredientCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.shelfTime DESC ";
 
 		}
 		// 廚具 時間排序
 		if (type == 2 && sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.kitchenwareCategoryNo IS NOT NULL " + "ORDER BY p.shelfTime DESC ";
+					+ "AND p.kitchenwareCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.shelfTime DESC ";
 		}
 		// 食材 金錢排序
 		if (type == 1 && sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.ingredientCategoryNo IS NOT NULL " + "ORDER BY p.productPrice DESC ";
+					+ "AND p.ingredientCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.productPrice DESC ";
 		}
 		// 廚具 金錢排序
 		if (type == 2 && sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.searchCount >= 0 AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.searchCount >= 0 AND "
 					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.kitchenwareCategoryNo IS NOT NULL " + "ORDER BY p.productPrice DESC ";
+					+ "AND p.kitchenwareCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.productPrice DESC ";
 		}
 		TypedQuery<ProductVO> query = session.createQuery(hql2, ProductVO.class);
 		query.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
@@ -362,17 +330,21 @@ public class ProductHDAOIm implements ProductDAO {
 		countQuery.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
 		Long totalProductCount = countQuery.getSingleResult();
 
-		String hql2 = "SELECT p FROM ProductVO p WHERE " + "p.ingredientCategoryNo IS NOT NULL"
-				+ " AND p.shelfTime <= :currentTimestamp"
-				+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" + " ORDER BY p.productNo";
+		String hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.ingredientCategoryNo IS NOT NULL"
+					+ " AND p.shelfTime <= :currentTimestamp"
+					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" 
+				+ " ORDER BY p.productNo";
 		if (sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.ingredientCategoryNo IS NOT NULL"
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.ingredientCategoryNo IS NOT NULL"
 					+ " AND p.shelfTime <= :currentTimestamp"
 					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)"
 					+ " ORDER BY p.shelfTime DESC";
 		}
 		if (sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.ingredientCategoryNo IS NOT NULL"
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.ingredientCategoryNo IS NOT NULL"
 					+ " AND p.shelfTime <= :currentTimestamp"
 					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)"
 					+ " ORDER BY p.productPrice DESC";
@@ -395,16 +367,18 @@ public class ProductHDAOIm implements ProductDAO {
 		Session session = getSession();
 
 		String hql = "SELECT COUNT(p) FROM ProductVO p WHERE " 
-				+ "p.kitchenwareCategoryNo IS NOT NULL"
-				+ " AND p.shelfTime <= :currentTimestamp"
-				+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" + " ORDER BY p.productNo";
+					+ "p.kitchenwareCategoryNo IS NOT NULL"
+					+ " AND p.shelfTime <= :currentTimestamp"
+					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" 
+					+ " ORDER BY p.productNo";
 
 		if(type == 1) {
 			hql = "SELECT COUNT(p) FROM ProductVO p WHERE " 
 					+ "	p.kitchenwareCategoryNo IS NOT NULL"
 					+ "	AND p.ingredientCategoryNo IS NOT NULL"
 					+ " AND p.shelfTime <= :currentTimestamp"
-					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" + " ORDER BY p.productNo";
+					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" 
+					+ " ORDER BY p.productNo";
 		}
 		
 		long currentTimestamp = System.currentTimeMillis();
@@ -413,17 +387,21 @@ public class ProductHDAOIm implements ProductDAO {
 		countQuery.setParameter("currentTimestamp", new Timestamp(currentTimestamp));
 		Long totalProductCount = countQuery.getSingleResult();
 
-		String hql2 = "SELECT p FROM ProductVO p WHERE " + "p.kitchenwareCategoryNo IS NOT NULL"
-				+ " AND p.shelfTime <= :currentTimestamp"
-				+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" + " ORDER BY p.productNo";
+		String hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.kitchenwareCategoryNo IS NOT NULL"
+					+ " AND p.shelfTime <= :currentTimestamp"
+					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" 
+					+ " ORDER BY p.productNo";
 		if (sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.kitchenwareCategoryNo IS NOT NULL"
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.kitchenwareCategoryNo IS NOT NULL"
 					+ " AND p.shelfTime <= :currentTimestamp"
 					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)"
 					+ " ORDER BY p.shelfTime DESC";
 		}
 		if (sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.kitchenwareCategoryNo IS NOT NULL"
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.kitchenwareCategoryNo IS NOT NULL"
 					+ " AND p.shelfTime <= :currentTimestamp"
 					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)"
 					+ " ORDER BY p.productPrice DESC";
@@ -445,8 +423,9 @@ public class ProductHDAOIm implements ProductDAO {
 	public Pair<List<ProductVO>, Long> findAllProduct(int page, int pageSize, int type, int sorts) {
 		Session session = getSession();
 
-		String hql = "SELECT COUNT(p) FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
-				+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp)";
+		String hql = "SELECT COUNT(p) FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp)";
 
 		if (type == 1) {
 			hql += " AND p.ingredientCategoryNo IS NOT NULL ";
@@ -459,56 +438,74 @@ public class ProductHDAOIm implements ProductDAO {
 		countQuery.setParameter("currentTimestamp", new Timestamp(System.currentTimeMillis()));
 		Long totalProductCount = countQuery.getSingleResult();
 
-		String hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
-				+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " + "ORDER BY p.productNo";
+		String hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
+					+ "ORDER BY p.productNo";
 
 		// 商品 金錢排序
 		if (type == 0 && sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
-					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " + "ORDER BY p.productPrice DESC";
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " 
+					+ "ORDER BY p.productPrice DESC";
 		}
 		// 商品 時間排序
 		if (type == 0 && sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
-					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " + "ORDER BY p.shelfTime DESC";
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
+					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) " 
+					+ "ORDER BY p.shelfTime DESC";
 		}
 
 		// 食材 無排序
 		if (type == 1 && sorts == 0) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) AND"
-					+ " p.ingredientCategoryNo IS NOT NULL " + "ORDER BY p.productNo ";
+					+ " p.ingredientCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.productNo ";
 		}
 		// 廚具 無排序
 		if (type == 2 && sorts == 0) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) AND"
-					+ " p.kitchenwareCategoryNo IS NOT NULL " + "ORDER BY p.productNo ";
+					+ " p.kitchenwareCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.productNo ";
 		}
 		// 食材 時間排序
 		if (type == 1 && sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.ingredientCategoryNo IS NOT NULL " + "ORDER BY p.shelfTime DESC ";
+					+ "AND p.ingredientCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.shelfTime DESC ";
 
 		}
 		// 廚具 時間排序
 		if (type == 2 && sorts == 1) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.kitchenwareCategoryNo IS NOT NULL " + "ORDER BY p.shelfTime DESC ";
+					+ "AND p.kitchenwareCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.shelfTime DESC ";
 		}
 		// 食材 金錢排序
 		if (type == 1 && sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.ingredientCategoryNo IS NOT NULL " + "ORDER BY p.productPrice DESC ";
+					+ "AND p.ingredientCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.productPrice DESC ";
 		}
 		// 廚具 金錢排序
 		if (type == 2 && sorts == 2) {
-			hql2 = "SELECT p FROM ProductVO p WHERE " + "p.shelfTime < :currentTimestamp AND "
+			hql2 = "SELECT p FROM ProductVO p WHERE " 
+					+ "p.shelfTime < :currentTimestamp AND "
 					+ "(p.offsaleTime IS NULL OR p.offsaleTime > :currentTimestamp) "
-					+ "AND p.kitchenwareCategoryNo IS NOT NULL " + "ORDER BY p.productPrice DESC ";
+					+ "AND p.kitchenwareCategoryNo IS NOT NULL " 
+					+ "ORDER BY p.productPrice DESC ";
 		}
 
 		TypedQuery<ProductVO> query = session.createQuery(hql2, ProductVO.class);

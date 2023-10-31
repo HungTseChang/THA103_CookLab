@@ -7,6 +7,8 @@
 
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
+Object mem = session.getAttribute("userId" ); 
+Integer userId= Integer.valueOf(mem.toString());
 
 ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 
@@ -206,7 +208,7 @@ ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" name="form1">
-						<input type="hidden" name="memberId" value="1" size="45" /> 
+						<input type="hidden" name="memberId" value=userId size="45" /> 
 						<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
 						<input  type="hidden" name="articleSubCount"  value="0" size="45" /> 
 					<c:choose> 

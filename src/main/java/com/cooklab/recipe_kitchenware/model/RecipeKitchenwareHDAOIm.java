@@ -35,14 +35,9 @@ public class RecipeKitchenwareHDAOIm implements RecipeKitchenwareDAO {
 	}
 
 	@Override
-	public boolean delete(RecipeVO recipe) {
-		RecipeKitchenwareVO vo = getSession().get(RecipeKitchenwareVO.class, recipe);
-		if (vo != null) {
-			getSession().delete(vo);
-			return true;
-		} else {
-			return false;
-		}
+	public int delete(RecipeVO recipeVO) {
+		return getSession().createQuery("delete from RecipeKitchenwareVO where recipe = :recipe").setParameter("recipe",
+				recipeVO).executeUpdate();
 	}
 
 	@Override
