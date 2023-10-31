@@ -154,7 +154,24 @@ public class MembersService {
 		
 		dao.deleteMemberColloection(mCollection, mMembersId,MemberCollectionNo);
 	}
+	//查詢會員關注狀態
+	public boolean SearchMemberColloection(Integer memberIdCollectioned,Integer memberId) {
+		MembersVO mCollection = new MembersVO();
+		mCollection = getOneMember(memberIdCollectioned);
+		
+		MembersVO mMembersId = new MembersVO();
+		mMembersId = getOneMember(memberId);
+		
+		Integer MemberCollectionNo;
+		if(dao.findMemberCollectionPK(mCollection,mMembersId) == null)
+		{
+			return true;
+		}
+		else
+			return false;
+		
 
+	}
 //	修改文章關注狀態 ==================================================================================
 
 	public ArticleCollectionVO findByMemberAndArtcle(ArticleVO articleVO, MembersVO membersVO) {
