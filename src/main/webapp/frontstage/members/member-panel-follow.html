@@ -350,7 +350,9 @@ function MemberAppend(m){
                 </div>`;
   $("#pills-folmem").append(stringAppend);
               //遍歷食譜
+
               Object.values(m.RecipeList).forEach(recipe => {
+
                 let stringAppend2=`
                           <div id="recipeList"><!-- 食譜小分頁開始-->
                                 <div class="row m-0 ml-2 my-3 ding-folrec-border recipeBg recipelittle${m.memberId} Member_disable">

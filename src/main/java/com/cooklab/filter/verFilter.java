@@ -8,11 +8,15 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+@WebFilter(urlPatterns = { 
+		"/frontstage/recipe/recipe_create.jsp",			//新增食譜
+		"/frontstage/article/article_edit.jsp",			//新增文章
+})
 public class verFilter  extends HttpFilter implements Filter {
 	public verFilter() {
 		super();
@@ -38,7 +42,7 @@ public class verFilter  extends HttpFilter implements Filter {
 
 		// 取得 session
 		HttpSession session = req.getSession();
-		Integer verStatus = (Integer) session.getAttribute("verStatus");
+		byte verStatus =  (byte)session.getAttribute("verStatus");
 
 
 		

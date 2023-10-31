@@ -57,6 +57,7 @@ public class MembersCheckLoginServlet extends HttpServlet{
 			session.setAttribute("account", memVO.getMemberAccount());
 			session.setAttribute("userId", memVO.getMemberId());
 			session.setAttribute("membersVO", memVO);
+			session.setAttribute("verStatus", memVO.getMemberStatus());
 			
 			// 在Servlet中创建一个Gson对象
 			Gson gson = new Gson();
