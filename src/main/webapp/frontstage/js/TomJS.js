@@ -55,7 +55,7 @@ function loginInIconChange(){
 }
 function loginOutIconChange(){
   $("a.ding-nav-text").text("登入/註冊");
-  $("a.ding-nav-text").attr("herf",endPointURL+"/members/login.html");
+  $("a.ding-nav-text").attr("herf",endPointURL+"/recipe/recipe_overview.jsp");
 }
 $(document).ready(function() {
   $("a.ding-nav-text").click(function() {

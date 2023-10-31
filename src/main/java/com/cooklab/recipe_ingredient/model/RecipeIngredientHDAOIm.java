@@ -35,7 +35,7 @@ public class RecipeIngredientHDAOIm implements RecipeIngredientDAO{
 
 		@Override
 		public boolean delete(RecipeVO recipe) {
-			RecipeIngredientVO vo = getSession().get(RecipeIngredientVO.class, recipe);
+			List<RecipeIngredientVO> vo = getSession().get(RecipeIngredientVO.class, recipe);
 			if (vo != null) {
 				getSession().delete(vo);
 				return true;

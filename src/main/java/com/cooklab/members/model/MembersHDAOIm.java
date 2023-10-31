@@ -220,6 +220,11 @@ public class MembersHDAOIm implements MembersDAO_interface{
 			return false;
 		
 	}
+	@Override
+	public MembersVO findByMembersMail(String email) {
+		return getSession().createQuery("from MembersVO where memberMail ='" + email+"'", MembersVO.class)
+				.uniqueResult();
+	}
 	
 
 	//	修改食譜關注狀態 ==================================================================================

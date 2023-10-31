@@ -1,6 +1,7 @@
 package com.cooklab.recipe.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 
 import com.cooklab.members.model.*;
@@ -34,6 +36,7 @@ import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
 import com.cooklab.recipe_reaction.model.RecipeReactionVO;
 import com.cooklab.recipe_report.model.RecipeReportVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
+import com.cooklab.util.HibernateUtil;
 import com.cooklab.article.model.*;
 
 
@@ -66,18 +69,53 @@ private List<RecipeVO> thislist;
 			forwardPath = geAllRecipe(req, res);
 			break;
 		case "changeData":
-			forwardPath = changeData(req, res);
+			forwardPath = getOneForUpdate(req, res);
 			break;
-		case "confirmArticleSubReport":
-		   forwardPath =confirmArticleSubReport(req, res);
-		   break;
+		case "update":
+			forwardPath = update(req, res);
+			return;
+			
+			
+			
 		default:
-			forwardPath = "/dashboard/article_sub_report/WCC_article_sub_report.jsp";
+			forwardPath =  "/dashboard/recipe/WCC_recipe.jsp";
 	}
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 
 		}
+
+	private String update(HttpServletRequest req, HttpServletResponse res) {
+		 String response = "fail";
+			Integer recipeNo =Integer.valueOf( req.getParameter("recipeNo"));
+			Byte statusvalue = Byte.valueOf(req.getParameter("statusvalue"));	
+			RecipeVO RecipeVO 	= this.thislist.stream().filter(e->e.getRecipeNo().equals(recipeNo)).findFirst().get();
+			RecipeVO.setRecipeStatus(statusvalue);
+			RecipeHDAOIm RSIdao = new RecipeHDAOIm(HibernateUtil.getSessionFactory());
+			boolean answer=	RSIdao.update(RecipeVO);
+			
+			if(answer) {
+				System.out.println("更新完成");
+				 response="success";
+			}else {
+				System.out.println("更新失敗");
+				 response="fails";
+
+			}
+			
+			 try {
+				 res.setCharacterEncoding("UTF-8");
+				 res.setContentType("text/plain");
+				 PrintWriter writer = res.getWriter();
+				 System.out.println("傳送訊息給前端:"+response);
+				 writer.write(response);
+				 writer.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		return null;
+	}
 
 	private String geAllRecipe(HttpServletRequest req, HttpServletResponse res) {
 		RecipeServiceIm RSIdao = new RecipeServiceIm();
@@ -98,63 +136,43 @@ this.thislist = list1;
 	}
 
 
-	private String changeData(HttpServletRequest req, HttpServletResponse res) {
-		Integer articleSubReportNo = Integer.valueOf(req.getParameter("articleSubReportNo"));
-		ArticleSubReportVO ArticleSubReportVO; 
+	private String getOneForUpdate(HttpServletRequest req, HttpServletResponse res) {
+		Integer recipeNo = Integer.valueOf(req.getParameter("recipeNo"));
+		RecipeVO RecipeVO; 
 		if(this.thislist == null) {
-		ArticleSubReportService aehbdao = new ArticleSubReportService();
-		  ArticleSubReportVO = aehbdao.getOne(articleSubReportNo);
+			RecipeServiceIm RSIdao = new RecipeServiceIm();
+			RecipeVO = RSIdao.getOneRecipe(recipeNo);
 		}else {
-			Optional<ArticleSubReportVO> result;
-			result =this.thislist.stream().filter(e->e.getArticleSubReportNo().equals(articleSubReportNo)).findFirst();
-			ArticleSubReportVO =result.get();
+			Optional<RecipeVO> result;
+			result =this.thislist.stream().filter(e->e.getRecipeNo().equals(recipeNo)).findFirst();
+			RecipeVO =result.get();
 		}
-			req.setAttribute("ArticleSubReportVO", ArticleSubReportVO);
-			ArticleVO Article=ArticleSubReportVO.getArticleSub().getArticle();
-			req.setAttribute("Article", Article);
-			MembersVO MembersVO = ArticleSubReportVO.getArticleSub().getMembers();
-			req.setAttribute("MembersVO", MembersVO);
-		return "/dashboard/article_sub_report/WCC_article_sub_report_info.jsp";
+		RecipeVOFake RecipeVOFake = new RecipeVOFake(RecipeVO);
+		
+		if( RecipeVOFake.getCoverImage() != null) {
+			byte[] imageBytes =  RecipeVOFake.getCoverImage(); 
+			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+			String picture = new Gson().toJson(base64Image);
+			req.setAttribute("picture", picture);
+			}
+		
+		
+			req.setAttribute("RecipeVOFake", RecipeVOFake);
+		return "/dashboard/recipe/WCC_recipe_info.jsp";
 	}
 
 
 
-	
-
-
-private String confirmArticleSubReport(HttpServletRequest req, HttpServletResponse res) {
-	ArticleSubReportService ahbdao = new ArticleSubReportService();
-	Integer articleSubReportNo = Integer.valueOf(req.getParameter("articleSubReportNo"));
-	Byte reportingStatus = Byte.valueOf(req.getParameter("status"));
-	String reportingAnswer = req.getParameter("reportingAnswer");
-	ArticleSubReportVO ArticleSubReportVO;
-	if(this.thislist == null) {
-	  ArticleSubReportVO = ahbdao.getOne(articleSubReportNo);
-
-	}else {
-		Optional<ArticleSubReportVO> result;
-		result =this.thislist.stream().filter(e->e.getArticleSubReportNo().equals(articleSubReportNo)).findFirst();
-		ArticleSubReportVO =result.get();	
-		}
-
-
-		ArticleSubReportVO.setReportingStatus(reportingStatus);
-		 ArticleSubReportVO.setReportingAnswer(reportingAnswer);
-	 ahbdao.update(ArticleSubReportVO);
-
-	
-	return  "/dashboard/article_sub_report/WCC_article_sub_report.jsp";
-}
 
 
 
 
 private class RecipeVOFake implements java.io.Serializable{
-		private Integer recipeNo; // 食譜編號(PK)
-		private Integer memberID; // 會員編號(FK)
-		private String  memberAccount; // 會員帳號(FK)
-		private String  memberNickname; // 會員暱稱(FK)
-		private String recipeName; // 食譜名稱
+		private Integer recipeNo; // 食譜編號(PK).
+		private Integer memberID; // 會員編號(FK).
+		private String  memberAccount; // 會員帳號(FK).
+		private String  memberNickname; // 會員暱稱(FK).
+		private String recipeName; // 食譜名稱.
 		private byte[] coverImage; // 食譜封面
 		private Integer recipeReaction; // 點讚人數
 		private String introduction; // 簡介

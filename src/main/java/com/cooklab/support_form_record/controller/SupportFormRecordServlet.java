@@ -63,6 +63,10 @@ public class SupportFormRecordServlet extends HttpServlet {
 		}
 
 		if ("insert".equals(action)) {
+			// 創建Map物件放入錯誤訊息
+			Map<String, String> errorMsgs = new HashMap<String, String>();
+
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 
 			// 屆時會改從session取得adminNo，因需測試方便故改用固定值
@@ -70,21 +74,30 @@ public class SupportFormRecordServlet extends HttpServlet {
 			Integer adminNo = 1;
 
 			String recordContext = req.getParameter("recordContext");
+			if (recordContext == null || recordContext.trim().length() == 0) {
+				errorMsgs.put("errContext", "內容請勿空白");
+			}
 
+			// 錯誤驗證的訊息收集及回傳
+			if (!errorMsgs.isEmpty()) {
+				String errjson = gson.toJson(errorMsgs);
+				res.setContentType("application/json");
+				res.setCharacterEncoding("UTF-8");
+				res.getWriter().write(errjson);
+				return;
+			}
+			/*************************** 2.開始新增資料 ***************************************/
 			SupportFormRecordHService sfrSvc = new SupportFormRecordHService();
 
 			SupportFormRecordVO sfrVO = new SupportFormRecordVO();
 
 			sfrVO = sfrSvc.addSupportFormRecord(recordContext, adminNo, formNo);
-
+			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
 			if (sfrVO != null) {
-//				String url = "/THA103_CookLab/dashboard/supportform/support-tickets-table.html" + "?" + "formNo="
-//						+ formNo;
 
 				// 創建Map物件放入成功訊息
 				Map<String, String> successMsg = new HashMap<String, String>();
 				successMsg.put("success", "data transfer success");
-//				successMsg.put("url", url);
 
 				String successjson = gson.toJson(successMsg);
 

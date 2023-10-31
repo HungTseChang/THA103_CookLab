@@ -13,26 +13,28 @@
 	//下面是用於主文reaction的查詢
 	ArticleReactionService reaSvc = new ArticleReactionService();
 
-	Byte like = 1 ;
+	Byte like = 1;
 	Byte dislike =2;
 	Long reaLike = reaSvc.allCount(artVO.getArticleNo(), like);
-	Long reaDislike =reaSvc.allCount(1, dislike);
+	Long reaDislike =reaSvc.allCount(artVO.getArticleNo(), dislike);
 	//Servlet P204 、P337你沒有setAttribute用EL 就會抓不到值
 	pageContext.setAttribute("reaLike",reaLike);
 	pageContext.setAttribute("reaDislike",reaDislike);
-	
+	pageContext.setAttribute("like", like);
+	pageContext.setAttribute("dislike", dislike);
 	//下面用來判斷是否有按過讚，如果查無資料也不會導致網頁崩壞
 	ArticleReactionService reaSvc2 = new ArticleReactionService();
 	ArticleReactionVO  reaVO2 =reaSvc2.findTwo(1, artVO.getArticleNo());
-	try{
-		System.out.println("會員1對第一片文章的按讚狀態"+ reaVO2.getStatus());
-	}catch(Exception e){
+	
+	if(reaVO2!= null ){
+		System.out.println("按讚狀態"+reaVO2.getStatus());
+	}else{
 		System.out.println("沒有資料");
 	}
+	pageContext.setAttribute("reaVO2",reaVO2);
 	
 	
-	
-	
+
 	ArticleSubService artSvc2 =new ArticleSubService();
 	List<ArticleSubVO> list2 = artSvc2.getAll();
 	pageContext.setAttribute("list2",list2);
@@ -96,19 +98,17 @@
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
-
-	<!-- Humberger Begin -->
+		<!-- Humberger Begin -->
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href=""><img src="../img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
 				class="humberger__menu__widget row d-flex justify-content-between align-items-center">
 				<div class="">
-					<a href="#"> 
-					<i class="bi bi-cart3 fa-3x"></i>
+					<a href="#"> <i class="bi bi-cart3 fa-3x"></i>
 					</a>
 				</div>
 
@@ -125,10 +125,12 @@
 		</section>
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
-				<li class="active"><a href="./index.html">首頁</a></li>
-				<li><a href="./shop-grid.html">商城</a></li>
-				<li><a href="./blog.html">食譜總覽</a></li>
-				<li><a href="./contact.html">常見問題</a></li>
+				<li><a href="./index.html">首頁</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">商城todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">常見問題todo</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息todo</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -154,20 +156,20 @@
 					<div class="col-lg-6">
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/shopstage/shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">購物車</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">會員中心</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">通知中心</span>
 								</a>
 							</div>
@@ -181,19 +183,19 @@
 				<div class="col-lg-3">
 					<div class="header__logo">
 						<a href="./index.html"><img style="height: 150px"
-							src="../img/indexlogo.png" alt="" /></a>
+							src="img/indexlogo.png" alt="" /></a>
 					</div>
 				</div>
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="./index.html">食譜總覽</a></li>
-							<li><a href="#">新增食譜</a></li>
-							<li><a href="#">關注食譜</a></li>
-							<li><a href="./shop-grid.html">商城</a></li>
-							<li class="active"><a href="#">討論區</a></li>
-							<li><a href="#">客服中心</a></li>
-							<li><a href="./contact.html">關於我們</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">關注食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">商城</a></li>
+							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">關於我們</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -205,8 +207,7 @@
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
-	<p> 目前的按讚狀態${reaVO2.status}</p>
-	    <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+	  <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 		
         <div class="container" style="margin-top: 30px;">
             <div class="row">
@@ -228,37 +229,39 @@
                             </p>						
                             <p> ${artVO.articleContent}</p>
                             <br> <br>
-                             <div class ="like-dislike" > 
-<%--                              	<c:when test="${reaVO.status == 1}"> --%>
-<%-- 	                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png" --%>
-<!-- 	                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;"  -->
-<%-- 	                                    data-gjStatus="1"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" > --%>
-<%--                                 </c:when> --%>
-<%--                                 <c:otherwise> --%>
-	                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
-	                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-	                                    data-gjStatus="0"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
-<%--                                 </c:otherwise> --%>
-                                
+                             <div class ="like-dislike" >
+                             	<c:choose> 
+	                             	<c:when test="${reaVO2.status == 1}">
+		                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
+		                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
+		                                    data-gjStatus="1"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+	                                </c:when>
+	                                <c:otherwise>
+		                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
+		                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
+		                                    data-gjStatus="0"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+	                                </c:otherwise>
+                                </c:choose>
 	                            <span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
                                 
-      
-<%--                                 <c:when test="${reaVO.status == 2}"> --%>
-<%--                                 <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png" --%>
-<!--                                     alt="Dislike" style="width:30px; height:30px; margin-right:20px;" -->
-<%--                                     data-gjStatus="2"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" > --%>
-<%--                                 </c:when> --%>
-<%--                                 <c:otherwise> --%>
+      							<c:choose>
+	                                <c:when test="${reaVO.status == 2}">
 	                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
 	                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-	                                    data-gjStatus="0"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
-<%--                                 </c:otherwise> --%>
+	                                    data-gjStatus="2"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+	                                </c:when>
+	                                <c:otherwise>
+		                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
+		                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+		                                    data-gjStatus="0"  data-memberId = 1  data-articleNo ="${artVO.articleNo}" >
+	                                </c:otherwise>
+                                </c:choose>
                                 <span  class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
                                 
                                 
                                 <input type="submit" class="btn custom-btn" value="檢舉"  style="color:red;"> 
                                 <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-                                <input type="hidden" name="action" value="subSearch">
+                                <input type="hidden" name="action" value="reportSearch">
                                 
                                 
                                 <input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
@@ -272,17 +275,22 @@
         </div>
     </FORM>
     
+    
+    <% 
+	    ArticleSubReactionService  reaSubSvc = new ArticleSubReactionService();
+	    ArticleSubReactionVO  reaSubVO = new ArticleSubReactionVO();
+	    pageContext.setAttribute("reaSubSvc", reaSubSvc);
+    %>
         
     <c:forEach var="artVO2" items="${list2}">
-    	<c:set var="articleSubNo" value="${artVO2.articleSubNo}" />
-    	<%
-//     	ArticleSubReactionService  reaSvc2 =  new ArticleSubReactionService();
-//     	Long reaLike2 = reaSvc2.allCount(articleSubNo, like);
-//     	Long reaDislike2 =reaSvc2.allCount(articleSubNo, dislike);
-//     	//Servlet P204 、P337你沒有setAttribute用EL 就會抓不到值
-//     	pageContext.setAttribute("reaLike2",reaLike2);
-//     	pageContext.setAttribute("reaDislike2",reaDislike2);
-    	%>
+	    <c:set var="articleSubNo" value="${artVO2.articleSubNo}" />
+	    <!-- 下面遞迴會員有沒有對回文文章按讚的status -->
+	    <c:set var="reaSubVO" value="${reaSubSvc.findTwo(1, articleSubNo)}" />
+	    <!-- 下面遞迴回文文章的按讚數量 -->
+	 	<c:set var="subLike" value="${reaSubSvc.allCount(artVO2.articleSubNo, like)}"/>
+    	<c:set var="subDisLike" value="${reaSubSvc.allCount(artVO2.articleSubNo,dislike)}"/>
+		
+
         <c:if test="${artVO2.articleNo == artVO.articleNo}">
             <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
                 <div class="container" style="margin-top: 30px;">
@@ -305,22 +313,38 @@
 	                                <p>${artVO2.articleSubContent}</p>
                                     <br> <br>
                                      <div class = "like-dislike" > 
-                                         <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
-                                               alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-                                            data-gjStatus="0"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
-                                        <span  class="likeValue" style="margin-right: 50px;">${reaLike2}</span>
-                                        
-                                          <input type="hidden" class="testMemberId" value="" style= "float:right;"> 
-                                        
-                                        <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
-                                            alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-                                            data-gjStatus="0"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
-                                        <span  class="dislikeValue" style="margin-right: 50px;">${reaDislike2}</span>
-                                        
+		                             	<c:choose> 
+			                             	<c:when test="${reaSubVO.status == 1}">
+				                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
+				                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
+				                                    data-gjStatus="1"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+			                                </c:when>
+			                                <c:otherwise>
+				                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
+				                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
+				                                    data-gjStatus="0"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+			                                </c:otherwise>
+		                                </c:choose>
+			                            <span  class="likeValue" style="margin-right: 50px;">${subLike}</span>
+		                                
+		      							<c:choose>
+			                                <c:when test="${reaSubVO.status == 2}">
+			                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
+			                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+			                                    data-gjStatus="2"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+			                                </c:when>
+			                                <c:otherwise>
+				                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
+				                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+				                                    data-gjStatus="0"  data-memberId = 1  data-articleSubNo ="${artVO2.articleSubNo}" >
+			                                </c:otherwise>
+		                                </c:choose>
+		                                <span  class="dislikeValue" style="margin-right: 50px;">${subDisLike}</span>
+                                     
+                                                                                
                                         <input type="submit" class="btn custom-btn" value="檢舉" style="border-color: red;" > 
-                                        
 	                                    <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-	                                    <input type="hidden" name="action" value="subSearch2">
+	                                    <input type="hidden" name="action" value="reportSearch2">
 	                                        
 	                                    <input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
 	                                    <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
@@ -376,8 +400,7 @@
                 </div>
             </div>
         </div>
-    </FORM>
-	
+   </FORM>
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
 		<div class="container">
@@ -443,8 +466,7 @@
 		</div>
 	</footer>
 	<!-- Footer Section End -->
-
-
+	
 	<!-- Js Plugins -->
 	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-3.3.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/js/bootstrap.min.js"></script>
@@ -455,7 +477,7 @@
 	<script src="<%=request.getContextPath()%>/frontstage/js/owl.carousel.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/js/main.js"></script>
 	<script src="<%=request.getContextPath()%>/frontstage/article/js/HO.js"></script>
-	
+	<script src="<%=request.getContextPath()%>/frontstage/js/TomJS.js"></script>
 	
 	<script>
 	//強制回到article_main.jsp(目前沒有效)
@@ -575,7 +597,8 @@
 				$(this).next(".likeValue").text(likeValue);
 				$(this).next(".dislikeValue").text(dislikeValue);
 			}
-		}		
+		}
+		
         $image.attr("data-gjStatus", value);
         //取得數據//下方ajax
         const memberId = $image.attr("data-memberId");
@@ -645,7 +668,7 @@
                     // 處理失敗回報
                     console.log("請求失敗，的狀態碼" + xhr.status);
                     console.log("會員編號" + memberId);
-                    console.log("文章編號" + articleSubNo);
+                    console.log("回文文章編號" + articleSubNo);
                     console.log("狀態" + status);
                     console.log(xhr);
                 }

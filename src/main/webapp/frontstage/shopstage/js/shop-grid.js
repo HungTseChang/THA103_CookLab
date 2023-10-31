@@ -110,13 +110,15 @@ $(document).ready(function() {
 
 						const productDetailsContainer = document.getElementById('product-container');
 						productDetailsContainer.appendChild(productContainer);
-
+						//商品連結
 						aTitle.addEventListener('click', function(event) {
 							event.preventDefault();
 							const productId = this.getAttribute('data-product-id');
 							window.location.href = './shop-details.html?productNo=' + productId;
 						});
 
+
+						//加入購物按鈕
 						icon.addEventListener('click', function(event) {
 							event.preventDefault();
 
@@ -133,9 +135,18 @@ $(document).ready(function() {
 								type: 'GET',
 								data: requestData,
 								dataType: 'json',
+								headers: {
+									orginURL: window.location.href
+								},
 								success: function(response) {
-									console.log('商品添加到購物車囉');
-									alert("商品添加到購物車囉");
+									console.log(response);
+									if (response.redirectURL) {
+										alert("請先登入會員");
+										window.location.href = `../members/login.html`;
+									} else {
+										console.log('商品添加到購物車囉');
+										alert("商品添加到購物車囉");
+									}
 								},
 								error: function(xhr) {
 									console.log('AJAX：' + xhr.status);
@@ -326,17 +337,17 @@ $(document).ready(function() {
 
 });
 
+
+//關鍵字
 function fetchDataAndRender2() {
-	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
 	fetch('/CookLab/ProductServlet?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
-			return response.json(); // 解析 JSON 数据
+			return response.json(); 
 		})
 		.then(keywords => {
-			// 将商品名称填充到热门关键字部分
 			populateHotKeywords(keywords);
 		})
 		.catch(error => {

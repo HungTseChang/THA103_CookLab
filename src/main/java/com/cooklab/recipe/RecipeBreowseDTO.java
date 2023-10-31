@@ -15,9 +15,11 @@ import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
 import com.cooklab.recipe_step.model.RecipeStepVO;
 
 public class RecipeBreowseDTO {
+	private Integer recipeNo;
 	private String recipeName;
 	private Integer memberId;
 	private String memberName;
+	private String memberPicture;
 	private String coverImage;
 	private String introduction;
 	private String additionalExplanation;
@@ -33,9 +35,11 @@ public class RecipeBreowseDTO {
 	}
 
 	public RecipeBreowseDTO(RecipeVO recipeVO) {
+		this.recipeNo=recipeVO.getRecipeNo();
 		this.recipeName = recipeVO.getRecipeName();
 		this.memberId = recipeVO.getMembers().getMemberId();
 		this.memberName = recipeVO.getMembers().getMemberNickname();
+		this.memberPicture = Base64.getEncoder().encodeToString(recipeVO.getMembers().getMemberPicture());
 		this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
 		this.introduction = recipeVO.getIntroduction();
 		this.additionalExplanation = recipeVO.getAdditionalExplanation();
@@ -57,6 +61,14 @@ public class RecipeBreowseDTO {
 			this.comments.add(new RecipeCommentsDTO(recipeCommentsVO));
 		}
 
+	}
+
+	public Integer getRecipeNo() {
+		return recipeNo;
+	}
+
+	public void setRecipeNo(Integer recipeNo) {
+		this.recipeNo = recipeNo;
 	}
 
 	public String getRecipeName() {
@@ -81,6 +93,14 @@ public class RecipeBreowseDTO {
 
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
+	}
+
+	public String getMemberPicture() {
+		return memberPicture;
+	}
+
+	public void setMemberPicture(String memberPicture) {
+		this.memberPicture = memberPicture;
 	}
 
 	public String getCoverImage() {

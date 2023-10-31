@@ -264,3 +264,14 @@
 .header__top__right__auth a i {
   margin-right: 0px;
 }
+
+.ham.active,
+.ham:active {
+  text-decoration: none;
+  color: #d9430d !important;
+}
+
+.ham.hover,
+.ham:hover {
+  color: #bf4e24 !important;
+}

@@ -20,6 +20,7 @@ import com.cooklab.article_collection.model.ArticleCollectionVO;
 import com.cooklab.article_reaction.model.ArticleReactionVO;
 import com.cooklab.article_report.model.ArticleReportVO;
 import com.cooklab.article_sub.model.ArticleSubVO;
+import com.cooklab.article_sub_reaction.model.ArticleSubReactionVO;
 import com.cooklab.article_sub_report.model.ArticleSubReportVO;
 import com.cooklab.member_collection.model.MemberCollectionVO;
 import com.cooklab.member_order.model.MemberOrderVO;
@@ -120,7 +121,10 @@ public class MembersVO  implements java.io.Serializable{
 	@OrderBy("member_id asc")
 	private Set<ArticleSubVO> articleSubS;
 	
-
+	//●討論區回文反映 article_sub_reaction
+	@OneToMany(mappedBy = "members", cascade = CascadeType.ALL)
+	@OrderBy("member_id asc")
+	private Set<ArticleSubReactionVO> articleSubReactionS;
 
 
 	//●討論區檢舉 article_report
