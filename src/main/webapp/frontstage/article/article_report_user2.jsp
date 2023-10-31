@@ -9,10 +9,6 @@
 <%
 Object mem = session.getAttribute("userId" ); 
 Integer userId= Integer.valueOf(mem.toString());
-	//帶入文章查詢後的資料
-    ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
-	pageContext.setAttribute("artVO",artVO);//不透過這行set值型別就會是ArticleVO，送到後端也不能做處理
-	
 	//帶入回文 文章查詢後的資料
 	ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
 	pageContext.setAttribute("artVO2",artVO2);
@@ -21,9 +17,6 @@ Integer userId= Integer.valueOf(mem.toString());
 	ArticleReportVO repVO = (ArticleReportVO) request.getAttribute("repVO");
 	pageContext.setAttribute("repVO",repVO);
 	
-	//主文用
-    ArticleVO artErr = (ArticleVO) request.getAttribute("artErr");
-	pageContext.setAttribute("artErr",artErr);
 	//回文用
     ArticleSubVO artErr2 = (ArticleSubVO) request.getAttribute("artErr2");
 	pageContext.setAttribute("artErr2",artErr2);
@@ -254,8 +247,8 @@ Integer userId= Integer.valueOf(mem.toString());
 														<label>文章編號</label>
 													</div>
 													<div class="col-md-6 form-group">
-														<input type="text" name="articleSubNo"
-															value="${(artVO != null) ? artVO.articleNo : artErr.articleNo}"readonly >
+														<input type="text" name="articleNo"
+															value="回文編號${artVO2.articleSubNo}"readonly >
 													</div>
 							
 													<div class="col-md-6">
@@ -263,7 +256,7 @@ Integer userId= Integer.valueOf(mem.toString());
 													</div>								
 													<div class="col-md-6 form-group">
 														<input type="text" 
-														value="${(artVO != null) ? artVO.articleTitle : artErr.articleTitle}"readonly >
+														value="${artVO2.article.articleTitle}"readonly >
 													</div>	
 													<div class="col-md-6">
 														<label>會員編號(文章作者)</label>
@@ -271,13 +264,13 @@ Integer userId= Integer.valueOf(mem.toString());
 							
 													<div class="col-md-6 form-group">
 														<input type="text" 
-																value="${(artVO != null) ? artVO.members.memberId : artErr.members.memberId}"readonly >															
+																value="${(artVO2 != null) ? artVO2.members.memberId : artErr2.members.memberId}"readonly >															
 													</div>
 													<div class="col-md-6">
 														<label>會員帳號(文章作者)</label>
 													</div>
 														<div class="col-md-6 form-group">
-															<input type="text" value="${(artVO != null) ? artVO.members.memberAccount : artErr.members.memberAccount }"readonly >
+															<input type="text" value="${(artVO2 != null) ? artVO2.members.memberAccount : artErr2.members.memberAccount }"readonly >
 														</div>
 	
 													<div class="col-md-6">
@@ -285,7 +278,7 @@ Integer userId= Integer.valueOf(mem.toString());
 													</div>
 													<div class="col-md-6 form-group">
 														<input type="text" 
-																value="${(artVO != null) ? artVO.members.memberNickname : artErr.members.memberNickname}"
+																value="${(artVO2 != null) ? artVO2.members.memberNickname : artErr2.members.memberNickname}"
 																readonly >
 													</div>
 												</div>
@@ -323,11 +316,10 @@ Integer userId= Integer.valueOf(mem.toString());
 					</div>
 					<div style="text-align: right; margin-top: 10px; ">
 					
-						<input type ="hidden" name ="reporterId" value = userId>
+						<input type ="hidden" name ="reporterId" value =userId >
 			
-						<input type="hidden" name="action" value="insertReport">
-						<a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">
-								確認送出</a>
+						<input type="hidden" name="action" value="insertReport2">
+						<a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認送出</a>
 						<a class="btn btn-primary rounded-pill" id="cancel"
 							style="margin-right: 90px; margin-bottom: 20px;">取消</a>
 					</div>

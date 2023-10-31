@@ -6,6 +6,10 @@
 <%@ page import="com.cooklab.article_sub.model.ArticleSubVO"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
+
+Object mem = session.getAttribute("userId" ); 
+Integer userId= Integer.valueOf(mem.toString());
+
 ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 %>
 
@@ -201,7 +205,7 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" name="form1">
-						<input type="hidden" name="memberId" value="1" size="45" /> 
+						<input type="hidden" name="memberId" value="userId" size="45" /> 
 						<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
 						<input type="hidden" name="articleSubCount"  value="0" size="45" /> 
 
@@ -216,20 +220,6 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 								<a style="color: gray;">${artVO.articleSubContent}</a>             						
 							</div>
 							<textarea id="hiddenContent" name="articleSubContent" style="display: none;"></textarea>
-
-<!-- 							<p style="margin-top: 5px;">驗證碼顯示位置:  -->
-<!-- 								<input type="text" value="請輸入驗證碼"> -->
-							
-<%-- 								<input type="hidden" name="articleNo" value="${artVO.articleNo}"> --%>
-       								 
-<!-- 								<input type="hidden" name="action" value="insert"> -->
-<!-- 								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button> -->
-		
-
-<!-- 								<button class="btn ding-btn-org" id="btn_clean">清除</button> -->
-<!-- 								<button class="btn ding-btn-org" id="btn_cancel">取消</button> -->
-<!-- 							</p> -->
-<!-- 					</form> -->
 				</div>
 			</div>
 		</div>

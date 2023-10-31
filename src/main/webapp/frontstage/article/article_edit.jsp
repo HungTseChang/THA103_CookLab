@@ -9,6 +9,9 @@ ArticleVO artVO2 = (ArticleVO) request.getAttribute("artVO");
 ArticleCategoryService artSvc = new ArticleCategoryService();
 List<ArticleCategoryVO> list = artSvc.getAll();
 pageContext.setAttribute("list", list);
+                      
+Object mem = session.getAttribute("userId" ); 
+Integer userId= Integer.valueOf(mem.toString());
 
 %>
 
@@ -201,7 +204,7 @@ pageContext.setAttribute("list", list);
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
-						<input type="hidden" name="memberId" placeholder="輸入會員編號" value="1" size="45" /> 
+						<input type="hidden" name="memberId" placeholder="輸入會員編號" value= userId size="45" /> 
 							<input type="hidden" name="articleStatus"
 							placeholder="輸入文章狀態(數字)" value="0" size="45" /> 
 							
