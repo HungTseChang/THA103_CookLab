@@ -152,11 +152,11 @@ $(function () {
     $("#addIngredient").on("click", function () {
         let addIngredient = `<div class="row align-items-center ingredients" style="margin: 5px">
                              <div class="col-md-5 ">
-                                 <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" required/>
+                                 <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" pattern="^.+$" required/>
                                  <div class="search-results"></div>
                              </div>
                              <div class="col-md-4">
-                                 <input type="text" class="form-control ingredient-quantity" placeholder="份量" required/>
+                                 <input type="text" class="form-control ingredient-quantity" placeholder="份量" pattern="^.+$" required/>
                              </div>
                          <i class="bi bi-list">&emsp;</i>
                          <i class="bi bi-trash3-fill delete-ingredient"></i>
@@ -175,7 +175,7 @@ $(function () {
     $("#addKitchenware").on("click", function () {
         let addKitchenware = `<div class="row align-items-center kitchenwares" style="margin: 5px">
                             <div class="col-md-5">
-                                <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" required/>
+                                <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" pattern="^.+$" required/>
                                 <div class="search-results"></div>
                             </div>
                             <i class="bi bi-list">&emsp;</i>
@@ -204,7 +204,7 @@ $(function () {
                             <span class="recipe_content col-md-2 step-count">步驟${step}:</span>
                             <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)"pattern="^\\d+$" required/>
                         </div>
-                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明(50字內)" required  maxlength="50"></textarea>
+                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明(50字內)" pattern="^.+$" required  maxlength="50"></textarea>
                     </div>
                     <i class="bi bi-list">&emsp;</i>
                     <i class="bi bi-trash3-fill delete-step"></i>
@@ -253,66 +253,66 @@ $(function () {
         }
     });
     /*============================== 發布食譜 ==============================*/
-
-    $("#publish").on("click", function (e) {
+    $("#submitForm").on("submit", function (e) {
+        console.log("sadsa");
+        e.preventDefault();
         if ($("#coverImageInput").val() == "") {
-            e.preventDefault();
             alert("請放成品照片");
-            return;
+        } else {
+            let ingredient = [];
+            let kitchenware = [];
+            let step = [];
+            let recipeHashtag = [];
+            $("#listIngredient .ingredients").each(function (index, element) {
+                ingredient[index] = {
+                    ingredient: $(element).find(".ingredient").val(),
+                    ingredientQuantity: $(element).find(".ingredient-quantity").val(),
+                };
+            });
+            $("#listKitchenware .kitchenwares").each(function (index, element) {
+                kitchenware[index] = $(element).find(".kitchenware").val();
+            });
+            $("#listStep .step").each(function (index, element) {
+                step[index] = {
+                    stepImg: stepImgBase64[index],
+                    stepTime: $(element).find(".step-time").val(),
+                    stepContent: $(element).find(".step-content").val(),
+                };
+            });
+            $("#selectTag button").each(function (index, element) {
+                recipeHashtag[index] = $(element).text();
+            });
+            //送出的資料
+            console.log(step[0].stepImg);
+            let RecipeCreateDTO = {
+                recipeName: $("#recipeName").val(),
+                coverImage: coverImageBase64,
+                recipeQuantity: $("#recipeQuantity").val(),
+                introduction: $("#introduction").val(),
+                additionalExplanation: $("#additionalExplanation").val(),
+                region: $("#region").val(),
+                ingredient: ingredient,
+                kitchenware: kitchenware,
+                step: step,
+                recipeHashtag: recipeHashtag,
+            };
+            //ajax送新增請求
+            $.ajax({
+                url: END_POINT_URL + RECIPECREATE_POINT, // 資料請求的網址
+                type: "POST", // GET | POST | PUT | DELETE | PATCH
+                data: JSON.stringify(RecipeCreateDTO), // 將物件資料(不用雙引號) 傳送到指定的 url
+                contentType: "application/json",
+                dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+                success: function (data) {
+                    alert("發布食譜成功囉");
+                    window.location.href = END_POINT_URL + BROWSE_POINT + "?recipeNo=" + data;
+                },
+                error: function (xhr) {
+                    console.log("ajax失敗");
+                    console.log(xhr);
+                },
+            });
         }
-        let ingredient = [];
-        let kitchenware = [];
-        let step = [];
-        let recipeHashtag = [];
-        $("#listIngredient .ingredients").each(function (index, element) {
-            ingredient[index] = {
-                ingredient: $(element).find(".ingredient").val(),
-                ingredientQuantity: $(element).find(".ingredient-quantity").val(),
-            };
-        });
-        $("#listKitchenware .kitchenwares").each(function (index, element) {
-            kitchenware[index] = $(element).find(".kitchenware").val();
-        });
-        $("#listStep .step").each(function (index, element) {
-            step[index] = {
-                stepImg: stepImgBase64[index],
-                stepTime: $(element).find(".step-time").val(),
-                stepContent: $(element).find(".step-content").val(),
-            };
-        });
-        $("#selectTag button").each(function (index, element) {
-            recipeHashtag[index] = $(element).text();
-        });
-        //送出的資料
-        console.log(step[0].stepImg);
-        let RecipeCreateDTO = {
-            recipeName: $("#recipeName").val(),
-            coverImage: coverImageBase64,
-            recipeQuantity: $("#recipeQuantity").val(),
-            introduction: $("#introduction").val(),
-            additionalExplanation: $("#additionalExplanation").val(),
-            region: $("#region").val(),
-            ingredient: ingredient,
-            kitchenware: kitchenware,
-            step: step,
-            recipeHashtag: recipeHashtag,
-        };
-        //ajax送新增請求
-        $.ajax({
-            url: END_POINT_URL + RECIPECREATE_POINT, // 資料請求的網址
-            type: "POST", // GET | POST | PUT | DELETE | PATCH
-            data: JSON.stringify(RecipeCreateDTO), // 將物件資料(不用雙引號) 傳送到指定的 url
-            contentType: "application/json",
-            dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-            success: function (data) {
-                alert("發布食譜成功囉");
-                window.location.href = END_POINT_URL + BROWSE_POINT + "?recipeNo=" + data;
-            },
-            error: function (xhr) {
-                console.log("ajax失敗");
-                console.log(xhr);
-            },
-        });
     });
 });
 

@@ -51,7 +51,7 @@ if(action ==null) {
 		  if(action.equals("login")||action.equals("forgetpassword")||action.equals("design")||action.equals("updatePersionalAdmins")){
 				System.out.println("第一次登錄or 修改個人資訊");			  
 				chain.doFilter(req, res);
-				System.out.println("從第一次登錄離開");			  
+				System.out.println("從第一次登錄離開");  
 		  return;
 		  }
 		if(AdminsAccount == null) {		

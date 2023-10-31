@@ -65,7 +65,7 @@ function addStep(index, step) {
             <span class="recipe_content col-md-2">步驟${index + 1}:</span>
             <span type="text" class="form-control col-md-3 step-time">${step.stepTime}分鐘</span>
         </div>
-        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" readonly="readonly" value="${step.stepContent}"></textarea>
+        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" readonly="readonly">${step.stepContent}</textarea>
     </div>
  </div>`;
     $("#listStep").append(addStep);

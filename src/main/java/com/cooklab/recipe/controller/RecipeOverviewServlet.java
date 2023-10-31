@@ -55,7 +55,7 @@ public class RecipeOverviewServlet extends HttpServlet {
 			}
 			
 			jedis.select(9);
-			if (!jedis.hexists("recipeViewIP:" + recipeNo, ipAddress)) {
+			if (!jedis.hexists("recipeViewIP:" + recipeNo, ipAddress)&&recipeNo!=null) {
 				jedis.hset("recipeViewIP:" + recipeNo, ipAddress, "view");
 				jedis.expire("recipeViewIP:" + recipeNo, 15);
 				jedis.hincrBy("recipeViewCount", recipeNo, 1);
