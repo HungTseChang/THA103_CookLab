@@ -8,6 +8,9 @@ public interface AdvertiseDAO {
 	public void insert(AdvertiseVO advertise);
     public void update(AdvertiseVO advertise);
     
+    
+    public List<AdvertiseVO> upAd();
+    
     public void delete(AdvertiseVO advertise);
     public AdvertiseVO findByPrimaryKey(Integer advertiseNo);
     public List<AdvertiseVO> getAll();
