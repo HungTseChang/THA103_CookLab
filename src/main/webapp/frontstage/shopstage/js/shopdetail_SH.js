@@ -6,43 +6,39 @@ const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/ProductServlet";
 const COLLECTION_POINT2 = "/CartServlet"
 
-var jqxhr;
-// 等待页面加载完成后执行
+
+
 document.addEventListener("DOMContentLoaded", () => {
-	// 获取商品ID（从URL参数中获取）
 
 	let stock = null;
 	console.log(productId);
-	// 创建一个包含商品ID的请求数据
+
+
 	const requestData = {
-		action: "getDetail2", // 指定要调用的方法
-		productNo: productId, // 商品的ID，从URL参数中获取
+		action: "getDetail2",
+		productNo: productId,
 	};
 
-	// 发起AJAX请求，获取商品详细信息
+	//單一商品全部渲染
 	$.ajax({
-		url: END_POINT_URL + COLLECTION_POINT, // 服务器端URL
-		type: "GET", // 使用GET请求
-		data: requestData, // 发送的参数
-		dataType: "json", // 预期的响应数据类型
+		url: END_POINT_URL + COLLECTION_POINT,
+		type: "GET",
+		data: requestData,
+		dataType: "json",
 		success: function(response) {
-			console.log("a");
 			console.log(response);
-			// 在成功回调中处理从服务器获取的商品详细信息
-			// 这里的response参数包含了您在Servlet中返回的JSON数据
-			// 您可以访问其中的字段，例如：response.productName, response.productPrice 等
-
 			$("#product-image-container").html(`<img class="product__details__pic__item--large" src="data:image/jpeg;base64,${response.productImage}" alt="">`);
 			$("#product-name").text(response.productName);
 			$("#product-price").text(`$${response.productPrice}`);
 			$("#product-introduction").text(response.productIntroduction);
 			$("#product-description").html(`<h6>商品詳情</h6><p>${response.productDescription}</p>`);
+
 			stock = response.storageQty;
 			$("#productqty span").text(`當前商品庫存: ${stock}`);
 			console.log(response.storageQty);
 		},
 		error: function(xhr) {
-			console.log("AJAX请求失败：" + xhr.status);
+			console.log("AJAX失敗：" + xhr.status);
 		},
 	});
 
@@ -50,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
+	//購物車按鈕
 	$('#addToCartButton').click(function(e) {
 		console.log("加入購物車")
 		e.preventDefault();
@@ -58,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		console.log(quantity);
 		if (quantity > stock) {
 			alert('選擇的數量大於庫存數量！');
-			return; // 防止执行添加到购物车操作
+			return; //中止
 		}
 		const requestData = {
 			action: 'buttonadd2',
@@ -72,66 +68,66 @@ document.addEventListener("DOMContentLoaded", () => {
 			data: requestData,
 			dataType: 'json',
 			headers: {
-				orginUrl: window.location.href
+				orginURL: window.location.href
 			},
 			success: function(response) {
-
-				console.log('商品已添加到购物车');
-				alert("商品添加到購物車囉");
+				console.log(response);
+				if (response.redirectURL) {
+					alert("請先登入會員");
+					window.location.href = `../members/login.html`;
+				} else {
+					console.log('商品添加到購物車囉');
+					alert("商品添加到購物車囉");
+				}
 			},
 			error: function(xhr) {
-				alert("請先登入會員");
-				window.location.href = `../members/login.html`;
-
-				console.log('AJAX请求失败：' + xhr.status);
+				console.log('AJAX失敗：' + xhr.status);
 			}
 		});
 	});
 
+	//直接購買
 	$("#buybutton").click(function(e) {
-		console.log("加入購物車");
+		console.log("購買按鈕");
 		e.preventDefault();
 		const quantity = $('#userquantity').val();
-		// 创建一个空数组来存储商品编号
 		const selectedProducts = [];
 		console.log(quantity);
 		if (quantity > stock) {
 			alert('選擇的數量大於庫存數量！');
-			return; // 防止执行添加到购物车操作
+			return;
 		}
 		const requestData = {
 			action: 'buttonadd2',
-			productNo: productId, // 获取成功添加到购物车的商品编号
+			productNo: productId,
 			quantity: quantity
-
 		};
 		console.log(requestData);
-
 		$.ajax({
 			url: END_POINT_URL + COLLECTION_POINT2,
 			type: 'GET',
 			data: requestData,
 			dataType: 'json',
 			headers: {
-				orginUrl: window.location.href
+				orginURL: window.location.href
 			},
 			success: function(response) {
-				console.log('商品已添加到购物车');
+				console.log(response);
+				if (response.redirectURL) {
+					alert("請先登入會員");
+					window.location.href = `../members/login.html`;
+				} else {
+					console.log('商品添加到購物車囉');
+					selectedProducts.push(productId);
+					const queryParameters = new URLSearchParams();
+					queryParameters.set('selectedProducts', JSON.stringify(selectedProducts));
+					const targetURL = `checkout.html?${queryParameters.toString()}`;
+					window.location.href = targetURL;
+				}
 
-				selectedProducts.push(productId);
-
-				const queryParameters = new URLSearchParams();
-				queryParameters.set('selectedProducts', JSON.stringify(selectedProducts));
-
-				const targetURL = `checkout.html?${queryParameters.toString()}`;
-
-				// 执行页面跳转
-				window.location.href = targetURL;
 			},
 			error: function(xhr) {
 				console.log('AJAX：' + xhr.status);
-				alert("請先登入會員");
-				window.location.href = `../members/login.html`;
 			}
 		});
 	});
@@ -147,12 +143,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
+//取得GET傳送的參數
 function getProductIdFromURL() {
-
+	//window.location.href = './shop-details.html?productNo=' + productId; 上個頁面的
+	//?productNo 就是了
 	const urlParams = new URLSearchParams(window.location.search);
 	return urlParams.get("productNo");
 }
+
+
+
 function populateHotKeywords(keywords) {
 	const topSearchWordsMenu = document.querySelector('.topsearchwords-menu');
 

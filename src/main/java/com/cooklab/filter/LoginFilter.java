@@ -62,11 +62,14 @@ public class LoginFilter extends HttpFilter implements Filter {
 			if(req.getHeader("orginURL")!=null) {
                 session.setAttribute("location", req.getHeader("orginURL"));
                 System.out.print(req.getHeader("orginURL"));
+                String responseDate = "{\"redirectURL\": \"" + req.getContextPath() + "/frontstage/members/login.html" + "\" }" ;
+                res.getWriter().write(responseDate);
             }else {
                 session.setAttribute("location", req.getRequestURI());
                 System.out.print(req.getRequestURI());
+                res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");
             }    
-			res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");
+			
 			
 		} else {
 			// 使用者登入過

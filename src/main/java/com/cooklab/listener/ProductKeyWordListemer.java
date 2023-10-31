@@ -55,7 +55,7 @@ public class ProductKeyWordListemer implements ServletContextListener {
 		scheduler.scheduleWithFixedDelay(() -> {
 			generateDailyHotProductList();
 			// 延遲時間 間隔時間 單位
-		}, 0, 1, TimeUnit.MINUTES);
+		}, 0, 5, TimeUnit.MINUTES);
 	}
 
 	@Override
@@ -75,12 +75,10 @@ public class ProductKeyWordListemer implements ServletContextListener {
 		targetTime.set(Calendar.HOUR_OF_DAY, targetHour);
 		targetTime.set(Calendar.MINUTE, targetMinute);
 		targetTime.set(Calendar.SECOND, targetSecond);
-
 		// 超過現在時間 日期+1
 		if (now > targetTime.getTimeInMillis()) {
 			targetTime.add(Calendar.DAY_OF_MONTH, 1);
 		}
-
 		// 還差多少時間
 		return targetTime.getTimeInMillis() - now;
 	}
@@ -99,7 +97,7 @@ public class ProductKeyWordListemer implements ServletContextListener {
 			for (String productName : topSearchProductNames) {
 				jedis.sadd("daily_random_product_names", productName);
 			}
-			System.out.println("存储到Redis成功!");
+			System.out.println("關鍵字Redis成功!");
 
 		} finally {
 			jedis.close();
