@@ -7,6 +7,7 @@
 <%@ page import="com.cooklab.article_report.model.*"%>
 <%@ page import="java.util.*"%>
 <%
+session.getAttribute("membersVO");
 Object mem = session.getAttribute("userId" ); 
 Integer userId= Integer.valueOf(mem.toString());
 	//帶入文章查詢後的資料
@@ -254,7 +255,7 @@ Integer userId= Integer.valueOf(mem.toString());
 														<label>文章編號</label>
 													</div>
 													<div class="col-md-6 form-group">
-														<input type="text" name="articleSubNo"
+														<input type="text" name="articleNo"
 															value="${(artVO != null) ? artVO.articleNo : artErr.articleNo}"readonly >
 													</div>
 							
@@ -323,7 +324,7 @@ Integer userId= Integer.valueOf(mem.toString());
 					</div>
 					<div style="text-align: right; margin-top: 10px; ">
 					
-						<input type ="hidden" name ="reporterId" value = userId>
+						<input type ="hidden" name ="reporterId"  value="${membersVO.memberId}">
 			
 						<input type="hidden" name="action" value="insertReport">
 						<a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">

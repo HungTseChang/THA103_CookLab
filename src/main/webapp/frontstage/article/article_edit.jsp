@@ -4,14 +4,15 @@
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
+
+session.getAttribute("membersVO");
 ArticleVO artVO2 = (ArticleVO) request.getAttribute("artVO");
 
 ArticleCategoryService artSvc = new ArticleCategoryService();
 List<ArticleCategoryVO> list = artSvc.getAll();
 pageContext.setAttribute("list", list);
                       
-Object mem = session.getAttribute("userId" ); 
-Integer userId= Integer.valueOf(mem.toString());
+session.getAttribute("membersVO");
 
 %>
 
@@ -187,8 +188,8 @@ Integer userId= Integer.valueOf(mem.toString());
 				<div class="col-md-2" id="left_img";
                     style="border: 0px solid brown; margin-right: 10px; text-align: center;">
 
-					<button type="button" class="btn ding-btn-org"
-						style="margin-top: 50px;">引用食譜</button>
+<!-- 					<button type="button" class="btn ding-btn-org" -->
+<!-- 						style="margin-top: 50px;">引用食譜</button> -->
 					<%-- 錯誤表列 --%>
 					<div style="margin-top :50px">
 					<c:if test="${not empty errorMsgs}">
@@ -204,7 +205,7 @@ Integer userId= Integer.valueOf(mem.toString());
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
-						<input type="hidden" name="memberId" placeholder="輸入會員編號" value= userId size="45" /> 
+						<input type="hidden" name="memberId" placeholder="輸入會員編號" value= "${membersVO.memberId}"  size="45" /> 
 							<input type="hidden" name="articleStatus"
 							placeholder="輸入文章狀態(數字)" value="0" size="45" /> 
 							
@@ -230,8 +231,8 @@ Integer userId= Integer.valueOf(mem.toString());
 							<textarea id="hiddenContent" name="articleContent" style="display: none;"></textarea>
 
 
-							<p style="margin-top: 5px;">
-								驗證碼顯示位置: <input type="text" value="請輸入驗證碼">
+<!-- 							<p style="margin-top: 5px;">驗證碼顯示位置:  -->
+<!-- 							<input type="text" value="請輸入驗證碼"> -->
 								<input type="hidden" name="action" value="insert">
 								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button>
 

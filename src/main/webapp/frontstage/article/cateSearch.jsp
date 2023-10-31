@@ -5,6 +5,7 @@
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%  
+session.getAttribute("membersVO");
 	ArticleCategoryVO artCate = (ArticleCategoryVO) request.getAttribute("artCate");
 	
  	ArticleService artSvc = new ArticleService();
@@ -187,7 +188,7 @@
         		<c:forEach var="artVO2" items="${list2}" >
         			<c:if test="${artVO2.articleCategoryNo == 1 }">
         			<a class="btn custom-btn"   id="${artVO2.articleCategoryNo}" style="color: #ff5733; margin-right:3px;"
-        			 href="<%=request.getContextPath()%>/article/article_main.jsp">
+        			 href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">
             			${artVO2.articleCategory}</a>
         			</c:if>
 		    		<c:if test="${artVO2.categoryStatus == 0 && artVO2.articleCategoryNo != 1 }">

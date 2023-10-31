@@ -386,12 +386,13 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 //			if (memberId == null ) {
 //					errorMsgs.add("會員id: 請勿空白");
 //			}
+			
 			Integer memberId = null;
 			try {
 				memberId = Integer.valueOf(req.getParameter("memberId").trim());
 			} catch (NumberFormatException e) {
 			
-				errorMsgs.add("員工編號請填數字.");
+				errorMsgs.add("會員編號請填數字.");
 			}
 
 			String articleStatusStr = req.getParameter("articleStatus");

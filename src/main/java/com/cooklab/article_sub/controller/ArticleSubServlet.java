@@ -237,9 +237,12 @@ public class ArticleSubServlet extends HttpServlet {
 //			ArticleVO artVONo = new ArticleVO();
 //			artVONo.setArticleNo(articleNo);
 			
+			ArticleService artSvc2 = new ArticleService();
+			ArticleVO artVO2 = artSvc2.getOneArt(articleNo);
+			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("artVO", artVO2); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_content.jsp");
 				failureView.forward(req, res);
 				return;
@@ -249,8 +252,7 @@ public class ArticleSubServlet extends HttpServlet {
 			ArticleSubService artSvc = new ArticleSubService();
 			artSvc.add(artVO);
 			/*************************** 2-2.開始查詢資料 ***************************************/
-			ArticleService artSvc2 = new ArticleService();
-			ArticleVO artVO2 = artSvc2.getOneArt(articleNo);
+	
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url ="frontstage/article/article_content.jsp";
 			req.setAttribute("artVO", artVO2); //取得查詢用參數，資料庫取出的empVO物件,存入req

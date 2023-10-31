@@ -14,11 +14,12 @@
 	session.getAttribute("userId" );                        
 	session.getAttribute("membersVO");
 	Object mem = session.getAttribute("userId" ); 
+	
 	Integer userId= Integer.valueOf(mem.toString());
 // 	System.out.print("我是新的" +userId);
 //  這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
     ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
-
+    pageContext.setAttribute("artVO",artVO);
 	//下面是用於主文reaction的查詢
 	ArticleReactionService reaSvc = new ArticleReactionService();
 
@@ -47,10 +48,7 @@
 
 	ArticleSubService artSvc2 =new ArticleSubService();
 	List<ArticleSubVO> list2 = artSvc2.getAll();
-	pageContext.setAttribute("list2",list2);
-	
-
-			
+	pageContext.setAttribute("list2",list2);			
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -217,7 +215,6 @@
 	</header>
 	<!-- Header Section End -->
 	<!--上方表頭結束-->
-	  <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 		
         <div class="container" style="margin-top: 30px;">
             <div class="row">
@@ -238,56 +235,59 @@
                                     pattern="yyyy-MM-dd HH:mm:ss" />
                             </p>						
                             <p> ${artVO.articleContent}</p>
-                            <br> <br>
-                             <div class ="like-dislike" >
-                             	<c:choose> 
-	                             	<c:when test="${reaVO2.status == 1}">
-		                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
-		                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-		                                    data-gjStatus="1"  data-memberId ="${membersVO.memberId}"   data-articleNo ="${artVO.articleNo}" >
-	                                </c:when>
-	                                <c:otherwise>
-		                                 <img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
-		                                       alt="Like"  style="width: 30px; height: 30px; margin-right:20px;" 
-		                                    data-gjStatus="0"  data-memberId ="${membersVO.memberId}"   data-articleNo ="${artVO.articleNo}" >
-	                                </c:otherwise>
-                                </c:choose>
-	                            <span  class="likeValue" style="margin-right: 50px;">${reaLike}</span>
-                                
-      							<c:choose>
-	                                <c:when test="${reaVO2.status == 2}">
-	                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
-	                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-	                                    data-gjStatus="2"  data-memberId ="${membersVO.memberId}"  data-articleNo ="${artVO.articleNo}" >
-	                                </c:when>
-	                                <c:otherwise>
-		                                <img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
-		                                    alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
-		                                    data-gjStatus="0"  data-memberId ="${membersVO.memberId}"   data-articleNo ="${artVO.articleNo}" >
-	                                </c:otherwise>
-                                </c:choose>
-                                <span  class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
-                                
-                                
-                                <input type="submit" class="btn custom-btn" name="report" 
-                                value="檢舉"  style="color:red;"> 
-                                <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-                                <input type="hidden" name="action" value="reportSearch">
-                                
-                                
-                                <input type="submit" class="btn custom-btn" name="response"
-                                
-                                value="回覆" style="float:right; "> 
-                                <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-                                <input type="hidden" name="action" value="subSearch">
-                            </div>
-                        <hr  style="border: 1px solid #F29422; ">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </FORM>
-    
+							<br> <br>
+							
+							
+							<div class="like-dislike">
+								<c:choose> 
+									<c:when test="${reaVO2.status == 1}">
+										<img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
+											alt="Like" style="width: 30px; height: 30px; margin-right:20px;" 
+											data-gjStatus="1" data-memberId="${membersVO.memberId}" data-articleNo="${artVO.articleNo}">
+									</c:when>
+									<c:otherwise>
+										<img class="clickable like" src="<%=request.getContextPath()%>/frontstage/article/img/HO/like.png"
+											alt="Like" style="width: 30px; height: 30px; margin-right:20px;" 
+											data-gjStatus="0" data-memberId="${membersVO.memberId}" data-articleNo="${artVO.articleNo}">
+									</c:otherwise>
+								</c:choose>
+								<span class="likeValue" style="margin-right: 50px;">${reaLike}</span>
+								
+								<c:choose>
+									<c:when test="${reaVO2.status == 2}">
+									<img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
+										alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+										data-gjStatus="2" data-memberId="${membersVO.memberId}" data-articleNo="${artVO.articleNo}">
+									</c:when>
+									<c:otherwise>
+										<img class="clickable dislike" src="<%=request.getContextPath()%>/frontstage/article/img/HO/dislike.png"
+										alt="Dislike" style="width:30px; height:30px; margin-right:20px;"
+										data-gjStatus="0" data-memberId="${membersVO.memberId}" data-articleNo="${artVO.articleNo}">
+									</c:otherwise>
+								</c:choose>
+								<span class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
+							
+	 						<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+								
+								<input type="submit" class="btn custom-btn" name="report" 
+									value="檢舉" style="color:red; position: absolute; bottom: 10%; left: 50%; transform: translate(-50%, 50%);" ;"> 
+								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+								<input type="hidden" name="action" value="reportSearch">
+							</FORM>
+							<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+	
+								<input type="submit" class="btn custom-btn" name="response"
+									value="回覆" style="float:right;"> 
+								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+								<input type="hidden" name="action" value="subSearch">
+							</FORM>
+							</div>
+						</div>
+					</div>
+					<hr  style="border: 1px solid #F29422; ">
+				</div>
+			</div>
+		</div>
     
     <% 
 	    ArticleSubReactionService  reaSubSvc = new ArticleSubReactionService();
@@ -355,24 +355,28 @@
 			                                </c:otherwise>
 		                                </c:choose>
 		                                <span  class="dislikeValue" style="margin-right: 50px;">${subDisLike}</span>
-                                     
-                                                                                
-                                        <input type="submit" class="btn custom-btn" value="檢舉" style="border-color: red;" > 
-	                                    <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-	                                    <input type="hidden" name="action" value="reportSearch2">
-	                                        
-	                                    <input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
-	                                    <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
-	                                    <input type="hidden" name="action" value="subSearch2">
-
-                                    </div>
-                                <hr  style="border: 1px solid #F29422; ">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Form>
-        </c:if>
+                              <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+								
+								<input type="submit" class="btn custom-btn" name="report" 
+									value="檢舉" style="color:red; position: absolute; bottom: 0;" > 
+								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+								<input type="hidden" name="action" value="reportSearch2">
+							</FORM>
+							<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+	
+								<input type="submit" class="btn custom-btn" name="response"
+									value="回覆" style="float:right;"> 
+								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+								<input type="hidden" name="action" value="subSearch">
+							</FORM>
+							</div>
+						</div>
+					</div>
+					<hr  style="border: 1px solid #F29422; ">
+				</div>
+			</div>
+		</div>
+     </c:if>
     </c:forEach>
     
     
@@ -401,10 +405,9 @@
                                 <textarea name="articleSubContent" id="reply_input" style="width:100%; height: 80px;" ></textarea>
                             </div>
                             <div class="d-flex justify-content-start" style="margin-top: 3px;">
-                                <input type="submit" class="btn custom-btn" value="快速回覆"
-                                style="margin-top:5px;"> 
+                                <input type="submit" class="btn custom-btn" value="快速回覆" style="margin-top:5px;"> 
                                 <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-                                <input type="hidden" name="memberId" value="3" size="45" /> 
+                                <input type="hidden" name="memberId" value= "${membersVO.memberId}" size="45" /> 
                                 <input type="hidden" name="articleSubStatus" value="0" size="45" /> 
                                 <input type="hidden" name="articleSubCount"  value="0" size="45" /> 
                                 <input type="hidden" name="action" value="insert">
@@ -501,6 +504,8 @@
 	        window.location.href = 'http://localhost:8081/CookLab/article/article_main.jsp';
 	    }
 	}
+	
+
 	//===============按讚的JS========================
 	$(document).ready(function () {
 	$(".like, .dislike").each(function () {

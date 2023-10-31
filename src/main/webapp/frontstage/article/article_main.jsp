@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
@@ -7,7 +7,7 @@
 
 <%
     ArticleService artSvc = new ArticleService();
-	Byte test = 0;//¤£¯à±jÂà«¬¥u¦n³]©w¤@­ÓByte ÅÜ¼Æ
+	Byte test = 0;//ä¸èƒ½å¼·è½‰åž‹åªå¥½è¨­å®šä¸€å€‹Byte è®Šæ•¸
 	List<ArticleVO> list = artSvc.getStatus(test);
     pageContext.setAttribute("list", list);
 
@@ -68,7 +68,7 @@
 	href="<%=request.getContextPath()%>/frontstage/article/css/ding.css"
 	type="text/css">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 	¨S¦³¤W­±ªºjquery-3.6.0.min.js¡A´N¤£¯àª½±µ¦bjs¨Ï¥ÎEL»yªk -->
+<!-- 	æ²’æœ‰ä¸Šé¢çš„jquery-3.6.0.min.jsï¼Œå°±ä¸èƒ½ç›´æŽ¥åœ¨jsä½¿ç”¨ELèªžæ³• -->
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -103,12 +103,12 @@
 		</section>
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
-				<li><a href="./index.html">­º­¶</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">°Ó«°</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">­¹ÃÐÁ`Äý</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">±`¨£°ÝÃD</a></li>
-				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">°Q½×°Ï</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">³Ì·s®ø®§</a></li>
+				<li><a href="./index.html">é¦–é </a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">å•†åŸŽ</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">é£Ÿè­œç¸½è¦½</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">å¸¸è¦‹å•é¡Œ</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">è¨Žè«–å€</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">æœ€æ–°æ¶ˆæ¯</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -135,20 +135,20 @@
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
 								<a href="<%=request.getContextPath()%>/frontstage/shopstage/shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
-									class="ding-nav-text">ÁÊª«¨®</span>
+									class="ding-nav-text">è³¼ç‰©è»Š</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
 								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
-									class="ding-nav-text">·|­û¤¤¤ß</span>
+									class="ding-nav-text">æœƒå“¡ä¸­å¿ƒ</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">µn¤J/µù¥U</a>
+								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">ç™»å…¥/è¨»å†Š</a>
 							</div>
 							<div class="header__top__right__auth">
 								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
-									class="ding-nav-text">³qª¾¤¤¤ß</span>
+									class="ding-nav-text">é€šçŸ¥ä¸­å¿ƒ</span>
 								</a>
 							</div>
 						</div>
@@ -167,13 +167,13 @@
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">­¹ÃÐÁ`Äý</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">·s¼W­¹ÃÐ</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">Ãöª`­¹ÃÐ</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">°Ó«°</a></li>
-							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">°Q½×°Ï</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">³Ì·s®ø®§</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">Ãö©ó§Ú­Ì</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">é£Ÿè­œç¸½è¦½</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">æ–°å¢žé£Ÿè­œ</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">é—œæ³¨é£Ÿè­œ</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">å•†åŸŽ</a></li>
+							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">è¨Žè«–å€</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">æœ€æ–°æ¶ˆæ¯</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">é—œæ–¼æˆ‘å€‘</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -184,16 +184,16 @@
 		</div>
 	</header>
 	<!-- Header Section End -->
-	<!--¤W¤èªíÀYµ²§ô-->
+	<!--ä¸Šæ–¹è¡¨é ­çµæŸ-->
     <div class="container" id="article_cat_btn">
       <div class="row">
         <div class="d-flex" id="articel_cat">
 			<c:forEach var="artVO2" items="${list2}">
      			<c:if test="${artVO2.articleCategoryNo == 1 }">
-						<button type="submit" class="btn custom-btn" name="articleCategoryNo" value="${artVO2.articleCategoryNo}"
-						style="margin-right:3px;">
-                		${artVO2.articleCategory}
-            			</button>        			
+        			<a class="btn custom-btn HO-btn-org"   id="${artVO2.articleCategoryNo}" 
+        			style="color: #ff5733; margin-right:3px; ;"
+        			 href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">
+            			${artVO2.articleCategory}</a>        			
             		</c:if>
     				<c:if test="${artVO2.categoryStatus == 0 && artVO2.articleCategoryNo != 1 }">
         			<form METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet" style="margin-bottom: 0px;">
@@ -211,9 +211,9 @@
     </div>
 <!--   </FORM> -->
 	
-	<p>·|­ûID${membersVO.memberId}</p>
+<%-- 	<p>æœƒå“¡ID${membersVO.memberId}</p> --%>
 	
-	<p>·|­û¼ÊºÙ${membersVO.memberNickname}</p>
+<%-- 	<p>æœƒå“¡æš±ç¨±${membersVO.memberNickname}</p> --%>
 
 	<section id="article_conten">
 		<div class="container">
@@ -223,12 +223,12 @@
 						<table>
 							<tr>
 								<td id="title_colum_td">
-								<a href="" id="cat_view">¤å³¹¤ÀÃþ</a> 
-								<a href="" id="title_view">¼ÐÃD</a>
+								<a href="" id="cat_view">æ–‡ç« åˆ†é¡ž</a> 
+								<a href="" id="title_view">æ¨™é¡Œ</a>
 								</td>
-								<td id="article_creator">µo¤å§@ªÌ</td>
-								<td id="article_date">µoªí®É¶¡</td>
-								<td id="article_count">ÂIÀ»¦¸¼Æ</td>
+								<td id="article_creator">ç™¼æ–‡ä½œè€…</td>
+								<td id="article_date">ç™¼è¡¨æ™‚é–“</td>
+								<td id="article_count">é»žæ“Šæ¬¡æ•¸</td>
 							</tr>
 							
 							<%@ include file="page1.file"%>
@@ -261,10 +261,10 @@
 					</div>
 				</div>
 			
-				<!-- ¥H¤U¸s²áµøµ¡½d³ò -->
+				<!-- ä»¥ä¸‹ç¾¤èŠè¦–çª—ç¯„åœ -->
 				<div class="col-lg-3">
 					<a class="btn btn-outline-primary btn-lg" id="article_sumbit"
-						href="<%=request.getContextPath()%>/frontstage/article/article_edit.jsp">µo¤å</a>
+						href="<%=request.getContextPath()%>/frontstage/article/article_edit.jsp">ç™¼æ–‡</a>
 
 					<div class="statusOutput" id="statusOutput">CookTalk</div>
 					<div id="messagesArea" class="panel message-area" ></div>
@@ -282,14 +282,14 @@
 		</div>
 	</section>
 
-	<!-- ­¶Ã±-->
+	<!-- é ç°½-->
 	<div class="d-flex justify-content-center">
 		<%@ include file="page2.file" %>
 <!-- 		<nav aria-label="Page navigation example" style="margin-top: 5px"> -->
 <!-- 			<ul class="pagination"> -->
 <!-- 				<li class="page-item"><a class="page-link_pr" href="#">Previous</a></li> -->
 <!-- 				<li class="page-item"><a class="page-link" href="#">1</a></li> -->
-<!-- 				Q2 active ¨S¦³®ÄªG -->
+<!-- 				Q2 active æ²’æœ‰æ•ˆæžœ -->
 <!-- 				<li class="page-item"><a class="page-link" href="#">2</a></li> -->
 <!-- 				<li class="page-item"><a class="page-link" href="#">3</a></li> -->
 <!-- 				<li class="page-item"><a class="page-link_ne" href="#">Next</a></li> -->
@@ -304,33 +304,33 @@
 				<div class="col-lg-4">
 					<div class="footer__about">
 						<ul>
-							<li>¤½¥q¦a§}¡G¥x¥_¥«¤¤¤s°Ï«n¨ÊªF¸ô¤T¬q219¸¹5¼Ó</li>
-							<li>¹q¸Ü¡G(02)27120589</li>
-							<li>¹q¤l«H½c¡Gtomato@cooklab.com</li>
+							<li>å…¬å¸åœ°å€ï¼šå°åŒ—å¸‚ä¸­å±±å€å—äº¬æ±è·¯ä¸‰æ®µ219è™Ÿ5æ¨“</li>
+							<li>é›»è©±ï¼š(02)27120589</li>
+							<li>é›»å­ä¿¡ç®±ï¼štomato@cooklab.com</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="footer__widget">
 						<ul>
-							<li><a href="#">Ãö©ó§Ú­Ì</a></li>
-							<li><a href="#">Ãö©ó°Ó©±</a></li>
-							<li><a href="#">¦w¤ßÁÊª«</a></li>
+							<li><a href="#">é—œæ–¼æˆ‘å€‘</a></li>
+							<li><a href="#">é—œæ–¼å•†åº—</a></li>
+							<li><a href="#">å®‰å¿ƒè³¼ç‰©</a></li>
 						</ul>
 						<ul>
-							<li><a href="#">¹B°e¸ê°T</a></li>
-							<li><a href="#">Áô¨p¬Fµ¦</a></li>
-							<li><a href="#">±`¨£°ÝÃD</a></li>
+							<li><a href="#">é‹é€è³‡è¨Š</a></li>
+							<li><a href="#">éš±ç§æ”¿ç­–</a></li>
+							<li><a href="#">å¸¸è¦‹å•é¡Œ</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-12">
 					<div class="footer__widget">
-						<h6>¥ß§Y­q¾\¹q¤l³ø</h6>
-						<p>ÀH®É±µ¦¬§Ú­Ìªº³Ì·s®ø®§¥H¤ÎÀu´f°T®§</p>
+						<h6>ç«‹å³è¨‚é–±é›»å­å ±</h6>
+						<p>éš¨æ™‚æŽ¥æ”¶æˆ‘å€‘çš„æœ€æ–°æ¶ˆæ¯ä»¥åŠå„ªæƒ è¨Šæ¯</p>
 						<form action="#">
-							<input type="text" placeholder="¿é¤J±zªº¹q¤l«H½c" />
-							<button type="submit" class="btn ding-btn-org">­q¾\</button>
+							<input type="text" placeholder="è¼¸å…¥æ‚¨çš„é›»å­ä¿¡ç®±" />
+							<button type="submit" class="btn ding-btn-org">è¨‚é–±</button>
 						</form>
 						<div class="footer__widget__social">
 							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
@@ -379,9 +379,9 @@
 	var self = "${membersVO.memberNickname}"
 	var MyPoint = "/TogetherWS";
 	var host = window.location.host;
-	var path = window.location.pathname; //°ÊºA¨ú±o±M®×¸ô®|
+	var path = window.location.pathname; //å‹•æ…‹å–å¾—å°ˆæ¡ˆè·¯å¾‘
 	var webCtx = path.substring(0, path.indexOf('/', 1));
-	//ws ¬Owebsocketªº³q°T¨ó©w
+	//ws æ˜¯websocketçš„é€šè¨Šå”å®š
 	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 	// ws://localhost:8081/WebSocketChatWeb/TogetherWS/james
 	var statusOutput = document.getElementById("statusOutput");
@@ -389,22 +389,22 @@
 
 	function connect() {
 		// create a websocket
-		webSocket = new WebSocket(endPointURL); //§â¤W¤èªººô§}¶Ç¶i¨Ó
+		webSocket = new WebSocket(endPointURL); //æŠŠä¸Šæ–¹çš„ç¶²å€å‚³é€²ä¾†
 
-		//onopen ´N¹³¬Oinit() °õ¦æ¤@¦¸
-		webSocket.onopen = function(event) { //onxxxx(·íxxxªº®É­Ô)¡A·í§@JSªº¨Æ¥ó³B²z
+		//onopen å°±åƒæ˜¯init() åŸ·è¡Œä¸€æ¬¡
+		webSocket.onopen = function(event) { //onxxxx(ç•¶xxxçš„æ™‚å€™)ï¼Œç•¶ä½œJSçš„äº‹ä»¶è™•ç†
 			updateStatus("CookTALK Connected");
 			document.getElementById('sendMessage').disabled = false;
 			
 		}
-		//onmessage¦¬¨ì¸ê®Æªº®É­Ô¡Aservice() ·|°õ¦æn¦¸
+		//onmessageæ”¶åˆ°è³‡æ–™çš„æ™‚å€™ï¼Œservice() æœƒåŸ·è¡Œnæ¬¡
 		webSocket.onmessage = function(event) {
 // 			var messagesArea = document.getElementById("messagesArea");
 // 			var jsonObj = JSON.parse(event.data);
 // 			var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
 // 			messagesArea.value = messagesArea.value + message;
-			//messagesArea.scrollTop = messagesArea.scrollHeight;//³]©w¦³¤Hµo°T®§·|¶]¥h³Ì·s°T®§
-//===========¥H¤W·f°ttextª©¹ï¸Üµøµ¡=================================================
+			//messagesArea.scrollTop = messagesArea.scrollHeight;//è¨­å®šæœ‰äººç™¼è¨Šæ¯æœƒè·‘åŽ»æœ€æ–°è¨Šæ¯
+//===========ä»¥ä¸Šæ­é…textç‰ˆå°è©±è¦–çª—=================================================
 			var messagesArea = document.getElementById("messagesArea");
 			var jsonObj = JSON.parse(event.data);
 
@@ -429,28 +429,28 @@
 			
 			console.log(li);
 			
-			//§âli¤¸¯À²K¥[¨ìul¤¸¯À
+			//æŠŠliå…ƒç´ æ·»åŠ åˆ°ulå…ƒç´ 
 			ul.appendChild(li);
 			
 
 
 			messagesArea.scrollTop = messagesArea.scrollHeight;
 	
-		//onclose ´N¹³ desotry() °õ¦æ¤@¦¸
+		//onclose å°±åƒ desotry() åŸ·è¡Œä¸€æ¬¡
 		//webSocket.onclose = function(event) {
 			//updateStatus("WebSocket Disconnected");
 		};
 	}
 
 	//var inputUserName = document.getElementById("userName");
-	// inputUserName.focus(); ³o¬q¥X²{¿ù»~¼È®É«Ê¦í
+	// inputUserName.focus(); é€™æ®µå‡ºç¾éŒ¯èª¤æš«æ™‚å°ä½
 
 	function sendMessage() {
 		var userName = "${membersVO.memberNickname}"
 		var inputMessage = document.getElementById("message");
 		var message = inputMessage.value.trim();
 		
-		var currentDate = new Date(); // ¥ý§ì¨ì¥Ø«eªº®É¶¡
+		var currentDate = new Date(); // å…ˆæŠ“åˆ°ç›®å‰çš„æ™‚é–“
 		var hours = currentDate.getHours().toString().padStart(2, '0');
 		var minutes = currentDate.getMinutes().toString().padStart(2, '0');
 		var currentTime = hours + ':' + minutes;

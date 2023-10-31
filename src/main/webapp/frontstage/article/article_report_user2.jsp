@@ -7,9 +7,11 @@
 <%@ page import="com.cooklab.article_report.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-Object mem = session.getAttribute("userId" ); 
-Integer userId= Integer.valueOf(mem.toString());
-	//帶入回文 文章查詢後的資料
+	session.getAttribute("membersVO");
+
+
+	
+//帶入回文 文章查詢後的資料
 	ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
 	pageContext.setAttribute("artVO2",artVO2);
 	
@@ -20,6 +22,8 @@ Integer userId= Integer.valueOf(mem.toString());
 	//回文用
     ArticleSubVO artErr2 = (ArticleSubVO) request.getAttribute("artErr2");
 	pageContext.setAttribute("artErr2",artErr2);
+	
+	
 	
 %>
 <!DOCTYPE html>
@@ -316,7 +320,7 @@ Integer userId= Integer.valueOf(mem.toString());
 					</div>
 					<div style="text-align: right; margin-top: 10px; ">
 					
-						<input type ="hidden" name ="reporterId" value =userId >
+						<input type ="hidden" name ="reporterId"  value= "${membersVO.memberId}" >
 			
 						<input type="hidden" name="action" value="insertReport2">
 						<a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認送出</a>
