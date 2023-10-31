@@ -36,7 +36,7 @@
         display: none;
       }
       .recipeBg{
-        background-color: #f7e3d1; /* 深灰色背景颜色 */
+        background-color: #f4f1ef; /* 深灰色背景颜色 */
       }rgb(252, 220, 192)
   </style>
   </head>
@@ -337,12 +337,8 @@ function MemberAppend(m){
                   </div>
                   <div class="col-7">
                     <div class="row h-100">
-                      <div class="col-12"><a href="${endPointURL}/FollowServlet?action=member&no=${m.memberId}" class="text-dark ding-fol-title">${m.memberNickName}</a></div>
+                      <div class="col-12">${m.memberNickName}</div>
                       <div class="col-12 text-muted my-1">${m.memberIntorduce}</div>
-                      <div class="col-12 text-muted my-1">
-                        <span>近期食譜：</span>
-
-                      </div>
                     </div>
                   </div>
                   <div class="col-2 align-self-center">
@@ -356,13 +352,13 @@ function MemberAppend(m){
               Object.values(m.RecipeList).forEach(recipe => {
                 let stringAppend2=`
                           <div id="recipeList"><!-- 食譜小分頁開始-->
-                                <div class="row m-0 ml-2 my-3 ding-folrec-border recipeBg recipelittle${m.memberId}">
+                                <div class="row m-0 ml-2 my-3 ding-folrec-border recipeBg recipelittle${m.memberId} Member_disable">
                                   <div class="col-3 align-self-center p-0 pb-2">
                                     <img src="data:image/png;base64,${recipe.coverImage}" alt="食譜封面圖" class="rec-img-preview" />
                                   </div>
                                   <div class="col-6">
                                     <div class="row h-100">
-                                      <div class="col-12"><a href="${endPointURL + recipeBrowse + "?recipeNo=" + recipe.recipeNo}" class="text-dark ding-fol-title">${recipe.recipeName}</a></div>
+                                      <div class="col-12"><a href="${endPointURL}/frontstage/recipe/recipe_browse.jsp?recipeNo=${recipe.recipeNo}" class="text-dark ding-fol-title">${recipe.recipeName}</a></div>
                                       <div class="col-12 text-muted my-1">${recipe.introduction}</div>
                                     </div>
                                   </div>
@@ -382,8 +378,12 @@ function MemberAppend(m){
               });
               $(`.MemberName${m.memberId}`).on("click", function() {
                 // 移除指定 class
-                console.log();
-                $(`recipelittle${m.memberId}`).removeClass("Member_disable");
+                console.log(`點擊到了recipelittle${m.memberId}`);
+                if ($(`.recipelittle${m.memberId}`).hasClass("Member_disable")) {
+                    $(`.recipelittle${m.memberId}`).removeClass("Member_disable");
+                } else {
+                    $(`.recipelittle${m.memberId}`).addClass("Member_disable");
+                }
               });
             
 }
@@ -396,7 +396,7 @@ function RecipeAppend(r){
                   </div>
                   <div class="col-7">
                     <div class="row h-100">
-                      <div class="col-12"><a href="${endPointURL}/frontstage/recipe/recipe_browse.jsp?recipe=${r.recipeNo}" class="text-dark ding-fol-title">${r.recipeName}</a></div>
+                      <div class="col-12"><a href="${endPointURL}/frontstage/recipe/recipe_browse.jsp?recipeNo=${r.recipeNo}" class="text-dark ding-fol-title">${r.recipeName}</a></div>
                       <p class="col-12 text-muted my-1">${r.introduction}</p>
                     </div>
                   </div>
