@@ -54,7 +54,7 @@
         <div class="sidebar-header">
           <div class="d-flex justify-content-between">
             <div class="logo">
-              <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+              <a href="index.html"><img src="<%=request.getContextPath()%>/mazer-main/dist/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
             </div>
             <div class="toggler">
               <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -415,18 +415,18 @@
 // 		        let table1 = document.querySelector('#table1');
 // 		        let dataTable = new simpleDatatables.DataTable(table1);
 	</script>	
-	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
+	<script src="../assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+		src="../assets/js/bootstrap.bundle.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
+		src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
 
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
+		src="../assets/js/main.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
+		src="../assets/js/menu_ative.js"></script>
 
 
   <script>

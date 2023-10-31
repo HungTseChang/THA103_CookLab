@@ -44,11 +44,10 @@
 	}
 	pageContext.setAttribute("reaVO2",reaVO2);
 	
-	
-
 	ArticleSubService artSvc2 =new ArticleSubService();
 	List<ArticleSubVO> list2 = artSvc2.getAll();
-	pageContext.setAttribute("list2",list2);			
+	pageContext.setAttribute("list2",list2);
+	
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -218,13 +217,15 @@
 		
         <div class="container" style="margin-top: 30px;">
             <div class="row">
-                <div id="c_user" class="col-md-3"
+                <div id="c_user" class="col-3"
                     style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-                    <a>${artVO.members.memberPicture}</a>
-                    
+                    <div class="ding-mem-img">
+              		<img style="max-width: 200px; max-height: 200px;" 
+			 		alt="會員頭像" src="/CookLab/MembersImgServlet?memberId=${artVO.membersVO.memberId}" class="rounded-circle mt-4">
+			 		</div>
                     <a href="">${artVO.members.memberNickname}</a>
                 </div>
-                <div class="col-8">
+                <div class="col-8 ofset-1" >
                     <div class="row">
                         <div id="article_content" class="col" style="position: relative;">
                             <h7 class="conten_title"> 
@@ -270,7 +271,7 @@
 	 						<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 								
 								<input type="submit" class="btn custom-btn" name="report" 
-									value="檢舉" style="color:red; position: absolute; bottom: 10%; left: 50%; transform: translate(-50%, 50%);" ;"> 
+									value="檢舉" style="color:red; position: absolute; bottom: 0; margin-left:220px;" >  
 								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
 								<input type="hidden" name="action" value="reportSearch">
 							</FORM>
@@ -311,10 +312,13 @@
                 <div class="container" style="margin-top: 30px;">
                     <div class="row">
                         <div id="c_user" class="col-md-3"
-                            style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
-                            <a>${artVO2.members.memberPicture}</a>
-                            <a href=""id="creator">${artVO2.members.memberNickname}</a>
-                        </div>
+                    		style="width: 200px; height: 250px; display: flex; flex-direction: column; align-items: center;">
+                    	<div class="ding-mem-img">
+              			<img style="max-width: 200px; max-height: 200px;" 
+			 				alt="會員頭像" src="/CookLab/MembersImgServlet?memberId=${artVO2.members.memberId}" class="rounded-circle mt-4">
+			 			</div>
+                    	<a href="">${artVO2.members.memberNickname}</a>
+                	</div>
                         <div class="col-8">
                             <div class="row">
                                 <div id="article_content" class="col" style="position: relative;">
@@ -355,7 +359,7 @@
 			                                </c:otherwise>
 		                                </c:choose>
 		                                <span  class="dislikeValue" style="margin-right: 50px;">${subDisLike}</span>
-                              <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
+                             <FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
 								
 								<input type="submit" class="btn custom-btn" name="report" 
 									value="檢舉" style="color:red; position: absolute; bottom: 0;" > 
