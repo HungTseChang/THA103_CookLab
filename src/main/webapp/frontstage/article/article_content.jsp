@@ -359,7 +359,7 @@
 								
 								<input type="submit" class="btn custom-btn" name="report" 
 									value="ÀËÁ|" style="color:red; position: absolute; bottom: 0;" > 
-								<input type="hidden" name="articleNo" value="${artVO.articleNo}">
+								<input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
 								<input type="hidden" name="action" value="reportSearch2">
 							</FORM>
 							<FORM  METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" style="margin-bottom: 0px;">
