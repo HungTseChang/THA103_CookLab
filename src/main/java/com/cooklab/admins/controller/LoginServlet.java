@@ -166,7 +166,16 @@ private List<AdminsVO>Adminslist;
 			Session.setAttribute("permissionlist", Map);
 			Session.setAttribute("adminID", adminID);
           if(Session.getAttribute("location") != null) {
-        	  System.out.println(Session.getAttribute("location") );
+        	    if(req.getHeader("orginURL")!=null) {
+        	    	Session.setAttribute("location", req.getHeader("orginURL"));
+                    String responseData = "{ \"redirectURL\": \"" + req.getContextPath() + "/frontstage/members/login.html" + "\" }";
+                    try {
+						res.getWriter().write(responseData);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+        	    }
         	  return (String) Session.getAttribute("location");
           }
 			return "/dashboard/login/WCC_welcome.jsp";
