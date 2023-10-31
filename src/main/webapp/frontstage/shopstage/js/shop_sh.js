@@ -196,8 +196,6 @@ function renderData2(data) {
 		const imageDiv = document.createElement('div');
 		imageDiv.classList.add('categories__item', "set-bg");
 		imageDiv.style.backgroundImage = `url(data:image/jpeg;base64,${item.advertise_img})`;
-		imageDiv.style.backgroundSize = '10%px';
-
 
 		const h5 = document.createElement('h5');
 		const aTitle = document.createElement('a');
