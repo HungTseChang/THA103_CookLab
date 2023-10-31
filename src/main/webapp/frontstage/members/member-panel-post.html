@@ -62,7 +62,7 @@
                 <li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
                 <li><a href="../supportform/faq.html">常見問題</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html">最新消息</a></li>
+                <li><a href="../news/news.html">最新消息</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -128,7 +128,7 @@
                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
                 <li><a href="../shopstage/shop.html">商城</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html ">最新消息</a></li>
+                <li><a href="../news/news.html ">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -163,7 +163,7 @@
               <div class="mt-2">
                 <button type="button" class="btn btn-lg ding-btn-org">
                   寫文章
-                  <i class="bi bi-plus-square ml-1"></i>
+                  <i class="bi bi-plus-square ml-1"></i> 
                 </button>
               </div>
             </div>
@@ -351,7 +351,7 @@
                 StringAppend = `
                   <div class="row m-0 ml-2 my-3 ding-folrec-border">              
                   <div class="col-8">
-                    <a href="#" class="text-dark ding-post-title">
+                    <a href="${endPointURL}/ArticleServlet?action=getOne_For_Display&articleNo=${n.articleNo}" class="text-dark ding-post-title">
                       [
                       <span>${n.articleCategory}</span>
                       ]
