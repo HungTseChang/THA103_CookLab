@@ -377,7 +377,8 @@ function MemberAppend(m){
                                 </div>
                               </div><!-- 食譜小分頁結束-->
                 `;
-                $("#pills-folmem").append(stringAppend2);
+                if(recipe.recipeStatus==0)
+                  $("#pills-folmem").append(stringAppend2);
               });
               $(`.MemberName${m.memberId}`).on("click", function() {
                 // 移除指定 class
@@ -419,7 +420,8 @@ function RecipeAppend(r){
                     </div>
                   </div>
                 `;
-            $("#pills-folrec").append(stringAppend);
+             if(r.recipeStatus==0)
+              $("#pills-folrec").append(stringAppend);
 }
 var recipeCollectionNo;//食譜收藏編號
 

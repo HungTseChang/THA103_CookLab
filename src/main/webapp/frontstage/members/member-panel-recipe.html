@@ -280,11 +280,11 @@
         var recipeStatusString ="";
 
         if(recipe.recipeStatus == 0)
-          recipeStatusString ="草稿"
-        else if(recipe.recipeStatus == 1)
           recipeStatusString ="公開"
-        else if(recipe.recipeStatus == 2)
+        else if(recipe.recipeStatus == 1)
           recipeStatusString ="未公開"
+        else if(recipe.recipeStatus == 2)
+          recipeStatusString ="草稿"
 
         if(recipe.recipeStatus != 3)
         {
