@@ -83,6 +83,7 @@ td.HO_article_title {
 
 <body>
 	<div id="app">
+	
 		<div id="sidebar" class="active">
 			<div class="sidebar-wrapper active">
 				<div class="sidebar-header">
@@ -286,13 +287,7 @@ td.HO_article_title {
 			</footer>
 		</div>
 	</div>
-	<script>
-		let table1 = document.querySelector("#table1");
-		let dataTable = new simpleDatatables.DataTable(table1);
-		// 		Simple Datatable
-		// 		        let table1 = document.querySelector('#table1');
-		// 		        let dataTable = new simpleDatatables.DataTable(table1);
-	</script>
+
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
@@ -306,6 +301,13 @@ td.HO_article_title {
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
 
+	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+		// 		Simple Datatable
+		// 		        let table1 = document.querySelector('#table1');
+		// 		        let dataTable = new simpleDatatables.DataTable(table1);
+	</script>
 </body>
 
 </html>

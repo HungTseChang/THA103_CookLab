@@ -48,21 +48,21 @@ public class AdvertiseImgServlet extends HttpServlet {
 				}
 				in.close();
 			} else {
-				// res.sendError(HttpServletResponse.SC_NOT_FOUND); //404 page 134 140
-//				InputStream in = getServletContext().getResourceAsStream("/NoData/none2.jpg");
-//				byte[] b = new byte[in.available()];
-//				in.read(b);
-//				out.write(b);
-//				in.close();
+				 res.sendError(HttpServletResponse.SC_NOT_FOUND); //404 page 134 140
+				InputStream in = getServletContext().getResourceAsStream("/NoData/none2.jpg");
+				byte[] b = new byte[in.available()];
+				in.read(b);
+				out.write(b);
+				in.close();
 			}
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
-			// System.out.println(e);
+			 System.out.println(e);
 			InputStream in = getServletContext().getResourceAsStream("/NoData/null.jpg");
-//			byte [] b = new byte[in.available()];
-//			in.read(b);
-			byte[] b = in.readAllBytes(); // Java9
+			byte [] b = new byte[in.available()];
+			in.read(b);
+//			byte[] b = in.readAllBytes(); // Java9
 			out.write(b);
 			in.close();
 

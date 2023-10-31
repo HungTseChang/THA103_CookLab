@@ -28,7 +28,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		session.save(promoCode);
+			session.save(promoCode);
 
 			session.getTransaction().commit();
 			session.close();
@@ -46,7 +46,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		session.update(promoCode);
+			session.update(promoCode);
 			System.out.println("開始更新");
 			session.getTransaction().commit();
 			session.close();
@@ -63,7 +63,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		session.delete(promoCode);
+			session.delete(promoCode);
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -78,9 +78,9 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //		Session session = getSession();
 		try {
-
+//
 			session.beginTransaction();
-		PromoCodeVO promoCodeVo = session
+			PromoCodeVO promoCodeVo = session
 				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 
 			session.getTransaction().commit();
@@ -113,16 +113,16 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 
 	@Override
 	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
-		Session session = getSession();
+//		Session session = getSession();
+//
+//		String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
+//		Query query = session.createQuery(hql);
+//		query.setParameter("serialNumber", promoCodeSerialNumber);
+//
+//		PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
+//
+//		session.close(); // 记得关闭Session
 
-		String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
-		Query query = session.createQuery(hql);
-		query.setParameter("serialNumber", promoCodeSerialNumber);
-
-		PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
-
-		session.close(); // 记得关闭Session
-
-		return promoCode;
+		return null;
 	}
 }
