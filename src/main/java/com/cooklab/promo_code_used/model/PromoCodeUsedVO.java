@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.cooklab.members.model.MembersVO;
+import com.cooklab.promo_code.model.PromoCodeVO;
 
 
 @Entity
@@ -25,19 +26,39 @@ public class PromoCodeUsedVO implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer promoCodeUsedNo;
 	
-	@Column(name = "member_id")
-	private Integer memberId;
-//	=================WCC==========================
+	//會員關聯
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MembersVO  members;
 	
-//	================WCC======================
-	@Column(name = "promo_code_no")
-	private Integer promoCodeNo;
+	//優惠碼關聯
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "promo_code_no", referencedColumnName = "promo_code_no", insertable = false, updatable = false)
+	private PromoCodeVO  promoCode;
+	
+
 	
 	@Column(name = "created_timestamp ", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
+
+	
+	
+	
+	public MembersVO getMembers() {
+		return members;
+	}
+
+	public void setMembers(MembersVO members) {
+		this.members = members;
+	}
+
+	public PromoCodeVO getPromoCode() {
+		return promoCode;
+	}
+
+	public void setPromoCode(PromoCodeVO promoCode) {
+		this.promoCode = promoCode;
+	}
 
 	public Integer getPromoCodeUsedNo() {
 		return promoCodeUsedNo;
@@ -45,28 +66,6 @@ public class PromoCodeUsedVO implements Serializable{
 
 	public void setPromoCodeUsedNo(Integer promoCodeUsedNo) {
 		this.promoCodeUsedNo = promoCodeUsedNo;
-	}
-
-	public Integer getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
-
-	public Integer getPromoCodeNo() {
-		return promoCodeNo;
-	}
-
-	public void setPromoCodeNo(Integer promoCodeNo) {
-		this.promoCodeNo = promoCodeNo;
-	}
-
-	@Override
-	public String toString() {
-		return "PromoCodeUsedVO [promoCodeUsedNo=" + promoCodeUsedNo + ", memberId=" + memberId + ", promoCodeNo="
-				+ promoCodeNo + ", createdTimestamp=" + createdTimestamp + "]";
 	}
 
 	public Timestamp getCreatedTimestamp() {

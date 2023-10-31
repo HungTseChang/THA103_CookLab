@@ -103,9 +103,6 @@ public class ProductService {
 		return dao.update(productVO);
 	}
 
-	public Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize) {
-		return dao.findByKeywordWithPagination(keyword, page, pageSize);
-	}
 
 	public List<ProductVO> findTopSearchCountProduct() {
 		return dao.findTopSearchCountProduct();

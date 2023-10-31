@@ -226,8 +226,9 @@ public class ProductServlet extends HttpServlet {
 			String productNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 			if (productName == null || productName.trim().length() == 0) {
 				errorMsgs.put("errProductName", "商品請勿空白");
-			} else if (!productName.trim().matches(productNameReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.put("errProductName", "商品只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+			} else if (!productName.trim().matches(productNameReg)) { 
+				// 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.put("errProductName", "商品只能是中、英文字母、數字 , 且長度必需在2到10之間");
 			}
 
 			String productPriceParam = req.getParameter("productprice");

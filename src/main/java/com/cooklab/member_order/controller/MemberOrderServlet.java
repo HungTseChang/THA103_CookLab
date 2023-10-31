@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cooklab.ingredient_category.model.IngredientCategoryVO;
 import com.cooklab.ingredient_category.model.IngredientService;
@@ -29,6 +30,7 @@ import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
 import com.cooklab.promo_code.model.PromoCodeService;
 import com.cooklab.promo_code.model.PromoCodeVO;
+import com.cooklab.promo_code_used.model.PromoCodeUsedVO;
 import com.cooklab.util.JedisUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -50,10 +52,15 @@ public class MemberOrderServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 
+		HttpSession session = req.getSession();
+		
+		String userId = session.getAttribute("userId").toString();
+		Integer userId2 =  (Integer) session.getAttribute("userId");
+		
+		//訂購詳情資料渲染
 		if ("memberMessage".equals(action)) {
-
-			String memberId = "1";
-
+			//未來動態會員編號
+			String memberId = userId;
 			MembersService memberSvc = new MembersService();
 			MembersVO membersInfo = memberSvc.findByPrimaryKey(Integer.valueOf(memberId));
 
@@ -80,6 +87,7 @@ public class MemberOrderServlet extends HttpServlet {
 
 		}
 
+		//優惠碼相關
 		if ("checkCoupon".equals(action)) {
 			String promocodeNumber = req.getParameter("couponCode");
 			PromoCodeService promoCodeSvc = new PromoCodeService();
@@ -125,15 +133,16 @@ public class MemberOrderServlet extends HttpServlet {
 
 		}
 
+		
+		//結帳(生成訂單 訂單明細 memberVO.setOrderDetail{set集合}(OrderDetailVO) (迴圈跑set明細VO))
 		if ("checkout".equals(action)) {
 			
-			String memberId = "1";
-					
 			String memberAddress = req.getParameter("memberAddress");
 			String orderTotal = req.getParameter("orderTotal");
 			String finalPrice = req.getParameter("finalPrice");
 			String promoCodeInfo = req.getParameter("promoCodeInfo");
 			String cartData = req.getParameter("cartData");
+			
 			System.out.println(memberAddress);
 			System.out.println(orderTotal);
 			System.out.println(finalPrice);
@@ -141,26 +150,35 @@ public class MemberOrderServlet extends HttpServlet {
 			System.out.println(cartData);
 			
 			JsonArray cartItems = new JsonParser().parse(cartData).getAsJsonArray();
+			
+			//會員訂單
 			MemberOrderVO memberOrder = new MemberOrderVO();
-			
 			MembersService membersService = new MembersService();
-			MembersVO membersVO = membersService.findByPrimaryKey(1);
 			
-			System.out.println(membersVO.getMemberId());
-			memberOrder.setMemberId(1);
+			
+//			MembersVO membersVO = membersService.findByPrimaryKey(userId2);
+//			membersVO.setMemberId(userId2);
+
+			memberOrder.setMemberId(userId2);
+//			memberOrder.setMembers(membersVO);
 			
 			memberOrder.setOrderStatus((byte) 0);
 			memberOrder.setTotalOrderAmount(Integer.valueOf(orderTotal));
+			
+			//優惠券使用狀況			
 			if (promoCodeInfo == null || promoCodeInfo.isEmpty()) {
 				memberOrder.setPromoCodeNo(null);
 			} else {
 				memberOrder.setPromoCodeNo(Integer.valueOf(promoCodeInfo));
+
 			}
 
 			memberOrder.setCheckoutAmount(Integer.valueOf(finalPrice));
 			memberOrder.setShippingAddress(memberAddress);
 
+			//訂單明細
 			Set<OrderDetailVO> details = new LinkedHashSet<>();
+			
 			for (int i = 0; i < cartItems.size(); i++) {
 				JsonObject cartItem = cartItems.get(i).getAsJsonObject();
 				int productNo = cartItem.get("productNo").getAsInt();
@@ -168,9 +186,11 @@ public class MemberOrderServlet extends HttpServlet {
 
 				ProductVO productvo = new ProductVO();
 				productvo.setProductNo(productNo);
+				
 				OrderDetailVO orderDetail = new OrderDetailVO();
 				orderDetail.setProduct(productvo);
 				orderDetail.setOrderQty(quantity);
+				
 				orderDetail.setMemberOrder(memberOrder);
 
 				details.add(orderDetail);
@@ -188,27 +208,22 @@ public class MemberOrderServlet extends HttpServlet {
 				Jedis jedis = jedisPool.getResource();
 				jedis.select(1);
 				try {
-					//動態會員編號
-					String memberNo = "1";
+					//未來動態會員編號
+					String memberNo = userId;
 					
-					// 購物車鍵
 					String cartKey = "cart:" + memberNo;
 					for (int i = 0; i < cartItems.size(); i++) {
 						JsonObject cartItem = cartItems.get(i).getAsJsonObject();
 						int productNo = cartItem.get("productNo").getAsInt();
 						int quantity = cartItem.get("quantity").getAsInt();
-
-						// 在这里使用 productNo 和 quantity 处理购物车中的商品信息
 						String productKey = "product:" + productNo;
 						
-						//刪除
 						jedis.hdel(cartKey, productKey);
 
 						//MySql庫存
 						ProductService productSvc = new ProductService();
 						ProductVO product = productSvc.getOneProduct(productNo);
 						if (product != null) {
-
 							int currentStock = product.getStorageQty(); 
 							int newStock = currentStock - quantity; 
 							if (newStock < 0) {
@@ -247,6 +262,7 @@ public class MemberOrderServlet extends HttpServlet {
 			}
 
 		}
+		//訂單全部
 		if ("search".equals(action)) {
 			MemberOrderService memberOrderSvc = new MemberOrderService();
 			List<MemberOrderVO> memberOrderVO = memberOrderSvc.getAll();
@@ -298,6 +314,8 @@ public class MemberOrderServlet extends HttpServlet {
 			res.setCharacterEncoding("UTF-8");
 			res.getWriter().write(jsonData);
 		}
+		
+		//訂單詳情(單筆)
 		if ("getDetail".equals(action)) {
 			Integer orderNo = Integer.valueOf(req.getParameter("orderNo").trim());
 			/***************************
@@ -356,6 +374,7 @@ public class MemberOrderServlet extends HttpServlet {
 			res.getWriter().write(productDetailJson);
 		}
 
+		//訂單狀態更新
 		if ("updateOrderStatus".equals(action)) {
 			Integer orderNo = Integer.valueOf(req.getParameter("orderNo").trim());
 			Integer newStatus = Integer.valueOf(req.getParameter("newStatus").trim());

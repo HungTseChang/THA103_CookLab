@@ -4,7 +4,7 @@ var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/ProductServlet";
 const COLLECTION_POINT2 = "/CartServlet"
-
+const COLLECTION_POINT3 = "/AdvertiseServlet"
 
 
 //Fetch練習
@@ -167,6 +167,22 @@ function populateHotKeywords(keywords) {
 }
 
 
+//廣告渲染
+function fetchDataAndRender3() {
+	fetch(END_POINT_URL + COLLECTION_POINT + '?action=getjson')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+		.then(data => {
+			renderData(data);
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+}
 /*============================== 搜尋功能 ==============================*/
 $(document).ready(function() {
 	$("#search-button").on("click", function() {

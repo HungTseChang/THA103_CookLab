@@ -37,9 +37,9 @@ $(document).ready(function() {
 		data: { action: "cartsearch2", productNo: selectedProductsJSON2 },
 		dataType: 'json',
 		success: function(response) {
-			cartData = response; // 存储购物车数据到全局变量
+			cartData = response; //全域變數
 			console.log(cartData);
-			// 渲染购物车数据到表格
+			//渲染
 			cartData.forEach(function(item) {
 				console.log("渲染");
 				const productPrice = parseFloat(item.productPrice);
@@ -61,11 +61,12 @@ $(document).ready(function() {
                 `;
 				tbody.innerHTML += row;
 
-				// 创建订单详情列表项
+				// 訂單詳情
 				const orderItem = document.createElement("li");
 				orderItem.innerHTML = `${item.productName} <span>$${totalAmount}</span>`;
 				orderDetailsList.appendChild(orderItem);
-				// 更新订单总计
+				
+				// 更新
 				orderTotal += parseFloat(totalAmount);
 				finalPrice = orderTotal	;
 				orderTotalElement.textContent = `$${orderTotal.toFixed(0)}`;
@@ -78,7 +79,7 @@ $(document).ready(function() {
 
 		},
 		error: function(xhr) {
-			console.log('AJAX请求失败：' + xhr.status);
+			console.log('AJAX：' + xhr.status);
 		},
 	});
 
@@ -211,7 +212,7 @@ $(document).ready(function() {
 
 
 
-// 复选框状态改变时触发的函数
+
 function handleSameAsBillingCheckboxChange() {
 	const sameAsBillingCheckbox = document.getElementById("sameAsBilling");
 	const memberNameInput = document.getElementById("memberName");
@@ -219,26 +220,26 @@ function handleSameAsBillingCheckboxChange() {
 	const memberPhoneInput = document.getElementById("memberPhone");
 	const memberEmailInput = document.getElementById("memberEmail");
 
-	if (sameAsBillingCheckbox.checked) { // 使用 .checked 检查复选框是否被选中
-		// 复选框被选中，向后端请求数据
+	if (sameAsBillingCheckbox.checked) { 
+
 		$.ajax({
-			url: END_POINT_URL+COLLECTION_POINT3, // 后端端点的URL
-			type: 'GET', // 使用GET请求
+			url: END_POINT_URL+COLLECTION_POINT3, 
+			type: 'GET', 
 			data: { action: "memberMessage" },
-			dataType: 'json', // 预期的响应数据类型
+			dataType: 'json', // 
 			success: function(data) {
-				// 更新表单字段的值
-				memberNameInput.value = data.memberNickname; // 使用 .value 设置字段的值
+				
+				memberNameInput.value = data.memberNickname; 
 				memberAddressInput.value = data.memberAddress;
 				memberPhoneInput.value = data.memberCellphone;
 				memberEmailInput.value = data.memberMail;
 			},
 			error: function(xhr) {
-				console.error('AJAX请求失败：' + xhr.status);
+				console.error('AJAX：' + xhr.status);
 			},
 		});
 	} else {
-		// 复选框未被选中，清空表单字段
+		
 		memberNameInput.value = '';
 		memberAddressInput.value = '';
 		memberPhoneInput.value = '';
@@ -256,7 +257,7 @@ function calculatePriceAfterFixedDiscount(totalAmount, fixedDiscountAmount) {
 	}
 }
 
-// 计算百分比折扣后的价格
+
 function calculatePriceAfterPercentageDiscount(totalAmount, percentageDiscountAmount) {
 	if (percentageDiscountAmount <= 0 || percentageDiscountAmount >= 1) {
 		return totalAmount;

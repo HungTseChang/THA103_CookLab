@@ -117,14 +117,14 @@ function renderCart(cartdata) {
 }
 
 function checkout() {
-	// 将购物车数据转换为 JSON 字符串
+	
 	const cartDataJSON = JSON.stringify(cartData);
 	console.log(cartDataJSON);
-	// 构建查询参数，将购物车数据附加到 URL 中
+	
 	const queryParameters = `?cartData=${encodeURIComponent(cartDataJSON)}`;
-	// 构建目标 URL，这将是 check.html 页面的 URL，同时附带了购物车数据的查询参数
+	
 	const targetURL = `checkout.html${queryParameters}`;
-	// 使用 window.location.href 重定向用户到目标 URL
+	
 	window.location.href = targetURL;
 }
 
@@ -149,7 +149,6 @@ function updateTotalAmount() {
 
 
 
-// 在AJAX请求外部，注册结账按钮的点击事件监听器
 $('#checkout-button').click(function() {
 	const selectedProducts = [];
 
@@ -157,13 +156,12 @@ $('#checkout-button').click(function() {
 		const productId = $(this).data('product-id');
 		selectedProducts.push(productId);
 	});
-	alert(selectedProducts);
 	console.log(selectedProducts);
-	// 将所选商品的编号转换为 JSON 字符串
+	
+	// 轉成JSON字串
 	const selectedProductsJSON = JSON.stringify(selectedProducts);
 	console.log(selectedProductsJSON);
-	alert(selectedProductsJSON);
-	// 将所选商品的编号作为查询参数传递给服务器
+	// 傳送商品編號
 	const queryParameters = `?selectedProducts=${encodeURIComponent(selectedProductsJSON)}`;
 	const targetURL = `checkout.html${queryParameters}`;
 	window.location.href = targetURL;
@@ -244,7 +242,6 @@ $(document).on("change", ".quantity-input", function() {
 		success: function(response) {
 			cartData = response;
 			renderCart(cartData);
-			alert("s");
 		},
 		error: function(xhr) {
 			console.log('AJAX请求失败：' + xhr.status);
