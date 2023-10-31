@@ -94,10 +94,10 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href=".\recipe_form.html">食譜表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">食譜表單</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href=".\hashtag_form.html">標籤管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">標籤管理</a>
                                 </li>
                             </ul>
                         </li>
