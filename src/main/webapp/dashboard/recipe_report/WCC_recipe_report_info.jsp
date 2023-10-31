@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="com.cooklab.article_report.model.*"%>
-    <%@ page import="com.cooklab.article_sub_report.model.*"%>
-    <%@ page import="com.cooklab.members.model.*"%>
-    
 <%@ page import =" java.util.List"%>
 <%@ page import="org.hibernate.Session"%>
 <%@ page import="com.cooklab.util.HibernateUtil" %>
@@ -64,7 +61,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
                         <!-- ============================================================================================== -->
-                          <li class="sidebar-item  ">
+                            <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
@@ -152,7 +149,7 @@
                                     <a href=".\HO_discussion_cate.html">看板分類</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href=".\HO_discussion_info.html" >文章管理</a>
+                                    <a href=".\HO_discussion_info.html" >食譜管理</a>
                                   </li>
                             </ul>
                         </li>
@@ -172,7 +169,7 @@
                                     <a href="#">商城數據</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="#">文章數據</a>
+                                    <a href="#">食譜數據</a>
                                 </li>
                             </ul>
                         </li>
@@ -236,7 +233,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>食譜狀態</h3>
+                            <h3>食譜檢舉</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -266,34 +263,34 @@
                                                     <div class="form-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>食譜編號</label>
+                                                                <label>食譜檢舉編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.getRecipeNo()}" disabled>
+                                                                <input type="text" value="${RecipeReportVO.getRecipeReportNo()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>食譜名稱</label>
+                                                                <label>食譜檢舉時間</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.getRecipeName()}" disabled>
+                                                                <input type="text" value="${RecipeReportVO.getCredcreatedTimestamp()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員編號(作者)</label>
+                                                                <label>會員編號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.MemberID()}" disabled>
+                                                                <input type="text" value="${RecipeReportVO.getMembers().getMemberId()}" disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員帳號(作者)</label>
+                                                                <label>會員帳號(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.getMemberAccount()}" disabled>
+                                                                <input type="text" value="${RecipeReportVO.getMembers().getMemberAccount()}"disabled>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label>會員暱稱(作者)</label>
+                                                                <label>會員暱稱(檢舉者)</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.getMemberNickname()}"
+                                                                <input type="text" value="${RecipeReportVO.getMembers().getMemberNickname()}"
                                                                     disabled>
                                                             </div>
 
@@ -316,19 +313,36 @@
                                                     <div class="form-body">
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <label>食譜封面</label>
+                                                                <label>食譜編號</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.getCcoverImage()}" disabled>
+                                                                <input type="text" value="${RecipeReportVO.getRecipe().getRecipeNo()}" disabled>
                                                             </div>
 
                                                             <div class="col-md-6">
-                                                                <label>點讚人數</label>
+                                                                <label>食譜名稱</label>
                                                             </div>
                                                             <div class="col-md-6 form-group">
-                                                                <input type="text" value="${RecipeVOFake.getRecipeReaction()}" disabled>
+                                                                <input type="text" value="${RecipeReportVO.getRecipe().getRecipeName()}" disabled>
                                                             </div>
-                                                             
+                                                            <div class="col-md-6">
+                                                                <label>會員編號(食譜作者)</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <input type="text" value="${MembersVO.getMemberId()}" disabled>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>會員帳號(食譜作者)</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <input type="text" value="${MembersVO.getMemberAccount()}" disabled>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>會員暱稱(食譜作者)</label>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <input type="text" value="${MembersVO.getMemberNickname()}" disabled>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -342,24 +356,12 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-8">
                                 <div>
-                                <label>簡介</label>
+                                <label>檢舉理由:</label>
                                 </div>
                                 <div style="width: 100%; min-height: 100px; padding-left:80PX">
                                     <textarea id="context" style="width: 70%; 
                                     resize: none; overflow: hidden;  padding:10PX; min-height:70px;" 
-                                     disabled> ${RecipeVOFake.getIntroduction()}</textarea>
-
-                                </div>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <div>
-                                <label>補充說明</label>
-                                </div>
-                                <div style="width: 100%; min-height: 100px; padding-left:80PX">
-                                    <textarea id="context" style="width: 70%; 
-                                    resize: none; overflow: hidden;  padding:10PX; min-height:70px;" 
-                                     disabled> ${RecipeVOFake.getAdditionalExplanation()}</textarea>
+                                     disabled> ${RecipeReportVO.getReportingReason()}</textarea>
 
                                 </div>
                             </div>
@@ -384,7 +386,7 @@
 
                                 </div>
                                 <div style="text-align: right;">
-                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
+                                <a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認修改</a><a class="btn btn-primary rounded-pill" href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp" style="margin-right: 90px; margin-bottom: 20px;">取消修改</a>
                                 </div>
                             </div>
                                 <div class="col-md-2"></div>
@@ -417,10 +419,11 @@
     <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 
     <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-  <script>
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script> 
+    <script>
+      
+       let table1 = document.querySelector('#table1'); 
+        let dataTable = new simpleDatatables.DataTable(table1); 
+   </script> 
 
     <script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
     <script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
@@ -433,35 +436,38 @@
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
-           var status = "${ArticleSubReportVO.getReportingStatus()}";
+           var status = "${RecipeReportVO.getReportingStatus()}";
+           console.log(status);
+           console.log(status==0);
+           console.log(status=="0");
 
           if(status==0){
         	  $("#pass").prop("checked", true);  }else{  $("#failed").prop("checked", true)}
           
-         if("${ArticleSubReportVO.getReportingAnswer()}" != null){
-        	 $("textarea#context1").val("${ArticleSubReportVO.getReportingAnswer()}");
+         if("${RecipeReportVO.getReportingAnswer()}" != null){
+        	 $("textarea#context1").val("${RecipeReportVO.getReportingAnswer()}");
          } 
           
           $("a#confirm").on("click",function(){
-        	  var articleSubReportNO = "${ArticleSubReportVO.getArticleSubReportNo()}"
+        	  var recipeReportNo = "${RecipeReportVO.getRecipeReportNo()}"
         	  var status= $("input[name='result']:checked").val()+"";
         	 var answer = $("textarea#context1").val();
         	
         	  
         	  var form = $("<form>", {
-                  action: "<%=request.getContextPath()%>/ArticleSubReportServlet", // 表单提交的URL
+                  action: "<%=request.getContextPath()%>/RecipeReportServlet", // 表单提交的URL
                   method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
               });
       	    
       	       form.append($("<input>", {
                      type: "text",
                      name: "action",
-                     value: "confirmArticleSubReport"
+                     value: "confirmRecipeReport"
                  }));
     	       form.append($("<input>", {
                    type: "text",
-                   name: "articleSubReportNo",
-                   value: articleSubReportNO
+                   name: "recipeReportNo",
+                   value: recipeReportNo
                }));
     	       form.append($("<input>", {
                    type: "text",
@@ -480,7 +486,7 @@
           })
     })
     </script>
-    <script>
+  <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
     e.preventDefault;
@@ -501,7 +507,33 @@ value: "logout"
 
 
     
-})})
+})
+
+
+$("a#design").on("click",function(e){
+	$("a#logout").on("click",function(e){
+	    e.preventDefault;
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+
+})
 </script>
 </body>
 
