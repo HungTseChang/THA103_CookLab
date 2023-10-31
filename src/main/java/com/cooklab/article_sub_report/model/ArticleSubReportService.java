@@ -13,8 +13,7 @@ public class ArticleSubReportService {
 		dao = new ArticleSubReportHBDAO(HibernateUtil.getSessionFactory());
 	}
 
-	public ArticleSubReportVO add(Integer articleSubNo,Integer reporterId, String reportingReason, Byte reportingStatus,
-			String reportingAnswer,Timestamp createdTimestamp) {
+	public ArticleSubReportVO add(Integer articleSubNo,Integer reporterId, String reportingReason, Byte reportingStatus) {
 
 		ArticleSubReportVO ArticleSubReportVO = new ArticleSubReportVO();
 
@@ -23,8 +22,7 @@ public class ArticleSubReportService {
 		ArticleSubReportVO.setReporterId(reporterId);
 		ArticleSubReportVO.setReportingReason(reportingReason);
 		ArticleSubReportVO.setReportingStatus(reportingStatus);
-		ArticleSubReportVO.setReportingAnswer(reportingAnswer);
-		ArticleSubReportVO.setCreatedTimestamp(createdTimestamp);
+
 
 		dao.insert(ArticleSubReportVO);
 

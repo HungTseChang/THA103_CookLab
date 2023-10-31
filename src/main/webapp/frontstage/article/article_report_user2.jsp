@@ -21,9 +21,12 @@
 	
 	//回文用
     ArticleSubVO artErr2 = (ArticleSubVO) request.getAttribute("artErr2");
-	pageContext.setAttribute("artErr2",artErr2);
+	pageContext.setAttribute("artErr2", artErr2);
 	
+	ArticleSubService  subSrc = new ArticleSubService();
 	
+	ArticleSubVO sub = subSrc.getOneSubArt(1);
+	System.out.println("這邊是你好單一搜尋"+ sub);
 	
 %>
 <!DOCTYPE html>
@@ -251,21 +254,23 @@
 														<label>文章編號</label>
 													</div>
 													<div class="col-md-6 form-group">
-														<input type="text" name="articleNo"
-															value="回文編號${artVO2.articleSubNo}"readonly >
+														<input type="hidden" name="articleSubNo"value="${artVO2.articleSubNo}"readonly >
+														<input type="text" value="回文編號${(artVO2 != null) ? 
+														artVO2.articleSubNo : artErr2.articleSubNo}"readonly >
+														
 													</div>
 							
 													<div class="col-md-6">
 														<label>文章名稱</label>
 													</div>								
 													<div class="col-md-6 form-group">
-														<input type="text" 
-														value="${artVO2.article.articleTitle}"readonly >
+														<input type="text" value="${(artVO2 != null) ? 
+ 														artVO2.article.articleTitle : artErr2.article.articleTitle}"readonly > 
 													</div>	
 													<div class="col-md-6">
 														<label>會員編號(文章作者)</label>
 													</div>
-							
+									
 													<div class="col-md-6 form-group">
 														<input type="text" 
 																value="${(artVO2 != null) ? artVO2.members.memberId : artErr2.members.memberId}"readonly >															

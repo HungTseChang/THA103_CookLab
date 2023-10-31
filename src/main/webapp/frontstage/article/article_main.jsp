@@ -191,7 +191,7 @@
 			<c:forEach var="artVO2" items="${list2}">
      			<c:if test="${artVO2.articleCategoryNo == 1 }">
         			<a class="btn custom-btn HO-btn-org"   id="${artVO2.articleCategoryNo}" 
-        			style="color: #ff5733; margin-right:3px; ;"
+        			style="margin-right:3px; "
         			 href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">
             			${artVO2.articleCategory}</a>        			
             		</c:if>
