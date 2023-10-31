@@ -8,7 +8,7 @@ import="com.cooklab.purchase_order.model.*"%>
         <meta name="keywords" content="Ogani, unica, creative, html" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Ogani | Template</title>
+        <title>廚藝實驗室</title>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -133,7 +133,7 @@ import="com.cooklab.purchase_order.model.*"%>
         <!-- Header Section End -->
 
         <!-- 創建食譜頁面 -->
-        <form action="javascript:void(0)">
+        <form id="submitUpdate">
             <section class="hero hero-normal" style="background-color: rgb(226, 222, 222); padding: 30px">
                 <div class="row">
                     <div class="col-md-2"></div>
@@ -146,7 +146,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 <input type="text" id="recipeName" class="form-control recipe-name" placeholder="請輸入食譜名稱" required />
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="site-btn" style="background-color: #f27405">確認名稱</button>
+                                <!-- <button type="submit" class="site-btn" style="background-color: #f27405">確認名稱</button> -->
                             </div>
                         </div>
 
@@ -155,7 +155,7 @@ import="com.cooklab.purchase_order.model.*"%>
                             <article>
                                 <p>已選擇標籤:</p>
                                 <div id="selectTag" class="form-control d-flex align-items-center">
-                                    <input type="text" class="searchTag" />
+                                    <input type="text" class="searchTag" display:none />
                                 </div>
 
                                 <p>熱門標籤:</p>

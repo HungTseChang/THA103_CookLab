@@ -6,11 +6,13 @@ const COLLECTION_POINT = "/RecipeCollectionServlet";
 const COLLECTIONSTATUS_POINT = "/RecipeCollectionStatusServlet";
 const RECIPE_POINT = "/RecipeOverviewServlet";
 const COMMENTS_POINT = "/RecipeCommentsServlet";
+const FOLLOW_POINT = "/FollowServlet";
 var queryString = window.location.search;
 var params = new URLSearchParams(queryString);
 var recipeNo = params.get("recipeNo");
 let step = 0;
 let recipeCollectionNo;
+let recipeCreater;
 /*============================================================ function ============================================================*/
 //新增一列食材
 function addIngredient(ingredients) {
@@ -79,6 +81,28 @@ function addComments(comments) {
 </div>`;
     $("#comments").append(addComments);
 }
+//載入關注狀態
+function followStatus() {
+    $.ajax({
+        url: END_POINT_URL + FOLLOW_POINT,
+        type: "POST",
+        data: { action: "SearchMemberCO", CollectionID: recipeCreater },
+        dataType: "json",
+        headers: {
+            orginURL: window.location.href,
+        },
+        success: function (data) {
+            if (data.res != "equals") {
+                data.res ? $("#removeFollow").removeClass("none") : $("#follow").removeClass("none");
+            }
+        },
+        error: function (xhr) {
+            $("#follow").removeClass("none");
+            console.log(xhr);
+        },
+    });
+}
+/*============================================================ loading ============================================================*/
 $(function () {
     //載入食譜資料
     $.ajax({
@@ -89,6 +113,8 @@ $(function () {
         success: function (data) {
             $("#recipeName").text(data.recipeName);
             $("#coverImage").attr("src", "data:image/*;base64," + data.coverImage);
+            recipeCreater = data.memberId;
+            followStatus();
             $("#introduction").val(data.introduction);
             $("#additionalExplanation").val(data.additionalExplanation);
             //		$("#recipeQuantity").val(data.recipeQuantity);
@@ -123,8 +149,11 @@ $(function () {
         data: { recipeNo }, // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
         success: function (data) {
-            data ? $("#removeCollection").removeClass("none") : $("#addCollection").removeClass("none");
-            recipeCollectionNo = data;
+            if (data == "equals") {
+            } else {
+                data ? $("#removeCollection").removeClass("none") : $("#addCollection").removeClass("none");
+                recipeCollectionNo = data;
+            }
         },
         error: function (xhr) {
             console.log("ajax失敗");
@@ -154,7 +183,7 @@ $(function () {
                 }
             },
             error: function (xhr) {
-                console.log("ajax失敗");
+                window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
                 console.log(xhr);
             },
         });
@@ -206,6 +235,50 @@ $(function () {
             },
             error: function (xhr) {
                 console.log("ajax失敗");
+                END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
+            },
+        });
+    });
+    //新增關注
+    $("#follow").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + FOLLOW_POINT,
+            type: "POST",
+            data: { action: "newMemberCO", CollectionID: recipeCreater },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                if (data.redirectURL != null) {
+                    window.location.href = data.redirectURL;
+                } else {
+                    console.log(data.res);
+                    $("#removeFollow").removeClass("none");
+                    $("#follow").addClass("none");
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            },
+        });
+    });
+    //移除關注
+    $("#removeFollow").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + FOLLOW_POINT,
+            type: "POST",
+            data: { action: "delMemberCO", CollectionID: recipeCreater },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                console.log(data.res);
+                $("#removeFollow").addClass("none");
+                $("#follow").removeClass("none");
+            },
+            error: function (xhr) {
                 console.log(xhr);
             },
         });
