@@ -62,7 +62,6 @@ import com.cooklab.util.HibernateUtil;
 		"/dashboard/article/*",
 		"/ProductServlet", //商品
 		"/MemberOrderServlet", //會員訂單
-		"/PromoCodeServlet",	//優惠碼
 		"/IngredientServlet",
 		"/KitchenwaretServlet",
 		"/CartServlet",
