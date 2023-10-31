@@ -38,10 +38,10 @@ public class ArticleSubServlet extends HttpServlet {
 		
 	    HttpSession session = req.getSession();                    
 	    session.getAttribute("account");                    
-	    Integer userId= Integer.valueOf((String)session.getAttribute("userId" ));            
 	    session.getAttribute("membersVO");
 	    session.getAttribute("userId" );
-		System.out.println("我是userID:"+userId);
+	    
+	    
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		
