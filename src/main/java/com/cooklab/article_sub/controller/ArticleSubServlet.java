@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cooklab.article.model.ArticleService;
 import com.cooklab.article.model.ArticleVO;
@@ -34,6 +35,13 @@ public class ArticleSubServlet extends HttpServlet {
 	}
 	public  void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
+		
+	    HttpSession session = req.getSession();                    
+	    session.getAttribute("account");                    
+	    Integer userId= Integer.valueOf((String)session.getAttribute("userId" ));            
+	    session.getAttribute("membersVO");
+	    session.getAttribute("userId" );
+		System.out.println("我是userID:"+userId);
 		req.setCharacterEncoding("UTF-8");
 		String action =req.getParameter("action");
 		
@@ -309,8 +317,9 @@ public class ArticleSubServlet extends HttpServlet {
 			artSvc.add(articleNo, reporterId, reportingReason, reportingStatus, null, null);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+//			req.setAttribute("artVO", artErr); 
 			String url ="frontstage/article/article_main.jsp";
-			//這邊req.setAttribute("arVO"這邊指的是傳到網頁的名稱,artVO2這邊是後端接收資料)
+//			這邊req.setAttribute("arVO"這邊指的是傳到網頁的名稱,artVO2這邊是後端接收資料)
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
@@ -332,7 +341,7 @@ public class ArticleSubServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				errorMsgs.add("請填數字.");
 			}
-//			Integer articleNo = Integer.valueOf(req.getParameter("articleNo").trim());
+
 			
 			Integer reporterId = null;
 			try {
@@ -364,7 +373,7 @@ public class ArticleSubServlet extends HttpServlet {
 //			 Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("artErr2", artErr2); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_report_user.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_report_user2.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -481,7 +490,7 @@ public class ArticleSubServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO2", artVO2); // 資料庫取出的empVO物件,存入req
-			String url = "frontstage/article/article_report_user.jsp";
+			String url = "frontstage/article/article_report_user2.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
