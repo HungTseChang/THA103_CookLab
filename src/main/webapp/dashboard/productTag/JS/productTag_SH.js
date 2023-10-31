@@ -14,10 +14,10 @@ let dataTable = new simpleDatatables.DataTable(table1);
 //======================食材、廚具=======================
 document.addEventListener("DOMContentLoaded", function() {
 	let requestData = {
-		action: "search", 
+		action: "search",
 	};
 	$.ajax({
-		url: END_POINT_URL+COLLECTION_POINT2,
+		url: END_POINT_URL + COLLECTION_POINT2,
 		type: "GET",
 		data: requestData,
 		dataType: "json",
@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			var tbody = table.find("tbody");
 			tbody.empty(); // 清空表格内容
 
-			console.log("Data:", data); 
+			console.log("Data:", data);
 			$.each(data, function(index, item) {
-				console.log("Item:", item); 
+				console.log("Item:", item);
 
 				var updateButton = `<button  class="btn btn-primary update-button" data-category-id="${item.categoryId}" data-category-tag="${item.categoryTag}" data-category-name="${item.categoryName}" >修改</button>`;
 
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </tr>`;
 
 				tbody.append(row);
-				console.log("Row:", row); 
+				console.log("Row:", row);
 			});
 
 			// 初始化Simple Datatable
@@ -66,10 +66,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function refreshData() {
 	let requestData = {
-		action: "search", 
+		action: "search",
 	};
 	$.ajax({
-		url: END_POINT_URL+COLLECTION_POINT2, 
+		url: END_POINT_URL + COLLECTION_POINT2,
 		type: "GET",
 		data: requestData,
 		dataType: "json",
@@ -86,11 +86,11 @@ function refreshData() {
 
 			var table = $("#table1");
 			var tbody = table.find("tbody");
-			tbody.empty(); 
+			tbody.empty();
 
 			console.log("Data:", data);
 			$.each(data, function(index, item) {
-				console.log("Item:", item); 
+				console.log("Item:", item);
 
 				var updateButton = `<button  class="btn btn-primary update-button" data-category-id="${item.categoryId}" data-category-tag="${item.categoryTag}" data-category-name="${item.categoryName}" >修改</button>`;
 				var deleteButton = `<button class="btn btn-danger delete-button" data-category-id="${item.categoryId}" data-category-tag="${item.categoryTag}" data-category-name="${item.categoryName}">删除</button>`;
@@ -101,7 +101,7 @@ function refreshData() {
         </tr>`;
 
 				tbody.append(row);
-				console.log("Row:", row); 
+				console.log("Row:", row);
 			});
 
 			dataTable = new simpleDatatables.DataTable(table1);
@@ -141,14 +141,14 @@ function updateDataTable(data) {
 const foodTagButton = document.getElementById("foodTagButton");
 
 foodTagButton.addEventListener("click", function(e) {
-	e.preventDefault(); 
+	e.preventDefault();
 
 
 	let requestData = {
-		action: "searchFoodTags", 
+		action: "searchFoodTags",
 	};
 	$.ajax({
-		url: END_POINT_URL+COLLECTION_POINT2, 
+		url: END_POINT_URL + COLLECTION_POINT2,
 		type: "GET",
 		data: requestData,
 		dataType: "json",
@@ -161,8 +161,8 @@ foodTagButton.addEventListener("click", function(e) {
 			tbody.empty(); // 清空表格內容
 
 			var tableHeaders = table.find("thead th");
-			$(tableHeaders[0]).text("食材種類編號"); 
-			$(tableHeaders[1]).text("種類名稱"); 
+			$(tableHeaders[0]).text("食材種類編號");
+			$(tableHeaders[1]).text("種類名稱");
 
 			$.each(data, function(index, item) {
 				var updateButton = `<button class="btn btn-primary update-button" data-category-id="${item.ingredientCategoryNo}" data-category-tag="食材" data-category-name="${item.categoryName}">修改</button>`;
@@ -189,13 +189,13 @@ foodTagButton.addEventListener("click", function(e) {
 const KitchenwareTagButton = document.getElementById("KitchenwareTagButton");
 
 KitchenwareTagButton.addEventListener("click", function(e) {
-	e.preventDefault(); 
+	e.preventDefault();
 
 	let requestData = {
-		action: "searchKitchenwareTags", 
+		action: "searchKitchenwareTags",
 	};
 	$.ajax({
-		url: END_POINT_URL+COLLECTION_POINT3, 
+		url: END_POINT_URL + COLLECTION_POINT3,
 		type: "GET",
 		data: requestData,
 		dataType: "json",
@@ -210,8 +210,8 @@ KitchenwareTagButton.addEventListener("click", function(e) {
 			tbody.empty(); // 清空表格內容
 
 			var tableHeaders = table.find("thead th");
-			$(tableHeaders[0]).text("廚具種類編號"); 
-			$(tableHeaders[1]).text("種類名稱"); 
+			$(tableHeaders[0]).text("廚具種類編號");
+			$(tableHeaders[1]).text("種類名稱");
 			$.each(data, function(index, item) {
 
 				var updateButton = `<button class="btn btn-primary update-button" data-category-id="${item.kitchenwareCategoryNo}" data-category-tag="廚具" data-category-name="${item.categoryName}">修改</button>`;
@@ -260,7 +260,7 @@ $("#saveChangesButton").on("click", function() {
 
 
 	var dataToSend = {
-		action: "update", 
+		action: "update",
 		categoryTag: updatedCategoryTag,
 		categoryName: updatedCategoryName,
 		categoryId: categoryId,
@@ -268,15 +268,15 @@ $("#saveChangesButton").on("click", function() {
 
 	var url = "";
 	if (updatedCategoryTag === "食材") {
-		url = END_POINT_URL+COLLECTION_POINT2;
+		url = END_POINT_URL + COLLECTION_POINT2;
 	} else if (updatedCategoryTag === "廚具") {
-		url = END_POINT_URL+COLLECTION_POINT3;
+		url = END_POINT_URL + COLLECTION_POINT3;
 	}
 	console.log(url);
 	$.ajax({
-		url: url, 
-		type: "POST", 
-		data: dataToSend, 
+		url: url,
+		type: "POST",
+		data: dataToSend,
 		dataType: "json",
 		success: function(response) {
 			if (response.message === "true") {
@@ -339,9 +339,9 @@ $(document).ready(function() {
 
 		var url = "";
 		if (categoryTag === "食材") {
-			url = END_POINT_URL+COLLECTION_POINT2;
+			url = END_POINT_URL + COLLECTION_POINT2;
 		} else if (categoryTag === "廚具") {
-			url =	END_POINT_URL+COLLECTION_POINT3;
+			url = END_POINT_URL + COLLECTION_POINT3;
 		}
 		console.log("目标 URL:", url);
 		$.ajax({
@@ -395,28 +395,33 @@ $(document).on("click", ".delete-button", function() {
 
 	var url = "";
 	if (categoryTag === "食材") {
-		url = END_POINT_URL+COLLECTION_POINT2; 
+		url = END_POINT_URL + COLLECTION_POINT2;
 	} else if (categoryTag === "廚具") {
-		url = END_POINT_URL+COLLECTION_POINT3; 
+		url = END_POINT_URL + COLLECTION_POINT3;
 	}
 
 	$.ajax({
 		type: "POST",
-		url: url, 
+		url: url,
 		data: {
-			action: "delete", 
-			categoryId: categoryId, 
+			action: "delete",
+			categoryId: categoryId,
 		},
 		success: function(response) {
+			if (response.message == "true") {
+				console.log(response);
+				console.log("删除成功");
+				alert("删除成功");
+				refreshData();
+			}else{
+				alert("有商品使用中 請勿刪除");
+				refreshData();
+			}
 
-			console.log(response);
-			console.log("删除成功");
-			alert(response.message); 
-			refreshData();
 
 		},
 		error: function(error) {
-	
+
 			console.error("Error:", error);
 		},
 	});

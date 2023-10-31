@@ -73,6 +73,7 @@ public class LoginFilter extends HttpFilter implements Filter {
                 session.setAttribute("location", req.getHeader("orginURL"));
                 String responseData = "{ \"redirectURL\": \"" + req.getContextPath() + "/frontstage/members/login.html" + "\" }";
                 res.getWriter().write(responseData);
+
             }else {
                 session.setAttribute("location", req.getRequestURI());
                 res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");

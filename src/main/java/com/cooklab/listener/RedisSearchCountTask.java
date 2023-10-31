@@ -20,7 +20,7 @@ public class RedisSearchCountTask {
 
 	public void start() {
 		// (執行方法,首次執行延遲的時間,方法間隔時間)
-		timer.schedule(new SyncTask(), 0, 3600);
+		timer.schedule(new SyncTask(), 0, 60);
 	}
 
 	public void stop() {
@@ -58,7 +58,7 @@ public class RedisSearchCountTask {
 
 						String result = productSvc.update(productVO);
 						if ("success".equals(result)) {
-							System.out.println("Redis data sync to MySQL completed.");
+							System.out.println("搜尋次數Redis成功.");
 						}
 					}
 				}
