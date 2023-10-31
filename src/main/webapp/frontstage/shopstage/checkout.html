@@ -1,319 +1,407 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Ogani Template" />
-    <meta name="keywords" content="Ogani, unica, creative, html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Ogani | Template</title>
+<head>
+<meta charset="UTF-8" />
+<meta name="description" content="Ogani Template" />
+<meta name="keywords" content="Ogani, unica, creative, html" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<title>Ogani | Template</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
+<!-- Google Font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
+	rel="stylesheet" />
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="./css/my.css" type="text/css" />
-    <!-- bootstrap icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="./css/ding.css" type="text/css" />
-    <link rel="stylesheet" href="./css/dingsearch.css" />
+<!-- Css Styles -->
+<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/font-awesome.min.css"
+	type="text/css" />
+<link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+<link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+<link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/owl.carousel.min.css"
+	type="text/css" />
+<link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+<link rel="stylesheet" href="../css/style.css" type="text/css" />
+<link rel="stylesheet" href="./css/my.css" type="text/css" />
+<!-- bootstrap icon -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="./css/ding.css" type="text/css" />
+<link rel="stylesheet" href="./css/dingsearch.css" />
 
-    <style>
-      .lightbox {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 9999;
-      }
+<style>
+.lightbox {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 9999;
+}
 
-      .lightbox-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        text-align: center;
-      }
+.lightbox-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
 
-      /* 阻止外部元素的交互 */
-      .lightbox:before {
-        content: "";
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-      }
-    </style>
-  </head>
+/* 阻止外部元素的交互 */
+.lightbox:before {
+	content: "";
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+</style>
+</head>
 
-  <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-      <div class="loader"></div>
-    </div>
+<body>
+	<!-- Page Preloder -->
+	<div id="preloder">
+		<div class="loader"></div>
+	</div>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-      <div class="header__top">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6">
-              <div class="header__top__right">
-                <div class="header__top__right__auth">
-                  <a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">購物車</span> </a>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">會員中心</span> </a>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">通知中心</span> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
-            </div>
-          </div>
-          <div class="col-lg-9 d-flex align-items-center">
-            <nav class="header__menu">
-              <ul>
-                <li class="active"><a href="./index.html">食譜總覽</a></li>
-                <li><a href="#">新增食譜</a></li>
-                <li><a href="#">關注食譜</a></li>
-                <li><a href="./shop-grid.html">商城</a></li>
-                <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
-                <li><a href="./contact.html">關於我們</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="humberger__open">
-          <i class="fa fa-bars"></i>
-        </div>
-      </div>
-    </header>
-    <!-- Header Section End -->
+	<!-- Humberger Begin -->
+	<div class="humberger__menu__overlay"></div>
+	<div class="humberger__menu__wrapper">
+		<div class="humberger__menu__logo">
+			<a href="../recipe/recipe_overview.jsp"><img src="img/indexlogo.png" alt="" /></a>
+		</div>
+		<section class="container">
+			<div
+				class="humberger__menu__widget row d-flex justify-content-between align-items-center">
+				<div class="">
+					<a href="#"> <i class="bi bi-cart3 fa-3x"></i>
+					</a>
+				</div>
 
-    <!-- Hero Section Begin -->
-    <section class="container mb-3"></section>
-    <!-- Hero Section End -->
+				<div class="">
+					<a href="#"> <i class="fa fa-user fa-3x"></i>
+					</a>
+				</div>
 
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="../img/breadcrumb.jpg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="breadcrumb__text">
-              <h2>結帳</h2>
-              <div class="breadcrumb__option"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Breadcrumb Section End -->
+				<div class="">
+					<a href="#"> <i class="bi bi-bell fa-3x"></i>
+					</a>
+				</div>
+			</div>
+		</section>
+		<nav class="humberger__menu__nav mobile-menu">
+			<ul>
+				<li class="active"><a href="./index.html">首頁</a></li>
+				<li><a href="./shop-grid.html">商城todo</a></li>
+				<li><a href="../recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+				<li><a href="./contact.html">常見問題todo</a></li>
+				<li><a href="../article/article_main.jsp">討論區todo</a></li>
+				<li><a href="../news/news.html">最新消息todo</a></li>
+			</ul>
+		</nav>
+		<div id="mobile-menu-wrap"></div>
+		<div class="header__top__right__social">
+			<a href="#"><i class="fa fa-2x fa-facebook"></i></a> <a href="#"><i
+				class="fa fa-2x fa-instagram"></i></a> <a href="#"><i
+				class="fa fa-2x fa-twitter"></i></a>
+		</div>
+		<div class="humberger__menu__contact">
+			<ul>
+				<li><i class="fa fa-envelope"></i> tomato@cooklab.com</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Humberger End -->
 
-    <!-- Checkout Section Begin -->
-    <section class="checkout spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="shoping__cart__table">
-              <table id="cart-table">
-                <thead>
-                  <tr>
-                    <th>商品名稱</th>
-                    <th>商品價格</th>
-                    <th>商品數量</th>
-                    <th>金額總計</th>
-                  </tr>
-                </thead>
-                <!-- 可以添加更多商品行 -->
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="checkout__form">
-          <form action="#">
-            <div class="row">
-              <div class="col-lg-12">
-                <h4>收件人資料</h4>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-12" id="rs_orderboxdiv"><input type="checkbox" id="sameAsBilling" /><span>同訂購人資料</span></div>
-            </div>
-            <div class="row">
-              <div class="col-lg-8 col-md-6">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>姓名<span>*</span></p>
-                      <input type="text" id="memberName" />
-                    </div>
-                  </div>
-                </div>
-                <div class="checkout__input">
-                  <p>收件地址<span>*</span></p>
-                  <input type="text" placeholder="輸入地址" class="checkout__input__add" id="memberAddress" />
-                </div>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>連絡電話<span>*</span></p>
-                      <input type="tel" id="memberPhone" />
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="checkout__input">
-                      <p>聯絡信箱<span>*</span></p>
-                      <input type="email" id="memberEmail" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="shoping__continue">
-              <div class="shoping__discount">
-                <h5>優惠碼輸入</h5>
-                <input type="text" id="coupon-code" placeholder="Enter your coupon code" />
-                <button class="site-btn" id="promocodeuse">使用</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-12" style="margin-top: 50px">
-            <div class="checkout__order">
-              <h4>訂單詳情</h4>
-              <div class="checkout__order__products">商品 <span>總計</span></div>
-              <ul id="order-details-list">
-                <li id="promoCodeInfo" style="display: none">優惠碼 <span id="promoCodeDiscount">0</span></li>
-              </ul>
-              <div class="checkout__order__total">
-                <div>訂單金額 <span id="order-total">$750.99</span></div>
-                <div>總金額 <span id="finalPriceInfo">$750.99</span></div>
-              </div>
-              <button class="site-btn" id="checkoutbutton">確認付款</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Checkout Section End -->
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="header__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6"></div>
+					<div class="col-lg-6">
+						<div class="header__top__right">
+							<div class="header__top__right__auth">
+								<a href="./shoping-cart.html"> <i
+									class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+									class="ding-nav-text">購物車</span>
+								</a>
+							</div>
+							<div class="header__top__right__auth">
+								<a href="../members/member-panel.jsp"> <i
+									class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+									class="ding-nav-text">會員中心</span>
+								</a>
+							</div>
+							<div class="header__top__right__auth">
+								<a href="../members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+							</div>
+							<div class="header__top__right__auth">
+								<a href="../members/member-panel-news.html"> <i
+									class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+									class="ding-nav-text">通知中心</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="header__logo">
+						<a href="../recipe/recipe_overview.jsp"><img style="height: 150px"
+							src="../img/indexlogo.png" alt="" /></a>
+					</div>
+				</div>
+				<div class="col-lg-9 d-flex align-items-center">
+					<nav class="header__menu">
+						<ul>
+							<li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="../recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="../members/member-panel-follow.html">關注食譜</a></li>
+							<li class="active"><a href="./shop.html">商城</a></li>
+							<li><a href="../article/article_main.jsp">討論區</a></li>
+							<li><a href="../news/news.html">最新消息</a></li>
+							<li><a href="./news/news.html">關於我們</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="humberger__open">
+				<i class="fa fa-bars"></i>
+			</div>
+		</div>
+	</header>
+	<!-- Header Section End -->
 
-    <!-- 訂單成功燈箱 -->
-    <div id="lightbox" class="lightbox">
-      <div class="lightbox-content">
-        <h2>訂單已成功生成</h2>
-        <p>感謝您的訂購！</p>
-        <button id="returnButton">返回首頁</button>
-      </div>
-    </div>
+	<!-- Hero Section Begin -->
+	<section class="container mb-3"></section>
+	<!-- Hero Section End -->
 
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="footer__about">
-              <ul>
-                <li>公司地址：台北市中山區南京東路三段219號5樓</li>
-                <li>電話：(02)27120589</li>
-                <li>電子信箱：tomato@cooklab.com</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="footer__widget">
-              <ul>
-                <li><a href="#">關於我們</a></li>
-                <li><a href="#">關於商店</a></li>
-                <li><a href="#">安心購物</a></li>
-              </ul>
-              <ul>
-                <li><a href="#">運送資訊</a></li>
-                <li><a href="#">隱私政策</a></li>
-                <li><a href="#">常見問題</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-12">
-            <div class="footer__widget">
-              <h6>立即訂閱電子報</h6>
-              <p>隨時接收我們的最新消息以及優惠訊息</p>
-              <form action="#">
-                <input type="text" placeholder="輸入您的電子信箱" />
-                <button type="submit" class="btn ding-btn-org">訂閱</button>
-              </form>
-              <div class="footer__widget__social">
-                <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-instagram"></i></a> <a href="#"><i class="fa fa-twitter"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="footer__copyright">
-              <div class="footer__copyright__text">
-                <p>
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                  Copyright &copy;
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- Footer Section End -->
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg"
+		data-setbg="../img/breadcrumb.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>結帳</h2>
+						<div class="breadcrumb__option"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
 
-    <!-- Js Plugins -->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.nice-select.min.js"></script>
-    <script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/jquery.slicknav.js"></script>
-    <script src="../js/mixitup.min.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
-    <!-- 	<script src="js/checkout.js"></script> -->
-    <script src="./js/checkout2.js"></script>
-  </body>
+	<!-- Checkout Section Begin -->
+	<section class="checkout spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="shoping__cart__table">
+						<table id="cart-table">
+							<thead>
+								<tr>
+									<th>商品名稱</th>
+									<th>商品價格</th>
+									<th>商品數量</th>
+									<th>金額總計</th>
+								</tr>
+							</thead>
+							<!-- 可以添加更多商品行 -->
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="checkout__form">
+				<form action="#">
+					<div class="row">
+						<div class="col-lg-12">
+							<h4>收件人資料</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12" id="rs_orderboxdiv">
+							<input type="checkbox" id="sameAsBilling" /><span>同訂購人資料</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-8 col-md-6">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											姓名<span>*</span>
+										</p>
+										<input type="text" id="memberName" />
+									</div>
+								</div>
+							</div>
+							<div class="checkout__input">
+								<p>
+									收件地址<span>*</span>
+								</p>
+								<input type="text" placeholder="輸入地址"
+									class="checkout__input__add" id="memberAddress" />
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											連絡電話<span>*</span>
+										</p>
+										<input type="tel" id="memberPhone" />
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="checkout__input">
+										<p>
+											聯絡信箱<span>*</span>
+										</p>
+										<input type="email" id="memberEmail" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="shoping__continue">
+						<div class="shoping__discount">
+							<h5>優惠碼輸入</h5>
+							<input type="text" id="coupon-code"
+								placeholder="Enter your coupon code" />
+							<button class="site-btn" id="promocodeuse">使用</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-12" style="margin-top: 50px">
+					<div class="checkout__order">
+						<h4>訂單詳情</h4>
+						<div class="checkout__order__products">
+							商品 <span>總計</span>
+						</div>
+						<ul id="order-details-list">
+							<li id="promoCodeInfo" style="display: none">優惠碼 <span
+								id="promoCodeDiscount">0</span></li>
+						</ul>
+						<div class="checkout__order__total">
+							<div>
+								訂單金額 <span id="order-total">$750.99</span>
+							</div>
+							<div>
+								總金額 <span id="finalPriceInfo">$750.99</span>
+							</div>
+						</div>
+						<button class="site-btn" id="checkoutbutton">確認付款</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Checkout Section End -->
+
+	<!-- 訂單成功燈箱 -->
+	<div id="lightbox" class="lightbox">
+		<div class="lightbox-content">
+			<h2>訂單已成功生成</h2>
+			<p>感謝您的訂購！</p>
+			<button id="returnButton">返回首頁</button>
+		</div>
+	</div>
+
+	<!-- Footer Section Begin -->
+	<footer class="footer spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="footer__about">
+						<ul>
+							<li>公司地址：台北市中山區南京東路三段219號5樓</li>
+							<li>電話：(02)27120589</li>
+							<li>電子信箱：tomato@cooklab.com</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="footer__widget">
+						<ul>
+							<li><a href="#">關於我們</a></li>
+							<li><a href="#">關於商店</a></li>
+							<li><a href="#">安心購物</a></li>
+						</ul>
+						<ul>
+							<li><a href="#">運送資訊</a></li>
+							<li><a href="#">隱私政策</a></li>
+							<li><a href="#">常見問題</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-12">
+					<div class="footer__widget">
+						<h6>立即訂閱電子報</h6>
+						<p>隨時接收我們的最新消息以及優惠訊息</p>
+						<form action="#">
+							<input type="text" placeholder="輸入您的電子信箱" />
+							<button type="submit" class="btn ding-btn-org">訂閱</button>
+						</form>
+						<div class="footer__widget__social">
+							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+								class="fa fa-instagram"></i></a> <a href="#"><i
+								class="fa fa-twitter"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer__copyright">
+						<div class="footer__copyright__text">
+							<p>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+								Copyright &copy;
+								<script>
+									document.write(new Date().getFullYear());
+								</script>
+								All rights reserved | This template is made with <i
+									class="fa fa-heart" aria-hidden="true"></i> by <a
+									href="https://colorlib.com" target="_blank">Colorlib</a>
+								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Footer Section End -->
+
+	<!-- Js Plugins -->
+	<script src="../js/jquery-3.3.1.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/jquery.nice-select.min.js"></script>
+	<script src="../js/jquery-ui.min.js"></script>
+	<script src="../js/jquery.slicknav.js"></script>
+	<script src="../js/mixitup.min.js"></script>
+	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../js/main.js"></script>
+	<script src="./js/checkout2.js"></script>
+	<script src="../js/TomJS.js"></script>
+</body>
 </html>

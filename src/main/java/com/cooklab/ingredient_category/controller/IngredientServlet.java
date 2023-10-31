@@ -57,16 +57,14 @@ public class IngredientServlet extends HttpServlet {
 				errorMsgs.add("查無資料");
 			}
 
-			// 创建一个列表来存储 HashMap
-			List<Map<String, String>> dataMapList = new ArrayList<>();
 
-			// 遍历 listalltags
+			List<Map<String, String>> dataMapList = new ArrayList<>();
 			for (Object[] item : listalltags) {
 				// 创建一个 HashMap 来存储当前项的数据
 				Map<String, String> itemMap = new HashMap<>();
 
 				String categoryTag = (String) item[0];
-				String categoryId = String.valueOf(item[1]); // Convert the categoryId to a string
+				String categoryId = String.valueOf(item[1]); 
 				String categoryName = (String) item[2];
 
 				itemMap.put("categoryTag", categoryTag);

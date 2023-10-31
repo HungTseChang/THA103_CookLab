@@ -7,21 +7,18 @@ const END_POINT_URL = "http://" + HOST + webCtx;
 const RECIPEBROWSE_POINT = "/frontstage/recipe/recipe_browse.jsp";
 const COVERIMAGE_POINT = "/RecipeOverviewImgServlet";
 const RECIPEOVERVIEW_POINT = "/RecipeOverviewServlet";
-let cloumn = "recipeNo"; //初始欄位排序
-let desc = true; //初始順序
 let search = ""; //初始搜尋
 /*============================================================ function ============================================================*/
 // //拿到頁數
-function getpage(cloumnParam, searchParam, descParam) {
+function getpage(cloumn, search, desc) {
     $.ajax({
         url: END_POINT_URL + RECIPEOVERVIEW_POINT,
         type: "GET",
-        data: { action: "getPage", search: searchParam },
+        data: { action: "getPage", search: search },
         dataType: "json",
         success: function (data) {
             $("#page").html("");
-            for (let i = 0; i < data; i++)
-                $("#page").append(`<a class="page" href="javascript:void(0);" onclick="recipeOverview(${i},'${cloumnParam}','${searchParam}',${descParam})">&nbsp;${i + 1}&nbsp;</a>`);
+            for (let i = 0; i < data; i++) $("#page").append(`<a class="page" href="javascript:void(0);" onclick="recipeOverview(${i},'${cloumn}','${search}',${desc})">&nbsp;${i + 1}&nbsp;</a>`);
             $(".page").eq(0).addClass("disabled");
         },
         error: function (xhr) {
@@ -31,18 +28,17 @@ function getpage(cloumnParam, searchParam, descParam) {
     });
 }
 //輸入頁數拿到食譜和搜尋
-function recipeOverview(pageParam, cloumnParam, searchParam, descParam) {
+function recipeOverview(page, cloumn, search, desc) {
     $.ajax({
         url: END_POINT_URL + RECIPEOVERVIEW_POINT,
         type: "GET",
-        data: { cloumn: cloumnParam, desc: descParam, page: pageParam, search: searchParam, action: "overview" },
+        data: { cloumn: cloumn, desc: desc, page: page, search: search, action: "overview" },
         dataType: "json",
         success: function (data) {
             $("#recipeList").html("");
             $(data).each(function (index, element) {
                 addListRecipe(element);
             });
-            getpage(cloumnParam, searchParam, descParam);
         },
         error: function (xhr) {
             console.log("ajax失敗");
@@ -74,15 +70,19 @@ function sort(sort) {
     switch (sort) {
         case 1:
             recipeOverview(0, "recipeNo", search, true);
+            getpage("recipeNo", search, true);
             break;
         case 2:
             recipeOverview(0, "recipeNo", search, false);
+            getpage("recipeNo", search, false);
             break;
         case 3:
             recipeOverview(0, "viewCount", search, true);
+            getpage("viewCount", search, true);
             break;
         case 4:
             recipeOverview(0, "viewCount", search, false);
+            getpage("viewCount", search, false);
             break;
     }
 }
@@ -99,11 +99,10 @@ $(function () {
     //按下搜尋按紐
     $("#search button").on("click", function () {
         search = $("#search input").val();
-        recipeOverview(0, "recipeNo", search, true);
+        sort(1);
     });
     //按下enter搜尋
     $("#search input").on("keydown", function (e) {
-        console.log("sadasadsa");
         if (e.key === "Enter") {
             e.preventDefault();
             $("#search button").click();

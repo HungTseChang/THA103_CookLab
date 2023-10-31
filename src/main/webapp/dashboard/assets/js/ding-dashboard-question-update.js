@@ -1,3 +1,10 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/QuestionServlet";
+let QuestionServletAPI = END_POINT_URL + COLLECTION_POINT;
+
 const urlParams = new URLSearchParams(window.location.search);
 const questionNo = urlParams.get("questionNo");
 
@@ -23,7 +30,7 @@ let questionupdate = function () {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/QuestionServlet",
+    url: QuestionServletAPI,
     data: data,
     dataType: "json",
     success: function (data) {
@@ -51,7 +58,7 @@ let questionupdate = function () {
 let dataload = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/QuestionServlet",
+    url: QuestionServletAPI,
     data: { action: "getOne", questionNo: questionNo },
     dataType: "json",
     success: function (data) {

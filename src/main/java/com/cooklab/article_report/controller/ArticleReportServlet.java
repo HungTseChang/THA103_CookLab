@@ -375,7 +375,8 @@ private class ArticleReportVOFake{
 	
 	private String reportingAnswer;
 	
-	
+	private Timestamp createdTimestamp;
+
 	
 		private  ArticleReportVOFake(ArticleReportVO ArticleReportVO) {
 		super();
@@ -444,7 +445,6 @@ private class ArticleReportVOFake{
 		this.createdTimestamp = createdTimestamp;
 	}
 
-		private Timestamp createdTimestamp;
 	
 }
 

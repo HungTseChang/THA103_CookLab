@@ -14,9 +14,13 @@ import com.cooklab.recipe.RecipeCreateDTO;
 import com.cooklab.recipe.RecipeCreateDTO.IngredientDTO;
 import com.cooklab.recipe.RecipeCreateDTO.StepDTO;
 import com.cooklab.recipe.RecipeUpdateDTO;
+import com.cooklab.recipe_hashtag.model.RecipeHashtagHDAOIm;
 import com.cooklab.recipe_hashtag.model.RecipeHashtagVO;
+import com.cooklab.recipe_ingredient.model.RecipeIngredientHDAOIm;
 import com.cooklab.recipe_ingredient.model.RecipeIngredientVO;
+import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareHDAOIm;
 import com.cooklab.recipe_kitchenware.model.RecipeKitchenwareVO;
+import com.cooklab.recipe_step.model.RecipeStepHDAOIm;
 import com.cooklab.recipe_step.model.RecipeStepVO;
 import com.cooklab.util.HibernateUtil;
 
@@ -137,7 +141,7 @@ public class RecipeServiceIm implements RecipeService {
 		for (StepDTO stepDTO : recipeCreateDTO.getStep()) {
 			RecipeStepVO recipeStepVO = new RecipeStepVO();
 			recipeStepVO.setRecipe(recipeVO);
-			recipeStepVO.setStep(++stepCount);
+			recipeStepVO.setStep(stepCount++);
 			recipeStepVO
 					.setStepImg(stepDTO.getStepImg() != null ? Base64.getDecoder().decode(stepDTO.getStepImg()) : null);
 			recipeStepVO.setStepTime(stepDTO.getStepTime());
@@ -159,14 +163,15 @@ public class RecipeServiceIm implements RecipeService {
 	}
 
 	@Override
-	public Integer updateRecipe(MembersVO memberVO, RecipeUpdateDTO recipeUpdateDTO) {
-		RecipeVO recipeVO = dao.findByPrimaryKey(recipeUpdateDTO.getRecipeNo());
-		// 驗證是不是本人
-		if (!recipeVO.getMembers().getMemberId().equals(memberVO.getMemberId())) {
-			return null;
-		}
+	public Integer updateRecipe(MembersVO memberVO,RecipeVO recipeVO, RecipeUpdateDTO recipeUpdateDTO) {
+		
 		ProductHDAOrRecipeTest productHDAOIm = new ProductHDAOrRecipeTest(HibernateUtil.getSessionFactory());
 		HashtagHDAOIm HashtagHDAOIm = new HashtagHDAOIm(HibernateUtil.getSessionFactory());
+		new RecipeIngredientHDAOIm(HibernateUtil.getSessionFactory()).delete(recipeVO);
+		new RecipeKitchenwareHDAOIm(HibernateUtil.getSessionFactory()).delete(recipeVO);
+		new RecipeStepHDAOIm(HibernateUtil.getSessionFactory()).delete(recipeVO);
+		new RecipeHashtagHDAOIm(HibernateUtil.getSessionFactory()).delete(recipeVO);
+		
 		recipeVO.setRecipeName(recipeUpdateDTO.getRecipeName());
 		recipeVO.setCoverImage(Base64.getDecoder().decode(recipeUpdateDTO.getCoverImage()));
 		recipeVO.setIntroduction(recipeUpdateDTO.getIntroduction());
@@ -204,7 +209,7 @@ public class RecipeServiceIm implements RecipeService {
 		for (RecipeUpdateDTO.StepDTO stepDTO : recipeUpdateDTO.getStep()) {
 			RecipeStepVO recipeStepVO = new RecipeStepVO();
 			recipeStepVO.setRecipe(recipeVO);
-			recipeStepVO.setStep(++stepCount);
+			recipeStepVO.setStep(stepCount++);
 			recipeStepVO
 					.setStepImg(stepDTO.getStepImg() != null ? Base64.getDecoder().decode(stepDTO.getStepImg()) : null);
 			recipeStepVO.setStepTime(stepDTO.getStepTime());

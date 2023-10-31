@@ -115,16 +115,13 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">訂單管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">商品種類管理</a>
                                 </li>
                                 <li class="submenu-item  ">
                                     <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a>
                                 </li>
                                 <li class="submenu-item">
                                     <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >廣告管理</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/purchase_order/TYT_purchase_order_allView.jsp">進貨表單</a>
                                 </li>
                             </ul>
                         </li>

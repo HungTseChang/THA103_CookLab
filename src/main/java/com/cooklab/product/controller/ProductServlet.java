@@ -3,6 +3,8 @@ package com.cooklab.product.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +12,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +28,6 @@ import com.cooklab.ingredient_category.model.IngredientCategoryVO;
 import com.cooklab.ingredient_category.model.IngredientService;
 import com.cooklab.kitchenware_category.model.KitchenwareCategoryService;
 import com.cooklab.kitchenware_category.model.KitchenwareCategoryVO;
-import com.cooklab.product.model.Pair;
 import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
 import com.cooklab.util.JedisUtil;
@@ -77,7 +76,11 @@ public class ProductServlet extends HttpServlet {
 					String productImage = Base64.getEncoder().encodeToString(productPicture);
 					itemMap.put("productImage", productImage);
 				} else {
-					itemMap.put("productImage", "");
+					String defaultImagePath = getServletContext().getRealPath("/frontstage/img/product/product-1.jpg"); // 假设默认图片为default.jpg
+					Path path = Path.of(defaultImagePath);
+			        byte[] imageBytes = Files.readAllBytes(path);
+					String defaultImageBase64 =Base64.getEncoder().encodeToString(imageBytes);
+				    itemMap.put("productImage", defaultImageBase64);
 				}
 
 				String productDec = item.getProductDec();
@@ -159,7 +162,11 @@ public class ProductServlet extends HttpServlet {
 						String productImage = Base64.getEncoder().encodeToString(productPicture);
 						itemMap.put("productImage", productImage);
 					} else {
-						itemMap.put("productImage", "");
+						String defaultImagePath = getServletContext().getRealPath("/frontstage/img/product/product-1.jpg"); // 假设默认图片为default.jpg
+						Path path = Path.of(defaultImagePath);
+				        byte[] imageBytes = Files.readAllBytes(path);
+						String defaultImageBase64 =Base64.getEncoder().encodeToString(imageBytes);
+					    itemMap.put("productImage", defaultImageBase64);
 					}
 
 					String productDec = item.getProductDec();

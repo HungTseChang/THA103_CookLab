@@ -83,6 +83,9 @@ public class MembersService {
 	public MembersVO getOneMemberAccount(String memberAccount) {
 		return dao.findByMembersAccout(memberAccount);
 	}
+	public MembersVO getOneMemberMail(String email) {
+		return dao.findByMembersMail(email);
+	}
 	//修改使用者狀態
 	public MembersVO updateMemberStatus(Integer memberId,byte memberStatus)
 	{
@@ -151,7 +154,24 @@ public class MembersService {
 		
 		dao.deleteMemberColloection(mCollection, mMembersId,MemberCollectionNo);
 	}
+	//查詢會員關注狀態
+	public boolean SearchMemberColloection(Integer memberIdCollectioned,Integer memberId) {
+		MembersVO mCollection = new MembersVO();
+		mCollection = getOneMember(memberIdCollectioned);
+		
+		MembersVO mMembersId = new MembersVO();
+		mMembersId = getOneMember(memberId);
+		
+		Integer MemberCollectionNo;
+		if(dao.findMemberCollectionPK(mCollection,mMembersId) == null)
+		{
+			return true;
+		}
+		else
+			return false;
+		
 
+	}
 //	修改文章關注狀態 ==================================================================================
 
 	public ArticleCollectionVO findByMemberAndArtcle(ArticleVO articleVO, MembersVO membersVO) {

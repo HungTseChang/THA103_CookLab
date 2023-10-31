@@ -4,7 +4,7 @@ var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
 const RECIPECREATE_POINT = "/RecipeCreateServlet";
 const HASHTAG_POINT = "/HashtagServlet";
-const BROWSE_POINT = "/recipe/recipe_browse.jsp";
+const BROWSE_POINT = "/frontstage/recipe/recipe_browse.jsp";
 let coverImageBase64;
 var step;
 let stepImgBase64 = [];
@@ -105,7 +105,7 @@ $(function () {
     $("#tagBox article").on("click", function (e) {
         e.stopPropagation();
     });
-
+    //新增標籤
     $("#tagBox div").on("click", ".addTag", function () {
         let that = this;
         let tagText = $(that).text();
@@ -152,11 +152,11 @@ $(function () {
     $("#addIngredient").on("click", function () {
         let addIngredient = `<div class="row align-items-center ingredients" style="margin: 5px">
                              <div class="col-md-5 ">
-                                 <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)"/>
+                                 <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" required/>
                                  <div class="search-results"></div>
                              </div>
                              <div class="col-md-4">
-                                 <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
+                                 <input type="text" class="form-control ingredient-quantity" placeholder="份量" required/>
                              </div>
                          <i class="bi bi-list">&emsp;</i>
                          <i class="bi bi-trash3-fill delete-ingredient"></i>
@@ -175,7 +175,7 @@ $(function () {
     $("#addKitchenware").on("click", function () {
         let addKitchenware = `<div class="row align-items-center kitchenwares" style="margin: 5px">
                             <div class="col-md-5">
-                                <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)"/>
+                                <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" required/>
                                 <div class="search-results"></div>
                             </div>
                             <i class="bi bi-list">&emsp;</i>
@@ -192,7 +192,6 @@ $(function () {
     $("#addStep").on("click", function () {
         step = parseInt($("#listStep .step:last").attr("step")) + 1;
         if (!step) step = 1;
-        console.log($("#listStep .row:last"));
         let addStep = `<div class="row step" step="${step}">
                     <div class="col-md-3 text-center">
                         <div class="step-img-view">
@@ -203,9 +202,9 @@ $(function () {
                     <div class="col-md-8">
                         <div class="row">
                             <span class="recipe_content col-md-2 step-count">步驟${step}:</span>
-                            <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                            <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)"pattern="^\\d+$" required/>
                         </div>
-                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明(50字內)" required  maxlength="50"></textarea>
                     </div>
                     <i class="bi bi-list">&emsp;</i>
                     <i class="bi bi-trash3-fill delete-step"></i>
@@ -255,7 +254,12 @@ $(function () {
     });
     /*============================== 發布食譜 ==============================*/
 
-    $("#publish").on("click", function () {
+    $("#publish").on("click", function (e) {
+        if ($("#coverImageInput").val() == "") {
+            e.preventDefault();
+            alert("請放成品照片");
+            return;
+        }
         let ingredient = [];
         let kitchenware = [];
         let step = [];

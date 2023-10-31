@@ -26,6 +26,7 @@ public class SupportFormVO implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "form_no", updatable = false, insertable = false)
+	@OrderBy("form_no DESC")
 	private Integer formNo;
 
 	@Column(name = "real_name")
