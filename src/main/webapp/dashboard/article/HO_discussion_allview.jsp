@@ -411,22 +411,22 @@
     </div>
   </div>
   	<script>
-// 		Simple Datatable
-// 		        let table1 = document.querySelector('#table1');
-// 		        let dataTable = new simpleDatatables.DataTable(table1);
+		Simple Datatable
+		        let table1 = document.querySelector('#table1');
+		        let dataTable = new simpleDatatables.DataTable(table1);
 	</script>	
-	<script src="../assets/vendors/jquery-3.7.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
-		src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assetss/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="../assets/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/jss/bootstrap.bundle.min.js"></script>
 	<script
-		src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
 	<script
-		src="../assets/js/main.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
 	<script
-		src="../assets/js/menu_ative.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/menu_ative.js"></script>
 
 
   <script>

@@ -274,13 +274,13 @@ td button.wcc {
 			});
 		});
 
-$(document).ready(function() {
-	$('.form-check-input').click(function() {
-	    if ($(this).is(':checked')) {
-	      var selectedValue = $(this).val();
-	      alert('選取的值是: ' + selectedValue);
-	    }
-	  });
+// $(document).ready(function() {
+// 	$('.form-check-input').click(function() {
+// 	    if ($(this).is(':checked')) {
+// 	      var selectedValue = $(this).val();
+// 	      alert('選取的值是: ' + selectedValue);
+// 	    }
+// 	  });
 
 
 });

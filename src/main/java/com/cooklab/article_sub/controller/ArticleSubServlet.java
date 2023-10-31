@@ -123,7 +123,7 @@ public class ArticleSubServlet extends HttpServlet {
 			updatedArtVO.setArticleSubStatus(articleSubStatus);
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("updatedArtVO", updatedArtVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_discussion_allview.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/article/HO_discussion_allview.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -133,7 +133,7 @@ public class ArticleSubServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,準備轉交 ******************************/
 			req.setAttribute("updatedArtVO", updatedArtVO); // 資料庫取出的empVO物件,存入req
-			String url = "/mazer-main/dist/article/HO_discussion_allview.jsp";
+			String url = "/dashboard/article/HO_discussion_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_Art_input.jsp
 			successView.forward(req, res);
 		}
