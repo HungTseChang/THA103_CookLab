@@ -26,6 +26,11 @@
 <link rel="stylesheet" href="../css/style.css" type="text/css" />
 <link rel="stylesheet" href="./css/ding.css" type="text/css" />
 </head>
+<style>
+ul {
+	list-style: none;
+}
+</style>
 
 <body>
 	<!-- Page Preloder -->
@@ -37,7 +42,7 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="../img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -61,9 +66,11 @@
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
 				<li class="active"><a href="./index.html">首頁</a></li>
-				<li><a href="./shop-grid.html">商城</a></li>
-				<li><a href="./blog.html">食譜總覽</a></li>
-				<li><a href="./contact.html">常見問題</a></li>
+				<li><a href="./shop-grid.html">商城todo</a></li>
+				<li><a href="../recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+				<li><a href="./contact.html">常見問題todo</a></li>
+				<li><a href="../article/article_main.jsp">討論區todo</a></li>
+				<li><a href="../news/news.html">最新消息todo</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -89,20 +96,23 @@
 					<div class="col-lg-6">
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+								<a href="./shoping-cart.html"> <i
+									class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">購物車</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+								<a href="./members/member-panel.jsp"> <i
+									class="fa fa-user m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">會員中心</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+								<a href="../members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+								<a href="../members/member-panel-news.html"> <i
+									class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">通知中心</span>
 								</a>
 							</div>
@@ -122,13 +132,13 @@
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="./index.html">食譜總覽</a></li>
-							<li><a href="#">新增食譜</a></li>
-							<li><a href="#">關注食譜</a></li>
-							<li><a href="./shop-grid.html">商城</a></li>
-							<li><a href="#">討論區</a></li>
-							<li><a href="#">客服中心</a></li>
-							<li class="active"><a href="./contact.html">關於我們</a></li>
+							<li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="../recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="../members/member-panel-follow.html">關注食譜</a></li>
+							<li><a href="../shopstage/shop.html">商城</a></li>
+							<li><a href="../article/article_main.jsp">討論區</a></li>
+							<li><a href="../news/news.html">最新消息</a></li>
+							<li class="active"><a href="">關於我們</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -142,75 +152,86 @@
 	<div class="about us">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4">
-					<center>
-						歡迎來到廚藝實驗室！我們是一個熱愛美食和烹飪的社區，旨在讓人們探索、學習和享受廚藝的樂趣。
-						無論您是新手廚師還是有豐富經驗的大廚，我們的目標是提供豐富的資源，從基本技巧到專業秘訣，讓您的烹飪之旅更加有趣和豐富。 我們的特色：
-						<ul>
-							<li>食譜分享： 來自世界各地的美味食譜，包括經典菜餚、創新料理和健康飲食選項。</li>
-							<li>烹飪技巧：提供有關刀工、烹飪技巧、食材選擇和儲存等方面的寶貴建議和教學資源。</li>
-							<li>社區互動：讓廚藝愛好者分享他們的烹飪心得、提出問題、互相交流意見和建議。
-						</ul>
-						我們的使命：
-						我們致力於啟發人們透過烹飪實驗探索美食世界的無限可能性。無論您想挑戰自己、嘗試新食譜，還是只是享受簡單的廚藝樂趣，廚藝實驗室都是您的理想去處。
+				<div class="col-lg-6">
 
-						這些僅是可能的介紹內容示例。您可以根據您網站的特色和內容來調整和擴充這些內容，以使介紹更貼近您的實際情況。
-					</center>
+					<h3 class="mb-2">專案源起</h3>
+
+					<p>歡迎來到廚藝實驗室！我們是一個熱愛美食和烹飪的社區，旨在讓人們探索、學習和享受廚藝的樂趣。
+						無論您是新手廚師還是有豐富經驗的大廚，我們的目標是提供豐富的資源，從基本技巧到專業秘訣，讓您的烹飪之旅更加有趣和豐富。</p>
+					<p>我們的特色：</p>
+
+					<ul>
+						<li><p>食譜分享： 來自世界各地的美味食譜，包括經典菜餚、創新料理和健康飲食選項。</p></li>
+						<li><p>烹飪技巧：提供有關刀工、烹飪技巧、食材選擇和儲存等方面的寶貴建議和教學資源。</p></li>
+						<li><p>社區互動：讓廚藝愛好者分享他們的烹飪心得、提出問題、互相交流意見和建議。</p></li>
+					</ul>
+
+					<p>我們的使命：</p>
+					<p>我們致力於啟發人們透過烹飪實驗探索美食世界的無限可能性。無論您想挑戰自己、嘗試新食譜，還是只是享受簡單的廚藝樂趣，廚藝實驗室都是您的理想去處。
+
+						這些僅是可能的介紹內容示例。您可以根據您網站的特色和內容來調整和擴充這些內容，以使介紹更貼近您的實際情況。</p>
+
+
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-3">
 					<div>
-						<h3>張宏澤(組長)</h3>
+						<img src="../img/workerPic/bbbb.png" width="150" height="150">
+						<h4>張宏澤(組長)</h4>
 						<ul>
-							<li>Email:martin80699@gmail.com</li>
-							<li>Phone:0903687250</li>
+							<li><p>Email:martin80699@gmail.com</p></li>
+							<li><p>Phone:0903-687250</p></li>
 						</ul>
 					</div>
 					<div>
-					<img src="../img/workerPic/4223aw-1.jpg" width="150" height="150">
-						<h3>施紀紘</h3>
+						<img src="../img/workerPic/4223aw-1.jpg" width="150" height="150">
+						<h4>施紀紘</h4>
 						<ul>
-							<li>Email:ruryu47@gmail.com</li>
-							<li>Phone:0915152338</li>
+							<li><p>Email:ruryu47@gmail.com</p></li>
+							<li><p>Phone:0915-152338</p></li>
 						</ul>
 					</div>
 					<div>
-						<h3>丁竑仁</h3>
+						<img src="../img/workerPic/ding.jpg" width="150" height="150">
+						<h4>丁竑仁</h4>
 						<ul>
-							<li>Email:adinjack@gmail.com</li>
-							<li>Phone:0988271342</li>
+							<li><p>Email:adinjack@gmail.com</p></li>
+							<li><p>Phone:0988-271342</p></li>
 						</ul>
 					</div>
 					<div>
-						<h3>王群中</h3>
+						<img src="../img/workerPic/63017.jpg" width="150" height="150">
+						<h4>王群中</h4>
 						<ul>
-							<li>Email:dnlas2004@gmail.com</li>
-							<li>Phone:</li>
+							<li><p>Email:dnlas2004@gmail.com</p></li>
+							<li><p>Phone:0937932732</p></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-3">
 					<div>
-					<img src="../img/workerPic/aaaaaa.png" width="150" height="150">
-						<h3>何振華</h3>
+						<img src="../img/workerPic/aaaaaa.png" width="150" height="150">
+						<h4>何振華</h4>
 						<ul>
-							<li>Email:z8010272003@gmail.com</li>
-							<li>Phone:0920794400</li>
+							<li><p>Email:z8010272003@gmail.com</p></li>
+							<li><p>Phone:0920-794400</p></li>
 						</ul>
 					</div>
 					<div>
-					<img src="../img/workerPic/S__99409922.jpg" width="150" height="150">
-						<h3>湯于霆</h3>
+						<img src="../img/workerPic/S__99409922.jpg" width="150"
+							height="150">
+						<h4>湯于霆</h4>
 						<ul>
-							<li>Email:tommy76190@gmail.com</li>
-							<li>Phone:0988055065</li>
+							<li><p>Email:tommy76190@gmail.com</p></li>
+							<li><p>Phone:0988-055065</p></li>
 						</ul>
 					</div>
 					<div>
-					<img src="../img/workerPic/S__36634667.jpg" width="150" height="150">
-						<h3>張興炬</h3>
+						<img src="../img/workerPic/S__36634667.jpg" width="150"
+							height="150">
+						<h4>張興炬</h4>
 						<ul>
-							<li>Email:gg19941109@gmail.com</li>
-							<li>Phone:</li>
+							<li><p>Email:gg19941109@gmail.com</p></li>
+							<li><p>Phone:0924-110983</p></li>
 						</ul>
 					</div>
 					<div>
