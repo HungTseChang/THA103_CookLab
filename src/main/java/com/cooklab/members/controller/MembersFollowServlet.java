@@ -76,6 +76,7 @@ public class MembersFollowServlet extends HttpServlet{
 			String jsonString = gson.toJson(listMemberFollowOverViewDTO);
 			res.getWriter().write(jsonString);	
 		}
+		//新增會員關注
 		else if(action.equals("newMemberCO"))
 		{
 			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
@@ -90,6 +91,7 @@ public class MembersFollowServlet extends HttpServlet{
 			res.getWriter().write(jsonString);	
 			System.out.println("新增關注會員成功");
 		}
+		//取消會員關注
 		else if(action.equals("delMemberCO"))
 		{
 			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
@@ -104,6 +106,25 @@ public class MembersFollowServlet extends HttpServlet{
 			res.getWriter().write(jsonString);	
 			
 			System.out.println("刪除關注會員成功");
+		}
+		//查詢會員關注狀態
+		else if(action.equals("SearchMemberCO"))
+		{
+			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
+//			System.out.println(CoId);
+			MembersService mc = new MembersService();
+			mc.deleteMemberColloection(CoId,userId);
+			HashMap<String, Object> hmap = new HashMap<>();
+			
+			if(mc.SearchMemberColloection(CoId,userId) == true)
+				hmap.put("res", "true");
+			else
+				hmap.put("res", "false");
+			
+			String jsonString = gson.toJson(hmap);
+			res.getWriter().write(jsonString);	
+			
+			System.out.println("查詢關注會員成功");
 		}
 		//刪除討論區文章收藏
 		else if(action.equals("delArticleCO"))
