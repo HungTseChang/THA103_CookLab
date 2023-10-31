@@ -223,12 +223,9 @@ function renderData2(data) {
 		textDiv.appendChild(h6);
 
 		Adcontainer.appendChild(card);
-
-
 		//商品名稱連結
 		aTitle.addEventListener('click', function(event) {
 			event.preventDefault();
-
 			const productId = this.getAttribute('data-product-id');
 			window.location.href = './shop-details.html?productNo=' + productId;
 		});
