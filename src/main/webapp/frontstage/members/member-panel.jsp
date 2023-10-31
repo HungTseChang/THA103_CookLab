@@ -216,7 +216,7 @@ MembersVO memVO = (MembersVO) session.getAttribute("membersVO");
                     </div>
                   </div>
                   <div class="form-group form-row">
-                    <label for="phonenumber" class="col-sm-3 col-form-label ding-data-long">聯絡電話：</label>
+                    <label for="phonenumber" class="col-sm-3 col-form-label ding-data-long">手機：</label>
                     <div class="col-sm-9">
                       <input type="text" class="form-control-plaintext" id="phonenumber" value="<%=memVO.getMemberCellphone()%>" />
                     </div>
