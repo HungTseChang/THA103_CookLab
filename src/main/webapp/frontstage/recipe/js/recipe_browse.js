@@ -16,7 +16,15 @@ let recipeCollectionNo;
 function addIngredient(ingredients) {
     let addIngredient = `<div class="row align-items-center " style="margin: 5px">
                             <div class="col-md-5 ">
-                                <span class="form-control ingredient" product=${ingredients.productNo}>${ingredients.ingredient}</span>
+                                ${
+                                    ingredients.productNo != null
+                                        ? '<a class="form-control ingredient" style="font-weight: bold" href="../shopstage/shop-details.html?productNo=' +
+                                          ingredients.productNo +
+                                          '">' +
+                                          ingredients.ingredient +
+                                          "</a>"
+                                        : '<span class="form-control ingredient" >' + ingredients.ingredient + "</span>"
+                                }                        
                                 <div class="search-results"></div>
                             </div>
                             <div class="col-md-4">
@@ -29,7 +37,15 @@ function addIngredient(ingredients) {
 function addKitchenware(kitchenware) {
     let addKitchenware = `<div class="row align-items-center" style="margin: 5px">
                             <div class="col-md-5">
-                                <span class="form-control kitchenware" product=${kitchenware.productNo}>${kitchenware.kitchenware}</span>
+                            ${
+                                kitchenware.productNo != null
+                                    ? '<a class="form-control kitchenware" style="font-weight: bold" href="../shopstage/shop-details.html?productNo=' +
+                                      kitchenware.productNo +
+                                      '">' +
+                                      kitchenware.kitchenware +
+                                      "</a>"
+                                    : '<span class="form-control kitchenware">' + kitchenware.kitchenware + "</span>"
+                            }  
                                 <div class="search-results"></div>
                             </div>
                           </div>`;
@@ -88,7 +104,7 @@ $(function () {
                 addStep(index, element);
             });
             $(data.recipeHashtag).each(function (index, element) {
-                $("#useHashTag").append(`<button class="addTag badge badge-secondary">${data.recipeHashtag}</button>`);
+                $("#useHashTag").append(`<button class="addTag badge badge-secondary">${element}</button>&nbsp;`);
             });
             $(data.comments).each(function (index, element) {
                 addComments(element);

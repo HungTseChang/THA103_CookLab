@@ -10,7 +10,7 @@ public interface RecipeStepDAO {
 
 	public boolean update(RecipeStepVO recipeStepVO);
 
-	public boolean delete(RecipeVO recipeVO);
+	public int delete(RecipeVO recipeVO);
 
 	public RecipeStepVO findByPrimaryKey(RecipeVO recipeVO);
 

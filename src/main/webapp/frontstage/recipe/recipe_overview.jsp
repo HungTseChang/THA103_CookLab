@@ -118,10 +118,10 @@ import="com.cooklab.purchase_order.model.*"%>
                                 <li class="active"><a href="recipe_overview.jsp">食譜總覽</a></li>
                                 <li><a href="recipe_create.jsp">新增食譜</a></li>
                                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
-                                <li><a href="../shopstage/">商城</a></li>
+                                <li><a href="../shopstage/shop.html">商城</a></li>
                                 <li><a href="../article/article_main.jsp">討論區</a></li>
                                 <li><a href="../news/news.html">最新消息</a></li>
-                                <li><a href="./news/news.html">關於我們</a></li>
+                                <li><a href="#">關於我們</a></li>
                             </ul>
                         </nav>
                     </div>

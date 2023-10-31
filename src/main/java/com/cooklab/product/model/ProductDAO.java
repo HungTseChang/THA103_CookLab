@@ -23,7 +23,6 @@ public interface ProductDAO {
 
 	public List<ProductVO> findByProductNames(String productName, String category);
 
-	Pair<List<ProductVO>, Long> findByKeywordWithPagination(String keyword, int page, int pageSize);
 
 	public List<ProductVO> findTopSearchCountProduct();
 

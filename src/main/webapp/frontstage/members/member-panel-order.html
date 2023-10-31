@@ -11,6 +11,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <!-- Css Styles -->
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
@@ -35,7 +36,7 @@
         <div class="humberger__menu__logo">
             <a href="#"><img src="img/indexlogo.png" alt="" /></a>
         </div>
-        <section class="container">
+        <section class="container"> 
             <div
                 class="humberger__menu__widget row d-flex justify-content-between align-items-center">
                 <div class="">
@@ -61,7 +62,7 @@
                 <li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
                 <li><a href="../supportform/faq.html">常見問題</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html">最新消息</a></li>
+                <li><a href="../news/news.html">最新消息</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -127,7 +128,7 @@
                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
                 <li><a href="../shopstage/shop.html">商城</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html ">最新消息</a></li>
+                <li><a href="../news/news.html ">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -172,7 +173,25 @@
             <div class="tab-content ml-5" id="pills-tabContent">
               <!-- 訂單分頁-待出貨開始 -->
               <div class="tab-pane fade show active" id="pills-tobeshiped" role="tabpanel" aria-labelledby="pills-tobeshiped-tab">
-        
+                <!-- <div class="row my-4 ml-1">
+                  <div class="col-3">
+                    <i class="bi bi-bag-fill bi-4x" style="font-size: 3.2rem; color: rgb(244, 75, 14);"></i>
+                    <i class="bi bi-truck" style="font-size: 3.4rem; color: rgb(244, 75, 14);"></i>
+                    <i class="bi bi-check-square-fill" style="font-size: 3.4rem; color: rgb(244, 75, 14);"></i>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 ml-5 my-auto">訂單編號:${recipe.orderNo}</div>
+                      <div class="col-12 ml-5 my-auto">購買商品:${concatenatedString}</div>
+                      <div class="col-12 ml-5 my-auto">創建日期:${recipe.createdTimestamp}</div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-12 mb-2 ml-4">$${recipe.checkoutAmount}</div>
+                    </div>
+                  </div>
+                </div> -->
               </div>
               <!-- 訂單分頁-待出貨結束 -->
               <!-- 訂單分頁-待收貨開始 -->
@@ -305,7 +324,7 @@ function SendScuess(recipe)
           {
             var addrecipe = `  <div class="row my-4 ml-1">
                   <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
+                    <i class="bi bi-bag-fill bi-4x" style="font-size: 3.2rem; color: rgb(244, 75, 14);"></i>
                   </div>
                   <div class="col-6">
                     <div class="row">
@@ -317,9 +336,6 @@ function SendScuess(recipe)
                   <div class="col-3">
                     <div class="row">
                       <div class="col-12 mb-2 ml-4">$${recipe.checkoutAmount}</div>
-                      <div class="col-12 my-auto">
-                        <button type="button" class="btn ding-btn-outline-org">取消訂單</button>
-                      </div>
                     </div>
                   </div>
                 </div>`;
@@ -329,7 +345,7 @@ function SendScuess(recipe)
           {
             var addrecipe = `  <div class="row my-4 ml-1">
                   <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
+                    <i class="bi bi-truck" style="font-size: 3.4rem; color: rgb(244, 75, 14);"></i>
                   </div>
                   <div class="col-6">
                     <div class="row">
@@ -350,7 +366,7 @@ function SendScuess(recipe)
           {
             var addrecipe = `  <div class="row my-4 ml-1">
                   <div class="col-3">
-                    <img src="https://picsum.photos/200" alt="商品圖片" class="ord-img-preview" />
+                    <i class="bi bi-check-square-fill" style="font-size: 3.4rem; color: rgb(244, 75, 14);"></i>
                   </div>
                   <div class="col-6">
                     <div class="row">

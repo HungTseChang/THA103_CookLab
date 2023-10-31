@@ -39,6 +39,7 @@ function recipeOverview(page, cloumn, search, desc) {
             $(data).each(function (index, element) {
                 addListRecipe(element);
             });
+            if (data.length == 0) $("#recipeList").append('<div class="no-recipe-message"><i class="fa fa-exclamation-circle"></i><br>没有搜索到食譜</div>');
         },
         error: function (xhr) {
             console.log("ajax失敗");

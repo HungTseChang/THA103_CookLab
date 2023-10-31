@@ -37,14 +37,9 @@ import com.cooklab.recipe_step.model.RecipeStepVO.CompositeDetail;
 			}
 
 			@Override
-			public boolean delete(RecipeVO RecipeVO) {
-				RecipeStepVO vo = getSession().get(RecipeStepVO.class, RecipeVO);
-				if (vo != null) {
-					getSession().delete(vo);
-					return true;
-				} else {
-					return false;
-				}
+			public int delete(RecipeVO recipeVO) {
+				return getSession().createQuery("delete from RecipeStepVO where recipe = :recipe").setParameter("recipe",
+						recipeVO).executeUpdate();
 			}
 
 			@Override

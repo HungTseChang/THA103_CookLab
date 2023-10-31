@@ -34,14 +34,9 @@ public class RecipeHashtagHDAOIm implements RecipeHashtagDAO{
 	}
 
 	@Override
-	public boolean delete(RecipeVO recipeVO) {
-		RecipeHashtagVO vo = getSession().get(RecipeHashtagVO.class, recipeVO);
-		if (vo != null) {
-			getSession().delete(vo);
-			return true;
-		} else {
-			return false;
-		}
+	public int delete(RecipeVO recipeVO) {
+		return getSession().createQuery("delete from RecipeHashtagVO where recipe = :recipe").setParameter("recipe",
+				recipeVO).executeUpdate();
 	}
 
 	@Override

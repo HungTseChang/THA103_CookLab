@@ -31,7 +31,11 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 		String location = request.getServletPath();
 		String action = req.getParameter("action");
 		System.out.println("location: "+location);
-
+if(action ==null) {
+	session.setAttribute("location",location);
+	response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
+    return;
+}
 		if(AdminsAccount == null) {		
 		try {
 			AdminsAccount = (String)session.getAttribute("thisaccount");
@@ -43,6 +47,7 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 			response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
             return;
 		}
+
 		  if(action.equals("login")||action.equals("forgetpassword")||action.equals("design")||action.equals("updatePersionalAdmins")){
 				System.out.println("第一次登錄or 修改個人資訊");			  
 				chain.doFilter(req, res);

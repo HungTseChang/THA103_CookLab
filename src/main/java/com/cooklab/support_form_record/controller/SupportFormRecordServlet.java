@@ -70,8 +70,8 @@ public class SupportFormRecordServlet extends HttpServlet {
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 
 			// 屆時會改從session取得adminNo，因需測試方便故改用固定值
-//			Integer adminNo = (Integer) session.getAttribute("AdminNo");
-			Integer adminNo = 1;
+			Integer adminNo = (Integer) session.getAttribute("AdminNo");
+//			Integer adminNo = 1;
 
 			String recordContext = req.getParameter("recordContext");
 			if (recordContext == null || recordContext.trim().length() == 0) {

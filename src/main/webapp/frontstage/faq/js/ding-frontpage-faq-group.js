@@ -54,7 +54,6 @@ let dataload = function (currentPage) {
         </div>
     `);
       });
-      console.log("總頁數" + data.totalPages);
       renderPagination(data.totalPages, currentPage);
     },
     error: function (xhr) {

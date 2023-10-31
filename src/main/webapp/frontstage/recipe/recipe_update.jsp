@@ -108,19 +108,19 @@ import="com.cooklab.purchase_order.model.*"%>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="header__logo">
-                            <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+                            <a href="recipe_overview.jsp"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-9 d-flex align-items-center">
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="./recipe_overview.jsp">食譜總覽</a></li>
-                                <li><a href="./recipe_create.jsp">新增食譜</a></li>
+                                <li class="active"><a href="recipe_overview.jsp">食譜總覽</a></li>
+                                <li><a href="recipe_create.jsp">新增食譜</a></li>
                                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
-                                <li><a href="../shopstage/">商城</a></li>
+                                <li><a href="../shopstage/shop.html">商城</a></li>
                                 <li><a href="../article/article_main.jsp">討論區</a></li>
                                 <li><a href="../news/news.html">最新消息</a></li>
-                                <li><a href="./news/news.html">關於我們</a></li>
+                                <li><a href="#">關於我們</a></li>
                             </ul>
                         </nav>
                     </div>
