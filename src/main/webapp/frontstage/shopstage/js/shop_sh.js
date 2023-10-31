@@ -194,17 +194,19 @@ function renderData2(data) {
 		card.classList.add('col-lg-12');
 
 		const imageDiv = document.createElement('div');
-		imageDiv.classList.add('categories__item', 'set-bg');
-		imageDiv.style.backgroundImage = `url(data:image/jpeg;base64,${item.advertise_img})`; // 修正這行
+		imageDiv.classList.add('categories__item', "set-bg");
+		imageDiv.style.backgroundImage = `url(data:image/jpeg;base64,${item.advertise_img})`;
+		imageDiv.style.backgroundSize = '10%px';
 
-		const h5 = document.createElement('h5'); 
+
+		const h5 = document.createElement('h5');
 		const aTitle = document.createElement('a');
 		aTitle.href = item.advertise_url;
 		aTitle.textContent = item.advertise_name;
 		h5.appendChild(aTitle);
 
-		imageDiv.appendChild(h5); 
-		card.appendChild(imageDiv); 
+		imageDiv.appendChild(h5);
+		card.appendChild(imageDiv);
 
 		Adcontainer.appendChild(card); // 將卡片添加到廣告容器中
 	});
@@ -217,11 +219,14 @@ function renderData2(data) {
 
 /*============================== 搜尋功能 ==============================*/
 $(document).ready(function() {
-	$("#search-button").on("click", function() {
-		let keyword = $("#index-searchbar").val();
-
-		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	$("#index-searchbar").on("keydown", function(event) {
+		if (event.key === "Enter") {
+			event.preventDefault(); 
+			let keyword = $(this).val();
+			window.location.href = "./shop-grid.html?keyword=" + keyword;
+		}
 	});
+
 
 	fetchDataAndRender();
 	fetchDataAndRender2();
