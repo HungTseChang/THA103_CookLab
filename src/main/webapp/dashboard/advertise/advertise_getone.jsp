@@ -76,7 +76,8 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 					<div class="d-flex justify-content-between">
 						<div class="logo">
 							<a href=""><img
-								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset="" /></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -163,6 +164,7 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 				</button>
 			</div>
 		</div>
+		
 		<div id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
@@ -177,6 +179,15 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 							<h3>廣告設定</h3>
 							<p class="text-subtitle text-muted">Multiple form layout you
 								can use</p>
+								<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"

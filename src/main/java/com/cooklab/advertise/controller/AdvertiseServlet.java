@@ -271,7 +271,7 @@ public class AdvertiseServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				System.out.println("有錯誤訊息"+errorMsgs.get(0));
 				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的advertiseVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/advertise/advertise_allview.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/advertise/advertise_getone.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -371,7 +371,7 @@ public class AdvertiseServlet extends HttpServlet {
 			adSvc.addAd(advertiseVO);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dashboard/advertise/advertise_allview.jsp";
+			String url = "/dashboard/advertise/advertise_set.jsp";
 			System.out.println("aaaaaaa");
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);

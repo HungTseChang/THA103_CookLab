@@ -63,7 +63,8 @@ input.WCC_memeber_info {
 					<div class="d-flex justify-content-between">
 						<div class="logo">
 							<a href=""><img
-								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset="" /></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -150,6 +151,7 @@ input.WCC_memeber_info {
 				</button>
 			</div>
 		</div>
+
 		<div id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
@@ -164,13 +166,24 @@ input.WCC_memeber_info {
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
 							<h3>優惠券設定</h3>
-							<p class="text-subtitle text-muted">For user to check theylist</p>
+							<p class="text-subtitle text-muted">For user to check
+								theylist</p>
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
+									<li class="breadcrumb-item"><a
+										href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
 									<li class="breadcrumb-item active" aria-current="page">優惠券設定</li>
 								</ol>
 							</nav>
@@ -224,7 +237,8 @@ input.WCC_memeber_info {
 																<label>百分比折價金額</label>
 															</div>
 															<div class="col-md-8 form-group">
-																<input type="text" class="GCpromo_info" placeholder="請輸入0~1數字或小數"
+																<input type="text" class="GCpromo_info"
+																	placeholder="請輸入0~1數字或小數"
 																	name="percentage_discount_amount" id="" value="">
 															</div>
 															<div class="col-md-4">
