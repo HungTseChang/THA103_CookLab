@@ -189,24 +189,47 @@ function renderData2(data) {
 	const Adcontainer = document.getElementById('adhighlight');
 	Adcontainer.innerHTML = '';
 
-	data.forEach(item => {
+	const limitedData = data.slice(0, 3);
+
+	limitedData.forEach(item => {
 		const card = document.createElement('div');
-		card.classList.add('col-lg-12');
+		card.classList.add('col-lg-4', 'col-md-4', 'col-sm-6', 'mix', 'oranges', 'fresh-meat');
+
+		const featuredItem = document.createElement('div');
+		featuredItem.classList.add('featured__item');
+		card.appendChild(featuredItem);
 
 		const imageDiv = document.createElement('div');
-		imageDiv.classList.add('categories__item', "set-bg");
+		imageDiv.classList.add('featured__item__pic', 'set-bg');
 		imageDiv.style.backgroundImage = `url(data:image/jpeg;base64,${item.advertise_img})`;
+		featuredItem.appendChild(imageDiv);
 
-		const h5 = document.createElement('h5');
+
+		const a = document.createElement('a');
+		a.href = '#';
+		featuredItem.appendChild(a);
+
+		const textDiv = document.createElement('div');
+		textDiv.classList.add('featured__item__text');
+		featuredItem.appendChild(textDiv);
+
+		//商品
+		const h6 = document.createElement('h6');
 		const aTitle = document.createElement('a');
-		aTitle.href = item.advertise_url;
-		aTitle.textContent = item.advertise_name;
-		h5.appendChild(aTitle);
+		aTitle.href = '#'; // 連結
+		aTitle.textContent = item.advertise_name; // 名稱
+		aTitle.setAttribute('data-product-id', item.advertise_url); // ID
+		h6.appendChild(aTitle);
+		textDiv.appendChild(h6);
 
-		imageDiv.appendChild(h5);
-		card.appendChild(imageDiv);
+		Adcontainer.appendChild(card);
+		//商品名稱連結
+		aTitle.addEventListener('click', function(event) {
+			event.preventDefault();
+			const productId = this.getAttribute('data-product-id');
+			window.location.href = './shop-details.html?productNo=' + productId;
+		});
 
-		Adcontainer.appendChild(card); // 將卡片添加到廣告容器中
 	});
 }
 
@@ -219,7 +242,7 @@ function renderData2(data) {
 $(document).ready(function() {
 	$("#index-searchbar").on("keydown", function(event) {
 		if (event.key === "Enter") {
-			event.preventDefault(); 
+			event.preventDefault();
 			let keyword = $(this).val();
 			window.location.href = "./shop-grid.html?keyword=" + keyword;
 		}
@@ -229,6 +252,16 @@ $(document).ready(function() {
 	fetchDataAndRender();
 	fetchDataAndRender2();
 	fetchDataAndRender3();
+
+
+	const loadMoreButton = document.getElementById('loadMoreButton');
+	// 点击事件处理程序
+	loadMoreButton.addEventListener('click', function() {
+		window.location.href = "./shop-grid.html";
+	});
+
+
+
 });
 
 

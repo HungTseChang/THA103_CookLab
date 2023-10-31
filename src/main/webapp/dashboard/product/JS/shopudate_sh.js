@@ -5,7 +5,7 @@ const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/ProductServlet";
 const COLLECTION_POINT2 = "/CartServlet"
 
-// 在页面加载后执行
+
 $(document).ready(function() {
 	var quill = new Quill("#full", {
 		bounds: "#full-container .editor",
@@ -15,15 +15,15 @@ $(document).ready(function() {
 		theme: "snow",
 	});
 	console.log("Document is ready.");
-	// 获取URL参数
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const productNo = urlParams.get("productNo");
 
-	// 执行AJAX请求来获取商品详细信息
+
 	$.ajax({
 		url: END_POINT_URL+COLLECTION_POINT,
 		type: "GET",
-		data: { action: "getDetail", productNo: productNo }, // 传递商品编号
+		data: { action: "getDetail", productNo: productNo }, 
 		dataType: "json",
 		success: function(data) {
 			console.log(data);
@@ -37,11 +37,10 @@ $(document).ready(function() {
 				console.log("Image failed to load.");
 			};
 
-			// 填充食材和廚具種類的下拉選項
+
 			populateSelectOptions1("foodTypeOptions", data.foodTypeOptions);
 			populateSelectOptions2("kitchenTypeOptions", data.kitchenTypeOptions);
 
-			// 使用返回的商品详细信息填充表单字段
 			$("#productname-vertical").val(data.productName);
 			$("#productprice-vertical").val(data.productPrice);
 			$("#storageQty-vertical").val(data.storageQty);
@@ -49,14 +48,13 @@ $(document).ready(function() {
 			$("#searchCount-vertical").val(data.searchCount);
 			$("#preview img.preview_img").attr("src", "data:image/jpeg;base64," + data.productImage);
 
-			// 从服务器端接收的数据
 			var selectedPart = data.selectedPart;
 			var selectedFoodType = data.selectedFoodType;
 			var selectedKitchenType = data.selectedKitchenType;
-			// 设置选择框的值
+
 			$("#partSelect").val(selectedPart);
 
-			// 根据 selectedPart 显示相应的选项
+
 			if (selectedPart === "foodType") {
 				// $("#foodTypeOptions select").val(selectedFoodType);
 				$("#foodTypeOptions select").val(selectedFoodType).prop("selected", true);
@@ -76,19 +74,19 @@ $(document).ready(function() {
 			$("#floatingTextarea").text(data.productIntroduction);
 			$("#full .ql-editor").html(data.productDescription);
 
-			// 从服务器接收的日期字符串
+
 			var shelfTimeStr = data.shelfTime;
 			var offsaleTimeStr = data.offsaleTime;
 
-			// 使用Date对象解析日期
+
 			var shelfTime = new Date(shelfTimeStr);
 			var offsaleTime = new Date(offsaleTimeStr);
 
-			// 使用Date对象格式化日期为所需格式
+
 			var formattedShelfTime = formatDate(shelfTime);
 			var formattedOffsaleTime = formatDate(offsaleTime);
 
-			// 将格式化后的日期设置到表单字段中
+
 			$("#uptime-vertical").val(formattedShelfTime);
 			$("#downtime-vertical").val(formattedOffsaleTime);
 		},
@@ -99,7 +97,7 @@ $(document).ready(function() {
 	});
 });
 
-// 在填充食材和廚具種類的下拉選項时，确保为每个选项设置了 value 属性
+
 
 ///廚具
 function populateSelectOptions1(containerId, options) {
@@ -126,7 +124,7 @@ function populateSelectOptions2(containerId, options) {
 // 格式化日期函数
 function formatDate(date) {
 	const year = date.getFullYear();
-	const month = String(date.getMonth() + 1).padStart(2, "0"); // 月份从0开始，所以需要加1
+	const month = String(date.getMonth() + 1).padStart(2, "0"); 
 	const day = String(date.getDate()).padStart(2, "0");
 	const hours = String(date.getHours()).padStart(2, "0");
 	const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -134,20 +132,20 @@ function formatDate(date) {
 
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
 //============更新===============================
 $("#update").click(function(e) {
 	e.preventDefault();
 
-	// 收集表单数据
 	var formData = new FormData();
-	e.preventDefault(); // 阻止默认表单提交行为
+	e.preventDefault(); 
 	console.log("a");
-	// 创建一个 FormData 对象
+
 	var formData = new FormData();
-	// 获取选中的食材或廚具種類的值
+
 	var selectedFoodType = $("#foodTypeOptions select").val();
 	var selectedKitchenType = $("#kitchenTypeOptions select").val();
-	// 添加表单数据到 FormData 对象
+
 	formData.append("productname", $("#productname-vertical").val());
 	formData.append("productprice", $("#productprice-vertical").val());
 	formData.append("storageQty", $("#storageQty-vertical").val());
@@ -156,26 +154,27 @@ $("#update").click(function(e) {
 	formData.append("selectedPart", $("#partSelect").val());
 	formData.append("selectedFoodType", selectedFoodType);
 	formData.append("selectedKitchenType", selectedKitchenType);
-	// 添加商品简介和详细描述到 FormData 对象
+
 	formData.append("productIntroduction", $("#floatingTextarea").val());
 	formData.append("productDescription", $("#full .ql-editor").html());
 	formData.append("action", "updateProduct");
-	// 图像文件
+
 	var productImage = $("#p_file")[0].files[0];
 	formData.append("productImage", productImage);
-	// 商品编号
+	
+
 	const urlParams = new URLSearchParams(window.location.search);
 	const productNo = urlParams.get("productNo");
 	formData.append("productNo", productNo);
 	console.log(formData);
-	// 执行AJAX请求
+
 	$.ajax({
 		url: END_POINT_URL+COLLECTION_POINT,
 		type: "POST",
 		data: formData,
 		dataType: "json",
-		processData: false, // 不对数据进行序列化处理
-		contentType: false, // 不设置请求头
+		processData: false, 
+		contentType: false, 
 		success: function(response) {
 			console.log(response);
 			console.log(response.message);
@@ -184,7 +183,7 @@ $("#update").click(function(e) {
 				if (response.errProductName) {
 					$("#productname-error").text(response.errProductName);
 				} else {
-					$("#productname-error").text(""); // 清空错误消息
+					$("#productname-error").text("");
 				}
 
 				if (response.errProductPrice) {
@@ -243,7 +242,6 @@ $("#update").click(function(e) {
 			}
 		},
 		error: function(xhr) {
-			// 处理错误响应
 			console.log(xhr.responseText);
 			alert("更新失败");
 		},
