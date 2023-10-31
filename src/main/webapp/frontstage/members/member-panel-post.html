@@ -62,7 +62,7 @@
                 <li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
                 <li><a href="../supportform/faq.html">常見問題</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html">最新消息</a></li>
+                <li><a href="../news/news.html">最新消息</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -128,7 +128,7 @@
                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
                 <li><a href="../shopstage/shop.html">商城</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html ">最新消息</a></li>
+                <li><a href="../news/news.html ">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -161,10 +161,10 @@
             <div class="row w-100">
               <div class="h2 mx-auto mt-2">文章清單</div>
               <div class="mt-2">
-                <button type="button" class="btn btn-lg ding-btn-org">
+                <a href="../article/article_edit.jsp"><button type="button" class="btn btn-lg ding-btn-org">
                   寫文章
-                  <i class="bi bi-plus-square ml-1"></i>
-                </button>
+                  <i class="bi bi-plus-square ml-1"></i>  
+                </button></a>
               </div>
             </div>
             <!-------------文章管理區塊開始----------->
@@ -173,7 +173,7 @@
             </span>
             
             <!-- 文章模板結束
-             <div class="row m-0 ml-2 my-3 ding-folrec-border">
+             <div class="row m-0 ml-2 my-3 ding-folrec-border"> 
               <div class="col-8">
                 <a href="#" class="text-dark ding-post-title">
                   [
@@ -351,7 +351,7 @@
                 StringAppend = `
                   <div class="row m-0 ml-2 my-3 ding-folrec-border">              
                   <div class="col-8">
-                    <a href="#" class="text-dark ding-post-title">
+                    <a href="${endPointURL}/ArticleServlet?action=getOne_For_Display&articleNo=${n.articleNo}" class="text-dark ding-post-title">
                       [
                       <span>${n.articleCategory}</span>
                       ]
@@ -361,7 +361,7 @@
                   <div class="col-4 mb-2">
                     <div class="row d-flex justify-content-end mx-auto">
                       <div class="dropdown ml-2">
-                        <button class="btn ding-btn-org dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-expanded="false">${n.articleStatus}</button>
+                        <button class="btn ding-btn-org dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-expanded="false" data-boundary="viewport">${n.articleStatus}</button>
                         <div class="dropdown-menu text-center">
                           <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MembersArticleServlet?articleNo=${n.articleNo}&articleStatus=1">未公開</a>
                           <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MembersArticleServlet?articleNo=${n.articleNo}&articleStatus=0">公開</a>

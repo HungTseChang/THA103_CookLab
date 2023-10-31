@@ -74,6 +74,7 @@ public class MembersSignServlet extends HttpServlet{
 					
 					hmap.put("account", account);
 					hmap.put("userId", memVO.getMemberId());
+					hmap.put("verStatus", memVO.getMemberStatus());
 					hmap.put("RedirectURL",session.getAttribute("location"));
 					String jsonData = gson.toJson(hmap);
 					

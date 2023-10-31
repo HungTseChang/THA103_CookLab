@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="">
-                    <a href="#"> <i class="fa fa-user fa-3x"></i>
+                    <a href="#"> <i class="fa fa-user fa-3x"></i> 
                     </a>
                 </div>
 
@@ -61,8 +61,8 @@
                 <li><a href="../shopstage/shop.html">商城</a></li>
                 <li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
                 <li><a href="../supportform/faq.html">常見問題</a></li>
-                <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html">最新消息</a></li>
+                <li><a href="../article/article_main.jsp">討論區</a></li> 
+                <li><a href="../news/news.html">最新消息</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -128,7 +128,7 @@
                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
                 <li><a href="../shopstage/shop.html">商城</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
-                <li><a href="../supportform/news.html ">最新消息</a></li>
+                <li><a href="../news/news.html ">最新消息</a></li>
                 <li><a href="./contact.html">關於我們</a></li>
               </ul>
             </nav>
@@ -161,10 +161,10 @@
             <div class="row w-100">
               <div class="h2 mx-auto mt-2">食譜清單</div>
               <div class="mt-2">
-                <button type="button" class="btn btn-lg ding-btn-org">
+                <a href="../recipe/recipe_create.jsp"><button type="button" class="btn btn-lg ding-btn-org">
                   寫食譜
                   <i class="bi bi-plus-square ml-1"></i>
-                </button>
+                </button></a>
               </div>
             </div>
             <!-------------食譜管理區塊開始----------->
@@ -303,15 +303,15 @@
                 <div class="col-3">
                   <div class="row text-right">
                     <div class="col-12 mb-2">
-                      <button type="button" class="btn ding-btn-org w-50">修改</button>
+                      <a href="${endPointURL}/frontstage/recipe/recipe_update.jsp?recipeNo=${recipe.recipeNo}"><button type="button" class="btn ding-btn-org w-50">修改</button></a>
                     </div>
                     <div class="col-12 mb-2">
                       <a href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=3"onclick="return confirm('確定刪除?')"><button type="button" class="btn ding-btn-org w-50">刪除</button></a>
                     </div>
                     <div class="dropdown col-12 mb-2">
-                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false">${recipeStatusString}</button>
+                      <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false" data-boundary="viewport">${recipeStatusString}</button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">公開</a>
+                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1" >公開</a>
                         <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
                       </div>
                     </div>
