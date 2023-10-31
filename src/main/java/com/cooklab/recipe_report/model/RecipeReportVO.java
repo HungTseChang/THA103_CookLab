@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,12 +25,12 @@ public class RecipeReportVO {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column (name="recipe_report_no")
+	@Column (name="recipe_report_no" , insertable = false, updatable = false)
 	private Integer recipeReportNo;		//食譜檢舉編號(PK)
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
 	private MembersVO members;			//會員編號(FK)
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "recipe_no", referencedColumnName = "recipe_no")
 	private RecipeVO recipe;			//食譜編號(FK)
 	@Column (name="reporting_reason")

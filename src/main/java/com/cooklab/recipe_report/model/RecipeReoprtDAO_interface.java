@@ -9,8 +9,7 @@ public interface RecipeReoprtDAO_interface {
     public void delete(Integer recipeReportNo);
     public RecipeReportVO findByPrimaryKey(Integer recipeReportNo);
     public List<RecipeReportVO> getAll();
-    //�U�νƦX�d��(�ǤJ�Ѽƫ��AMap)(�^�� List)
-//  public List<RecipeReportVO> getAll(Map<String, String[]> map); 
+
 }
 
 
