@@ -279,6 +279,7 @@ $("#saveChangesButton").on("click", function() {
 			if (response.message === "true") {
 				alert("更新成功");
 				$("#updateModal").modal("hide");
+				window.location.href = "./productTag/taview.html";
 				refreshData();
 			} else {
 				alert(response.message);
