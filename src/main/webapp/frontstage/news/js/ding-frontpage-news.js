@@ -17,7 +17,11 @@ let renderPagination = function (totalPages, currentPage) {
   }
 
   // Add active class to the current page
-  $(`.pages a:contains(${currentPage})`).addClass("active");
+  if (currentPage === 1) {
+    $(".pages")[0].addClass("active");
+  } else {
+    $(`.pages a:contains(${currentPage})`).addClass("active");
+  }
 };
 
 //清除資料
