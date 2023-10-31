@@ -75,7 +75,8 @@ public class MemberFollowOverViewDTO {
 			public RecipeSDTO(RecipeVO recipeVO) {
 				this.recipeName = recipeVO.getRecipeName();
 				this.recipeNo = recipeVO.getRecipeNo();
-				this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
+				if(recipeVO.getCoverImage() != null)
+					this.coverImage = Base64.getEncoder().encodeToString(recipeVO.getCoverImage());
 				this.introduction = recipeVO.getIntroduction();
 				this.recipeStatus = recipeVO.getRecipeStatus();
 				for(RecipeStepVO recipeStepVO: recipeVO.getStep()) {
