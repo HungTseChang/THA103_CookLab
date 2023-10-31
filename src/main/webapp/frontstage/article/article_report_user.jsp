@@ -7,12 +7,25 @@
 <%@ page import="com.cooklab.article_report.model.*"%>
 <%@ page import="java.util.*"%>
 <%
-//  這個artVO是變數名稱用在此網頁帶資料,後面的artVO是後端傳進來的變數名稱
+	//帶入文章查詢後的資料
     ArticleVO artVO = (ArticleVO) request.getAttribute("artVO");
 	pageContext.setAttribute("artVO",artVO);//不透過這行set值型別就會是ArticleVO，送到後端也不能做處理
-
+	
+	//帶入回文 文章查詢後的資料
 	ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
 	pageContext.setAttribute("artVO2",artVO2);
+	
+	//用來接收錯誤訊息
+// 	ArticleReportVO repVO = (ArticleReportVO) request.getAttribute("repVO");
+// 	pageContext.setAttribute("repVO",repVO);
+	
+	//主文用
+    ArticleVO artErr = (ArticleVO) request.getAttribute("artErr");
+	pageContext.setAttribute("artErr",artErr);
+	//回文用
+    ArticleSubVO artErr2 = (ArticleSubVO) request.getAttribute("artErr2");
+	pageContext.setAttribute("artErr2",artErr2);
+	
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -238,34 +251,95 @@
 													<div class="col-md-6">
 														<label>文章編號</label>
 													</div>
-													<div class="col-md-6 form-group">
-														<input type="text" name="articleNo" value="${artVO.articleNo}" readonly >
-													</div>
+													<c:choose> 
+														<c:when test="${artVO != null}">
+															<div class="col-md-6 form-group">
+																<input type="text" name="articleNo"
+																value="${(artVO != null) ? artVO.articleNo : artErr.articleNo}"readonly >
+															</div>
+													   </c:when>
+													   <c:otherwise>
+															<div class="col-md-6 form-group">
+																<input type="text" name="articleSubNo"
+																value="回文編號${(artVO2 != null) ? artVO2.articleSubNo : artErr2.articleSubNo}" readonly >
+															</div>
+													   </c:otherwise>
+													</c:choose>
 													<div class="col-md-6">
 														<label>文章名稱</label>
 													</div>
-													<div class="col-md-6 form-group">
-														<input type="text" value="${artVO.articleTitle}" readonly >
-													</div>
+													<c:choose> 
+														<c:when test="${arVO != null}">
+																<div class="col-md-6 form-group">
+																	<input type="text" 
+																	value="${(artVO != null) ? artVO.articleTitle : artErr.articleTitle}"readonly >
+																</div>	
+															
+													   </c:when>
+													   <c:otherwise>
+															<div class="col-md-6 form-group">
+																<input type="text" 
+																value="${(artVO2 != null) ? artVO2.article.articleTitle : artErr.article.articleTitle}"readonly >
+															</div>	
+													   </c:otherwise>
+													</c:choose>
+											
+																							
 													<div class="col-md-6">
 														<label>會員編號(文章作者)</label>
 													</div>
-													<div class="col-md-6 form-group">
-														<input type="text"  value="${artVO.members.memberId}" readonly >
-													</div>
+													<c:choose> 
+														<c:when test="${arVO != null}">
+															<div class="col-md-6 form-group">
+																<input type="text" 
+																value="${(artVO != null) ? artVO.members.memberId : artErr.members.memberId}"readonly >															
+															</div>
+													   </c:when>
+													   <c:otherwise>
+															<div class="col-md-6 form-group">
+																<input type="text" 
+																value="${(artVO2 != null) ? artVO2.members.memberId : artErr.members.memberId}"readonly >
+															</div>	
+													   </c:otherwise>
+													</c:choose>
+													
 													<div class="col-md-6">
 														<label>會員帳號(文章作者)</label>
 													</div>
-													<div class="col-md-6 form-group">
-														<input type="text" value="${artVO.members.memberAccount}" readonly >
-														
-													</div>
+													<c:choose> 
+														<c:when test="${arVO != null}">
+															<div class="col-md-6 form-group">
+																<input type="text" value="${(artVO != null) ? artVO.members.memberAccount 
+																:  artVO.members.memberAccount }"readonly >
+															</div>
+													   </c:when>
+													   <c:otherwise>
+															<div class="col-md-6 form-group">
+																<input type="text" 
+																	value="${(artVO2 != null) ?  artVO2.members.memberAccount 
+																	:artErr2.members.memberAccount }"readonly >
+															</div>	
+													   </c:otherwise>
+													</c:choose>
 													<div class="col-md-6">
 														<label>會員暱稱(文章作者)</label>
 													</div>
-													<div class="col-md-6 form-group">
-														<input type="text"  value="${artVO.members.memberNickname}" readonly >
-													</div>
+													<c:choose> 
+														<c:when test="${arVO != null}">
+															<div class="col-md-6 form-group">
+																<input type="text" 
+																value="${(artVO != null) ? artVO.members.memberNickname : artErr.members.memberNickname}"
+																readonly >
+															</div>
+													   </c:when>
+													   <c:otherwise>
+															<div class="col-md-6 form-group">
+																<input type="text" 
+																value="${(artVO2 != null) ? artVO2.members.memberNickname : artErr2.members.memberNickname}"
+																readonly >
+															</div>
+													   </c:otherwise>
+													</c:choose>	
 												</div>
 											</div>
 										</form>
@@ -280,37 +354,41 @@
 								</div>
 								<div class="card-content">
 									<div class="card-body">
-										<textarea name="" id="" cols="30" rows="10"  name="reportingReason"
+										<textarea  id="" cols="30" rows="10"  name="reportingReason"
 											style="height: 260px; width: 100%; resize: none;">
 										</textarea>
 									</div>
 								</div>
+									<%-- 錯誤表列 --%>
+									<div style="margin-top :50px">
+				                     	<c:if test="${not empty errorMsgs}">
+				                        <font style="color: red">請修正以下錯誤:</font>
+				                        <ul>
+				                            <c:forEach var="message" items="${errorMsgs}">
+				                                <li style="color: red">${message}</li>
+				                            </c:forEach>
+				                        </ul>
+				                        </c:if>
+				                    </div>
 							</div>
 						</div>
 					</div>
-					 <%-- 錯誤表列 --%>
-					<div style="margin-top :50px">
-                        <c:if test="${not empty errorMsgs}">
-                        <font style="color: red">請修正以下錯誤:</font>
-                        <ul>
-                            <c:forEach var="message" items="${errorMsgs}">
-                                <li style="color: red">${message}</li>
-                            </c:forEach>
-                        </ul>
-                        </c:if>
-                    </div>
 					<div style="text-align: right; margin-top: 10px; ">
+					
 						<input type ="hidden" name ="reporterId" value =1>
+						
+						
 						<input type="hidden" name="action" value="insertReport">
-						<a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">確認送出</a>
+						<a class="btn btn-primary rounded-pill" id="confirm" style=" margin-bottom: 20px;">
+						確認送出</a>
 						
 						<a  class="btn btn-primary rounded-pill" id="cancel"
 							style="margin-right: 90px; margin-bottom: 20px;">取消</a>
 					</div>
-				</div>
-		</section>
-	</div>
-</Form>
+				 </div>
+			</section>
+		</div>	
+	</Form>
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
 		<div class="container">

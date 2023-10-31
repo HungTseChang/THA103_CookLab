@@ -280,27 +280,33 @@ public class ArticleSubServlet extends HttpServlet {
 			String reportingReason = req.getParameter("reportingReason");
 			if (reportingReason == null || reportingReason.trim().length() == 0) {
 				errorMsgs.add("內容請勿空白");
-			}			
+			}
+			
+			
 			byte reportingStatus = (byte)0;
 			
-			ArticleReportVO artVO = new ArticleReportVO();
+			ArticleReportVO repVO = new ArticleReportVO();
 			
-			artVO.setArticleNo(articleNo);
-			artVO.setReporterId(reporterId);
-			artVO.setReportingReason(reportingReason);
-			artVO.setReportingStatus(reportingStatus);
+			repVO.setArticleNo(articleNo);
+			repVO.setReporterId(reporterId);
+			repVO.setReportingReason(reportingReason);
+			repVO.setReportingStatus(reportingStatus);
+			
+			//發生錯誤時，帶錯誤訊息去前端
+			ArticleService artErrSvc = new ArticleService();
+			ArticleVO artErr = artErrSvc.getOneArt(articleNo);
 	
-			// Send the use back to the form, if there were errors
-//			if (!errorMsgs.isEmpty()) {
-//				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
-//				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_content.jsp");
-//				failureView.forward(req, res);
-//				return;
-//			}
+//			 Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("artErr", artErr); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_report_user.jsp");
+				failureView.forward(req, res);
+				return;
+			}
 
 			/*************************** 2.開始新增資料 ***************************************/
 			ArticleReportService artSvc =  new ArticleReportService();
-			artSvc.add(articleNo, reporterId, reportingReason, null, reportingReason, null);
+			artSvc.add(articleNo, reporterId, reportingReason, reportingStatus, null, null);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 			String url ="frontstage/article/article_main.jsp";
@@ -309,6 +315,72 @@ public class ArticleSubServlet extends HttpServlet {
 			successView.forward(req, res);
 
 		}
+		
+		
+		
+		if ("insertReport2".equals(action)) { // article_content用於快速回覆
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+			Integer articleSubNo = null;
+			try {
+				articleSubNo = Integer.valueOf(req.getParameter("articleSubNo").trim());
+			} catch (NumberFormatException e) {
+				errorMsgs.add("請填數字.");
+			}
+//			Integer articleNo = Integer.valueOf(req.getParameter("articleNo").trim());
+			
+			Integer reporterId = null;
+			try {
+				reporterId = Integer.valueOf(req.getParameter("reporterId").trim());
+			} catch (NumberFormatException e) {
+			
+				errorMsgs.add("請填數字.");
+			}
+			
+			String reportingReason = req.getParameter("reportingReason");
+			if (reportingReason == null || reportingReason.trim().length() == 0) {
+				errorMsgs.add("內容請勿空白");
+			}
+			
+			
+			byte reportingStatus = (byte)0;
+			
+			ArticleReportVO repVO = new ArticleReportVO();
+			
+			repVO.setArticleNo(articleSubNo);
+			repVO.setReporterId(reporterId);
+			repVO.setReportingReason(reportingReason);
+			repVO.setReportingStatus(reportingStatus);
+			
+			//發生錯誤時，帶錯誤訊息去前端
+			ArticleSubService artErrSvc2 = new ArticleSubService();
+			ArticleSubVO artErr2 = artErrSvc2.getOneSubArt(articleSubNo);
+	
+//			 Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("artErr2", artErr2); // 含有輸入格式錯誤的empVO物件,也存入req
+				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_report_user.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+
+			/*************************** 2.開始新增資料 ***************************************/
+			ArticleReportService artSvc =  new ArticleReportService();
+			artSvc.add(articleSubNo, reporterId, reportingReason, reportingStatus, null, null);
+
+			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			String url ="frontstage/article/article_main.jsp";
+			//這邊req.setAttribute("arVO"這邊指的是傳到網頁的名稱,artVO2這邊是後端接收資料)
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+			successView.forward(req, res);
+
+		}
+		
 		
 		if ("reportSearch".equals(action)) { //用於跳轉到檢舉表單先做查詢
 
@@ -414,6 +486,8 @@ public class ArticleSubServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 		
+		
+		
 		if ("subSearch".equals(action)) { //article_content.jsp用於主文回覆
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -516,7 +590,7 @@ public class ArticleSubServlet extends HttpServlet {
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO2", artVO2); // 資料庫取出的empVO物件,存入req
 			String url = "frontstage/article/article_sub_edit.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
 		}
 		

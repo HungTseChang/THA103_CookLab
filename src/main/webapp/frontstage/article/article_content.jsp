@@ -344,7 +344,7 @@
                                                                                 
                                         <input type="submit" class="btn custom-btn" value="ÀËÁ|" style="border-color: red;" > 
 	                                    <input type="hidden" name="articleNo" value="${artVO.articleNo}">
-	                                    <input type="hidden" name="action" value="reportSearch">
+	                                    <input type="hidden" name="action" value="reportSearch2">
 	                                        
 	                                    <input type="submit" class="btn custom-btn" value="¦^ÂÐ" style="float:right; "> 
 	                                    <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
