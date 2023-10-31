@@ -73,7 +73,7 @@ public class RecipeOverviewServlet extends HttpServlet {
 			boolean desc = Boolean.valueOf(req.getParameter("desc"));
 			Integer page = Integer.valueOf(req.getParameter("page"));
 			String search = req.getParameter("search");
-			List<RecipeVO> listReipceVO = new RecipeServiceIm().getBySearch(cloumn, desc, (page) * 10, 9, search);
+			List<RecipeVO> listReipceVO = new RecipeServiceIm().getBySearch(cloumn, desc, (page) * 9, 9, search);
 			List<RecipeOverviewDTO> listRecipeOverviewDTO = new ArrayList<>();
 			for (RecipeVO recipeVO : listReipceVO) {
 				listRecipeOverviewDTO.add(new RecipeOverviewDTO(recipeVO));

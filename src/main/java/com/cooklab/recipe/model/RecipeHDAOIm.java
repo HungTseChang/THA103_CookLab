@@ -54,19 +54,27 @@ public class RecipeHDAOIm implements RecipeDAO {
 
 	@Override
 	public List<RecipeVO> getBySearch(String cloumn, boolean desc, Integer offset, Integer limit, String search) {
-		return getSession()
-				.createQuery("from RecipeVO r " + "left join fetch r.ingredient ri "
-						+ "left join fetch r.kitchenware rk " + "where (r.recipeStatus = 0) "
-						+ "and (r.recipeName like :search " + "or ri.textLabel like :search "
-						+ "or rk.textLabel like :search) order by r." + cloumn + (desc ? " desc" : " asc"),
-						RecipeVO.class)
+//		return getSession()
+//				.createQuery("select distinct RecipeVO  from RecipeVO r " + "left join fetch r.ingredient ri "
+//						+ "left join fetch r.kitchenware rk " + "where (r.recipeStatus = 0) "
+//						+ "and (r.recipeName like :search " + "or ri.textLabel like :search "
+//						+ "or rk.textLabel like :search) order by r." + cloumn + (desc ? " desc" : " asc"),
+//						RecipeVO.class)
+//				.setParameter("search", "%" + search + "%").setFirstResult(offset).setMaxResults(limit).list();
+
+		return getSession().createQuery("select distinct r from RecipeVO r " + "where (r.recipeStatus = 0) "
+				+ " and (r.recipeName like :search "
+				+ " or r in (select recipe from RecipeIngredientVO ri where ri.textLabel like :search) "
+				+ " or r in (select recipe from RecipeKitchenwareVO rk where rk.textLabel like :search)) "
+				+ " order by r." + cloumn + (desc ? " desc" : " asc"), RecipeVO.class)
 				.setParameter("search", "%" + search + "%").setFirstResult(offset).setMaxResults(limit).list();
+
 	}
 
 	@Override
 	public long getCount(String search) {
-		return (long) getSession().createQuery("select count(distinct r) from RecipeVO r " + "join r.ingredient ri "
-				+ "join r.kitchenware rk " + "where (r.recipeStatus = 0) "
+		return (long) getSession().createQuery("select count(distinct r) from RecipeVO r "
+				+ "left join r.ingredient ri " + "left join r.kitchenware rk " + "where (r.recipeStatus = 0) "
 				+ "and (r.recipeName like :search " + "or ri.textLabel like :search "
 				+ "or rk.textLabel like :search )").setParameter("search", "%" + search + "%").uniqueResult();
 	}
