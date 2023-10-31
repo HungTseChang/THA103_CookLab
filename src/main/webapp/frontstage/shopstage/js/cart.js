@@ -11,27 +11,26 @@ const selectedProducts = [];
 
 
 $(document).ready(function() {
-	// 发起AJAX请求
 	$.ajax({
 		url: END_POINT_URL+COLLECTION_POINT2,
 		type: 'GET',
 		data: { action: "cartsearch" },
 		dataType: 'json',
 		success: function(response) {
-			cartData = response; // 存储购物车数据到全局变量
+			cartData = response; 
 			console.log(cartData);
 			renderCart(cartData);
 			console.log("success");
 		},
 		error: function(xhr) {
-			console.log('AJAX请求失败：' + xhr.status);
+			console.log('AJAX：' + xhr.status);
 		},
 	});
 
 
-	// 绑定删除按钮的点击事件（使用事件委托）
+
 	$('#cart-table').on('click', '.btn-danger', function() {
-		const productId = $(this).data('product-id'); // 获取要删除的商品ID
+		const productId = $(this).data('product-id'); 
 		console.log(productId);
 		$.ajax({
 			url: END_POINT_URL+COLLECTION_POINT2,
@@ -39,7 +38,6 @@ $(document).ready(function() {
 			data: { action: 'remove', productId: productId },
 			dataType: 'json',
 			success: function(response) {
-				// 如果成功删除商品，更新购物车显示
 				if (response.message === "success") {
 					location.reload();
 					alert("商品刪除成功");
@@ -104,12 +102,15 @@ function renderCart(cartdata) {
 		selectedProducts.push(item.productNo);
 	});
 
-	// 在AJAX请求成功后，注册复选框更改事件监听器
+
+
+
+
 	$('.product-checkbox').change(function() {
 		updateTotalAmount();
 		console.log("a");
 	});
-	// 初始化时，勾选所有商品复选框
+
 	$('.product-checkbox').prop('checked', true);
 
 	updateTotalAmount();
