@@ -24,91 +24,91 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 
 	@Override
 	public void insert(PromoCodeVO promoCode) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
+		try {
+			session.beginTransaction();
 		session.save(promoCode);
 
-//			session.getTransaction().commit();
-//			session.close();
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
+			session.getTransaction().commit();
+			session.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
 	}
 
 	@Override
 	public void update(PromoCodeVO promoCode) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
+		try {
+			session.beginTransaction();
 		session.update(promoCode);
-//			System.out.println("開始更新");
-//			session.getTransaction().commit();
-//			session.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
+			System.out.println("開始更新");
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
 	}
 
 	@Override
 	public void delete(PromoCodeVO promoCode) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
+		try {
+			session.beginTransaction();
 		session.delete(promoCode);
-//			session.getTransaction().commit();
-//			session.close();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
+			session.getTransaction().commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
 	}
 
 	@Override
 	public PromoCodeVO findByPrimaryKey(Integer promoCodeNo) {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//
-//			session.beginTransaction();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
+		try {
+
+			session.beginTransaction();
 		PromoCodeVO promoCodeVo = session
 				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 
-//			session.getTransaction().commit();
+			session.getTransaction().commit();
 		return promoCodeVo;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 //
-//		return null;
+		return null;
 	}
 
 	@Override
 	public List<PromoCodeVO> getAll() {
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Session session = getSession();
-//		try {
-//			session.beginTransaction();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
+		try {
+			session.beginTransaction();
 		List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
 
-//			session.getTransaction().commit();
+			session.getTransaction().commit();
 		return list;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 
-//		return null;
+		return null;
 	}
 
 	@Override

@@ -371,7 +371,7 @@ public class AdvertiseServlet extends HttpServlet {
 			adSvc.addAd(advertiseVO);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/dashboard/advertise/advertise_set.jsp";
+			String url = "/dashboard/advertise/advertise_allview.jsp";
 			System.out.println("aaaaaaa");
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);

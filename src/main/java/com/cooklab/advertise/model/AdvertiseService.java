@@ -13,7 +13,7 @@ public class AdvertiseService {
 	private AdvertiseHBDAO dao;
 //	private AdvertiseJDBCDAOIm dao;
 	public AdvertiseService() {
-		dao = new AdvertiseHBDAO();
+		dao = new AdvertiseHBDAO(HibernateUtil.getSessionFactory());
 //		dao = new AdvertiseJDBCDAOIm();	
 		}
 	

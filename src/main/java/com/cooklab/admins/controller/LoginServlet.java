@@ -150,15 +150,18 @@ private List<AdminsVO>Adminslist;
 			Map<String, Boolean>Map = new HashMap<>();
 	        Map.put("/AdminsServlet", ((int)permission.getSuperAdmin()==0));
 	        Map.put("/PermissionServlet", ((int)permission.getSuperAdmin()==0));
-	        Map.put("ArticleServlet", ((int)permission.getArticleManagement()==0));
+	        Map.put("/ArticleServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
 	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
 	        Map.put("/MemberdashboardServlet", ((int)permission.getMembershipManagement()==0));
-	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
 	        Map.put("/ArticleReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/ArticleSubReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
+	        Map.put("/AdvertisetImgServlet", ((int)permission.getAdvertisingManagement()==0));
+	        Map.put("/PromoCodeServlet", ((int)permission.getAdvertisingManagement()==0));
+	        
+	 	
 	        System.out.println(Map.get("/AdminsServlet"));
 	        System.out.println("所取得的帳號為"+adminAccount);
 			Session.setAttribute("thisaccount", adminAccount);
