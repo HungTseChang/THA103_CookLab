@@ -58,14 +58,15 @@ input.WCC_memeber_info {
 </style>
 </head>
 <body>
-		<div id="app">
+	<div id="app">
 		<div id="sidebar" class="active">
 			<div class="sidebar-wrapper active">
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
 						<div class="logo">
 							<a href=""><img
-								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset="" /></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -152,6 +153,7 @@ input.WCC_memeber_info {
 				</button>
 			</div>
 		</div>
+
 		<div id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
@@ -168,6 +170,15 @@ input.WCC_memeber_info {
 							<h3>優惠券設定</h3>
 							<p class="text-subtitle text-muted">For user to check they
 								list</p>
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
@@ -237,7 +248,8 @@ input.WCC_memeber_info {
 																<label>百分比折價金額</label>
 															</div>
 															<div class="col-md-8 form-group">
-																<input type="text" class="GCpromo_info" placeholder="請輸入0~1數字或小數"
+																<input type="text" class="GCpromo_info"
+																	placeholder="請輸入0~1數字或小數"
 																	name="percentage_discount_amount" id=""
 																	value="${promoCodeVO.percentageDiscountAmount}">
 															</div>
@@ -322,37 +334,37 @@ input.WCC_memeber_info {
 	<script
 		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
 	<script>
-// 		var preview_el = document.getElementById("preview");
-// 		var p_file_el = document.getElementById("p_file");
-// 		var preview_img = function(file) {
+		// 		var preview_el = document.getElementById("preview");
+		// 		var p_file_el = document.getElementById("p_file");
+		// 		var preview_img = function(file) {
 
-// 			var reader = new FileReader(); // 用來讀取檔案
-// 			reader.readAsDataURL(file); // 讀取檔案
-// 			reader
-// 					.addEventListener(
-// 							"load",
-// 							function() {
-// 								//console.log(reader.result);
-// 								/*
-// 								let img_node = document.createElement("img"); // <img>
-// 								img_node.setAttribute("src", reader.result); // <img src="base64">
-// 								img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
-// 								preview_el.innerHTML = '';
-// 								preview_el.append(img_node);
-// 								 */
+		// 			var reader = new FileReader(); // 用來讀取檔案
+		// 			reader.readAsDataURL(file); // 讀取檔案
+		// 			reader
+		// 					.addEventListener(
+		// 							"load",
+		// 							function() {
+		// 								//console.log(reader.result);
+		// 								/*
+		// 								let img_node = document.createElement("img"); // <img>
+		// 								img_node.setAttribute("src", reader.result); // <img src="base64">
+		// 								img_node.setAttribute("class", "preview_img"); // <img src="base64" class="preview_img">
+		// 								preview_el.innerHTML = '';
+		// 								preview_el.append(img_node);
+		// 								 */
 
-// 								let img_str = '<img src="' + reader.result + '" class="preview_img">';
-// 								preview_el.innerHTML = img_str;
-// 							});
-// 		};
+		// 								let img_str = '<img src="' + reader.result + '" class="preview_img">';
+		// 								preview_el.innerHTML = img_str;
+		// 							});
+		// 		};
 
-// 		p_file_el.addEventListener("change", function(e) {
-// 			if (this.files.length > 0) {
-// 				preview_img(this.files[0]);
-// 			} else {
-// 				preview_el.innerHTML = '<span class="text">預覽圖</span>';
-// 			}
-// 		});
+		// 		p_file_el.addEventListener("change", function(e) {
+		// 			if (this.files.length > 0) {
+		// 				preview_img(this.files[0]);
+		// 			} else {
+		// 				preview_el.innerHTML = '<span class="text">預覽圖</span>';
+		// 			}
+		// 		});
 	</script>
 
 	<!-- Include Choices JavaScript -->

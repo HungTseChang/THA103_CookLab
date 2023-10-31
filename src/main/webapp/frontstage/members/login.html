@@ -322,6 +322,13 @@
               }
               else
             	  {
+                 // 獲取 checkbox 元素
+                const checkbox = document.getElementById("accountcheck");
+                console.log(checkbox.checked);
+                // 檢查 checkbox 是否被選中
+                if (checkbox.checked) {
+                  localStorage.setItem("account", account);
+                }
             	  window.location.href  = res.RedirectURL;
             	  }
                  

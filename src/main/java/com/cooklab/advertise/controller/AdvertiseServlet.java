@@ -271,7 +271,7 @@ public class AdvertiseServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				System.out.println("有錯誤訊息"+errorMsgs.get(0));
 				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的advertiseVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/advertise/advertise_allview.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/advertise/advertise_getone.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}

@@ -179,14 +179,14 @@ public class PromoCodeServlet extends HttpServlet {
 			} else {
 				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
-//			String test = req.getParameter("percentage_discount_amount");
-//			
-//			String testReq = "^(0(\.\d*)?|1(\.0*)?)$
-//			if (test == null || test.trim().length() == 0) {
-//				errorMsgs.add("優惠碼序號: 請勿空白");
-//			} else if (!test.trim().matches(testReq)) { // 以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("優惠碼序號: 只能是英數字 , 且長度必需為10個字元");
-//			}
+			String test = req.getParameter("percentage_discount_amount");
+			
+			String testReq = "^(0(\\.\\d*)?|1(\\.0*)?)$";
+			if (test == null || test.trim().length() == 0) {
+				errorMsgs.add("百分比折價金額: 請勿空白");
+			} else if (!test.trim().matches(testReq)) { // 以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("百分比折價金額: 只能是0~1的小數或整數");
+			}
 			
 			BigDecimal percentageDiscountAmount = BigDecimal.valueOf(Double.valueOf(req.getParameter("percentage_discount_amount")));
 			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(Double.valueOf(req.getParameter("fixed_discount_amount")));
@@ -214,7 +214,7 @@ public class PromoCodeServlet extends HttpServlet {
 				req.setAttribute("promoCodeVO", promoCodeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				System.out.println(errorMsgs);
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
+						.getRequestDispatcher("/dashboard/promo_code/promo_code_getone.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -331,7 +331,7 @@ public class PromoCodeServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("promocodeVO", promoCodeVO); 
 				System.out.println(errorMsgs);// 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_set.jsp");
 				failureView.forward(req, res);
 				return;
 			}

@@ -70,6 +70,7 @@ public class MembersSignServlet extends HttpServlet{
 					HttpSession session = req.getSession();
 					session.setAttribute("account", account);
 					session.setAttribute("userId", memVO.getMemberId());
+					session.setAttribute("verStatus", memVO.getMemberStatus());
 					session.setAttribute("membersVO", memVO);
 					
 					hmap.put("account", account);
