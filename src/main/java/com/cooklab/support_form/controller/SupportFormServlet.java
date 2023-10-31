@@ -42,8 +42,8 @@ public class SupportFormServlet extends HttpServlet {
 
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
 			// 屆時會改從session取得adminNo，因需測試方便故改用固定值
-//			Integer adminNo = (Integer) session.getAttribute("AdminNo");
-			Integer adminNo = 1;
+			Integer adminNo = (Integer) session.getAttribute("AdminNo");
+//			Integer adminNo = 1;
 
 			Byte formStatus = null;
 			String formStatusString = req.getParameter("formStatus");
@@ -299,11 +299,11 @@ public class SupportFormServlet extends HttpServlet {
 			formStatus = Byte.valueOf(req.getParameter("formStatus"));
 
 			// 屆時從session取得adminNo在放置此位置，因需測試方便故改用固定值
-//			String fsNo = ((String) session.getAttribute("AdminNo")).trim();
-//			String fsName = ((String) session.getAttribute("adminNickname")).trim();
-//			String formSubmitter = fsName + "(" + fsNo + ")";
+			String fsNo = ((String) session.getAttribute("AdminNo")).trim();
+			String fsName = ((String) session.getAttribute("adminNickname")).trim();
+			String formSubmitter = fsName + "(" + fsNo + ")";
 
-			String formSubmitter = "TODO-更改為取得管理員資訊";
+//			String formSubmitter = "TODO-更改為取得管理員資訊";
 
 			SupportFormVO sfVO = new SupportFormVO();
 
