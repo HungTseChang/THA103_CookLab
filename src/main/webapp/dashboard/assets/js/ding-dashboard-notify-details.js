@@ -90,7 +90,7 @@ let upadatemode = function () {
       <option value="2">隱藏</option>
     </select>
   `);
-  $("#notifyTime").replaceWith(`<input type="date" class="form-control flatpickr-no-config bg-white w-50" value="${notifyTime}" id="notifyTime" />`);
+  $("#notifyTime").replaceWith(`<input type="date" class="form-control flatpickr-no-config bg-white" value="${notifyTime}" id="notifyTime" />`);
   $("#notifyContent").replaceWith(`<textarea class="form-control" id="notifyContent" rows="3">${notifyContent}</textarea>`);
 
   let updatenotify_ele = $("#updatenotify");

@@ -98,10 +98,16 @@ public class QuestionHService implements QuestionServie {
 		return data;
 	}
 	
+	
+	//將根據群組篩選出的資料總筆數回傳
+	public Integer getGroupCount(Integer questionGroupNo) {
+		return dao.getAllbyGroupCount(questionGroupNo);
+	}
+	
 	//將根據群組篩選出的資料回傳
-	public List<QuestionDTO> getByGroup(Integer questionGroupNo) {
+	public List<QuestionDTO> getAllbyGroupByTen(Integer questionGroupNo, Integer page, Integer pagesize) {
 		// 宣告MAP物件的LIST集合，以便將VO取出的資料轉為MAP形式
-		List<QuestionVO> list = dao.getAllbyGroup(questionGroupNo);
+		List<QuestionVO> list = dao.getAllbyGroupByTen(questionGroupNo,page,pagesize);
 
 		// 使用Stream API轉換資料
 		List<QuestionDTO> data = list.stream().map(qVO -> {
@@ -118,5 +124,32 @@ public class QuestionHService implements QuestionServie {
 
 		return data;
 	}
+	
+	
+	//將根據關鍵字篩選出的資料總筆數回傳
+	public Integer getSearchResultCount(String searchInput) {
+		return dao.getRowCountByKeyword(searchInput);
+	}
+	
+	//將根據關鍵字搜尋的結果回傳
+		public List<QuestionDTO> getByKeywordByTen(String keyword, Integer page, Integer pagesize) {
+			// 宣告MAP物件的LIST集合，以便將VO取出的資料轉為MAP形式
+			List<QuestionVO> list = dao.getByKeywordByTen(keyword,page,pagesize);
+
+			// 使用Stream API轉換資料
+			List<QuestionDTO> data = list.stream().map(qVO -> {
+				QuestionDTO qDTO = new QuestionDTO();
+				qDTO.setQuestionNo(qVO.getQuestionNo());
+				qDTO.setQuestionGroupName(qVO.getQuestionGroup().getQuestionName());
+				qDTO.setQuestionTitle(qVO.getQuestionTitle());
+				qDTO.setQuestionContent(qVO.getQuestionContent());
+				qDTO.setQuestionGood(qVO.getQuestionGood());
+				qDTO.setQuestionBad(qVO.getQuestionBad());
+				qDTO.setCreatedTimestamp(qVO.getCreatedTimestamp());
+				return qDTO;
+			}).collect(Collectors.toList());
+
+			return data;
+		}
 
 }

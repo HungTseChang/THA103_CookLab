@@ -12,46 +12,8 @@ let renderPagination = function (totalPages, currentPage) {
   let paginationList = $(".pagination");
   paginationList.empty();
 
-  // Calculate the range of visible pages
-  let startPage = currentPage - Math.floor(maxVisiblePages / 2);
-  let endPage = currentPage + Math.floor(maxVisiblePages / 2);
-
-  // Ensure that the range stays within bounds
-  if (startPage < 1) {
-    startPage = 1;
-    endPage = Math.min(totalPages, maxVisiblePages);
-  }
-
-  if (endPage > totalPages) {
-    endPage = totalPages;
-    startPage = Math.max(1, totalPages - maxVisiblePages + 1);
-  }
-
-  // Render page numbers with ellipsis
-  if (startPage > 1) {
-    paginationList.append(
-      `<li class="page-item">
-        <a class="page-link" href="#">1</a>
-      </li>`
-    );
-    if (startPage > 2) {
-      paginationList.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
-    }
-  }
-
-  for (let i = startPage; i <= endPage; i++) {
+  for (let i = 1; i <= totalPages; i++) {
     paginationList.append(`<li class="page-item pages"><a class="page-link" href="#">${i}</a></li>`);
-  }
-
-  if (endPage < totalPages) {
-    if (endPage < totalPages - 1) {
-      paginationList.append(`<li class="page-item disabled"><span class="page-link">...</span></li>`);
-    }
-    paginationList.append(
-      `<li class="page-item">
-        <a class="page-link" href="#">${totalPages}</a>
-      </li>`
-    );
   }
 
   // Add active class to the current page
@@ -120,11 +82,9 @@ $(document).ready(function () {
   });
 
   $(document).on("click", ".page-link", function () {
-    if ($(this).text() !== "Previous" && $(this).text() !== "Next") {
-      cleardata();
-      dataload($(this).text());
-      $(".page-item").removeClass("active");
-      $(this).parent().addClass("active");
-    }
+    cleardata();
+    dataload($(this).text());
+    $(".page-item").removeClass("active");
+    $(this).parent().addClass("active");
   });
 });
