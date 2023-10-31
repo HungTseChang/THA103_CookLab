@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.cooklab.article.model.ArticleJDBCDAOIm;
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.util.HibernateUtil;
@@ -185,7 +184,9 @@ public class ArticleHBDAO implements ArticleDAO {
 	@Override
 	public List <ArticleVO> findByStatus(Byte articleStatus) {
 		
-		return getSession().createQuery("from  ArticleVO where articleStatus = :articleStatus",ArticleVO.class).setParameter("articleStatus", articleStatus).list();
+		return getSession().createQuery("from  ArticleVO where articleStatus = :articleStatus ORDER BY lastEditTimestamp DESC"
+				,ArticleVO.class)
+				.setParameter("articleStatus", articleStatus).list();
 	}
 	public static void main(String[] args) {
 

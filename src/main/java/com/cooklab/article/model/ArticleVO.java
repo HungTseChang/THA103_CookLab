@@ -19,11 +19,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.notify_center.model.NCType;
+
 @Entity
 @Table(name="article") 
 public class ArticleVO implements java.io.Serializable {
@@ -31,7 +32,7 @@ public class ArticleVO implements java.io.Serializable {
 	
 	@Id //下面那一行的屬性為PK;
 	@GeneratedValue( strategy = GenerationType.IDENTITY)
-	@Column(name = "article_no" , insertable = false, updatable = false)  
+	@Column(name = "article_no" , insertable = false, updatable = false)
 	private Integer articleNo;
 	
 	
@@ -73,6 +74,7 @@ public class ArticleVO implements java.io.Serializable {
 	@Column(name = "view_count")
 	private Integer viewCount;
 	
+	
 	@Column(name = "last_edit_timestamp" , insertable = false, updatable = false)  
 	private Timestamp lastEditTimestamp;
 
@@ -81,6 +83,7 @@ public class ArticleVO implements java.io.Serializable {
 	@JoinColumn(name="article_category" ,referencedColumnName = "article_category_no" 
 	, insertable = false, updatable = false)
 	private ArticleCategoryVO articleCategory;
+	
 	
 	@Column (name="article_category")
 	private Integer articleCategoryNo;

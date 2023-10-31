@@ -57,8 +57,7 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			} else {
 				System.out.println("文章號碼錯誤");
 			}
-			
-			String statusStr = req.getParameter("statuts");
+			String statusStr = req.getParameter("status");
 			Byte status =null;
 			if (statusStr != null && !statusStr.isEmpty()) {
 				status = Byte.parseByte(statusStr);
@@ -69,18 +68,16 @@ public class ArticleSubReactionServlet extends HttpServlet {
 			ArticleSubReactionVO r1 = new ArticleSubReactionVO();
 			r1.setArticleSubNo(articleSubNo);
 			r1.setMemberId(memberId);
-			r1.setStatuts(status);
+			r1.setStatus(status);
 
 			// Send the use back to the form, if there were errors
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ArticleSubReactionService artSvc = new ArticleSubReactionService();
 			artSvc.create(memberId, articleSubNo, status);
-			System.out.println("按讚資料新增或修改完成");
+			System.out.println("回文的按讚資料新增或修改完成");
 			
-			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-//			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			
+			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/			
 			res.setContentType("application/json");
 			res.setCharacterEncoding("UTF-8");
 			String success = "{\"message\": \"回文按讚新增或修改完成\"}";
