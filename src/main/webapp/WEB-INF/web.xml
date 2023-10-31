@@ -20,20 +20,38 @@
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
 		<url-pattern>/LoginServlet</url-pattern>
-<!--  		<url-pattern>/AdvertisetImgServlet</url-pattern>  -->
-<!--  		<url-pattern>/AdvertiseServlet</url-pattern>   -->
-<!-- 		<url-pattern>/PromoCodeServlet</url-pattern> -->
 		<url-pattern>/DisboardHastagServlet</url-pattern>
 		<url-pattern>/DashboardRecipeServlet</url-pattern>
 		<url-pattern>/RecipeReportServlet</url-pattern>
-		<url-pattern>/dashboard/product/shopview.html</url-pattern>
+		<url-pattern>/dashboard/advertise_allview.jsp</url-pattern>
+		<url-pattern>/dashboard/advertise/advertise_getone.jsp</url-pattern>
+		<url-pattern>/dashboard/advertise/advertise_set.jsp</url-pattern>
+		<url-pattern>/dashboard/article/HO_discussion_allview.jsp</url-pattern>
+		<url-pattern>/dashboard/article/HO_dscussion_cate.jsp</url-pattern>
+		<url-pattern>/dashboard/article_report/WCC_article_report_info.jsp</url-pattern>
+		<url-pattern>/dashboarddashboard/article_sub_report/</url-pattern>
+		<url-pattern>/dashboard/memberOrder/TYT_order_detail.html</url-pattern>
 		<url-pattern>/dashboard/memberOrder/TYT_order_management.html</url-pattern>
+		<url-pattern>/dashboard/news/news-add.html</url-pattern>
+		<url-pattern>/dashboard/news/news-table.html</url-pattern>
+		<url-pattern>/dashboard/news/news-update.html</url-pattern>
+		<url-pattern>/dashboard/notifycenter/notify-add.html</url-pattern>
+		<url-pattern>/dashboard/notifycenter/notify-details.html</url-pattern>
+		<url-pattern>/dashboard/notifycenter/notify-table.html</url-pattern>
+		<url-pattern>/dashboard/product/shopset.html</url-pattern>
+		<url-pattern>/dashboard/product/shopupdate.html</url-pattern>
+		<url-pattern>/dashboard/product/shopview.html</url-pattern>
 		<url-pattern>/dashboard/productTag/tagview.html</url-pattern>
-<!-- 		<url-pattern>/dashboard/question/question-table.html</url-pattern> -->
-<!-- 		<url-pattern>/dashboard/supportform/supportform-table.html</url-pattern> -->
-<!-- 		<url-pattern>/dashboard/question/question-table.html</url-pattern> -->
-<!-- 		<url-pattern>/dashboard/notifycenter/notify-table.html</url-pattern> -->
-<!-- 		<url-pattern>/dashboard/news/news-table.html</url-pattern> -->
+		<url-pattern>/dashboard/promo_code/promo_code_allview.jsp</url-pattern>
+		<url-pattern>/dashboard/promo_code/promo_code_getone.jsp</url-pattern>
+		<url-pattern>/dashboard/promo_code/promo_code_set.jsp</url-pattern>
+		<url-pattern>/dashboard/question/question-add.html</url-pattern>
+		<url-pattern>/dashboard/question/question-table.html</url-pattern>
+		<url-pattern>/dashboard/question/question-update.html</url-pattern>
+		<url-pattern>/dashboard/recipe_report/WCC_recipe_report_info.jsp</url-pattern>
+		<url-pattern>/dashboard/supportform/supportform-add.html</url-pattern>
+		<url-pattern>/dashboard/supportform/supportform-details.html</url-pattern>
+		<url-pattern>/dashboard/supportform/supportform-table.html</url-pattern>
 	</filter-mapping>
 
 

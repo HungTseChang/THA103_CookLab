@@ -77,19 +77,6 @@ public class ArticleSubHDAO  implements ArticleSubDAO{
 		return getSession().get(ArticleSubVO.class, articleSubNo);
 		
 		
-		
-//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		try {
-//			session.beginTransaction();
-//			ArticleSubVO artVO = session.createQuery("from ArticleSubVO where articleSubNo= "+ articleSubNo,
-//					ArticleSubVO.class).uniqueResult();
-//			session.getTransaction().commit();
-//			return artVO;
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			session.getTransaction().rollback();
-//		}
-//		return null;
 	}
 
 	@Override

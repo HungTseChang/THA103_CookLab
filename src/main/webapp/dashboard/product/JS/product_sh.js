@@ -13,9 +13,9 @@ let dataTable = new simpleDatatables.DataTable(table1);
 
 //======================商品=======================
 document.addEventListener("DOMContentLoaded", function() {
-	// 在页面加载后执行AJAX请求
+	
 	let requestData = {
-		action: "search", // 你要执行的操作
+		action: "search", 
 	};
 	$.ajax({
 		url: END_POINT_URL+COLLECTION_POINT,
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			var tbody = $("#table1 tbody");
 			tbody.empty(); // 清空表格内容
 			$.each(data, function(index, item) {
-				var row = $("<tr></tr>"); // 创建行
+				var row = $("<tr></tr>"); 
 
 				var shelfTime = new Date(item.shelfTime);
 				var offsaleTime = new Date(item.offsaleTime);

@@ -54,7 +54,7 @@
         <div class="sidebar-header">
           <div class="d-flex justify-content-between">
             <div class="logo">
-              <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+              <a href="index.html"><img src="<%=request.getContextPath()%>/mazer-main/dist/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
             </div>
             <div class="toggler">
               <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -411,15 +411,15 @@
     </div>
   </div>
   	<script>
-// 		Simple Datatable
-// 		        let table1 = document.querySelector('#table1');
-// 		        let dataTable = new simpleDatatables.DataTable(table1);
+		Simple Datatable
+		        let table1 = document.querySelector('#table1');
+		        let dataTable = new simpleDatatables.DataTable(table1);
 	</script>	
 	<script src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assetss/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
+		src="<%=request.getContextPath()%>/mazer-main/dist/assets/jss/bootstrap.bundle.min.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 

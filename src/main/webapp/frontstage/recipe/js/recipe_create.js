@@ -254,7 +254,6 @@ $(function () {
     });
     /*============================== 發布食譜 ==============================*/
     $("#submitForm").on("submit", function (e) {
-        console.log("sadsa");
         e.preventDefault();
         if ($("#coverImageInput").val() == "") {
             alert("請放成品照片");

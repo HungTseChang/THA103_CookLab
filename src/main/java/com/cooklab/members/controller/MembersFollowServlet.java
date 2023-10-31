@@ -113,10 +113,11 @@ public class MembersFollowServlet extends HttpServlet{
 			Integer CoId = Integer.valueOf(req.getParameter("CollectionID"));
 //			System.out.println(CoId);
 			MembersService mc = new MembersService();
-			mc.deleteMemberColloection(CoId,userId);
+//			mc.deleteMemberColloection(CoId,userId);
 			HashMap<String, Object> hmap = new HashMap<>();
-			
-			if(mc.SearchMemberColloection(CoId,userId) == true)
+			if(CoId.equals(userId)) {
+				hmap.put("res", "equals");
+			}else if(mc.SearchMemberColloection(CoId,userId) == true)
 				hmap.put("res", "true");
 			else
 				hmap.put("res", "false");

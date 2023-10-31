@@ -178,7 +178,7 @@ td button.wcc {
 											</c:forEach>
 										</ul>
 									</c:if>
-
+								<FORM METHOD="POST"  ACTION="<%=request.getContextPath()%>/ArticleCategoryServlet">
 									<table class="table-container" style="width: 100%">
 										<tbody class="cate_list">
 												<c:forEach var="artVO" items="${list}" >

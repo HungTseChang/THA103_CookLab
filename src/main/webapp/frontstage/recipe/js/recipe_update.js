@@ -50,11 +50,12 @@ $(function () {
             });
         },
         error: function (xhr) {
-            // window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
+            window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
         },
     });
     /*============================================================ event ============================================================*/
-    $("#update").on("click", function () {
+    $("#submitUpdate").on("submit", function (e) {
+        e.preventDefault();
         let ingredient = [];
         let kitchenware = [];
         let step = [];
@@ -92,7 +93,6 @@ $(function () {
             step: step,
             recipeHashtag: recipeHashtag,
         };
-
         $.ajax({
             url: END_POINT_URL + UPDATE_POINT,
             type: "POST",
@@ -104,7 +104,7 @@ $(function () {
                 window.location.href = END_POINT_URL + BROWSE_POINT + "?recipeNo=" + data;
             },
             error: function (xhr) {
-                // window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
+                window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
             },
         });
     });

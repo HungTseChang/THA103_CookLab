@@ -108,7 +108,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.jsp">商品設定</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>

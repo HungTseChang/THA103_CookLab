@@ -3,20 +3,21 @@ const memberNameInput = document.getElementById("memberName");
 const memberAddressInput = document.getElementById("memberAddress");
 const memberPhoneInput = document.getElementById("memberPhone");
 const memberEmailInput = document.getElementById("memberEmail");
+
 let promoCodeUsed = false;
 let promoCodeNO = null; // 優惠碼信息
 let orderTotal = 0;      // 總金額
 let finalPrice = 0;		//最終金額
 
-// 获取查询参数中的购物车数据
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const cartDataJSON = urlParams.get("cartData");
 console.log(cartDataJSON);
-// 将 JSON 字符串转换为 JavaScript 对象
+
 const cartData = JSON.parse(decodeURIComponent(cartDataJSON));
 
-// 获取订单详情列表和总计元素
+
 const orderDetailsList = document.getElementById("order-details-list");
 const orderTotalElement = document.getElementById("order-total");
 
@@ -24,10 +25,9 @@ const orderTotalElement = document.getElementById("order-total");
 
 
 console.log(cartData);
-// 获取表格的 tbody 元素
+
 const tbody = document.querySelector("#cart-table tbody");
 
-// 渲染购物车数据到表格
 cartData.forEach(function(item) {
 	const productPrice = parseFloat(item.productPrice);
 	const quantity = parseInt(item.quantity);
@@ -46,22 +46,18 @@ cartData.forEach(function(item) {
         `;
 	tbody.innerHTML += row;
 
-	// 创建订单详情列表项
+
 	const orderItem = document.createElement("li");
 	orderItem.innerHTML = `${item.productName} <span>$${totalAmount}</span>`;
 	orderDetailsList.appendChild(orderItem);
 
-	// 更新订单总计
+
 	orderTotal += parseFloat(totalAmount);
 
 	orderTotalElement.textContent = `$${orderTotal.toFixed(0)}`;
 
-	const finalPriceElement = document.getElementById("finalPriceInfo"); // 获取最終金額元素
+	const finalPriceElement = document.getElementById("finalPriceInfo"); 
 	finalPriceElement.textContent = `$${orderTotal.toFixed(0)}`;
-	
-	
-	
-	
 	
 });
 
@@ -73,12 +69,11 @@ cartData.forEach(function(item) {
 
 
 $(document).ready(function() {
-	// 添加事件监听器，以在复选框状态改变时触发函数
+
 	$('#sameAsBilling').change(handleSameAsBillingCheckboxChange);
 
 });
 
-// 复选框状态改变时触发的函数
 function handleSameAsBillingCheckboxChange() {
 	const sameAsBillingCheckbox = document.getElementById("sameAsBilling");
 	const memberNameInput = document.getElementById("memberName");
@@ -86,16 +81,14 @@ function handleSameAsBillingCheckboxChange() {
 	const memberPhoneInput = document.getElementById("memberPhone");
 	const memberEmailInput = document.getElementById("memberEmail");
 
-	if (sameAsBillingCheckbox.checked) { // 使用 .checked 检查复选框是否被选中
-		// 复选框被选中，向后端请求数据
+	if (sameAsBillingCheckbox.checked) {
 		$.ajax({
-			url: '/CookLab/MemberOrderServlet', // 后端端点的URL
-			type: 'GET', // 使用GET请求
+			url: '/CookLab/MemberOrderServlet',
+			type: 'GET', 
 			data: { action: "memberMessage" },
-			dataType: 'json', // 预期的响应数据类型
+			dataType: 'json', 
 			success: function(data) {
-				// 更新表单字段的值
-				memberNameInput.value = data.memberNickname; // 使用 .value 设置字段的值
+				memberNameInput.value = data.memberNickname; 
 				memberAddressInput.value = data.memberAddress;
 				memberPhoneInput.value = data.memberCellphone;
 				memberEmailInput.value = data.memberMail;
@@ -105,7 +98,6 @@ function handleSameAsBillingCheckboxChange() {
 			},
 		});
 	} else {
-		// 复选框未被选中，清空表单字段
 		memberNameInput.value = '';
 		memberAddressInput.value = '';
 		memberPhoneInput.value = '';
@@ -122,13 +114,13 @@ $('#promocodeuse').click(function() {
 	const couponCode = $('#coupon-code').val();
 
 	$.ajax({
-		url: '/CookLab/MemberOrderServlet', // 后端端点的URL
-		type: 'POST', // 使用POST请求
+		url: '/CookLab/MemberOrderServlet', 
+		type: 'POST', 
 		data: { action: "checkCoupon", couponCode: couponCode },
-		dataType: 'json', // 预期的响应数据类型
+		dataType: 'json', 
 		success: function(response) {
 			console.log(response);
-			const finalPriceElement = document.getElementById("finalPriceInfo"); // 获取最終金額元素
+			const finalPriceElement = document.getElementById("finalPriceInfo"); 
 
 			if (response.message === "success") {
 				const currentDateTime = new Date();
@@ -157,13 +149,11 @@ $('#promocodeuse').click(function() {
 						console.log(discount);
 						promoCodeDiscountElement.textContent = `${discount}折`;
 					} else {
-						finalPrice = orderTotal; // 如果没有優惠碼，最终价格等于总金额
+						finalPrice = orderTotal; 
 					}
 
-					// 更新最終金額的文本内容
 					finalPriceElement.textContent = `$${finalPrice.toFixed(0)}`;
 
-					// 显示優惠碼信息
 					promoCodeInfoElement.style.display = "block";
 
 					alert("優惠碼使用成功");
@@ -191,7 +181,6 @@ function calculatePriceAfterFixedDiscount(totalAmount, fixedDiscountAmount) {
 	}
 }
 
-// 计算百分比折扣后的价格
 function calculatePriceAfterPercentageDiscount(totalAmount, percentageDiscountAmount) {
 	if (percentageDiscountAmount <= 0 || percentageDiscountAmount >= 1) {
 		return totalAmount;
