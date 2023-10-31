@@ -66,7 +66,8 @@ import com.cooklab.util.HibernateUtil;
 		"/IngredientServlet",
 		"/KitchenwaretServlet",
 		"/CartServlet",
-		"/DashboardRecipeServlet"
+		"/DashboardRecipeServlet",
+		"/QSFront"
 		})
 public class OpenSessionInViewFilter implements Filter {
 

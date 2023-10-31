@@ -97,7 +97,7 @@ let upadatemode = function () {
   replyEmail_element.replaceWith(`<input type="email" class="form-control w-50" value="${replyEmail}" id="replyEmail" />`);
 
   sFCId_element.replaceWith(`
-                                <select class="form-select w-50" id="supportFormCategoryId">
+                                <select class="form-select" id="supportFormCategoryId">
                                 <option value="default" selected>請選擇問題類別</option>
                                 <option value="1">食譜相關</option>
                                 <option value="2">討論區相關</option>

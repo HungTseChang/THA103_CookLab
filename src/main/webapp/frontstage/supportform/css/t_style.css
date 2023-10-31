@@ -1,7 +1,7 @@
 #t_CS_search {
 	display: flex;
 	justify-content: center;
-	background-image: url('/frontstage/img/t_SC/img_tomato.jpg'); /* 添加背景圖片的路徑 */
+	background-image: url('frontstage/img/t_SC/img_tomato.jpg'); /* 添加背景圖片的路徑 */
 	background-size: cover; /* 背景圖片填滿容器 */
 	padding-top: 50px; /* 上邊界間距為 50px */
 	padding-bottom: 50px; /* 下邊界間距為 50px */
