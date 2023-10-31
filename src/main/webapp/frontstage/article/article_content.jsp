@@ -269,12 +269,15 @@
                                 <span  class="dislikeValue" style="margin-right: 50px;">${reaDislike}</span>
                                 
                                 
-                                <input type="submit" class="btn custom-btn" value="檢舉"  style="color:red;"> 
+                                <input type="submit" class="btn custom-btn" name="report" 
+                                value="檢舉"  style="color:red;"> 
                                 <input type="hidden" name="articleNo" value="${artVO.articleNo}">
                                 <input type="hidden" name="action" value="reportSearch">
                                 
                                 
-                                <input type="submit" class="btn custom-btn" value="回覆" style="float:right; "> 
+                                <input type="submit" class="btn custom-btn" name="response"
+                                
+                                value="回覆" style="float:right; "> 
                                 <input type="hidden" name="articleNo" value="${artVO.articleNo}">
                                 <input type="hidden" name="action" value="subSearch">
                             </div>
