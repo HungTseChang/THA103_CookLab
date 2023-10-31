@@ -190,7 +190,7 @@ function renderData2(data) {
 	Adcontainer.innerHTML = '';
 
 	const limitedData = data.slice(0, 3);
-	
+
 	limitedData.forEach(item => {
 		const card = document.createElement('div');
 		card.classList.add('col-lg-4', 'col-md-4', 'col-sm-6', 'mix', 'oranges', 'fresh-meat');
@@ -252,6 +252,16 @@ $(document).ready(function() {
 	fetchDataAndRender();
 	fetchDataAndRender2();
 	fetchDataAndRender3();
+
+
+	const loadMoreButton = document.getElementById('loadMoreButton');
+	// 点击事件处理程序
+	loadMoreButton.addEventListener('click', function() {
+		window.location.href = "./shop-grid.html";
+	});
+
+
+
 });
 
 
