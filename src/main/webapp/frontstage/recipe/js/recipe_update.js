@@ -1,20 +1,22 @@
-const RECIPETOUPDATE_POINT = "/RecipeOverviewServlet";
 const UPDATE_POINT = "/RecipeUpdateServlet";
 var queryString = window.location.search;
 var params = new URLSearchParams(queryString);
-var recipeNo = params.get("recipeNo");
+let recipeNo;
 /*============================================================ function ============================================================*/
 
 $(function () {
     //載入食譜資料
     $.ajax({
-        url: END_POINT_URL + RECIPETOUPDATE_POINT, // 資料請求的網址
-        type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: { recipeNo: params.get("recipeNo"), action: "browse" }, // 將物件資料(不用雙引號) 傳送到指定的 url
-        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
+        url: END_POINT_URL + UPDATE_POINT,
+        type: "POST",
+        data: {},
+        dataType: "json",
+        headers: { recipeNo: params.get("recipeNo"), action: "getByUpdate" },
         success: function (data) {
+            recipeNo = data.recipeNo;
             $("#recipeName").val(data.recipeName);
             $("#coverImage").attr("src", "data:image/*;base64," + data.coverImage);
+            coverImageBase64 = data.coverImage;
             $("#introduction").val(data.introduction);
             $("#additionalExplanation").val(data.additionalExplanation);
             $("#recipeQuantity")
@@ -37,6 +39,7 @@ $(function () {
                 $(".step-time").eq(index).val(element.stepTime);
                 $(".step-content").eq(index).val(element.stepContent);
                 if (element.stepImg) $(".step-img-view").eq(index).append(`<img src = "data:image/*;base64,${element.stepImg}" class = "step-img" >`);
+                stepImgBase64[index] = element.stepImg;
             });
             $(data.recipeHashtag).each(function (index, element) {
                 $("#tagBox .addTag").each(function (i, buttonel) {
@@ -47,8 +50,7 @@ $(function () {
             });
         },
         error: function (xhr) {
-            console.log("ajax失敗");
-            console.log(xhr);
+            // window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
         },
     });
     /*============================================================ event ============================================================*/
@@ -77,9 +79,8 @@ $(function () {
             recipeHashtag[index] = $(element).text();
         });
         //送出的資料
-        console.log(step[0].stepImg);
-        let RecipeCreateDTO = {
-            recipeNo: params.get("recipeNo"),
+        let RecipeUpdateDTO = {
+            recipeNo: recipeNo,
             recipeName: $("#recipeName").val(),
             coverImage: coverImageBase64,
             recipeQuantity: $("#recipeQuantity").val(),
@@ -93,14 +94,17 @@ $(function () {
         };
 
         $.ajax({
-            url: END_POINT_URL + UPDATE_POINT, // 資料請求的網址
-            type: "GET", // GET | POST | PUT | DELETE | PATCH
-            data: RecipeUpdateDTO, // 將物件資料(不用雙引號) 傳送到指定的 url
-            dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-            success: function (data) {},
+            url: END_POINT_URL + UPDATE_POINT,
+            type: "POST",
+            data: JSON.stringify(RecipeUpdateDTO),
+            headers: { recipeNo: recipeNo, action: "update" },
+            dataType: "json",
+            success: function (data) {
+                alert("修改食譜成功囉");
+                window.location.href = END_POINT_URL + BROWSE_POINT + "?recipeNo=" + data;
+            },
             error: function (xhr) {
-                console.log("ajax失敗");
-                console.log(xhr);
+                // window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
             },
         });
     });

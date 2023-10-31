@@ -38,17 +38,17 @@ public class RecipeOverviewServlet extends HttpServlet {
 			String recipeNo = req.getParameter("recipeNo").trim();
 			String ipAddress = req.getHeader("X-Forwarded-For");
 			if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-			    ipAddress = req.getHeader("X-Real-IP");
+				ipAddress = req.getHeader("X-Real-IP");
 			}
 
 			if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
-			    ipAddress = req.getRemoteAddr();
+				ipAddress = req.getRemoteAddr();
 			}
 //			String ipAddress = req.getRemoteAddr();
 			Jedis jedis = JedisUtil.getJedisPool().getResource();
 			jedis.select(9);
-			if (!jedis.hexists("recipeViewIP:"+recipeNo, ipAddress)) {
-				jedis.hset("recipeViewIP:"+recipeNo, ipAddress, "view");
+			if (!jedis.hexists("recipeViewIP:" + recipeNo, ipAddress)) {
+				jedis.hset("recipeViewIP:" + recipeNo, ipAddress, "view");
 				jedis.expire("recipeViewIP:" + recipeNo, 15);
 				jedis.hincrBy("recipeViewCount", recipeNo, 1);
 			}

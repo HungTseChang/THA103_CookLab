@@ -133,209 +133,214 @@ import="com.cooklab.purchase_order.model.*"%>
         <!-- Header Section End -->
 
         <!-- 創建食譜頁面 -->
-        <section class="hero hero-normal" style="background-color: rgb(226, 222, 222); padding: 30px">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8 recipe-content">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <span class="recipe_content">食譜名稱:</span>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" id="recipeName" class="form-control recipe-name" placeholder="請輸入食譜名稱" />
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="site-btn" style="background-color: #f27405">確認名稱</button>
-                        </div>
-                    </div>
-
-                    <button type="button" id="btnTag">標籤選取</button>
-                    <div id="tagBox" class="none">
-                        <article>
-                            <p>已選擇標籤:</p>
-                            <div id="selectTag" class="form-control d-flex align-items-center">
-                                <input type="text" class="searchTag" />
+        <form action="javascript:void(0)">
+            <section class="hero hero-normal" style="background-color: rgb(226, 222, 222); padding: 30px">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 recipe-content">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="recipe_content">食譜名稱:</span>
                             </div>
-
-                            <p>熱門標籤:</p>
-                            <div id="popular-hashtag"></div>
-                            <p>烹飪方式:</p>
-                            <div id="cook-hashtag"></div>
-                            <p>餐點類型:</p>
-                            <div id="meal-hashtag"></div>
-                            <p>特殊飲食需求:</p>
-                            <div id="particular-hashtag"></div>
-                            <p>節日:</p>
-                            <div id="festival-hashtag"></div>
-                            <br />
-                            <div class="text-right">
-                                <button type="button" class="btn_modal_close text-right">關閉</button>
+                            <div class="col-md-6">
+                                <input type="text" id="recipeName" class="form-control recipe-name" placeholder="請輸入食譜名稱" required />
                             </div>
-                        </article>
-                    </div>
-
-                    <div class="text-center" style="margin: 30px">
-                        <div id="coverImageView">
-                            <span class="text">成品圖片<br />(點擊或拖曳) </span> <input type="file" id="coverImageInput" accept="image/*" style="display: none" />
+                            <div class="col-md-2">
+                                <!-- <button type="submit" class="site-btn" style="background-color: #f27405">確認名稱</button> -->
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- <div id="drop_zone"><span class="text">圖片拖曳至此處</span></div>
+                        <button type="button" id="btnTag">標籤選取</button>
+                        <div id="tagBox" class="none">
+                            <article>
+                                <p>已選擇標籤:</p>
+                                <div id="selectTag" class="form-control d-flex align-items-center">
+                                    <input type="text" class="searchTag" />
+                                </div>
+
+                                <p>熱門標籤:</p>
+                                <div id="popular-hashtag"></div>
+                                <p>烹飪方式:</p>
+                                <div id="cook-hashtag"></div>
+                                <p>餐點類型:</p>
+                                <div id="meal-hashtag"></div>
+                                <p>特殊飲食需求:</p>
+                                <div id="particular-hashtag"></div>
+                                <p>節日:</p>
+                                <div id="festival-hashtag"></div>
+                                <br />
+                                <div class="text-right">
+                                    <button type="button" class="btn_modal_close text-right">關閉</button>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="text-center" style="margin: 30px">
+                            <div id="coverImageView">
+                                <span class="text">成品圖片<br />(點擊或拖曳) </span> <input type="file" id="coverImageInput" accept="image/*" style="display: none" />
+                            </div>
+                        </div>
+
+                        <!-- <div id="drop_zone"><span class="text">圖片拖曳至此處</span></div>
                     <div id="preview"><span class="text">預覽圖</span></div> -->
 
-                    <div>
-                        <span class="recipe_content">食譜簡介:</span>
-                        <textarea id="introduction" class="form-control martin-textarea" aria-label="With textarea" placeholder="內容"></textarea>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <span class="recipe_content">份量(人數):</span>
+                        <div>
+                            <span class="recipe_content" >食譜簡介(限100字):</span>
+                            <textarea id="introduction" class="form-control martin-textarea" aria-label="With textarea" placeholder="內容" required maxlength="100"></textarea>
                         </div>
-                        <select id="recipeQuantity" class="col-md-2">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10+</option>
-                        </select>
-                    </div>
 
-                    <div>
-                        <div id="listIngredient" class="search-init">
-                            <span class="recipe_content">食材:</span>
-
-                            <div class="row align-items-center ingredients" style="margin: 5px">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
-                                    <div class="search-results"></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
-                                </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <span class="recipe_content">份量(人數):</span>
                             </div>
-
-                            <div class="row align-items-center ingredients" style="margin: 5px">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
-                                    <div class="search-results"></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
-                                </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
-                            </div>
-
-                            <div class="row align-items-center ingredients" style="margin: 5px">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" />
-                                    <div class="search-results"></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control ingredient-quantity" placeholder="份量" />
-                                </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
-                            </div>
+                            <select id="recipeQuantity" class="col-md-2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10+</option>
+                            </select>
                         </div>
-                        <button id="addIngredient" class="col-md-9 form-control">加入食材</button>
-                    </div>
 
-                    <div>
-                        <span class="recipe_content">廚具:</span>
-                        <div id="listKitchenware" class="search-init">
-                            <div class="row align-items-center kitchenwares" style="margin: 5px">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
-                                    <div class="search-results"></div>
-                                </div>
+                        <div>
+                            <div id="listIngredient" class="search-init">
+                                <span class="recipe_content">食材:</span>
 
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
-                            </div>
-                            <div class="row align-items-center kitchenwares" style="margin: 5px">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
-                                    <div class="search-results"></div>
-                                </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
-                            </div>
-                            <div class="row align-items-center kitchenwares" style="margin: 5px">
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" />
-                                    <div class="search-results"></div>
-                                </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
-                            </div>
-                        </div>
-                        <button id="addKitchenware" class="col-md-5 form-control">加入廚具</button>
-                    </div>
-
-                    <div>
-                        <span class="recipe_content">步驟:</span>
-                        <div id="listStep">
-                            <div class="row step" step="1">
-                                <div class="col-md-3 text-center">
-                                    <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <span class="recipe_content col-md-2 step-count">步驟1:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                <div class="row align-items-center ingredients" style="margin: 5px">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" required />
+                                        <div class="search-results"></div>
                                     </div>
-                                    <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
-                                </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
-                            </div>
-
-                            <div class="row step" step="2">
-                                <div class="col-md-3 text-center">
-                                    <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <span class="recipe_content col-md-2 step-count">步驟2:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control ingredient-quantity" placeholder="份量" required />
                                     </div>
-                                    <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
                                 </div>
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
-                            </div>
 
-                            <div class="row step" step="3">
-                                <div class="col-md-3 text-center">
-                                    <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <span class="recipe_content col-md-2 step-count">步驟3:</span> <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" />
+                                <div class="row align-items-center ingredients" style="margin: 5px">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" required />
+                                        <div class="search-results"></div>
                                     </div>
-                                    <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明"></textarea>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control ingredient-quantity" placeholder="份量" required />
+                                    </div>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
                                 </div>
 
-                                <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
+                                <div class="row align-items-center ingredients" style="margin: 5px">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control ingredient" placeholder="請輸入食材" category="Ingredient" oninput="searchProduct(this)" required />
+                                        <div class="search-results"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control ingredient-quantity" placeholder="份量" required />
+                                    </div>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-ingredient"></i>
+                                </div>
                             </div>
+                            <button id="addIngredient" class="col-md-9 form-control">加入食材</button>
                         </div>
-                        <button id="addStep" class="form-control">新增步驟</button>
+
+                        <div>
+                            <span class="recipe_content">廚具:</span>
+                            <div id="listKitchenware" class="search-init">
+                                <div class="row align-items-center kitchenwares" style="margin: 5px">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" required />
+                                        <div class="search-results"></div>
+                                    </div>
+
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
+                                </div>
+                                <div class="row align-items-center kitchenwares" style="margin: 5px">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" required />
+                                        <div class="search-results"></div>
+                                    </div>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
+                                </div>
+                                <div class="row align-items-center kitchenwares" style="margin: 5px">
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control kitchenware" placeholder="請輸入廚具" category="Kitchenware" oninput="searchProduct(this)" required />
+                                        <div class="search-results"></div>
+                                    </div>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-kitchenware"></i>
+                                </div>
+                            </div>
+                            <button id="addKitchenware" class="col-md-5 form-control">加入廚具</button>
+                        </div>
+
+                        <div>
+                            <span class="recipe_content">步驟:</span>
+                            <div id="listStep">
+                                <div class="row step" step="1">
+                                    <div class="col-md-3 text-center">
+                                        <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <span class="recipe_content col-md-2 step-count">步驟1:</span>
+                                            <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" pattern="^\d+$" required />
+                                        </div>
+                                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明(50字內)" required maxlength="50"></textarea>
+                                    </div>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
+                                </div>
+
+                                <div class="row step" step="2">
+                                    <div class="col-md-3 text-center">
+                                        <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <span class="recipe_content col-md-2 step-count">步驟2:</span>
+                                            <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" pattern="^\d+$" required />
+                                        </div>
+                                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明(50字內)" required maxlength="50"></textarea>
+                                    </div>
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
+                                </div>
+
+                                <div class="row step" step="3">
+                                    <div class="col-md-3 text-center">
+                                        <div class="step-img-view"><span class="text">步驟圖片</span> <input type="file" class="step-img-input" accept="image/*" style="display: none" /></div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <span class="recipe_content col-md-2 step-count">步驟3:</span>
+                                            <input type="text" class="form-control col-md-3 step-time" placeholder="花費時間(分鐘)" pattern="^\d+$" required />
+                                        </div>
+                                        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" placeholder="步驟說明(50字內)" required maxlength="50"></textarea>
+                                    </div>
+
+                                    <i class="bi bi-list">&emsp;</i> <i class="bi bi-trash3-fill delete-step"></i>
+                                </div>
+                            </div>
+                            <button id="addStep" class="form-control">新增步驟</button>
+                        </div>
+                        <div>
+                            <span class="recipe_content">補充:</span>
+                            <textarea id="additionalExplanation" class="form-control martin-textarea" aria-label="With textarea" placeholder="內容"></textarea>
+                        </div>
                     </div>
-                    <div>
-                        <span class="recipe_content">補充:</span>
-                        <textarea id="additionalExplanation" class="form-control martin-textarea" aria-label="With textarea" placeholder="內容"></textarea>
+
+                    <div class="col-md-2">
+                        <div class="sticky-sidebar">
+                            <!-- <button class="right-column">儲存</button> -->
+                            <button id="cancel" class="right-column">取消</button>
+                            <!-- <button class="right-column">清除</button> -->
+                            <button type="submit" id="publish" class="right-column">發布</button>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-md-2">
-                    <div class="sticky-sidebar">
-                        <!-- <button class="right-column">儲存</button> -->
-                        <button id="cancel" class="right-column">取消</button>
-                        <!-- <button class="right-column">清除</button> -->
-                        <button id="publish" class="right-column">發布</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </form>
         <!-- /創建食譜頁面 -->
 
         <!-- Footer Section Begin -->

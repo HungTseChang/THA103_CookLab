@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 		"/frontstage/recipe/recipe_create.jsp",//食譜新增
 		"/frontstage/recipe/recipe_update.jsp",//食譜更新
 		"/RecipeCollectionServlet",//食譜收藏
-		"/RecipeCollectionServlet",//食譜留言
+		"/RecipeCommentsServlet",//食譜留言
 		"/frontstage/article/article_edit.jsp",
 		"/frontstage/article/article_sub_edit.jsp",
 		"/frontstage/article/article_report.jsp",
@@ -71,12 +71,13 @@ public class LoginFilter extends HttpFilter implements Filter {
 			System.out.println("使用者沒有登入 網頁重導至 SignIn");
 			if(req.getHeader("orginURL")!=null) {
                 session.setAttribute("location", req.getHeader("orginURL"));
-                System.out.print(req.getHeader("orginURL")); //測試
+                String responseData = "{ \"redirectURL\": \"" + req.getContextPath() + "/frontstage/members/login.html" + "\" }";
+                res.getWriter().write(responseData);
             }else {
                 session.setAttribute("location", req.getRequestURI());
-                System.out.print(req.getRequestURI());
+                res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");
             }    
-			res.sendRedirect(req.getContextPath() + "/frontstage/members/login.html");
+			
 			
 		} else {
 			// 使用者登入過

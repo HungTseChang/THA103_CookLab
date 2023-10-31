@@ -21,7 +21,7 @@ public interface RecipeService {
 	
 	public Integer createRecipe(MembersVO memberVO,RecipeCreateDTO createRecipeDTO);
 	
-	public Integer updateRecipe(MembersVO memberVO,RecipeUpdateDTO recipeUpdateDTO);
+	public Integer updateRecipe(MembersVO memberVO,RecipeVO recipeVO,RecipeUpdateDTO recipeUpdateDTO);
 
 	public List<RecipeVO> getAll();
 

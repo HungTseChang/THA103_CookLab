@@ -40,7 +40,7 @@ import="com.cooklab.purchase_order.model.*"%>
         <div class="humberger__menu__overlay"></div>
         <div class="humberger__menu__wrapper">
             <div class="humberger__menu__logo">
-                <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+                <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
             </div>
             <section class="container">
                 <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -108,7 +108,7 @@ import="com.cooklab.purchase_order.model.*"%>
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="header__logo">
-                            <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+                            <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
                         </div>
                     </div>
                     <div class="col-lg-9 d-flex align-items-center">
@@ -198,7 +198,7 @@ import="com.cooklab.purchase_order.model.*"%>
                     </div> -->
                     <div class="member-profile">
                         <div class="avatar-container">
-                            <img src="../avatar.jpg" alt="Member Avatar" class="avatar" />
+                            <!-- <img src="../avatar.jpg" alt="Member Avatar" class="avatar" /> -->
                         </div>
                         <div class="info-container">
                             <h4 id="author"></h4>

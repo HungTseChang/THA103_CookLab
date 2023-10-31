@@ -10,15 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-
 import com.cooklab.members.model.MembersVO;
 import com.cooklab.recipe.model.RecipeServiceIm;
 import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.recipe_comments.RecipeCommentsDTO;
 import com.cooklab.recipe_comments.model.RecipeCommentsServiceIm;
 import com.cooklab.recipe_comments.model.RecipeCommentsVO;
-import com.cooklab.util.HibernateUtil;
 import com.google.gson.Gson;
 
 @WebServlet("/RecipeCommentsServlet")

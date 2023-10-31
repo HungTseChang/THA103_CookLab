@@ -24,13 +24,13 @@ public class RecipeCollectionStatusServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		Gson gson = new Gson();
 		HttpSession session = req.getSession();
-		MembersVO memberVO = (MembersVO) session.getAttribute("memberVO");
+		MembersVO membersVO = (MembersVO) session.getAttribute("membersVO");
 
-		if (memberVO != null) {
+		if (membersVO != null) {
 			RecipeVO recipeVO = new RecipeServiceIm()
 					.getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
 			RecipeCollectionVO recipeCollectionVO = new RecipeCollectionServiceIm().findByMemberAndRecipe(recipeVO,
-					memberVO);
+					membersVO);
 			String jsonString = gson.toJson(recipeCollectionVO != null ? recipeCollectionVO.getCollectionNo() : null);
 			res.getWriter().write(jsonString);
 			return;

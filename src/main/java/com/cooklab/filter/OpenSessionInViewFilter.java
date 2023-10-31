@@ -24,6 +24,7 @@ import com.cooklab.util.HibernateUtil;
 		"/RecipeKitchenwareServlet",
 		"/RecipeCommentsServlet",
 		"/HashtagServlet",
+		"/RecipeViewCounTask",
 		/*Martin*/
 		"/MemberCenter",
 		"/EditPassword",

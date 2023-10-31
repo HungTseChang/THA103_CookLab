@@ -52,13 +52,5 @@
 
 
 	<!-- 王群中_添加filter -->
-	<!-- martin_添加Listener -->
-	<listener>
-		<listener-class>com.cooklab.listener.SingletonServletContextListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>com.cooklab.listener.RecipeViewCountListener</listener-class>
-	</listener>
-	<!-- martin_添加Listener -->
-	
+	<!-- martin_添加Listener -->	
 </web-app>
