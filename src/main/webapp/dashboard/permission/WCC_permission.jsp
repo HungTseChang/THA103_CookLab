@@ -377,13 +377,16 @@
        
 // ====================搜尋欄==============================================    
 	
-	   $("#searchbar").on("keyup", function() {
+   $("#searchbar").on("keyup", function() {
     var value1 = $(this).val().toLowerCase();
     var detail = "td"+"."+$("#selectsearch").val();
-    $("#tbody tr").filter(function() {
-      $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
+  $("table#table1").children("tbody").empty();
+  $("table#table1").children("tbody").append(textall);
+    
+    let line =  $("#tbody tr").filter(function() {
+ return $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
     });
-  });	
+	   });	
 	
 // ========================放入資料========================================	
 var textall = "";

@@ -20,6 +20,12 @@
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
 		<url-pattern>/LoginServlet</url-pattern>
+		<url-pattern>/AdvertisetImgServlet</url-pattern>
+		<url-pattern>/AdvertiseServlet</url-pattern>
+		<url-pattern>/PromoCodeServlet</url-pattern>
+		<url-pattern>/DisboardHastagServlet</url-pattern>
+		<url-pattern>/DashboardRecipeServlet</url-pattern>
+		<url-pattern>/RecipeReportServlet</url-pattern>
 
 	</filter-mapping>
 

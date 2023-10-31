@@ -379,18 +379,8 @@
         		       form.remove();
         				console.log("reload");
         		}
-       
-// ====================搜尋欄==============================================    
-	
-	   $("#searchbar").on("keyup", function() {
-    var value1 = $(this).val().toLowerCase();
-    var detail = "td"+"."+$("#selectsearch").val();
-    $("#tbody tr").filter(function() {
-      $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
-    });
-  });	
-	
-// ========================放入資料========================================	
+  // ==================================    
+
 var textall = "";
 var tbodyall;
 var number =myList.length;	
@@ -439,12 +429,13 @@ const status ={
         
         
 //    ====================================================== 	       
-    	       
+ 
+// ========================放入資料========================================	   	       
         
        let  updateTable  = function(){
-    	    	var startIndex = (currentPage - 1) * rowsPerPage;
-    	    	var endIndex = startIndex + rowsPerPage;
-    	    	var tableBody = $("table#table1").children("tbody");
+    	    	let startIndex = (currentPage - 1) * rowsPerPage;
+    	    	let endIndex = startIndex + rowsPerPage;
+    	    	let tableBody = $("table#table1").children("tbody");
     	    	tableBody.empty();
 
     		for(let i = startIndex ; i<endIndex ;i++){
@@ -738,8 +729,39 @@ const status ={
 		    updateTable();
 			 
 			})    
-//          ===============權限部分大小順序牌=================================
+	// ====================搜尋欄==============================================    
 	
+	   $("#searchbar").on("keyup", function() {
+    var value1 = $(this).val().toLowerCase();
+    var detail = "td"+"."+$("#selectsearch").val();
+  $("table#table1").children("tbody").empty();
+  $("table#table1").children("tbody").append(textall);
+    
+    let line =  $("#tbody tr").filter(function() {
+ return $(this).toggle($(this).find(detail).text().toLowerCase().indexOf(value1) > -1);
+    });
+	   });	
+//     let tablebodyfilter = line.toArray();
+//     console.log(tablebodyfilter);
+
+// 	let startIndex = (currentPage - 1) * rowsPerPage;
+// 	let endIndex = startIndex + rowsPerPage;
+// 	let tableBody = $("table#table1").children("tbody");
+// 	tableBody.empty();
+// 	for(let i = startIndex ; i<endIndex ;i++){
+  	  
+//   	  if (i <number){
+//   		  tableBody.append(tablebodyfilter[i]);
+//   	     	   }
+//   		}   	
+//   		$("#current-page").text(currentPage);
+//   		var totalPages = Math.ceil(number/ rowsPerPage);
+//   		$("#total-pages").text("of " + totalPages);
+    
+    
+    
+	
+	//================================================================
 	
 	
 // 	======================================
