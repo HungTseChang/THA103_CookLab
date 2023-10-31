@@ -269,7 +269,7 @@
 														<label>文章名稱</label>
 													</div>
 													<c:choose> 
-														<c:when test="${arVO != null}">
+														<c:when test="${artVO != null}">
 																<div class="col-md-6 form-group">
 																	<input type="text" 
 																	value="${(artVO != null) ? artVO.articleTitle : artErr.articleTitle}"readonly >
@@ -289,7 +289,7 @@
 														<label>會員編號(文章作者)</label>
 													</div>
 													<c:choose> 
-														<c:when test="${arVO != null}">
+														<c:when test="${artVO != null}">
 															<div class="col-md-6 form-group">
 																<input type="text" 
 																value="${(artVO != null) ? artVO.members.memberId : artErr.members.memberId}"readonly >															
@@ -307,7 +307,7 @@
 														<label>會員帳號(文章作者)</label>
 													</div>
 													<c:choose> 
-														<c:when test="${arVO != null}">
+														<c:when test="${artVO != null}">
 															<div class="col-md-6 form-group">
 																<input type="text" value="${(artVO != null) ? artVO.members.memberAccount 
 																:  artVO.members.memberAccount }"readonly >
@@ -325,7 +325,7 @@
 														<label>會員暱稱(文章作者)</label>
 													</div>
 													<c:choose> 
-														<c:when test="${arVO != null}">
+														<c:when test="${artVO != null}">
 															<div class="col-md-6 form-group">
 																<input type="text" 
 																value="${(artVO != null) ? artVO.members.memberNickname : artErr.members.memberNickname}"
