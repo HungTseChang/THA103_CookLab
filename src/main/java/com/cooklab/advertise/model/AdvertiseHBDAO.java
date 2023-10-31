@@ -121,8 +121,6 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
 			String hql = "FROM AdvertiseVO ad " 
-					+ "WHERE :currentTime >= ad.AdvertiseShelfTime "
-					+ "AND :currentTime <= ad.AdvertiseOffsaleTime " 
 						+ "ORDER BY ad.AdvertiseShelfTime  DESC";
 
 			Query query = session.createQuery(hql);
