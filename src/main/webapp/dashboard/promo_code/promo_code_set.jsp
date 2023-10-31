@@ -224,7 +224,7 @@ input.WCC_memeber_info {
 																<label>百分比折價金額</label>
 															</div>
 															<div class="col-md-8 form-group">
-																<input type="text" class="GCpromo_info"
+																<input type="text" class="GCpromo_info" placeholder="請輸入0~1數字或小數"
 																	name="percentage_discount_amount" id="" value="">
 															</div>
 															<div class="col-md-4">

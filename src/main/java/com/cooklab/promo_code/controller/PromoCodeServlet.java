@@ -58,7 +58,7 @@ public class PromoCodeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/promocode/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -71,7 +71,7 @@ public class PromoCodeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/promocode/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -84,7 +84,7 @@ public class PromoCodeServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/promocode/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/promo_code/promo_code_allview.jsp");
 				System.out.println(promocodeno);
 				failureView.forward(req, res);
 				return;// 程式中斷
@@ -159,9 +159,9 @@ public class PromoCodeServlet extends HttpServlet {
 			}
 			String promoCodeSerialNumberReg = "^[(a-zA-Z0-9_)]{10}$";
 			if (promoCodeSerialNumber == null || promoCodeSerialNumber.trim().length() == 0) {
-				errorMsgs.add("優惠碼編號: 請勿空白");
+				errorMsgs.add("優惠碼序號: 請勿空白");
 			} else if (!promoCodeSerialNumber.trim().matches(promoCodeSerialNumberReg)) { // 以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("優惠碼編號: 只能是英數字 , 且長度必需為10個字元");
+				errorMsgs.add("優惠碼序號: 只能是英數字 , 且長度必需為10個字元");
 			}
 //			byte[] coverImage = req.getParameter("cover_image").trim().getBytes();
 //			byte[] coverImage = null;
@@ -179,12 +179,22 @@ public class PromoCodeServlet extends HttpServlet {
 			} else {
 				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
+//			String test = req.getParameter("percentage_discount_amount");
+//			
+//			String testReq = "^(0(\.\d*)?|1(\.0*)?)$
+//			if (test == null || test.trim().length() == 0) {
+//				errorMsgs.add("優惠碼序號: 請勿空白");
+//			} else if (!test.trim().matches(testReq)) { // 以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("優惠碼序號: 只能是英數字 , 且長度必需為10個字元");
+//			}
 			
 			BigDecimal percentageDiscountAmount = BigDecimal.valueOf(Double.valueOf(req.getParameter("percentage_discount_amount")));
 			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(Double.valueOf(req.getParameter("fixed_discount_amount")));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
 			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
-		
+			
+	
+			
 			PromoCodeVO promoCodeVO = new PromoCodeVO();
 			promoCodeVO.setPromoCodeNo(promoCodeNo);
 			promoCodeVO.setPromoCodeSerialNumber(promoCodeSerialNumber);
@@ -269,6 +279,7 @@ public class PromoCodeServlet extends HttpServlet {
 				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
 			BigDecimal percentageDiscountAmount = BigDecimal.valueOf(Double.valueOf(req.getParameter("percentage_discount_amount")));
+			
 			BigDecimal fixedDiscountAmount =BigDecimal.valueOf(Double.valueOf(req.getParameter("fixed_discount_amount")));
 			Integer usagesAllowed = Integer.valueOf(req.getParameter("usages_allowed"));
 			Integer minimumConsumption = Integer.valueOf(req.getParameter("minimum_consumption"));
