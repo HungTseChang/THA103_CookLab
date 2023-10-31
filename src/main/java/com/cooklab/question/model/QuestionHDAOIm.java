@@ -116,7 +116,7 @@ public class QuestionHDAOIm implements QuestionDAO {
 	        String keyword = conditions[i];
 	        predicates[i] = criteriaBuilder.or(
 	            criteriaBuilder.like(root.get("questionTitle"), "%" + keyword + "%"),
-	            criteriaBuilder.like(root.get("questionText"), "%" + keyword + "%")
+	            criteriaBuilder.like(root.get("questionContent"), "%" + keyword + "%")
 	        );
 	    }
 
@@ -131,6 +131,7 @@ public class QuestionHDAOIm implements QuestionDAO {
 	
 	// 模糊關鍵字搜尋功能，使用Criteria JPA方式
 	public List<QuestionVO> getByKeywordByTen(String searchInput, Integer page, Integer pagesize) {
+		
 		CriteriaBuilder criteriaBuilder = getSession().getCriteriaBuilder();
 		CriteriaQuery<QuestionVO> criteriaQuery = criteriaBuilder.createQuery(QuestionVO.class);
 		Root<QuestionVO> root = criteriaQuery.from(QuestionVO.class);
@@ -140,10 +141,11 @@ public class QuestionHDAOIm implements QuestionDAO {
 	    Predicate[] predicates = new Predicate[conditions.length];
 	    for (int i = 0; i < conditions.length; i++) {
 	        String keyword = conditions[i];
+	    
 	        predicates[i] = criteriaBuilder.or(
 	            criteriaBuilder.like(root.get("questionTitle"), "%" + keyword + "%"),
-	            criteriaBuilder.like(root.get("questionText"), "%" + keyword + "%")
-	        );
+	            criteriaBuilder.like(root.get("questionContent"), "%" + keyword + "%")
+			);
 	    }
 
 	    criteriaQuery.where(criteriaBuilder.and(predicates));

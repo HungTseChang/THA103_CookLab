@@ -67,7 +67,7 @@ public class QuestionServletFront extends HttpServlet {
 			List<QuestionDTO> jsondata = qsvc.getAllbyGroupByTen(qGroup, page, pagesize);
 			successMsgs.put("groupname", new QuestionGroupHService().getOneQuestionGroup(qGroup).getQuestionName());
 			successMsgs.put("totalPages", Integer.toString((qsvc.getGroupCount(qGroup) / pagesize) + 1));
-			System.out.println("目前總頁數"+ Integer.toString((qsvc.getGroupCount(qGroup) / pagesize) + 1));
+			System.out.println("目前總頁數" + Integer.toString((qsvc.getGroupCount(qGroup) / pagesize) + 1));
 			successMsgs.put("jsondata", jsondata);
 			String data = gson.toJson(successMsgs);
 
@@ -75,28 +75,34 @@ public class QuestionServletFront extends HttpServlet {
 			res.getWriter().write(data);
 		}
 
-		if ("keyword".equals(action)) {
+		if ("getQbyKeyword".equals(action)) {
 			String keyword = req.getParameter("keyword").trim();
-			if (keyword == null || keyword.trim().length() == 0) {
-				String data = gson.toJson(new HashMap<String, String>().put("errKeyword", "標題請勿空白"));
-				res.getWriter().write(data);
-				return;
-			}
-			
-			Integer page = Integer.valueOf(req.getParameter("page"));
-			Integer pagesize = Integer.valueOf(req.getParameter("pagesize"));
-			
-			Map<String, Object> successMsgs = new HashMap<String, Object>();
-			QuestionHService qsvc =new QuestionHService();
-			List<QuestionDTO> jsondata = qsvc.getByKeywordByTen(keyword, page, pagesize);
-			successMsgs.put("keyword",keyword);
-			successMsgs.put("totalPages", Integer.toString((qsvc.getSearchResultCount(keyword) / pagesize) + 1));
-			System.out.println("目前總頁數"+ Integer.toString((qsvc.getSearchResultCount(keyword) / pagesize) + 1));
-			successMsgs.put("jsondata", jsondata);
-			String data = gson.toJson(successMsgs);
 
-			// 回傳資料給Ajax進行進一步的處理
-			res.getWriter().write(data);
+			Integer page = Integer.valueOf(req.getParameter("page"));
+
+			Integer pagesize = Integer.valueOf(req.getParameter("pagesize"));
+
+			Map<String, Object> successMsgs = new HashMap<String, Object>();
+			QuestionHService qsvc = new QuestionHService();
+
+			List<QuestionDTO> jsondata = qsvc.getByKeywordByTen(keyword, page, pagesize);
+			System.out.println("陣列大小"+jsondata.size());
+			if (jsondata == null || jsondata.size() == 0) {
+				Map<String, Object> errorMsgs = new HashMap<String, Object>();
+				errorMsgs.put("failresult", "查無相關資料");
+				String errorData = gson.toJson(errorMsgs);
+				res.getWriter().write(errorData);
+			} else {
+				successMsgs.put("keyword", keyword);
+				successMsgs.put("totalPages", Integer.toString((qsvc.getSearchResultCount(keyword) / pagesize) + 1));
+				System.out.println("目前總頁數" + Integer.toString((qsvc.getSearchResultCount(keyword) / pagesize) + 1));
+				successMsgs.put("jsondata", jsondata);
+				String data = gson.toJson(successMsgs);
+
+				// 回傳資料給Ajax進行進一步的處理
+				res.getWriter().write(data);
+			}
+
 		}
 
 	}

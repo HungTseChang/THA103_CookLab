@@ -6,8 +6,8 @@ const COLLECTION_POINT = "/QSFront";
 let QSFrontAPI = END_POINT_URL + COLLECTION_POINT;
 //取得當前網址的參數
 const urlParams = new URLSearchParams(window.location.search);
-//取得qGroup的值
-const qGroup = urlParams.get("qGroup");
+//取得keyword的值
+const keyword = urlParams.get("keyword");
 const pagesize = 10;
 
 let renderPagination = function (totalPages, currentPage) {
@@ -32,11 +32,11 @@ let dataload = function (currentPage) {
   $.ajax({
     type: "POST",
     url: QSFrontAPI,
-    data: { action: "getQbyGroup", qGroup: qGroup, page: currentPage, pagesize: pagesize },
+    data: { action: "getQbyKeyword", keyword: keyword, page: currentPage, pagesize: pagesize },
     dataType: "json",
     success: function (data) {
       cleardata();
-      let list = $("#faqinfo");
+      let list = $("#serachresult");
       $.each(data.jsondata, function (index, jsondata) {
         list.append(`
           <div class="card question-data">
@@ -66,12 +66,12 @@ let init = function () {
   $.ajax({
     type: "GET",
     url: QSFrontAPI,
-    data: { action: "getQbyGroup", qGroup: qGroup, page: 1, pagesize: pagesize },
+    data: { action: "getQbyKeyword", keyword: keyword, page: 1, pagesize: pagesize },
     dataType: "json",
     success: function (data) {
-      if (!data.errorMsgs) {
-        $(".groupname").text(data.groupname);
-        let list = $("#faqinfo");
+      $(".keyword").text(keyword + "的搜尋結果");
+      let list = $("#serachresult");
+      if (!data.failresult) {
         $.each(data.jsondata, function (index, jsondata) {
           list.append(`
           <div class="card question-data">
@@ -81,18 +81,17 @@ let init = function () {
               aria-expanded="true" aria-controls="${"collapse" + index}">${jsondata.questionTitle}</button>
             </h2>
           </div>
-          <div id="${"collapse" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#faqinfo">
+          <div id="${"collapse" + index}" class="collapse" aria-labelledby="${"heading" + index}" data-parent="#serachresult">
             <div class="card-body">
               <p>${jsondata.questionContent}</p>
             </div>
           </div>
         </div>
-    `);
+        `);
         });
         renderPagination(data.totalPages, 1);
       } else {
-        alert(data.error);
-        window.location.href = data.url;
+        $(".resulttitle").append(`<h4>${data.failresult}</h4>`);
       }
     },
     error: function (xhr) {
