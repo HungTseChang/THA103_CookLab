@@ -36,8 +36,8 @@
         display: none;
       }
       .recipeBg{
-        background-color: #f4f1ef; /* 深灰色背景颜色 */
-      }rgb(252, 220, 192)
+        background-color: #eff2f4; /* 深灰色背景颜色 */
+      }
   </style>
   </head>
 
@@ -331,7 +331,7 @@ function articleAppend(a){
 function MemberAppend(m){
   let stringAppend = `
               
-              <div class="row m-0 ml-2 ding-folrec-border MemberName${m.memberId} ">
+              <div class="row m-0 ml-2 ding-folrec-border  ">
                   <div class="col-3 align-self-center text-center p-0 py-2">  
                     <img src="data:image/png;base64,${m.memberPicture}" alt="關注會員頭像" class="img-thumbnail ding-folmem-preview" />
                   </div>
@@ -343,6 +343,7 @@ function MemberAppend(m){
                   </div>
                   <div class="col-2 align-self-center">
                     <div>
+                      <button type="button" class="btn ding-btn-outline-org MemberName${m.memberId}")">展開食譜</button>
                       <button type="button" class="btn ding-btn-outline-org Member-cancelBtn" onclick="memberUnFollow(${m.memberId})">取消關注</button>
                     </div>
                   </div>
@@ -378,11 +379,12 @@ function MemberAppend(m){
               });
               $(`.MemberName${m.memberId}`).on("click", function() {
                 // 移除指定 class
-                console.log(`點擊到了recipelittle${m.memberId}`);
                 if ($(`.recipelittle${m.memberId}`).hasClass("Member_disable")) {
                     $(`.recipelittle${m.memberId}`).removeClass("Member_disable");
+                    $(this).text("收起食譜");
                 } else {
                     $(`.recipelittle${m.memberId}`).addClass("Member_disable");
+                    $(this).text("展開食譜");
                 }
               });
             

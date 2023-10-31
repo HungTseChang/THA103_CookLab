@@ -161,10 +161,10 @@
             <div class="row w-100">
               <div class="h2 mx-auto mt-2">文章清單</div>
               <div class="mt-2">
-                <button type="button" class="btn btn-lg ding-btn-org">
+                <a href="../article/article_edit.jsp"><button type="button" class="btn btn-lg ding-btn-org">
                   寫文章
-                  <i class="bi bi-plus-square ml-1"></i> 
-                </button>
+                  <i class="bi bi-plus-square ml-1"></i>  
+                </button></a>
               </div>
             </div>
             <!-------------文章管理區塊開始----------->
@@ -173,7 +173,7 @@
             </span>
             
             <!-- 文章模板結束
-             <div class="row m-0 ml-2 my-3 ding-folrec-border">
+             <div class="row m-0 ml-2 my-3 ding-folrec-border"> 
               <div class="col-8">
                 <a href="#" class="text-dark ding-post-title">
                   [
@@ -361,7 +361,7 @@
                   <div class="col-4 mb-2">
                     <div class="row d-flex justify-content-end mx-auto">
                       <div class="dropdown ml-2">
-                        <button class="btn ding-btn-org dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-expanded="false">${n.articleStatus}</button>
+                        <button class="btn ding-btn-org dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-expanded="false" data-boundary="viewport">${n.articleStatus}</button>
                         <div class="dropdown-menu text-center">
                           <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MembersArticleServlet?articleNo=${n.articleNo}&articleStatus=1">未公開</a>
                           <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MembersArticleServlet?articleNo=${n.articleNo}&articleStatus=0">公開</a>
