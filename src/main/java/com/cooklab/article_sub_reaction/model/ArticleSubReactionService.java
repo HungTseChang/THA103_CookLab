@@ -27,11 +27,12 @@ public class ArticleSubReactionService {
 	}
 	
 	public ArticleSubReactionVO findTwo (Integer memberId , Integer articleSubNo) {
+		System.out.println("啟動回文的findTwo方法");
 		return dao.findByTwoCol(memberId, articleSubNo);
 	}
 	
 	public Long allCount (Integer articleSubNo ,Byte status) {
-		
+		System.out.println("啟動回文的allCount方法");
 		return dao.allCount(articleSubNo, status);
 		
 	}

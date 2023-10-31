@@ -1,3 +1,10 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/SupportFormServlet";
+let SupportFormServletAPI = END_POINT_URL + COLLECTION_POINT;
+
 //定義表單狀態的數字對應狀態以及渲染到網頁的形式
 let statusrender = function () {
   let formStatus = $(".fs");
@@ -23,7 +30,7 @@ let statusrender = function () {
 let init = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormServlet",
+    url: SupportFormServletAPI,
     data: { action: "getAll" },
     dataType: "json",
     success: function (data) {
@@ -74,6 +81,6 @@ $(document).ready(function () {
   $(document).on("click", ".form-details", function (e) {
     e.preventDefault();
     var formId = $(this).data("formid");
-    window.location.href = "support-ticket-details.html?formNo=" + formId;
+    window.location.href = "supportform-details.html?formNo=" + formId;
   });
 });

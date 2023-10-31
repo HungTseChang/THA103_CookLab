@@ -155,7 +155,7 @@ public class NotifyCenterServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
 			if (ncVO != null) {
-				String url = "/THA103_CookLab/dashboard/notifycenter/official-notify.html";
+				String url = "notify-table.html";
 
 				// 創建Map物件放入成功訊息
 				Map<String, String> successMsg = new HashMap<String, String>();
@@ -239,7 +239,7 @@ public class NotifyCenterServlet extends HttpServlet {
 			NotifyCenterHService ncSvc = new NotifyCenterHService();
 			ncVO = ncSvc.updateNotifyCenter(notifyNo, notifyType, notifyRead, notifyContent, notifyTime, memberId);
 			/*************************** 3.修改完成,準備轉交資料予前端 *************/
-			String url = "/THA103_CookLab/dashboard/notifycenter/official-notify.html";
+			String url = "notify-table.html";
 
 			// 創建Map物件放入成功訊息
 			Map<String, String> successMsg = new HashMap<String, String>();

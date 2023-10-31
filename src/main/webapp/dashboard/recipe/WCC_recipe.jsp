@@ -60,6 +60,15 @@
                 th{
                     white-space: nowrap;
                 }
+                select.none{
+                    display:none;
+                }
+                p.none{
+                    display:none;
+                }
+                span.none{
+                    display:none;
+                }
                 span.wcc{
                     border: 1px solid rgb(151, 135, 249);
                     background-color: rgb(195, 241, 253); 
@@ -389,31 +398,27 @@
  	   for (let i=0;i <  myList.length;i++){
      	  let aa = myList[i];
      	  let status ={
-     			  0:" <span class='badge bg-info'>未完成</span>",
-     			  1:" <span class='badge bg-success'>公開</span>",
-     			  1:" <span class='badge bg-warning'>非公開</span>",
-     			  1:" <span class='badge bg-danger'>刪除</span>",
-     	  }		
+     			  0:" <span class='badge bg-success wcc' value='0'>公開</span>",
+     			  1:" <span class='badge bg-warning wcc' value='1'>非公開</span>",
+     			  2:" <span class='badge bg-danger wcc' value='2'>刪除</span>",
+     	  }		   	  
      	  let text = "";
 		  text += "<tr>";
 		  text += "<td class='wcc recipeNo'>"+aa.recipeNo+"</td>";
 		  text +=" <td class='wcc recipeName'>"+aa.recipeName+"</td>";
 		  text +=" <td class='wcc  memberID'>"+aa.memberID+"</td>";
 		  text +=" <td class='wcc  memberNickname'>"+aa.memberNickname+"</td>";
-		  text +=" <td class='wcc memberID'>"+aa.memberID+"</td>";
-		  text +=" <td class='wcc memberNickname'>"+aa.memberNickname+"</td>";
 		  text +=" <td class='wcc viewCount'>"+aa.viewCount+"</td>";
 		  text +=" <td class='wcc recipeReaction'>"+aa.recipeReaction+"</td>";
 		  text +=" <td class='wcc reportCount'>"+aa.reportCount+"</td>";
-		  text +=" <td class='wcc recipeStatus'>"+status[aa.reportingStatus]+"</td>";
+		  text +=" <td class='wcc recipeStatus'>"+status[aa.recipeStatus];
+		  text +="</td>";
 		  text +=" <td class='wcc lastEditTimestamp'>"+aa.lastEditTimestamp+"</td>";
 		  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
 		  text += "<td>";
-    	  text +="<form action='<%=request.getContextPath()%>/DashboardRecipeServlet' method='get'>"; 
-    	  text +=  "<p ><input class='wcc' type='submit'  value='修改資料'></p>";
-		  text += "<input type='hidden' name='recipeNo' value='";
-		  text += aa.recipeNo+"'>";
-		  text += "<input type='hidden' name='action' value='changeData'></form></td>";
+		  text +="<p class='wcc'><a >修改狀態</a></p>";
+    	  text += "<p class='wcc none'><a >更新資料</a></p><p class='wcc cancel none'><a >修改狀態</a></p>";
+    	  text +=" </td>";
 		  text += "</tr>";	
 		  textall+=text;
 }
@@ -421,10 +426,24 @@
  	 tbodyall =$('#tbody tr').toArray();
 	}
 	
+// 	================================
 	
-	
-	
-	
+	$(document).on("click","p.wcc",function(e){
+		let value =""+$(e.target).closest("tr").find("span.wcc").attr("value");
+        $(e.target).closest("tr").find("select.wcc").val(value);
+        $(e.target).closest("tr").find("select.wcc").toggleClass("none");		
+        $(e.target).closest("tr").find("span.wcc").toggleClass("none");		
+        $(e.target).closest("tr").find("p.wcc").toggleClass("none");		
+
+	})
+// 		$(document).on("click","p.wcc",function(e){
+// 		let value =""+$(e.target).closest("tr").find("span.wcc").attr("value");
+//         $(e.target).closest("tr").find("select.wcc").val(value);
+//         $(e.target).closest("tr").find("select.wcc").toggleClass("none");		
+//         $(e.target).closest("tr").find("span.wcc").toggleClass("none");		
+//         $(e.target).closest("tr").find("p.wcc").toggleClass("none");		
+
+// 	})
 	//         =====================================
 
         	

@@ -133,12 +133,17 @@ $(document).ready(function() {
 								type: 'GET',
 								data: requestData,
 								dataType: 'json',
+								headers: {
+									orginUrl: window.location.href
+								},
 								success: function(response) {
 									console.log('商品添加到購物車囉');
 									alert("商品添加到購物車囉");
 								},
 								error: function(xhr) {
 									console.log('AJAX：' + xhr.status);
+									alert("請先登入會員");
+									window.location.href = `../members/login.html`;
 								}
 							});
 						});

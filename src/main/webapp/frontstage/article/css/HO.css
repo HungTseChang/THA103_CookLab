@@ -28,17 +28,17 @@
 }
 
 #btn_confirm {
-    margin-right: 150px;
+    margin-right: 100px;
     border-radius: 20px;
 }
 
 #btn_clean {
-    margin-left: 50px;
+    margin-left: 10px;
     border-radius: 20px;
 }
 
 #btn_cancel {
-    margin-left: 20px;
+    margin-left: 10px;
     border-radius: 20px;
 }
 

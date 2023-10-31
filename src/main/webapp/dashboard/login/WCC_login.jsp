@@ -220,8 +220,6 @@
 	<script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 	<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/sweetalert2/sweetalert2.all.min.js"></script>
 	<script src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
-	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/dashboard/assets\js\menu_ative.js"></script>
 		<script	src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     <script>
 

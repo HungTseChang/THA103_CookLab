@@ -1,3 +1,10 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/SFSFront";
+let SFSFrontAPI = END_POINT_URL + COLLECTION_POINT;
+
 $(document).ready(function () {
   //重置錯誤訊息渲染畫面
   let init = function () {
@@ -33,7 +40,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "/THA103_CookLab/SFSFront",
+      url: SFSFrontAPI,
       data: data,
       dataType: "json",
       success: function (data) {

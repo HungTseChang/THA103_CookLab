@@ -13,40 +13,31 @@ String a = PromoCodeRandom.generateRandomString(10);
 %>
 
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="BIG5">
-<title>Insert title here</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" />
+<html lang="zh-tw">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataTable - Mazer Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/css/app.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/app.css" />
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/dashboard/assets/images/favicon.svg"
-	type="image/x-icon">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.css">
-<link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-<link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
-
+	type="image/x-icon" />
 <style>
 td a.wcc {
 	border: 1px solid rgb(151, 135, 249);
@@ -303,38 +294,23 @@ input.WCC_memeber_info {
 			</footer>
 		</div>
 	</div>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
-
-	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/js/quill.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/vendors/choices.js/choices.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/dashboard/assets/vendors/summernote/summernote-lite.min.js"></script>
-		
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 	<script>
 		let table1 = document.querySelector("#table1");
 		let dataTable = new simpleDatatables.DataTable(table1);
 	</script>
-	<script>
-		
-	</script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
+
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
+
 
 
 </body>

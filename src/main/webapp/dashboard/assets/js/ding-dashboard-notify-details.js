@@ -1,3 +1,10 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/NotifyCenterServlet";
+let NotifyCenterServletAPI = END_POINT_URL + COLLECTION_POINT;
+
 //定義通知狀態的數字對應狀態以及渲染到網頁的形式
 let statusrender = function () {
   let formStatus = $(".nr");
@@ -29,7 +36,7 @@ let notifyload = function () {
 
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/NotifyCenterServlet",
+    url: NotifyCenterServletAPI,
     data: { action: "getOne", notifyNo: notifyNo },
     dataType: "json",
     success: function (data) {
@@ -123,7 +130,7 @@ let updatedata = function (notifyType, memberId, notifyTime, notifyContent, noti
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/NotifyCenterServlet",
+    url: NotifyCenterServletAPI,
     data: data,
     dataType: "json",
     success: function (data) {

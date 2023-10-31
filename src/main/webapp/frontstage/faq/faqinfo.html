@@ -2,11 +2,11 @@
 <html lang="zxx">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="CookLab" />
-    <meta name="keywords" content="CookLab, recipe, food, html" />
+    <meta name="description" content="Ogani Template" />
+    <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>CookLab | 問題表單</title>
+    <title>Ogani | Template</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -20,9 +20,8 @@
     <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/style.css" type="text/css" />
-    <link rel="stylesheet" href="css/t_style.css" type="text/css" />
-    <link rel="stylesheet" href="../css/ding.css" type="text/css" />
-    <link rel="stylesheet" href="css/ding-frontstage.css" type="text/css" />
+    <link rel="stylesheet" href="../supportform/css/t_style.css" type="text/css" />
+    <link rel="stylesheet" href="../supportform/css/ding-frontstage.css" type="text/css" />
   </head>
 
   <body>
@@ -35,7 +34,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-        <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+        <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
       </div>
       <section class="container">
         <div class="humberger__menu__widget row d-flex justify-content-between align-items-center">
@@ -54,12 +53,12 @@
       </section>
       <nav class="humberger__menu__nav mobile-menu">
         <ul>
-          <li><a class="ham" href="./index.html">首頁</a></li>
-          <li><a class="ham" href="./shop-grid.html">商城</a></li>
-          <li><a class="ham" href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
-          <li><a class="ham active" href="./contact.html">常見問題</a></li>
-          <li><a class="ham" href="../article/article_main.jsp">討論區</a></li>
-          <li><a class="ham" href="../news/news.html">最新消息</a></li>
+          <li class="active"><a href="./index.html">首頁</a></li>
+          <li><a href="./shop-grid.html">商城todo</a></li>
+          <li><a href="../recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+          <li><a href="./contact.html">常見問題todo</a></li>
+          <li><a href="../article/article_main.jsp">討論區todo</a></li>
+          <li><a href="../news/news.html">最新消息todo</a></li>
         </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -103,7 +102,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
+              <a href="./index.html"><img style="height: 150px" src="../img/indexlogo.png" alt="" /></a>
             </div>
           </div>
           <div class="col-lg-9 d-flex align-items-center">
@@ -112,7 +111,7 @@
                 <li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
                 <li><a href="../recipe/recipe_create.jsp">新增食譜</a></li>
                 <li><a href="../members/member-panel-follow.html">關注食譜</a></li>
-                <li><a href="./shop.html">商城</a></li>
+                <li class="active"><a href="./shop.html">商城</a></li>
                 <li><a href="../article/article_main.jsp">討論區</a></li>
                 <li><a href="../news/news.html">最新消息</a></li>
                 <li><a href="./news/news.html">關於我們</a></li>
@@ -127,7 +126,7 @@
     </header>
     <!-- Header Section End -->
 
-    <!--t_SC_Start-->
+    <!--t_SC_Start我自己的部分-->
     <section class="hero hero-normal">
       <div class="container">
         <div class="row">
@@ -145,63 +144,109 @@
       </div>
     </section>
     <!--t_SC_End-->
-    <!--t_SC_Start-->
-
+    <!--t_SC_Start我自己的部分-->
     <section class="container mt-1">
-      <h2 class="text-center">問題表單</h2>
-      <hr class="t_SC_hr" />
-
-      <form>
-        <div class="form-row">
-          <div class="col-md-6 col-sm-12">
-            <label for="realName">姓名<span class="t_SC_redPoint" id="name-check">*</span></label>
-            <input type="text" class="form-control" placeholder="您的大名" id="realName" />
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">常見問題</a></li>
+          <li class="breadcrumb-item"><a href="#">撰寫、收藏食譜</a></li>
+        </ol>
+      </nav>
+    </section>
+    <!-- 手風琴效果 -->
+    <section class="container mt-1">
+      <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">去哪裡可以找到我說讚的食譜？</button>
+            </h2>
           </div>
-          <div class="col-md-6 col-sm-12">
-            <label for="replyEmail">Email<span class="t_SC_redPoint" id="email-check">*</span></label>
-            <input type="email" class="form-control" placeholder="請輸入您的Email" id="replyEmail" />
+
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              很抱歉，目前還無法直接查詢您曾經按讚過的食譜。
+              <br />
+              <br />
+              <div class="row d-flex justify-content-center">
+                <a href="your-customer-service-url" class="t_SC_help-block" style="text-decoration: none; margin: 10px; width: 120px; height: 40px">
+                  <img src="../img/t_SC/good.png" alt="Image 1" class="t_SC_help-image mx-auto" style="max-height: 60%" />
+                  <p class="t_SC_help-text my-auto mr-auto" style="font-size: 17px">有幫助</p>
+                </a>
+                <a href="your-contact-form-url" class="t_SC_help-block" style="text-decoration: none; margin: 10px; width: 120px; height: 40px">
+                  <img src="../img/t_SC/nogood.png" alt="Image 2" class="t_SC_help-image mx-auto" style="max-height: 60%" />
+                  <p class="t_SC_help-text my-auto mr-auto" style="font-size: 17px">沒幫助</p>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <br />
-          <label for="supportFormCategoryId">問題類別<span class="t_SC_redPoint" id="categoryid-check">*</span></label>
-          <select class="form-control w-100" id="supportFormCategoryId">
-            <option value="default">請選擇問題類別</option>
-            <option value="1">食譜相關</option>
-            <option value="2">討論區相關</option>
-            <option value="3">訂單相關</option>
-            <option value="4">商品相關</option>
-          </select>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">食譜留言是否會通知？</button>
+            </h2>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              您的食譜有新的留言，或是您的留言被食譜作者回覆時，我們會向您發送通知。
+              <br />
+              <br />
+              <div class="row d-flex justify-content-center">
+                <a href="your-customer-service-url" class="t_SC_help-block" style="text-decoration: none; margin: 10px; width: 120px; height: 40px">
+                  <img src="../img/t_SC/good.png" alt="Image 1" class="t_SC_help-image mx-auto" style="max-height: 60%" />
+                  <p class="t_SC_help-text my-auto mr-auto" style="font-size: 17px">有幫助</p>
+                </a>
+                <a href="your-contact-form-url" class="t_SC_help-block" style="text-decoration: none; margin: 10px; width: 120px; height: 40px">
+                  <img src="../img/t_SC/nogood.png" alt="Image 2" class="t_SC_help-image mx-auto" style="max-height: 60%" />
+                  <p class="t_SC_help-text my-auto mr-auto" style="font-size: 17px">沒幫助</p>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <br /><br /><label for="formTitle">標題<span class="t_SC_redPoint" id="title-check">*</span></label>
-          <input type="title" class="form-control" id="formTitle" placeholder="請輸入問題標題" />
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">你們的食譜是否有其他語言的版本?</button>
+            </h2>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+              我們致力於提供您最優質的食譜參照體驗，其他語言版本我們正加速開發中，敬請期待。
+              <br />
+              <br />
+              <div class="row d-flex justify-content-center">
+                <a href="your-customer-service-url" class="t_SC_help-block" style="text-decoration: none; margin: 10px; width: 120px; height: 40px">
+                  <img src="../img/t_SC/good.png" alt="Image 1" class="t_SC_help-image mx-auto" style="max-height: 60%" />
+                  <p class="t_SC_help-text my-auto mr-auto" style="font-size: 17px">有幫助</p>
+                </a>
+                <a href="your-contact-form-url" class="t_SC_help-block" style="text-decoration: none; margin: 10px; width: 120px; height: 40px">
+                  <img src="../img/t_SC/nogood.png" alt="Image 2" class="t_SC_help-image mx-auto" style="max-height: 60%" />
+                  <p class="t_SC_help-text my-auto mr-auto" style="font-size: 17px">沒幫助</p>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="form-group">
-          <label for="formContext">問題內容<span class="t_SC_redPoint" id="context-check">*</span></label>
-          <textarea class="form-control" id="formContext" rows="3" placeholder="請在此輸入您的問題"></textarea>
-        </div>
-
-        <input type="hidden" class="form-control" id="formSource" value="1" />
-        <input type="hidden" class="form-control" id="formStatus" value="0" />
-        <input type="hidden" class="form-control" id="formSubmitter" value="客戶反應" />
-        <input type="hidden" id="action" value="insert" />
-        <div class="text-center">
-          <input type="submit" id="formsubmit" class="btn btn-lg ding-btn-org" value="送出表單" />
-        </div>
-      </form>
+      </div>
     </section>
 
-    <!-- 頁尾 -->
     <section class="container mt-5">
       <h2 class="text-center">需要其他協助嗎?</h2>
       <hr class="t_SC_hr" />
       <div class="row t_SC_row">
-        <div class="t_SC_col-6 pl-3 t_SC_row">
-          <a href="todo" class="t_SC_help-block t_SC_right" style="text-decoration: none">
+        <div class="t_SC_col-6 pr-3">
+          <a href="your-customer-service-url" class="t_SC_help-block t_SC_right" style="text-decoration: none">
             <img src="../img/t_SC/customer-service.png" alt="Image 1" class="t_SC_help-image mx-auto" />
             <p class="t_SC_help-text my-auto mr-auto">線上客服</p>
+          </a>
+        </div>
+
+        <div class="t_SC_col-6 pl-3">
+          <a href="your-contact-form-url" class="t_SC_help-block" style="text-decoration: none">
+            <img src="../img/t_SC/contact-form.png" alt="Image 2" class="t_SC_help-image mx-auto" />
+            <p class="t_SC_help-text my-auto mr-auto">提交問題</p>
           </a>
         </div>
       </div>
@@ -231,7 +276,7 @@
               <ul>
                 <li><a href="#">運送資訊</a></li>
                 <li><a href="#">隱私政策</a></li>
-                <li><a href="../faq/faq.html">常見問題</a></li>
+                <li><a href="#">常見問題</a></li>
               </ul>
             </div>
           </div>
@@ -284,7 +329,6 @@
     <script src="../js/mixitup.min.js"></script>
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/main.js"></script>
-    <script src="js/ding-frontpage-supportform.js"></script>
     <script src="../js/TomJS.js"></script>
   </body>
 </html>

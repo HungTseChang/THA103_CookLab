@@ -82,7 +82,7 @@ public class NewsServlet extends HttpServlet {
 			jedis.lpush("news", newsData);
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
-			String url = "/THA103_CookLab/dashboard/news/newslist.html";
+			String url = "news-table.html";
 
 			// 創建Map物件放入成功訊息
 			Map<String, String> successMsg = new HashMap<String, String>();
@@ -209,7 +209,7 @@ public class NewsServlet extends HttpServlet {
 			jedis.lset("news", newsindex, newsData);
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
-			String url = "/THA103_CookLab/dashboard/news/newslist.html";
+			String url = "news-table.html";
 
 			// 創建Map物件放入成功訊息
 			Map<String, String> successMsg = new HashMap<String, String>();
