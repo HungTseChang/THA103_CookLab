@@ -11,9 +11,9 @@ let dataTable = new simpleDatatables.DataTable(table1);
 
 //======================訂單=======================
 document.addEventListener("DOMContentLoaded", function() {
-	// 在页面加载后执行AJAX请求
+
 	let requestData = {
-		action: "search", // 你要执行的操作
+		action: "search", 
 	};
 	$.ajax({
 		url: END_POINT_URL+COLLECTION_POINT,
