@@ -34,7 +34,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+            <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
         </div>
         <section class="container">
             <div
@@ -306,13 +306,13 @@
                       <a href="${endPointURL}/frontstage/recipe/recipe_update.jsp?recipeNo=${recipe.recipeNo}"><button type="button" class="btn ding-btn-org w-50">修改</button></a>
                     </div>
                     <div class="col-12 mb-2">
-                      <a href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=3"onclick="return confirm('確定刪除?')"><button type="button" class="btn ding-btn-org w-50">刪除</button></a>
+                      <a href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2"onclick="return confirm('確定刪除?')"><button type="button" class="btn ding-btn-org w-50">刪除</button></a>
                     </div>
                     <div class="dropdown col-12 mb-2">
                       <button class="btn ding-btn-org dropdown-toggle w-50" type="button" data-toggle="dropdown" aria-expanded="false" data-boundary="viewport">${recipeStatusString}</button>
                       <div class="dropdown-menu">
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1" >公開</a>
-                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=2">未公開</a>
+                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=0">公開</a>
+                        <a class="dropdown-item ding-dropdown-item" href="${endPointURL}/MemberRecipeServlet?recipeNo=${recipe.recipeNo}&recipeStatus=1">未公開</a>
                       </div>
                     </div>
                     <div class="col-12 align-self-end text-right pb-2">
