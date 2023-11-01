@@ -14,8 +14,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>memberFilter</filter-name>
-		<url-pattern>/AdminsServlet</url-pattern>
-		<url-pattern>/PermissionServlet</url-pattern>
 		<url-pattern>/ArticleReportServlet</url-pattern>
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
@@ -27,13 +25,13 @@
 		<url-pattern>/DashboardRecipeServlet</url-pattern>
 		<url-pattern>/RecipeReportServlet</url-pattern>
 		<url-pattern>/dashboard/product/shopview.html</url-pattern>
-		<url-pattern>/dashboard/memberOrder/TYT_order_management.html</url-pattern>
-		<url-pattern>/dashboard/productTag/tagview.html</url-pattern>
-		<url-pattern>/dashboard/question/question-table.html</url-pattern>
-		<url-pattern>/dashboard/supportform/supportform-table.html</url-pattern>
-		<url-pattern>/dashboard/question/question-table.html</url-pattern>
-		<url-pattern>/dashboard/notifycenter/notify-table.html</url-pattern>
-		<url-pattern>/dashboard/news/news-table.html</url-pattern>
+<!-- 		<url-pattern>/dashboard/memberOrder/TYT_order_management.html</url-pattern> -->
+<!-- 		<url-pattern>/dashboard/productTag/tagview.html</url-pattern> -->
+<!-- 		<url-pattern>/dashboard/question/question-table.html</url-pattern> -->
+<!-- 		<url-pattern>/dashboard/supportform/supportform-table.html</url-pattern> -->
+<!-- 		<url-pattern>/dashboard/question/question-table.html</url-pattern> -->
+<!-- 		<url-pattern>/dashboard/notifycenter/notify-table.html</url-pattern> -->
+<!-- 		<url-pattern>/dashboard/news/news-table.html</url-pattern> -->
 
 	</filter-mapping>
 

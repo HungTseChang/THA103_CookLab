@@ -115,7 +115,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.jsp">商品設定</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
@@ -153,10 +153,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_recipe_report.jsp">食譜檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
@@ -165,13 +162,13 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                     <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">常見問題</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">通知中心</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard//supportform-table.html">問題表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">問題表單</a>
                                 </li>
                                 <li class="submenu-item active">
                                 <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
@@ -257,6 +254,19 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                                 <div class="position-relative">
                                                                     <input type="text"  name="account" class="form-control" placeholder="帳號"
                                                                         id="first-name-icon" value="${AdminsVO.adminAccount}" disabled>
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-person"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            <label>管理員信箱</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="form-group has-icon-left">
+                                                                <div class="position-relative">
+                                                                    <input type="text"  name="email" class="form-control" placeholder="帳號"
+                                                                        id="first-name-icon" value="${AdminsVO.adminEmail}" disabled>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>
@@ -390,6 +400,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
      document.addEventListener("DOMContentLoaded",function () {    
     	    $("a#insert").on("click",function(){
     	    	  var account= $("input[name='account']").val()+"";
+    	    	  var email= $("input[name='email']").val()+"";
     	  	  var nickname= $("input[name='nickname']").val()+"";
     	  	  var password= $("input[name='password']").val()+"";
     	  	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
@@ -400,6 +411,11 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
     	  		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
     	  		  return;
     	  	  }
+    	    	if (isValidEmail(email)) {
+    	        } else {
+    	        	 $("input[name='email']").text("無效電子信箱格式");
+    	        	 return;
+    	        }
     	    	  var form = $("<form>", {
     	              action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
     	              method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -414,6 +430,11 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
     	               type: "text",
     	               name: "account",
     	               value: account
+    	           }));
+    	  	       form.append($("<input>", {
+    	               type: "text",
+    	               name: "email",
+    	               value: email
     	           }));
     	  	       form.append($("<input>", {
     	               type: "text",

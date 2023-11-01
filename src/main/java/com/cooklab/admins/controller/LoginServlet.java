@@ -54,6 +54,8 @@ private List<AdminsVO>Adminslist;
 		default:
 			forwardPath = "/dashboard/login/WCC_login.jsp";
 		}
+//		res.sendRedirect("/CookLab"+forwardPath);
+
 		System.out.println("跳轉頁面致"+forwardPath);
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		System.out.println("跳轉回先前頁面");
@@ -123,9 +125,9 @@ private List<AdminsVO>Adminslist;
 
 
 	private String logout(HttpServletRequest req, HttpServletResponse res) {
-		HttpSession Session  =  req.getSession();
-		Session.setAttribute("logout", true);
-		System.out.println("嘗試登出");
+//		HttpSession Session  =  req.getSession();
+//		Session.setAttribute("logout", true);
+		System.out.println("LoginServlet收到登出請求");
    
 		return "/dashboard/login/WCC_login.jsp";
 	}
@@ -148,41 +150,93 @@ private List<AdminsVO>Adminslist;
 			PermissionService PermissionService = new PermissionService();
 			PermissionVO permission = PermissionService.getOne(result.get().getPermissionNo());
 			Map<String, Boolean>Map = new HashMap<>();
-	        Map.put("/AdminsServlet", ((int)permission.getSuperAdmin()==0));
-	        Map.put("/PermissionServlet", ((int)permission.getSuperAdmin()==0));
-	        Map.put("ArticleServlet", ((int)permission.getArticleManagement()==0));
-	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
-	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
-	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
+//=============================管理員管理權限======================================			
+//            管理員管理權限
+//            客服管理權限
+//            會員管理權限
+//            廣告投放權限
+//            檢舉管理權限
+//            討論區權限
+//           食譜管理權限
+	        Map.put("/AdminsServlet", ((int)permission.getAdminManagement()==0));
+	        Map.put("/PermissionServlet", ((int)permission.getAdminManagement()==0));
+			
+//==============================================================================			
+//================================= 客服管理權限================================================		
+           
+           
+           
+  
+           
+//   ===================================================================================
+// =================================會員管理權限===============================================
+           
+           
 	        Map.put("/MemberdashboardServlet", ((int)permission.getMembershipManagement()==0));
+
+           
+           
+   
+           
+//  =========================================================================================         
+//  ================================  廣告投放權限==================================================            
 	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
+
+           
+//  =========================================================================================        
+//  ================================= 檢舉管理權限==================================================      
+	        Map.put("/RecipeReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/ArticleReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/ArticleSubReportServlet", ((int)permission.getReportingManagement()==0));
-	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
-	        System.out.println(Map.get("/AdminsServlet"));
+           
+           
+           
+           
+           
+//  =========================================================================================         
+//  ==================================  討論區權限=================================================   
+           
+	        Map.put("/ArticleServlet", ((int)permission.getArticleManagement()==0));
+	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
+           
+           
+           
+           
+//  =========================================================================================         
+//  ==================================食譜管理權限================================================    
+           
+	        Map.put("/DashboardRecipeServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/DisboardHastagServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
+
+           
+           
+           
+           
+           
+           
+//  =========================================================================================         
+//  =========================================================================================         
+
+
+
+//	        System.out.println(Map.get("/AdminsServlet"));
 	        System.out.println("所取得的帳號為"+adminAccount);
 			Session.setAttribute("thisaccount", adminAccount);
 			Session.setAttribute("nickname", nickname);
 			Session.setAttribute("permissionlist", Map);
 			Session.setAttribute("adminID", adminID);
           if(Session.getAttribute("location") != null) {
-        	    if(req.getHeader("orginURL")!=null) {
-        	    	Session.setAttribute("location", req.getHeader("orginURL"));
-                    String responseData = "{ \"redirectURL\": \"" + req.getContextPath() + "/frontstage/members/login.html" + "\" }";
-                    try {
-						res.getWriter().write(responseData);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-        	    }
         	  return (String) Session.getAttribute("location");
           }
 			return "/dashboard/login/WCC_welcome.jsp";
+//          return "/dashboard/product/shopview.html";
 			}
 		}
 		req.removeAttribute("error");
 		req.setAttribute("error", "帳號或密碼錯誤");
+		System.out.println("帳號或密碼錯誤");
 		return  "/dashboard/login/WCC_login.jsp";
 	}
 

@@ -65,15 +65,16 @@ public class PermissionServlet extends HttpServlet {
 		PermissionService PermissionService = new PermissionService();
 //		Integer permissionNo = Integer.valueOf(req.getParameter("permissionNo"));
 		String permissionTitle = req.getParameter("permissionTitle");
-		Byte superAdmin =Byte.valueOf(req.getParameter("superAdmin"));
-		Byte cancelAllPermission =Byte.valueOf(req.getParameter("cancelAllPermission"));
+		Byte adminManagement =Byte.valueOf(req.getParameter("adminManagement"));
+		Byte serviceManagement =Byte.valueOf(req.getParameter("serviceManagement"));
 		Byte membershipManagement =Byte.valueOf(req.getParameter("membershipManagement"));
 		Byte advertisingManagement =Byte.valueOf(req.getParameter("advertisingManagement"));
 		Byte reportingManagement =Byte.valueOf(req.getParameter("reportingManagement"));
 		Byte articleManagement =Byte.valueOf(req.getParameter("articleManagement"));
 		Byte recipeManagement =Byte.valueOf(req.getParameter("recipeManagement"));
+		Byte mallManagement =Byte.valueOf(req.getParameter("mallManagement"));
 		Timestamp a =new Timestamp(System.currentTimeMillis());
-		PermissionService.add(permissionTitle, superAdmin, cancelAllPermission, membershipManagement, advertisingManagement, reportingManagement, articleManagement, recipeManagement,a);
+		PermissionService.add(permissionTitle, adminManagement, serviceManagement, membershipManagement, advertisingManagement, reportingManagement, articleManagement, recipeManagement,mallManagement,a);
 		
 		return "/dashboard/permission/WCC_permission.jsp";
 	}
@@ -100,27 +101,30 @@ public class PermissionServlet extends HttpServlet {
 		PermissionService PermissionService = new PermissionService();
 		Integer permissionNo = Integer.valueOf(req.getParameter("permissionNo"));
 		String permissionTitle = req.getParameter("permissionTitle");
-		Byte superAdmin =Byte.valueOf(req.getParameter("superAdmin"));
-		Byte cancelAllPermission =Byte.valueOf(req.getParameter("cancelAllPermission"));
+		Byte adminManagement =Byte.valueOf(req.getParameter("adminManagement"));
+		Byte serviceManagement =Byte.valueOf(req.getParameter("serviceManagement"));
 		Byte membershipManagement =Byte.valueOf(req.getParameter("membershipManagement"));
 		Byte advertisingManagement =Byte.valueOf(req.getParameter("advertisingManagement"));
 		Byte reportingManagement =Byte.valueOf(req.getParameter("reportingManagement"));
 		Byte articleManagement =Byte.valueOf(req.getParameter("articleManagement"));
 		Byte recipeManagement =Byte.valueOf(req.getParameter("recipeManagement"));
+		Byte mallManagement =Byte.valueOf(req.getParameter("mallManagement"));
+
 		Timestamp a =new Timestamp(System.currentTimeMillis());
 //============================================================================
 		PermissionVO PermissionVO = new PermissionVO();
 		PermissionVO.setPermissionNo(permissionNo);
 		PermissionVO.setPermissionTitle(permissionTitle);
-		PermissionVO.setSuperAdmin(superAdmin);
-		PermissionVO.setCancelAllPermission(cancelAllPermission);
+		PermissionVO.setAdminManagement(adminManagement);
+		PermissionVO.setServiceManagement(serviceManagement);
 		PermissionVO.setMembershipManagement(membershipManagement);
 		PermissionVO.setAdvertisingManagement(advertisingManagement);
 		PermissionVO.setReportingManagement(reportingManagement);
 		PermissionVO.setArticleManagement(articleManagement);
 		PermissionVO.setRecipeManagement(recipeManagement);
+		PermissionVO.setMallManagement(mallManagement);
 		PermissionVO.setCreatedTimestamp(a);
-		PermissionService.update(permissionTitle, superAdmin, cancelAllPermission, membershipManagement, advertisingManagement, reportingManagement, articleManagement, recipeManagement, permissionNo);
+		PermissionService.update(permissionTitle, adminManagement, serviceManagement, membershipManagement, advertisingManagement, reportingManagement, articleManagement, recipeManagement,mallManagement, permissionNo);
 		return "/dashboard/permission/WCC_permission.jsp";
 	}
 	

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -118,7 +118,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.jsp">商品設定</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
@@ -156,10 +156,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_recipe_report.jsp">食譜檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
@@ -168,13 +165,13 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">常見問題</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">通知中心</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard//supportform-table.html">問題表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">問題表單</a>
                                 </li>
                                 <li class="submenu-item active">
                                 <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
@@ -235,14 +232,14 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>DataTable</h3>
-                            <p class="text-subtitle text-muted">For user to check they list</p>
+                            <h3>權限管理</h3>
+                            <p class="text-subtitle text-muted">&emsp; </p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                                    <li class="breadcrumb-item"><a href="index.html">管理管理者</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">權限管理</li>
                                 </ol>
                             </nav>
                         </div>
@@ -256,7 +253,7 @@
                     <div class="col-md-10" style=" background-color:  rgb(208, 250, 255);">
                         <div class="card">
                             <div class="card-header" style="background-color: rgb(208, 250, 255);">
-                                <span style="font-size: 30px;">權限規則</span>
+                                <span style="font-size: 30px;">管理管理者</span>
                             </div>
                             <div class="row" style="background-color: white">
                              <div class="col-md-3"  style=" text-align: right; display: flex; flex-direction: column; justify-content: center;"> 
@@ -265,12 +262,13 @@
                         <option value="adminNickname">管理者暱稱</option>              
                        <option value="permissionNo">管理者權限編號</option>                                 
                         <option value="adminAccount">管理者帳號</option>                                         
+                        <option value="adminEmail">管理者信箱</option>                                         
                           <option value="createdTimestamp">時間</option>                       
                         <option value="wcc" selected>所有欄位</option>
                         </select>                                 </div>    
                                <div class="col-md-6"  >                    
                              
-                       <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 編號、管理員、帳號、暱稱或時間" style="pading-color:  rgb(208, 250, 255);" >
+                       <input type="text"  id="searchbar" class="form-control" placeholder="請輸入 編號、管理員、帳號、信箱、暱稱或時間" style="pading-color:  rgb(208, 250, 255);" >
                                                      </div>
                               
                                 <div class="datable dropdown" style="padding:10px;">
@@ -290,6 +288,7 @@
                                             <th>管理者暱稱</th>
                                             <th class="number" name="permissionNo">管理者權限編號</th>
                                               <th>管理者帳號</th>
+                                              <th>管理者信箱</th>
                                                 <th>管理者建立時間</th>
                                                    <th>操作</th>
                                         </tr>
@@ -307,7 +306,7 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="background-color: rgb(208, 250, 255);">
                            <div class="col-md-4 pagination">
         <span class="page-item wcc" id="prev-page">上一頁</span>
         <span class="page-item wcc" id="next-page">下一頁</span>
@@ -320,6 +319,39 @@
                         </div>
                     </div>
                     <div class="col-md-1" style="background-color: rgb(208, 250, 255);"></div>
+                    
+                        <footer style="background-color: rgb(208, 250, 255);">
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>&emsp; </p>
+            </div>
+            <div class="float-end">
+                <p>&emsp;  <span class="text-danger"></span> &emsp;  <a
+                        >&emsp; </a></p>
+            </div>
+        </div>
+    </footer>
+                        <footer style="background-color: rgb(208, 250, 255);">
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+            </div>
+            <div class="float-end">
+                <p>&emsp; <span class="text-danger"></span> &emsp; <a
+                       >&emsp; </a></p>
+            </div>
+        </div>
+    </footer>
+                        <footer style="background-color: rgb(208, 250, 255);">
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+            </div>
+            <div class="float-end">
+                <p>&emsp; <span class="text-danger"></span> &emsp;  <a
+                        >&emsp; </a></p>
+            </div>
+        </div>
+    </footer>
+                    
                 </div>
             </section>
         </div>
@@ -327,17 +359,7 @@
         </section>
 
     </div>
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <div class="float-start">
-                <p>2021 &copy; Mazer</p>
-            </div>
-            <div class="float-end">
-                <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                        href="http://ahmadsaugi.com">A. Saugi</a></p>
-            </div>
-        </div>
-    </footer>
+
     </div>
     </div>
     <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
@@ -421,6 +443,7 @@ console.log(number);
   	  text +=" <td class='wcc adminNickname'>"+aa.adminNickname+"</td>";
   	  text +=" <td class='wcc permissionNo'>"+aa.permissionNo+"</td>";
   	  text +=" <td class='wcc adminAccount'>"+aa.adminAccount+"</td>";
+  	  text +=" <td class='wcc adminEmail'>"+aa.adminEmail+"</td>";
   	  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
   	  text +=`
   			<td>
@@ -550,6 +573,7 @@ value: "logout"
 
 $("a#design").on("click",function(e){
 	    e.preventDefault;
+	    console.log("AA");
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置

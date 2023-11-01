@@ -14,21 +14,22 @@ public class PermissionService {
 	}
 
 	
-	public PermissionVO add(String permissionTitle, Byte superAdmin, Byte cancelAllPermission,
+	public PermissionVO add(String permissionTitle, Byte adminManagement, Byte serviceManagement,
 			Byte membershipManagement, Byte advertisingManagement, Byte reportingManagement, Byte articleManagement,
-			Byte recipeManagement, Timestamp createTimestamp) {
+			Byte recipeManagement,Byte mallManagement, Timestamp createTimestamp) {
 
 		PermissionVO PermissionVO = new PermissionVO();
 
 		
 		PermissionVO.setPermissionTitle(permissionTitle);
-		PermissionVO.setSuperAdmin(superAdmin);
-		PermissionVO.setCancelAllPermission(cancelAllPermission);
+		PermissionVO.setAdminManagement(adminManagement);
+		PermissionVO.setServiceManagement(serviceManagement);
 		PermissionVO.setMembershipManagement(membershipManagement);
 		PermissionVO.setAdvertisingManagement(advertisingManagement);
 		PermissionVO.setReportingManagement(reportingManagement);
 		PermissionVO.setArticleManagement(articleManagement);
 		PermissionVO.setRecipeManagement(recipeManagement);		
+		PermissionVO.setMallManagement(mallManagement);		
 		PermissionVO.setCreatedTimestamp(createTimestamp);
 		dao.insert(PermissionVO);
 
@@ -37,20 +38,21 @@ public class PermissionService {
 		return PermissionVO;
 	}
 
-	public PermissionVO update(String permissionTitle, Byte superAdmin, Byte cancelAllPermission,
+	public PermissionVO update(String permissionTitle, Byte adminManagement, Byte serviceManagement,
 			Byte membershipManagement, Byte advertisingManagement, Byte reportingManagement, Byte articleManagement,
-			Byte recipeManagement, Integer permissionnNO)  {
+			Byte recipeManagement,Byte mallManagement, Integer permissionnNO)  {
 
 		PermissionVO PermissionVO = new PermissionVO();
 		PermissionVO.setPermissionTitle(permissionTitle);
-		PermissionVO.setSuperAdmin(superAdmin);
-		PermissionVO.setCancelAllPermission(cancelAllPermission);
+		PermissionVO.setAdminManagement(adminManagement);
+		PermissionVO.setServiceManagement(serviceManagement);
 		PermissionVO.setMembershipManagement(membershipManagement);
 		PermissionVO.setAdvertisingManagement(advertisingManagement);
 		PermissionVO.setReportingManagement(reportingManagement);
 		PermissionVO.setArticleManagement(articleManagement);
 		PermissionVO.setRecipeManagement(recipeManagement);
-		
+		PermissionVO.setMallManagement(mallManagement);		
+
 	
 
 		PermissionVO.setPermissionNo(permissionnNO);

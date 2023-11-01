@@ -85,11 +85,12 @@ public class AdminsServlet extends HttpServlet {
 		AdminsService AdminsService = new AdminsService();
 		String account = req.getParameter("account");
 		String nickname = req.getParameter("nickname");
+		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		Integer permission = Integer.valueOf(req.getParameter("permission").trim());
 		Integer adminNo = Integer.valueOf(req.getParameter("adminNo").trim());
 
-		AdminsService.update(nickname, permission, account, password, adminNo);
+		AdminsService.update(nickname, permission, account,email, password, adminNo);
 		this.Adminslist=null;
 		return "/dashboard/login/WCC_welcome.jsp";
 	}
@@ -98,6 +99,7 @@ public class AdminsServlet extends HttpServlet {
 	private String design(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession Session  =  req.getSession();
 		String thisaccount= (String) Session.getAttribute("thisaccount");
+		System.out.println("修改個人資料"+thisaccount);
 		AdminsVO AdminsVO = Adminslist.stream().filter(e->e.getAdminAccount().equals(thisaccount)).findFirst().get();
    		AdminsVOFake a = new AdminsVOFake(AdminsVO);
    		PermissionService PermissionService= new PermissionService();
@@ -140,13 +142,14 @@ public class AdminsServlet extends HttpServlet {
 
 	private String updateAdmins(HttpServletRequest req, HttpServletResponse res) {
 		AdminsService AdminsService = new AdminsService();
-		String account = req.getParameter("account");
-		String nickname = req.getParameter("nickname");
-		String password = req.getParameter("password");
+		String account = req.getParameter("account").trim();
+		String nickname = req.getParameter("nickname").trim();
+		String email = req.getParameter("email").trim();
+		String password = req.getParameter("password").trim();
 		Integer permission = Integer.valueOf(req.getParameter("permission").trim());
 		Integer adminNo = Integer.valueOf(req.getParameter("adminNo").trim());
 
-		AdminsService.update(nickname, permission, account, password, adminNo);
+		AdminsService.update(nickname, permission, account,email, password, adminNo);
 		this.Adminslist=null;
 		return "/dashboard/admin/WCC_admin_management.jsp";
 	}
@@ -194,12 +197,13 @@ public class AdminsServlet extends HttpServlet {
 
 	private String inserAdmins(HttpServletRequest req, HttpServletResponse res) {
 		AdminsService AdminsService = new AdminsService();
-		String account = req.getParameter("account");
-		String nickname = req.getParameter("nickname");
-		String password = req.getParameter("password");
+		String account = req.getParameter("account").trim();
+		String nickname = req.getParameter("nickname").trim();
+		String email = req.getParameter("email").trim();
+		String password = req.getParameter("password").trim();
 		Integer permission = Integer.valueOf(req.getParameter("permission").trim());
 		Timestamp a =new Timestamp(System.currentTimeMillis());
-		AdminsService.add(nickname, permission, account, password,a);
+		AdminsService.add(nickname, permission, account,email, password,a);
 		this.Adminslist=null;
 
 		return "/dashboard/admin/WCC_admin_management.jsp";
@@ -211,12 +215,20 @@ public class AdminsServlet extends HttpServlet {
 		private String adminNickname;
 		private Integer permissionNo;
 		private String adminAccount;
+		private String adminEmail;
+		public String getAdminEmail() {
+			return adminEmail;
+		}
+		public void setAdminEmail(String adminEmail) {
+			this.adminEmail = adminEmail;
+		}
 		private String adminPassword;
 		private Timestamp createdTimestamp;
 		public AdminsVOFake(AdminsVO AdminsVO) {
 			super();
 			this.adminNo = AdminsVO.getAdminNo();
 			this.adminNickname = AdminsVO.getAdminNickname();
+			this.adminEmail = AdminsVO.getAdminEmail();
 			this.permissionNo = AdminsVO.getPermissionVO().getPermissionNo();
 			this.adminAccount = AdminsVO.getAdminAccount();
 			this.adminPassword = AdminsVO.getAdminPassword();
@@ -265,13 +277,14 @@ public class AdminsServlet extends HttpServlet {
 	private class  PermissionVOFake{
 		private Integer permissionNo;
 		private String permissionTitle;
-		private Byte superAdmin;
-		private Byte cancelAllPermission;
+		private Byte adminManagement;
+		private Byte serviceManagement;
 		private Byte membershipManagement;
 		private Byte advertisingManagement;
 		private Byte reportingManagement;
 		private Byte articleManagement;
 		private Byte recipeManagement;
+		private Byte mallManagement;
 		private Timestamp createdTimestamp;
 		
 		
@@ -280,76 +293,149 @@ public class AdminsServlet extends HttpServlet {
 			super();
 			this.permissionNo = PermissionVO.getPermissionNo();
 			this.permissionTitle = PermissionVO.getPermissionTitle();
-			this.superAdmin = PermissionVO.getSuperAdmin();
-			this.cancelAllPermission = PermissionVO.getCancelAllPermission();
+			this.adminManagement = PermissionVO.getAdminManagement();
+			this.serviceManagement = PermissionVO.getServiceManagement();
 			this.membershipManagement = PermissionVO.getMembershipManagement();
 			this.advertisingManagement = PermissionVO.getAdvertisingManagement();
 			this.reportingManagement = PermissionVO.getReportingManagement();
 			this.articleManagement = PermissionVO.getArticleManagement();
 			this.recipeManagement = PermissionVO.getRecipeManagement();
+			this.mallManagement =PermissionVO.getMallManagement();
 			this.createdTimestamp = PermissionVO.getCreatedTimestamp();
 		}
+
+
+
 		public Integer getPermissionNo() {
 			return permissionNo;
 		}
+
+
+
 		public void setPermissionNo(Integer permissionNo) {
 			this.permissionNo = permissionNo;
 		}
+
+
+
 		public String getPermissionTitle() {
 			return permissionTitle;
 		}
+
+
+
 		public void setPermissionTitle(String permissionTitle) {
 			this.permissionTitle = permissionTitle;
 		}
-		public Byte getSuperAdmin() {
-			return superAdmin;
+
+
+
+		public Byte getAdminManagement() {
+			return adminManagement;
 		}
-		public void setSuperAdmin(Byte superAdmin) {
-			this.superAdmin = superAdmin;
+
+
+
+		public void setAdminManagement(Byte adminManagement) {
+			this.adminManagement = adminManagement;
 		}
-		public Byte getCancelAllPermission() {
-			return cancelAllPermission;
+
+
+
+		public Byte getServiceManagement() {
+			return serviceManagement;
 		}
-		public void setCancelAllPermission(Byte cancelAllPermission) {
-			this.cancelAllPermission = cancelAllPermission;
+
+
+
+		public void setServiceManagement(Byte serviceManagement) {
+			this.serviceManagement = serviceManagement;
 		}
+
+
+
 		public Byte getMembershipManagement() {
 			return membershipManagement;
 		}
+
+
+
 		public void setMembershipManagement(Byte membershipManagement) {
 			this.membershipManagement = membershipManagement;
 		}
+
+
+
 		public Byte getAdvertisingManagement() {
 			return advertisingManagement;
 		}
+
+
+
 		public void setAdvertisingManagement(Byte advertisingManagement) {
 			this.advertisingManagement = advertisingManagement;
 		}
+
+
+
 		public Byte getReportingManagement() {
 			return reportingManagement;
 		}
+
+
+
 		public void setReportingManagement(Byte reportingManagement) {
 			this.reportingManagement = reportingManagement;
 		}
+
+
+
 		public Byte getArticleManagement() {
 			return articleManagement;
 		}
+
+
+
 		public void setArticleManagement(Byte articleManagement) {
 			this.articleManagement = articleManagement;
 		}
+
+
+
 		public Byte getRecipeManagement() {
 			return recipeManagement;
 		}
+
+
+
 		public void setRecipeManagement(Byte recipeManagement) {
 			this.recipeManagement = recipeManagement;
 		}
+
+
+
+		public Byte getMallManagement() {
+			return mallManagement;
+		}
+
+
+
+		public void setMallManagement(Byte mallManagement) {
+			this.mallManagement = mallManagement;
+		}
+
+
+
 		public Timestamp getCreatedTimestamp() {
 			return createdTimestamp;
 		}
+
+
+
 		public void setCreatedTimestamp(Timestamp createdTimestamp) {
 			this.createdTimestamp = createdTimestamp;
 		}
-		
+
 		
 		
 		

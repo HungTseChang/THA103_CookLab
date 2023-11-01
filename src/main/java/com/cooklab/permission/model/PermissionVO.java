@@ -23,11 +23,11 @@ public class PermissionVO implements java.io.Serializable {
 	@Column(name = "permission_title")  
 	private String permissionTitle;
 	@Expose
-	@Column(name = "super_admin")  
-	private Byte superAdmin;
+	@Column(name = "admin_management")  
+	private Byte adminManagement;
 	@Expose
-	@Column(name = "cancel_all_permission")  
-	private Byte cancelAllPermission;
+	@Column(name = "service_management")  
+	private Byte serviceManagement;
 	@Expose
 	@Column(name = "membership_management")  
 	private Byte membershipManagement;
@@ -43,13 +43,12 @@ public class PermissionVO implements java.io.Serializable {
 	@Column(name = "recipe_management")  
 	@Expose
 	private Byte recipeManagement;
+	@Column(name = "mall_management")  
+	@Expose
+	private Byte mallManagement;
 	@Expose
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
-	
-	
-	
-	
 	
 	public Integer getPermissionNo() {
 		return permissionNo;
@@ -63,17 +62,17 @@ public class PermissionVO implements java.io.Serializable {
 	public void setPermissionTitle(String permissionTitle) {
 		this.permissionTitle = permissionTitle;
 	}
-	public Byte getSuperAdmin() {
-		return superAdmin;
+	public Byte getAdminManagement() {
+		return adminManagement;
 	}
-	public void setSuperAdmin(Byte superAdmin) {
-		this.superAdmin = superAdmin;
+	public void setAdminManagement(Byte adminManagement) {
+		this.adminManagement = adminManagement;
 	}
-	public Byte getCancelAllPermission() {
-		return cancelAllPermission;
+	public Byte getServiceManagement() {
+		return serviceManagement;
 	}
-	public void setCancelAllPermission(Byte cancelAllPermission) {
-		this.cancelAllPermission = cancelAllPermission;
+	public void setServiceManagement(Byte serviceManagement) {
+		this.serviceManagement = serviceManagement;
 	}
 	public Byte getMembershipManagement() {
 		return membershipManagement;
@@ -105,12 +104,22 @@ public class PermissionVO implements java.io.Serializable {
 	public void setRecipeManagement(Byte recipeManagement) {
 		this.recipeManagement = recipeManagement;
 	}
+	public Byte getMallManagement() {
+		return mallManagement;
+	}
+	public void setMallManagement(Byte mallManagement) {
+		this.mallManagement = mallManagement;
+	}
 	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 	public void setCreatedTimestamp(Timestamp createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
+	
+	
+	
+	
 
 
 
