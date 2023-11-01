@@ -1,37 +1,43 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+const COLLECTION_POINT3= "/MemberOrderServlet"
+
 let cartData = [];
 const selectedProducts = [];
 
 
 $(document).ready(function() {
-	// 发起AJAX请求
 	$.ajax({
-		url: '/CookLab/CartServlet',
+		url: END_POINT_URL+COLLECTION_POINT2,
 		type: 'GET',
 		data: { action: "cartsearch" },
 		dataType: 'json',
 		success: function(response) {
-			cartData = response; // 存储购物车数据到全局变量
+			cartData = response; 
 			console.log(cartData);
 			renderCart(cartData);
 			console.log("success");
 		},
 		error: function(xhr) {
-			console.log('AJAX请求失败：' + xhr.status);
+			console.log('AJAX：' + xhr.status);
 		},
 	});
 
 
-	// 绑定删除按钮的点击事件（使用事件委托）
+
 	$('#cart-table').on('click', '.btn-danger', function() {
-		const productId = $(this).data('product-id'); // 获取要删除的商品ID
+		const productId = $(this).data('product-id'); 
 		console.log(productId);
 		$.ajax({
-			url: '/CookLab/CartServlet',
+			url: END_POINT_URL+COLLECTION_POINT2,
 			type: 'POST',
 			data: { action: 'remove', productId: productId },
 			dataType: 'json',
 			success: function(response) {
-				// 如果成功删除商品，更新购物车显示
 				if (response.message === "success") {
 					location.reload();
 					alert("商品刪除成功");
@@ -96,12 +102,15 @@ function renderCart(cartdata) {
 		selectedProducts.push(item.productNo);
 	});
 
-	// 在AJAX请求成功后，注册复选框更改事件监听器
+
+
+
+
 	$('.product-checkbox').change(function() {
 		updateTotalAmount();
 		console.log("a");
 	});
-	// 初始化时，勾选所有商品复选框
+
 	$('.product-checkbox').prop('checked', true);
 
 	updateTotalAmount();
@@ -109,14 +118,14 @@ function renderCart(cartdata) {
 }
 
 function checkout() {
-	// 将购物车数据转换为 JSON 字符串
+	
 	const cartDataJSON = JSON.stringify(cartData);
 	console.log(cartDataJSON);
-	// 构建查询参数，将购物车数据附加到 URL 中
+	
 	const queryParameters = `?cartData=${encodeURIComponent(cartDataJSON)}`;
-	// 构建目标 URL，这将是 check.html 页面的 URL，同时附带了购物车数据的查询参数
+	
 	const targetURL = `checkout.html${queryParameters}`;
-	// 使用 window.location.href 重定向用户到目标 URL
+	
 	window.location.href = targetURL;
 }
 
@@ -141,7 +150,6 @@ function updateTotalAmount() {
 
 
 
-// 在AJAX请求外部，注册结账按钮的点击事件监听器
 $('#checkout-button').click(function() {
 	const selectedProducts = [];
 
@@ -149,13 +157,12 @@ $('#checkout-button').click(function() {
 		const productId = $(this).data('product-id');
 		selectedProducts.push(productId);
 	});
-	alert(selectedProducts);
 	console.log(selectedProducts);
-	// 将所选商品的编号转换为 JSON 字符串
+	
+	// 轉成JSON字串
 	const selectedProductsJSON = JSON.stringify(selectedProducts);
 	console.log(selectedProductsJSON);
-	alert(selectedProductsJSON);
-	// 将所选商品的编号作为查询参数传递给服务器
+	// 傳送商品編號
 	const queryParameters = `?selectedProducts=${encodeURIComponent(selectedProductsJSON)}`;
 	const targetURL = `checkout.html${queryParameters}`;
 	window.location.href = targetURL;
@@ -225,7 +232,7 @@ $(document).on("change", ".quantity-input", function() {
 	console.log(sproductId);
 	console.log(snewQuantity);
 	$.ajax({
-		url: '/CookLab/CartServlet',
+		url: END_POINT_URL+COLLECTION_POINT2,
 		type: 'POST',
 		data: {
 			action: 'updateQuantity',
@@ -236,7 +243,6 @@ $(document).on("change", ".quantity-input", function() {
 		success: function(response) {
 			cartData = response;
 			renderCart(cartData);
-			alert("s");
 		},
 		error: function(xhr) {
 			console.log('AJAX请求失败：' + xhr.status);
@@ -246,28 +252,3 @@ $(document).on("change", ".quantity-input", function() {
 
 
 
-$('.quantity-input').change(function() {
-	const sproductId = $(this).closest('tr').find('.product-checkbox').data('product-id');
-	const snewQuantity = parseInt($(this).val());
-
-	console.log(sproductId);
-	console.log(snewQuantity);
-	// 发送 AJAX 请求以更新购物车中的商品数量
-//	$.ajax({
-//		url: '/CookLab/CartServlet',
-//		type: 'POST',
-//		data: {
-//			action: 'updateQuantity',
-//			productId: sproductId,
-//			newQuantity: snewQuantity
-//		},
-//		dataType: 'json',
-//		success: function(response) {
-//			cartData = response;
-//
-//		},
-//		error: function(xhr) {
-//			console.log('AJAX请求失败：' + xhr.status);
-//		}
-//	});
-});

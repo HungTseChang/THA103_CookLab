@@ -13,4 +13,5 @@ public interface PromoCodeDAO {
     public PromoCodeVO findByPrimaryKey(Integer promoCodeNo);
     public List<PromoCodeVO> getAll();
     public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber);
+    
 }

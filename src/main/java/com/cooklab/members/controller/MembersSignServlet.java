@@ -30,7 +30,7 @@ public class MembersSignServlet extends HttpServlet{
 		if(session.getAttribute("account")!= null)
 		{
 			System.out.println(session.getAttribute("account"));
-			res.sendRedirect(req.getContextPath()+"/members/member-panel.jsp");
+			res.sendRedirect(req.getContextPath()+"/frontstage/members/member-panel.jsp");
 			
 		}
 	}
@@ -70,10 +70,12 @@ public class MembersSignServlet extends HttpServlet{
 					HttpSession session = req.getSession();
 					session.setAttribute("account", account);
 					session.setAttribute("userId", memVO.getMemberId());
+					session.setAttribute("verStatus", memVO.getMemberStatus());
 					session.setAttribute("membersVO", memVO);
 					
 					hmap.put("account", account);
 					hmap.put("userId", memVO.getMemberId());
+					hmap.put("verStatus", memVO.getMemberStatus());
 					hmap.put("RedirectURL",session.getAttribute("location"));
 					String jsonData = gson.toJson(hmap);
 					

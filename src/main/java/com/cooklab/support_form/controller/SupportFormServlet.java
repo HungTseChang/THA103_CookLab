@@ -41,9 +41,15 @@ public class SupportFormServlet extends HttpServlet {
 		if ("closecase".equals(action)) {
 
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
-			// 屆時會改從session取得adminNo，因需測試方便故改用固定值
-//			Integer adminNo = (Integer) session.getAttribute("AdminNo");
-			Integer adminNo = 1;
+			
+			// session取得管理員資訊
+			Integer adminNo = null;
+			if (session.getAttribute("adminID") == null) {
+				System.out.println("未取值");
+				adminNo = 1;
+			} else {
+				adminNo = Integer.valueOf(session.getAttribute("adminID").toString().trim());
+			}
 
 			Byte formStatus = null;
 			String formStatusString = req.getParameter("formStatus");
@@ -72,7 +78,7 @@ public class SupportFormServlet extends HttpServlet {
 			SupportFormVO closingCase = sfSvc.changeInfo(formNo, adminNo, formStatus);
 
 			// 用聯合映射取得管理員資訊設定MAP物件回傳資料以及成功後跳轉頁面
-			String url = "/THA103_CookLab/dashboard/supportform/support-tickets-table.html";
+			String url = "supportform-table.html";
 			Map<String, Object> data = new HashMap<>();
 			data.put("adminNo", closingCase.getAdmins().getAdminNo());
 			data.put("adminNickname", closingCase.getAdmins().getAdminNickname());
@@ -298,12 +304,25 @@ public class SupportFormServlet extends HttpServlet {
 			Byte formStatus = null;
 			formStatus = Byte.valueOf(req.getParameter("formStatus"));
 
-			// 屆時從session取得adminNo在放置此位置，因需測試方便故改用固定值
-//			String fsNo = ((String) session.getAttribute("AdminNo")).trim();
-//			String fsName = ((String) session.getAttribute("adminNickname")).trim();
-//			String formSubmitter = fsName + "(" + fsNo + ")";
-
-			String formSubmitter = "TODO-更改為取得管理員資訊";
+			
+			// session取得管理員資訊
+			String fsNo = null;
+			String fsName = null;
+			if (session.getAttribute("adminID") == null) {
+				System.out.println("id未取值");
+				fsNo = "1";
+			} else {
+				fsNo = session.getAttribute("adminID").toString().trim();
+			}
+			
+			if (session.getAttribute("nickname")== null) {
+				System.out.println("姓名未取值");
+				fsName = "管理員";
+			} else {
+				fsName = session.getAttribute("nickname").toString().trim();
+			}
+		
+			String formSubmitter = fsName + "(" + fsNo + ")";
 
 			SupportFormVO sfVO = new SupportFormVO();
 
@@ -323,7 +342,7 @@ public class SupportFormServlet extends HttpServlet {
 
 			/*************************** 3.新增完成,回傳成功訊息回前端 ***********/
 			if (sfVO != null) {
-				String url = "/THA103_CookLab/dashboard/supportform/support-tickets-table.html";
+				String url = "supportform-table.html";
 
 				// 創建Map物件放入成功訊息
 				Map<String, String> successMsg = new HashMap<String, String>();

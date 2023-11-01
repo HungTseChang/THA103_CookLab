@@ -172,6 +172,11 @@ private List<AdminsVO>Adminslist;
 // =================================會員管理權限===============================================
            
            
+	 
+	        Map.put("/ArticleServlet", ((int)permission.getArticleManagement()==0));
+	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
+	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
 	        Map.put("/MemberdashboardServlet", ((int)permission.getMembershipManagement()==0));
 
            
@@ -185,7 +190,7 @@ private List<AdminsVO>Adminslist;
            
 //  =========================================================================================        
 //  ================================= 檢舉管理權限==================================================      
-	        Map.put("/RecipeReportServlet", ((int)permission.getReportingManagement()==0));
+
 	        Map.put("/ArticleReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/ArticleSubReportServlet", ((int)permission.getReportingManagement()==0));
            
@@ -222,6 +227,47 @@ private List<AdminsVO>Adminslist;
 
 
 //	        System.out.println(Map.get("/AdminsServlet"));
+//	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
+//	        Map.put("/AdvertisetImgServlet", ((int)permission.getAdvertisingManagement()==0));
+//	        Map.put("/PromoCodeServlet", ((int)permission.getAdvertisingManagement()==0));
+//	        Map.put("/DisboardHastagServlet", true);
+//	        Map.put("/DashboardRecipeServlet", true);
+//	        Map.put("/RecipeReportServlet", true);
+//	        Map.put("/dashboard/advertise_allview.jsp", true);
+//	        Map.put("/dashboard/advertise/advertise_getone.jsp", true);
+//	        Map.put("/dashboard/advertise/advertise_set.jsp", true);
+//	        Map.put("/dashboard/article/HO_discussion_allview.jsp", true);
+//	        Map.put("/dashboard/article/HO_dscussion_cate.jsp", true);
+//	        Map.put("/dashboard/article_report/WCC_article_report_info.jsp", true);
+//	        Map.put("/dashboard/memberOrder/TYT_order_detail.html", true);
+//	        Map.put("/dashboard/memberOrder/TYT_order_management.html", true);
+//	        Map.put("/dashboard/news/news-add.html", true);
+//	        Map.put("/dashboard/news/news-table.html", true);
+//	        Map.put("/dashboard/news/news-update.html", true);
+//	        Map.put("/dashboard/notifycenter/notify-add.html", true);
+//	        Map.put("/dashboard/notifycenter/notify-details.html", true);
+//	        Map.put("/dashboard/notifycenter/notify-table.html", true);
+//	        Map.put("/dashboard/product/shopset.html", true);
+//	        Map.put("/dashboard/product/shopupdate.html", true);
+//	        Map.put("/dashboard/product/shopview.html", true);
+//	        Map.put("/dashboard/productTag/tagview.html", true);
+//	        Map.put("/dashboard/promo_code/promo_code_allview.jsp", true);
+//	        Map.put("/dashboard/promo_code/promo_code_getone.jsp", true);
+//	        Map.put("/dashboard/promo_code/promo_code_set.jsp", true);
+//	        Map.put("/dashboard/question/question-add.html", true);
+//	        Map.put("/dashboard/question/question-table.html", true);
+//	        Map.put("/dashboard/question/question-update.html", true);
+//	        Map.put("/dashboard/recipe_report/WCC_recipe_report_info.jsp", true);
+//	        Map.put("/dashboard/supportform/supportform-add.html", true);
+//	        Map.put("/dashboard/supportform/supportform-details.html", true);
+//	        Map.put("/dashboard/supportform/supportform-table.html", true);
+	      
+	
+	        
+	        
+	 	
+	        System.out.println(Map.get("/AdminsServlet"));
+	        System.out.println("當前權限列表:"+Map);
 	        System.out.println("所取得的帳號為"+adminAccount);
 			Session.setAttribute("thisaccount", adminAccount);
 			Session.setAttribute("nickname", nickname);

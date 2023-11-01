@@ -3,23 +3,34 @@ var path = window.location.pathname;
 var webCtx = path.substring(0, path.indexOf("/", 1));
 const END_POINT_URL = "http://" + HOST + webCtx;
 const COLLECTION_POINT = "/RecipeCollectionServlet";
+const COLLECTIONSTATUS_POINT = "/RecipeCollectionStatusServlet";
 const RECIPE_POINT = "/RecipeOverviewServlet";
 const COMMENTS_POINT = "/RecipeCommentsServlet";
+const FOLLOW_POINT = "/FollowServlet";
 var queryString = window.location.search;
 var params = new URLSearchParams(queryString);
 var recipeNo = params.get("recipeNo");
 let step = 0;
 let recipeCollectionNo;
+let recipeCreater;
 /*============================================================ function ============================================================*/
-//新增一列食材  // <input type="text" class="form-control ingredient" readonly="readonly" value="${ingredients.ingredient}"/>
+//新增一列食材
 function addIngredient(ingredients) {
     let addIngredient = `<div class="row align-items-center " style="margin: 5px">
                             <div class="col-md-5 ">
-                                <span class="form-control ingredient" product=${ingredients.productNo}>${ingredients.ingredient}</span>
+                                ${
+                                    ingredients.productNo != null
+                                        ? '<a class="form-control ingredient" style="font-weight: bold" href="../shopstage/shop-details.html?productNo=' +
+                                          ingredients.productNo +
+                                          '">' +
+                                          ingredients.ingredient +
+                                          "</a>"
+                                        : '<span class="form-control ingredient" >' + ingredients.ingredient + "</span>"
+                                }                        
                                 <div class="search-results"></div>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control ingredient-quantity" readonly="readonly" value="${ingredients.ingredientQuantity}"/>
+                                <span type="text" class="form-control ingredient-quantity">${ingredients.ingredientQuantity}</span>
                             </div>
                         </div>`;
     $("#listIngredient").append(addIngredient);
@@ -28,7 +39,15 @@ function addIngredient(ingredients) {
 function addKitchenware(kitchenware) {
     let addKitchenware = `<div class="row align-items-center" style="margin: 5px">
                             <div class="col-md-5">
-                                <span class="form-control kitchenware" product=${kitchenware.productNo}>${kitchenware.kitchenware}</span>
+                            ${
+                                kitchenware.productNo != null
+                                    ? '<a class="form-control kitchenware" style="font-weight: bold" href="../shopstage/shop-details.html?productNo=' +
+                                      kitchenware.productNo +
+                                      '">' +
+                                      kitchenware.kitchenware +
+                                      "</a>"
+                                    : '<span class="form-control kitchenware">' + kitchenware.kitchenware + "</span>"
+                            }  
                                 <div class="search-results"></div>
                             </div>
                           </div>`;
@@ -40,15 +59,15 @@ function addStep(index, step) {
     <div class="col-md-3 text-center">
         <div class="step-img-view">
             <span class="text">無上傳圖片</span>
-            <img id="stepImg" src="data:image/*;base64,${step.stepImg}" alt="" onerror="this.style.display='none';"/>
+            ${step.stepImg != null ? '<img id="stepImg" src=data:image/*;base64,' + step.stepImg + ' alt="" onerror="this.style.display="none"/>' : ""}
         </div>
     </div>
     <div class="col-md-8">
         <div class="row">
             <span class="recipe_content col-md-2">步驟${index + 1}:</span>
-            <input type="text" class="form-control col-md-3 step-time" readonly="readonly" value="${step.stepTime}分鐘" />
+            <span type="text" class="form-control col-md-3 step-time">${step.stepTime}分鐘</span>
         </div>
-        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" readonly="readonly" value="${step.stepContent}"></textarea>
+        <textarea class="form-control martin-textarea step-content" aria-label="With textarea" readonly="readonly">${step.stepContent}</textarea>
     </div>
  </div>`;
     $("#listStep").append(addStep);
@@ -62,111 +81,206 @@ function addComments(comments) {
 </div>`;
     $("#comments").append(addComments);
 }
-
-/*============================================================ event ============================================================*/
-
-/*============================================================ ajax ============================================================*/
-//載入食譜資料
-$.ajax({
-    url: END_POINT_URL + RECIPE_POINT, // 資料請求的網址
-    type: "POST", // GET | POST | PUT | DELETE | PATCH
-    data: { recipeNo: params.get("recipeNo"), action: "browse" }, // 將物件資料(不用雙引號) 傳送到指定的 url
-    dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-    success: function (data) {
-        $("#recipeName").val(data.recipeName);
-        $("#coverImage").attr("src", "data:image/*;base64," + data.coverImage);
-        $("#introduction").val(data.introduction);
-        $("#additionalExplanation").val(data.additionalExplanation);
-        //		$("#recipeQuantity").val(data.recipeQuantity);
-        $("#recipeQuantity").val(data.recipeQuantity + "人份");
-        // $("#createdTimestamp")
-        $(data.ingredient).each(function (index, element) {
-            addIngredient(element);
-        });
-        $(data.kitchenware).each(function (index, element) {
-            addKitchenware(element);
-        });
-        $(data.step).each(function (index, element) {
-            addStep(index, element);
-        });
-        $(data.recipeHashtag).each(function (index, element) {
-            $("#useHashTag").append(`<button class="addTag badge badge-secondary">${data.recipeHashtag}</button>`);
-        });
-        $(data.comments).each(function (index, element) {
-            addComments(element);
-        });
-        $("#author").html(data.memberName);
-    },
-    error: function (xhr) {
-        console.log("ajax失敗");
-        console.log(xhr);
-    },
-});
-//載入收藏狀態
-$.ajax({
-    url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
-    type: "POST", // GET | POST | PUT | DELETE | PATCH
-    data: { recipeNo, action: "status" }, // 將物件資料(不用雙引號) 傳送到指定的 url
-    dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-    success: function (data) {
-        data ? $("#addCollection").addClass("none") : $("#removeCollection").addClass("none");
-        recipeCollectionNo = data;
-    },
-    error: function (xhr) {
-        console.log("ajax失敗");
-        console.log(xhr);
-    },
-});
-//新增收藏
-$("#addCollection").on("click", function () {
+//載入關注狀態
+function followStatus() {
     $.ajax({
-        url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
+        url: END_POINT_URL + FOLLOW_POINT,
+        type: "POST",
+        data: { action: "SearchMemberCO", CollectionID: recipeCreater },
+        dataType: "json",
+        headers: {
+            orginURL: window.location.href,
+        },
+        success: function (data) {
+            if (data.res != "equals") {
+                data.res ? $("#removeFollow").removeClass("none") : $("#follow").removeClass("none");
+            }
+        },
+        error: function (xhr) {
+            $("#follow").removeClass("none");
+            console.log(xhr);
+        },
+    });
+}
+/*============================================================ loading ============================================================*/
+$(function () {
+    //載入食譜資料
+    $.ajax({
+        url: END_POINT_URL + RECIPE_POINT, // 資料請求的網址
         type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: { recipeNo, action: "insert" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        data: { recipeNo: params.get("recipeNo"), action: "browse" }, // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
         success: function (data) {
-            recipeCollectionNo = data;
-            $("#addCollection").addClass("none");
-            $("#removeCollection").removeClass("none");
+            $("#recipeName").text(data.recipeName);
+            $("#coverImage").attr("src", "data:image/*;base64," + data.coverImage);
+            recipeCreater = data.memberId;
+            followStatus();
+            $("#introduction").val(data.introduction);
+            $("#additionalExplanation").val(data.additionalExplanation);
+            //		$("#recipeQuantity").val(data.recipeQuantity);
+            $("#recipeQuantity").text(data.recipeQuantity + "人份");
+            // $("#createdTimestamp")
+            $(data.ingredient).each(function (index, element) {
+                addIngredient(element);
+            });
+            $(data.kitchenware).each(function (index, element) {
+                addKitchenware(element);
+            });
+            $(data.step).each(function (index, element) {
+                addStep(index, element);
+            });
+            $(data.recipeHashtag).each(function (index, element) {
+                $("#useHashTag").append(`<button class="addTag badge badge-secondary">${element}</button>&nbsp;`);
+            });
+            $(data.comments).each(function (index, element) {
+                addComments(element);
+            });
+            $("#author").html(data.memberName);
         },
         error: function (xhr) {
             console.log("ajax失敗");
             console.log(xhr);
         },
     });
-});
-//取消收藏
-$("#removeCollection").on("click", function () {
+    //載入收藏狀態
     $.ajax({
-        url: END_POINT_URL + COLLECTION_POINT, // 資料請求的網址
+        url: END_POINT_URL + COLLECTIONSTATUS_POINT, // 資料請求的網址
         type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: { recipeCollectionNo, action: "delete" }, // 將物件資料(不用雙引號) 傳送到指定的 url
+        data: { recipeNo }, // 將物件資料(不用雙引號) 傳送到指定的 url
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
         success: function (data) {
-            console.log(data);
-            $("#removeCollection").addClass("none");
-            $("#addCollection").removeClass("none");
+            if (data == "equals") {
+            } else {
+                data ? $("#removeCollection").removeClass("none") : $("#addCollection").removeClass("none");
+                recipeCollectionNo = data;
+            }
         },
         error: function (xhr) {
             console.log("ajax失敗");
             console.log(xhr);
         },
     });
-});
-//新增留言
-$("#submitComment").on("click", function () {
-    $.ajax({
-        url: END_POINT_URL + COMMENTS_POINT, // 資料請求的網址
-        type: "POST", // GET | POST | PUT | DELETE | PATCH
-        data: { recipeNo, action: "insert", commentContent: $("#inputComment").val() }, // 將物件資料(不用雙引號) 傳送到指定的 url
-        dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
-        success: function (data) {
-            console.log(data);
-            addComments(data);
-        },
-        error: function (xhr) {
-            console.log("ajax失敗");
-            console.log(xhr);
-        },
+    //還原登入後留言
+    $("#inputComment").val(sessionStorage.getItem("comment"));
+    /*============================================================ event ============================================================*/
+    //新增收藏
+    $("#addCollection").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + COLLECTION_POINT,
+            type: "POST",
+            data: { recipeNo, action: "insert" },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                if (data.redirectURL != null) {
+                    window.location.href = data.redirectURL;
+                } else {
+                    recipeCollectionNo = data;
+                    $("#addCollection").addClass("none");
+                    $("#removeCollection").removeClass("none");
+                }
+            },
+            error: function (xhr) {
+                window.location.href = END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
+                console.log(xhr);
+            },
+        });
+    });
+    //取消收藏
+    $("#removeCollection").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + COLLECTION_POINT,
+            type: "POST",
+            data: { recipeCollectionNo, action: "delete" },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                if (data.redirectURL != null) {
+                    window.location.href = data.redirectURL;
+                } else {
+                    $("#removeCollection").addClass("none");
+                    $("#addCollection").removeClass("none");
+                }
+            },
+            error: function (xhr) {
+                console.log("ajax失敗");
+                console.log(xhr);
+            },
+        });
+    });
+    //新增留言
+    $("#submitComment").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + COMMENTS_POINT,
+            type: "POST",
+            data: { recipeNo, action: "insert", commentContent: $("#inputComment").val() },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                if (data.redirectURL != null) {
+                    window.location.href = data.redirectURL;
+                    sessionStorage.setItem("comment", $("#inputComment").val());
+                } else {
+                    sessionStorage.removeItem("comment");
+                    addComments(data);
+                    $("#inputComment").val("");
+                    $("html, body").animate({ scrollTop: 200 }, "slow");
+                }
+            },
+            error: function (xhr) {
+                console.log("ajax失敗");
+                END_POINT_URL + "/frontstage/recipe/recipe_overview.jsp";
+            },
+        });
+    });
+    //新增關注
+    $("#follow").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + FOLLOW_POINT,
+            type: "POST",
+            data: { action: "newMemberCO", CollectionID: recipeCreater },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                if (data.redirectURL != null) {
+                    window.location.href = data.redirectURL;
+                } else {
+                    console.log(data.res);
+                    $("#removeFollow").removeClass("none");
+                    $("#follow").addClass("none");
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            },
+        });
+    });
+    //移除關注
+    $("#removeFollow").on("click", function () {
+        $.ajax({
+            url: END_POINT_URL + FOLLOW_POINT,
+            type: "POST",
+            data: { action: "delMemberCO", CollectionID: recipeCreater },
+            dataType: "json",
+            headers: {
+                orginURL: window.location.href,
+            },
+            success: function (data) {
+                console.log(data.res);
+                $("#removeFollow").addClass("none");
+                $("#follow").removeClass("none");
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            },
+        });
     });
 });

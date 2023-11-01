@@ -4,14 +4,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.cooklab.promo_code.model.*;
+import com.cooklab.util.HibernateUtil;
 
 public class PromoCodeService {
 	private PromoCodeHBDAO dao;
 //	private PromoCodeDAO dao;
 
 	public PromoCodeService() {
-//		dao = new PromoCodeJDBCDAOIm();
-		dao = new PromoCodeHBDAO();
+		dao = new PromoCodeHBDAO(HibernateUtil.getSessionFactory());
 	}
 
 //	public PromoCodeVO addPromoCode(Integer promoCodeNo, String promoCodeSerialNumber, Timestamp startTime,

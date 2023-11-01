@@ -28,7 +28,7 @@ public class PromoCodeVO implements Serializable{
 	
 	
 	@Id
-	@Column(name = "promo_code_no")
+	@Column(name = "promo_code_no" ,updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer promoCodeNo;
 	
@@ -55,17 +55,6 @@ public class PromoCodeVO implements Serializable{
 	
 	@Column(name = "created_timestamp ", insertable = false, updatable = false)
 	private Timestamp createdTimestamp;
-
-	
-	
-	
-	public Set<MemberOrderVO> getMemberOrder() {
-		return memberOrder;
-	}
-
-	public void setMemberOrder(Set<MemberOrderVO> memberOrder) {
-		this.memberOrder = memberOrder;
-	}
 
 	public Integer getPromoCodeNo() {
 		return promoCodeNo;

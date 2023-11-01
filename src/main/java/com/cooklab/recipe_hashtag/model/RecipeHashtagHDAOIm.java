@@ -5,6 +5,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.cooklab.recipe.model.RecipeVO;
+
 public class RecipeHashtagHDAOIm implements RecipeHashtagDAO{
 	private SessionFactory factory;
 
@@ -32,14 +34,9 @@ public class RecipeHashtagHDAOIm implements RecipeHashtagDAO{
 	}
 
 	@Override
-	public boolean delete(Integer recipeHashtagNo) {
-		RecipeHashtagVO vo = getSession().get(RecipeHashtagVO.class, recipeHashtagNo);
-		if (vo != null) {
-			getSession().delete(vo);
-			return true;
-		} else {
-			return false;
-		}
+	public int delete(RecipeVO recipeVO) {
+		return getSession().createQuery("delete from RecipeHashtagVO where recipe = :recipe").setParameter("recipe",
+				recipeVO).executeUpdate();
 	}
 
 	@Override

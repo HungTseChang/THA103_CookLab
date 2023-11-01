@@ -6,20 +6,20 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Ogani | Template</title>
+    <title>廚藝實驗室</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="./css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="./css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="./css/elegant-icons.css" type="text/css" />
-    <link rel="stylesheet" href="./css/nice-select.css" type="text/css" />
-    <link rel="stylesheet" href="./css/jquery-ui.min.css" type="text/css" />
-    <link rel="stylesheet" href="./css/owl.carousel.min.css" type="text/css" />
-    <link rel="stylesheet" href="./css/slicknav.min.css" type="text/css" />
-    <link rel="stylesheet" href="./css/style.css" type="text/css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="../css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
     <link rel="stylesheet" href="./css/my.css" type="text/css" />
     <!-- bootstrap icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
@@ -46,6 +46,40 @@
           transform: rotate(360deg);
         }
       }
+      
+      .no-product-message {
+		  text-align: center;
+		  padding: 20px;
+		  font-size: 24px;
+		  color: #FF5733; 
+		  background-color: #fff;
+		  border: 2px solid #FF5733;
+		  border-radius: 10px;
+		  margin: 20px auto;
+		  width: 60%;
+		  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+		}
+
+		.no-product-message i {
+		  font-size: 48px;
+		  margin-bottom: 10px;
+		  color: #FF5733; 
+		  animation: bounce 1s infinite; 
+		}
+
+		@keyframes bounce {
+		  0%, 20%, 50%, 80%, 100% {
+		    transform: translateY(0);
+		  }
+		  40% {
+		    transform: translateY(-10px);
+		  }
+		  60% {
+		    transform: translateY(-5px);
+		  }
+		}
+
+      
     </style>
   </head>
 
@@ -55,59 +89,115 @@
       <div class="loader"></div>
     </div>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-      <div class="header__top">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6">
-              <div class="header__top__right">
-                <div class="header__top__right__auth">
-                  <a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">購物車</span> </a>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">會員中心</span> </a>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
-                </div>
-                <div class="header__top__right__auth">
-                  <a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span class="ding-nav-text">通知中心</span> </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="header__logo">
-              <a href="./index.html"><img style="height: 150px" src="img/indexlogo.png" alt="" /></a>
-            </div>
-          </div>
-          <div class="col-lg-9 d-flex align-items-center">
-            <nav class="header__menu">
-              <ul>
-                <li><a href="./index.html">食譜總覽</a></li>
-                <li><a href="#">新增食譜</a></li>
-                <li><a href="#">關注食譜</a></li>
-                <li class="active"><a href="./shop-grid.html">商城</a></li>
-                <li><a href="#">討論區</a></li>
-                <li><a href="#">客服中心</a></li>
-                <li><a href="./contact.html">關於我們</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <div class="humberger__open">
-          <i class="fa fa-bars"></i>
-        </div>
-      </div>
-    </header>
-    <!-- Header Section End -->
+	<!-- Humberger Begin -->
+	<div class="humberger__menu__overlay"></div>
+	<div class="humberger__menu__wrapper">
+		<div class="humberger__menu__logo">
+			<a href="../recipe/recipe_overview.jsp"><img src="../img/indexlogo.png" alt="" /></a>
+		</div>
+		<section class="container">
+			<div
+				class="humberger__menu__widget row d-flex justify-content-between align-items-center">
+				<div class="">
+					<a href="#"> <i class="bi bi-cart3 fa-3x"></i>
+					</a>
+				</div>
 
+				<div class="">
+					<a href="#"> <i class="fa fa-user fa-3x"></i>
+					</a>
+				</div>
+
+				<div class="">
+					<a href="#"> <i class="bi bi-bell fa-3x"></i>
+					</a>
+				</div>
+			</div>
+		</section>
+		<nav class="humberger__menu__nav mobile-menu">
+			<ul>
+				<li class="active"><a href="./index.html">首頁</a></li>
+				<li><a href="./shop-grid.html">商城todo</a></li>
+				<li><a href="../recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+				<li><a href="./contact.html">常見問題todo</a></li>
+				<li><a href="../article/article_main.jsp">討論區todo</a></li>
+				<li><a href="../news/news.html">最新消息todo</a></li>
+			</ul>
+		</nav>
+		<div id="mobile-menu-wrap"></div>
+		<div class="header__top__right__social">
+			<a href="#"><i class="fa fa-2x fa-facebook"></i></a> <a href="#"><i
+				class="fa fa-2x fa-instagram"></i></a> <a href="#"><i
+				class="fa fa-2x fa-twitter"></i></a>
+		</div>
+		<div class="humberger__menu__contact">
+			<ul>
+				<li><i class="fa fa-envelope"></i> tomato@cooklab.com</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Humberger End -->
+
+	<!-- Header Section Begin -->
+	<header class="header">
+		<div class="header__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6"></div>
+					<div class="col-lg-6">
+						<div class="header__top__right">
+							<div class="header__top__right__auth">
+								<a href="./shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+									class="ding-nav-text">購物車</span>
+								</a>
+							</div>
+							<div class="header__top__right__auth">
+								<a href="../members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+									class="ding-nav-text">會員中心</span>
+								</a>
+							</div>
+							<div class="header__top__right__auth">
+								<a href="../members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+							</div>
+							<div class="header__top__right__auth">
+								<a href="../members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+									class="ding-nav-text">通知中心</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="header__logo">
+						<a href="../recipe/recipe_overview"><img style="height: 150px"
+							src="../img/indexlogo.png" alt="" /></a>
+					</div>
+				</div>
+				<div class="col-lg-9 d-flex align-items-center">
+					<nav class="header__menu">
+						<ul>
+							<li><a href="../recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="../recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="../members/member-panel-follow.html">關注食譜</a></li>
+							<li class="active"><a href="./shop.html">商城</a></li>
+							<li><a href="../article/article_main.jsp">討論區</a></li>
+							<li ><a href="../news/news.html">最新消息</a></li>
+							<li><a href="../members/aboutus.html">關於我們</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="humberger__open">
+				<i class="fa fa-bars"></i>
+			</div>
+		</div>
+	</header>
+	<!-- Header Section End -->
+	
     <!-- Hero Section Begin -->
     <section class="container mb-3">
       <main class="searchbar-block-shop border rounded d-flex">
@@ -130,7 +220,7 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="../img/breadcrumb.jpg">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -161,24 +251,23 @@
               <div class="sidebar__item">
                 <h4>商品總覽</h4>
                 <div id="category-buttons">
-                  <button class="category-button" data-category="all" id="overview-button">總覽</button>
-                  <button class="category-button" data-category="hot" id="hot-button">熱門商品</button>
-                  <button class="category-button" data-category="ingredient" id="ingredient-button">食材</button>
-                  <button class="category-button" data-category="kitchenware" id="kitchenware-button">廚具</button>
+                  <button class="btn btn-outline-primary" data-category="all" id="overview-button">總覽</button>
+                  <button class="btn btn-outline-primary" data-category="hot" id="hot-button">熱門商品</button>
+                  <button class="btn btn-outline-primary" data-category="ingredient" id="ingredient-button">食材</button>
+                  <button class="btn btn-outline-primary" data-category="kitchenware" id="kitchenware-button">廚具</button>
                 </div>
               </div>
               <div class="sidebar__item">
                 <h4>商品篩選</h4>
-                <!-- 大分类导航链接 -->
                 <div id="category-buttons">
-                  <button class="category-button" data-category="ingredient" id="mutilseletingredient">食材</button>
-                  <button class="category-button" data-category="kitchenware" id="mutilseletkitchenware">廚具</button>
+                  <button class="btn btn-outline-success" data-category="ingredient" id="mutilseletingredient">食材</button>
+                  <button class="btn btn-outline-success" data-category="kitchenware" id="mutilseletkitchenware">廚具</button>
                 </div>
               </div>
               <div class="sidebar__item">
                 <h4>商品排序</h4>
-                <button class="category-button" data-category="ingredient" id="time-sort">按時間 <span class="sort-indicator">▲</span></button>
-                <button class="category-button" data-category="kitchenware" id="price-sort">按價格 <span class="sort-indicator">▼</span></button>
+                <button class="btn btn-outline-secondary" data-category="ingredient" id="time-sort">按時間 <span class="sort-indicator">▼</span></button>
+                <button class="btn btn-outline-secondary" data-category="kitchenware" id="price-sort">按價格 <span class="sort-indicator">▼</span></button>
               </div>
             </div>
           </div>
@@ -210,14 +299,15 @@
     <!-- Product Section End -->
 
     <!-- Js Plugins -->
-    <script src="./js/jquery-3.3.1.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/jquery.nice-select.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/jquery.slicknav.js"></script>
-    <script src="./js/mixitup.min.js"></script>
-    <script src="./js/owl.carousel.min.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.nice-select.min.js"></script>
+    <script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/jquery.slicknav.js"></script>
+    <script src="../js/mixitup.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/main.js"></script>
     <script src="./js/shop-grid.js"></script>
+    <script src="../js/TomJS.js"></script>
   </body>
 </html>

@@ -13,9 +13,18 @@ import org.hibernate.SessionFactory;
 
 import com.cooklab.util.HibernateUtil;
 @WebFilter(urlPatterns = { 
-		"/RecipeServlet",				
+		/*Martin*/
+		"/RecipeCreateServlet",
+		"/RecipeUpdateServlet",
 		"/RecipeOverviewImgServlet",
-		//TOM Start
+		"/RecipeOverviewServlet",
+		"/RecipeCollectionServlet",
+		"/RecipeCollectionStatusServlet",
+		"/RecipeIngredientServlet",
+		"/RecipeKitchenwareServlet",
+		"/RecipeCommentsServlet",
+		"/HashtagServlet",
+		/*Martin*/
 		"/MemberCenter",
 		"/EditPassword",
 		"/MembersImgServlet",
@@ -28,16 +37,38 @@ import com.cooklab.util.HibernateUtil;
 		"/FollowServlet",
 		"/MemberNotifyServlet",
 		"/MembersArticleServlet",
+		"/CheckLogin",
+		"/ArticleServlet",
+		"/ArticleSubServlet",
+		"/ArticleCategoryServlet",
+		"/ArticleReactionServlet",
+		"/ArticleSubReactionServlet",
+		"/frontstage/article/*",
 		"/CheckLogin",	
 		"/AdminsServlet",
 		"/PermissionServlet",
 		"/ArticleReportServlet",
-	"/ArticleSubReportServlet",
+		"/ArticleSubReportServlet",
 		"/MemberdashboardServlet",
 		"/LoginServlet",
+		"/ReVerification",
+		"/ForgetPassowrd",
+		"/SupportFormServlet", 
+		"/SupportFormRecordServlet", 
+		"/NotifyCenterServlet",
+		"/QuestionServlet",
+		"/SFSFront",
+		"/dashboard/article/*",
+		"/ProductServlet", //商品
+		"/MemberOrderServlet", //會員訂單
+		"/IngredientServlet",
+		"/KitchenwaretServlet",
+		"/CartServlet", //購物車
 		"/DashboardRecipeServlet",
+		"/QSFront",
 		"/RecipeReportServlet",
-		"/DisboardHastagServlet"
+		"/DisboardHastagServlet",
+		"/AdvertiseServlet2"//廣告
 		})
 public class OpenSessionInViewFilter implements Filter {
 

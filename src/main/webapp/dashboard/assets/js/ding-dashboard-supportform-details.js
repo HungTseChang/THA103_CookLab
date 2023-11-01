@@ -1,3 +1,12 @@
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT_FORM = "/SupportFormServlet";
+const COLLECTION_POINT_RECORD = "/SupportFormRecordServlet";
+let SupportFormServletAPI = END_POINT_URL + COLLECTION_POINT_FORM;
+let SupportFormRecordServletAPI = END_POINT_URL + COLLECTION_POINT_RECORD;
+
 //定義表單狀態的數字對應狀態以及渲染到網頁的形式
 let statusrender = function () {
   let formStatus = $(".fs");
@@ -41,7 +50,7 @@ let supportformload = function () {
 
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormServlet",
+    url: SupportFormServletAPI,
     data: { action: "getOne", formNo: formNo },
     dataType: "json",
     success: function (data) {
@@ -88,7 +97,7 @@ let upadatemode = function () {
   replyEmail_element.replaceWith(`<input type="email" class="form-control w-50" value="${replyEmail}" id="replyEmail" />`);
 
   sFCId_element.replaceWith(`
-                                <select class="form-select w-50" id="supportFormCategoryId">
+                                <select class="form-select" id="supportFormCategoryId">
                                 <option value="default" selected>請選擇問題類別</option>
                                 <option value="1">食譜相關</option>
                                 <option value="2">討論區相關</option>
@@ -132,7 +141,7 @@ let updatedata = function (realName, supportFormCategoryId, replyEmail) {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormServlet",
+    url: SupportFormServletAPI,
     data: data,
     dataType: "json",
     success: function (data) {
@@ -164,7 +173,7 @@ let updatedata = function (realName, supportFormCategoryId, replyEmail) {
 let getAdmins = function () {
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormServlet",
+    url: SupportFormServletAPI,
     data: { action: "getAdmins" },
     dataType: "json",
     success: function (data) {
@@ -188,7 +197,7 @@ let changeAdmin = function () {
   let formStatus = $("#formStatus").text();
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormServlet",
+    url: SupportFormServletAPI,
     data: { action: "changeAdmin", adminNo: adminNo, formNo: formNo, formStatus: formStatus },
     dataType: "json",
     success: function (data) {
@@ -220,7 +229,7 @@ let closecase = function () {
   let formStatus = $("formStatus").text();
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormServlet",
+    url: SupportFormServletAPI,
     data: { action: "closecase", formNo: formNo, formStatus: formStatus },
     dataType: "json",
     success: function (data) {
@@ -251,7 +260,7 @@ let recordload = function (recordContext) {
   let formNo = $("#formNo").text();
   $.ajax({
     type: "GET",
-    url: "/THA103_CookLab/SupportFormRecordServlet",
+    url: SupportFormRecordServletAPI,
     data: { action: "getAll", formNo: formNo },
     dataType: "json",
     success: function (data) {
@@ -302,7 +311,7 @@ let insertrecord = function (recordContext) {
 
   $.ajax({
     type: "POST",
-    url: "/THA103_CookLab/SupportFormRecordServlet",
+    url: SupportFormRecordServletAPI,
     data: data,
     dataType: "json",
     success: function (data) {

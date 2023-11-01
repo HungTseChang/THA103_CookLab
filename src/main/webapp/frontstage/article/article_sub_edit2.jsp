@@ -6,6 +6,10 @@
 <%@ page import="com.cooklab.article_sub.model.ArticleSubVO"%>
 <%@ page import="com.cooklab.article_category.model.*"%>
 <%
+session.getAttribute("membersVO");
+Object mem = session.getAttribute("userId" ); 
+Integer userId= Integer.valueOf(mem.toString());
+
 ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 %>
 
@@ -28,34 +32,35 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 
 <!-- Css Styles -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/bootstrap.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/font-awesome.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/font-awesome.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/elegant-icons.css"
+	href="<%=request.getContextPath()%>/frontstage/css/elegant-icons.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/nice-select.css"
+	href="<%=request.getContextPath()%>/frontstage/css/nice-select.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/jquery-ui.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/jquery-ui.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/owl.carousel.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/owl.carousel.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/slicknav.min.css"
+	href="<%=request.getContextPath()%>/frontstage/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/style.css"
+	href="<%=request.getContextPath()%>/frontstage/css/style.css"
 	type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/HO.css" type="text/css">
+	href="<%=request.getContextPath()%>/frontstage/article/css/HO.css" type="text/css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/article/css/ding.css"
+	href="<%=request.getContextPath()%>/frontstage/article/css/ding.css"
 	type="text/css">
+
 <!--下面兩行是影片編輯器-->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet" />
@@ -68,11 +73,11 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 		<div class="loader"></div>
 	</div>
 
-	<!-- Humberger Begin -->
+		<!-- Humberger Begin -->
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="<%=request.getContextPath()%>/article/img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -95,10 +100,12 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 		</section>
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
-				<li class="active"><a href="./index.html">首頁</a></li>
-				<li><a href="./shop-grid.html">商城</a></li>
-				<li><a href="./blog.html">食譜總覽</a></li>
-				<li><a href="./contact.html">常見問題</a></li>
+				<li><a href="./index.html">首頁</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">商城todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">常見問題todo</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息todo</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -124,20 +131,20 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 					<div class="col-lg-6">
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/shopstage/shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">購物車</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">會員中心</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
+								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">登入/註冊</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
+								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
 									class="ding-nav-text">通知中心</span>
 								</a>
 							</div>
@@ -157,13 +164,13 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="./index.html">食譜總覽</a></li>
-							<li><a href="#">新增食譜</a></li>
-							<li><a href="#">關注食譜</a></li>
-							<li><a href="./shop-grid.html">商城</a></li>
-							<li class="active"><a href="#">討論區</a></li>
-							<li><a href="#">客服中心</a></li>
-							<li><a href="./contact.html">關於我們</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">食譜總覽</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">新增食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">關注食譜</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">商城</a></li>
+							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">討論區</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">最新消息</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">關於我們</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -198,7 +205,7 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleSubServlet" name="form1">
-						<input type="hidden" name="memberId" value="1" size="45" /> 
+						<input type="hidden" name="memberId" value="userId" size="45" /> 
 						<input type="hidden" name="articleSubStatus" value="0" size="45" /> 
 						<input type="hidden" name="articleSubCount"  value="0" size="45" /> 
 
@@ -213,20 +220,6 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 								<a style="color: gray;">${artVO.articleSubContent}</a>             						
 							</div>
 							<textarea id="hiddenContent" name="articleSubContent" style="display: none;"></textarea>
-
-<!-- 							<p style="margin-top: 5px;">驗證碼顯示位置:  -->
-<!-- 								<input type="text" value="請輸入驗證碼"> -->
-							
-<%-- 								<input type="hidden" name="articleNo" value="${artVO.articleNo}"> --%>
-       								 
-<!-- 								<input type="hidden" name="action" value="insert"> -->
-<!-- 								<button type="submit" class="btn ding-btn-org" id="btn_confirm">確定</button> -->
-		
-
-<!-- 								<button class="btn ding-btn-org" id="btn_clean">清除</button> -->
-<!-- 								<button class="btn ding-btn-org" id="btn_cancel">取消</button> -->
-<!-- 							</p> -->
-<!-- 					</form> -->
 				</div>
 			</div>
 		</div>
@@ -303,17 +296,17 @@ ArticleSubVO artVO = (ArticleSubVO) request.getAttribute("artVO");
 
 	<!-- Js Plugins -->
 	
-	<script src="<%=request.getContextPath()%>/article/js/jquery-3.3.1.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/bootstrap.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery.nice-select.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery-ui.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/jquery.slicknav.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/mixitup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/owl.carousel.min.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/main.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/quill.js"></script>
-	<script src="<%=request.getContextPath()%>/article/js/HO.js"></script>
-
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-3.3.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.nice-select.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery-ui.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/jquery.slicknav.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/mixitup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/article/js/quill.js"></script>
+	<script src="<%=request.getContextPath()%>/frontstage/article/js/HO.js"></script>
+	<script src="../js/TomJS.js"></script>
 </body>
 
 </html>

@@ -6,19 +6,29 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
+import org.hibernate.SessionFactory;
 
-import com.cooklab.promo_code.model.*;
 import com.cooklab.util.HibernateUtil;
 
 public class PromoCodeHBDAO implements PromoCodeDAO {
+
+	private SessionFactory factory;
+
+	public PromoCodeHBDAO(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	private Session getSession() {
+		return factory.getCurrentSession();
+	}
+
 	@Override
 	public void insert(PromoCodeVO promoCode) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 		try {
 			session.beginTransaction();
-			session.save(promoCode);
+		session.save(promoCode);
 
 			session.getTransaction().commit();
 			session.close();
@@ -33,9 +43,11 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 	@Override
 	public void update(PromoCodeVO promoCode) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 		try {
 			session.beginTransaction();
-			session.update(promoCode);
+		session.update(promoCode);
+			System.out.println("開始更新");
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -48,9 +60,10 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 	@Override
 	public void delete(PromoCodeVO promoCode) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 		try {
 			session.beginTransaction();
-			session.delete(promoCode);
+		session.delete(promoCode);
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -63,31 +76,33 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 	@Override
 	public PromoCodeVO findByPrimaryKey(Integer promoCodeNo) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 		try {
 
-				session.beginTransaction();
-				PromoCodeVO promoCodeVo = session.createQuery("from PromoCodeVO where promoCodeNo=" +
-				promoCodeNo,PromoCodeVO.class).uniqueResult();
-				
-				session.getTransaction().commit();
-				return promoCodeVo;
-		}catch(Exception e) {
+			session.beginTransaction();
+		PromoCodeVO promoCodeVo = session
+				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
+
+			session.getTransaction().commit();
+		return promoCodeVo;
+		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-
+//
 		return null;
 	}
 
 	@Override
 	public List<PromoCodeVO> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//		Session session = getSession();
 		try {
 			session.beginTransaction();
-			List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
+		List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
 
 			session.getTransaction().commit();
-			return list;
+		return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -98,22 +113,16 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 
 	@Override
 	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			String hql = "FROM PromoCodeVO p WHERE p.promoCodeSerialNumber = :serialNumber";
-			Query<PromoCodeVO> query = session.createQuery(hql, PromoCodeVO.class);
-			query.setParameter("serialNumber", promoCodeSerialNumber);
-			PromoCodeVO promoCode = query.uniqueResult();
+		Session session = getSession();
 
-			session.getTransaction().commit();
-			return promoCode;
+		String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
+		Query query = session.createQuery(hql);
+		query.setParameter("serialNumber", promoCodeSerialNumber);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+		PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
+
+		session.close(); // 记得关闭Session
+
+		return promoCode;
 	}
-
 }

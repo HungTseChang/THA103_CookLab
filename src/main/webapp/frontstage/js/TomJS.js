@@ -33,10 +33,14 @@ else  //使用者使用過[下次不要登入]的功能
       success: function(data) {
         loginInIconChange();
         console.log(path);
-        if(path == "/CookLab/members/login.html")
+        if(path == "/CookLab/frontstage/members/login.html")
         {
           console.log("成功進來這裡");
-          window.location.href  = data.RedirectURL;
+          console.log(data.RedirectURL);
+          if(typeof data.RedirectURL === "undefined")
+          	window.location.href  = endPointURL+"/frontstage/members/member-panel.jsp";
+          else
+        	  window.location.href  = data.RedirectURL;
         }
       },
       error: function() {
@@ -51,7 +55,7 @@ function loginInIconChange(){
 }
 function loginOutIconChange(){
   $("a.ding-nav-text").text("登入/註冊");
-  $("a.ding-nav-text").attr("herf",endPointURL+"/members/login.html");
+  $("a.ding-nav-text").attr("herf",endPointURL+"/recipe/recipe_overview.jsp");
 }
 $(document).ready(function() {
   $("a.ding-nav-text").click(function() {

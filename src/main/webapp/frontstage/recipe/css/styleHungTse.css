@@ -23,9 +23,6 @@
     transform: translate(-50%, -50%);
     color: lightgray;
   }
-  .preview img.preview_img{
-    width: 100%;
-  }
   #coverImageView{
     border: 1px solid lightgray;
     display: inline-block;
@@ -47,7 +44,7 @@
   }
 
 
-  #stepImg #coverImage ,.step-img{
+  #stepImg, #coverImage ,.step-img{
     position: relative;
     width: 100%; 
     height: 100%;
@@ -215,4 +212,34 @@ a.disabled {
 .follow-button {
   margin-left: 15px;
 }
-/* 會員關注 */
+/* 沒有搜尋到食譜 */
+.no-recipe-message {
+	text-align: center;
+	padding: 20px;
+	font-size: 24px;
+	color: #FF5733; 
+	background-color: #fff;
+	border: 2px solid #FF5733;
+	border-radius: 10px;
+	margin: 20px auto;
+	width: 60%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+        }
+.no-recipe-message i {
+          font-size: 48px;
+          margin-bottom: 10px;
+          color: #FF5733; 
+          animation: bounce 1s infinite; 
+}
+
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% {
+  transform: translateY(0);
+     }
+    40% {
+       	transform: translateY(-10px);
+       }
+    60% {
+       	transform: translateY(-5px);
+      }
+  }

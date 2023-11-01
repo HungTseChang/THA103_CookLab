@@ -32,7 +32,7 @@ public class EmailSender {
 	        //     ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
 	        //     ●5-3) 最後按【產生】密碼
 			final String myGmail = "dnlas2004@gmail.com";
-			final String myGmail_password = com.cooklab.util.Util.PASSWORDPlus;
+			final String myGmail_password = com.cooklab.util.Util.PASSWORD;
 			Session session = Session.getInstance(props, new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(myGmail, myGmail_password);

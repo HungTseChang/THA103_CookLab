@@ -31,12 +31,12 @@ public class MemberCollectionVO implements Serializable {
 	private Integer memberCollectionNo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id_collectioned", referencedColumnName = "member_id", insertable = false, updatable = false)
+	@JoinColumn(name = "member_id_collectioned", referencedColumnName = "member_id")
 	private MembersVO memberIdCollectioned;
 //	@Column(name = "member_id")  
 //	private Integer memberId;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id")
 	private MembersVO  members;
 	
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  

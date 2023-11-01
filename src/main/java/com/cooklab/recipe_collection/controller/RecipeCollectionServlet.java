@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 
@@ -20,21 +21,17 @@ import com.google.gson.Gson;
 
 @WebServlet("/RecipeCollectionServlet")
 public class RecipeCollectionServlet extends HttpServlet {
-	
-//	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//		doPost(req, res);
-//	}
-	
+		
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html; charset=UTF-8");
 		req.setCharacterEncoding("UTF-8");
 
 		Gson gson = new Gson();
 		String action = req.getParameter("action");
-//		HttpSession session = req.getSession();
-//		MembersVO members = (MembersVO) session.getAttribute("members");
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		MembersVO memberVO = session.get(MembersVO.class, 1);
+
+		HttpSession session = req.getSession();
+		MembersVO memberVO = (MembersVO) session.getAttribute("membersVO");
+
 
 		if ("insert".equals(action)) {
 			RecipeVO recipeVO = new RecipeServiceIm().getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
@@ -50,13 +47,6 @@ public class RecipeCollectionServlet extends HttpServlet {
 			res.getWriter().write(jsonString);
 			return;
 		}
-		if ("status".equals(action)) {
-			RecipeVO recipeVO = new RecipeServiceIm().getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
-			RecipeCollectionVO recipeCollectionVO = new RecipeCollectionServiceIm().findByMemberAndRecipe(recipeVO,
-					memberVO);
-			String jsonString = gson.toJson(recipeCollectionVO != null ? recipeCollectionVO.getCollectionNo() : null);
-			res.getWriter().write(jsonString);
-			return;
-		}
+	
 	}
 }

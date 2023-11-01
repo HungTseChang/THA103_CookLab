@@ -1,35 +1,45 @@
-// 获取URL参数
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+const COLLECTION_POINT3= "/MemberOrderServlet"
+
+
 const urlParams = new URLSearchParams(window.location.search);
 const selectedProductsJSON = urlParams.get('selectedProducts');
-let cartData = []; // 初始化为空数组
+let cartData = []; 
+
 let promoCodeUsed = false;
 let promoCodeNO = null; // 優惠碼信息
 let orderTotal = 0;      // 總金額
 let finalPrice = 0;		//最終金額
 let promoCodeInfo = null;
-// 将JSON字符串解析为JavaScript数组
+
+
 const selectedProducts = JSON.parse(selectedProductsJSON);
-const selectedProductsJSON2 = selectedProducts.join(','); // 转换为逗号分隔的字符串
+const selectedProductsJSON2 = selectedProducts.join(','); 
 console.log(selectedProducts);
 console.log(selectedProductsJSON2);
-// 发起AJAX请求
+
+
 // 获取订单详情列表和总计元素
 const orderDetailsList = document.getElementById("order-details-list");
 const orderTotalElement = document.getElementById("order-total");
-const finalPriceElement = document.getElementById("finalPriceInfo"); // 获取最終金額元素
-// 获取表格的 tbody 元素
+const finalPriceElement = document.getElementById("finalPriceInfo"); 
 const tbody = document.querySelector("#cart-table tbody");
-// 发起AJAX请求
+
 $(document).ready(function() {
 	$.ajax({
-		url: '/CookLab/CartServlet',
+		url: END_POINT_URL+COLLECTION_POINT2,
 		type: 'GET',
 		data: { action: "cartsearch2", productNo: selectedProductsJSON2 },
 		dataType: 'json',
 		success: function(response) {
-			cartData = response; // 存储购物车数据到全局变量
+			cartData = response; //全域變數
 			console.log(cartData);
-			// 渲染购物车数据到表格
+			//渲染
 			cartData.forEach(function(item) {
 				console.log("渲染");
 				const productPrice = parseFloat(item.productPrice);
@@ -51,25 +61,27 @@ $(document).ready(function() {
                 `;
 				tbody.innerHTML += row;
 
-				// 创建订单详情列表项
+				// 訂單詳情
 				const orderItem = document.createElement("li");
 				orderItem.innerHTML = `${item.productName} <span>$${totalAmount}</span>`;
 				orderDetailsList.appendChild(orderItem);
-				// 更新订单总计
+				
+				// 更新
 				orderTotal += parseFloat(totalAmount);
-
+				finalPrice = orderTotal	;
 				orderTotalElement.textContent = `$${orderTotal.toFixed(0)}`;
 				finalPriceElement.textContent = `$${orderTotal.toFixed(0)}`;
+				
 			});
 
 			orderTotalElement.textContent = `$${orderTotal.toFixed(0)}`;
+		
 
 		},
 		error: function(xhr) {
-			console.log('AJAX请求失败：' + xhr.status);
+			console.log('AJAX：' + xhr.status);
 		},
 	});
-
 
 	$('#sameAsBilling').change(handleSameAsBillingCheckboxChange)
 
@@ -82,13 +94,13 @@ $(document).ready(function() {
 		const couponCode = $('#coupon-code').val();
 
 		$.ajax({
-			url: '/CookLab/MemberOrderServlet', // 后端端点的URL
-			type: 'POST', // 使用POST请求
+			url: END_POINT_URL+COLLECTION_POINT3, 
+			type: 'POST', 
 			data: { action: "checkCoupon", couponCode: couponCode },
-			dataType: 'json', // 预期的响应数据类型
+			dataType: 'json', 
 			success: function(response) {
 				console.log(response);
-				const finalPriceElement = document.getElementById("finalPriceInfo"); // 获取最終金額元素
+				const finalPriceElement = document.getElementById("finalPriceInfo"); 
 
 				if (response.message === "success") {
 					const currentDateTime = new Date();
@@ -117,13 +129,11 @@ $(document).ready(function() {
 							console.log(discount);
 							promoCodeDiscountElement.textContent = `${discount}折`;
 						} else {
-							finalPrice = orderTotal; // 如果没有優惠碼，最终价格等于总金额
+							finalPrice = orderTotal; 
 						}
 
-						// 更新最終金額的文本内容
 						finalPriceElement.textContent = `$${finalPrice.toFixed(0)}`;
 
-						// 显示優惠碼信息
 						promoCodeInfoElement.style.display = "block";
 
 						alert("優惠碼使用成功");
@@ -136,7 +146,7 @@ $(document).ready(function() {
 				}
 			},
 			error: function(xhr) {
-				console.error('AJAX请求失败：' + xhr.status);
+				console.error('AJAX：' + xhr.status);
 			},
 		});
 	});
@@ -151,7 +161,6 @@ $(document).ready(function() {
 			alert("請填寫必填字段。");
 			return;
 		}
-
 		const orderData = {
 			memberName: memberName,
 			memberEmail: memberEmail,
@@ -165,7 +174,7 @@ $(document).ready(function() {
 		};
 		console.log(orderData);
 		$.ajax({
-			url: '/CookLab/MemberOrderServlet',
+			url: END_POINT_URL+COLLECTION_POINT3,
 			type: 'POST',
 			data: orderData,
 			dataType: 'json',
@@ -188,13 +197,11 @@ $(document).ready(function() {
 			},
 		});
 	});
-	// 获取按钮元素
+
 	const returnButton = document.getElementById("returnButton");
 
-	// 添加点击事件处理程序
 	returnButton.addEventListener("click", function() {
-		// 在这里执行返回首页的操作，比如重定向到首页的URL
-		window.location.href = "shop.html"; // 将 "首頁的URL" 替换为你的首页URL
+		window.location.href = "shop.html"; 
 	});
 
 });
@@ -205,7 +212,7 @@ $(document).ready(function() {
 
 
 
-// 复选框状态改变时触发的函数
+
 function handleSameAsBillingCheckboxChange() {
 	const sameAsBillingCheckbox = document.getElementById("sameAsBilling");
 	const memberNameInput = document.getElementById("memberName");
@@ -213,26 +220,26 @@ function handleSameAsBillingCheckboxChange() {
 	const memberPhoneInput = document.getElementById("memberPhone");
 	const memberEmailInput = document.getElementById("memberEmail");
 
-	if (sameAsBillingCheckbox.checked) { // 使用 .checked 检查复选框是否被选中
-		// 复选框被选中，向后端请求数据
+	if (sameAsBillingCheckbox.checked) { 
+
 		$.ajax({
-			url: '/CookLab/MemberOrderServlet', // 后端端点的URL
-			type: 'GET', // 使用GET请求
+			url: END_POINT_URL+COLLECTION_POINT3, 
+			type: 'GET', 
 			data: { action: "memberMessage" },
-			dataType: 'json', // 预期的响应数据类型
+			dataType: 'json', // 
 			success: function(data) {
-				// 更新表单字段的值
-				memberNameInput.value = data.memberNickname; // 使用 .value 设置字段的值
+				
+				memberNameInput.value = data.memberNickname; 
 				memberAddressInput.value = data.memberAddress;
 				memberPhoneInput.value = data.memberCellphone;
 				memberEmailInput.value = data.memberMail;
 			},
 			error: function(xhr) {
-				console.error('AJAX请求失败：' + xhr.status);
+				console.error('AJAX：' + xhr.status);
 			},
 		});
 	} else {
-		// 复选框未被选中，清空表单字段
+		
 		memberNameInput.value = '';
 		memberAddressInput.value = '';
 		memberPhoneInput.value = '';
@@ -250,7 +257,7 @@ function calculatePriceAfterFixedDiscount(totalAmount, fixedDiscountAmount) {
 	}
 }
 
-// 计算百分比折扣后的价格
+
 function calculatePriceAfterPercentageDiscount(totalAmount, percentageDiscountAmount) {
 	if (percentageDiscountAmount <= 0 || percentageDiscountAmount >= 1) {
 		return totalAmount;

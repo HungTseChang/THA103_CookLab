@@ -10,42 +10,34 @@
 PromoCodeVO promoCodeVO = (PromoCodeVO) request.getAttribute("promoCodeVO");
 PromoCodeRandom PromoCodeRandom = new PromoCodeRandom();
 String a = PromoCodeRandom.generateRandomString(10);
-
 %>
 
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="BIG5">
-<title>Insert title here</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" />
+<html lang="zh-tw">
 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataTable - Mazer Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
+	rel="stylesheet" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/bootstrap.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/bootstrap.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/simple-datatables/style.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/style.css" />
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css" />
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/css/app.css">
+	href="<%=request.getContextPath()%>/dashboard/assets/css/app.css" />
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
-	type="image/x-icon">
-
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.css">
-<link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
-<link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet" />
-
+	href="<%=request.getContextPath()%>/dashboard/assets/images/favicon.svg"
+	type="image/x-icon" />
 <style>
 td a.wcc {
 	border: 1px solid rgb(151, 135, 249);
@@ -64,16 +56,15 @@ input.WCC_memeber_info {
 </style>
 </head>
 <body>
-
-
 	<div id="app">
 		<div id="sidebar" class="active">
 			<div class="sidebar-wrapper active">
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
 						<div class="logo">
-							<a href="index.html"><img src="assets/images/logo/logo.png"
-								alt="Logo" srcset=""></a>
+							<a href=""><img
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset="" /></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -81,89 +72,137 @@ input.WCC_memeber_info {
 						</div>
 					</div>
 				</div>
-				<div class="sidebar-menu">
-					<ul class="menu">
-						<li class="sidebar-title">Menu</li>
-						<!-- ============================================================================================== -->
-						<li class="sidebar-item "><a href="WCC_Homepage.html"
-							class='sidebar-link'> <i class="bi bi-grid-fill"></i> <span>後台首頁</span>
-						</a></li>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+                        <!-- ============================================================================================== -->
+                            <li class="sidebar-item  ">
+                            <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>後台首頁</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item ">
+                            <a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>會員管理</span>
+                            </a>
+                        </li>
 
 
-						<li class="sidebar-item "><a href="WCC_memeber.html"
-							class='sidebar-link'> <i
-								class="bi bi-file-earmark-spreadsheet-fill"></i> <span>會員管理</span>
-						</a></li>
+                        <li class="sidebar-item  has-sub ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>權限管理</span>
+                            </a>
+                            <ul class="submenu ">
+                          
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">管理管理者</a>
+                                </li>
+                             
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">創立權限規則</a>
+                                </li>
+                            
+                            </ul>
+                        </li>
 
+                        <li class="sidebar-item has-sub ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-collection-fill"></i>
+                                <span>食譜管理</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">食譜表單</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">標籤管理</a>
+                                </li>
+                            </ul>
+                        </li>
 
-						<li class="sidebar-item  has-sub "><a href="#"
-							class='sidebar-link'> <i class="bi bi-stack"></i> <span>權限管理</span>
-						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a
-									href=".\WCC_permission_createnew.html">創建管理</a></li>
-								<li class="submenu-item "><a
-									href=".\WCC_permission_management.html">管理管理者</a></li>
-								<li class="submenu-item "><a href="#">編輯管理者</a></li>
-								<li class="submenu-item "><a
-									href=".\WCC_permission_createrule.html">創立權限規則</a></li>
-								<li class="submenu-item "><a href="#">權限管理-編輯/查詢權限規則-查詢</a>
-								</li>
-							</ul></li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>商城管理</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">商品設定</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">商品種類管理</a>
+                                </li>
+                                <li class="submenu-item  active">
+                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >廣告管理</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>討論區管理</span>
+                            </a>
 
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-collection-fill"></i> <span>食譜管理</span>
-						</a> <!-- <ul class="submenu ">
-        <li class="submenu-item ">
-            <a href="#">食譜管理</a>
-        </li>
-    </ul>
-</li> -->
-						<li class="sidebar-item  has-sub active"><a href="#"
-							class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>商城管理</span>
-						</a>
-							<ul class="submenu " style="display: block">
-								<li class="submenu-item "><a href="#">商品設定</a></li>
-								<li class="submenu-item "><a href="#">訂單管理</a></li>
-								<li class="submenu-item active "><a href="#">新增優惠券</a></li>
-								<li class="submenu-item "><a href="#">優惠券管理</a></li>
-								<li class="submenu-item "><a href="#">新增廣告</a></li>
-								<li class="submenu-item "><a href="#">廣告管理</a></li>
-								<li class="submenu-item "><a href="#">新增進貨表單</a></li>
-							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>討論區管理</span>
-						</a>
-
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">看板分類</a></li>
-								<li class="submenu-item "><a href="#">文章管理</a></li>
-							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>數據分析</span>
-						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">會員數據</a></li>
-								<li class="submenu-item "><a href="#">食譜數據</a></li>
-								<li class="submenu-item "><a href="#">商城數據</a></li>
-								<li class="submenu-item "><a href="#">文章數據</a></li>
-							</ul></li>
-						<li class="sidebar-item  has-sub"><a href="#"
-							class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>客服中心</span>
-						</a>
-							<ul class="submenu ">
-								<li class="submenu-item "><a href="#">食譜檢舉</a></li>
-								<li class="submenu-item "><a href="#">討論區檢舉</a></li>
-								<li class="submenu-item "><a href="#">系統通知</a></li>
-							</ul></li>
-						<!-- ======================================================================================================== -->
-					</ul>
-				</div>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">看板分類</a>
+                                  </li>
+                                  <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >文章管理</a>
+                                  </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  has-sub ">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-pen-fill"></i>
+                                <span>客服中心</span>
+                            </a>
+                            <ul class="submenu ">
+<!--                                 <li class="submenu-item "> -->
+<%--                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">食譜檢舉</a> --%>
+<!--                                 </li> -->
+<!--                                 <li class="submenu-item "> -->
+<%--                                     <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a> --%>
+<!--                                 </li> -->
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
+                                </li>
+                                  <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">常見問題</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">系統通知</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">問題表單</a>
+                                </li>
+                                <li class="submenu-item">
+                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
+                                 </li>
+                            </ul>
+                        </li>
+                        <!-- ======================================================================================================== -->
+                    </ul>
+                </div>
 				<button class="sidebar-toggler btn x">
 					<i data-feather="x"></i>
 				</button>
 			</div>
 		</div>
+
 		<div id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
@@ -178,15 +217,24 @@ input.WCC_memeber_info {
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
 							<h3>優惠券設定</h3>
-							<p class="text-subtitle text-muted">For user to check they
-								list</p>
+							<p class="text-subtitle text-muted">For user to check
+								theylist</p>
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/mazer-main/dist/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
+										href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a></li>
 									<li class="breadcrumb-item active" aria-current="page">優惠券設定</li>
 								</ol>
 							</nav>
@@ -209,7 +257,7 @@ input.WCC_memeber_info {
 										</div>
 										<div class="card-content">
 											<div class="card-body">
-												
+
 												<form class="form form-horizontal" METHOD="post"
 													ACTION="<%=request.getContextPath()%>/PromoCodeServlet">
 													<div class="form-body">
@@ -220,7 +268,7 @@ input.WCC_memeber_info {
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" id="" class="GCpromo_info"
-																	name="promo_code_serial_number" value="<%=a%>" disabled >
+																	name="promo_code_serial_number" value="<%=a%>">
 															</div>
 															<div class="col-md-4">
 																<label>生效時間</label>
@@ -241,6 +289,7 @@ input.WCC_memeber_info {
 															</div>
 															<div class="col-md-8 form-group">
 																<input type="text" class="GCpromo_info"
+																	placeholder="請輸入0~1數字或小數"
 																	name="percentage_discount_amount" id="" value="">
 															</div>
 															<div class="col-md-4">
@@ -268,7 +317,7 @@ input.WCC_memeber_info {
 													</div>
 													<div class="col-md-6 ">
 														<input type="hidden" name="action" value="insert">
-														<input type="submit" value="送出新增">
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
 													</div>
 												</form>
 											</div>
@@ -297,45 +346,30 @@ input.WCC_memeber_info {
 					<div class="float-end">
 						<p>
 							Crafted with <span class="text-danger"><i
-								class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
-								Saugi</a>
+								class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.Saugi</a>
 						</p>
 					</div>
 				</div>
 			</footer>
 		</div>
 	</div>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets\vendors\jquery-3.7.1.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.min.js"></script>
 	<script>
-		// Simple Datatable
-		let table1 = document.querySelector('#table1');
+		let table1 = document.querySelector("#table1");
 		let dataTable = new simpleDatatables.DataTable(table1);
 	</script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/main.js"></script>
-	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/jquery-3.7.1.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/js/quill.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/choices.js/choices.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
+		src="<%=request.getContextPath()%>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
-	<script>
-		
-	</script>
+	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
+
 
 
 </body>

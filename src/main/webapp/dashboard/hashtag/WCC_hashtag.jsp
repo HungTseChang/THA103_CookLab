@@ -51,8 +51,6 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
-
                         <!-- ============================================================================================== -->
                                  <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
@@ -96,7 +94,7 @@
                                 <li class="submenu-item">
                                     <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">食譜表單</a>
                                 </li>
-                                <li class="submenu-item ">
+                                <li class="submenu-item active">
                                     <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">標籤管理</a>
                                 </li>
                             </ul>
@@ -149,6 +147,7 @@
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
+
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
@@ -164,13 +163,12 @@
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">問題表單</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item ">
                                 <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
                                  </li>
                             </ul>
                         </li>
                         <!-- ======================================================================================================== -->
-
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>

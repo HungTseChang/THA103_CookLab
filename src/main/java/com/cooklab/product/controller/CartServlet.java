@@ -1,10 +1,8 @@
 package com.cooklab.product.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cooklab.product.model.ProductService;
 import com.cooklab.product.model.ProductVO;
@@ -39,13 +38,17 @@ public class CartServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-
+		
+		HttpSession session = req.getSession();
+		String userId = session.getAttribute("userId").toString();
+		
+		//購買一筆
 		if ("buttonadd1".equals(action)) {
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 			String quantity = req.getParameter("quantity");
 
-			String memberNo = "1"; // 動態設定
-
+			//未來動態會員編號
+			String memberNo = userId; 
 			System.out.println(productNo);
 
 			JedisPool jedisPool = JedisUtil.getJedisPool();
@@ -60,10 +63,19 @@ public class CartServlet extends HttpServlet {
 
 				if (existingProduct != null) {
 					System.out.println("重复商品累加");
-					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+					
+					//使用 Gson 函式庫來解析 Redis 從資料庫擷取的 JSON 字串，將其轉換為 Gson 可以理解的 JSON 物件
+//					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+
+					//新方法
+					Gson gson = new Gson();
+					JsonObject existingProductJson = gson.fromJson(existingProduct, JsonObject.class);
+					
+					//取得數量
 					int existingQuantity = existingProductJson.get("quantity").getAsInt();
 
 					int newQuantity = existingQuantity + 1;
+					
 					existingProductJson.addProperty("quantity", newQuantity);
 
 					// 更新
@@ -72,7 +84,7 @@ public class CartServlet extends HttpServlet {
 					// 過期時間
 					jedis.expire(cartKey, 3600);
 
-					System.out.println("存储到Redis成功!");
+					System.out.println("儲存成功Redis!");
 				} else {
 					// 不存在
 					ProductService productSvc = new ProductService();
@@ -97,18 +109,18 @@ public class CartServlet extends HttpServlet {
 					jsonProduct.addProperty("productImage", productImage);
 					jsonProduct.addProperty("quantity", Integer.valueOf(quantity));
 
-					// JSON to Redis
+					// JSON to Redis   (jsonProduct.toString()  轉換為 JSON 字符串)
 					jedis.hset(cartKey, productKey, jsonProduct.toString());
 
 					// 過期時間
 					jedis.expire(cartKey, 3600);
 
-					System.out.println("存储到Redis成功!");
+					System.out.println("儲存成功Redis!");
 				}
 
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
-				String successMessage = "{\"message\": \"成功加入购物车\"}";
+				String successMessage = "{\"message\": \"成功加入購物車\"}";
 				res.getWriter().write(successMessage);
 			} finally {
 				jedis.close();
@@ -118,7 +130,8 @@ public class CartServlet extends HttpServlet {
 			Integer productNo = Integer.valueOf(req.getParameter("productNo").trim());
 			Integer quantity = Integer.valueOf(req.getParameter("quantity"));
 
-			String memberNo = "1";
+			//未來動態會員
+			String memberNo = userId;
 
 			System.out.println(productNo);
 
@@ -134,7 +147,14 @@ public class CartServlet extends HttpServlet {
 
 				if (existingProduct != null) {
 					System.out.println("重複商品累加");
-					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+					
+					
+//					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+					
+					//新方法
+					Gson gson = new Gson();
+					JsonObject existingProductJson = gson.fromJson(existingProduct, JsonObject.class);
+					
 					int existingQuantity = existingProductJson.get("quantity").getAsInt();
 
 					int newQuantity = existingQuantity + quantity;
@@ -145,7 +165,7 @@ public class CartServlet extends HttpServlet {
 
 					jedis.expire(cartKey, 3600);
 
-					System.out.println("存储到Redis成功!");
+					System.out.println("儲存成功Redis!");
 				} else {
 
 					ProductService productSvc = new ProductService();
@@ -172,13 +192,13 @@ public class CartServlet extends HttpServlet {
 
 					jedis.hset(cartKey, productKey, jsonProduct.toString());
 
-					jedis.expire(cartKey, 3600); // 设置为1小时过期
+					jedis.expire(cartKey, 3600);
 
-					System.out.println("存储到Redis成功!");
+					System.out.println("儲存成功Redis!!");
 				}
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
-				String successMessage = "{\"message\": \"成功加入购物车\"}";
+				String successMessage = "{\"message\": \"成功加入購物車\"}";
 				res.getWriter().write(successMessage);
 			} finally {
 				jedis.close();
@@ -190,8 +210,10 @@ public class CartServlet extends HttpServlet {
 			Jedis jedis = jedisPool.getResource();
 
 			try {
-				String memberNo = "1"; // 这里设置你的会员编号
-				String cartKey = "cart:" + memberNo; // 使用会员编号构建购物车的Redis键
+				//動態會員
+				String memberNo = userId; // 
+				//Key
+				String cartKey = "cart:" + memberNo; 
 
 				jedis.select(1);
 				Map<String, String> cartData = jedis.hgetAll(cartKey);
@@ -199,36 +221,43 @@ public class CartServlet extends HttpServlet {
 				System.out.println(cartData);
 				System.out.println(cartData);
 				if (!cartData.isEmpty()) {
+					
+					//JSON 陣列
 					JsonArray cartArray = new JsonArray();
 
 					for (Map.Entry<String, String> entry : cartData.entrySet()) {
 						String productKey = entry.getKey();
 						String productJson = entry.getValue();
 
-						// 构建 JSON 对象
-						JsonObject productObject = new JsonParser().parse(productJson).getAsJsonObject();
+						
+//						JsonObject productObject = new JsonParser().parse(productJson).getAsJsonObject();
+						
+						Gson gson = new Gson();
+						JsonObject productObject = gson.fromJson(productJson, JsonObject.class);
+						
+						
 						cartArray.add(productObject);
 					}
 
-					// 将 JSON 数组写入响应
 					res.setContentType("application/json");
 					res.setCharacterEncoding("UTF-8");
 					res.getWriter().write(cartArray.toString());
 				} else {
-					// 购物车为空，返回空数组或适当的响应
+					// 空陣列(前端陣列儲存)
 					res.setContentType("application/json");
 					res.setCharacterEncoding("UTF-8");
-					res.getWriter().write("[]"); // 返回空数组或适当的响应
+					res.getWriter().write("[]"); 
 				}
 			} finally {
-				jedis.close(); // 记得关闭Jedis连接，归还到连接池
+				jedis.close(); 
 			}
 		}
 
 		if ("remove".equals(action)) {
 
 			int productNo = Integer.parseInt(req.getParameter("productId"));
-			String memberNo = "1"; // 假设需要设置会员编号
+			//動態會員
+			String memberNo = userId; 
 
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
@@ -266,35 +295,42 @@ public class CartServlet extends HttpServlet {
 			Jedis jedis = jedisPool.getResource();
 
 			try {
-				String memberNo = "1"; // 在这里设置你的会员编号
-				String cartKey = "cart:" + memberNo; // 使用会员编号构建购物车的 Redis 键
+				//未來動態會員
+				String memberNo = userId; 
+				String cartKey = "cart:" + memberNo; 
 
 				jedis.select(1);
-				String productKeysStr = req.getParameter("productNo"); // 获取传递的产品编号字符串
+				String productKeysStr = req.getParameter("productNo"); 
 
-				// 将逗号分隔的字符串拆分为整数数组
+				//商品編號陣列
 				String[] productKeysStrArray = productKeysStr.split(",");
 				int[] productKeys = new int[productKeysStrArray.length];
 				for (int i = 0; i < productKeysStrArray.length; i++) {
 					productKeys[i] = Integer.parseInt(productKeysStrArray[i]);
 				}
 
+				
 				JsonArray cartArray = new JsonArray();
 				for (int productKey : productKeys) {
 					String productJson = jedis.hget(cartKey, "product:" + productKey);
 
 					if (productJson != null) {
-						JsonObject productObject = new JsonParser().parse(productJson).getAsJsonObject();
+						
+//						JsonObject productObject = new JsonParser().parse(productJson).getAsJsonObject();
+						Gson gson = new Gson();
+						JsonObject productObject = gson.fromJson(productJson, JsonObject.class);
+						
 						cartArray.add(productObject);
 					}
 				}
 				System.out.println(cartArray);
-				// 将 JSON 数组写入响应
+
 				res.setContentType("application/json");
 				res.setCharacterEncoding("UTF-8");
+				//轉換為 JSON 字符串
 				res.getWriter().write(cartArray.toString());
 			} finally {
-				jedis.close(); // 记得关闭 Jedis 连接，归还到连接池
+				jedis.close(); 
 			}
 		}
 
@@ -302,7 +338,7 @@ public class CartServlet extends HttpServlet {
 			Integer productNo = Integer.valueOf(req.getParameter("productId").trim());
 			Integer newQuantity = Integer.valueOf(req.getParameter("newQuantity").trim());
 
-			String memberNo = "1"; // 動態
+			String memberNo = userId; 
 
 			JedisPool jedisPool = JedisUtil.getJedisPool();
 			Jedis jedis = jedisPool.getResource();
@@ -312,12 +348,19 @@ public class CartServlet extends HttpServlet {
 				String productKey = "product:" + productNo;
 				String existingProduct = jedis.hget(cartKey, productKey);
 				if (existingProduct != null) {
-					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+					
+					
+//					JsonObject existingProductJson = new JsonParser().parse(existingProduct).getAsJsonObject();
+					
+					Gson gson = new Gson();
+					JsonObject existingProductJson = gson.fromJson(existingProduct, JsonObject.class);
+					
+					
 					existingProductJson.addProperty("quantity", newQuantity);
 
 					jedis.hset(cartKey, productKey, existingProductJson.toString());
 
-					jedis.expire(cartKey, 3600); // 设置为1小时过期
+					jedis.expire(cartKey, 3600);
 
 					Map<String, String> cartData = jedis.hgetAll(cartKey);
 					System.out.println(cartKey);
@@ -329,8 +372,10 @@ public class CartServlet extends HttpServlet {
 						for (Map.Entry<String, String> entry : cartData.entrySet()) {
 							String productKeys = entry.getKey();
 							String productJsons = entry.getValue();
-							// 构建 JSON 对象
-							JsonObject productObject = new JsonParser().parse(productJsons).getAsJsonObject();
+
+//							JsonObject productObject = new JsonParser().parse(productJsons).getAsJsonObject();
+							JsonObject productObject = gson.fromJson(productJsons, JsonObject.class);
+							
 							cartArray.add(productObject);
 						}
 

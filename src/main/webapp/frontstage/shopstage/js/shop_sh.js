@@ -1,17 +1,25 @@
-// 创建一个函数来处理 AJAX 请求和渲染数据
+const HOST = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf("/", 1));
+const END_POINT_URL = "http://" + HOST + webCtx;
+const COLLECTION_POINT = "/ProductServlet";
+const COLLECTION_POINT2 = "/CartServlet"
+const COLLECTION_POINT3 = "/AdvertiseServlet2"
+
+
+//Fetch練習
+
+
 function fetchDataAndRender() {
-	// 发起 Fetch 请求
-	fetch('/CookLab//ProductServlet?action=Indexget')
+	fetch(END_POINT_URL + COLLECTION_POINT + '?action=Indexget')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
-			return response.json(); // 解析 JSON 数据
+			return response.json();
 		})
 		.then(data => {
-			// 在此处处理从服务器接收到的数据
-			// 数据将包含从服务器返回的商品信息
-			renderData(data); // 调用渲染函数，将数据渲染到页面
+			renderData(data);
 		})
 		.catch(error => {
 			console.error('There was a problem with the fetch operation:', error);
@@ -22,7 +30,7 @@ function renderData(data) {
 	const container = document.getElementById('productContainer');
 	container.innerHTML = '';
 
-	// 仅保留前9条数据
+	// 前端控制數量(練習)
 	const limitedData = data.slice(0, 9);
 
 	limitedData.forEach(item => {
@@ -57,67 +65,79 @@ function renderData(data) {
 		textDiv.classList.add('featured__item__text');
 		featuredItem.appendChild(textDiv);
 
+		//商品
 		const h6 = document.createElement('h6');
 		const aTitle = document.createElement('a');
-		aTitle.href = '#'; // 添加商品链接
-		aTitle.textContent = item.productName; // 添加商品名称
-		aTitle.setAttribute('data-product-id', item.productNo); // 设置商品的ID
+		aTitle.href = '#'; // 連結
+		aTitle.textContent = item.productName; // 名稱
+		aTitle.setAttribute('data-product-id', item.productNo); // ID
 		h6.appendChild(aTitle);
 		textDiv.appendChild(h6);
 
 		const h5 = document.createElement('h5');
-		h5.textContent = `$${item.productPrice}`; // 添加商品价格
+		h5.textContent = `$${item.productPrice}`; // 價格
 		textDiv.appendChild(h5);
 
 		container.appendChild(card);
 
-		// 为每个商品标题添加事件监听器
-		aTitle.addEventListener('click', function(event) {
-			event.preventDefault(); // 阻止默认的链接跳转行为
 
-			const productId = this.getAttribute('data-product-id'); // 获取商品ID
+		//商品名稱連結
+		aTitle.addEventListener('click', function(event) {
+			event.preventDefault();
+
+			const productId = this.getAttribute('data-product-id');
 			window.location.href = './shop-details.html?productNo=' + productId;
 		});
-		// 为每个购物车图标添加事件监听器
-		icon.addEventListener('click', function(event) {
-			event.preventDefault(); // 阻止默认的按钮点击行为
 
-			const productId = aTitle.getAttribute('data-product-id'); // 获取商品ID
+
+		//購物車按鈕連結
+		icon.addEventListener('click', function(event) {
+			event.preventDefault();
+			const productId = aTitle.getAttribute('data-product-id');
 			const requestData = {
-				action: 'buttonadd1', // 指定要调用的方法，例如 'addToCart'
-				productNo: productId, // 商品的ID
+				action: 'buttonadd1',
+				productNo: productId,
 				quantity: 1
 			};
 			console.log(requestData);
 			console.log(productId);
 			$.ajax({
-				url: '/CookLab/CartServlet', // 服务器端URL
-				type: 'GET', // 使用GET请求
-				data: requestData, // 发送的参数
-				dataType: 'json', // 预期的响应数据类型
+				url: '/CookLab/CartServlet',
+				type: 'GET',
+				data: requestData,
+				dataType: 'json',
+				headers: {
+					orginURL: window.location.href
+				},
 				success: function(response) {
-					// 处理成功添加到购物车的响应
-					console.log('商品已添加到购物车');
-					alert("商品添加到購物車囉");
+					console.log(response);
+					if (response.redirectURL) {
+						alert("請先登入會員");
+						window.location.href = `../members/login.html`;
+					} else {
+						console.log('商品添加到購物車囉');
+						alert("商品添加到購物車囉");
+					}
+
 				},
 				error: function(xhr) {
-					console.log('AJAX请求失败：' + xhr.status);
+					console.log('AJAX失敗：' + xhr.status);
 				}
 			});
 		});
 	});
 }
+
+
 function fetchDataAndRender2() {
-	// 发起 Fetch 请求到 /ProductServlet?action=getHotKeywords
-	fetch('/CookLab/ProductServlet?action=getHotKeywords')
+	fetch(END_POINT_URL + COLLECTION_POINT + '?action=getHotKeywords')
 		.then(response => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
 			}
-			return response.json(); // 解析 JSON 数据
+			return response.json();
 		})
 		.then(keywords => {
-			// 将商品名称填充到热门关键字部分
 			populateHotKeywords(keywords);
 		})
 		.catch(error => {
@@ -125,7 +145,7 @@ function fetchDataAndRender2() {
 		});
 }
 
-
+//關鍵字渲染
 function populateHotKeywords(keywords) {
 	const topSearchWordsMenu = document.querySelector('.topsearchwords-menu');
 
@@ -147,23 +167,107 @@ function populateHotKeywords(keywords) {
 }
 
 
-fetchDataAndRender();
-fetchDataAndRender2();
-// 等待页面加载完成后执行
-document.addEventListener('DOMContentLoaded', () => {
+//廣告渲染
+function fetchDataAndRender3() {
+	fetch(END_POINT_URL + COLLECTION_POINT3 + '?action=getjson')
+		.then(response => {
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		})
+		.then(data => {
+			renderData2(data);
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+}
 
-});
+
+function renderData2(data) {
+	const Adcontainer = document.getElementById('adhighlight');
+	Adcontainer.innerHTML = '';
+
+	const limitedData = data.slice(0, 3);
+
+	limitedData.forEach(item => {
+		const card = document.createElement('div');
+		card.classList.add('col-lg-4', 'col-md-4', 'col-sm-6', 'mix', 'oranges', 'fresh-meat');
+
+		const featuredItem = document.createElement('div');
+		featuredItem.classList.add('featured__item');
+		card.appendChild(featuredItem);
+
+		const imageDiv = document.createElement('div');
+		imageDiv.classList.add('featured__item__pic', 'set-bg');
+		imageDiv.style.backgroundImage = `url(data:image/jpeg;base64,${item.advertise_img})`;
+		featuredItem.appendChild(imageDiv);
+
+
+		const a = document.createElement('a');
+		a.href = '#';
+		featuredItem.appendChild(a);
+
+		const textDiv = document.createElement('div');
+		textDiv.classList.add('featured__item__text');
+		featuredItem.appendChild(textDiv);
+
+		//商品
+		const h6 = document.createElement('h6');
+		const aTitle = document.createElement('a');
+		aTitle.href = '#'; // 連結
+		aTitle.textContent = item.advertise_name; // 名稱
+		aTitle.setAttribute('data-product-id', item.advertise_url); // ID
+		h6.appendChild(aTitle);
+		textDiv.appendChild(h6);
+
+		Adcontainer.appendChild(card);
+		//商品名稱連結
+		aTitle.addEventListener('click', function(event) {
+			event.preventDefault();
+			const productId = this.getAttribute('data-product-id');
+			window.location.href = './shop-details.html?productNo=' + productId;
+		});
+
+	});
+}
+
+
+
 
 
 
 /*============================== 搜尋功能 ==============================*/
 $(document).ready(function() {
-	$("#search-button").on("click", function() {
-		let keyword = $("#index-searchbar").val();
-
-		// 构建跳转URL并将关键字作为查询参数传递
-		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	$("#search-button").on("click", function(event) {
+			event.preventDefault();
+			let keyword = $(this).val();
+			window.location.href = "./shop-grid.html?keyword=" + keyword;
 	});
+	//按下enter搜尋
+	$("#index-searchbar").on("keydown", function(e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			$("#search-button").click();
+		}
+	});
+
+
+
+	fetchDataAndRender();
+	fetchDataAndRender2();
+	fetchDataAndRender3();
+
+
+	const loadMoreButton = document.getElementById('loadMoreButton');
+	// 点击事件处理程序
+	loadMoreButton.addEventListener('click', function() {
+		window.location.href = "./shop-grid.html";
+	});
+
+
+
 });
 
 

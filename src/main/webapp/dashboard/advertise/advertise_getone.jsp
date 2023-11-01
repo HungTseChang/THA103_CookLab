@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.advertise.model.*"%>
 
 <%
@@ -73,8 +75,9 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
 						<div class="logo">
-							<a href="index.html"><img src="assets/images/logo/logo.png"
-								alt="Logo" srcset=""></a>
+							<a href=""><img
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset="" /></a>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -82,11 +85,12 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 						</div>
 					</div>
 				</div>
-				<div class="sidebar-menu">
-					<ul class="menu">
-						<li class="sidebar-title">Menu</li>
-						<!-- ============================================================================================== -->
-					                            <li class="sidebar-item  ">
+
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+                        <!-- ============================================================================================== -->
+                                                  <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
@@ -202,13 +206,14 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
                             </ul>
                         </li>
 						<!-- ======================================================================================================== -->
-					</ul>
+									</ul>
 				</div>
 				<button class="sidebar-toggler btn x">
 					<i data-feather="x"></i>
 				</button>
 			</div>
 		</div>
+		
 		<div id="main">
 			<header class="mb-3">
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
@@ -223,12 +228,22 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 							<h3>廣告設定</h3>
 							<p class="text-subtitle text-muted">Multiple form layout you
 								can use</p>
+								<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/mazer-main/dist/advertise/advertise_allview.jsp">廣告總覽</a></li>
+									<li class="breadcrumb-item"><a
+										href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp">廣告總覽</a></li>
 									<li class="breadcrumb-item active" aria-current="page">廣告設定</li>
 								</ol>
 							</nav>
@@ -251,9 +266,17 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 											enctype="multipart/form-data">
 											<div class="form-body">
 												<div class="row">
+													<div class="col-12" style="margin-top: 20px;">
+														<div class="form-group">
+															<label for="advertiseNo-vertical">廣告編號</label> <input
+																type="text" id="advertiseNo-vertical"
+																class="form-control" name="advertise_no"
+																value="${advertiseVO.advertiseNo}" placeholder="廣告編號">
+														</div>
+													</div>
 													<div class="col-12">
 														<input type="file" id="p_file" class="form-control"
-															name="advertiseImg">
+															name="advertise_img">
 														<div id="preview">
 															<span class="text">預覽圖</span>
 														</div>
@@ -271,35 +294,38 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 															<label for="advertiseShelfTime-vertical">上架時間</label> <input
 																type="datetime-local" id="advertiseShelfTime-vertical"
 																class="form-control" name="advertise_shelf_time"
-																value="${advertiseVO.advertiseShelfTime}" placeholder="上架時間">
+																value="${advertiseVO.advertiseShelfTime}"
+																placeholder="上架時間">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
 															<label for="advertiseOffsaleTime-vertical">下架時間</label> <input
-																type="datetime-local" id="padvertiseOffsaleTime-vertical"
-																class="form-control" name="advertise_offsale_time"
-																value="${advertiseVO.advertiseOffsaleTime}" placeholder="下架時間">
+																type="datetime-local"
+																id="padvertiseOffsaleTime-vertical" class="form-control"
+																name="advertise_offsale_time"
+																value="${advertiseVO.advertiseOffsaleTime}"
+																placeholder="下架時間">
 														</div>
 													</div>
 													<div class="col-12">
 														<div class="form-group">
 															<label for="advertiseUrl-vertical">廣告URL</label> <input
 																type="text" step="1" id="advertiseUrl-vertical"
-																value="${advertiseVO.advertiseUrl}"
-																class="form-control" name="advertise_url">
+																value="${advertiseVO.advertiseUrl}" class="form-control"
+																name="advertise_url">
 														</div>
 													</div>
+												</div>
+												<div class="col-12">
+													<div class="col-12 d-flex justify-content-end">
+														<input type="hidden" name="action" value="update">
+														<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+														<button type="reset"
+															class="btn btn-light-secondary me-1 mb-1">Reset</button>
 													</div>
-														<div class="col-12">
-															<div class="col-12 d-flex justify-content-end">
-																<input type="hidden" name="action" value="insert">
-																<button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-																<button type="reset"
-																	class="btn btn-light-secondary me-1 mb-1">Reset</button>
-															</div>
-														</div>
-													</div>
+												</div>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -385,6 +411,9 @@ AdvertiseVO advertiseVO = (AdvertiseVO) request.getAttribute("advertiseVO");
 	<script
 		src="<%=request.getContextPath()%>/mazer-main/dist/assets/vendors/summernote/summernote-lite.min.js"></script>
 	<script>
+		let table1 = document.querySelector("#table1");
+		let dataTable = new simpleDatatables.DataTable(table1);
+
 		$('#summernote').summernote({
 			tabsize : 2,
 			height : 120,

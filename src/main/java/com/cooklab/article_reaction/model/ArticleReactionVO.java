@@ -39,7 +39,7 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	private Integer articleNo;
 	
 	@Column(name = "statuts")  //若無宣告則會用屬性的名稱來找表格欄位，所以非必要加，但一般還是會加
-	private Byte statuts;
+	private Byte status;
 	
 	@Column(name = "created_timestamp" , insertable = false, updatable = false)  
 	private Timestamp createdTimestamp;
@@ -50,21 +50,21 @@ public class ArticleReactionVO  implements java.io.Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArticleReactionVO(Integer articleReactionNo, Integer memberId, Integer articleNo, Byte statuts,
+	public ArticleReactionVO(Integer articleReactionNo, Integer memberId, Integer articleNo, Byte status,
 			Timestamp createdTimestamp) {
 		super();
 		this.articleReactionNo = articleReactionNo;
 		this.memberId = memberId;
 		this.articleNo = articleNo;
-		this.statuts = statuts;
+		this.status = status;
 		this.createdTimestamp = createdTimestamp;
 	}
 	
-	public ArticleReactionVO(Integer memberId, Integer articleNo, Byte statuts) {
+	public ArticleReactionVO(Integer memberId, Integer articleNo, Byte status) {
 		super();
 		this.memberId = memberId;
 		this.articleNo = articleNo;
-		this.statuts = statuts;
+		this.status = status;
 	}
 	
 	
@@ -87,11 +87,11 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	public void setArticleNo(Integer articleNo) {
 		this.articleNo = articleNo;
 	}
-	public Byte getStatuts() {
-		return statuts;
+	public Byte getStatus() {
+		return status;
 	}
-	public void setStatuts(Byte statuts) {
-		this.statuts = statuts;
+	public void setStatus(Byte status) {
+		this.status = status;
 	}
 	public Timestamp getCreatedTimestamp() {
 		return createdTimestamp;
@@ -119,7 +119,7 @@ public class ArticleReactionVO  implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "ArticleSubReactionVO [articleReactionNo=" + articleReactionNo + ", members=" + members + ", memberId="
-				+ memberId + ", article=" + article + ", articleNo=" + articleNo + ", statuts=" + statuts
+				+ memberId + ", article=" + article + ", articleNo=" + articleNo + ", status=" + status
 				+ ", createdTimestamp=" + createdTimestamp + "]";
 	}
 

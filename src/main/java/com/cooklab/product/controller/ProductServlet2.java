@@ -111,7 +111,7 @@ public class ProductServlet2 extends HttpServlet {
 			 * 2.開始查詢資料
 			 *****************************************/
 			ProductService productSvc = new ProductService();
-			List<Map<String, Object>> list = productSvc.findByKeyword(keywords);
+			List<ProductVO> list = productSvc.findByKeyword(keywords);
 			if (list == null) {
 				errorMsgs.add("查無資料");
 			}

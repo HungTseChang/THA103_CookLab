@@ -90,11 +90,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-menu">
+                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-
-
                         <!-- ============================================================================================== -->
                                                       <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
@@ -191,6 +189,7 @@
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
+
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>

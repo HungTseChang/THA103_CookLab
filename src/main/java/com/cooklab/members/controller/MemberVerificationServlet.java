@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.cooklab.members.model.MembersService;
 import com.cooklab.members.model.MembersVO;
-import com.cooklab.util.JedisPoolUtil;
+import com.cooklab.util.JedisUtil;
 import com.google.gson.Gson;
 
 import redis.clients.jedis.Jedis;
@@ -45,7 +45,7 @@ public class MemberVerificationServlet  extends HttpServlet{
 		Integer userId = (Integer)session.getAttribute("userId");
 		
 		//連接Redis
-		Jedis jedis = JedisPoolUtil.getJedisPool().getResource();
+		Jedis jedis = JedisUtil.getJedisPool().getResource();
 		jedis.select(14);
 		String tempAuth = jedis.get("Member:"+userId);
 		jedis.close();

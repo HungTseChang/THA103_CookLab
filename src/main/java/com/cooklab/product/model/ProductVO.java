@@ -68,7 +68,7 @@ public class ProductVO implements java.io.Serializable {
 	@Column(name = "kitchenware_category_no")
 	private Integer kitchenwareCategoryNo;
 	
-	@Column(name = "search_count")
+	@Column(name = "search_count" , insertable = false)
 	private Integer searchCount;
 	
 	@Column(name = "created_timestamp", updatable = false, insertable = false)

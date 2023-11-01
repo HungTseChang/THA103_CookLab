@@ -85,7 +85,7 @@ public class ArticleCategoryServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artVO", artVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url ="/mazer-main/dist/article/HO_dscussion_cate.jsp";
+			String url ="/dashboard/article/HO_dscussion_cate.jsp";
 			
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
@@ -118,7 +118,7 @@ public class ArticleCategoryServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/article/HO_dscussion_cate.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/article/HO_dscussion_cate.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -128,7 +128,7 @@ public class ArticleCategoryServlet extends HttpServlet {
 			artSvc.add(artVO);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url ="/mazer-main/dist/article/HO_dscussion_cate.jsp";
+			String url ="/dashboard/article/HO_dscussion_cate.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 
@@ -149,7 +149,7 @@ public class ArticleCategoryServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_main.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -162,7 +162,7 @@ public class ArticleCategoryServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_main.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -175,14 +175,14 @@ public class ArticleCategoryServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/article/article_main.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("frontstage/article/article_main.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("artCate", artCate); // 資料庫取出的empVO物件,存入req
-			String url = "/article/cateSearch.jsp";
+			String url = "frontstage/article/cateSearch.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}

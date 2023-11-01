@@ -157,6 +157,7 @@
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
+
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
@@ -352,7 +353,7 @@
                                         <span>人物頭像</span>
                                         <img id="member_picture" src=""  alt="Member's Picture">                                        
                                     </div>
-                                    <div style="position: absolute;  bottom: 20px;  left: 0; "><a class=wcc id="confirm" >儲存變動</a><a class=wcc href="<%=request.getContextPath() %>/dashboard/member/WCC_members.jsp" style="margin-left:60px" >回到會員列表</a></div>
+                                    <div style="position: absolute;  bottom: 20px;  left: 0; "><a class=wcc id="confirm" >儲存變動</a><a class=wcc href="<%=request.getContextPath() %>/dashboard/member/WCC_member.jsp" style="margin-left:60px" >回到會員列表</a></div>
                                 </div>
                                 <!-- ///////////////// -->
                                 <div class="col-md-12 col-8"></div>

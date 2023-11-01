@@ -9,7 +9,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +30,7 @@ import javax.servlet.http.Part;
 import com.cooklab.advertise.model.AdvertiseService;
 import com.cooklab.advertise.model.AdvertiseVO;
 import com.cooklab.product.model.ProductService;
+import com.cooklab.product.model.ProductVO;
 import com.google.gson.Gson;
 
 /**
@@ -43,6 +47,78 @@ public class AdvertiseServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+		
+
+		if ("getjson".equals(action)) {
+
+			/***************************
+			 * 2.開始查詢資料
+			 *****************************************/
+			AdvertiseService adSvc = new AdvertiseService();
+			List<AdvertiseVO> listadvertiseVO = adSvc.getAll();
+
+			List<Map<String, String>> dataMapList = new ArrayList<>();
+
+			for (AdvertiseVO item : listadvertiseVO) {
+
+				Map<String, String> itemMap = new HashMap<>();
+
+				String AdvertiseNo = item.getAdvertiseNo().toString();
+				itemMap.put("advertise_no", AdvertiseNo);
+
+				String AdvertiseName = item.getAdvertiseName();
+				itemMap.put("advertise_name", AdvertiseName);
+
+				byte[] AdvertiseImg = item.getAdvertiseImg();
+				if (AdvertiseImg != null) {
+					String AdvertisePicture = Base64.getEncoder().encodeToString(AdvertiseImg);
+					itemMap.put("advertise_img", AdvertisePicture);
+				} else {
+					itemMap.put("advertise_img", "");
+				}
+
+				String AdvertiseUrl = item.getAdvertiseUrl();
+				itemMap.put("advertise_url", AdvertiseUrl);
+	
+				
+
+				if (item.getAdvertiseShelfTime() != null) {
+					String AdvertiseShelfTime = item.getAdvertiseShelfTime().toString();
+					itemMap.put("advertise_shelf_time", AdvertiseShelfTime);
+				} else {
+					itemMap.put("advertise_shelf_time", "無設定");
+				}
+
+				if (item.getAdvertiseOffsaleTime() != null) {
+					String AdvertiseOffsaleTime = item.getAdvertiseOffsaleTime().toString();
+					itemMap.put("advertise_shelf_time", AdvertiseOffsaleTime);
+				} else {
+					itemMap.put("advertise_shelf_time", "無設定");
+				}
+
+				
+				// HashMap 放入列表
+				dataMapList.add(itemMap);
+			}
+			System.out.println(dataMapList);
+			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+
+			Gson gson = new Gson();
+			String jsonData = gson.toJson(dataMapList);
+			System.out.println(jsonData);
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().write(jsonData);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -88,7 +164,7 @@ public class AdvertiseServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("advertiseVO", advertiseVO); // 資料庫取出的advertiseVO物件,存入req
-			String url = "/mazer-main/dist/advertise/advertise_getone.jsp";
+			String url = "/dashboard/advertise/advertise_getone.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -107,7 +183,7 @@ public class AdvertiseServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
-			String url = "/mazer-main/dist/advertise/advertise_getone.jsp";
+			String url = "/dashboard/advertise/advertise_getone.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_advertise_input.jsp
 			successView.forward(req, res);
 		}
@@ -118,6 +194,12 @@ public class AdvertiseServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+			Enumeration<String> aa = req.getParameterNames();
+			while(aa.hasMoreElements()) {
+				String name = aa.nextElement();
+				System.out.println(name);
+			}
+			System.out.println("編號為:"+req.getParameter("advertise_no"));
 			Integer advertiseno = Integer.valueOf(req.getParameter("advertise_no").trim());
 
 			String advertisename = req.getParameter("advertise_name");
@@ -159,40 +241,22 @@ public class AdvertiseServlet extends HttpServlet {
 				// 处理参数为 null 的情况，可以给出错误提示或执行适当的操作
 			}
 			Part filePart = req.getPart("advertise_img");
-			String fileName = filePart.getSubmittedFileName();
-			System.out.println(fileName);
-			System.out.println(filePart);
-			byte[] imageBytes = null;
+			InputStream in = filePart.getInputStream();
+			byte[] buf = new byte[in.available()]; // byte[] buf = in.readAllBytes(); // Java 9 的新方法
+			in.read(buf);
+			in.close();
 
-			if (filePart != null) {
-				fileName = filePart.getSubmittedFileName();
-				if (fileName != null && !fileName.isEmpty()) {
-					System.out.println("New file uploaded");
-					// 处理新文件上传逻辑
-					InputStream fileContent = filePart.getInputStream();
-					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					byte[] buffer = new byte[4096];
-					int bytesRead;
-
-					while ((bytesRead = fileContent.read(buffer)) != -1) {
-						outputStream.write(buffer, 0, bytesRead);
-					}
-
-					imageBytes = outputStream.toByteArray();
-				} else {
-					System.out.println("No new file uploaded");
-					AdvertiseService advertiseSvc = new AdvertiseService();
-					imageBytes = advertiseSvc.getOneAd(advertiseno).getAdvertiseImg();
-					System.out.println("old picture");
-					// 处理未上传新文件的逻辑
-				}
-			}
+//			String advertiseimg = null;
+//			if (advertiseimg == null || advertiseimg.trim().length() == 0) {
+//
+//				errorMsgs.add("請輸入圖片");
+//			}
 			String advertiseurl = req.getParameter("advertise_url");
-
-			if (advertiseurl == null || advertiseurl.trim().length() == 0) {
-
-				errorMsgs.add("請輸入圖片鏈結");
-			}
+         System.out.println("圖片網址為"+advertiseurl);
+//			if (advertiseurl == null || advertiseurl.trim().length() == 0) {
+//
+//				errorMsgs.add("請輸入圖片鏈結");
+//			}
 
 			AdvertiseVO advertiseVO = new AdvertiseVO();
 
@@ -200,13 +264,14 @@ public class AdvertiseServlet extends HttpServlet {
 			advertiseVO.setAdvertiseName(advertisename);
 			advertiseVO.setAdvertiseShelfTime(advertiseShelfTime);
 			advertiseVO.setAdvertiseOffsaleTime(advertiseOffsaleTime);
-			advertiseVO.setAdvertiseImg(imageBytes);
+			advertiseVO.setAdvertiseImg(buf);
 			advertiseVO.setAdvertiseUrl(advertiseurl);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
+				System.out.println("有錯誤訊息"+errorMsgs.get(0));
 				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的advertiseVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/advertise/update_advertise_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/advertise/advertise_getone.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -217,7 +282,7 @@ public class AdvertiseServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("advertiseVO", advertiseVO); // 資料庫update成功後,正確的的advertiseVO物件,存入req
-			String url = "/mazer-main/dist/advertise/advertise_allview.jsp";
+			String url = "/dashboard/advertise/advertise_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneAdvertise.jsp
 			successView.forward(req, res);
 		}
@@ -296,7 +361,7 @@ public class AdvertiseServlet extends HttpServlet {
 //			if (!errorMsgs.isEmpty()) {
 //				System.out.println("bbbbb");
 //				req.setAttribute("advertiseVO", advertiseVO); // 含有輸入格式錯誤的empVO物件,也存入req
-//				RequestDispatcher failureView = req.getRequestDispatcher("/mazer-main/dist/advertise/advertise_set.jsp");
+//				RequestDispatcher failureView = req.getRequestDispatcher("/dashboard/advertise/advertise_set.jsp");
 //				failureView.forward(req, res);
 //				return; // 程式中斷
 //			}
@@ -306,7 +371,7 @@ public class AdvertiseServlet extends HttpServlet {
 			adSvc.addAd(advertiseVO);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/mazer-main/dist/advertise/advertise_allview.jsp";
+			String url = "/dashboard/advertise/advertise_allview.jsp";
 			System.out.println("aaaaaaa");
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
@@ -327,7 +392,7 @@ public class AdvertiseServlet extends HttpServlet {
 			adSvc.deleteAd(advertiseVO);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/mazer-main/dist/advertise/advertise_allview.jsp";
+			String url = "/dashboard/advertise/advertise_allview.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}

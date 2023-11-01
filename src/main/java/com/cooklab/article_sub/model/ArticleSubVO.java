@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import com.cooklab.article.model.ArticleVO;
 import com.cooklab.article_reaction.model.ArticleReactionVO;
+import com.cooklab.article_sub_reaction.model.ArticleSubReactionVO;
 import com.cooklab.article_sub_report.model.ArticleSubReportVO;
 import com.cooklab.members.model.MembersVO;
 
@@ -45,6 +46,9 @@ public class ArticleSubVO {
 	
 	@OneToMany(mappedBy="articleSub")
 	private Set<ArticleSubReportVO> articleSubReport;
+	
+	@OneToMany(mappedBy="articleSub")
+	private Set<ArticleSubReactionVO> articleSubReaction;
 	
 	@Column (name="article_no")
 	private Integer articleNo;

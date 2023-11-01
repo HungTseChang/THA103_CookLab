@@ -316,7 +316,7 @@ public class MembersServlet extends HttpServlet {
 			session.setAttribute("membersVO", memVO);
 			
 			req.setAttribute("memVO", memVO);
-			String url = "/members/member-panel.jsp";
+			String url = "/frontstage/members/member-panel.jsp";
 			System.out.println("重定向到" + url);
 			String contextPath = req.getContextPath(); // 获取Servlet上下文路径
 			res.sendRedirect(contextPath + url); // 执行重定向
