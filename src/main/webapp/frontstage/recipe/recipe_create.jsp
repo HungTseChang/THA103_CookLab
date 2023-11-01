@@ -77,7 +77,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 <li><a href="../shopstage/shop.html">商城</a></li>
                                 <li><a href="../article/article_main.jsp">討論區</a></li>
                                 <li><a href="../news/news.html">最新消息</a></li>
-                                <li><a href="#">關於我們</a></li>
+                                <li><a href="../members/aboutus.html">關於我們</a></li>
                             </ul>
                         </nav>
                     </div>

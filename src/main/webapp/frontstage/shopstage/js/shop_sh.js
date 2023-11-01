@@ -240,13 +240,19 @@ function renderData2(data) {
 
 /*============================== 搜尋功能 ==============================*/
 $(document).ready(function() {
-	$("#index-searchbar").on("keydown", function(event) {
-		if (event.key === "Enter") {
+	$("#search-button").on("click", function(event) {
 			event.preventDefault();
 			let keyword = $(this).val();
 			window.location.href = "./shop-grid.html?keyword=" + keyword;
+	});
+	//按下enter搜尋
+	$("#index-searchbar").on("keydown", function(e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			$("#search-button").click();
 		}
 	});
+
 
 
 	fetchDataAndRender();

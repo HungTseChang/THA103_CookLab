@@ -54,7 +54,8 @@ public class MemberOrderServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		
-		String userId = session.getAttribute("userId").toString();
+		String userId = (session.getAttribute("userId") != null) ? session.getAttribute("userId").toString() : "";
+
 		Integer userId2 =  (Integer) session.getAttribute("userId");
 		
 		//訂購詳情資料渲染
