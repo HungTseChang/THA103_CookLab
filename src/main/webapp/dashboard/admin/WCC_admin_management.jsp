@@ -585,11 +585,6 @@ $("a#design").on("click",function(e){
 	name: "action",
 	value: "design"
 	}));
-	formdesign.append($("<input>", {
-	type: "hidden",
-	name: "action",
-	value: "design"
-	}));
 	formdesign.appendTo("body").hide();
 	formdesign.submit();
 	formdesign.remove();
