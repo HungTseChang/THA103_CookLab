@@ -260,13 +260,14 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                               <div class="col-md-4">
                                                             <label>管理員信箱</label>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
-                                                                    <input type="text"  name="email" class="form-control" placeholder="帳號"
-                                                                        id="first-name-icon" value="${AdminsVO.adminEmail}" disabled>
+                                                                    <input type="text"  name="email" class="form-control" placeholder="信箱"
+                                                                        id="first-name-icon" value="${AdminsVO.adminEmail}" >
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
                                                                     </div>

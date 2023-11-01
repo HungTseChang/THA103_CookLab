@@ -49,7 +49,8 @@
 								alt="Logo" srcset=""></a>
 								<div style="font-size:15px;" >會員：${thisaccount} ，你好 </div>
 								<div style="font-size:10px;">&nbsp;</div>
-								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a><a class="wccA"id="design" style="  margin-left: 10px;">個人資訊</a></div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >個人資訊</a></div>
 						</div>
 <!-- 						======================================== -->
                         <div class="toggler">
@@ -579,6 +580,11 @@ $("a#design").on("click",function(e){
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
 	});
 
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
 	formdesign.append($("<input>", {
 	type: "hidden",
 	name: "action",

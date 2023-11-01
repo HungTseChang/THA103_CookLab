@@ -94,7 +94,9 @@ while (reqattributeNames.hasMoreElements()) {
 			if(AdminsAccount==null || Permit==null) {				
 				return false;
 			}								
-				return Permit.get(location);
+			Boolean a = Permit.get(location);
+			if(a ==null) {a=true;}
+				return a;
 			}
 			
 			
