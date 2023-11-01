@@ -41,9 +41,15 @@ public class SupportFormServlet extends HttpServlet {
 		if ("closecase".equals(action)) {
 
 			Integer formNo = Integer.valueOf(req.getParameter("formNo"));
-			// 屆時會改從session取得adminNo，因需測試方便故改用固定值
-			Integer adminNo = (Integer) session.getAttribute("AdminNo");
-//			Integer adminNo = 1;
+			
+			// session取得管理員資訊
+			Integer adminNo = null;
+			if (session.getAttribute("adminID") == null) {
+				System.out.println("未取值");
+				adminNo = 1;
+			} else {
+				adminNo = Integer.valueOf(session.getAttribute("adminID").toString().trim());
+			}
 
 			Byte formStatus = null;
 			String formStatusString = req.getParameter("formStatus");
@@ -298,12 +304,25 @@ public class SupportFormServlet extends HttpServlet {
 			Byte formStatus = null;
 			formStatus = Byte.valueOf(req.getParameter("formStatus"));
 
-			// 屆時從session取得adminNo在放置此位置，因需測試方便故改用固定值
-			String fsNo = ((String) session.getAttribute("AdminNo")).trim();
-			String fsName = ((String) session.getAttribute("adminNickname")).trim();
+			
+			// session取得管理員資訊
+			String fsNo = null;
+			String fsName = null;
+			if (session.getAttribute("adminID") == null) {
+				System.out.println("id未取值");
+				fsNo = "1";
+			} else {
+				fsNo = session.getAttribute("adminID").toString().trim();
+			}
+			
+			if (session.getAttribute("nickname")== null) {
+				System.out.println("姓名未取值");
+				fsName = "管理員";
+			} else {
+				fsName = session.getAttribute("nickname").toString().trim();
+			}
+		
 			String formSubmitter = fsName + "(" + fsNo + ")";
-
-//			String formSubmitter = "TODO-更改為取得管理員資訊";
 
 			SupportFormVO sfVO = new SupportFormVO();
 
