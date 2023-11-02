@@ -28,15 +28,15 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 		try {
 			session.beginTransaction();
 			session.save(advertise);
-
+			System.out.println("新增成功");
 			session.getTransaction().commit();
 			session.close();
 
-		} catch (
-
-		Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
 
 	}
@@ -48,14 +48,16 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 		try {
 			session.beginTransaction();
 			session.update(advertise);
-			System.out.println("嘗試更新資料庫");
 			session.getTransaction().commit();
-			session.close();
-		} catch (Exception e) {
+
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
-
 	}
 
 	@Override
@@ -66,12 +68,14 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 			session.beginTransaction();
 			session.delete(advertise);
 			session.getTransaction().commit();
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
+		} catch (
 
+				Exception e) {
+					e.printStackTrace();
+					session.getTransaction().rollback();
+				} finally {
+					HibernateUtil.shutdown();
+				}
 	}
 
 	@Override
@@ -81,58 +85,62 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 		try {
 			session.beginTransaction();
 			AdvertiseVO advertiseVo = session
-					.createQuery("from AdvertiseVO where advertise_no =" + advertiseNo, AdvertiseVO.class)
-					.uniqueResult();
-
+				.createQuery("from AdvertiseVO where advertise_no =" + advertiseNo, AdvertiseVO.class).uniqueResult();
 			session.getTransaction().commit();
-			return advertiseVo;
+		System.out.println("搜一筆");
+		return advertiseVo;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+		} finally {
+			HibernateUtil.shutdown();
 		}
-
 		return null;
 	}
 
 	@Override
 	public List<AdvertiseVO> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
 			List<AdvertiseVO> list = session.createQuery("from AdvertiseVO", AdvertiseVO.class).list();
-
 			session.getTransaction().commit();
+			System.out.println("搜尋");
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-			session.getTransaction().rollback();
+		session.getTransaction().rollback();
 		}
-
 		return null;
 	}
 
 	@Override
 	public List<AdvertiseVO> upAd() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//		Session session = getSession();
-		try {
-			session.beginTransaction();
-			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+//<<<<<<< HEAD
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//			Session session = getSession();
+			try {
+				session.beginTransaction();
+				Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+	
+				String hql = "FROM AdvertiseVO ad " 
+						+ "WHERE :currentTime >= ad.AdvertiseShelfTime "
+						+ "AND :currentTime <= ad.AdvertiseOffsaleTime " 
+							+ "ORDER BY ad.AdvertiseShelfTime  DESC";
+	
+				Query query = session.createQuery(hql);
+				query.setParameter("currentTime", currentTime);
+	
+				List<AdvertiseVO> listAd = query.list();
+				session.getTransaction().commit();
+				return listAd;
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
 
-			String hql = "FROM AdvertiseVO ad " 
-						+ "ORDER BY ad.AdvertiseShelfTime  DESC";
-
-			Query query = session.createQuery(hql);
-			query.setParameter("currentTime", currentTime);
-
-			List<AdvertiseVO> listAd = query.list();
-			session.getTransaction().commit();
-			return listAd;
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
 
 		return null;
 	}

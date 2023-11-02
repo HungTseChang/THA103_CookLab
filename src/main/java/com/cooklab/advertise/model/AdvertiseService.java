@@ -9,14 +9,15 @@ import com.cooklab.article.model.ArticleVO;
 import com.cooklab.util.HibernateUtil;
 
 public class AdvertiseService {
-	
+
 	private AdvertiseHBDAO dao;
+
 //	private AdvertiseJDBCDAOIm dao;
 	public AdvertiseService() {
 		dao = new AdvertiseHBDAO(HibernateUtil.getSessionFactory());
 //		dao = new AdvertiseJDBCDAOIm();	
-		}
-	
+	}
+
 //	public AdvertiseVO addAdvertise(Integer advertiseNo, String advertiseName, Timestamp advertiseShelfTime,
 //			Timestamp avertiseOffsaleTime, String advertiseImg, String advertiseUrl, Timestamp createdTimestamp) {
 //
@@ -51,15 +52,14 @@ public class AdvertiseService {
 //		return AdvertiseVO;
 //	}
 
-	public void addAd (AdvertiseVO advertiseVO) {
+	public void addAd(AdvertiseVO advertiseVO) {
 		dao.insert(advertiseVO);
 	}
-	
-	public void  updateAd(AdvertiseVO advertiseVO) {
+
+	public void updateAd(AdvertiseVO advertiseVO) {
 		dao.update(advertiseVO);
 	}
-	
-	
+
 	public void deleteAd(AdvertiseVO advertiseVO) {
 		dao.delete(advertiseVO);
 	}
@@ -71,7 +71,7 @@ public class AdvertiseService {
 	public List<AdvertiseVO> getAll() {
 		return dao.getAll();
 	}
-	
+
 	public List<AdvertiseVO> upAd(){
 		return dao.upAd();
 	}
@@ -80,3 +80,4 @@ public class AdvertiseService {
 	
 		
 	
+

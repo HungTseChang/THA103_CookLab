@@ -78,12 +78,11 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //		Session session = getSession();
 		try {
-
+//
 			session.beginTransaction();
 			PromoCodeVO promoCodeVo = session
-					.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class)
-					.uniqueResult();
 
+				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 			session.getTransaction().commit();
 			return promoCodeVo;
 		} catch (Exception e) {
@@ -115,13 +114,28 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 	@Override
 	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
 //		Session session = getSession();
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
-			Query query = session.createQuery(hql);
-			query.setParameter("serialNumber", promoCodeSerialNumber);
+//<<<<<<< HEAD
+//
+//		String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
+//		Query query = session.createQuery(hql);
+//		query.setParameter("serialNumber", promoCodeSerialNumber);
+//
+//		PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
+//
+//		session.close(); // 记得关闭Session
+//=======
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//			String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
+//			Query query = session.createQuery(hql);
+//			query.setParameter("serialNumber", promoCodeSerialNumber);
+//>>>>>>> refs/heads/master
 
-			PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
-			return promoCode;
-		
+//<<<<<<< HEAD
+		return null;
+//=======
+//			PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
+//			return promoCode;
+//		
+//>>>>>>> refs/heads/master
 	}
 }
