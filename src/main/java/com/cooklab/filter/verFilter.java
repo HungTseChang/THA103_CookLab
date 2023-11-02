@@ -13,6 +13,8 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.cooklab.members.model.MembersVO;
 @WebFilter(urlPatterns = { 
 		"/frontstage/recipe/recipe_create.jsp",			//新增食譜
 		"/frontstage/article/article_edit.jsp",			//新增文章
@@ -42,7 +44,10 @@ public class verFilter  extends HttpFilter implements Filter {
 
 		// 取得 session
 		HttpSession session = req.getSession();
-		byte verStatus =  (byte)session.getAttribute("verStatus");
+		MembersVO memVO = (MembersVO)session.getAttribute("membersVO");
+		
+		System.out.println("測試帳號"+memVO.getMemberAccount());
+		byte verStatus =  memVO.getMemberStatus();
 
 
 		

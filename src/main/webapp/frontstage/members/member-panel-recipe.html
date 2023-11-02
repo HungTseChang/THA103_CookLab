@@ -134,7 +134,7 @@
             </nav>
           </div>
         </div>
-        <div class="humberger__open">
+        <div class="humberger__open"> 
           <i class="fa fa-bars"></i>
         </div>
       </div>
@@ -283,10 +283,10 @@
           recipeStatusString ="公開"
         else if(recipe.recipeStatus == 1)
           recipeStatusString ="未公開"
-        else if(recipe.recipeStatus == 2)
+        else if(recipe.recipeStatus == 3)
           recipeStatusString ="草稿"
 
-        if(recipe.recipeStatus != 3)
+        if(recipe.recipeStatus != 2)
         {
         let addrecipe = `<div id="recipeList">
               <div class="row m-0 ml-2 my-3 ding-folrec-border">
