@@ -425,7 +425,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
     	  	  }
     	    	if (IsEmail(email)) {
     	        } else {
-    		    	$("label#error").text("欄位不可以為空值");
+    		    	$("label#error").text("錯誤的信箱格式");
     	       	 checkitem = false;
 
     	        }

@@ -84,8 +84,22 @@ while (reqattributeNames.hasMoreElements()) {
 	  session.setAttribute("location",location);
 	   response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
             return;
+			}else {
+				if(	detect(req, res,location)) {
+					System.out.println("filter檢驗 權限通過");
+					chain.doFilter(req, res);
+					return;	}else {
+						if(AdminsAccount == null) {
+							System.out.println("並未檢測有帳號");
+				  session.setAttribute("location",location);
+				   response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
+			            return;
+						}
+						System.out.println("此帳號並未有權限");
+						response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_forbidden.jsp");
+			            return;
+					}
 			}
-				/// 這裡不break 使若有帳號則繼續往下走。							
 		default:
 			if(	detect(req, res,location)) {
 				System.out.println("filter檢驗 權限通過");

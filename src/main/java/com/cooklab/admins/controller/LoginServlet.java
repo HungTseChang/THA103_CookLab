@@ -178,8 +178,7 @@ private List<AdminsVO>Adminslist;
 	 
 	        Map.put("/ArticleServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
-	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
-	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
+	     
 	        Map.put("/MemberdashboardServlet", ((int)permission.getMembershipManagement()==0));
 
            
@@ -218,7 +217,7 @@ private List<AdminsVO>Adminslist;
 	        Map.put("/DisboardHastagServlet", ((int)permission.getRecipeManagement()==0));
 	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
 
-           
+	    
            
            
            
@@ -234,35 +233,6 @@ private List<AdminsVO>Adminslist;
 	        Map.put("/dashboard/productTag/tagview.html", ((int)permission.getMallManagement()==0));
 
 
-//	        System.out.println(Map.get("/AdminsServlet"));
-//	        Map.put("/dashboard/advertise_allview.jsp", true);
-//	        Map.put("/dashboard/advertise/advertise_getone.jsp", true);
-//	        Map.put("/dashboard/advertise/advertise_set.jsp", true);
-//	        Map.put("/dashboard/article/HO_discussion_allview.jsp", true);
-//	        Map.put("/dashboard/article/HO_dscussion_cate.jsp", true);
-//	        Map.put("/dashboard/article_report/WCC_article_report_info.jsp", true);
-//	        Map.put("/dashboard/memberOrder/TYT_order_detail.html", true);
-//	        Map.put("/dashboard/memberOrder/TYT_order_management.html", true);
-//	        Map.put("/dashboard/news/news-add.html", true);
-//	        Map.put("/dashboard/news/news-table.html", true);
-//	        Map.put("/dashboard/news/news-update.html", true);
-//	        Map.put("/dashboard/notifycenter/notify-add.html", true);
-//	        Map.put("/dashboard/notifycenter/notify-details.html", true);
-//	        Map.put("/dashboard/notifycenter/notify-table.html", true);
-//	        Map.put("/dashboard/product/shopset.html", true);
-//	        Map.put("/dashboard/product/shopupdate.html", true);
-//	        Map.put("/dashboard/product/shopview.html", true);
-//	        Map.put("/dashboard/productTag/tagview.html", true);
-//	        Map.put("/dashboard/promo_code/promo_code_allview.jsp", true);
-//	        Map.put("/dashboard/promo_code/promo_code_getone.jsp", true);
-//	        Map.put("/dashboard/promo_code/promo_code_set.jsp", true);
-//	        Map.put("/dashboard/question/question-add.html", true);
-//	        Map.put("/dashboard/question/question-table.html", true);
-//	        Map.put("/dashboard/question/question-update.html", true);
-//	        Map.put("/dashboard/recipe_report/WCC_recipe_report_info.jsp", true);
-//	        Map.put("/dashboard/supportform/supportform-add.html", true);
-//	        Map.put("/dashboard/supportform/supportform-details.html", true);
-//	        Map.put("/dashboard/supportform/supportform-table.html", true);
 	      
 	
 	        

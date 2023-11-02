@@ -375,7 +375,7 @@
                    margin-right: 20px;
                     color: red; font-size: 16px; font-weight: bolder;">
                     警告:您正在修改他人密碼，此做法嚴重侵害他人權益，並可能需擔負法律責任。
-                    您的行為將會被記錄。請確認是否要繼續進行此操作?
+                    請確認是否要繼續進行此操作?
                     <div style="position: relative; top: 50px; left: 100px;"> 
                         <a class="wcc" style="margin-right:100px ;"id="changecode2">修改密碼</a> 
                         <a class="wcc" id="changecode3">取消操作</a>
