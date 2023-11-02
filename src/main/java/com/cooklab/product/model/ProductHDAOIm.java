@@ -529,7 +529,7 @@ public class ProductHDAOIm implements ProductDAO {
 					+ "p.productDec LIKE :keyword OR " 
 					+ "p.productIntroduction LIKE :keyword"
 					+ " AND p.shelfTime <= :currentTimestamp"
-					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)";
+					+ " AND  p.offsaleTime >= :currentTimestamp";
 		if (type == 1) {
 			hql += " AND p.ingredientCategoryNo IS NOT NULL ";
 		}
@@ -547,7 +547,7 @@ public class ProductHDAOIm implements ProductDAO {
 					+ "p.productDec LIKE :keyword OR " 
 					+ "p.productIntroduction LIKE :keyword"
 					+ " AND p.shelfTime <= :currentTimestamp"
-					+ " AND (p.offsaleTime IS NULL OR p.offsaleTime >= :currentTimestamp)" 
+					+ " AND p.offsaleTime >= :currentTimestamp" 
 					+ "ORDER BY p.productNo";
 		// 商品 金錢排序
 		if (type == 0 && sorts == 2) {
