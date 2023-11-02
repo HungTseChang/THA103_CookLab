@@ -271,46 +271,40 @@
         		var email = $("input#email").val();
              	$("div#allblock").toggleClass("none");
              	
-//             	  $.ajax({
-//                       type: "POST",
-//                          url:  "<%=request.getContextPath()%>/LoginServlet", --%>
-//                       data: {
-//                           action:"forgetpassword",
-//                           account:account,
-//                           email:email
-//                       },
-//                       success: function(response) {
-//                     	  console.log(response);
-//                   		$("div#allblock").toggleClass("none");
-//                 		$("div.AA").toggleClass('none');
-//                     	  if(response==="success"){
-//                           Swal.fire({
-//                               icon: "success",
-//                               title: account +"已成功寄出隨機密碼的信件到指定信箱!"
-                              
-//                           })}else{
-               
-//                               Swal.fire({
-//                                   icon: "warning",
-//                                   title: account+response
-//                               })
-
-//                           }
-                    	  
-                    	  
-//                       },
-//                       error: function (jqXHR, textStatus, errorThrown) {
-//                           // 这里处理请求失败的情况
-//                           console.log("请求失败:", textStatus, errorThrown);
-//                           Swal.fire({
-//                               icon: "error",
-//                               title: "请求失败",
-//                               text: "无法连接到服务器或发生了错误"
-//                           });
-//                   }
-            	          	
-
-//             })
+             	$.ajax({
+             	    type: "POST",
+             	    url: "<%=request.getContextPath()%>/LoginServlet",
+             	    data: {
+             	        action: "forgetpassword",
+             	        account: account,
+             	        email: email
+             	    },
+             	    success: function (response) {
+             	        console.log(response);
+             	        $("div#allblock").toggleClass("none");
+             	        $("div.AA").toggleClass('none');
+             	        if (response === "success") {
+             	            Swal.fire({
+             	                icon: "success",
+             	                title: account + "已成功寄出隨機密碼的信件到指定信箱!"
+             	            });
+             	        } else {
+             	            Swal.fire({
+             	                icon: "warning",
+             	                title: account + response
+             	            });
+             	        }
+             	    },
+             	    error: function (jqXHR, textStatus, errorThrown) {
+             	        // 这里处理请求失败的情况
+             	        console.log("请求失败:", textStatus, errorThrown);
+             	        Swal.fire({
+             	            icon: "error",
+             	            title: "请求失败",
+             	            text: "无法连接到服务器或发生了错误"
+             	        });
+             	    }
+             	});
     	
 
         

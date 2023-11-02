@@ -65,7 +65,9 @@ private List<AdminsVO>Adminslist;
 	
 	private String forgetpassword(HttpServletRequest req, HttpServletResponse res) {
 		String account = req.getParameter("account");
+		System.out.println(account);
 		String email = req.getParameter("email");	
+		System.out.println(email);
 		EmailSender EmailSender = new EmailSender();
 		String	rndpassword = EmailSender.randomPassword(12);
 		Optional <AdminsVO> result1;
@@ -81,7 +83,7 @@ private List<AdminsVO>Adminslist;
 			
 		
 		AdminsVO AdminsVO =	result1.get();
-		if(!AdminsVO.getAdminAccount().equals(email)) {
+		if(!AdminsVO.getAdminEmail().equals(email)) {
 			response="發送密碼失敗，錯誤信箱";
 			System.out.println("發送密碼失敗，錯誤信箱");
 		}else {
