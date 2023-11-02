@@ -48,15 +48,13 @@ public class AdvertiseServlet2 extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		
-
 		if ("getjson".equals(action)) {
 
 			/***************************
 			 * 2.開始查詢資料
 			 *****************************************/
 			AdvertiseService adSvc = new AdvertiseService();
-			List<AdvertiseVO> listadvertiseVO = adSvc.upAd();
+			List<AdvertiseVO> listadvertiseVO = adSvc.getAll();
 
 			List<Map<String, String>> dataMapList = new ArrayList<>();
 

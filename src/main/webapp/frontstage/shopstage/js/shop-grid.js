@@ -231,8 +231,8 @@ $(document).ready(function() {
 	loadPage(currentPage, currentAction);
 
 
-	$("#search-button").on("click keypress", function(e) {
-		if (e.type === "click" || e.which === 13) {
+	$("#search-button").on("keydown", function(e) {
+		if (e.key === "Enter") {
 
 			const newKeyword = $("#index-searchbar").val();
 			currentAction = "searchkeyword"

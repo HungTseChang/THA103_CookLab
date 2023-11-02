@@ -72,7 +72,12 @@ public class AdvertiseService {
 		return dao.getAll();
 	}
 
-	public List<AdvertiseVO> upAd() {
+	public List<AdvertiseVO> upAd(){
 		return dao.upAd();
 	}
+	
 }
+	
+		
+	
+
