@@ -157,17 +157,18 @@ import="com.cooklab.purchase_order.model.*"%>
                                 <div id="selectTag" class="form-control d-flex align-items-center">
                                     <input type="text" class="searchTag" display:none />
                                 </div>
-
-                                <p>熱門標籤:</p>
-                                <div id="popular-hashtag"></div>
-                                <p>烹飪方式:</p>
-                                <div id="cook-hashtag"></div>
-                                <p>餐點類型:</p>
-                                <div id="meal-hashtag"></div>
-                                <p>特殊飲食需求:</p>
-                                <div id="particular-hashtag"></div>
-                                <p>節日:</p>
-                                <div id="festival-hashtag"></div>
+                                <div id="addTag">
+                                    <p>熱門標籤:</p>
+                                    <div id="popular-hashtag"></div>
+                                    <p>烹飪方式:</p>
+                                    <div id="cook-hashtag"></div>
+                                    <p>餐點類型:</p>
+                                    <div id="meal-hashtag"></div>
+                                    <p>特殊飲食需求:</p>
+                                    <div id="particular-hashtag"></div>
+                                    <p>節日:</p>
+                                    <div id="festival-hashtag"></div>
+                                </div>
                                 <br />
                                 <div class="text-right">
                                     <button type="button" class="btn_modal_close text-right">關閉</button>

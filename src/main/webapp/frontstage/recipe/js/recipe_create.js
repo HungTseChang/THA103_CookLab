@@ -73,7 +73,7 @@ $(function () {
         success: function (data) {
             Object.keys(data).forEach(function (key) {
                 data[key].forEach(function (keys) {
-                    $(`#${key}-hashtag`).append(`<button class="addTag badge badge-secondary">${keys}</button>`);
+                    $(`#${key}-hashtag`).append(`<button type="button" class="addTag badge badge-secondary">${keys}</button>`);
                 });
             });
         },
@@ -106,7 +106,7 @@ $(function () {
         e.stopPropagation();
     });
     //新增標籤
-    $("#tagBox div").on("click", ".addTag", function () {
+    $("#addTag").on("click", ".addTag", function () {
         let that = this;
         let tagText = $(that).text();
         let clone = $(this).clone();

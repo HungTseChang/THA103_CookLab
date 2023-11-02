@@ -42,8 +42,8 @@ $(function () {
                 stepImgBase64[index] = element.stepImg;
             });
             $(data.recipeHashtag).each(function (index, element) {
-                $("#tagBox .addTag").each(function (i, buttonel) {
-                    if (buttonel.textContent == element) {
+                $("#addTag .addTag").each(function (i, buttonel) {
+                    if (buttonel.textContent == element && !$(buttonel).hasClass("disabled-button")) {
                         buttonel.click();
                     }
                 });
