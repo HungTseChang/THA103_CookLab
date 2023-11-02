@@ -35,7 +35,7 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 		if(action == null) {
 			action = "other";
 		}
-		
+		System.out.println(action);
 		switch (action) {
 		case"login":
 			System.out.println("login");
@@ -45,15 +45,21 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 			Permit=(Map<String, Boolean>)session.getAttribute("permissionlist");			
 			return;
 		case"forgetpassword":
+			System.out.println("forgetpassword");
+
 			chain.doFilter(req, res);
 			return;
 		case"design":
+			System.out.println("design");
+
 			chain.doFilter(req, res);
 			return;
 		case"updatePersionalAdmins":
+			System.out.println("updatePersionalAdmins");
 			chain.doFilter(req, res);
 			return;			
 		case"logout":
+			System.out.println("logout");
 			chain.doFilter(req, res);
 			AdminsAccount = null;
 			Permit= null;
@@ -72,6 +78,7 @@ while (reqattributeNames.hasMoreElements()) {
       System.out.println("登出成功，清除所有資料");
 			return;			
 		case"other":
+			System.out.println("other");
 			if(AdminsAccount == null) {
 				System.out.println("並未檢測有帳號");
 	  session.setAttribute("location",location);
@@ -84,6 +91,12 @@ while (reqattributeNames.hasMoreElements()) {
 				System.out.println("filter檢驗 權限通過");
 				chain.doFilter(req, res);
 				return;	}else {
+					if(AdminsAccount == null) {
+						System.out.println("並未檢測有帳號");
+			  session.setAttribute("location",location);
+			   response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
+		            return;
+					}
 					System.out.println("此帳號並未有權限");
 					response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_forbidden.jsp");
 		            return;

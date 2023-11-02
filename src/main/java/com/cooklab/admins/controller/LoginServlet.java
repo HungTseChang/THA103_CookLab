@@ -42,9 +42,9 @@ private List<AdminsVO>Adminslist;
 		String forwardPath = "";
 		switch (action) {
 		case "login":
-			forwardPath = login(req, res);
-			break;
-		case "logout":
+			login(req, res);
+return;
+case "logout":
 			forwardPath = logout(req, res);
 			break;
 		case "forgetpassword":
@@ -54,12 +54,12 @@ private List<AdminsVO>Adminslist;
 		default:
 			forwardPath = "/dashboard/login/WCC_login.jsp";
 		}
-//		res.sendRedirect("/CookLab"+forwardPath);
+		res.sendRedirect("/CookLab"+forwardPath);
 
 		System.out.println("跳轉頁面致"+forwardPath);
-		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
+//		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		System.out.println("跳轉回先前頁面");
-		dispatcher.forward(req, res);
+//		dispatcher.forward(req, res);
 		}
 	
 	
@@ -133,7 +133,7 @@ private List<AdminsVO>Adminslist;
 	}
 
 
-	private String login(HttpServletRequest req, HttpServletResponse res) {
+	private void login(HttpServletRequest req, HttpServletResponse res) {
 		String account = req.getParameter("account");
 		String password = req.getParameter("password");	
 		HttpSession Session  =  req.getSession();
@@ -274,16 +274,37 @@ private List<AdminsVO>Adminslist;
 			Session.setAttribute("permissionlist", Map);
 			Session.setAttribute("adminID", adminID);
           if(Session.getAttribute("location") != null) {
-        	  return (String) Session.getAttribute("location");
+        	  String pastload =(String)Session.getAttribute("location");
+      		try {
+				res.sendRedirect("/CookLab"+pastload);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+      		return;
+
           }
-			return "/dashboard/login/WCC_welcome.jsp";
+              try {
+				res.sendRedirect("/CookLab"+"/dashboard/login/WCC_login.jsp");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			return;
 //          return "/dashboard/product/shopview.html";
 			}
 		}
 		req.removeAttribute("error");
 		req.setAttribute("error", "帳號或密碼錯誤");
 		System.out.println("帳號或密碼錯誤");
-		return  "/dashboard/login/WCC_login.jsp";
+        try {
+			res.sendRedirect("/CookLab"+"/dashboard/login/WCC_login.jsp");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        return;
 	}
 
 	
