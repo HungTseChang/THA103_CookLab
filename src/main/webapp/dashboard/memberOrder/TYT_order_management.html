@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="../assets/css/app.css">
 <link rel="shortcut icon" href="../assets/images/favicon.svg"
 	type="image/x-icon">
+	<link rel="stylesheet" href="../assets/css/tytjs.css" />
 <style>
 td a.wcc {
 	border: 1px solid rgb(151, 135, 249);
@@ -44,7 +45,15 @@ td button.wcc {
 					<div class="d-flex justify-content-between">
 						<div class="logo">
 							<a href="index.html"><img
-								src="../assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+								src="../assets/images/logo/logo.png"
+								alt="Logo" srcset=""></a>
+							<div style="font-size: 15px;">會員，你好</div>
+							<div style="font-size: 10px;">&nbsp;</div>
+							<div style="font-size: 10px; text-align: right;">
+								<a class="wccA" id="logout" style="margin-left: 40px;">登出</a><a
+									class="wccA" id="design" value="${thisaccount}"
+									style="margin-left: 10px;">個人資訊</a>
+							</div>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -76,8 +85,7 @@ td button.wcc {
 									href="../permission/WCC_permission.jsp">創立權限規則</a></li>
 							</ul></li>
 
-						<li class="sidebar-item has-sub">
-						<a href="#"
+						<li class="sidebar-item has-sub"><a href="#"
 							class="sidebar-link"> <i class="bi bi-collection-fill"></i> <span>食譜管理</span>
 						</a>
 							<ul class="submenu">
@@ -89,7 +97,7 @@ td button.wcc {
 							class="sidebar-link"> <i class="bi bi-grid-1x2-fill"></i> <span>商城管理</span>
 						</a>
 							<ul class="submenu" style="display: block">
-								<li class="submenu-item"><a href="../shopview.html">商品設定</a></li>
+								<li class="submenu-item"><a href="../product/shopview.html">商品設定</a></li>
 								<li class="submenu-item  active"><a
 									href="./memberOrder/TYT_order_management.html">訂單管理</a></li>
 								<li class="submenu-item"><a
@@ -154,7 +162,8 @@ td button.wcc {
 						<nav aria-label="breadcrumb"
 							class="breadcrumb-header float-start float-lg-end">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="../login/WCC_welcome.jsp">首頁</a></li>
+								<li class="breadcrumb-item"><a
+									href="../login/WCC_welcome.jsp">首頁</a></li>
 								<li class="breadcrumb-item active" aria-current="page">訂單管理</li>
 							</ol>
 						</nav>
@@ -199,6 +208,7 @@ td button.wcc {
 	<script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
 	<script src="../assets/js/main.js"></script>
 	<script src="../assets\js\menu_ative.js"></script>
+	<script src="../assets\js\tytjs.js"></script>
 	<script src="./JS/memberOrder.js"></script>
 
 </body>
