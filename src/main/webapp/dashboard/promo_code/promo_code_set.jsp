@@ -45,7 +45,12 @@ td a.wcc {
 	padding: 4px;
 	border-radius: 20px;
 }
-
+				a.wccA{
+					border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
+				}
 td button.wcc {
 	border-radius: 20px;
 }
@@ -61,10 +66,14 @@ input.WCC_memeber_info {
 			<div class="sidebar-wrapper active">
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
-						<div class="logo">
-							<a href=""><img
+							<div class="logo">
+							<a href="index.html"><img
 								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
-								alt="Logo" srcset="" /></a>
+								alt="Logo" srcset=""></a>
+								<div style="font-size:15px;" >會員：${thisaccount} ，你好 </div>
+								<div style="font-size:10px;">&nbsp;</div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >個人資訊</a></div>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -74,7 +83,7 @@ input.WCC_memeber_info {
 				</div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title"></li>
                         <!-- ============================================================================================== -->
                             <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
@@ -371,7 +380,53 @@ input.WCC_memeber_info {
 		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
 
 
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+$("a#logout").on("click",function(e){
+    e.preventDefault();
+var formlogout = $("<form>", {
+action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
+    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+});
 
+formlogout.append($("<input>", {
+type: "hidden",
+name: "action",
+value: "logout"
+}));
+   formlogout.appendTo("body").hide();
+   formlogout.submit();
+   formlogout.remove();
+
+
+
+    
+})
+
+
+$("a#design").on("click",function(e){
+    e.preventDefault();
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+})
+</script>
 </body>
 
 
