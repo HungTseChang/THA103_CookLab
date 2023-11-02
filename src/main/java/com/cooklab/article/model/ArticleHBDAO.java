@@ -109,7 +109,9 @@ public class ArticleHBDAO implements ArticleDAO {
 	public List<ArticleVO> getAll() {
 		
 //		return getSession().createQuery("from  ArticleVO",ArticleVO.class).list();
-		return getSession().createQuery("from  ArticleVO",ArticleVO.class).list();
+		return getSession().createQuery("from  ArticleVO ",ArticleVO.class).list();
+//		ORDER BY lastEditTimestamp DESC
+		
 		
 //		List<ArticleVO> list1 = new ArrayList<ArticleVO>();
 //
@@ -187,6 +189,14 @@ public class ArticleHBDAO implements ArticleDAO {
 		return getSession().createQuery("from  ArticleVO where articleStatus = :articleStatus ORDER BY lastEditTimestamp DESC"
 				,ArticleVO.class)
 				.setParameter("articleStatus", articleStatus).list();
+	}
+	
+	
+	
+	@Override
+	public ArticleVO findOneByStatus(Byte articleStatus) {
+		
+		return getSession().get(ArticleVO.class, articleStatus);
 	}
 	public static void main(String[] args) {
 

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
@@ -63,7 +63,7 @@ session.getAttribute("membersVO");
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/frontstage/article/css/ding.css"
 	type="text/css">
-<!--¤U­±¨â¦æ¬O¼v¤ù½s¿è¾¹-->
+<!--ä¸‹é¢å…©è¡Œæ˜¯å½±ç‰‡ç·¨è¼¯å™¨-->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
 	rel="stylesheet" />
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -100,12 +100,12 @@ session.getAttribute("membersVO");
 		</section>
 		<nav class="humberger__menu__nav mobile-menu">
 			<ul>
-				<li><a href="./index.html">­º­¶</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">°Ó«°todo</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">­¹ÃÐÁ`Äýtodo</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">±`¨£°ÝÃDtodo</a></li>
-				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">°Q½×°Ïtodo</a></li>
-				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">³Ì·s®ø®§todo</a></li>
+				<li><a href="./index.html">é¦–é </a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop-grid.html">å•†åŸŽtodo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">é£Ÿè­œç¸½è¦½todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/faq/faq.html">å¸¸è¦‹å•é¡Œtodo</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">è¨Žè«–å€todo</a></li>
+				<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">æœ€æ–°æ¶ˆæ¯todo</a></li>
 			</ul>
 		</nav>
 		<div id="mobile-menu-wrap"></div>
@@ -132,20 +132,20 @@ session.getAttribute("membersVO");
 						<div class="header__top__right">
 							<div class="header__top__right__auth">
 								<a href="<%=request.getContextPath()%>/frontstage/shopstage/shoping-cart.html"> <i class="bi bi-cart3 m-0 ml-2 fa-lg"></i> <span
-									class="ding-nav-text">ÁÊª«¨®</span>
+									class="ding-nav-text">è³¼ç‰©è»Š</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
 								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel.jsp"> <i class="fa fa-user m-0 ml-2 fa-lg"></i> <span
-									class="ding-nav-text">·|­û¤¤¤ß</span>
+									class="ding-nav-text">æœƒå“¡ä¸­å¿ƒ</span>
 								</a>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">µn¤J/µù¥U</a>
+								<a href="<%=request.getContextPath()%>/frontstage/members/login.html" class="m-0 ml-2 ding-nav-text">ç™»å…¥/è¨»å†Š</a>
 							</div>
 							<div class="header__top__right__auth">
 								<a href="<%=request.getContextPath()%>/frontstage/members/member-panel-news.html"> <i class="bi bi-bell m-0 ml-2 fa-lg"></i> <span
-									class="ding-nav-text">³qª¾¤¤¤ß</span>
+									class="ding-nav-text">é€šçŸ¥ä¸­å¿ƒ</span>
 								</a>
 							</div>
 						</div>
@@ -164,13 +164,13 @@ session.getAttribute("membersVO");
 				<div class="col-lg-9 d-flex align-items-center">
 					<nav class="header__menu">
 						<ul>
-							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">­¹ÃÐÁ`Äý</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">·s¼W­¹ÃÐ</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">Ãöª`­¹ÃÐ</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">°Ó«°</a></li>
-							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">°Q½×°Ï</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">³Ì·s®ø®§</a></li>
-							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">Ãö©ó§Ú­Ì</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_overview.jsp">é£Ÿè­œç¸½è¦½</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/recipe/recipe_create.jsp">æ–°å¢žé£Ÿè­œ</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/members/member-panel-follow.html">é—œæ³¨é£Ÿè­œ</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/shopstage/shop.html">å•†åŸŽ</a></li>
+							<li class="active"><a href="<%=request.getContextPath()%>/frontstage/article/article_main.jsp">è¨Žè«–å€</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">æœ€æ–°æ¶ˆæ¯</a></li>
+							<li><a href="<%=request.getContextPath()%>/frontstage/news/news.html">é—œæ–¼æˆ‘å€‘</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -181,7 +181,7 @@ session.getAttribute("membersVO");
 		</div>
 	</header>
 	<!-- Header Section End -->
-	<!--¤W¤èªíÀYµ²§ô-->
+	<!--ä¸Šæ–¹è¡¨é ­çµæŸ-->
 	<section id="article_conten">
 		<div class="container" id="another">
 			<div class="row">
@@ -189,11 +189,11 @@ session.getAttribute("membersVO");
                     style="border: 0px solid brown; margin-right: 10px; text-align: center;">
 
 <!-- 					<button type="button" class="btn ding-btn-org" -->
-<!-- 						style="margin-top: 50px;">¤Þ¥Î­¹ÃÐ</button> -->
-					<%-- ¿ù»~ªí¦C --%>
+<!-- 						style="margin-top: 50px;">å¼•ç”¨é£Ÿè­œ</button> -->
+					<%-- éŒ¯èª¤è¡¨åˆ— --%>
 					<div style="margin-top :50px">
 					<c:if test="${not empty errorMsgs}">
-						<font style="color: red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+						<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 						<ul>
 							<c:forEach var="message" items="${errorMsgs}">
 								<li style="color: red">${message}</li>
@@ -205,15 +205,15 @@ session.getAttribute("membersVO");
 				<div class="col-md-9 " style="height: 700px;">
 
 					<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/ArticleServlet" name="form1">
-						<input type="hidden" name="memberId" placeholder="¿é¤J·|­û½s¸¹" value= "${membersVO.memberId}"  size="45" /> 
+						<input type="hidden" name="memberId" placeholder="è¼¸å…¥æœƒå“¡ç·¨è™Ÿ" value= "${membersVO.memberId}"  size="45" /> 
 							<input type="hidden" name="articleStatus"
-							placeholder="¿é¤J¤å³¹ª¬ºA(¼Æ¦r)" value="0" size="45" /> 
+							placeholder="è¼¸å…¥æ–‡ç« ç‹€æ…‹(æ•¸å­—)" value="0" size="45" /> 
 							
-							<input  type="hidden" name="articleCount" placeholder="¿é¤J¦^¤å¼Æ¶q" value="0"
+							<input  type="hidden" name="articleCount" placeholder="è¼¸å…¥å›žæ–‡æ•¸é‡" value="0"
 							size="45" /> 
 							
 							<input type="hidden" name="viewCount"
-							placeholder="¿é¤J¦¸¼Æ" value="0" size="45" /> 
+							placeholder="è¼¸å…¥æ¬¡æ•¸" value="0" size="45" /> 
 						<select size="1"   name="articleCategory">
 							<c:forEach var="artVO" items="${list}">
 								<c:if test="${artVO.categoryStatus == 0 && artVO.articleCategoryNo > 1 }">
@@ -222,25 +222,25 @@ session.getAttribute("membersVO");
 								</c:if>
 							</c:forEach>
 						</select> 
-						<input type="text" id="edit_title" name="articleTitle"  placeholder="¿é¤J¼ÐÃD"
+						<input type="text" id="edit_title" name="articleTitle"  placeholder="è¼¸å…¥æ¨™é¡Œ"
 							value="<%=(artVO2 == null) ? "" : artVO2.getArticleTitle()%>">
 
 						<div style="width: auto; height: 500px;">
-							<div id="editor" contenteditable="false"></div> <!--¦pªG§ï¦¨ true´N¤£¯à½Æ»s¶K¤WWHY?  -->
+							<div id="editor" contenteditable="false"></div> <!--å¦‚æžœæ”¹æˆ trueå°±ä¸èƒ½è¤‡è£½è²¼ä¸ŠWHY?  -->
 							
 							<textarea id="hiddenContent" name="articleContent" style="display: none;"></textarea>
 
 
-<!-- 							<p style="margin-top: 5px;">ÅçÃÒ½XÅã¥Ü¦ì¸m:  -->
-<!-- 							<input type="text" value="½Ð¿é¤JÅçÃÒ½X"> -->
+<!-- 							<p style="margin-top: 5px;">é©—è­‰ç¢¼é¡¯ç¤ºä½ç½®:  -->
+<!-- 							<input type="text" value="è«‹è¼¸å…¥é©—è­‰ç¢¼"> -->
 								<input type="hidden" name="action" value="insert">
-								<button type="submit" class="btn ding-btn-org" id="btn_confirm">½T©w</button>
+								<button type="submit" class="btn ding-btn-org" id="btn_confirm">ç¢ºå®š</button>
 
 								<input type="hidden" name="action" value="insert">
-								<button type="submit" class="btn ding-btn-org" id="btn_drawft">Àx¦s¯ó½Z</button>
+								<button type="submit" class="btn ding-btn-org" id="btn_drawft">å„²å­˜è‰ç¨¿</button>
 
-								<button class="btn ding-btn-org" id="btn_clean">²M°£</button>
-								<button class="btn ding-btn-org" id="btn_cancel">¨ú®ø</button>
+								<button class="btn ding-btn-org" id="btn_clean">æ¸…é™¤</button>
+								<button class="btn ding-btn-org" id="btn_cancel">å–æ¶ˆ</button>
 							</p>
 					</form>
 				</div>
@@ -256,33 +256,33 @@ session.getAttribute("membersVO");
 				<div class="col-lg-4">
 					<div class="footer__about">
 						<ul>
-							<li>¤½¥q¦a§}¡G¥x¥_¥«¤¤¤s°Ï«n¨ÊªF¸ô¤T¬q219¸¹5¼Ó</li>
-							<li>¹q¸Ü¡G(02)27120589</li>
-							<li>¹q¤l«H½c¡Gtomato@cooklab.com</li>
+							<li>å…¬å¸åœ°å€ï¼šå°åŒ—å¸‚ä¸­å±±å€å—äº¬æ±è·¯ä¸‰æ®µ219è™Ÿ5æ¨“</li>
+							<li>é›»è©±ï¼š(02)27120589</li>
+							<li>é›»å­ä¿¡ç®±ï¼štomato@cooklab.com</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="footer__widget">
 						<ul>
-							<li><a href="#">Ãö©ó§Ú­Ì</a></li>
-							<li><a href="#">Ãö©ó°Ó©±</a></li>
-							<li><a href="#">¦w¤ßÁÊª«</a></li>
+							<li><a href="#">é—œæ–¼æˆ‘å€‘</a></li>
+							<li><a href="#">é—œæ–¼å•†åº—</a></li>
+							<li><a href="#">å®‰å¿ƒè³¼ç‰©</a></li>
 						</ul>
 						<ul>
-							<li><a href="#">¹B°e¸ê°T</a></li>
-							<li><a href="#">Áô¨p¬Fµ¦</a></li>
-							<li><a href="#">±`¨£°ÝÃD</a></li>
+							<li><a href="#">é‹é€è³‡è¨Š</a></li>
+							<li><a href="#">éš±ç§æ”¿ç­–</a></li>
+							<li><a href="#">å¸¸è¦‹å•é¡Œ</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-12">
 					<div class="footer__widget">
-						<h6>¥ß§Y­q¾\¹q¤l³ø</h6>
-						<p>ÀH®É±µ¦¬§Ú­Ìªº³Ì·s®ø®§¥H¤ÎÀu´f°T®§</p>
+						<h6>ç«‹å³è¨‚é–±é›»å­å ±</h6>
+						<p>éš¨æ™‚æŽ¥æ”¶æˆ‘å€‘çš„æœ€æ–°æ¶ˆæ¯ä»¥åŠå„ªæƒ è¨Šæ¯</p>
 						<form action="#">
-							<input type="text" placeholder="¿é¤J±zªº¹q¤l«H½c" />
-							<button type="submit" class="btn ding-btn-org">­q¾\</button>
+							<input type="text" placeholder="è¼¸å…¥æ‚¨çš„é›»å­ä¿¡ç®±" />
+							<button type="submit" class="btn ding-btn-org">è¨‚é–±</button>
 						</form>
 						<div class="footer__widget__social">
 							<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i

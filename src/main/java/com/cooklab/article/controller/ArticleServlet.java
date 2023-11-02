@@ -33,7 +33,7 @@ public class ArticleServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-//		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
+		String quillContent = req.getParameter("quillContent");//我是quill文本編輯器
 		
 		if ("getOne_For_Display".equals(action)) { 
 
@@ -427,34 +427,35 @@ if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			
 
-			ArticleVO artVO = new ArticleVO();
-			artVO.setArticleCategoryNo(articleCategoryNo);
-			artVO.setArticleTitle(articleTitle);
-			artVO.setMemberId(memberId);
-			artVO.setArticleStatus(articleStatus);
-			artVO.setArticleContent(articleContent);
-			artVO.setArticleCount(articleCount);
-			artVO.setViewCount(viewCount);
+			ArticleVO artNew = new ArticleVO();
+			artNew.setArticleCategoryNo(articleCategoryNo);
+			artNew.setArticleTitle(articleTitle);
+			artNew.setMemberId(memberId);
+			artNew.setArticleStatus(articleStatus);
+			artNew.setArticleContent(articleContent);
+			artNew.setArticleCount(articleCount);
+			artNew.setViewCount(viewCount);
 		
 
 			// Send the use back to the form, if there were errors
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("artVO", artVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("artNew", artNew); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("frontstage/article/article_edit.jsp");
 				failureView.forward(req, res);
 				return;
 			}
 //			("/article/article_edit.jsp"); "/article/addArt.jsp"
-
-
 			/*************************** 2.開始新增資料 ***************************************/
 			ArticleService artSvc = new ArticleService();
 //			artVO = artSvc.addArt(articleCategory, articleTitle, memberId, articleStatus, articleContent, articleCount,
 //					viewCount);
-			artSvc.addArt(artVO);
+			artSvc.addArt(artNew);
+//			ArticleVO artVONew = artSvc.getOneByStatus(articleStatus);
+			
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+//			req.setAttribute("artVONew", artVONew);
 			String url ="frontstage/article/article_main.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);

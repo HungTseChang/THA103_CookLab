@@ -192,8 +192,7 @@ ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
 				<div class="col-md-2" id="left_img";
                     style="border: 0px solid brown; margin-right: 10px; text-align: center;">
 
-					<button type="button" class="btn ding-btn-org"
-						style="margin-top: 50px;">引用食譜</button>
+	
 					<%-- 錯誤表列 --%>
 					<div style="margin-top :50px">
 					<c:if test="${not empty errorMsgs}">
@@ -238,8 +237,7 @@ ArticleSubVO artVO2 = (ArticleSubVO) request.getAttribute("artVO2");
 							</div>
 							<textarea id="hiddenContent" name="articleSubContent" style="display: none;"></textarea>
 
-							<p style="margin-top: 5px;">驗證碼顯示位置: 
-								<input type="text" value="請輸入驗證碼">
+						
 								<c:choose>
             						<c:when test="${not empty artVO.articleContent}">
                							<input type="hidden" name="articleNo" value="${artVO.articleNo}">

@@ -36,7 +36,8 @@ import javax.servlet.http.HttpSession;
 		"/frontstage/article/article_edit.jsp", "/frontstage/article/article_sub_edit.jsp",
 		"/frontstage/shopstage/shoping-cart.html", // 購物車
 		"/frontstage/shopstage/checkout.html", // 結帳
-		"/CartServlet", })		
+		"/CartServlet",
+		"/ArticleReactionServlet"})		
 public class LoginFilter extends HttpFilter implements Filter {
 	
 	public LoginFilter() {

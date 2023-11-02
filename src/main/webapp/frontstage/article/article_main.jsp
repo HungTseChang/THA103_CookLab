@@ -9,16 +9,18 @@
     ArticleService artSvc = new ArticleService();
 	Byte test = 0;//不能強轉型只好設定一個Byte 變數
 	List<ArticleVO> list = artSvc.getStatus(test);
-    pageContext.setAttribute("list", list);
+	pageContext.setAttribute("list", list);
+	
+	
 
 	ArticleCategoryService artSvc2 =new ArticleCategoryService();
 	List<ArticleCategoryVO> list2 = artSvc2.getAll();
-	pageContext.setAttribute("list2",list2);
+	pageContext.setAttribute("list2",list2);     
 	
-                       
-    session.getAttribute("account");                    
-    session.getAttribute("userId" );                     
-    session.getAttribute("membersVO");
+	//edit送來的參數
+ 	ArticleVO artNew = (ArticleVO) request.getAttribute("artNew"); 
+ 	request.removeAttribute("artNew"); // 移除artNew 
+	 
 %>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -80,7 +82,7 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="img/indexlogo.png" alt="" /></a>
+			<a href="#"><img src="<%=request.getContextPath()%>/frontstage/img/indexlogo.png" alt="" /></a>
 		</div>
 		<section class="container">
 			<div
@@ -231,6 +233,24 @@
 								<td id="article_count">點擊次數</td>
 							</tr>
 							
+<%-- 							<tr class="title_colum ${artVONew.articleNo % 2 == 0 ? 'even' : 'odd'}"> --%>
+<!-- 										<td id="title_colum_td"> -->
+<%-- 											<a href="" id="cat_view">[${artVONew.articleCategory.articleCategory}]</a> --%>
+								
+<%-- 											<input type="submit" id="title_view" value="${artVONew.articleTitle}">  --%>
+<%-- 											<input type="hidden" name="articleNo" value="${artVONew.articleNo}"> --%>
+<%-- 											<input type="hidden" name="viewCount" value="${artVONew.viewCount}"> --%>
+<!-- 											<input type="hidden" name="action" value="getViewCount"> -->
+<!-- 										</td> -->
+									
+<%-- 										<td id="article_creator">${artVONew.members.memberNickname}</td> --%>
+<%-- 										<td id="article_date"><fmt:formatDate --%>
+<%-- 											value="${artVONew.lastEditTimestamp}" --%>
+<%-- 											pattern="yyyy-MM-dd HH:mm:ss" /> --%>
+<!-- 										</td> -->
+<%-- 										<td id="article_count">${artVONew.viewCount}</td> --%>
+<!-- 									</tr> -->
+							
 							<%@ include file="page1.file"%>
 							<c:forEach var="artVO" items="${list}"  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ArticleServlet" style="margin-bottom: 0px;"> 								
@@ -249,9 +269,7 @@
 											value="${artVO.lastEditTimestamp}"
 											pattern="yyyy-MM-dd HH:mm:ss" />
 										</td>
-										<td id="article_count">
-										${artVO.viewCount}
-										</td>
+										<td id="article_count">${artVO.viewCount}</td>
 									</tr>
 <%--  								</c:if> --%>
  								</FORM>
@@ -406,6 +424,9 @@
 			//messagesArea.scrollTop = messagesArea.scrollHeight;//設定有人發訊息會跑去最新訊息
 //===========以上搭配text版對話視窗=================================================
 			var messagesArea = document.getElementById("messagesArea");
+			
+			
+			
 			var jsonObj = JSON.parse(event.data);
 
 			var ul = document.getElementById("area");
@@ -444,7 +465,9 @@
 
 	//var inputUserName = document.getElementById("userName");
 	// inputUserName.focus(); 這段出現錯誤暫時封住
-
+	
+	$
+	
 	function sendMessage() {
 		var userName = "${membersVO.memberNickname}"
 		var inputMessage = document.getElementById("message");
