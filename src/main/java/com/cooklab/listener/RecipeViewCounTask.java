@@ -17,7 +17,6 @@ public class RecipeViewCounTask extends TimerTask {
 	public void run() {
 		try {
 			factory.getCurrentSession().beginTransaction();
-			System.out.println("rollback"); //測試
 			Jedis jedis = JedisUtil.getJedisPool().getResource();
 			jedis.select(9);
 			Map<String, String> mapRecipeViewCount = jedis.hgetAll("recipeViewCount");
