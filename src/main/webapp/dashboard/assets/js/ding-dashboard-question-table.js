@@ -28,8 +28,8 @@ let init = function () {
                       <td>${QuestionDTO.questionBad}</td>
                       <td>${createdTimestamp.toLocaleString()}</td>
                       <td>
-                        <a href="#" class="btn btn-primary question-update" data-questionno="${QuestionDTO.questionNo}">更新</a>
-                        <a href="#" class="btn btn-primary question-delete" data-questionno="${QuestionDTO.questionNo}">刪除</a>
+                        <a href="#" class="btn btn-primary btn-sm question-update" data-questionno="${QuestionDTO.questionNo}">更新</a>
+                        <a href="#" class="btn btn-primary btn-sm question-delete" data-questionno="${QuestionDTO.questionNo}">刪除</a>
                       </td>
                     </tr>
                     `);

@@ -51,7 +51,7 @@ let init = function () {
                       <td>${notifycenter.notifyContent}</td>
                       <td>${createdTimestamp.toLocaleString()}</td>
                       <td>
-                        <a href="#" class="btn btn-primary notify-details" data-notifyno="${notifycenter.notifyNo}">詳細</a>
+                        <a href="#" class="btn btn-primary fs-6 notify-details" data-notifyno="${notifycenter.notifyNo}">詳細</a>
                       </td>
                     </tr>
                     `);

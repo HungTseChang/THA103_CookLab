@@ -58,7 +58,7 @@ let init = function () {
                        ${createdTimestamp.toLocaleString()}
                       </td>
                       <td>
-                          <a href="#" class="btn btn-primary form-details" data-formid="${supportform.formNo}">詳細</a>
+                          <a href="#" class="btn btn-primary btn-sm fs-6 form-details" data-formid="${supportform.formNo}">詳細</a>
                       </td>
                     </tr>`);
       });
