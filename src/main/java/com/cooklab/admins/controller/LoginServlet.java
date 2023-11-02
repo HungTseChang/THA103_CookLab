@@ -163,11 +163,12 @@ private List<AdminsVO>Adminslist;
 			
 //==============================================================================			
 //================================= 客服管理權限================================================		
-           
-           
-           
-  
-           
+	        Map.put("/dashboard/supportform/supportform-table.html", ((int)permission.getArticleManagement()==0));
+	        Map.put("/dashboard/question/question-table.html", ((int)permission.getArticleManagement()==0));
+	        Map.put("/dashboard/notifycenter/notify-table.html", ((int)permission.getArticleManagement()==0));
+	        Map.put("/dashboard/news/news-table.html", ((int)permission.getArticleManagement()==0));
+
+
 //   ===================================================================================
 // =================================會員管理權限===============================================
            
@@ -221,18 +222,17 @@ private List<AdminsVO>Adminslist;
            
            
            
+//  ======================================商城管理================================================         
 //  =========================================================================================         
-//  =========================================================================================         
-
+	        Map.put("/AdvertisetImgServlet", ((int)permission.getMallManagement()==0));
+	        Map.put("/AdvertiseServlet", ((int)permission.getMallManagement()==0));
+	        Map.put("/AdvertiseServlet2", ((int)permission.getMallManagement()==0));
+	        Map.put("/dashboard/product/shopview.html", ((int)permission.getMallManagement()==0));
+	        Map.put("/dashboard/memberOrder/TYT_order_management.html", ((int)permission.getMallManagement()==0));
+	        Map.put("/dashboard/productTag/tagview.html", ((int)permission.getMallManagement()==0));
 
 
 //	        System.out.println(Map.get("/AdminsServlet"));
-//	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
-//	        Map.put("/AdvertisetImgServlet", ((int)permission.getAdvertisingManagement()==0));
-//	        Map.put("/PromoCodeServlet", ((int)permission.getAdvertisingManagement()==0));
-//	        Map.put("/DisboardHastagServlet", true);
-//	        Map.put("/DashboardRecipeServlet", true);
-//	        Map.put("/RecipeReportServlet", true);
 //	        Map.put("/dashboard/advertise_allview.jsp", true);
 //	        Map.put("/dashboard/advertise/advertise_getone.jsp", true);
 //	        Map.put("/dashboard/advertise/advertise_set.jsp", true);

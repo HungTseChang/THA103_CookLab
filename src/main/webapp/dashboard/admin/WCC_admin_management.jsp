@@ -510,32 +510,32 @@ console.log(number);
     });
     
 // ====================
-$(document).on("click","tr th.number",function(e){
-	var column ="td."+$(e.target).attr("name");
-	var textArray = [];
-	$(column).each(function() {
-	    textArray.push($(this).text());
-	});
-	var sortedArray = textArray.slice().sort();
-	var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
-if(isSorted){
-	tbodyall.sort(function(a,b){
-		var dateA = $(a).find(column).text(); 
-        var dateB = $(b).find(column).text();
-        return dateB - dateA;
-	})
+// $(document).on("click","tr th.number",function(e){
+// 	var column ="td."+$(e.target).attr("name");
+// 	var textArray = [];
+// 	$(column).each(function() {
+// 	    textArray.push($(this).text());
+// 	});
+// 	var sortedArray = textArray.slice().sort();
+// 	var isSorted = JSON.stringify(sortedArray) === JSON.stringify(textArray);
+// if(isSorted){
+// 	tbodyall.sort(function(a,b){
+// 		var dateA = $(a).find(column).text(); 
+//         var dateB = $(b).find(column).text();
+//         return dateB - dateA;
+// 	})
 	
-}else{
-	tbodyall.sort(function(a,b){
-		var dateA = $(a).find(column).text(); 
-        var dateB = $(b).find(column).text();
-        return dateA - dateB;
-	})
-}
-    updateTable();
+// }else{
+// 	tbodyall.sort(function(a,b){
+// 		var dateA = $(a).find(column).text(); 
+//         var dateB = $(b).find(column).text();
+//         return dateA - dateB;
+// 	})
+// }
+//     updateTable();
 
 	 
-	})
+// 	})
 	
 	onload();
 //  ==========================   
@@ -548,7 +548,7 @@ if(isSorted){
   <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -570,7 +570,7 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	    e.preventDefault;
+    e.preventDefault();
 	    console.log("AA");
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL

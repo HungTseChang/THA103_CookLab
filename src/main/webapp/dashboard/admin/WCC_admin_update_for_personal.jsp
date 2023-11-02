@@ -319,9 +319,11 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
                                                                 </div>
                                                             </div>
                                                         </div>                                                   
-                                                    <div class ="col -md-12">
-                                                   <lable id="error"></lable>
-                                                    </div>
+                                                    <div class ="col -md-12"></div>                                                    </div>
+                                      
+                                                    <div> <label id="error" style="color:red;"></label></div>
+                                                  <div> <label id="error2" style="color:red;"></label></div>
+                                                   <div><label id="error3" style="color:red;"></label>
                                                 </div></div>
                    						</form>
                               </div>
@@ -398,7 +400,16 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
      <script>
      
      document.addEventListener("DOMContentLoaded",function () {    
+         // 驗正電子信箱
+    	 function IsEmail(email) {
+    	     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    	      if(!regex.test(email)){return false;}else{ return true; } }
+    	 // 驗正電子信箱
     	    $("a#insert").on("click",function(){
+    	      	 var checkitem = true;
+    	      	 $("label#error").text("");
+    	    	 $("label#error2").text("");
+    	    	  $("label#error3").text("");
     	    	  var account= $("input[name='account']").val()+"";
     	    	  var email= $("input[name='email']").val()+"";
     	  	  var nickname= $("input[name='nickname']").val()+"";
@@ -408,14 +419,21 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
     	  	  var adminNo=$('input[name="adminNo"]').val()
     	  	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
     	  	  if(password != passwordcheck){
-    	  		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
-    	  		  return;
+    			  $("label#error2").text("密碼與密碼確認不相符，請重新輸入密碼");
+    	     	 checkitem = false;
+
     	  	  }
-    	    	if (isValidEmail(email)) {
+    	    	if (IsEmail(email)) {
     	        } else {
-    	        	 $("input[name='email']").text("無效電子信箱格式");
-    	        	 return;
+    		    	$("label#error").text("欄位不可以為空值");
+    	       	 checkitem = false;
+
     	        }
+    	  	  if(nickname ==null||account==null){
+    		    	$("label#error").text("欄位不可以為空值");
+    		    	 checkitem = false;
+    		  }
+    		  if(!checkitem){return;}
     	    	  var form = $("<form>", {
     	              action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
     	              method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -529,7 +547,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
     <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -551,7 +569,7 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	    e.preventDefault;
+    e.preventDefault();
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -569,9 +587,6 @@ $("a#design").on("click",function(e){
 	
 })
 
-
-	let table1 = document.querySelector("#table1");
-	let dataTable = new simpleDatatables.DataTable(table1);
 
 })
 </script>

@@ -208,8 +208,8 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                                    <li class="breadcrumb-item"><a href="index.html">管理員管理</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">編輯管理者</li>
                                 </ol>
                             </nav>
                         </div>
@@ -317,7 +317,10 @@
                                                             </div>
                                                         </div>                                                   
                                                     <div class ="col -md-12">
-                                                   <lable id="error"></lable>
+                                                    </div>
+                                                    <div> <label id="error" style="color:red;"></label></div>
+                                                  <div> <label id="error2" style="color:red;"></label></div>
+                                                   <div><label id="error3" style="color:red;"></label>
                                                     </div>
                                                 </div></div>
                    						</form>
@@ -392,8 +395,15 @@
     <script src="<%=request.getContextPath() %>/dashboard/assets/vendors/simple-datatables/simple-datatables.js"></script>
     <script src="<%=request.getContextPath() %>/dashboard/assets/js/main.js"></script>
     <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
-     <script>document.addEventListener("DOMContentLoaded",function () {    
+     <script>document.addEventListener("DOMContentLoaded",function () { 
+    	 function IsEmail(email) {
+    	     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    	      if(!regex.test(email)){return false;}else{ return true; } }
     $("a#insert").on("click",function(){
+     	 var checkitem = true;
+      	 $("label#error").text("");
+    	 $("label#error2").text("");
+    	  $("label#error3").text("");
   	  var account= $("input[name='account']").val()+"";
 	  var nickname= $("input[name='nickname']").val()+"";
 	  var email= $("input[name='email']").val()+"";
@@ -403,8 +413,19 @@
 	  var adminNo=$('input[name="adminNo"]').val()
 	  console.log(account+"||"+email+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
 	  if(password != passwordcheck){
-		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
-		  return;
+		  $("label#error2").text("密碼與密碼確認不相符，請重新輸入密碼");
+     	 checkitem = false;
+
+  	  }
+    	if (IsEmail(email)) {
+        } else {
+	    	$("label#error").text("欄位不可以為空值");
+       	 checkitem = false;
+
+        }
+  	  if(nickname ==null||account==null){
+	    	$("label#error").text("欄位不可以為空值");
+	    	 checkitem = false;
 	  }
   	  var form = $("<form>", {
             action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
@@ -520,7 +541,7 @@ $("#total-pages").text("of " + totalPages);
   <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -542,7 +563,7 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	    e.preventDefault;
+    e.preventDefault();
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -561,8 +582,7 @@ $("a#design").on("click",function(e){
 })
 
 
-	let table1 = document.querySelector("#table1");
-	let dataTable = new simpleDatatables.DataTable(table1);
+
 
 })
 </script>

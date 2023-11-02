@@ -489,7 +489,7 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	    e.preventDefault;
+    e.preventDefault();
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置

@@ -484,6 +484,7 @@ if(isSorted){
         })
         
          </script>
+        <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     
     <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
@@ -494,7 +495,7 @@ if(isSorted){
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -514,7 +515,7 @@ value: "logout"
     
 })
 $("a#design").on("click",function(e){
-	    e.preventDefault;
+	    e.preventDefault();
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -531,8 +532,7 @@ $("a#design").on("click",function(e){
 	
 	
 })
-let table1 = document.querySelector("#table1");
-let dataTable = new simpleDatatables.DataTable(table1);
+
 })
 </script>
 </body>
