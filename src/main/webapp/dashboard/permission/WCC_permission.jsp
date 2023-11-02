@@ -39,7 +39,8 @@
 								alt="Logo" srcset=""></a>
 								<div style="font-size:15px;" >會員：${thisaccount} ，你好 </div>
 								<div style="font-size:10px;">&nbsp;</div>
-								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a><a class="wccA"id="design" style="  margin-left: 10px;">個人資訊</a></div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >個人資訊</a></div>
 						</div>
 <!-- 						======================================== -->
                         <div class="toggler">
@@ -53,7 +54,7 @@
 
 
                         <!-- ============================================================================================== -->
-                             <li class="sidebar-item  ">
+                            <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
@@ -108,7 +109,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.jsp">商品設定</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
@@ -146,10 +147,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_recipe_report.jsp">食譜檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
@@ -158,13 +156,13 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">常見問題</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">通知中心</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">系統通知</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard//supportform-table.html">問題表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">問題表單</a>
                                 </li>
                                 <li class="submenu-item active">
                                 <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
@@ -229,13 +227,13 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>權限管理</h3>
+                            <h3>管理權限規則</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                                    <li class="breadcrumb-item"><a href="index.html">管理權限規則</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">權限管理</li>
                                 </ol>
                             </nav>
                         </div>
@@ -276,13 +274,14 @@
                                     <tr class="title">
                                         <th class="number" name="permissionNo">職稱編號</th>
                                         <th class="permit permissionTitle" name="permissionTitle">職稱名稱</th>
-                                        <th class="permit" name="superAdmin">總管理權限</th>
-                                        <th class="permit" name="cancelAllPermission">停止所有權限</th>
+                                        <th class="permit" name="adminManagement">管理員管理權限</th>
+                                        <th class="permit" name="serviceManagement">客服管理權限</th>
                                         <th class="permit" name="membershipManagement">會員管理權限</th>
                                         <th class="permit" name="advertisingManagement">廣告投放權限</th>
                                         <th class="permit" name="reportingManagement">檢舉管理權限</th>
                                         <th class="permit" name="articleManagement">討論區權限</th>
                                         <th class="permit" name="recipeManagement">食譜管理權限</th>
+                                        <th class="permit" name="mallManagement">商城管理權限</th>
                                          <th class="wcc createdTimestamp ">創建時間</th>
                                     </tr>
                                 </thead>
@@ -393,13 +392,14 @@ var number =myList.length;
 	    	  text += "<tr>";
 	   		  text += "<td class='wcc permissionNo'  name='permissionNo' value="+aa.permissionNo+">"+aa.permissionNo+"</td>";
 	   		  text +=" <td class='wcc permissionTitle'  name='permissionTitle'>"+aa.permissionTitle+"</td>";
-	   		  text +=" <td class='wcc ' name='superAdmin'>"+permission[aa.superAdmin]+"</td>";
-	   		  text +=" <td class='wcc ' name='cancelAllPermission'>"+permission[aa.cancelAllPermission]+"</td>";
+	   		  text +=" <td class='wcc ' name='adminManagement'>"+permission[aa.adminManagement]+"</td>";
+	   		  text +=" <td class='wcc ' name='serviceManagement'>"+permission[aa.serviceManagement]+"</td>";
 	   		  text +=" <td class='wcc ' name='membershipManagement'>"+permission[aa.membershipManagement]+"</td>"; 
 	   		  text +=" <td class='wcc ' name='advertisingManagement'>"+permission[aa.advertisingManagement]+"</td>"; 
 	   		  text +=" <td class='wcc ' name='reportingManagement'>"+permission[aa.reportingManagement]+"</td>"; 
 	   		  text +=" <td class='wcc ' name='articleManagement'>"+permission[aa.articleManagement]+"</td>"; 
     		  text +=" <td  class='wcc ' name='recipeManagement'>"+permission[aa.recipeManagement]+"</td>"; 
+    		  text +=" <td  class='wcc ' name='mallManagement'>"+permission[aa.mallManagement]+"</td>"; 
 	   		  text +=" <td class='wcc  ' createdTimestamp'  name='createdTimestamp'>"+aa.createdTimestamp+"</td>"; 
 	   		  text +=`
 	   			<td>
@@ -449,13 +449,14 @@ var number =myList.length;
        let saveupdate = function(e){
         let	permissionNo= $(e.target).closest("tr").find("td[name='permissionNo']").text();
         let	 permissionTitle= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
-        let	superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-        let	 cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
+        let	adminManagement= $(e.target).closest("tr").find("td[name='adminManagement']").find("a").attr("value");
+        let	 serviceManagement= $(e.target).closest("tr").find("td[name='serviceManagement']").find("a").attr("value");
         let	 membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
         let	 advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
         let	 reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
         let	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
         let	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
+        let	 mallManagement= $(e.target).closest("tr").find("td[name='mallManagement']").find("a").attr("value");
         	var save = $("<form>", {
 	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
 	            method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -472,13 +473,13 @@ var number =myList.length;
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "superAdmin",
-	               value: superAdmin
+	               name: "adminManagement",
+	               value: adminManagement
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "cancelAllPermission",
-	               value:cancelAllPermission
+	               name: "serviceManagement",
+	               value:serviceManagement
 	           }));
         	save.append($("<input>", {
 	               type: "text",
@@ -504,6 +505,11 @@ var number =myList.length;
 	               type: "text",
 	               name: "recipeManagement",
 	               value: recipeManagement
+	           }));
+        	save.append($("<input>", {
+	               type: "text",
+	               name: "mallManagement",
+	               value: mallManagement
 	           }));
         	save.append($("<input>", {
 	               type: "text",
@@ -536,12 +542,13 @@ var number =myList.length;
        });
         var permissionNo_old;
        var permissionTitle_old;
-       var superAdmin_old;
-       var cancelAllPermission_old;
+       var adminManagement_old;
+       var serviceManagement_old;
        var membershipManagement_old;
        var reportingManagement_old;
        var articleManagement_old;
        var recipeManagement_old;   
+       var mallManagement_old;   
 //        ===========================================
 	
        $(document).on("click", "a.modify", function(e){
@@ -551,13 +558,14 @@ var number =myList.length;
            $(e.target).closest("td").append( '<a  class="cancelmodify wcc" style="margin-bottom: 0px;" >取消修改</a> ');
        	permissionNo_old= $(e.target).closest("tr").find("td[name='permissionNo']").text();
    	    permissionTitle_old= $(e.target).closest("tr").find("td[name='permissionTitle']").text();
-   	   superAdmin_old= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-    	cancelAllPermission_old= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
+   	   adminManagement_old= $(e.target).closest("tr").find("td[name='adminManagement']").find("a").attr("value");
+    	serviceManagement_old= $(e.target).closest("tr").find("td[name='serviceManagement']").find("a").attr("value");
    	 membershipManagement_old= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
    	 advertisingManagement_old= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
    	 reportingManagement_old= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
    	 articleManagement_old= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
    	 recipeManagement_old= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");        
+   	mallManagement_old= $(e.target).closest("tr").find("td[name='mallManagement']").find("a").attr("value");        
     	   }else if(
     			   $(e.target).closest("tr").hasClass("hightlight")
     	   ){
@@ -574,13 +582,14 @@ var number =myList.length;
         $(document).on("click", "a.cancelmodify", function(e){
            $(e.target).closest("tr").find("td[name='permissionNo']").text(permissionNo_old);
        	    $(e.target).closest("tr").find("td[name='permissionTitle']").text(permissionTitle_old);
-       	   superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").html(permission[superAdmin_old]);
-        	cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").html(permission[cancelAllPermission_old]);
+       	   adminManagement= $(e.target).closest("tr").find("td[name='adminManagement']").html(permission[adminManagement_old]);
+        	serviceManagement= $(e.target).closest("tr").find("td[name='serviceManagement']").html(permission[serviceManagement_old]);
        	 membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").html(permission[membershipManagement_old]);
        	 advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").html(permission[advertisingManagement_old]);
        	 reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").html(permission[reportingManagement_old]);
        	 articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").html(permission[articleManagement_old]);
        	 recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").html(permission[recipeManagement_old]); 
+       	mallManagement= $(e.target).closest("tr").find("td[name='mallManagement']").html(permission[mallManagement_old]); 
 		   $("tr.hightlight").removeClass("hightlight");
 		   $(e.target).closest("tr").find('a.modify').text("修改");
 		   $(e.target).closest("td").find('a.cancelmodify').remove();
@@ -634,13 +643,14 @@ var number =myList.length;
         		newone += "<tr class='hightlight'>";
         		newone += "<td name='permissionNo'>"+"新的權限"+"</td>";
         		newone +=" <td name='permissionTitle'>"+"<input id='newtitle' type='text' placeholder='請輸入權限名稱'>"+"</td>";
-        		newone +=" <td name='superAdmin'>"+selection+"</td>";
-        		newone +=" <td  name='cancelAllPermission'>"+selection+"</td>";
+        		newone +=" <td name='adminManagement'>"+selection+"</td>";
+        		newone +=" <td  name='serviceManagement'>"+selection+"</td>";
         		newone +=" <td name='membershipManagement'>"+selection+"</td>"; 
         		newone +=" <td name='advertisingManagement'>"+selection+"</td>"; 
         		newone +=" <td name='reportingManagement'>"+selection+"</td>"; 
         		newone +=" <td name='articleManagement'>"+selection+"</td>"; 
         		newone +=" <td name='recipeManagement'>"+selection+"</td>"; 
+        		newone +=" <td name='mallManagement'>"+selection+"</td>"; 
         		newone +=" <td name='createdTimestamp'>"+formattedTime+"</td>"; 
         		newone +=`
       				<td>
@@ -673,13 +683,14 @@ var number =myList.length;
         	}
           	 console.log("結果非空值");
 
-        	let superAdmin= $(e.target).closest("tr").find("td[name='superAdmin']").find("a").attr("value");
-        	let cancelAllPermission= $(e.target).closest("tr").find("td[name='cancelAllPermission']").find("a").attr("value");
+        	let adminManagement= $(e.target).closest("tr").find("td[name='adminManagement']").find("a").attr("value");
+        	let serviceManagement= $(e.target).closest("tr").find("td[name='serviceManagement']").find("a").attr("value");
         	let membershipManagement= $(e.target).closest("tr").find("td[name='membershipManagement']").find("a").attr("value");
         	let advertisingManagement= $(e.target).closest("tr").find("td[name='advertisingManagement']").find("a").attr("value");
         	let reportingManagement= $(e.target).closest("tr").find("td[name='reportingManagement']").find("a").attr("value");
         	let articleManagement= $(e.target).closest("tr").find("td[name='articleManagement']").find("a").attr("value");
         	let recipeManagement= $(e.target).closest("tr").find("td[name='recipeManagement']").find("a").attr("value");
+        	let mallManagement= $(e.target).closest("tr").find("td[name='mallManagement']").find("a").attr("value");
         	
         	var save = $("<form>", {
 	            action: "<%=request.getContextPath() %>/PermissionServlet", // 表单提交的URL
@@ -692,13 +703,13 @@ var number =myList.length;
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "superAdmin",
-	               value: superAdmin
+	               name: "adminManagement",
+	               value: adminManagement
 	           }));
         	save.append($("<input>", {
 	               type: "text",
-	               name: "cancelAllPermission",
-	               value:cancelAllPermission
+	               name: "serviceManagement",
+	               value:serviceManagement
 	           }));
         	save.append($("<input>", {
 	               type: "text",
@@ -724,6 +735,11 @@ var number =myList.length;
 	               type: "text",
 	               name: "recipeManagement",
 	               value: recipeManagement
+	           }));
+        	save.append($("<input>", {
+	               type: "text",
+	               name: "mallManagement",
+	               value: mallManagement
 	           }));
         	save.append($("<input>", {
 	               type: "text",
@@ -815,7 +831,7 @@ var number =myList.length;
     <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -833,7 +849,28 @@ value: "logout"
 
 
     
-})})
+})
+
+$("a#design").on("click",function(e){
+    e.preventDefault();
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+})
 </script>
 </body>
 

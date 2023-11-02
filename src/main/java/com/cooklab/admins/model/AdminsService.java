@@ -15,7 +15,7 @@ public class AdminsService {
 		}
 
 	public AdminsVO add(String adminNickname, Integer permissionNo, String adminAccount,
-			String adminPassword, Timestamp createTimestamp) {
+			String adminemail,String adminPassword, Timestamp createTimestamp) {
 
 		AdminsVO AdminsVO = new AdminsVO();
 		PermissionService PermissionService = new PermissionService();
@@ -26,6 +26,7 @@ public class AdminsService {
 		AdminsVO.setPermissionVO(a);
 		AdminsVO.setPermissionNo(permissionNo);
 		AdminsVO.setAdminAccount(adminAccount);
+		AdminsVO.setAdminEmail(adminemail);
 		AdminsVO.setAdminPassword(adminPassword);
 		AdminsVO.setCreatedTimestamp(createTimestamp);
 		dao.insert(AdminsVO);
@@ -36,7 +37,7 @@ public class AdminsService {
 	}
 
 	public AdminsVO update(String adminNickname, Integer permissionNo, String adminAccount,
-			String adminPassword, Integer adminNo) {
+			String adminemail,String adminPassword, Integer adminNo) {
 
 		AdminsVO AdminsVO = new AdminsVO();
 		PermissionService PermissionService = new PermissionService();
@@ -45,6 +46,7 @@ public class AdminsService {
 		AdminsVO.setAdminNickname(adminNickname);
 		AdminsVO.setPermissionNo(permissionNo);;
 		AdminsVO.setAdminAccount(adminAccount);
+		AdminsVO.setAdminEmail(adminemail);
 		AdminsVO.setAdminPassword(adminPassword);
 		AdminsVO.setAdminNo(adminNo);
 		

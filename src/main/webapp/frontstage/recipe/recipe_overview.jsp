@@ -8,7 +8,7 @@ import="com.cooklab.purchase_order.model.*"%>
         <meta name="keywords" content="Ogani, unica, creative, html" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Ogani | Template</title>
+        <title>廚藝實驗室</title>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -121,7 +121,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 <li><a href="../shopstage/shop.html">商城</a></li>
                                 <li><a href="../article/article_main.jsp">討論區</a></li>
                                 <li><a href="../news/news.html">最新消息</a></li>
-                                <li><a href="#">關於我們</a></li>
+                                <li><a href="../members/aboutus.html">關於我們</a></li>
                             </ul>
                         </nav>
                     </div>

@@ -8,7 +8,7 @@ import="com.cooklab.purchase_order.model.*"%>
         <meta name="keywords" content="Ogani, unica, creative, html" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Ogani | Template</title>
+        <title>廚藝實驗室</title>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
@@ -120,7 +120,7 @@ import="com.cooklab.purchase_order.model.*"%>
                                 <li><a href="../shopstage/shop.html">商城</a></li>
                                 <li><a href="../article/article_main.jsp">討論區</a></li>
                                 <li><a href="../news/news.html">最新消息</a></li>
-                                <li><a href="#">關於我們</a></li>
+                                <li><a href="../members/aboutus.html">關於我們</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -132,7 +132,7 @@ import="com.cooklab.purchase_order.model.*"%>
         </header>
         <!-- Header Section End -->
 
-        <!-- 創建食譜頁面 -->
+        <!-- 瀏覽食譜頁面 -->
         <section class="hero hero-normal" style="background-color: rgb(226, 222, 222); padding: 30px">
             <div class="row">
                 <div class="col-md-2"></div>
@@ -204,7 +204,8 @@ import="com.cooklab.purchase_order.model.*"%>
                             <h4 id="author"></h4>
                         </div>
                         <div class="follow-button">
-                            <button type="button" class="btn btn-outline-danger">關注</button>
+                            <button id="follow" type="button" class="btn btn-outline-danger none">關注</button>
+                            <button id="removeFollow" type="button" class="btn btn-danger none">已關注</button>
                         </div>
                     </div>
                 </div>

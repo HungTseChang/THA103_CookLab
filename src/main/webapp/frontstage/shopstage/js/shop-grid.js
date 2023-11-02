@@ -231,18 +231,25 @@ $(document).ready(function() {
 	loadPage(currentPage, currentAction);
 
 
-	$("#search-button").on("keydown", function(e) {
-		if (e.key === "Enter") {
-
+	$("#search-button").on("click", function(e) {
 			const newKeyword = $("#index-searchbar").val();
 			currentAction = "searchkeyword"
 			keyword = newKeyword;
 			currentPage = 1;
 			loadPage(currentPage, currentAction);
 			const newUrl = `shop-grid.html?keyword=${newKeyword}`;
-			window.history.pushState({}, "", newUrl);
+			indow.history.pushState({}, "", newUrl);
+	});
+	//按下enter搜尋
+	$("#index-searchbar").on("keydown", function(e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			$("#search-button").click();
 		}
 	});
+
+
+
 
 	//分類
 	$("#overview-button").on("click", function() {

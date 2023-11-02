@@ -54,6 +54,8 @@ private List<AdminsVO>Adminslist;
 		default:
 			forwardPath = "/dashboard/login/WCC_login.jsp";
 		}
+//		res.sendRedirect("/CookLab"+forwardPath);
+
 		System.out.println("跳轉頁面致"+forwardPath);
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		System.out.println("跳轉回先前頁面");
@@ -123,9 +125,9 @@ private List<AdminsVO>Adminslist;
 
 
 	private String logout(HttpServletRequest req, HttpServletResponse res) {
-		HttpSession Session  =  req.getSession();
-		Session.setAttribute("logout", true);
-		System.out.println("嘗試登出");
+//		HttpSession Session  =  req.getSession();
+//		Session.setAttribute("logout", true);
+		System.out.println("LoginServlet收到登出請求");
    
 		return "/dashboard/login/WCC_login.jsp";
 	}
@@ -148,44 +150,139 @@ private List<AdminsVO>Adminslist;
 			PermissionService PermissionService = new PermissionService();
 			PermissionVO permission = PermissionService.getOne(result.get().getPermissionNo());
 			Map<String, Boolean>Map = new HashMap<>();
-	        Map.put("/AdminsServlet", ((int)permission.getSuperAdmin()==0));
-	        Map.put("/PermissionServlet", ((int)permission.getSuperAdmin()==0));
+//=============================管理員管理權限======================================			
+//            管理員管理權限
+//            客服管理權限
+//            會員管理權限
+//            廣告投放權限
+//            檢舉管理權限
+//            討論區權限
+//           食譜管理權限
+	        Map.put("/AdminsServlet", ((int)permission.getAdminManagement()==0));
+	        Map.put("/PermissionServlet", ((int)permission.getAdminManagement()==0));
+			
+//==============================================================================			
+//================================= 客服管理權限================================================		
+	        Map.put("/dashboard/supportform/supportform-table.html", ((int)permission.getArticleManagement()==0));
+	        Map.put("/dashboard/question/question-table.html", ((int)permission.getArticleManagement()==0));
+	        Map.put("/dashboard/notifycenter/notify-table.html", ((int)permission.getArticleManagement()==0));
+	        Map.put("/dashboard/news/news-table.html", ((int)permission.getArticleManagement()==0));
+
+
+//   ===================================================================================
+// =================================會員管理權限===============================================
+           
+           
+	 
 	        Map.put("/ArticleServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
 	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
 	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
 	        Map.put("/MemberdashboardServlet", ((int)permission.getMembershipManagement()==0));
+
+           
+           
+   
+           
+//  =========================================================================================         
+//  ================================  廣告投放權限==================================================            
+	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
+
+           
+//  =========================================================================================        
+//  ================================= 檢舉管理權限==================================================      
+
 	        Map.put("/ArticleReportServlet", ((int)permission.getReportingManagement()==0));
 	        Map.put("/ArticleSubReportServlet", ((int)permission.getReportingManagement()==0));
-	        Map.put("/AdvertiseServlet", ((int)permission.getAdvertisingManagement()==0));
-	        Map.put("/AdvertisetImgServlet", ((int)permission.getAdvertisingManagement()==0));
-	        Map.put("/PromoCodeServlet", ((int)permission.getAdvertisingManagement()==0));
+           
+           
+           
+           
+           
+//  =========================================================================================         
+//  ==================================  討論區權限=================================================   
+           
+	        Map.put("/ArticleServlet", ((int)permission.getArticleManagement()==0));
+	        Map.put("/ArticleImgServlet", ((int)permission.getArticleManagement()==0));
+           
+           
+           
+           
+//  =========================================================================================         
+//  ==================================食譜管理權限================================================    
+           
+	        Map.put("/DashboardRecipeServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/RecipeServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/DisboardHastagServlet", ((int)permission.getRecipeManagement()==0));
+	        Map.put("/RecipeServletImg", ((int)permission.getRecipeManagement()==0));
+
+           
+           
+           
+           
+           
+           
+//  ======================================商城管理================================================         
+//  =========================================================================================         
+	        Map.put("/AdvertisetImgServlet", ((int)permission.getMallManagement()==0));
+	        Map.put("/AdvertiseServlet", ((int)permission.getMallManagement()==0));
+	        Map.put("/AdvertiseServlet2", ((int)permission.getMallManagement()==0));
+	        Map.put("/dashboard/product/shopview.html", ((int)permission.getMallManagement()==0));
+	        Map.put("/dashboard/memberOrder/TYT_order_management.html", ((int)permission.getMallManagement()==0));
+	        Map.put("/dashboard/productTag/tagview.html", ((int)permission.getMallManagement()==0));
+
+
+//	        System.out.println(Map.get("/AdminsServlet"));
+//	        Map.put("/dashboard/advertise_allview.jsp", true);
+//	        Map.put("/dashboard/advertise/advertise_getone.jsp", true);
+//	        Map.put("/dashboard/advertise/advertise_set.jsp", true);
+//	        Map.put("/dashboard/article/HO_discussion_allview.jsp", true);
+//	        Map.put("/dashboard/article/HO_dscussion_cate.jsp", true);
+//	        Map.put("/dashboard/article_report/WCC_article_report_info.jsp", true);
+//	        Map.put("/dashboard/memberOrder/TYT_order_detail.html", true);
+//	        Map.put("/dashboard/memberOrder/TYT_order_management.html", true);
+//	        Map.put("/dashboard/news/news-add.html", true);
+//	        Map.put("/dashboard/news/news-table.html", true);
+//	        Map.put("/dashboard/news/news-update.html", true);
+//	        Map.put("/dashboard/notifycenter/notify-add.html", true);
+//	        Map.put("/dashboard/notifycenter/notify-details.html", true);
+//	        Map.put("/dashboard/notifycenter/notify-table.html", true);
+//	        Map.put("/dashboard/product/shopset.html", true);
+//	        Map.put("/dashboard/product/shopupdate.html", true);
+//	        Map.put("/dashboard/product/shopview.html", true);
+//	        Map.put("/dashboard/productTag/tagview.html", true);
+//	        Map.put("/dashboard/promo_code/promo_code_allview.jsp", true);
+//	        Map.put("/dashboard/promo_code/promo_code_getone.jsp", true);
+//	        Map.put("/dashboard/promo_code/promo_code_set.jsp", true);
+//	        Map.put("/dashboard/question/question-add.html", true);
+//	        Map.put("/dashboard/question/question-table.html", true);
+//	        Map.put("/dashboard/question/question-update.html", true);
+//	        Map.put("/dashboard/recipe_report/WCC_recipe_report_info.jsp", true);
+//	        Map.put("/dashboard/supportform/supportform-add.html", true);
+//	        Map.put("/dashboard/supportform/supportform-details.html", true);
+//	        Map.put("/dashboard/supportform/supportform-table.html", true);
+	      
+	
+	        
 	        
 	 	
 	        System.out.println(Map.get("/AdminsServlet"));
+	        System.out.println("當前權限列表:"+Map);
 	        System.out.println("所取得的帳號為"+adminAccount);
 			Session.setAttribute("thisaccount", adminAccount);
 			Session.setAttribute("nickname", nickname);
 			Session.setAttribute("permissionlist", Map);
 			Session.setAttribute("adminID", adminID);
           if(Session.getAttribute("location") != null) {
-        	    if(req.getHeader("orginURL")!=null) {
-        	    	Session.setAttribute("location", req.getHeader("orginURL"));
-                    String responseData = "{ \"redirectURL\": \"" + req.getContextPath() + "/frontstage/members/login.html" + "\" }";
-                    try {
-						res.getWriter().write(responseData);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-        	    }
         	  return (String) Session.getAttribute("location");
           }
 			return "/dashboard/login/WCC_welcome.jsp";
+//          return "/dashboard/product/shopview.html";
 			}
 		}
 		req.removeAttribute("error");
 		req.setAttribute("error", "帳號或密碼錯誤");
+		System.out.println("帳號或密碼錯誤");
 		return  "/dashboard/login/WCC_login.jsp";
 	}
 

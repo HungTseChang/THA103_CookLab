@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 		"/frontstage/recipe/recipe_update.jsp",//食譜更新
 		"/RecipeCollectionServlet",//食譜收藏
 		"/RecipeCommentsServlet",//食譜留言
+		"/FollowServlet",//會員關注
 		"/frontstage/article/article_edit.jsp",
 		"/frontstage/article/article_sub_edit.jsp",
 		"/frontstage/article/article_report.jsp",

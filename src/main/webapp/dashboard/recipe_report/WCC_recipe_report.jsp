@@ -81,7 +81,8 @@
 								alt="Logo" srcset=""></a>
 								<div style="font-size:15px;" >會員：${thisaccount} ，你好 </div>
 								<div style="font-size:10px;">&nbsp;</div>
-								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a><a class="wccA"id="design" style="  margin-left: 10px;">個人資訊</a></div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >個人資訊</a></div>
 						</div>
 <!-- 						======================================== -->
                         <div class="toggler">
@@ -95,7 +96,7 @@
 
 
                         <!-- ============================================================================================== -->
-                          <li class="sidebar-item  ">
+                                <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
@@ -135,10 +136,10 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href=".\recipe_form.html">食譜表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">食譜表單</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href=".\hashtag_form.html">標籤管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">標籤管理</a>
                                 </li>
                             </ul>
                         </li>
@@ -150,25 +151,19 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\shopview.html">商品設定</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">商品設定</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="TYT_order_management.html">訂單管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">訂單管理</a>
                                 </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCpromo_info.html">新增優惠券</a>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">商品種類管理</a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href=".\GCpromo.html">優惠券管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">優惠券管理</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href=".\GCadvertise.html" >廣告管理</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href=".\GCadvertise_info.html">新增廣告</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="TYT_purchase_order_allView.html">進貨表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >廣告管理</a>
                                 </li>
                             </ul>
                         </li>
@@ -180,31 +175,11 @@
 
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href=".\HO_discussion_cate.html">看板分類</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">看板分類</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href=".\HO_discussion_info.html" >文章管理</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >文章管理</a>
                                   </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>數據分析</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="#">會員數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">食譜數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">商城數據</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="#">文章數據</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub ">
@@ -214,10 +189,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_recipe_report.jsp">食譜檢舉</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
@@ -226,11 +198,17 @@
                                     <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">討論區回文檢舉</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/official-notify.html">系統通知</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">常見問題</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="ding-support-tickets-table.html">問題表單</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">系統通知</a>
                                 </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">問題表單</a>
+                                </li>
+                                <li class="submenu-item active">
+                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">最新消息</a>
+                                 </li>
                             </ul>
                         </li>
                         <!-- ======================================================================================================== -->
@@ -509,6 +487,7 @@ if(isSorted){
         })
         
          </script>
+        <script src="<%=request.getContextPath() %>/dashboard/assets\vendors\jquery-3.7.1.min.js"></script>
     
     <script src="<%=request.getContextPath()%>/dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="<%=request.getContextPath()%>/dashboard/assets/js/bootstrap.bundle.min.js"></script>
@@ -519,7 +498,7 @@ if(isSorted){
   <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -541,8 +520,7 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	$("a#logout").on("click",function(e){
-	    e.preventDefault;
+	    e.preventDefault();
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置

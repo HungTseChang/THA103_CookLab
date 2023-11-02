@@ -131,12 +131,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	});
+	
 	//搜尋
 	$("#search-button").on("click", function() {
 		let keyword = $("#index-searchbar").val();
-
-
 		window.location.href = "./shop-grid.html?keyword=" + keyword;
+	});
+	//按下enter搜尋
+	$("#index-searchbar").on("keydown", function(e) {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			$("#search-button").click();
+		}
 	});
 
 	fetchDataAndRender2();

@@ -81,10 +81,10 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //
 			session.beginTransaction();
 			PromoCodeVO promoCodeVo = session
-				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 
+				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
 			session.getTransaction().commit();
-		return promoCodeVo;
+			return promoCodeVo;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -99,10 +99,10 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
+			List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
 
 			session.getTransaction().commit();
-		return list;
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -114,6 +114,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 	@Override
 	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
 //		Session session = getSession();
+//<<<<<<< HEAD
 //
 //		String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
 //		Query query = session.createQuery(hql);
@@ -122,7 +123,19 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
 //
 //		session.close(); // 记得关闭Session
+//=======
+//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//			String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
+//			Query query = session.createQuery(hql);
+//			query.setParameter("serialNumber", promoCodeSerialNumber);
+//>>>>>>> refs/heads/master
 
+//<<<<<<< HEAD
 		return null;
+//=======
+//			PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
+//			return promoCode;
+//		
+//>>>>>>> refs/heads/master
 	}
 }

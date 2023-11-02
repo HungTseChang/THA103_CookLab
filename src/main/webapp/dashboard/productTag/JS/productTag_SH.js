@@ -27,15 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
 			500: function(res) { },
 		},
 		success: function(data) {
-			// 首先销毁当前的simpleDatatables实例
+
 			if (dataTable) {
 				dataTable.destroy();
 			}
 
-			// 数据请求成功后，处理数据并填充表格
 			var table = $("#table1");
 			var tbody = table.find("tbody");
-			tbody.empty(); // 清空表格内容
+			tbody.empty(); 
 
 			console.log("Data:", data);
 			$.each(data, function(index, item) {
@@ -54,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				console.log("Row:", row);
 			});
 
-			// 初始化Simple Datatable
 			dataTable = new simpleDatatables.DataTable(table1);
 		},
 		error: function(xhr) {
@@ -129,7 +127,6 @@ function updateDataTable(data) {
 		tbody.append(row);
 	});
 
-	// 重新初始化数据表格
 	dataTable = new simpleDatatables.DataTable(table1);
 }
 
@@ -158,7 +155,7 @@ foodTagButton.addEventListener("click", function(e) {
 			}
 			var table = $("#table1");
 			var tbody = table.find("tbody");
-			tbody.empty(); // 清空表格內容
+			tbody.empty(); 
 
 			var tableHeaders = table.find("thead th");
 			$(tableHeaders[0]).text("食材種類編號");
@@ -283,6 +280,7 @@ $("#saveChangesButton").on("click", function() {
 				alert("更新成功");
 				$("#updateModal").modal("hide");
 				refreshData();
+				window.location.href = "./productTag/taview.html";
 			} else {
 				alert(response.message);
 			}
@@ -421,7 +419,7 @@ $(document).on("click", ".delete-button", function() {
 
 		},
 		error: function(error) {
-
+			alert("有商品使用中 請勿刪除");
 			console.error("Error:", error);
 		},
 	});

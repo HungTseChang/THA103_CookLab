@@ -51,7 +51,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/indexlogo.png" alt="" /></a>
+            <a href="#"><img src="../img/indexlogo.png" alt="" /></a>
         </div>
         <section class="container">
             <div
@@ -331,7 +331,7 @@ function articleAppend(a){
 function MemberAppend(m){
   let stringAppend = `
               
-              <div class="row m-0 ml-2 ding-folrec-border  ">
+              <div class="row m-0 ml-2 ding-folrec-border  MemberNameDelete${m.memberId}">
                   <div class="col-3 align-self-center text-center p-0 py-2">  
                     <img src="data:image/png;base64,${m.memberPicture}" alt="關注會員頭像" class="img-thumbnail ding-folmem-preview" />
                   </div>
@@ -377,7 +377,8 @@ function MemberAppend(m){
                                 </div>
                               </div><!-- 食譜小分頁結束-->
                 `;
-                $("#pills-folmem").append(stringAppend2);
+                if(recipe.recipeStatus==0)
+                  $("#pills-folmem").append(stringAppend2);
               });
               $(`.MemberName${m.memberId}`).on("click", function() {
                 // 移除指定 class
@@ -419,7 +420,8 @@ function RecipeAppend(r){
                     </div>
                   </div>
                 `;
-            $("#pills-folrec").append(stringAppend);
+
+                $("#pills-folrec").append(stringAppend);
 }
 var recipeCollectionNo;//食譜收藏編號
 
@@ -441,7 +443,7 @@ var recipeCollectionNo;//食譜收藏編號
            MemberAppend(power);
         })
         $(element.RecipeList).each(function(index, power) {
-          if(power.recipeStatus == 1)
+          if(power.recipeStatus == 0)
             RecipeAppend(power);
         })
 			});
@@ -463,7 +465,7 @@ var recipeCollectionNo;//食譜收藏編號
         dataType: "json", // 預期會接收到回傳資料的格式： json | xml | html
         success: function(data) {
           
-          $(`.MemberName${e}`).remove();
+          $(`.MemberNameDelete${e}`).remove();
           console.log("網頁重新整理");
           // window.location.reload();
         },

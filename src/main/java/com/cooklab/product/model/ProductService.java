@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.cooklab.recipe.model.RecipeVO;
 import com.cooklab.util.HibernateUtil;
 import com.cooklab.util.JedisUtil;
 
@@ -486,13 +487,26 @@ public class ProductService {
 		Jedis jedis = jedisPool.getResource();
 		try {
 			jedis.select(2);
-			String productKey = "product:" + productNo;
-			jedis.hincrBy(productKey, "searchCount", 1);
+			String productKey = "product_searchCount" ;
+			jedis.hincrBy(productKey, String.valueOf(productNo), 1);
 			System.out.println("success");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			jedis.close();
 		}
+	}
+	
+	public String updateSearchCount(String productNo, String searchCount) {
+		ProductVO productVO = dao.findByPrimaryKey(Integer.valueOf(productNo));
+
+		int oldSearch = 0;
+		if(productVO.getSearchCount()!= null) {
+			oldSearch = productVO.getSearchCount();
+		}else {
+			oldSearch = 0;
+		}
+		productVO.setSearchCount(oldSearch + Integer.valueOf(searchCount));
+		return dao.update(productVO);
 	}
 }

@@ -18,7 +18,7 @@ public class SingletonServletContextListener implements ServletContextListener {
     	HibernateUtil.getSessionFactory();
     	JedisUtil.getJedisPool();
     	timer = new Timer();
-		timer.schedule(new RecipeViewCounTask(), 0, 3*60*1000);
+		timer.schedule(new RecipeViewCounTask(), 0, 15*1000);
     }
 
     @Override

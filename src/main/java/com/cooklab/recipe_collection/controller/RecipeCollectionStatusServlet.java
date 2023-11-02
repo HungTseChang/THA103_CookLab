@@ -31,7 +31,12 @@ public class RecipeCollectionStatusServlet extends HttpServlet {
 					.getOneRecipe(Integer.valueOf(req.getParameter("recipeNo").trim()));
 			RecipeCollectionVO recipeCollectionVO = new RecipeCollectionServiceIm().findByMemberAndRecipe(recipeVO,
 					membersVO);
-			String jsonString = gson.toJson(recipeCollectionVO != null ? recipeCollectionVO.getCollectionNo() : null);
+			String jsonString;
+			if(membersVO.getMemberId().equals(recipeVO.getMembers().getMemberId())) {
+				jsonString="equals";
+			}else {
+				jsonString = gson.toJson(recipeCollectionVO != null ? recipeCollectionVO.getCollectionNo() : null);
+			}
 			res.getWriter().write(jsonString);
 			return;
 		}

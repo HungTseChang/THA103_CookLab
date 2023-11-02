@@ -1087,8 +1087,8 @@ public class ProductServlet extends HttpServlet {
 		Jedis jedis = jedisPool.getResource();
 		try {
 			jedis.select(2);
-			String productKey = "product:" + productNo;
-			jedis.hincrBy(productKey, "searchCount", 1);
+			String productKey = "product_searchCount" ;
+			jedis.hincrBy(productKey, String.valueOf(productNo), 1);
 			System.out.println("success");
 		} catch (Exception e) {
 			e.printStackTrace();

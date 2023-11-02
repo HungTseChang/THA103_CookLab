@@ -118,27 +118,29 @@ public class AdvertiseHBDAO implements AdvertiseDAO {
 
 	@Override
 	public List<AdvertiseVO> upAd() {
-//	//		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//<<<<<<< HEAD
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 //			Session session = getSession();
-//			try {
-//				session.beginTransaction();
-//				Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-//	
-//				String hql = "FROM AdvertiseVO ad " 
-//						+ "WHERE :currentTime >= ad.AdvertiseShelfTime "
-//						+ "AND :currentTime <= ad.AdvertiseOffsaleTime " 
-//							+ "ORDER BY ad.AdvertiseShelfTime  DESC";
-//	
-//				Query query = session.createQuery(hql);
-//				query.setParameter("currentTime", currentTime);
-//	
-//				List<AdvertiseVO> listAd = query.list();
-//				session.getTransaction().commit();
-//				return listAd;
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				session.getTransaction().rollback();
-//			}
+			try {
+				session.beginTransaction();
+				Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+	
+				String hql = "FROM AdvertiseVO ad " 
+						+ "WHERE :currentTime >= ad.AdvertiseShelfTime "
+						+ "AND :currentTime <= ad.AdvertiseOffsaleTime " 
+							+ "ORDER BY ad.AdvertiseShelfTime  DESC";
+	
+				Query query = session.createQuery(hql);
+				query.setParameter("currentTime", currentTime);
+	
+				List<AdvertiseVO> listAd = query.list();
+				session.getTransaction().commit();
+				return listAd;
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+
 
 		return null;
 	}
