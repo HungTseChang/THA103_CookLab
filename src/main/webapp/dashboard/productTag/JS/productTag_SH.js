@@ -279,8 +279,8 @@ $("#saveChangesButton").on("click", function() {
 			if (response.message === "true") {
 				alert("更新成功");
 				$("#updateModal").modal("hide");
-				window.location.href = "./productTag/taview.html";
 				refreshData();
+				window.location.href = "./productTag/taview.html";
 			} else {
 				alert(response.message);
 			}
@@ -419,7 +419,7 @@ $(document).on("click", ".delete-button", function() {
 
 		},
 		error: function(error) {
-
+			alert("有商品使用中 請勿刪除");
 			console.error("Error:", error);
 		},
 	});
