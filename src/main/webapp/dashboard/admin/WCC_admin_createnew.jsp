@@ -40,7 +40,8 @@
 								alt="Logo" srcset=""></a>
 								<div style="font-size:15px;" >會員：${thisaccount} ，你好 </div>
 								<div style="font-size:10px;">&nbsp;</div>
-								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a><a class="wccA"id="design" style="  margin-left: 10px;">個人資訊</a></div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">登出</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >個人資訊</a></div>
 						</div>
 <!-- 						======================================== -->
                         <div class="toggler">
@@ -52,7 +53,7 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
                         <!-- ============================================================================================== -->
-                            <li class="sidebar-item  ">
+                              <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>後台首頁</span>
@@ -144,12 +145,9 @@
                                 <span>客服中心</span>
                             </a>
                             <ul class="submenu ">
-<!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">食譜檢舉</a> --%>
-<!--                                 </li> -->
-<!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a> --%>
-<!--                                 </li> -->
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
+                                </li>
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
@@ -206,8 +204,8 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                                   <li class="breadcrumb-item"><a href="index.html">管理員管理</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">新增管理者</li>
                                 </ol>
                             </nav>
                         </div>
@@ -233,6 +231,20 @@
                                                             <div class="form-group has-icon-left">
                                                                 <div class="position-relative">
                                                                     <input type="text"  name="account" class="form-control" placeholder="帳號"
+                                                                        id="first-name-icon">
+                                                                    <div class="form-control-icon">
+                                                                        <i class="bi bi-person"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>管理員信箱</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="form-group has-icon-left">
+                                                                <div class="position-relative">
+                                                                    <input type="text"  name="email" class="form-control" placeholder="信箱"
                                                                         id="first-name-icon">
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-person"></i>
@@ -286,8 +298,10 @@
                                                                 </div>
                                                             </div>
                                                         </div>                                                   
-                                                    <div class ="col -md-12">
-                                                   <lable id="error"></lable>
+                                                    <div class ="col -md-12"></div>
+                                                  <div> <label id="error" style="color:red;"></label></div>
+                                                  <div> <label id="error2" style="color:red;"></label></div>
+                                                   <div><label id="error3" style="color:red;"></label>
                                                     </div>
                                                 </div></div>
                    						</form>
@@ -329,7 +343,7 @@
         <span id="total-pages">of 1</span>
                                     </div>
                                     <div class="col-md-5">
-                                        <a href="#" id="insert"class="btn btn-info rounded-pill">確認新增</a>
+                                        <a href="#" id="insert"class="btn btn-info rounded-pill">確認新增</a><a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class="btn btn-info rounded-pill">取消編輯</a>
                                     </div>
                                 </div>
                             </div>
@@ -363,18 +377,51 @@
     <script src="<%=request.getContextPath() %>/dashboard/assets\js\menu_ative.js"></script>
      <script>
      
-     document.addEventListener("DOMContentLoaded",function () {    
+     document.addEventListener("DOMContentLoaded",function () {   
+
+          // 驗正電子信箱
+ function IsEmail(email) {
+     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if(!regex.test(email)){return false;}else{ return true; } }
+ // 驗正電子信箱
+
     $("a#insert").on("click",function(){
-  	  var account= $("input[name='account']").val()+"";
-	  var nickname= $("input[name='nickname']").val()+"";
-	  var password= $("input[name='password']").val()+"";
-	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
-	  var permission =$('input[name="permission"]:checked').val()
-	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission);
-	  if(password != passwordcheck){
-		  $("lable#error").append("密碼與密碼確認不相符，請重新輸入密碼");
-		  return;
+   	 $("label#error").text("");
+	 $("label#error2").text("");
+	  $("label#error3").text("");
+   	 var checkitem = true;
+  	  var account= $("input[name='account']").val();
+  	  var email =$("input[name='email']").val();
+  	  console.log(account);
+  	  console.log(email);
+  	if (IsEmail(email)==true){
+    }else{
+    	$("label#error").text("無效電子信箱格式");
+    	 checkitem = false;
+    }
+  	  
+  	  
+	  var nickname= $("input[name='nickname']").val();
+	  var password= $("input[name='password']").val();
+	  var passwordcheck= $("input[name= 'passwordcheck']").val();
+	  var permission =$('input[name="permission"]:checked').val();
+	  
+	  if(nickname ==null||account==null){
+	    	$("label#error").text("欄位不可以為空值");
+	    	 checkitem = false;
 	  }
+	  
+	  if(permission == null){
+		  $("label#error3").text("權限欄位不可以為空值");
+	    	 checkitem = false; 		 
+	  }
+		  
+	  console.log(account+"||"+nickname+"||"+email+"||"+password+"||"+passwordcheck+"||"+permission);
+	  if(password != passwordcheck){
+		  $("label#error2").text("密碼與密碼確認不相符，請重新輸入密碼");
+	    	 checkitem = false;
+	  }
+	  if(!checkitem){return;}
   	  var form = $("<form>", {
             action: "<%=request.getContextPath() %>/AdminsServlet", // 表单提交的URL
             method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -389,6 +436,11 @@
              type: "text",
              name: "account",
              value: account
+         }));
+	       form.append($("<input>", {
+             type: "text",
+             name: "email",
+             value: email
          }));
 	       form.append($("<input>", {
              type: "text",
@@ -411,7 +463,13 @@
 	       form.remove();
   	  
     })
-    
+//     ========================
+
+
+ 
+	
+	
+	
     //     ======================================================
 	
 	var	 permissionList=JSON.parse('${json_permission}');
@@ -473,7 +531,7 @@ $("#total-pages").text("of " + totalPages);
  <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -495,7 +553,7 @@ value: "logout"
 
 
 $("a#design").on("click",function(e){
-	    e.preventDefault;
+    e.preventDefault();
 	var formdesign = $("<form>", {
 	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
 	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -514,8 +572,6 @@ $("a#design").on("click",function(e){
 })
 
 
-	let table1 = document.querySelector("#table1");
-	let dataTable = new simpleDatatables.DataTable(table1);
 
 })
 </script>

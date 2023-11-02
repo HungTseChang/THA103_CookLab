@@ -37,6 +37,21 @@ public class AdminsVO implements java.io.Serializable {
 	@Expose
 	@Column(name = "admin_account")  
 	private String adminAccount;
+	public PermissionVO getPermission() {
+		return permission;
+	}
+	public void setPermission(PermissionVO permission) {
+		this.permission = permission;
+	}
+	@Expose
+	@Column(name = "admin_email")  
+	private String adminEmail;
+	public String getAdminEmail() {
+		return adminEmail;
+	}
+	public void setAdminEmail(String adminEmail) {
+		this.adminEmail = adminEmail;
+	}
 	@Expose
 	@Column(name = "admin_password")  
 	private String adminPassword;

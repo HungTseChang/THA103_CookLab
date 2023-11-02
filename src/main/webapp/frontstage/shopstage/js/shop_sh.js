@@ -227,7 +227,7 @@ function renderData2(data) {
 		aTitle.addEventListener('click', function(event) {
 			event.preventDefault();
 			const productId = this.getAttribute('data-product-id');
-			window.location.href = './shop-details.html?productNo=' + productId;
+			window.location.href = item.advertise_url;
 		});
 
 	});

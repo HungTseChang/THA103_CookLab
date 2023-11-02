@@ -28,7 +28,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		session.save(promoCode);
+			session.save(promoCode);
 
 			session.getTransaction().commit();
 			session.close();
@@ -46,7 +46,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		session.update(promoCode);
+			session.update(promoCode);
 			System.out.println("開始更新");
 			session.getTransaction().commit();
 			session.close();
@@ -63,7 +63,7 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		session.delete(promoCode);
+			session.delete(promoCode);
 			session.getTransaction().commit();
 			session.close();
 		} catch (Exception e) {
@@ -80,11 +80,12 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 		try {
 
 			session.beginTransaction();
-		PromoCodeVO promoCodeVo = session
-				.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class).uniqueResult();
+			PromoCodeVO promoCodeVo = session
+					.createQuery("from PromoCodeVO where promo_code_no=" + promoCodeNo, PromoCodeVO.class)
+					.uniqueResult();
 
 			session.getTransaction().commit();
-		return promoCodeVo;
+			return promoCodeVo;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -99,10 +100,10 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 //		Session session = getSession();
 		try {
 			session.beginTransaction();
-		List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
+			List<PromoCodeVO> list = session.createQuery("from PromoCodeVO", PromoCodeVO.class).list();
 
 			session.getTransaction().commit();
-		return list;
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -113,16 +114,14 @@ public class PromoCodeHBDAO implements PromoCodeDAO {
 
 	@Override
 	public PromoCodeVO findByPromoCodeSerialNumber(String promoCodeSerialNumber) {
-		Session session = getSession();
+//		Session session = getSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
+			Query query = session.createQuery(hql);
+			query.setParameter("serialNumber", promoCodeSerialNumber);
 
-		String hql = "FROM PromoCodeVO pc WHERE pc.promoCodeSerialNumber = :serialNumber";
-		Query query = session.createQuery(hql);
-		query.setParameter("serialNumber", promoCodeSerialNumber);
-
-		PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
-
-		session.close(); // 记得关闭Session
-
-		return promoCode;
+			PromoCodeVO promoCode = (PromoCodeVO) query.uniqueResult(); // 使用uniqueResult获取单一结果
+			return promoCode;
+		
 	}
 }

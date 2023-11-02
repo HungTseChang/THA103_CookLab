@@ -194,12 +194,10 @@
                                 <span>客服中心</span>
                             </a>
                             <ul class="submenu ">
-<!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">食譜檢舉</a> --%>
-<!--                                 </li> -->
-<!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">食譜回文檢舉</a> --%>
-<!--                                 </li> -->
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">食譜檢舉</a>
+                                </li>
+
                                 <li class="submenu-item ">
                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">討論區檢舉</a>
                                 </li>
@@ -297,7 +295,7 @@
                                         <th class="resizable recipeStatus"name="recipeStatus">食譜狀態</th>
                                         <th class="resizable lastEditTimestamp"name=" lastEditTimestamp">最後編輯時間</th>
                                          <th class="resizable createdTimestamp"name=" createdTimestamp">建立時間</th>                        
-                                        <th class="resizable" style=" white-space: nowrap; overflow: hidden;">&nbsp;操作AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</th>
+                                        <th class="resizable" style=" white-space: nowrap; overflow: hidden;">&nbsp;操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">
@@ -579,7 +577,7 @@ if(isSorted){
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 $("a#logout").on("click",function(e){
-    e.preventDefault;
+    e.preventDefault();
 var formlogout = $("<form>", {
 action: "<%=request.getContextPath()%>/LoginServlet", // 表单提交的URL
     method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
@@ -598,7 +596,24 @@ value: "logout"
 
     
 })
+$("a#design").on("click",function(e){
+    e.preventDefault();
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // 表单提交的URL
+	    method: "post", // 提交方法，可以是 "post" 或 "get"，根据需求设置
+	});
 
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
 let table1 = document.querySelector("#table1");
 let dataTable = new simpleDatatables.DataTable(table1);
 })

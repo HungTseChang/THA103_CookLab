@@ -14,15 +14,18 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>memberFilter</filter-name>
-		<url-pattern>/AdminsServlet</url-pattern>
-		<url-pattern>/PermissionServlet</url-pattern>
 		<url-pattern>/ArticleReportServlet</url-pattern>
 		<url-pattern>/ArticleSubReportServlet</url-pattern>
 		<url-pattern>/MemberdashboardServlet</url-pattern>
 		<url-pattern>/LoginServlet</url-pattern>
 		<url-pattern>/DisboardHastagServlet</url-pattern>
 		<url-pattern>/DashboardRecipeServlet</url-pattern>
-		<url-pattern>/RecipeReportServlet</url-pattern>
+		<url-pattern>/AdvertiseServlet</url-pattern>
+		<url-pattern>/AdvertiseServlet2</url-pattern>
+
+		
+		
+		
 		<url-pattern>/dashboard/advertise_allview.jsp</url-pattern>
 		<url-pattern>/dashboard/advertise/advertise_getone.jsp</url-pattern>
 		<url-pattern>/dashboard/advertise/advertise_set.jsp</url-pattern>
