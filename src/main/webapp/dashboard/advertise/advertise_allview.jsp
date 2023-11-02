@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
@@ -37,162 +37,8 @@ pageContext.setAttribute("list", list);
 	type="image/x-icon" />
 </head>
 
-
-
-
-<body>
-	<div id="app">
-		<div id="sidebar" class="active">
-			<div class="sidebar-wrapper active">
-				<div class="sidebar-header">
-					<div class="d-flex justify-content-between">
-						<div class="logo">
-							<a href="index.html"><img src="assets/images/logo/logo.png"
-								alt="Logo" srcset="" /></a>
-						</div>
-						<div class="toggler">
-							<a href="#" class="sidebar-hide d-xl-none d-block"><i
-								class="bi bi-x bi-middle"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="sidebar-menu">
-					<ul class="menu">
-						<!-------------------------------------------------------------------------------->
-					                            <li class="sidebar-item  ">
-                            <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>«á¥x­º­¶</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item ">
-                            <a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class='sidebar-link'>
-                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>·|­ûºŞ²z</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar-item  has-sub ">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>Åv­­ºŞ²z</span>
-                            </a>
-                            <ul class="submenu ">
-                          
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">ºŞ²zºŞ²zªÌ</a>
-                                </li>
-                             
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">³Ğ¥ßÅv­­³W«h</a>
-                                </li>
-                            
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item has-sub ">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-collection-fill"></i>
-                                <span>­¹ÃĞºŞ²z</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">­¹ÃĞªí³æ</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">¼ĞÅÒºŞ²z</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>°Ó«°ºŞ²z</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">°Ó«~³]©w</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">­q³æºŞ²z</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">°Ó«~ºØÃşºŞ²z</a>
-                                </li>
-                                <li class="submenu-item  ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">Àu´f¨éºŞ²z</a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >¼s§iºŞ²z</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>°Q½×°ÏºŞ²z</span>
-                            </a>
-
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">¬İªO¤ÀÃş</a>
-                                  </li>
-                                  <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >¤å³¹ºŞ²z</a>
-                                  </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item  has-sub ">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
-                                <span>«ÈªA¤¤¤ß</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">­¹ÃĞÀËÁ|</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">°Q½×°ÏÀËÁ|</a>
-                                </li>
-                                  <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">°Q½×°Ï¦^¤åÀËÁ|</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">±`¨£°İÃD</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">¨t²Î³qª¾</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">°İÃDªí³æ</a>
-                                </li>
-                                <li class="submenu-item active">
-                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">³Ì·s®ø®§</a>
-                                 </li>
-                            </ul>
-                        </li>
-						<!----------------------------------------------------------------------------->
-					</ul>
-				</div>
-				<button class="sidebar-toggler btn x">
-					<i data-feather="x"></i>
-				</button>
-			</div>
-		</div>
-		<div id="main">
-			<header class="mb-3">
-				<a href="#" class="burger-btn d-block d-xl-none"> <i
-					class="bi bi-justify fs-3"></i>
-				</a>
-			</header>
-			<!--/////////////////////////////////////////////////////////////////////////////////////////  -->
-			<style>
-=======
 	<style>
->>>>>>> refs/heads/master
+
 li a.sub_title {
 	background-color: #435ebe;
 	color: white !important;
@@ -228,12 +74,21 @@ td button.wcc {
 td.HO_article_title {
 	/* width: 15%; */
 	/* white-space: wrap; */
-	/*³]©w¤å¦r¤@¦æ*/
+	/*è¨­å®šæ–‡å­—ä¸€è¡Œ*/
 	text-overflow: ellipsis;
-	/*clip(¹w³])|ellipsis(¬Ù²¤²Å¸¹)*/
+	/*clip(é è¨­)|ellipsis(çœç•¥ç¬¦è™Ÿ)*/
 	/* overflow: hidden; */
 }
+
+
+				a.wccA{
+					border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
+				}
 </style>
+
 
 
 <body>
@@ -242,9 +97,14 @@ td.HO_article_title {
 			<div class="sidebar-wrapper active">
 				<div class="sidebar-header">
 					<div class="d-flex justify-content-between">
-						<div class="logo">
-							<a href=""><img
-								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
+                             <div class="logo">
+							<a href="index.html"><img
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset=""></a>
+								<div style="font-size:15px;" >æœƒå“¡ï¼š${thisaccount} ï¼Œä½ å¥½ </div>
+								<div style="font-size:10px;">&nbsp;</div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">ç™»å‡º</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >å€‹äººè³‡è¨Š</a></div>
 						</div>
 						<div class="toggler">
 							<a href="#" class="sidebar-hide d-xl-none d-block"><i
@@ -252,21 +112,20 @@ td.HO_article_title {
 						</div>
 					</div>
 				</div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
-                        <!-- ============================================================================================== -->
-                            <li class="sidebar-item  ">
+				<div class="sidebar-menu">
+					<ul class="menu">
+						<!-------------------------------------------------------------------------------->
+					                            <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>«á¥x­º­¶</span>
+                                <span>å¾Œå°é¦–é </span>
                             </a>
                         </li>
 
                         <li class="sidebar-item ">
                             <a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>·|­ûºŞ²z</span>
+                                <span>æœƒå“¡ç®¡ç†</span>
                             </a>
                         </li>
 
@@ -274,16 +133,16 @@ td.HO_article_title {
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Åv­­ºŞ²z</span>
+                                <span>æ¬Šé™ç®¡ç†</span>
                             </a>
                             <ul class="submenu ">
                           
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">ºŞ²zºŞ²zªÌ</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">ç®¡ç†ç®¡ç†è€…</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">³Ğ¥ßÅv­­³W«h</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">å‰µç«‹æ¬Šé™è¦å‰‡</a>
                                 </li>
                             
                             </ul>
@@ -292,14 +151,14 @@ td.HO_article_title {
                         <li class="sidebar-item has-sub ">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-collection-fill"></i>
-                                <span>­¹ÃĞºŞ²z</span>
+                                <span>é£Ÿè­œç®¡ç†</span>
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">­¹ÃĞªí³æ</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">é£Ÿè­œè¡¨å–®</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">¼ĞÅÒºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">æ¨™ç±¤ç®¡ç†</a>
                                 </li>
                             </ul>
                         </li>
@@ -307,76 +166,73 @@ td.HO_article_title {
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>°Ó«°ºŞ²z</span>
+                                <span>å•†åŸç®¡ç†</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">°Ó«~³]©w</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">å•†å“è¨­å®š</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">­q³æºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">è¨‚å–®ç®¡ç†</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">°Ó«~ºØÃşºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">å•†å“ç¨®é¡ç®¡ç†</a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">Àu´f¨éºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">å„ªæƒ åˆ¸ç®¡ç†</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >¼s§iºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >å»£å‘Šç®¡ç†</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>°Q½×°ÏºŞ²z</span>
+                                <span>è¨è«–å€ç®¡ç†</span>
                             </a>
 
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">¬İªO¤ÀÃş</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">çœ‹æ¿åˆ†é¡</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >¤å³¹ºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >æ–‡ç« ç®¡ç†</a>
                                   </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>«ÈªA¤¤¤ß</span>
+                                <span>å®¢æœä¸­å¿ƒ</span>
                             </a>
                             <ul class="submenu ">
-<!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">­¹ÃĞÀËÁ|</a> --%>
-<!--                                 </li> -->
-<!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">­¹ÃĞ¦^¤åÀËÁ|</a> --%>
-<!--                                 </li> -->
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">°Q½×°ÏÀËÁ|</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe_report/WCC_recipe_report.jsp">é£Ÿè­œæª¢èˆ‰</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">è¨è«–å€æª¢èˆ‰</a>
                                 </li>
                                   <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">°Q½×°Ï¦^¤åÀËÁ|</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">è¨è«–å€å›æ–‡æª¢èˆ‰</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">±`¨£°İÃD</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">å¸¸è¦‹å•é¡Œ</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">¨t²Î³qª¾</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">ç³»çµ±é€šçŸ¥</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">°İÃDªí³æ</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">å•é¡Œè¡¨å–®</a>
                                 </li>
                                 <li class="submenu-item active">
-                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">³Ì·s®ø®§</a>
+                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">æœ€æ–°æ¶ˆæ¯</a>
                                  </li>
                             </ul>
                         </li>
-                        <!-- ======================================================================================================== -->
-                    </ul>
-                </div>
+						<!----------------------------------------------------------------------------->
+					</ul>
+				</div>
 				<button class="sidebar-toggler btn x">
 					<i data-feather="x"></i>
 				</button>
@@ -387,50 +243,45 @@ td.HO_article_title {
 				<a href="#" class="burger-btn d-block d-xl-none"> <i
 					class="bi bi-justify fs-3"></i>
 				</a>
-			</header>
-			<!--/////////////////////////////////////////////////////////////////////////////////////////  -->
-		
-			<!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
+			</header>		
+
+
+
+
 			<div class="page-heading">
 				<div class="page-title">
 					<div class="row">
 						<div class="col-12 col-md-6 order-md-1 order-last">
-							<h3>¼s§iºŞ²z</h3>
+							<h3>å»£å‘Šç®¡ç†</h3>
 						</div>
 						<div class="col-12 col-md-6 order-md-2 order-first">
 							<nav aria-label="breadcrumb"
 								class="breadcrumb-header float-start float-lg-end">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a
-										href="<%=request.getContextPath()%>/dashboard/advertise/advertise_set.jsp">¼s§i³]©w</a>
+										href="<%=request.getContextPath()%>/dashboard/advertise/advertise_set.jsp">å»£å‘Šè¨­å®š</a>
 									</li>
 									<li class="breadcrumb-item active" aria-currentx="page">
-										¼s§iºŞ²z</li>
+										å»£å‘Šç®¡ç†</li>
 								</ol>
 							</nav>
 						</div>
 					</div>
 				</div>
 				<section class="section">
-					<!--  <div class="col-md-6">
-						<input type="text" id="searchbar" class="form-control"
-							placeholder="½Ğ¿é¤J ½s¸¹¡B§é¦©ª÷ÃB©Î®É¶¡"
-							style="pading-color: rgb(208, 250, 255);">
-					</div>
-					-->
 					<div class="card">
 
 						<div class="card-body">
 							<table class="table table-striped" id="table1">
 								<thead>
 									<tr>
-										<th class="first_col">¼s§i½s¸¹</th>
-										<th class="sec_col">¼s§i¦WºÙ</th>
-										<th class="thrid_col">¤W¬[®É¶¡</th>
-										<th class="forth_col">¤U¬[®É¶¡</th>
-										<th class="fifth_col">¼s§i¹Ï¤ù</th>
-										<th class="eighth_col">¼s§iURL</th>
-										<th class="last_column">³Ì«á½s¿è®É¶¡</th>
+										<th class="first_col">å»£å‘Šç·¨è™Ÿ</th>
+										<th class="sec_col">å»£å‘Šåç¨±</th>
+										<th class="thrid_col">ä¸Šæ¶æ™‚é–“</th>
+										<th class="forth_col">ä¸‹æ¶æ™‚é–“</th>
+										<th class="fifth_col">å»£å‘Šåœ–ç‰‡</th>
+										<th class="eighth_col">å»£å‘ŠURL</th>
+										<th class="last_column">æœ€å¾Œç·¨è¼¯æ™‚é–“</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -449,7 +300,7 @@ td.HO_article_title {
 												<FORM METHOD="post"
 													ACTION="<%=request.getContextPath()%>/AdvertiseServlet"
 													style="margin-bottom: 0px;">
-													<input type="submit" value="­×§ï"> <input
+													<input type="submit" value="ä¿®æ”¹"> <input
 														type="hidden" name="advertise_no"
 														value="${adVO.advertiseNo}"> <input type="hidden"
 														name="action" value="getOne_For_Display">
@@ -463,7 +314,7 @@ td.HO_article_title {
 													<input type="hidden" name="advertise_no"
 														value="${adVO.getAdvertiseNo()}"> <input
 														type="hidden" name="action" value="delete"> <input
-														type="submit" value="§R°£">
+														type="submit" value="åˆªé™¤">
 												</FORM>
 											</td>
 										</tr>
@@ -511,7 +362,52 @@ td.HO_article_title {
 	<script src="<%=request.getContextPath()%>/dashboard/assets/js/main.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/dashboard/assets/js/menu_ative.js"></script>
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+$("a#logout").on("click",function(e){
+    e.preventDefault();
+var formlogout = $("<form>", {
+action: "<%=request.getContextPath()%>/LoginServlet", // è¡¨å•æäº¤çš„URL
+    method: "post", // æäº¤æ–¹æ³•ï¼Œå¯ä»¥æ˜¯ "post" æˆ– "get"ï¼Œæ ¹æ®éœ€æ±‚è®¾ç½®
+});
 
+formlogout.append($("<input>", {
+type: "hidden",
+name: "action",
+value: "logout"
+}));
+   formlogout.appendTo("body").hide();
+   formlogout.submit();
+   formlogout.remove();
+
+
+
+    
+})
+
+
+$("a#design").on("click",function(e){
+    e.preventDefault();
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // è¡¨å•æäº¤çš„URL
+	    method: "post", // æäº¤æ–¹æ³•ï¼Œå¯ä»¥æ˜¯ "post" æˆ– "get"ï¼Œæ ¹æ®éœ€æ±‚è®¾ç½®
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+})
+</script>
 </body>
-
 </html>

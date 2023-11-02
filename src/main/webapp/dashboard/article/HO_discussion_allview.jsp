@@ -1,11 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cooklab.article.model.*"%>
 <%@ page import="com.cooklab.article_sub.model.*"%>
 
-<!-- 1¨Ï¥ÎELªºIF»yªk¡A§â¼Æ¦r§ï¤å¦r¡A2.¦b«áºİ³B²z¦nÂà´«¦A¶Ç°e -->
+<!-- 1ä½¿ç”¨ELçš„IFèªæ³•ï¼ŒæŠŠæ•¸å­—æ”¹æ–‡å­—ï¼Œ2.åœ¨å¾Œç«¯è™•ç†å¥½è½‰æ›å†å‚³é€ -->
 
 <%
 // 	ArticleVO artVO2 = (ArticleVO) request.getAttribute("updatedArtVO");	
@@ -42,6 +42,14 @@
 <link rel="shortcut icon"
 	href="<%=request.getContextPath()%>/mazer-main/dist/assets/images/favicon.svg"
 	type="image/x-icon" />
+	    				<style>
+				a.wccA{
+					border: 1px solid rgb(151, 135, 249);
+	background-color: rgb(195, 241, 253);
+	padding: 4px;
+	border-radius: 20px;
+				}
+				</style>
 </head>
 
 
@@ -53,9 +61,15 @@
       <div class="sidebar-wrapper active">
         <div class="sidebar-header">
           <div class="d-flex justify-content-between">
-            <div class="logo">
-              <a href="index.html"><img src="<%=request.getContextPath()%>/mazer-main/dist/assets/images/logo/logo.png" alt="Logo" srcset="" /></a>
-            </div>
+						<div class="logo">
+							<a href="index.html"><img
+								src="<%=request.getContextPath()%>/dashboard/assets/images/logo/logo.png"
+								alt="Logo" srcset=""></a>
+								<div style="font-size:15px;" >æœƒå“¡ï¼š${thisaccount} ï¼Œä½ å¥½ </div>
+								<div style="font-size:10px;">&nbsp;</div>
+								<div style="font-size:10px;  text-align: right;"><a class="wccA"id="logout" style="  margin-left: 40px;">ç™»å‡º</a>
+								<a class="wccA"id="design" value="${thisaccount}" style="  margin-left: 10px;" >å€‹äººè³‡è¨Š</a></div>
+						</div>
             <div class="toggler">
               <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
             </div>
@@ -68,14 +82,14 @@
                             <li class="sidebar-item  ">
                             <a href="<%=request.getContextPath()%>/dashboard/login/WCC_welcome.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>«á¥x­º­¶</span>
+                                <span>å¾Œå°é¦–é </span>
                             </a>
                         </li>
 
                         <li class="sidebar-item ">
                             <a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>·|­ûºŞ²z</span>
+                                <span>æœƒå“¡ç®¡ç†</span>
                             </a>
                         </li>
 
@@ -83,16 +97,16 @@
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>Åv­­ºŞ²z</span>
+                                <span>æ¬Šé™ç®¡ç†</span>
                             </a>
                             <ul class="submenu ">
                           
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">ºŞ²zºŞ²zªÌ</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/admin/WCC_admin_management.jsp">ç®¡ç†ç®¡ç†è€…</a>
                                 </li>
                              
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">³Ğ¥ßÅv­­³W«h</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/permission/WCC_permission.jsp">å‰µç«‹æ¬Šé™è¦å‰‡</a>
                                 </li>
                             
                             </ul>
@@ -101,14 +115,14 @@
                         <li class="sidebar-item has-sub ">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-collection-fill"></i>
-                                <span>­¹ÃĞºŞ²z</span>
+                                <span>é£Ÿè­œç®¡ç†</span>
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">­¹ÃĞªí³æ</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/recipe/WCC_recipe.jsp">é£Ÿè­œè¡¨å–®</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">¼ĞÅÒºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/hashtag/WCC_hashtag.jsp">æ¨™ç±¤ç®¡ç†</a>
                                 </li>
                             </ul>
                         </li>
@@ -116,70 +130,70 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>°Ó«°ºŞ²z</span>
+                                <span>å•†åŸç®¡ç†</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">°Ó«~³]©w</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/product/shopview.html">å•†å“è¨­å®š</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">­q³æºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/memberOrder/TYT_order_management.html">è¨‚å–®ç®¡ç†</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">°Ó«~ºØÃşºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/productTag/tagview.html">å•†å“ç¨®é¡ç®¡ç†</a>
                                 </li>
                                 <li class="submenu-item  ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">Àu´f¨éºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/promo_code/promo_code_allview.jsp">å„ªæƒ åˆ¸ç®¡ç†</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >¼s§iºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/advertise/advertise_allview.jsp" >å»£å‘Šç®¡ç†</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>°Q½×°ÏºŞ²z</span>
+                                <span>è¨è«–å€ç®¡ç†</span>
                             </a>
 
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">¬İªO¤ÀÃş</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_dscussion_cate.jsp">çœ‹æ¿åˆ†é¡</a>
                                   </li>
                                   <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >¤å³¹ºŞ²z</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article/HO_discussion_allview.jsp" >æ–‡ç« ç®¡ç†</a>
                                   </li>
                             </ul>
                         </li>
                         <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-pen-fill"></i>
-                                <span>«ÈªA¤¤¤ß</span>
+                                <span>å®¢æœä¸­å¿ƒ</span>
                             </a>
                             <ul class="submenu ">
 <!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">­¹ÃĞÀËÁ|</a> --%>
+<%--                                     <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">é£Ÿè­œæª¢èˆ‰</a> --%>
 <!--                                 </li> -->
 <!--                                 <li class="submenu-item "> -->
-<%--                                     <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">­¹ÃĞ¦^¤åÀËÁ|</a> --%>
+<%--                                     <a href="src=<%=request.getContextPath()%>/dashboard//WCC_recipe_sub_report.jsp">é£Ÿè­œå›æ–‡æª¢èˆ‰</a> --%>
 <!--                                 </li> -->
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">°Q½×°ÏÀËÁ|</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_report/WCC_article_report.jsp">è¨è«–å€æª¢èˆ‰</a>
                                 </li>
                                   <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">°Q½×°Ï¦^¤åÀËÁ|</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/article_sub_report/WCC_article_sub_report.jsp">è¨è«–å€å›æ–‡æª¢èˆ‰</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">±`¨£°İÃD</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/question/question-table.html">å¸¸è¦‹å•é¡Œ</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">¨t²Î³qª¾</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/notifycenter/notify-table.html">ç³»çµ±é€šçŸ¥</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">°İÃDªí³æ</a>
+                                    <a href="<%=request.getContextPath()%>/dashboard/supportform/supportform-table.html">å•é¡Œè¡¨å–®</a>
                                 </li>
                                 <li class="submenu-item active">
-                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">³Ì·s®ø®§</a>
+                                <a href="<%=request.getContextPath()%>/dashboard/news/news-table.html">æœ€æ–°æ¶ˆæ¯</a>
                                  </li>
                             </ul>
                         </li>
@@ -233,9 +247,9 @@
         td.HO_article_title{
           /* width: 15%; */
           /* white-space: wrap; */
-            /*³]©w¤å¦r¤@¦æ*/
+            /*è¨­å®šæ–‡å­—ä¸€è¡Œ*/
           text-overflow: ellipsis;
-          /*clip(¹w³])|ellipsis(¬Ù²¤²Å¸¹)*/
+          /*clip(é è¨­)|ellipsis(çœç•¥ç¬¦è™Ÿ)*/
           /* overflow: hidden; */
         }
       
@@ -245,7 +259,7 @@
         <div class="page-title">
           <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-              <h3>¤å³¹ºŞ²z</h3>
+              <h3>æ–‡ç« ç®¡ç†</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
               <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -254,7 +268,7 @@
                     <a href="index.html">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item active" aria-current="page">
-                    ¤å³¹ºŞ²z
+                    æ–‡ç« ç®¡ç†
                   </li>
                 </ol>
               </nav>
@@ -262,10 +276,10 @@
           </div>
         </div>
         <section class="section">
-        	<%-- ¿ù»~ªí¦C --%>
+        	<%-- éŒ¯èª¤è¡¨åˆ— --%>
 					<div style="margin-top :50px">
 					<c:if test="${not empty errorMsgs}">
-						<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+						<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 						<ul>
 							<c:forEach var="message" items="${errorMsgs}">
 								<li style="color: red">${message}</li>
@@ -278,13 +292,13 @@
               <table class="table table-striped" id="table1">
                 <thead>
                   <tr>
-                    <th class="first_col">¤å³¹½s¸¹</th>
-                    <th>¤å³¹¤ÀÃş</th>
-                    <th class="sec_col">¤å³¹¼ĞÃD</th>
-                    <th class="thrid_col">¤å³¹ª¬ºA</th>
-                    <th class="forth_col">¤å³¹§@ªÌ</th>
-                    <th>µo¤å®É¶¡</th>
-                    <th class="last_column">¾Ş§@</th>
+                    <th class="first_col">æ–‡ç« ç·¨è™Ÿ</th>
+                    <th>æ–‡ç« åˆ†é¡</th>
+                    <th class="sec_col">æ–‡ç« æ¨™é¡Œ</th>
+                    <th class="thrid_col">æ–‡ç« ç‹€æ…‹</th>
+                    <th class="forth_col">æ–‡ç« ä½œè€…</th>
+                    <th>ç™¼æ–‡æ™‚é–“</th>
+                    <th class="last_column">æ“ä½œ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -294,16 +308,16 @@
                     <td>${artVO.articleCategory.articleCategory}</td>
                     <td class="HO_article_title">${artVO.articleTitle}</td>
                     <td class="artice_status">
-                    <!-- EL»yªk¤£¯à¦³ªÅ¥Õ,ex:test=" ${artVO.articleStatus == 0}"³o¼Ë¤£·|³ø¿ù»~¤]¤£·|¦³­È  -->
+                    <!-- ELèªæ³•ä¸èƒ½æœ‰ç©ºç™½,ex:test=" ${artVO.articleStatus == 0}"é€™æ¨£ä¸æœƒå ±éŒ¯èª¤ä¹Ÿä¸æœƒæœ‰å€¼  -->
                       <c:choose>
                       	<c:when test="${artVO.articleStatus == 0}">
-                      		<a href="#" class="btn btn-success rounded-pill btn article_status" >¤½¶}</a>
+                      		<a href="#" class="btn btn-success rounded-pill btn article_status" >å…¬é–‹</a>
                       	</c:when>
                       	<c:when test="${artVO.articleStatus == 1}">
-                      		<a href="#" class="btn btn-secondary rounded-pill btn article_status">«D¤½¶}</a>
+                      		<a href="#" class="btn btn-secondary rounded-pill btn article_status">éå…¬é–‹</a>
                       	</c:when>
                       	    <c:when test="${artVO.articleStatus == 2}">
-                      		<a href="#" class="btn btn-danger rounded-pill btn article_status" >§R°£</a>
+                      		<a href="#" class="btn btn-danger rounded-pill btn article_status" >åˆªé™¤</a>
                       	 </c:when>
                       </c:choose>	
                       </td>
@@ -315,16 +329,16 @@
                   
 					  <input type="hidden" name="articleNo" value="${artVO.articleNo}">
 					  <input type="hidden" name="action" value="getOne_For_Display">
-					  <input type="submit" class="wcc"  value="¬d¬İ¤å³¹"> 
+					  <input type="submit" class="wcc"  value="æŸ¥çœ‹æ–‡ç« "> 
 					</FORM>
 					 </td> 
 					 <td>
 					  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleServlet" >
                       <select class="ch_artice_status" name="articleStatus">
-                        <option>¿ï¾Üª¬ºA</option>
-                        <option id="artice_Option1" value= 0>¤½¶}</option>
-                        <option id="artice_Option3"	value= 1>¯ó½Z</option>
-                        <option id="artice_Option4"	value= 2>§R°£</option>
+                        <option>é¸æ“‡ç‹€æ…‹</option>
+                        <option id="artice_Option1" value= 0>å…¬é–‹</option>
+                        <option id="artice_Option3"	value= 1>è‰ç¨¿</option>
+                        <option id="artice_Option4"	value= 2>åˆªé™¤</option>
                       </select>
                       <input type="hidden" name="articleNo" value="${artVO.articleNo}">
                   	 <input type="hidden" name="action" value="getStatusUpdate">
@@ -333,25 +347,25 @@
                     </td>
                   </c:forEach>
                   
-				<!--     ===========¤U­±sub_artªºforEach =======       -->
+				<!--     ===========ä¸‹é¢sub_artçš„forEach =======       -->
                   
                   <c:forEach var="artVO2" items="${list2}">
                   <tr>
                     <td>${artVO2.articleSubNo}</td>
-                    <td>${artVO2.article.articleNo}ªº¦^¤å</td>
+                    <td>${artVO2.article.articleNo}çš„å›æ–‡</td>
                     <td class="HO_article_title">RE#${artVO2.article.articleTitle}</td>
                     <td class="artice_status">
                       <c:choose>
                       	<c:when test="${artVO2.articleSubStatus == 0}">
-                      		<a href="#" class="btn btn-success rounded-pill btn article_status" >¤½¶}</a>
+                      		<a href="#" class="btn btn-success rounded-pill btn article_status" >å…¬é–‹</a>
                       	</c:when>
                       	<c:when test="${artVO2.articleSubStatus == 1}">
                       		<a href="#" class="btn btn-primary rounded-pill btn article_status" >
-                      		«D¤½¶}</a>
+                      		éå…¬é–‹</a>
                       	</c:when>
                       	    <c:when test="${artVO2.articleSubStatus == 2}">
                       		<a href="#" class="btn btn-danger rounded-pill btn article_status" >
-                      		 §R°£</a>
+                      		 åˆªé™¤</a>
                       	 </c:when>
                       </c:choose>
                     </td>
@@ -363,19 +377,19 @@
                     <td>
                     
                     <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleSubServlet" >
-<!--                 		 <a class="wcc" href="">¬d¬İ¤å³¹</a> -->
+<!--                 		 <a class="wcc" href="">æŸ¥çœ‹æ–‡ç« </a> -->
 					  <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
 					  <input type="hidden" name="action" value="getOne_For_Display">
-					  <input type="submit" class="wcc"  value="¬d¬İ¤å³¹"> 
+					  <input type="submit" class="wcc"  value="æŸ¥çœ‹æ–‡ç« "> 
 					  </FORM>
 					 </td> 
 					 <td>
 					  <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ArticleSubServlet" >
                       <select class="ch_artice_status" name="articleSubStatus">
-                        <option>¿ï¾Üª¬ºA</option>
-                        <option id="artice_Option1" value= 0>¤½¶}</option>
-                        <option id="artice_Option3"	value= 1>¯ó½Z</option>
-                        <option id="artice_Option4"	value= 2>§R°£</option>
+                        <option>é¸æ“‡ç‹€æ…‹</option>
+                        <option id="artice_Option1" value= 0>å…¬é–‹</option>
+                        <option id="artice_Option3"	value= 1>è‰ç¨¿</option>
+                        <option id="artice_Option4"	value= 2>åˆªé™¤</option>
                       </select>
                       <input type="hidden" name="articleSubNo" value="${artVO2.articleSubNo}">
                   	 <input type="hidden" name="action" value="getStatusUpdate">
@@ -427,7 +441,7 @@
   	let dataTable = new simpleDatatables.DataTable(table1);
   	
     $(function () {
-    	//jsp¤¤¨Ï¥Îreadªº¸Ü¡A·|»~»{¬°ajax­nÂà±µºô­¶­n§ï¥Îready
+    	//jspä¸­ä½¿ç”¨readçš„è©±ï¼Œæœƒèª¤èªç‚ºajaxè¦è½‰æ¥ç¶²é è¦æ”¹ç”¨ready
       $(document).ready("change", ".btn.article_status", function () { 
         // console.log("you touch me");
       });
@@ -435,26 +449,26 @@
       $(document).on("change", ".ch_artice_status", function () {
         let selectedOption = $(this).find("option:selected").text();
         console.log(selectedOption);
-        let parentRow = $(this).closest("tr"); //¥Î¨Ó§ä´M¸Ó°Ï°ìªº¤÷¤¸¯À<tr>¡A
-        //¨Ï¥Îfind§ä¨ì¤÷¤¸¯À<tr>°Ï°ì¡A¤~¥i¥H«ü©w¸Ó<tr>°Ï°ìªº¤º®e§ïÅÜ¡A¶i¦Ó¤£¼vÅT¨ì¨ä¥L<tr>°Ï°ì
+        let parentRow = $(this).closest("tr"); //ç”¨ä¾†æ‰¾å°‹è©²å€åŸŸçš„çˆ¶å…ƒç´ <tr>ï¼Œ
+        //ä½¿ç”¨findæ‰¾åˆ°çˆ¶å…ƒç´ <tr>å€åŸŸï¼Œæ‰å¯ä»¥æŒ‡å®šè©²<tr>å€åŸŸçš„å…§å®¹æ”¹è®Šï¼Œé€²è€Œä¸å½±éŸ¿åˆ°å…¶ä»–<tr>å€åŸŸ
         switch (selectedOption) {
           case "0":
-            let new_status1 = `<a href="#" class="btn btn-success rounded-pill btn article_status">¤½¶}</a>`;
+            let new_status1 = `<a href="#" class="btn btn-success rounded-pill btn article_status">å…¬é–‹</a>`;
             parentRow.find(".btn.article_status").remove();
             parentRow.find(".artice_status").append(new_status1);
             break;
           case "1":
-            let new_status2 = `<a href="#" class="btn btn-info rounded-pill btn article_status">«D¤½¶}</a>`;
+            let new_status2 = `<a href="#" class="btn btn-info rounded-pill btn article_status">éå…¬é–‹</a>`;
             parentRow.find(".btn.article_status").remove();
             parentRow.find(".artice_status").append(new_status2);
             break;
           case "2":
-            let new_status3 = `<a href="#" class="btn btn-warning rounded-pill btn article_status">¯ó½Z</a>`;
+            let new_status3 = `<a href="#" class="btn btn-warning rounded-pill btn article_status">è‰ç¨¿</a>`;
             parentRow.find(".btn.article_status").remove();
             parentRow.find(".artice_status").append(new_status3);
             break;
           case "3":
-            let new_status4 = `<a href="#" class="btn btn-danger rounded-pill btn article_status">§R°£</a>`;
+            let new_status4 = `<a href="#" class="btn btn-danger rounded-pill btn article_status">åˆªé™¤</a>`;
             parentRow.find(".btn.article_status").remove();
             parentRow.find(".artice_status").append(new_status4);
             break;
@@ -462,6 +476,100 @@
       });
     });
   </script>
+   <script>
+document.addEventListener("DOMContentLoaded", function () {
+$("a#logout").on("click",function(e){
+    e.preventDefault();
+var formlogout = $("<form>", {
+action: "<%=request.getContextPath()%>/LoginServlet", // è¡¨å•æäº¤çš„URL
+    method: "post", // æäº¤æ–¹æ³•ï¼Œå¯ä»¥æ˜¯ "post" æˆ– "get"ï¼Œæ ¹æ®éœ€æ±‚è®¾ç½®
+});
+
+formlogout.append($("<input>", {
+type: "hidden",
+name: "action",
+value: "logout"
+}));
+   formlogout.appendTo("body").hide();
+   formlogout.submit();
+   formlogout.remove();
+
+
+
+    
+})
+
+
+$("a#design").on("click",function(e){
+    e.preventDefault();
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // è¡¨å•æäº¤çš„URL
+	    method: "post", // æäº¤æ–¹æ³•ï¼Œå¯ä»¥æ˜¯ "post" æˆ– "get"ï¼Œæ ¹æ®éœ€æ±‚è®¾ç½®
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+})
+</script>
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+$("a#logout").on("click",function(e){
+    e.preventDefault();
+var formlogout = $("<form>", {
+action: "<%=request.getContextPath()%>/LoginServlet", // è¡¨å•æäº¤çš„URL
+    method: "post", // æäº¤æ–¹æ³•ï¼Œå¯ä»¥æ˜¯ "post" æˆ– "get"ï¼Œæ ¹æ®éœ€æ±‚è®¾ç½®
+});
+
+formlogout.append($("<input>", {
+type: "hidden",
+name: "action",
+value: "logout"
+}));
+   formlogout.appendTo("body").hide();
+   formlogout.submit();
+   formlogout.remove();
+
+
+
+    
+})
+
+
+$("a#design").on("click",function(e){
+    e.preventDefault();
+	var formdesign = $("<form>", {
+	action: "<%=request.getContextPath()%>/AdminsServlet", // è¡¨å•æäº¤çš„URL
+	    method: "post", // æäº¤æ–¹æ³•ï¼Œå¯ä»¥æ˜¯ "post" æˆ– "get"ï¼Œæ ¹æ®éœ€æ±‚è®¾ç½®
+	});
+
+	formdesign.append($("<input>", {
+	type: "hidden",
+	name: "action",
+	value: "design"
+	}));
+	formdesign.appendTo("body").hide();
+	formdesign.submit();
+	formdesign.remove();
+	
+	
+})
+
+
+
+})
+</script>
 </body>
 
 </html>
