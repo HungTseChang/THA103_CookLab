@@ -362,7 +362,7 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
         <span id="total-pages">of 1</span>
                                     </div>
                                     <div class="col-md-5">
-                                        <a href="#" id="insert"class="btn btn-info rounded-pill">確認新增</a>
+                                        <a href="#" id="insert"class="btn btn-info rounded-pill">確認新增</a> <a href="<%=request.getContextPath()%>/dashboard/member/WCC_member.jsp" class="btn btn-info rounded-pill">取消編輯</a>
                                     </div>
                                 </div>
                             </div>
