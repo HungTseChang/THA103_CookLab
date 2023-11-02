@@ -91,7 +91,10 @@ public class ArticleService {
 	public List<ArticleVO> getStatus(Byte articleStatus) {
 		return dao.findByStatus(articleStatus);
 	}
-
+	
+	public ArticleVO getOneByStatus(Byte articleStatus) {
+		return dao.findOneByStatus(articleStatus);
+	}
 	public List<ArticleVO> getAll() {
 		return dao.getAll();
 	}
