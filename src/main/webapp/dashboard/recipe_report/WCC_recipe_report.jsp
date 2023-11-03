@@ -228,7 +228,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>討論區檢舉</h3>
+                            <h3>食譜檢舉</h3>
                             <p class="text-subtitle text-muted"></p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">

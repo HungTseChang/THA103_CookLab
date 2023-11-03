@@ -252,7 +252,7 @@
     <section class="section">
                     <div class="card">
                         <div class="card-header">
-                                <span style="font-size: 30px;">文章檢舉</span>
+                                <span style="font-size: 30px;">食譜管理</span>
                         </div>
                         <div class="card-body" style="width: 100%; overflow: scroll">
 						  <div class="row" style="background-color: white">
@@ -263,7 +263,7 @@
                         <option value="recipeName">食譜暱稱</option>              
                        <option value="memberID">作者ID</option>                                 
                         <option value="memberNickname">作者暱稱</option>
-                         <option value="viewCount">遊覽人數</option>
+                         <option value="viewCount">瀏覽人數</option>
                         <option value="recipeReaction">點讚人數</option>   
                           <option value="lastEditTimestamp">最後編輯時間</option>                       
                           <option value="createdTimestamp">建立時間</option>                       
@@ -289,7 +289,7 @@
                                         <th class="resizable  recipeName"name="recipeName">食譜名稱</th>
                                         <th class="resizable number memberID"name="memberID">會員編號(作者)</th>                                    
                                         <th class="resizable memberNickname"name="memberNickname">會員暱稱(作者)</th>
-                                        <th class="resizable number viewCount"name="viewCount">遊覽人數</th>
+                                        <th class="resizable number viewCount"name="viewCount">瀏覽人數</th>
                                         <th class="resizable number recipeReaction"name="recipeReaction">點讚人數</th>                
                                         <th class="resizable number reportCount"name="reportCount">檢舉人數</th>                
                                         <th class="resizable recipeStatus"name="recipeStatus">食譜狀態</th>
@@ -402,7 +402,7 @@ const status ={
 		  text +=" <td class='wcc createdTimestamp'>"+aa.createdTimestamp+"</td>";
 		  
 		  text += "<td style=' white-space: nowrap; overflow: hidden;'><div>";
-		  text +="<a class='wcc status'>修改狀態</a><a class='wcc'>食譜連結</a>";
+		  text +="<a class='wcc status'>修改狀態</a><a class='wcc' style='visibility: hidden;'>食譜連結</a>";
     	  text += "<a class=' wcc update none'>更新資料</a><a  class='wcc cancel none'>取消修改</a>";
     	  text +=" </div></td>";
 		  text += "</tr>";	

@@ -140,7 +140,7 @@
                                                 <div class="col-md-8">
                                                     <div class="form-group has-icon-left">
                                                         <div class="position-relative">
-                                                            <input type="text" class="form-control" placeholder="目前版本帳號即信箱"
+                                                            <input type="text" class="form-control" placeholder="請輸入你的帳號"
                                                                 id="account2">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>

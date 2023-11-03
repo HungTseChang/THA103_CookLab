@@ -130,7 +130,7 @@ private List<AdminsVO>Adminslist;
 //		HttpSession Session  =  req.getSession();
 //		Session.setAttribute("logout", true);
 		System.out.println("LoginServlet收到登出請求");
-   
+		this.Adminslist=null;
 		return "/dashboard/login/WCC_login.jsp";
 	}
 

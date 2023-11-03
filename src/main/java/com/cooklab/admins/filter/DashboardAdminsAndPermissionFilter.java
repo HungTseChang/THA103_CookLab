@@ -18,16 +18,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.cooklab.admins.model.*;
 import com.cooklab.permission.model.*;
 public class DashboardAdminsAndPermissionFilter  implements Filter{
-	private String AdminsAccount=null;
-	private Map<String, Boolean>Permit=null;
 	
 	
 	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+		String AdminsAccount=null;
+		Map<String, Boolean>Permit=null;
+		
+		
 		req.setCharacterEncoding("UTF-8");
 		HttpServletRequest  request =  (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)res;
 		HttpSession session = request.getSession();
+		AdminsAccount = (String)session.getAttribute("thisaccount");
+		Permit=(Map<String, Boolean>)session.getAttribute("permissionlist");
 		String location = request.getServletPath();
 		String action = req.getParameter("action");
 		System.out.println("location: "+location);
@@ -41,8 +45,7 @@ public class DashboardAdminsAndPermissionFilter  implements Filter{
 			System.out.println("login");
 			chain.doFilter(req, res);
 			System.out.println("after login");
-			AdminsAccount = (String)session.getAttribute("thisaccount");
-			Permit=(Map<String, Boolean>)session.getAttribute("permissionlist");			
+						
 			return;
 		case"forgetpassword":
 			System.out.println("forgetpassword");
@@ -85,7 +88,7 @@ while (reqattributeNames.hasMoreElements()) {
 	   response.sendRedirect(request.getContextPath()+"/dashboard/login/WCC_login.jsp");
             return;
 			}else {
-				if(	detect(req, res,location)) {
+				if(	detect(req, res,location,session)) {
 					System.out.println("filter檢驗 權限通過");
 					chain.doFilter(req, res);
 					return;	}else {
@@ -101,7 +104,7 @@ while (reqattributeNames.hasMoreElements()) {
 					}
 			}
 		default:
-			if(	detect(req, res,location)) {
+			if(	detect(req, res,location,session)) {
 				System.out.println("filter檢驗 權限通過");
 				chain.doFilter(req, res);
 				return;	}else {
@@ -117,7 +120,13 @@ while (reqattributeNames.hasMoreElements()) {
 				}
 		}		
 	}
-		boolean detect(ServletRequest req, ServletResponse res, String location) {
+		boolean detect(ServletRequest req, ServletResponse res, String location, HttpSession session) {
+			String AdminsAccount=null;
+			Map<String, Boolean>Permit=null;
+
+			AdminsAccount = (String)session.getAttribute("thisaccount");
+			Permit=(Map<String, Boolean>)session.getAttribute("permissionlist");
+			
 			if(AdminsAccount==null || Permit==null) {				
 				return false;
 			}								

@@ -247,7 +247,7 @@
 									<select class="wcc" id="selectsearch"
 										style="background-color: white; padding-left: 20px; : border-color: white;">
 										<option value="permissionNo">權限編號</option>
-										<option value="permissionTitle">權限名稱</option>
+										<option value="permissionTitle">職稱名稱</option>
 										<option value="createdTimestamp">時間</option>
 										<option value="wcc" selected>上述所有欄位</option>
 									</select>

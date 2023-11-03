@@ -410,27 +410,37 @@ AdminsVO AdminsVO = (AdminsVO) request.getAttribute("AdminsVO");
     	      	 $("label#error").text("");
     	    	 $("label#error2").text("");
     	    	  $("label#error3").text("");
-    	    	  var account= $("input[name='account']").val()+"";
-    	    	  var email= $("input[name='email']").val()+"";
-    	  	  var nickname= $("input[name='nickname']").val()+"";
-    	  	  var password= $("input[name='password']").val()+"";
+    	    	  var account= $("input[name='account']").val();
+    	    	  var email= $("input[name='email']").val();
+    	    	  console.log(email);
+    	  	  var nickname= $("input[name='nickname']").val();
+    	  	  var password= $("input[name='password']").val();
     	  	  var passwordcheck= $("input[name= 'passwordcheck']").val()+"";
     	  	  var permission =$('input[name="permission"]:checked').val()
     	  	  var adminNo=$('input[name="adminNo"]').val()
-    	  	  console.log(account+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
+    	  	  console.log(account+"||"+email+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
     	  	  if(password != passwordcheck){
     			  $("label#error2").text("密碼與密碼確認不相符，請重新輸入密碼");
     	     	 checkitem = false;
 
     	  	  }
-    	    	if (IsEmail(email)) {
-    	        } else {
+    	  	  if(password==""){
+    			  $("label#error2").text("密碼不可為空");
+    	     	 checkitem = false;
+
+    	  	  }
+    	    	if (!IsEmail(email)) {
     		    	$("label#error").text("錯誤的信箱格式");
     	       	 checkitem = false;
 
     	        }
-    	  	  if(nickname ==null||account==null){
-    		    	$("label#error").text("欄位不可以為空值");
+    	    	if (email=="") {
+    		    	$("label#error").text("信箱不可為空");
+    	       	 checkitem = false;
+
+    	        }
+    	  	  if(nickname==""){
+    		    	$("label#error3").text("暱稱不可以為空值");
     		    	 checkitem = false;
     		  }
     		  if(!checkitem){return;}

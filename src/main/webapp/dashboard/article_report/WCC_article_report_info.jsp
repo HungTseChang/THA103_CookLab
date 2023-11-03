@@ -355,7 +355,7 @@
                                 <input type="radio" id="failed" name="result" value="1"><label class="badge bg-danger" for="failed">未處理</label>
                             </div>
                             <div style="text-align: left; padding-left:160PX">
-                            <label>理由:</label>
+                            <label></label>
                              </div>
                                 <div style="width: 100%; min-height: 100px; padding-left:80PX">
                                     <textarea id="context1" style="width: 70%; 

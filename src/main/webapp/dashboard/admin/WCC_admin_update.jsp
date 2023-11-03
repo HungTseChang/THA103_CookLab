@@ -412,19 +412,29 @@
 	  var permission =$('input[name="permission"]:checked').val()
 	  var adminNo=$('input[name="adminNo"]').val()
 	  console.log(account+"||"+email+"||"+nickname+"||"+password+"||"+passwordcheck+"||"+permission+"||"+adminNo);
-	  if(password != passwordcheck){
+  	  if(password != passwordcheck){
 		  $("label#error2").text("密碼與密碼確認不相符，請重新輸入密碼");
+     	 checkitem = false;
+
+  	  }
+  	  if(password==""){
+		  $("label#error2").text("密碼不可為空");
      	 checkitem = false;
 
   	  }
     	if (IsEmail(email)) {
         } else {
-	    	$("label#error").text("欄位不可以為空值");
+	    	$("label#error").text("錯誤的信箱格式");
        	 checkitem = false;
 
         }
-  	  if(nickname ==null||account==null){
-	    	$("label#error").text("欄位不可以為空值");
+    	if (email=="") {
+	    	$("label#error").text("信箱不可為空");
+       	 checkitem = false;
+
+        }
+  	  if(nickname==""||account==""){
+	    	$("label#error3").text("欄位不可以為空值");
 	    	 checkitem = false;
 	  }
   	  var form = $("<form>", {

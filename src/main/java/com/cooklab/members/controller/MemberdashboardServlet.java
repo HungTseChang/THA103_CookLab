@@ -77,7 +77,7 @@ public class MemberdashboardServlet extends HttpServlet{
 			break;
 		case"rdnPassword":
 			forwardPath =rdnPassword(req, res);
-			break;
+			return;
 		default:
 			forwardPath = "/dashboard/member/WCC_member.jsp";
 		}

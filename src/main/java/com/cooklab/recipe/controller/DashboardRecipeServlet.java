@@ -124,10 +124,12 @@ private List<RecipeVO> thislist;
 		 for(int i = 0 ; i < list1.size();i++) {
 			 RecipeVOFake RecipeVOFake = new RecipeVOFake(list1.get(i));
 			 list2.add(RecipeVOFake);
+			 System.out.println("資料轉換中");
 		 }
 		 String json = new Gson().toJson(list2);
 
 this.thislist = list1;
+System.out.println(json);
 		 req.setAttribute("json",json);
 
 
@@ -173,11 +175,7 @@ private class RecipeVOFake implements java.io.Serializable{
 		private String  memberAccount; // 會員帳號(FK).
 		private String  memberNickname; // 會員暱稱(FK).
 		private String recipeName; // 食譜名稱.
-		private byte[] coverImage; // 食譜封面
 		private Integer recipeReaction; // 點讚人數
-		private String introduction; // 簡介
-		private String additionalExplanation; // 補充說明
-		private String region; // 地區
 		private Byte recipeStatus; // 食譜狀態
 		private Integer reportCount; // 檢舉次數
 		private Integer viewCount; // 瀏覽人次
@@ -192,14 +190,10 @@ private class RecipeVOFake implements java.io.Serializable{
 			super();
 			this.recipeNo = RecipeVO.getRecipeNo();
 			this.memberID = RecipeVO.getMembers().getMemberId();
-			this.memberAccount = RecipeVO.getMembers().getMemberAccount();
-			this.memberNickname = RecipeVO.getMembers().getMemberNickname();
-			this.recipeName = RecipeVO.getRecipeName();
-			this.coverImage = RecipeVO.getCoverImage();
+			this.memberAccount = RecipeVO.getMembers().getMemberAccount().trim();
+			this.memberNickname = RecipeVO.getMembers().getMemberNickname().trim();
+			this.recipeName = RecipeVO.getRecipeName().trim();
 			this.recipeReaction = RecipeVO.getReaction().size();
-			this.introduction = RecipeVO.getIntroduction();
-			this.additionalExplanation = RecipeVO.getAdditionalExplanation();
-			this.region = RecipeVO.getRegion();
 			this.recipeStatus = RecipeVO.getRecipeStatus();
 			this.reportCount = RecipeVO.getReportCount();
 			this.viewCount = RecipeVO.getViewCount();
@@ -243,30 +237,7 @@ private class RecipeVOFake implements java.io.Serializable{
 		public void setRecipeName(String recipeName) {
 			this.recipeName = recipeName;
 		}
-		public byte[] getCoverImage() {
-			return coverImage;
-		}
-		public void setCoverImage(byte[] coverImage) {
-			this.coverImage = coverImage;
-		}
-		public String getIntroduction() {
-			return introduction;
-		}
-		public void setIntroduction(String introduction) {
-			this.introduction = introduction;
-		}
-		public String getAdditionalExplanation() {
-			return additionalExplanation;
-		}
-		public void setAdditionalExplanation(String additionalExplanation) {
-			this.additionalExplanation = additionalExplanation;
-		}
-		public String getRegion() {
-			return region;
-		}
-		public void setRegion(String region) {
-			this.region = region;
-		}
+		
 		public Byte getRecipeStatus() {
 			return recipeStatus;
 		}

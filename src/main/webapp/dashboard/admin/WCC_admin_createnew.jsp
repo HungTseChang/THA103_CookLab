@@ -405,13 +405,32 @@
 	  var password= $("input[name='password']").val();
 	  var passwordcheck= $("input[name= 'passwordcheck']").val();
 	  var permission =$('input[name="permission"]:checked').val();
-	  
-	  if(nickname ==null||account==null){
-	    	$("label#error").text("欄位不可以為空值");
+	  if(password != passwordcheck){
+		  $("label#error2").text("密碼與密碼確認不相符，請重新輸入密碼");
+     	 checkitem = false;
+
+  	  }
+  	  if(password==""){
+		  $("label#error2").text("密碼不可為空");
+     	 checkitem = false;
+
+  	  }
+    	if (IsEmail(email)) {
+        } else {
+	    	$("label#error").text("錯誤的信箱格式");
+       	 checkitem = false;
+
+        }
+    	if (email=="") {
+	    	$("label#error").text("信箱不可為空");
+       	 checkitem = false;
+
+        }
+  	  if(nickname==""||account==""){
+	    	$("label#error3").text("欄位不可以為空值");
 	    	 checkitem = false;
 	  }
-	  
-	  if(permission == null){
+	  if(permission==null){
 		  $("label#error3").text("權限欄位不可以為空值");
 	    	 checkitem = false; 		 
 	  }

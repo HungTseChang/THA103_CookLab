@@ -108,9 +108,9 @@ public class ArticleReportServlet extends HttpServlet {
 		 for(int i = 0 ; i < list1.size();i++) {
 			 ArticleReportVOFake ArticleReportVOFake = new ArticleReportVOFake(list1.get(i));
 			 list2.add(ArticleReportVOFake);
-			 listtitle.add(list1.get(i).getArticleVO().getArticleTitle());
-			 listnickname.add( list1.get(i).getMembersVO().getMemberNickname()  );
-			 listaccount.add( list1.get(i).getMembersVO().getMemberAccount()  );
+			 listtitle.add(list1.get(i).getArticleVO().getArticleTitle().trim());
+			 listnickname.add( list1.get(i).getMembersVO().getMemberNickname().trim()  );
+			 listaccount.add( list1.get(i).getMembersVO().getMemberAccount() .trim() );
 		 }
 		 String json = new Gson().toJson(list2);
 		 String title = new Gson().toJson(listtitle);
@@ -383,7 +383,7 @@ private class ArticleReportVOFake{
 		this.articleReportNo = ArticleReportVO.getArticleReportNo();
 		this.articleNo = ArticleReportVO.getArticleVO().getArticleNo();
 		this.reporterId = ArticleReportVO.getMembersVO().getMemberId();
-		this.reportingReason = ArticleReportVO.getReportingReason();
+		this.reportingReason = ArticleReportVO.getReportingReason().trim();
 		this.reportingStatus = ArticleReportVO.getReportingStatus();
 		this.reportingAnswer = ArticleReportVO.getReportingAnswer();
 		this.createdTimestamp = ArticleReportVO.getCreatedTimestamp();
